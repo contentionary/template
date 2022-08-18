@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
+import { FooterFunc } from "./interfaceType";
 
-export default function Footer() {
-  return (
-    <div>Footer</div>
-  )
-}
+const Footer: FooterFunc = () => {
+  return <div>Footer</div>;
+};
+export default Footer;
