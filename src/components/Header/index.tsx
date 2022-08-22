@@ -14,7 +14,7 @@ import {
   Container,
   Typography,
   useMediaQuery,
-  Link as MuiLink
+  Link as MuiLink,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 // components/resources
@@ -61,16 +61,26 @@ const Header: HeaderFunc = () => {
                   }}
                 >
                   <Box sx={{ flexGrow: 1, display: { md: "flex" } }}>
-                    {pages.map((page) => (
-                      <NextLink key={page} href="/" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ my: 2, color: "black", display: "block" }}
-                        >
-                          {page}
-                        </Button>
-                      </NextLink>
-                    ))}
+                    <NextLink href="/apps" passHref>
+                      <Button component={MuiLink} sx={{ color: "#616161" }}>
+                        Apps
+                      </Button>
+                    </NextLink>
+                    <NextLink href="/resources" passHref>
+                      <Button component={MuiLink} sx={{ color: "#616162" }}>
+                        Resources
+                      </Button>
+                    </NextLink>
+                    <NextLink href="/pricing" passHref>
+                      <Button component={MuiLink} sx={{ color: "#616161" }}>
+                        Pricing
+                      </Button>
+                    </NextLink>
+                    <NextLink href="/marketplace" passHref>
+                      <Button component={MuiLink} sx={{ color: "#616161" }}>
+                        Marketplace
+                      </Button>
+                    </NextLink>
                   </Box>
                   {/* <Link href={"/"}>Apps</Link> */}
                 </Box>
