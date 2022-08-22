@@ -7,13 +7,14 @@ import { WrapperFunc } from "./interface";
 const Wrapper: WrapperFunc = ({
   children,
   title,
+  image,
   description,
   showFooter,
   showHeader,
 }) => {
   return (
     <>
-      <HeadPage title={title} description={description} />
+      <HeadPage title={title} image={image} description={description} />
       {showHeader && <Header />}
       {children}
       {showFooter && <Footer />}
