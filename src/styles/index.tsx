@@ -7,6 +7,22 @@ export default makeStyles({
   bgPrimary: {
     backgroundColor: theme.palette.primary.main,
   },
+  bgArtifact: {
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "top left, bottom right",
+    backgroundImage:
+      "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
+  },
+  bgArtifactFlipped: {
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "top left, bottom right",
+    backgroundImage:
+      "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
+    transform: "scaleX(-1)",
+    "& *": {
+      transform: "scaleX(-1)",
+    },
+  },
   bgGradient: {
     background: appGradient,
   },

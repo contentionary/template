@@ -100,7 +100,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={2} sx={{ alignItems: "center", mb: 8 }}>
+          <Grid container spacing={4} sx={{ alignItems: "center", mb: 8 }}>
             <Grid
               item
               md={6}
@@ -111,17 +111,22 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 justifyContent: "center",
               }}
             >
-              <SyntaxHighlighter
-                language="javascript"
-                style={a11yDark}
-                lineProps={{
-                  style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-                }}
-                showLineNumbers={true}
-                wrapLines={true}
+              <Paper
+                elevation={0}
+                sx={{ p: 4, bgcolor: theme.palette.neutral["800"] }}
               >
-                {codeString}
-              </SyntaxHighlighter>
+                <SyntaxHighlighter
+                  language="javascript"
+                  style={a11yDark}
+                  lineProps={{
+                    style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+                  }}
+                  showLineNumbers={true}
+                  wrapLines={true}
+                >
+                  {codeString}
+                </SyntaxHighlighter>
+              </Paper>
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
               <Typography

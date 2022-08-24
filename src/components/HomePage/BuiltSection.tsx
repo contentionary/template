@@ -28,6 +28,7 @@ import TrendUpIcon from "@src/assets/icons/trend-up.svg";
 import InfinityIcon from "@src/assets/icons/infinity.svg";
 
 const BuiltSection: HomePageFunc = () => {
+  const theme = useTheme();
   const globalStyle = useGlobalStyle();
   //
   const codeString = `const africa1 = require(‘stripe’)(‘sk_test_BQoikJ’)
@@ -80,16 +81,19 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               }}
             >
               <Box
+                className={globalStyle.bgArtifactFlipped}
                 sx={{
-                  position: "relative",
+                  p: 4,
+                  width: "100%",
+                  height: "100%",
                   height: "auto",
-                  width: { xs: "80%", md: "80%" },
+                  position: "relative",
                 }}
               >
                 <Image
                   width="100%"
-                  height="96%"
-                  objectFit="contain"
+                  height="100%"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/built-img.png"
@@ -101,7 +105,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 variant="caption"
                 display="block"
                 gutterBottom
-                sx={{ textAlign: { xs: "center", sm: "left" } }}
+                sx={{ mt: 4, textAlign: { xs: "center", sm: "left" } }}
               >
                 (For Non Techies)
               </Typography>
@@ -145,7 +149,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 variant="caption"
                 display="block"
                 gutterBottom
-                sx={{ textAlign: { xs: "center", sm: "left" } }}
+                sx={{ mt: 4, textAlign: { xs: "center", sm: "left" } }}
               >
                 (For Techies/Developers)
               </Typography>
@@ -194,17 +198,22 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 justifyContent: "center",
               }}
             >
-              <SyntaxHighlighter
-                language="javascript"
-                style={a11yDark}
-                lineProps={{
-                  style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-                }}
-                showLineNumbers={true}
-                wrapLines={true}
+              <Paper
+                elevation={0}
+                sx={{ p: 4, bgcolor: theme.palette.neutral["50"] }}
               >
-                {codeString}
-              </SyntaxHighlighter>
+                <SyntaxHighlighter
+                  language="javascript"
+                  style={a11yDark}
+                  lineProps={{
+                    style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+                  }}
+                  showLineNumbers={true}
+                  wrapLines={true}
+                >
+                  {codeString}
+                </SyntaxHighlighter>
+              </Paper>
             </Grid>
           </Grid>
           {/*  */}

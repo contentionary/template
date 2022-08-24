@@ -170,7 +170,7 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    disableElevation
+                    elevation={0}
                     component={MuiLink}
                   >
                     <FacebookIcon />
@@ -180,7 +180,7 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    disableElevation
+                    elevation={0}
                     component={MuiLink}
                   >
                     <LinkedInIcon />
@@ -190,7 +190,7 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    disableElevation
+                    elevation={0}
                     component={MuiLink}
                   >
                     <YouTubeIcon />
@@ -200,7 +200,7 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    disableElevation
+                    elevation={0}
                     component={MuiLink}
                   >
                     <TwitterIcon />

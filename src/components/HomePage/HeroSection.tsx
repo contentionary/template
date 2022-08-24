@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
+import Hidden from "@mui/material/Hidden";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -29,10 +30,27 @@ const HeroSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8 }} className="hero-section">
+      <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
         <Container maxWidth="lg">
-          <Grid container spacing={2} sx={{ alignItems: "center" }}>
-            <Grid item xs={12} md={6}>
+          <Grid container spacing={2}>
+            <Grid
+              item
+              xs={12}
+              order={{ xs: 2, md: 1 }}
+              sx={{
+                display: "flex",
+                justifyContent: { xs: "end", md: "center" },
+              }}
+            >
+              <Image
+                width={40}
+                height={40}
+                src="/images/bg-artifacts/burst-bloat.png"
+                objectFit="cover"
+                alt="Contentionary"
+              />
+            </Grid>
+            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="h2"
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
@@ -96,11 +114,12 @@ const HeroSection: HomePageFunc = () => {
                         borderWidth: 2,
                       },
                       textAlign: "center",
+                      alignItems: "center",
                       width: { xs: "100%", sm: "40px" },
-                      display: { xs: "block", sm: "inline-block" },
+                      display: { xs: "flex", sm: "inline-block" },
                     }}
                   >
-                    <PlayIcon />
+                    <Hidden smUp>Play Demo </Hidden> <PlayIcon />
                   </Button>
                 </NextLink>
               </Stack>
@@ -140,22 +159,25 @@ const HeroSection: HomePageFunc = () => {
               item
               md={6}
               xs={12}
+              order={{ xs: 3, md: 3 }}
               sx={{
                 display: "flex",
                 justifyContent: { xs: "center", md: "end" },
               }}
             >
               <Box
+                className={globalStyle.bgArtifact}
                 sx={{
-                  width: "80%",
+                  p: 4,
+                  width: "100%",
                   minHeight: "auto",
                   position: "relative",
                 }}
               >
                 <Image
-                  src="/images/hero-img.png"
                   width="80%"
                   height="60%"
+                  src="/images/hero-img.png"
                   layout="responsive"
                   objectFit="cover"
                   alt="Contentionary"
