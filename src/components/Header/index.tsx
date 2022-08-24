@@ -1,27 +1,26 @@
 import React, { Fragment } from "react";
 // next components
-import NextLink from "next/link";
 import Image from "next/image";
+import NextLink from "next/link";
 // mui
-import {
-  Box,
-  Menu,
-  Stack,
-  Button,
-  AppBar,
-  Toolbar,
-  MenuItem,
-  useTheme,
-  Container,
-  Typography,
-  useMediaQuery,
-  Link as MuiLink,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Menu from "@mui/material/Menu";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import MenuItem from "@mui/material/MenuItem";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+//
+import { useTheme } from "@mui/material/styles";
+//
+import { Link as MuiLink } from "@mui/material";
 import { grey } from "@mui/material/colors";
 // components/resources
 import AppDrawer from "./AppDrawer";
 import useGlobalStyle from "@src/styles/index";
-import ContentionaryLogo from "@src/assets/images/logo.png";
 // interface
 import { HeaderFunc } from "./interfaceType";
 
@@ -40,7 +39,7 @@ const Header: HeaderFunc = () => {
         <Container maxWidth="lg">
           <Toolbar disableGutters>
             <Image
-              src={ContentionaryLogo}
+              src="/images/logo.png"
               alt="Contentionary logo"
               width={157}
               height={30}

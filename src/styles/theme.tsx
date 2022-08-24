@@ -22,6 +22,12 @@ export const theme = createTheme({
     secondary: {
       main: green[500],
     },
+    neutral: {
+      light: "#616161",
+      main: "#333333",
+      dark: "#0F0F0F",
+      contrastText: "#fff",
+    },
   },
   typography: {
     button: {
@@ -50,10 +56,12 @@ export const theme = createTheme({
       color: "#333333",
     },
     h5: {
+      fontSize: "1.25rem",
       fontWeight: 600,
       color: "#333333",
     },
     h6: {
+      fontSize: "1rem",
       fontWeight: 500,
       color: "#333333",
     },

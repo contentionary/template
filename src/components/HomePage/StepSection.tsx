@@ -22,15 +22,15 @@ import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
 import { blueGrey, grey, indigo } from "@mui/material/colors";
 // interface
-import { HeroSectionFunc } from "./interfaceType";
+import { HomePageFunc } from "./interfaceType";
 // icons
 import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 
-const StepSection: HeroSectionFunc = () => {
+const StepSection: HomePageFunc = () => {
   const globalStyle = useGlobalStyle();
 
   return (
-    <main className="">
+    <Fragment>
       <Box component="section" sx={{ py: 8 }} className="">
         <Container maxWidth="lg">
           <Grid container spacing={2} sx={{ alignItems: "center" }}>
@@ -137,7 +137,7 @@ const StepSection: HeroSectionFunc = () => {
           </Grid>
         </Container>
       </Box>
-    </main>
+    </Fragment>
   );
 };
 export default StepSection;

@@ -29,7 +29,7 @@ const CenterSection: HomePageFunc = () => {
   const globalStyle = useGlobalStyle();
 
   return (
-    <main className="">
+    <Fragment>
       <Box component="section" sx={{ py: 8 }} className="">
         <Container maxWidth="lg">
           <Typography
@@ -127,7 +127,7 @@ const CenterSection: HomePageFunc = () => {
           </Grid>
         </Container>
       </Box>
-    </main>
+    </Fragment>
   );
 };
 export default CenterSection;

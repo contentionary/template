@@ -28,7 +28,7 @@ import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
 import { blueGrey, grey, indigo } from "@mui/material/colors";
 // interface
-import { HeroSectionFunc } from "./interfaceType";
+import { HomePageFunc } from "./interfaceType";
 // icons
 import TickIcon from "@src/assets/icons/tick.svg";
 
@@ -49,7 +49,7 @@ const TickAvatar = () => {
   );
 };
 
-const PromiseSection: HeroSectionFunc = () => {
+const PromiseSection: HomePageFunc = () => {
   const [value, setValue] = React.useState("1");
 
   const theme = useTheme();
@@ -61,11 +61,10 @@ const PromiseSection: HeroSectionFunc = () => {
   };
 
   return (
-    <main className="">
+    <Fragment>
       <Box
         component="section"
         sx={{ py: 8, bgcolor: theme.palette.primary["50"] }}
-        className=""
       >
         <Container maxWidth="lg">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -545,7 +544,7 @@ const PromiseSection: HeroSectionFunc = () => {
           </TabContext>
         </Container>
       </Box>
-    </main>
+    </Fragment>
   );
 };
 export default PromiseSection;

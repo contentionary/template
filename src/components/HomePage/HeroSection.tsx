@@ -28,7 +28,7 @@ const HeroSection: HomePageFunc = () => {
   const globalStyle = useGlobalStyle();
 
   return (
-    <main className="">
+    <Fragment>
       <Box component="section" sx={{ py: 8 }} className="hero-section">
         <Container maxWidth="lg">
           <Grid container spacing={2} sx={{ alignItems: "center" }}>
@@ -165,7 +165,7 @@ const HeroSection: HomePageFunc = () => {
           </Grid>
         </Container>
       </Box>
-    </main>
+    </Fragment>
   );
 };
 export default HeroSection;

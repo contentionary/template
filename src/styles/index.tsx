@@ -18,6 +18,15 @@ export default makeStyles({
     ["-webkit-background-clip"]: "text",
     ["-webkit-text-fill-color"]: "transparent",
   },
+  appIconButton: {
+    borderRadius: 4,
+    color: "white",
+    backgroundColor: theme.palette.primary.main,
+    "&:hover, &.Mui-focusVisible": {
+      color: "white",
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
   stepsTimeline: {
     pl: 0,
     "& .MuiTimelineItem-root:before": {
