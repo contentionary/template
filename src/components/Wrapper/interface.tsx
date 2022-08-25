@@ -7,4 +7,4 @@ export interface WrapperInt {
   showFooter?: boolean;
 }
 
-export declare type WrapperFunc = (pros: WrapperInt) => JSX.Element
+export declare type WrapperFunc = (props: WrapperInt) => JSX.Element

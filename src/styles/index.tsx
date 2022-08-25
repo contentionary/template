@@ -27,7 +27,7 @@ export default makeStyles({
     backgroundImage:
       "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
     transform: "scaleX(-1)",
-    "& *": {
+    "& image": {
       transform: "scaleX(-1)",
     },
   },

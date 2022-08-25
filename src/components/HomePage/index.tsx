@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 //
+import Box from "@mui/material/Box";
+//
 import HeroSection from "./HeroSection";
 import StepSection from "./StepSection";
 import StartSection from "./StartSection";
@@ -13,7 +15,7 @@ import { HomePageFunc } from "./interfaceType";
 
 const HomePage: HomePageFunc = () => {
   return (
-    <main className="">
+    <Box component="main" sx={{ pt: 8 }}>
       <HeroSection />
       <StepSection />
       <CenterSection />
@@ -22,7 +24,7 @@ const HomePage: HomePageFunc = () => {
       <BuiltSection />
       <TestimonialSection />
       <StartSection />
-    </main>
+    </Box>
   );
 };
 export default HomePage;
