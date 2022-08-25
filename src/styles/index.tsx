@@ -4,6 +4,14 @@ import { theme } from "./theme";
 export const appGradient = `linear-gradient(92.54deg, ${theme.palette.primary.main} -14.34%, ${theme.palette.primary.accent} 98.84%)`;
 
 export default makeStyles({
+  "@keyframes scroll-x": {
+    from: {
+      transform: "translateX(var(--scroll-start))",
+    },
+    to: {
+      transform: "translateX(var(--scroll-end))",
+    },
+  },
   bgPrimary: {
     backgroundColor: theme.palette.primary.main,
   },
@@ -67,6 +75,33 @@ export default makeStyles({
       paddingTop: 0,
       paddingLeft: "2rem",
       maxWidth: "500px",
+    },
+  },
+  marquee: {
+    " --size": "clamp(10rem, 1rem + 40vmin, 30rem)",
+    "--gap": "calc(var(--size) / 14)",
+    "--duration": "60s",
+    "--scroll-start": 0,
+    "--scroll-end": "calc(-100% - var(--gap))",
+    gap: "var(--gap)",
+    display: "flex",
+    overflow: "hidden",
+    userSelect: "none",
+    maskImage: `linear-gradient(
+      to right,
+      hsl(0 0% 0% / 0),
+      hsl(0 0% 0% / 1) 20%,
+      hsl(0 0% 0% / 1) 80%,
+      hsl(0 0% 0% / 0)
+    )`,
+    "& .marquee__content": {
+      gap: "1rem",
+      flexShrink: 0,
+      display: "flex",
+      minWidth: "100%",
+      alignItems: "center",
+      animation: "$scroll-x var(--duration) linear infinite",
+      justifyContent: "space-around",
     },
   },
 });

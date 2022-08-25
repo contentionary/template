@@ -22,7 +22,7 @@ const PartnersSection: HomePageFunc = () => {
     <Fragment>
       <Box component="section" sx={{ py: 8 }} className="">
         <Container maxWidth="lg">
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Box sx={{ mb: 8, display: "flex", justifyContent: "center" }}>
             <Box maxWidth={400}>
               <Typography
                 variant="caption"
@@ -42,98 +42,172 @@ const PartnersSection: HomePageFunc = () => {
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={{ xs: 2, md: 3 }}>
-            <Grid item xs={6} sm={4} md={3} xl={2}>
+          <Box className={globalStyle.marquee}>
+            <Box className="marquee__content">
               <Box
                 sx={{
                   position: "relative",
-                  height: "auto",
-                  width: "100%",
+                  height: 58,
+                  width: 180,
                 }}
               >
                 <Image
-                  width="100%"
+                  width={178.05}
                   height={56}
-                  objectFit="contain"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/partners/ekscat.png"
                 />
               </Box>
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} xl={2}>
               <Box
                 sx={{
                   position: "relative",
-                  height: "auto",
-                  width: "100%",
+                  height: 58,
+                  width: 180,
                 }}
               >
                 <Image
-                  width="100%"
+                  width={178.05}
                   height={56}
-                  objectFit="contain"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/partners/indorama.png"
                 />
               </Box>
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} xl={2}>
               <Box
                 sx={{
                   position: "relative",
-                  height: "auto",
-                  width: "100%",
+                  height: 58,
+                  width: 180,
                 }}
               >
                 <Image
-                  width="100%"
+                  width={178.05}
                   height={56}
-                  objectFit="contain"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/partners/ace.png"
                 />
               </Box>
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} xl={2}>
               <Box
                 sx={{
                   position: "relative",
-                  height: "auto",
-                  width: "100%",
+                  height: 58,
+                  width: 180,
                 }}
               >
                 <Image
-                  width="100%"
+                  width={178.05}
                   height={56}
-                  objectFit="contain"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/partners/napps.png"
                 />
               </Box>
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} xl={2}>
               <Box
                 sx={{
                   position: "relative",
-                  height: "auto",
-                  width: "100%",
+                  height: 58,
+                  width: 180,
                 }}
               >
                 <Image
-                  width="100%"
+                  width={178.05}
                   height={56}
-                  objectFit="contain"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/partners/siren.png"
                 />
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+            <Box aria-hidden="true" className="marquee__content">
+              <Box
+                sx={{
+                  position: "relative",
+                  height: 58,
+                  width: 180,
+                }}
+              >
+                <Image
+                  width={178.05}
+                  height={56}
+                  objectFit="cover"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/ekscat.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  height: 58,
+                  width: 180,
+                }}
+              >
+                <Image
+                  width={178.05}
+                  height={56}
+                  objectFit="cover"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/indorama.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  height: 58,
+                  width: 180,
+                }}
+              >
+                <Image
+                  width={178.05}
+                  height={56}
+                  objectFit="cover"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/ace.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  height: 58,
+                  width: 180,
+                }}
+              >
+                <Image
+                  width={178.05}
+                  height={56}
+                  objectFit="cover"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/napps.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  height: 58,
+                  width: 180,
+                }}
+              >
+                <Image
+                  width={178.05}
+                  height={56}
+                  objectFit="cover"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/siren.png"
+                />
+              </Box>
+            </Box>
+          </Box>
         </Container>
       </Box>
     </Fragment>
