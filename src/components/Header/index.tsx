@@ -34,7 +34,11 @@ const Header: HeaderFunc = (props) => {
   return (
     <>
       <HideOnScroll {...props}>
-        <AppBar component="nav" sx={{ background: "white" }} elevation={0}>
+        <AppBar
+          component="nav"
+          elevation={0}
+          className={globalStyle.bgWhiteGlossy}
+        >
           <Container maxWidth="lg">
             <Toolbar disableGutters>
               <Image

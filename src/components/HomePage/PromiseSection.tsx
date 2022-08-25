@@ -82,7 +82,7 @@ const PromiseSection: HomePageFunc = () => {
                 component="h2"
                 sx={{ textAlign: "center" }}
               >
-                The Shopify for Educators and Content Creators
+                An Ecosystem for Educators and Creators to Harness
               </Typography>
               <Typography mb={4} paragraph sx={{ textAlign: "center" }}>
                 Create your centre to share contents, trade contents, manage

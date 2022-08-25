@@ -15,6 +15,12 @@ export default makeStyles({
   bgPrimary: {
     backgroundColor: theme.palette.primary.main,
   },
+  bgWhiteGlossy: {
+    border: "none",
+    backdropFilter: "blur(20px)",
+    boxShadow: "rgb(255 255 255) 0px -1px 1px inset",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+  },
   bgArtifact: {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top left, bottom right",
