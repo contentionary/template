@@ -5,7 +5,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 //
 import { HideOnScrollFunc } from "./interfaceType";
 
-const HideOnScroll = (props): HideOnScrollFunc => {
+const HideOnScroll: HideOnScrollFunc = (props) => {
   const { children, window } = props;
 
   const trigger = useScrollTrigger({

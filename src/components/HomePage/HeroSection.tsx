@@ -31,7 +31,7 @@ const HeroSection: HomePageFunc = () => {
   return (
     <Fragment>
       <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid
               item
@@ -113,10 +113,11 @@ const HeroSection: HomePageFunc = () => {
                       ":hover": {
                         borderWidth: 2,
                       },
+                      display: "flex",
                       textAlign: "center",
                       alignItems: "center",
-                      width: { xs: "100%", sm: "40px" },
-                      display: { xs: "flex", sm: "inline-block" },
+                      width: { xs: "100%", sm: "42.24px" },
+                      height: { xs: "100%", sm: "42.24px" },
                     }}
                   >
                     <Hidden smUp>Play Demo </Hidden> <PlayIcon />

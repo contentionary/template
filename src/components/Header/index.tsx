@@ -39,7 +39,7 @@ const Header: HeaderFunc = (props) => {
           elevation={0}
           className={globalStyle.bgWhiteGlossy}
         >
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <Toolbar disableGutters>
               <Image
                 src="/images/logo.png"

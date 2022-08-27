@@ -1,13 +1,11 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 //
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { Link as MuiLink } from "@mui/material";
@@ -15,17 +13,11 @@ import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
-import { blueGrey, grey, indigo } from "@mui/material/colors";
 //
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 // interface
 import { HomePageFunc } from "./interfaceType";
-// icons
-import ShareIcon from "@src/assets/icons/share.svg";
-import RankingIcon from "@src/assets/icons/ranking.svg";
-import TrendUpIcon from "@src/assets/icons/trend-up.svg";
-import InfinityIcon from "@src/assets/icons/infinity.svg";
 
 const StartSection: HomePageFunc = () => {
   const theme = useTheme();
@@ -46,9 +38,9 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
     <Fragment>
       <Box
         component="section"
-        sx={{ py: 8, bgcolor: theme.palette.primary["50"] }}
+        sx={{ py: 8, bgcolor: theme.palette.primary[50] }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600} sx={{ textAlign: "center" }}>
               <Typography
@@ -83,7 +75,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
         </Container>
       </Box>
       <Box component="section" sx={{ py: 8, bgcolor: "neutral.dark" }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600} sx={{ textAlign: "center" }}>
               <Typography
@@ -113,7 +105,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
             >
               <Paper
                 elevation={0}
-                sx={{ p: 4, bgcolor: theme.palette.neutral["800"] }}
+                sx={{ p: 4, bgcolor: theme.palette.neutral[800] }}
               >
                 <SyntaxHighlighter
                   language="javascript"

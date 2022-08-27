@@ -17,11 +17,9 @@ import EastIcon from "@mui/icons-material/East";
 //
 import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
-import { blueGrey, grey } from "@mui/material/colors";
+import {  grey } from "@mui/material/colors";
 // interface
 import { HomePageFunc } from "./interfaceType";
-// icons
-import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -70,7 +68,7 @@ const TestimonialSection: HomePageFunc = () => {
         sx={{ py: 0, bgcolor: "neutral.dark" }}
         className=""
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Grid container spacing={0} sx={{ alignItems: "center" }}>
             <Grid item py={4} xs={12} md={6} order={{ xs: 2, md: 1 }}>
               <Typography
@@ -114,7 +112,7 @@ const TestimonialSection: HomePageFunc = () => {
                           color="white"
                           display="block"
                           variant="caption"
-                          sx={{ textAlign: { xs: "center", sm: "left" } }}
+                          sx={{ textAlign: { xs: "center", md: "left" } }}
                         >
                           {step.address}
                         </Typography>

@@ -1,11 +1,8 @@
 import React, { Fragment } from "react";
 // next
 import Image from "next/image";
-import NextLink from "next/link";
 //
-// import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 //
@@ -21,7 +18,7 @@ const PartnersSection: HomePageFunc = () => {
   return (
     <Fragment>
       <Box component="section" sx={{ py: 8 }} className="">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Box sx={{ mb: 8, display: "flex", justifyContent: "center" }}>
             <Box maxWidth={400}>
               <Typography

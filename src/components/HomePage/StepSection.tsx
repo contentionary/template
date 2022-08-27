@@ -19,12 +19,8 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
-import { blueGrey, grey, indigo } from "@mui/material/colors";
 // interface
 import { HomePageFunc } from "./interfaceType";
-// icons
-import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 
 const StepSection: HomePageFunc = () => {
   const globalStyle = useGlobalStyle();
@@ -32,7 +28,7 @@ const StepSection: HomePageFunc = () => {
   return (
     <Fragment>
       <Box component="section" sx={{ py: 8 }} className="">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Grid container spacing={2} sx={{ alignItems: "center" }}>
             <Grid
               item
@@ -97,7 +93,7 @@ const StepSection: HomePageFunc = () => {
                       </Typography>
                       <Typography mb={3} paragraph>
                         Create as many centres you need to keep your work
-                        organised.
+                        organized.
                       </Typography>
                     </TimelineContent>
                   </TimelineItem>

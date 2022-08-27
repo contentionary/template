@@ -12,7 +12,6 @@ import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 //
 import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
 //
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
@@ -22,11 +21,9 @@ import List from "@mui/material/List";
 import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 //
 import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
-import { blueGrey, grey, indigo } from "@mui/material/colors";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -38,7 +35,7 @@ const TickAvatar = () => {
   return (
     <Avatar
       sx={{
-        bgcolor: theme.palette.primary["200"],
+        bgcolor: theme.palette.primary[200],
         width: 24,
         height: 24,
         mr: 2,
@@ -64,9 +61,9 @@ const PromiseSection: HomePageFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ py: 8, bgcolor: theme.palette.primary["50"] }}
+        sx={{ py: 8, bgcolor: theme.palette.primary[50] }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>
               <Typography

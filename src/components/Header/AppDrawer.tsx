@@ -18,19 +18,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ContentionaryLogo from "@src/assets/images/logo.png";
 import MenuBurger from "@src/assets/icons/menu-hamburger.svg";
 
-const pages = ["Course", "Exams", "About Us", "Login", "Signup"];
-
 const AppDrawer = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setOpenDrawer(open);
-  };
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (
+        event.type === "keydown" &&
+        ((event as React.KeyboardEvent).key === "Tab" ||
+          (event as React.KeyboardEvent).key === "Shift")
+      ) {
+        return;
+      }
+      setOpenDrawer(open);
+    };
 
   return (
     <React.Fragment>
@@ -55,15 +55,17 @@ const AppDrawer = () => {
           </Box>
           <Divider />
           <List>
-            {pages.map((page, index) => (
-              <NextLink href={`/#${page}`} passHref key={index}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ListItemText>{page}</ListItemText>
-                  </ListItemIcon>
-                </ListItemButton>
-              </NextLink>
-            ))}
+            {["Course", "Exams", "About Us", "Login", "Signup"].map(
+              (page, index) => (
+                <NextLink href={`/#${page}`} passHref key={index}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <ListItemText>{page}</ListItemText>
+                    </ListItemIcon>
+                  </ListItemButton>
+                </NextLink>
+              )
+            )}
           </List>
         </Box>
       </Drawer>

@@ -18,7 +18,7 @@ export default makeStyles({
   bgWhiteGlossy: {
     border: "none",
     backdropFilter: "blur(20px)",
-    boxShadow: "rgb(255 255 255) 0px -1px 1px inset",
+    boxShadow: "rgba(255, 255, 255, 0.8) 0px -1px 1px inset",
     backgroundColor: "rgba(255, 255, 255, 0.5)",
   },
   bgArtifact: {
@@ -27,15 +27,14 @@ export default makeStyles({
     backgroundImage:
       "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
   },
-  bgArtifactFlipped: {
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "top left, bottom right",
-    backgroundImage:
-      "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
-    transform: "scaleX(-1)",
-    "& image": {
+  get bgArtifactFlipped() {
+    return {
+      ...this.bgArtifact,
       transform: "scaleX(-1)",
-    },
+      "& > *": {
+        transform: "scaleX(-1)",
+      },
+    };
   },
   bgGradient: {
     background: appGradient,
@@ -70,12 +69,12 @@ export default makeStyles({
       fontSize: "20px",
       fontWeight: "600",
       boxShadow: "none",
-      color: theme.palette.primary["500"],
+      color: theme.palette.primary[500],
       backgroundColor: "transparent",
     },
     "& .MuiTimelineItem-root .MuiTimelineConnector-root": {
       width: "1px",
-      backgroundColor: theme.palette.primary["100"],
+      backgroundColor: theme.palette.primary[100],
     },
     "& .MuiTimelineItem-root .MuiTimelineContent-root": {
       paddingTop: 0,

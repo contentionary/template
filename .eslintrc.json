@@ -1,3 +1,18 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "next",
+    "prettier",
+    "next/core-web-vitals",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "quotes": ["warn", "double"],
+    "semi": ["warn", "always"]
+  }
 }

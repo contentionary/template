@@ -10,7 +10,6 @@ import Grid from "@mui/material/Grid";
 import Menu from "@mui/material/Menu";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -34,7 +33,7 @@ const Footer: FooterFunc = () => {
   return (
     <Fragment>
       <Box component="footer" sx={{ py: 8 }} className="">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4} order={{ xs: 3, md: 1 }}>
               <div className="">
@@ -170,7 +169,6 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    elevation={0}
                     component={MuiLink}
                   >
                     <FacebookIcon />
@@ -180,7 +178,6 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    elevation={0}
                     component={MuiLink}
                   >
                     <LinkedInIcon />
@@ -190,7 +187,6 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    elevation={0}
                     component={MuiLink}
                   >
                     <YouTubeIcon />
@@ -200,7 +196,6 @@ const Footer: FooterFunc = () => {
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
-                    elevation={0}
                     component={MuiLink}
                   >
                     <TwitterIcon />
@@ -224,7 +219,7 @@ const Footer: FooterFunc = () => {
                   sx={{
                     p: "6px 10px",
                     flex: 1,
-                    bgcolor: grey["100"],
+                    bgcolor: grey[100],
                     borderRadius: "4px 0 0 4px !important",
                   }}
                   placeholder="Email Address"

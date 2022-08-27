@@ -1,21 +1,14 @@
 import React, { Fragment } from "react";
-// next
-import Image from "next/image";
-import NextLink from "next/link";
-//
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
-import { blueGrey, grey, indigo } from "@mui/material/colors";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -31,7 +24,7 @@ const CenterSection: HomePageFunc = () => {
   return (
     <Fragment>
       <Box component="section" sx={{ py: 8 }} className="">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Typography
             variant="caption"
             display="block"
@@ -54,7 +47,7 @@ const CenterSection: HomePageFunc = () => {
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar
-                  sx={{ bgcolor: theme.palette.primary["100"] }}
+                  sx={{ bgcolor: theme.palette.primary[100] }}
                   variant="rounded"
                 >
                   <TeacherIcon />
@@ -72,7 +65,7 @@ const CenterSection: HomePageFunc = () => {
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar
-                  sx={{ bgcolor: theme.palette.primary["100"] }}
+                  sx={{ bgcolor: theme.palette.primary[100] }}
                   variant="rounded"
                 >
                   <BookIcon />
@@ -90,7 +83,7 @@ const CenterSection: HomePageFunc = () => {
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar
-                  sx={{ bgcolor: theme.palette.primary["100"] }}
+                  sx={{ bgcolor: theme.palette.primary[100] }}
                   variant="rounded"
                 >
                   <ShopAddIcon />
@@ -108,7 +101,7 @@ const CenterSection: HomePageFunc = () => {
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar
-                  sx={{ bgcolor: theme.palette.primary["100"] }}
+                  sx={{ bgcolor: theme.palette.primary[100] }}
                   variant="rounded"
                 >
                   <MedalStarIcon />
