@@ -4,20 +4,16 @@ import Image from "next/image";
 import NextLink from "next/link";
 // mui
 import Box from "@mui/material/Box";
-import Menu from "@mui/material/Menu";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import MenuItem from "@mui/material/MenuItem";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 //
 import { useTheme } from "@mui/material/styles";
 //
 import { Link as MuiLink } from "@mui/material";
-import { grey } from "@mui/material/colors";
 // components/resources
 import AppDrawer from "./AppDrawer";
 import HideOnScroll from "./HideOnScroll";
@@ -26,14 +22,14 @@ import useGlobalStyle from "@src/styles/index";
 // interface
 import { HeaderFunc } from "./interfaceType";
 
-const Header: HeaderFunc = (props) => {
+const Header: HeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <>
-      <HideOnScroll {...props}>
+      <HideOnScroll>
         <AppBar
           component="nav"
           elevation={0}
@@ -78,7 +74,7 @@ const Header: HeaderFunc = (props) => {
                           Pricing
                         </Button>
                       </NextLink>
-                      <NextLink href="/#marketplace" passHref>
+                      <NextLink href="/market-place" passHref>
                         <Button component={MuiLink} sx={{ color: "#616161" }}>
                           Marketplace
                         </Button>

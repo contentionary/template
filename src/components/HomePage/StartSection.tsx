@@ -36,10 +36,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
 
   return (
     <Fragment>
-      <Box
-        component="section"
-        sx={{ py: 8, bgcolor: theme.palette.primary[50] }}
-      >
+      <Box component="section" sx={{ py: 8, bgcolor: "#FFFCF8" }}>
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600} sx={{ textAlign: "center" }}>
@@ -74,7 +71,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
           </Box>
         </Container>
       </Box>
-      <Box component="section" sx={{ py: 8, bgcolor: "neutral.dark" }}>
+      <Box component="section" sx={{ py: 8, bgcolor: "secondary.dark" }}>
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600} sx={{ textAlign: "center" }}>
@@ -103,10 +100,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 justifyContent: "center",
               }}
             >
-              <Paper
-                elevation={0}
-                sx={{ p: 4, bgcolor: theme.palette.neutral[800] }}
-              >
+              <Paper elevation={0} sx={{ p: 4, bgcolor: "#121212" }}>
                 <SyntaxHighlighter
                   language="javascript"
                   style={a11yDark}

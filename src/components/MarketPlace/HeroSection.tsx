@@ -11,18 +11,14 @@ import Hidden from "@mui/material/Hidden";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import { Link as MuiLink } from "@mui/material";
 //
 import useGlobalStyle from "@src/styles";
 // interface
-import { HomePageFunc } from "./interfaceType";
-// icons
-import PlayIcon from "@src/assets/icons/play.svg";
-import SimcardIcon from "@src/assets/icons/simcard.svg";
-import CardRemoveIcon from "@src/assets/icons/card-remove.svg";
-import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
+import { MarketPlaceFunc } from "./interfaceType";
 
-const HeroSection: HomePageFunc = () => {
+const HeroSection: MarketPlaceFunc = () => {
   const globalStyle = useGlobalStyle();
 
   return (
@@ -53,7 +49,7 @@ const HeroSection: HomePageFunc = () => {
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
                 component="h1"
               >
-                Seamlessly create your{" "}
+                The Foremost{" "}
                 <Typography
                   variant="h2"
                   component="span"
@@ -61,9 +57,9 @@ const HeroSection: HomePageFunc = () => {
                   sx={{ whiteSpace: "nowrap" }}
                   className={globalStyle.textGradient}
                 >
-                  Online Academy
+                  Preparatory
                 </Typography>{" "}
-                in minutes
+                Marketplace
               </Typography>
               <Typography
                 sx={{
@@ -73,8 +69,8 @@ const HeroSection: HomePageFunc = () => {
                 }}
                 paragraph
               >
-                Share, Sell, Engage and Impact your students or subscribers on
-                your terms.
+                Join a Centre and access prep contents and prep tests by
+                verified instructors and examiners.
               </Typography>
               <Stack
                 sx={{ mb: 2 }}
@@ -83,74 +79,26 @@ const HeroSection: HomePageFunc = () => {
                 spacing={2}
                 className=""
               >
-                <NextLink href="/" passHref>
-                  <Button
-                    size="large"
-                    disableElevation
-                    variant="contained"
-                    component={MuiLink}
-                    className={globalStyle.bgGradient}
-                    sx={{
-                      textAlign: "center",
-                      width: { xs: "100%", sm: "auto" },
-                      display: { xs: "block", sm: "inline-block" },
-                    }}
-                  >
-                    Get Started for Free
-                  </Button>
-                </NextLink>
-
-                <NextLink href="/" passHref>
-                  <Button
-                    size="large"
-                    variant="outlined"
-                    component={MuiLink}
-                    sx={{
-                      borderWidth: 2,
-                      ":hover": {
-                        borderWidth: 2,
-                      },
-                      display: "flex",
-                      textAlign: "center",
-                      alignItems: "center",
-                      width: { xs: "100%", sm: "42.24px" },
-                      height: { xs: "100%", sm: "42.24px" },
-                    }}
-                  >
-                    <Hidden smUp>Play Demo </Hidden> <PlayIcon />
-                  </Button>
-                </NextLink>
-              </Stack>
-              <Stack
-                direction="row"
-                sx={{
-                  flexWrap: "wrap",
-                  justifyContent: { xs: "center", sm: "start" },
-                }}
-                spacing={2}
-                alignItems="center"
-              >
-                <Typography
-                  paragraph
-                  sx={{ mb: 0, display: { xs: "flex", alignItems: "center" } }}
+                <OutlinedInput
+                  size="small"
+                  placeholder="search for preparatory content..."
+                  sx={{
+                    minWidth: { xs: "100%", sm: "320px" },
+                    display: { xs: "block", sm: "inline-block" },
+                  }}
+                />
+                <Button
+                  size="large"
+                  disableElevation
+                  variant="contained"
+                  className={globalStyle.bgGradient}
+                  sx={{
+                    width: { xs: "100%", sm: "auto" },
+                    display: { xs: "block", sm: "inline-block" },
+                  }}
                 >
-                  <SimcardIcon />
-                  &nbsp;No code required
-                </Typography>
-                <Typography
-                  paragraph
-                  sx={{ mb: 0, display: { xs: "flex", alignItems: "center" } }}
-                >
-                  <UserAddIcon />
-                  &nbsp;No technical skills needed
-                </Typography>
-                <Typography
-                  paragraph
-                  sx={{ mb: 0, display: { xs: "flex", alignItems: "center" } }}
-                >
-                  <CardRemoveIcon />
-                  &nbsp;No credit card
-                </Typography>
+                  Search marketplace
+                </Button>
               </Stack>
             </Grid>
             <Grid

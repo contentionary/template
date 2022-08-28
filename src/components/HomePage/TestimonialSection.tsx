@@ -17,7 +17,7 @@ import EastIcon from "@mui/icons-material/East";
 //
 import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
-import {  grey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 // interface
 import { HomePageFunc } from "./interfaceType";
 
@@ -65,7 +65,7 @@ const TestimonialSection: HomePageFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ py: 0, bgcolor: "neutral.dark" }}
+        sx={{ py: 0, bgcolor: "secondary.dark" }}
         className=""
       >
         <Container maxWidth="xl">
@@ -125,21 +125,23 @@ const TestimonialSection: HomePageFunc = () => {
                 sx={{
                   px: 3,
                   justifyContent: { xs: "center", md: "start" },
-                  bgcolor: "neutral.dark",
+                  bgcolor: "secondary.dark",
                   "& .MuiMobileStepper-dot:not(.MuiMobileStepper-dotActive)": {
-                    bgcolor: "neutral.light",
+                    bgcolor: "secondary.light",
                   },
                 }}
                 steps={maxSteps}
                 position="static"
                 activeStep={activeStep}
+                backButton={""}
+                nextButton={""}
               />
               <Box
                 sx={{
                   display: { xs: "none", md: "flex" },
                   justifyContent: "start",
                   "& .Mui-disabled.MuiButton-root": {
-                    color: "neutral.light",
+                    color: "secondary.light",
                   },
                   "& .MuiButton-root:not(.Mui-disabled)": {
                     color: "white",

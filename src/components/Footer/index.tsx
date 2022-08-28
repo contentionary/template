@@ -7,7 +7,6 @@ import useGlobalStyle from "@src/styles/index";
 // mui
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Menu from "@mui/material/Menu";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";

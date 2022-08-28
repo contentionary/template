@@ -15,7 +15,6 @@ import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
-import { blueGrey, grey, indigo } from "@mui/material/colors";
 //
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -197,10 +196,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 justifyContent: "center",
               }}
             >
-              <Paper
-                elevation={0}
-                sx={{ p: 4, bgcolor: theme.palette.neutral[50] }}
-              >
+              <Paper elevation={0} sx={{ p: 4, bgcolor: "#FFFCF8" }}>
                 <SyntaxHighlighter
                   language="javascript"
                   style={a11yDark}

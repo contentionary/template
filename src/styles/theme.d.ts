@@ -1,6 +1,6 @@
-import React from "react";
 import {
   Color,
+  PaletteOptions,
   PaletteColorOptions,
   SimplePaletteColorOptions,
 } from "@mui/material";
@@ -8,18 +8,8 @@ import {
 declare module "@mui/material/styles" {
   interface Theme {
     palette: {
-      primary: PaletteColorOptions;
-      neutral: PaletteColorOptions;
+      primary: Color | SimplePaletteColorOptions;
+      secondary: Color | SimplePaletteColorOptions;
     };
-  }
-  export interface PaletteOptions {
-    paletteColors: {
-      [key: string]: Partial<Color> | SimplePaletteColorOptions;
-    }[];
-  }
-  export interface Palette {
-    paletteColors: {
-      [key: string]: Partial<Color> | SimplePaletteColorOptions;
-    }[];
   }
 }

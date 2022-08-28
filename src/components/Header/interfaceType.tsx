@@ -7,5 +7,5 @@ export interface HideOnScrollInt {
   children: React.ReactElement;
 }
 
-export declare type HeaderFunc = (props: HideOnScrollInt) => JSX.Element;
+export declare type HeaderFunc = () => JSX.Element;
 export declare type HideOnScrollFunc = (props: HideOnScrollInt) => JSX.Element;

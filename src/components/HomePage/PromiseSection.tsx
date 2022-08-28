@@ -35,7 +35,7 @@ const TickAvatar = () => {
   return (
     <Avatar
       sx={{
-        bgcolor: theme.palette.primary[200],
+        bgcolor: "#EEB389",
         width: 24,
         height: 24,
         mr: 2,
@@ -59,10 +59,7 @@ const PromiseSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box
-        component="section"
-        sx={{ py: 8, bgcolor: theme.palette.primary[50] }}
-      >
+      <Box component="section" sx={{ py: 8, bgcolor: "#FFFCF8" }}>
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>

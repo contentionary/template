@@ -46,10 +46,7 @@ const CenterSection: HomePageFunc = () => {
           <Grid container spacing={4}>
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
-                <Avatar
-                  sx={{ bgcolor: theme.palette.primary[100] }}
-                  variant="rounded"
-                >
+                <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <TeacherIcon />
                 </Avatar>
                 <Typography variant="h5" gutterBottom>
@@ -64,10 +61,7 @@ const CenterSection: HomePageFunc = () => {
             </Grid>
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
-                <Avatar
-                  sx={{ bgcolor: theme.palette.primary[100] }}
-                  variant="rounded"
-                >
+                <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <BookIcon />
                 </Avatar>
                 <Typography variant="h5" gutterBottom>
@@ -82,10 +76,7 @@ const CenterSection: HomePageFunc = () => {
             </Grid>
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
-                <Avatar
-                  sx={{ bgcolor: theme.palette.primary[100] }}
-                  variant="rounded"
-                >
+                <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <ShopAddIcon />
                 </Avatar>
                 <Typography variant="h5" gutterBottom>
@@ -100,10 +91,7 @@ const CenterSection: HomePageFunc = () => {
             </Grid>
             <Grid item md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
-                <Avatar
-                  sx={{ bgcolor: theme.palette.primary[100] }}
-                  variant="rounded"
-                >
+                <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <MedalStarIcon />
                 </Avatar>
                 <Typography variant="h5" gutterBottom>
