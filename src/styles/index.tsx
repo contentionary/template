@@ -14,6 +14,17 @@ export default makeStyles({
       transform: "translateX(var(--scroll-end))",
     },
   },
+
+  hiddenScrollbar: {
+    "-ms-overflow-style": "none",
+    "scrollbar-color": "transparent transparent",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "& ::-moz-scrollbar": {
+      display: "none",
+    },
+  },
   bgPrimary: {
     backgroundColor: theme.palette.primary.main,
   },
@@ -43,6 +54,9 @@ export default makeStyles({
   },
   paperShadow: {
     boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+  },
+  paperShadowSm: {
+    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
   },
   textGradient: {
     background: appGradient,

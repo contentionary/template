@@ -12,7 +12,7 @@ import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 //
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -20,7 +20,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { HomePageFunc } from "./interfaceType";
 
 const StartSection: HomePageFunc = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
   //
   const codeString = `const africa1 = require(‘stripe’)(‘sk_test_BQoikJ’)
@@ -51,7 +51,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 From page beauty, to engagement to finance to tracking. Build
                 your centre to your taste and size
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/create-account" passHref>
                 <Button
                   size="large"
                   disableElevation

@@ -8,12 +8,17 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Hidden from "@mui/material/Hidden";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 //
+import { useTheme } from "@mui/material/styles";
+//
 import useGlobalStyle from "@src/styles";
+import useButtonStyle from "@src/styles/button";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -23,13 +28,15 @@ import CardRemoveIcon from "@src/assets/icons/card-remove.svg";
 import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 
 const HeroSection: HomePageFunc = () => {
+  const theme = useTheme();
+  const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
 
   return (
     <Fragment>
       <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
         <Container maxWidth="xl">
-          <Grid container spacing={2}>
+          <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>
             <Grid
               item
               xs={12}
@@ -49,13 +56,13 @@ const HeroSection: HomePageFunc = () => {
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
               <Typography
-                variant="h2"
+                variant="h1"
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
                 component="h1"
               >
                 Seamlessly create your{" "}
                 <Typography
-                  variant="h2"
+                  variant="h1"
                   component="span"
                   fontWeight={"inherit"}
                   sx={{ whiteSpace: "nowrap" }}
@@ -83,7 +90,7 @@ const HeroSection: HomePageFunc = () => {
                 spacing={2}
                 className=""
               >
-                <NextLink href="/" passHref>
+                <NextLink href="/create-account" passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -155,7 +162,7 @@ const HeroSection: HomePageFunc = () => {
             </Grid>
             <Grid
               item
-              md={6}
+              md={5}
               xs={12}
               order={{ xs: 3, md: 3 }}
               sx={{
@@ -166,20 +173,35 @@ const HeroSection: HomePageFunc = () => {
               <Box
                 className={globalStyle.bgArtifact}
                 sx={{
-                  p: 4,
                   width: "100%",
                   minHeight: "auto",
                   position: "relative",
+                  padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
-                <Image
-                  width="80%"
-                  height="60%"
-                  src="/images/hero-img.png"
-                  layout="responsive"
-                  objectFit="cover"
-                  alt="Contentionary"
-                />
+                <ButtonBase focusRipple className={buttonStyle.imageButton}>
+                  <Box
+                    component="span"
+                    className="MuiImageBase-root"
+                    sx={{
+                      backgroundImage: "url(/images/hero-img.png)",
+                    }}
+                  />
+                  <Box component="span" className="MuiImageBackdrop-root" />
+                  <Box component="span" className="MuiImageFlex-root">
+                    <Typography component="h5" variant="h5" color="inherit">
+                      <Avatar
+                        sx={{
+                          backgroundColor: "transparent",
+                          border: "2px solid white",
+                        }}
+                      >
+                        <PlayIcon className="MuiSvgFlip-root" fill="white" />
+                      </Avatar>{" "}
+                      Play Demo
+                    </Typography>
+                  </Box>
+                </ButtonBase>
               </Box>
             </Grid>
           </Grid>

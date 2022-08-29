@@ -27,7 +27,6 @@ import TrendUpIcon from "@src/assets/icons/trend-up.svg";
 import InfinityIcon from "@src/assets/icons/infinity.svg";
 
 const BuiltSection: HomePageFunc = () => {
-  const theme = useTheme();
   const globalStyle = useGlobalStyle();
   //
   const codeString = `const africa1 = require(‘stripe’)(‘sk_test_BQoikJ’)
@@ -82,10 +81,10 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               <Box
                 className={globalStyle.bgArtifactFlipped}
                 sx={{
-                  p: 4,
                   width: "100%",
                   height: "auto",
                   position: "relative",
+                  padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
                 <Image
@@ -123,7 +122,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 contentionary. If you don’t have a domain you can choose a
                 subdomain that best suit your business name.
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/create-account" passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -170,7 +169,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                   <MuiLink>Read more...</MuiLink>
                 </NextLink>
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/create-account" passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -196,7 +195,10 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 justifyContent: "center",
               }}
             >
-              <Paper elevation={0} sx={{ p: 4, bgcolor: "#FFFCF8" }}>
+              <Paper
+                elevation={0}
+                sx={{ padding: { xs: 2, sm: 3, lg: 4 }, bgcolor: "#FFFCF8" }}
+              >
                 <SyntaxHighlighter
                   language="javascript"
                   style={a11yDark}

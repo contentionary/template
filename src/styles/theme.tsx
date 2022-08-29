@@ -44,7 +44,7 @@ export const theme = createTheme({
       fontWeight: 800,
       color: "#333333",
       lineHeight: 1.125,
-      fontSize: "clamp(2.5rem, -0.875rem + 8.333vw, 4rem)",
+      fontSize: "clamp(2.5rem, -0.875rem + 8.333vw, 3.25rem)",
     },
     h2: {
       fontWeight: 700,

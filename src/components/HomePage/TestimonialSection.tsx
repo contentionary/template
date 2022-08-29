@@ -15,7 +15,7 @@ import MobileStepper from "@mui/material/MobileStepper";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 //
-import useGlobalStyle from "@src/styles";
+// import useGlobalStyle from "@src/styles";
 import { useTheme } from "@mui/material/styles";
 import { grey } from "@mui/material/colors";
 // interface
@@ -44,7 +44,7 @@ const testimonials = [
 
 const TestimonialSection: HomePageFunc = () => {
   const theme = useTheme();
-  const globalStyle = useGlobalStyle();
+  // const globalStyle = useGlobalStyle();
   const [activeStep, setActiveStep] = useState(0);
   //
   const maxSteps = testimonials.length;

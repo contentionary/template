@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import MarketPlace from "@src/components/MarketPlace";
 import Wrapper from "@src/components/Wrapper";
-const Home: NextPage = () => {
+const MarketPlacePage: NextPage = () => {
   return (
     <Wrapper
       title="Contentionary"
@@ -15,4 +15,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default MarketPlacePage;

@@ -23,7 +23,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -31,7 +31,7 @@ import TickIcon from "@src/assets/icons/tick.svg";
 
 //
 const TickAvatar = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   return (
     <Avatar
       sx={{
@@ -49,7 +49,7 @@ const TickAvatar = () => {
 const PromiseSection: HomePageFunc = () => {
   const [value, setValue] = React.useState("1");
 
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
 
   //
@@ -122,7 +122,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Configure other setups." />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -195,7 +195,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Google Analytics to your Centre to measure traffic" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -271,7 +271,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Chat box" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -350,7 +350,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Publishing, blogging" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -421,7 +421,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Paypal and Stripe" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -489,7 +489,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Support and CRM" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation

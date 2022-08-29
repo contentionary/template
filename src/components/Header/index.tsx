@@ -33,16 +33,21 @@ const Header: HeaderFunc = () => {
         <AppBar
           component="nav"
           elevation={0}
+          sx={{ py: 1 }}
           className={globalStyle.bgWhiteGlossy}
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>
-              <Image
-                src="/images/logo.png"
-                alt="Contentionary logo"
-                width={157}
-                height={30}
-              />
+              <NextLink href="/" passHref>
+                <MuiLink sx={{ display: "flex", alignItems: "center" }}>
+                  <Image
+                    src="/images/logo.png"
+                    alt="Contentionary logo"
+                    width={210}
+                    height={40}
+                  />
+                </MuiLink>
+              </NextLink>
               {isMatch ? (
                 <AppDrawer />
               ) : (
@@ -69,22 +74,22 @@ const Header: HeaderFunc = () => {
                           Resources
                         </Button>
                       </NextLink>
-                      <NextLink href="/#pricing" passHref>
+                      <NextLink href="/pricing" passHref>
                         <Button component={MuiLink} sx={{ color: "#616161" }}>
                           Pricing
                         </Button>
                       </NextLink>
-                      <NextLink href="/market-place" passHref>
+                      <NextLink href="/marketplace" passHref>
                         <Button component={MuiLink} sx={{ color: "#616161" }}>
                           Marketplace
                         </Button>
                       </NextLink>
                     </Stack>
                     <Stack direction="row" spacing={2} alignItems="center">
-                      <NextLink href="/" passHref>
+                      <NextLink href="/login" passHref>
                         <MuiLink>Login</MuiLink>
                       </NextLink>
-                      <NextLink href="/" passHref>
+                      <NextLink href="/create-account" passHref>
                         <Button
                           size="large"
                           disableElevation

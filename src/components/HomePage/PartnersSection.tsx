@@ -7,12 +7,12 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 // interface
 import { HomePageFunc } from "./interfaceType";
 
 const PartnersSection: HomePageFunc = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
 
   return (

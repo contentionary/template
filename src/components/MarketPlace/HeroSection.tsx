@@ -1,31 +1,33 @@
 import React, { Fragment } from "react";
 // next
 import Image from "next/image";
-import NextLink from "next/link";
-//
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import Hidden from "@mui/material/Hidden";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import { Link as MuiLink } from "@mui/material";
 //
 import useGlobalStyle from "@src/styles";
+import useButtonStyle from "@src/styles/button";
+// icons
+import PlayIcon from "@src/assets/icons/play.svg";
 // interface
 import { MarketPlaceFunc } from "./interfaceType";
 
 const HeroSection: MarketPlaceFunc = () => {
+  const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
 
   return (
     <Fragment>
       <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
         <Container maxWidth="xl">
-          <Grid container spacing={2}>
+          <Grid container spacing={4} sx={{ justifyContent: "space-between", alignItems: "center" }}>
             <Grid
               item
               xs={12}
@@ -43,15 +45,15 @@ const HeroSection: MarketPlaceFunc = () => {
                 alt="Contentionary"
               />
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={7} order={{ xs: 1, md: 2 }}>
               <Typography
-                variant="h2"
+                variant="h1"
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
                 component="h1"
               >
                 The Foremost{" "}
                 <Typography
-                  variant="h2"
+                  variant="h1"
                   component="span"
                   fontWeight={"inherit"}
                   sx={{ whiteSpace: "nowrap" }}
@@ -103,7 +105,7 @@ const HeroSection: MarketPlaceFunc = () => {
             </Grid>
             <Grid
               item
-              md={6}
+              md={5}
               xs={12}
               order={{ xs: 3, md: 3 }}
               sx={{
@@ -114,20 +116,35 @@ const HeroSection: MarketPlaceFunc = () => {
               <Box
                 className={globalStyle.bgArtifact}
                 sx={{
-                  p: 4,
                   width: "100%",
                   minHeight: "auto",
                   position: "relative",
+                  padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
-                <Image
-                  width="80%"
-                  height="60%"
-                  src="/images/hero-img.png"
-                  layout="responsive"
-                  objectFit="cover"
-                  alt="Contentionary"
-                />
+                <ButtonBase focusRipple className={buttonStyle.imageButton}>
+                  <Box
+                    component="span"
+                    className="MuiImageBase-root"
+                    sx={{
+                      backgroundImage: "url(/images/hero-img.png)",
+                    }}
+                  />
+                  <Box component="span" className="MuiImageBackdrop-root" />
+                  <Box component="span" className="MuiImageFlex-root">
+                    <Typography component="h5" variant="h5" color="inherit">
+                      <Avatar
+                        sx={{
+                          backgroundColor: "transparent",
+                          border: "2px solid white",
+                        }}
+                      >
+                        <PlayIcon className="MuiSvgFlip-root" fill="white" />
+                      </Avatar>{" "}
+                      Play Demo
+                    </Typography>
+                  </Box>
+                </ButtonBase>
               </Box>
             </Grid>
           </Grid>
