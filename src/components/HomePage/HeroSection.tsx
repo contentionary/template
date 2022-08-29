@@ -15,7 +15,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 //
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 //
 import useGlobalStyle from "@src/styles";
 import useButtonStyle from "@src/styles/button";
@@ -28,7 +28,7 @@ import CardRemoveIcon from "@src/assets/icons/card-remove.svg";
 import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 
 const HeroSection: HomePageFunc = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
 

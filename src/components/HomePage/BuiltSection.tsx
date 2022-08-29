@@ -14,7 +14,6 @@ import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
 //
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -67,10 +66,15 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={2} sx={{ alignItems: "center" }}>
+          <Grid
+            container
+            spacing={2}
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+          >
             <Grid
               item
-              md={6}
+              md={5}
+              sm={6}
               xs={12}
               order={{ xs: 2, md: 1 }}
               sx={{

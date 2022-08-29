@@ -78,6 +78,6 @@ export const theme = createTheme({
     body2: {
       color: "#616161",
     },
-    fontFamily: ['"Roboto"', "sans-serif"].join(","),
+    fontFamily: ["'Roboto'", "sans-serif"].join(","),
   },
 });

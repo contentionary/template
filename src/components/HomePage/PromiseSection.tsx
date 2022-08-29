@@ -95,6 +95,15 @@ const PromiseSection: HomePageFunc = () => {
                 scrollButtons="auto"
                 allowScrollButtonsMobile
                 aria-label="lab API tabs example"
+                sx={{
+                  "& .MuiTabs-flexContainer": {
+                    justifyContent: "center",
+                    gap: 4,
+                  },
+                  "& .MuiTabScrollButton-root": {
+                    "&.Mui-disabled": { opacity: 0.3 },
+                  },
+                }}
               >
                 <Tab label="Build your centre" value="1" />
                 <Tab label="Measure performance" value="2" />

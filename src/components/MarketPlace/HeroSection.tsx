@@ -27,7 +27,11 @@ const HeroSection: MarketPlaceFunc = () => {
     <Fragment>
       <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
         <Container maxWidth="xl">
-          <Grid container spacing={4} sx={{ justifyContent: "space-between", alignItems: "center" }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{ justifyContent: "space-between", alignItems: "center" }}
+          >
             <Grid
               item
               xs={12}

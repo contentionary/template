@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -18,7 +18,7 @@ import ShopAddIcon from "@src/assets/icons/shop-add.svg";
 import MedalStarIcon from "@src/assets/icons/medal-star.svg";
 
 const CenterSection: HomePageFunc = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
 
   return (

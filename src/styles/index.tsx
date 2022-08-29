@@ -101,7 +101,7 @@ export default makeStyles({
   marquee: {
     " --size": "clamp(10rem, 1rem + 40vmin, 30rem)",
     "--gap": "calc(var(--size) / 14)",
-    "--duration": "60s",
+    "--duration": "10s",
     "--scroll-start": 0,
     "--scroll-end": "calc(-100% - var(--gap))",
     gap: "var(--gap)",

@@ -4,4 +4,5 @@ export interface HeadInt {
   image?: string;
 }
 
+// eslint-disable-next-line no-unused-vars
 export declare type HeadFunc = (props: HeadInt) => JSX.Element;
