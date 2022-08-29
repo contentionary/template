@@ -13,6 +13,12 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "quotes": ["warn", "double"],
-    "semi": ["warn", "always"]
+    "semi": ["warn", "always"],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }
