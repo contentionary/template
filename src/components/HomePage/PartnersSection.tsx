@@ -17,7 +17,11 @@ const PartnersSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8 }} className="">
+      <Box
+        component="section"
+        sx={{ py: 8, px: { md: 4, xl: 0 } }}
+        className=""
+      >
         <Container maxWidth="xl">
           <Box sx={{ mb: 8, display: "flex", justifyContent: "center" }}>
             <Box maxWidth={400}>
@@ -44,163 +48,363 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/ekscat.png"
+                  src="/images/partners/alloshcollegelogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/indorama.png"
+                  src="/images/partners/cobankinglogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/ace.png"
+                  src="/images/partners/ifocollegelogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/napps.png"
+                  src="/images/partners/indoramalogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/siren.png"
+                  src="/images/partners/institute of criminology logo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/kingspolylogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/lincolnunicollegelogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/nounlogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/stwiniciscologo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/stwinifredinnovationlogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/yewacolleglogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/zibehcollegelogo.png"
                 />
               </Box>
             </Box>
-            <Box aria-hidden="true" className="marquee__content">
+            <Box className="marquee__content">
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/ekscat.png"
+                  src="/images/partners/alloshcollegelogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/indorama.png"
+                  src="/images/partners/cobankinglogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/ace.png"
+                  src="/images/partners/ifocollegelogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/napps.png"
+                  src="/images/partners/indoramalogo.png"
                 />
               </Box>
               <Box
                 sx={{
                   position: "relative",
-                  height: 58,
-                  width: 180,
+                  width: 220,
                 }}
               >
                 <Image
-                  width={178.05}
-                  height={56}
-                  objectFit="cover"
+                  width={210}
+                  height={30}
+                  objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/partners/siren.png"
+                  src="/images/partners/institute of criminology logo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/kingspolylogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/lincolnunicollegelogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/nounlogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/stwiniciscologo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/stwinifredinnovationlogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/yewacolleglogo.png"
+                />
+              </Box>
+              <Box
+                sx={{
+                  position: "relative",
+                  width: 220,
+                }}
+              >
+                <Image
+                  width={210}
+                  height={30}
+                  objectFit="contain"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/partners/zibehcollegelogo.png"
                 />
               </Box>
             </Box>

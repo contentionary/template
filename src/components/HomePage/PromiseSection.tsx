@@ -59,7 +59,10 @@ const PromiseSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8, bgcolor: "#FFFCF8" }}>
+      <Box
+        component="section"
+        sx={{ py: 8, px: { md: 4, xl: 0 }, bgcolor: "#FFFCF8" }}
+      >
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>

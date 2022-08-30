@@ -3,6 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 //
 import HeroSection from "./HeroSection";
+import PromoSection from "./PromoSection";
 import ProductsSection from "./ProductsSection";
 import CourseListSection from "./CourseListSection";
 //
@@ -14,6 +15,7 @@ const HomePage: MarketPlaceFunc = () => {
       <HeroSection />
       <ProductsSection />
       <CourseListSection />
+      <PromoSection />
     </Box>
   );
 };

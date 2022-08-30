@@ -28,7 +28,11 @@ const ProductsSection: MarketPlaceFunc = () => {
 
   return (
     <Fragment>
-      <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
+      <Box
+        component="section"
+        sx={{ pt: 4, px: { md: 4, xl: 0 }, pb: 8 }}
+        className="hero-section"
+      >
         <Container maxWidth="xl">
           <Typography
             mb={4}

@@ -12,20 +12,32 @@ import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import OutlinedInput from "@mui/material/OutlinedInput";
 //
+// import { useTheme } from "@mui/material/styles";
+//
 import useGlobalStyle from "@src/styles";
 import useButtonStyle from "@src/styles/button";
+// app components
+import VideoModal from "@src/components/shared/video";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
 // interface
 import { MarketPlaceFunc } from "./interfaceType";
 
 const HeroSection: MarketPlaceFunc = () => {
+  // const theme = useTheme();
+  const [openVideo, setOpenVideo] = React.useState(false);
   const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
+  //
+  const handleOpenVideo = () => setOpenVideo(true);
 
   return (
     <Fragment>
-      <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
+      <Box
+        component="section"
+        sx={{ pt: 4, px: { md: 4, xl: 0 }, pb: 8 }}
+        className="hero-section"
+      >
         <Container maxWidth="xl">
           <Grid
             container
@@ -126,7 +138,11 @@ const HeroSection: MarketPlaceFunc = () => {
                   padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
-                <ButtonBase focusRipple className={buttonStyle.imageButton}>
+                <ButtonBase
+                  focusRipple
+                  onClick={handleOpenVideo}
+                  className={buttonStyle.imageButton}
+                >
                   <Box
                     component="span"
                     className="MuiImageBase-root"
@@ -154,6 +170,7 @@ const HeroSection: MarketPlaceFunc = () => {
           </Grid>
         </Container>
       </Box>
+      <VideoModal isOpen={openVideo} setIsOpen={setOpenVideo} />
     </Fragment>
   );
 };

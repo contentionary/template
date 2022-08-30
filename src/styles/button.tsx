@@ -5,6 +5,10 @@ const buttonStyle = makeStyles({
   imageButton: {
     display: "block",
     height: 400,
+    [theme.breakpoints.up("xs")]: { height: 250 },
+    [theme.breakpoints.up("sm")]: { height: 300 },
+    [theme.breakpoints.up("md")]: { height: 350 },
+    [theme.breakpoints.up("lg")]: { height: 400 },
     minWidth: 200,
     position: "relative",
     width: "100% !important",

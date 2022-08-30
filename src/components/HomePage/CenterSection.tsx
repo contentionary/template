@@ -23,7 +23,11 @@ const CenterSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8 }} className="">
+      <Box
+        component="section"
+        sx={{ py: 8, px: { md: 4, xl: 0 } }}
+        className=""
+      >
         <Container maxWidth="xl">
           <Typography
             variant="caption"

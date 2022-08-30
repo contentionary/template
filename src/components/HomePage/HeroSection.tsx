@@ -21,6 +21,8 @@ import useGlobalStyle from "@src/styles";
 import useButtonStyle from "@src/styles/button";
 // interface
 import { HomePageFunc } from "./interfaceType";
+// app components
+import VideoModal from "@src/components/shared/video";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
 import SimcardIcon from "@src/assets/icons/simcard.svg";
@@ -29,12 +31,19 @@ import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 
 const HeroSection: HomePageFunc = () => {
   // const theme = useTheme();
+  const [openVideo, setOpenVideo] = React.useState(false);
   const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
+  //
+  const handleOpenVideo = () => setOpenVideo(true);
 
   return (
     <Fragment>
-      <Box component="section" sx={{ pt: 4, pb: 8 }} className="hero-section">
+      <Box
+        component="section"
+        sx={{ pt: 4, pb: 8, px: { md: 4, xl: 0 } }}
+        className="hero-section"
+      >
         <Container maxWidth="xl">
           <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>
             <Grid
@@ -179,7 +188,11 @@ const HeroSection: HomePageFunc = () => {
                   padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
-                <ButtonBase focusRipple className={buttonStyle.imageButton}>
+                <ButtonBase
+                  focusRipple
+                  onClick={handleOpenVideo}
+                  className={buttonStyle.imageButton}
+                >
                   <Box
                     component="span"
                     className="MuiImageBase-root"
@@ -207,6 +220,7 @@ const HeroSection: HomePageFunc = () => {
           </Grid>
         </Container>
       </Box>
+      <VideoModal isOpen={openVideo} setIsOpen={setOpenVideo} />
     </Fragment>
   );
 };

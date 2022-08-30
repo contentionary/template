@@ -41,7 +41,11 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8 }} className="">
+      <Box
+        component="section"
+        sx={{ py: 8, px: { md: 4, xl: 0 } }}
+        className=""
+      >
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>

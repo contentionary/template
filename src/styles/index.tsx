@@ -63,6 +63,15 @@ export default makeStyles({
     ["-webkit-background-clip"]: "text",
     ["-webkit-text-fill-color"]: "transparent",
   },
+  modalStyle: {
+    top: "50%",
+    left: "50%",
+    boxShadow:
+      "rgb(0 0 0 / 20%) 0px 11px 15px -7px, rgb(0 0 0 / 14%) 0px 24px 38px 3px, rgb(0 0 0 / 12%) 0px 9px 46px 8px",
+    backgroundColor: "black",
+    transform: "translate(-50%, -50%)",
+    position: "absolute" as "absolute",
+  },
   appIconButton: {
     borderRadius: 4,
     color: "white",
@@ -101,7 +110,7 @@ export default makeStyles({
   marquee: {
     " --size": "clamp(10rem, 1rem + 40vmin, 30rem)",
     "--gap": "calc(var(--size) / 14)",
-    "--duration": "10s",
+    "--duration": "16s",
     "--scroll-start": 0,
     "--scroll-end": "calc(-100% - var(--gap))",
     gap: "var(--gap)",

@@ -65,7 +65,7 @@ const TestimonialSection: HomePageFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ py: 0, bgcolor: "secondary.dark" }}
+        sx={{ py: 0, px: { md: 4, xl: 0 }, bgcolor: "secondary.dark" }}
         className=""
       >
         <Container maxWidth="xl">
