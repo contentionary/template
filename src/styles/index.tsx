@@ -72,6 +72,9 @@ export default makeStyles({
     backgroundColor: "black",
     transform: "translate(-50%, -50%)",
     position: "absolute" as "absolute",
+    "& .react-player": {
+      [theme.breakpoints.down("sm")]: { width: "100vw !important" },
+    },
   },
   appIconButton: {
     borderRadius: 4,
