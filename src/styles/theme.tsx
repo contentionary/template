@@ -44,13 +44,13 @@ export const theme = createTheme({
       fontWeight: 800,
       color: "#333333",
       lineHeight: 1.125,
-      fontSize: "clamp(2.5rem, -0.875rem + 8.333vw, 3.25rem)",
+      fontSize: "clamp(2rem, -0.875rem + 8.333vw, 3.25rem)",
     },
     h2: {
       fontWeight: 700,
       color: "#333333",
       lineHeight: 1.125,
-      fontSize: "clamp(2.2rem, -0.85rem + 8.333vw, 3rem)",
+      fontSize: "clamp(1.875rem, -0.85rem + 8.333vw, 3rem)",
     },
     h3: {
       fontWeight: 700,
