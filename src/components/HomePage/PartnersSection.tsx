@@ -17,11 +17,7 @@ const PartnersSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box
-        component="section"
-        sx={{ py: 8, px: { md: 4, xl: 0 } }}
-        className=""
-      >
+      <Box component="section" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Box sx={{ mb: 8, display: "flex", justifyContent: "center" }}>
             <Box maxWidth={400}>
@@ -48,12 +44,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -63,12 +59,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -78,12 +74,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -93,12 +89,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -108,12 +104,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -123,12 +119,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -138,12 +134,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -153,12 +149,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -168,12 +164,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -183,12 +179,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -198,12 +194,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -213,12 +209,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -230,12 +226,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -245,12 +241,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -260,12 +256,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -275,12 +271,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -290,12 +286,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -305,12 +301,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -320,12 +316,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -335,12 +331,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -350,12 +346,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -365,12 +361,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -380,12 +376,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"
@@ -395,12 +391,12 @@ const PartnersSection: HomePageFunc = () => {
               <Box
                 sx={{
                   position: "relative",
-                  width: 220,
+                  width: 245,
                 }}
               >
                 <Image
-                  width={210}
-                  height={30}
+                  width={245}
+                  height={35}
                   objectFit="contain"
                   layout="responsive"
                   alt="Contentionary"

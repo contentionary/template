@@ -15,13 +15,7 @@ export default class MyDocument extends Document {
   render(): ReactElement {
     return (
       <Html lang="en">
-        <Head>
-          {/* font */}
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

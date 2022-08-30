@@ -27,11 +27,7 @@ const StepSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box
-        component="section"
-        sx={{ py: 8, px: { md: 4, xl: 0 } }}
-        className=""
-      >
+      <Box component="section" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Grid container spacing={2} sx={{ alignItems: "center" }}>
             <Grid

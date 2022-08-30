@@ -41,7 +41,7 @@ const HeroSection: HomePageFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ pt: 4, pb: 8, px: { md: 4, xl: 0 } }}
+        sx={{ pt: 4, pb: 8, px: { md: 6 } }}
         className="hero-section"
       >
         <Container maxWidth="xl">
@@ -63,7 +63,7 @@ const HeroSection: HomePageFunc = () => {
                 alt="Contentionary"
               />
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} xl={8} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="h1"
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
@@ -74,7 +74,6 @@ const HeroSection: HomePageFunc = () => {
                   variant="h1"
                   component="span"
                   fontWeight={"inherit"}
-                  sx={{ whiteSpace: "nowrap" }}
                   className={globalStyle.textGradient}
                 >
                   Online Academy
@@ -171,8 +170,9 @@ const HeroSection: HomePageFunc = () => {
             </Grid>
             <Grid
               item
-              md={5}
               xs={12}
+              md={6}
+              xl={4}
               order={{ xs: 3, md: 3 }}
               sx={{
                 display: "flex",
@@ -185,7 +185,7 @@ const HeroSection: HomePageFunc = () => {
                   width: "100%",
                   minHeight: "auto",
                   position: "relative",
-                  padding: { xs: 2, sm: 3, lg: 4 },
+                  padding: { xs: 2, sm: 3 },
                 }}
               >
                 <ButtonBase
@@ -210,8 +210,7 @@ const HeroSection: HomePageFunc = () => {
                         }}
                       >
                         <PlayIcon className="MuiSvgFlip-root" fill="white" />
-                      </Avatar>{" "}
-                      Play Demo
+                      </Avatar>
                     </Typography>
                   </Box>
                 </ButtonBase>

@@ -33,8 +33,7 @@ const Header: HeaderFunc = () => {
         <AppBar
           component="nav"
           elevation={0}
-          sx={{ py: 1, px: { md: 4, xl: 0 } }}
-          className={globalStyle.bgWhiteGlossy}
+          sx={{ bgcolor: "white", py: 1, px: { md: 6 } }}
         >
           <Container maxWidth="xl">
             <Toolbar disableGutters>

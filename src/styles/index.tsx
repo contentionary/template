@@ -103,7 +103,7 @@ export default makeStyles({
     },
     "& .MuiTimelineItem-root .MuiTimelineConnector-root": {
       width: "1px",
-      backgroundColor: "#FBEEE6",
+      backgroundColor: "#E99C66",
     },
     "& .MuiTimelineItem-root .MuiTimelineContent-root": {
       paddingTop: 0,
@@ -114,7 +114,7 @@ export default makeStyles({
   marquee: {
     " --size": "clamp(10rem, 1rem + 40vmin, 30rem)",
     "--gap": "calc(var(--size) / 14)",
-    "--duration": "16s",
+    "--duration": "20s",
     "--scroll-start": 0,
     "--scroll-end": "calc(-100% - var(--gap))",
     gap: "var(--gap)",
@@ -124,8 +124,8 @@ export default makeStyles({
     maskImage: `linear-gradient(
       to right,
       hsl(0 0% 0% / 0),
-      hsl(0 0% 0% / 1) 20%,
-      hsl(0 0% 0% / 1) 80%,
+      hsl(0 0% 0% / 1) 10%,
+      hsl(0 0% 0% / 1) 90%,
       hsl(0 0% 0% / 0)
     )`,
     "& .marquee__content": {

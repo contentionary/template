@@ -17,7 +17,7 @@ const PromoSection: MarketPlaceFunc = () => {
   return (
     <Box
       component="section"
-      sx={{ py: 8, px: { md: 4, xl: 0 }, bgcolor: "#FFFCF8" }}
+      sx={{ py: 8, px: { md: 6 }, bgcolor: "#FFFCF8" }}
       className=""
     >
       <Container maxWidth="xl">

@@ -25,20 +25,28 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const testimonials = [
   {
-    img: "/images/testimonial-img.png",
-    name: "Mr. Ekpo Ekpo",
-    title: "Administrative Secretary",
-    address: "GRUEN International Schools, Elioparanwo, Port Harcourt",
+    img: "/images/testimonials/ekpo ekpo.jpeg",
+    name: "Mr. Ekpo Ekpo,",
+    title: "Administrative Secretary.",
+    address: "GRUEN International Schools, Elioparanwo, Port Harcourt.",
     testimony:
-      "Are you developing a product or managing an app? Implement any and all Contentionary’s feature Apps with just a few line of codes.",
+      "We used Contentionary during our First Term Examinations and it was successful. For the learners, it was an exciting new experience. For the teachers, it was a great relief from the stress of manually marking and grading learners' scripts.",
   },
   {
-    img: "/images/built-img.png",
-    name: "Mrs. Ekpo Ekpo",
-    title: "Administrative Secretary",
-    address: "GRUEN International Schools, Elioparanwo, Port Harcourt",
+    img: "/images/testimonials/stephen nebechi.jpg",
+    name: "Stephen Nebechi,",
+    title: "Head, Research and Operations.",
+    address: "Ace Coterie Consulting, Lagos State.",
     testimony:
-      "Are you developing a product or managing an app? Implement any and all Contentionary’s feature Apps with just a few line of codes.",
+      "Conducting exams on the Contentionary platform solved all our online exam needs. They have a very simple registration process, swiftly created exams, easy to upload,  easy-to-use and manage interface. The platform has simplified our examination process to a great extent.",
+  },
+  {
+    img: "/images/testimonials/indo.png",
+    name: "Onyebouha Eva,",
+    title: "Manager, Human Resources.",
+    address: "Indorama-Eleme Fertilizers and Chemicals Limited.",
+    testimony:
+      "Contentionary has revolutionized how to screen candidates. As a multinational company that needs the best to screen candidates for employment, Contentionary delivered far beyond expectations. Supervisors were able to monitor all exams in real time. Amazing team.",
   },
 ];
 
@@ -65,7 +73,7 @@ const TestimonialSection: HomePageFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ py: 0, px: { md: 4, xl: 0 }, bgcolor: "secondary.dark" }}
+        sx={{ py: 0, px: { md: 6 }, bgcolor: "secondary.dark" }}
         className=""
       >
         <Container maxWidth="xl">

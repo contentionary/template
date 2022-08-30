@@ -35,7 +35,7 @@ const HeroSection: MarketPlaceFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ pt: 4, px: { md: 4, xl: 0 }, pb: 8 }}
+        sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
         className="hero-section"
       >
         <Container maxWidth="xl">
@@ -72,7 +72,6 @@ const HeroSection: MarketPlaceFunc = () => {
                   variant="h1"
                   component="span"
                   fontWeight={"inherit"}
-                  sx={{ whiteSpace: "nowrap" }}
                   className={globalStyle.textGradient}
                 >
                   Preparatory
@@ -122,6 +121,7 @@ const HeroSection: MarketPlaceFunc = () => {
             <Grid
               item
               md={5}
+              xl={5}
               xs={12}
               order={{ xs: 3, md: 3 }}
               sx={{
@@ -135,7 +135,7 @@ const HeroSection: MarketPlaceFunc = () => {
                   width: "100%",
                   minHeight: "auto",
                   position: "relative",
-                  padding: { xs: 2, sm: 3, lg: 4 },
+                  padding: { xs: 2, sm: 3 },
                 }}
               >
                 <ButtonBase
@@ -160,8 +160,7 @@ const HeroSection: MarketPlaceFunc = () => {
                         }}
                       >
                         <PlayIcon className="MuiSvgFlip-root" fill="white" />
-                      </Avatar>{" "}
-                      Play Demo
+                      </Avatar>
                     </Typography>
                   </Box>
                 </ButtonBase>

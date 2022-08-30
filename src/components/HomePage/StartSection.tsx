@@ -38,7 +38,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
     <Fragment>
       <Box
         component="section"
-        sx={{ py: 8, px: { md: 4, xl: 0 }, bgcolor: "#FFFCF8" }}
+        sx={{ py: 8, px: { md: 6 }, bgcolor: "#FFFCF8" }}
       >
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -92,11 +92,20 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={4} sx={{ alignItems: "center", mb: 8 }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              mb: 8,
+            }}
+          >
             <Grid
               item
-              md={6}
               xs={12}
+              md={6}
+              lg={5}
               order={{ xs: 2, md: 1 }}
               sx={{
                 display: "flex",
@@ -117,7 +126,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 </SyntaxHighlighter>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} lg={5} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="caption"
                 display="block"

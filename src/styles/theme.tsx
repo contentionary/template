@@ -78,6 +78,82 @@ export const theme = createTheme({
     body2: {
       color: "#616161",
     },
-    fontFamily: ["'Roboto'", "sans-serif"].join(","),
+    fontFamily: ["'Matter'", "sans-serif"].join(","),
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `@font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-Bold.otf') format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-BoldItalic.otf') format("truetype");
+        font-weight: 700;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-Heavy.otf') format("truetype");
+        font-weight: 900;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-HeavyItalic.otf') format("truetype");
+        font-weight: 900;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-Light.otf') format("truetype");
+        font-weight: 300;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-LightItalic.otf') format("truetype");
+        font-weight: 300;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-Medium.otf') format("truetype");
+        font-weight: 500;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-MediumItalic.otf') format("truetype");
+        font-weight: 500;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-Regular.otf') format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-RegularItalic.otf') format("truetype");
+        font-weight: 400;
+        font-style: italic;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-SemiBold.otf') format("truetype");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: 'Matter';
+        src: url('/fonts/matter/Matter-SemiBoldItalic.otf') format("truetype");
+        font-weight: 600;
+        font-style: italic;
+      }`,
+    },
   },
 });

@@ -41,11 +41,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
 
   return (
     <Fragment>
-      <Box
-        component="section"
-        sx={{ py: 8, px: { md: 4, xl: 0 } }}
-        className=""
-      >
+      <Box component="section" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>
@@ -73,12 +69,12 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
           <Grid
             container
             spacing={2}
-            sx={{ alignItems: "center", justifyContent: "space-between" }}
+            sx={{ alignItems: "center", justifyContent: "center" }}
           >
             <Grid
               item
-              md={5}
-              sm={6}
+              md={6}
+              lg={5}
               xs={12}
               order={{ xs: 2, md: 1 }}
               sx={{
@@ -97,7 +93,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               >
                 <Image
                   width="100%"
-                  height="100%"
+                  height="80%"
                   objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
@@ -105,7 +101,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 />
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} lg={5} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="caption"
                 display="block"
@@ -148,8 +144,12 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </NextLink>
             </Grid>
           </Grid>
-          <Grid container spacing={2} sx={{ alignItems: "center", mb: 8 }}>
-            <Grid item xs={12} md={6}>
+          <Grid
+            container
+            spacing={2}
+            sx={{ alignItems: "center", justifyContent: "center", mb: 8 }}
+          >
+            <Grid item xs={12} md={6} lg={5}>
               <Typography
                 variant="caption"
                 display="block"
@@ -196,8 +196,9 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
             </Grid>
             <Grid
               item
-              md={6}
               xs={12}
+              md={6}
+              lg={5}
               sx={{
                 display: "flex",
                 justifyContent: "center",

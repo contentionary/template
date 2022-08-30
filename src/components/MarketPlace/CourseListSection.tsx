@@ -28,7 +28,7 @@ const CourseListSection: MarketPlaceFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ pt: 4, px: { md: 4, xl: 0 }, pb: 8 }}
+        sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
         className="hero-section"
       >
         <Container maxWidth="xl">

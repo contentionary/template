@@ -31,7 +31,7 @@ const Footer: FooterFunc = () => {
 
   return (
     <Fragment>
-      <Box component="footer" sx={{ py: 8, px: { md: 4, xl: 0 } }} className="">
+      <Box component="footer" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4} order={{ xs: 3, md: 1 }}>
