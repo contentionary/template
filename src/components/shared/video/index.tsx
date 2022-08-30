@@ -28,7 +28,11 @@ const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen }) => {
     >
       <Fade in={isOpen}>
         <Box className={globalStyle.modalStyle}>
-          <ReactPlayer playing={isOpen} url="https://youtu.be/TT-oVoZgdX0" />
+          <ReactPlayer
+            controls={false}
+            playing={isOpen}
+            url="https://youtu.be/TT-oVoZgdX0"
+          />
         </Box>
       </Fade>
     </Modal>

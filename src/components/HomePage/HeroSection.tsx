@@ -120,7 +120,7 @@ const HeroSection: HomePageFunc = () => {
                   <Button
                     size="large"
                     variant="outlined"
-                    component={MuiLink}
+                    onClick={handleOpenVideo}
                     sx={{
                       borderWidth: 2,
                       ":hover": {
@@ -133,7 +133,7 @@ const HeroSection: HomePageFunc = () => {
                       height: { xs: "100%", sm: "42.24px" },
                     }}
                   >
-                    <Hidden smUp>Play Demo </Hidden> <PlayIcon />
+                    <Hidden smUp>Play Demo &nbsp;</Hidden> <PlayIcon />
                   </Button>
                 </NextLink>
               </Stack>
