@@ -73,22 +73,34 @@ const Header: HeaderFunc = () => {
                           Resources
                         </Button>
                       </NextLink>
-                      <NextLink href="/pricing" passHref>
+                      <NextLink
+                        href="https://web.contentionary.com/pricing"
+                        passHref
+                      >
                         <Button component={MuiLink} sx={{ color: "#616161" }}>
                           Pricing
                         </Button>
                       </NextLink>
-                      <NextLink href="/marketplace" passHref>
+                      <NextLink
+                        href="https://web.contentionary.com/market-place"
+                        passHref
+                      >
                         <Button component={MuiLink} sx={{ color: "#616161" }}>
                           Marketplace
                         </Button>
                       </NextLink>
                     </Stack>
                     <Stack direction="row" spacing={2} alignItems="center">
-                      <NextLink href="/login" passHref>
+                      <NextLink
+                        href="https://web.contentionary.com/login"
+                        passHref
+                      >
                         <MuiLink>Login</MuiLink>
                       </NextLink>
-                      <NextLink href="/create-account" passHref>
+                      <NextLink
+                        href="https://web.contentionary.com/create-account"
+                        passHref
+                      >
                         <Button
                           size="large"
                           disableElevation

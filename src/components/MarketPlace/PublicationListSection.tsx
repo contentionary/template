@@ -15,7 +15,6 @@ import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link as MuiLink } from "@mui/material";
 //
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 //
 import useGlobalStyle from "@src/styles";

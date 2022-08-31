@@ -94,17 +94,20 @@ const Footer: FooterFunc = () => {
                 <Typography variant="h6" gutterBottom>
                   Company
                 </Typography>
-                <NextLink href="/about" passHref>
+                <NextLink href="https://web.contentionary.com/about" passHref>
                   <MuiLink underline="hover" color="inherit">
                     About us
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/features" passHref>
+                <NextLink
+                  href="https://web.contentionary.com/features"
+                  passHref
+                >
                   <MuiLink underline="hover" color="inherit">
                     Features
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="https://web.contentionary.com/pricing" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Pricing
                   </MuiLink>
@@ -114,17 +117,26 @@ const Footer: FooterFunc = () => {
                 <Typography mt={3} variant="h6" gutterBottom>
                   Legal
                 </Typography>
-                <NextLink href="/privacy-policy" passHref>
+                <NextLink
+                  href="https://web.contentionary.com/privacy-policy"
+                  passHref
+                >
                   <MuiLink underline="hover" color="inherit">
                     Privacy Policy
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/intellectual-property" passHref>
+                <NextLink
+                  href="https://web.contentionary.com/intellectual-property"
+                  passHref
+                >
                   <MuiLink underline="hover" color="inherit">
                     Intellectual Property
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/terms-of-service" passHref>
+                <NextLink
+                  href="https://web.contentionary.com/terms-of-service"
+                  passHref
+                >
                   <MuiLink underline="hover" color="inherit">
                     Terms of use
                   </MuiLink>
@@ -136,23 +148,29 @@ const Footer: FooterFunc = () => {
                 <Typography variant="h6" gutterBottom>
                   General
                 </Typography>
-                <NextLink href="/create-account" passHref>
+                <NextLink
+                  href="https://web.contentionary.com/create-account"
+                  passHref
+                >
                   <MuiLink underline="hover" color="inherit">
                     Sign up
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="https://web.contentionary.com/login" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Developer’s tools
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/login" passHref>
+                <NextLink href="https://web.contentionary.com/login" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Create a centre
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/marketplace" passHref>
-                  <MuiLink underline="hover" color="inherit">
+                <NextLink
+                  href="https://web.contentionary.com/market-place"
+                  passHref
+                >
+                  <MuiLink underline="hover" target="_blank" color="inherit">
                     Marketplace
                   </MuiLink>
                 </NextLink>
@@ -174,6 +192,7 @@ const Footer: FooterFunc = () => {
                 >
                   <IconButton
                     size="small"
+                    target="_blank"
                     className={globalStyle.appIconButton}
                     component={MuiLink}
                   >
@@ -186,6 +205,7 @@ const Footer: FooterFunc = () => {
                 >
                   <IconButton
                     size="small"
+                    target="_blank"
                     className={globalStyle.appIconButton}
                     component={MuiLink}
                   >
@@ -198,6 +218,7 @@ const Footer: FooterFunc = () => {
                 >
                   <IconButton
                     size="small"
+                    target="_blank"
                     className={globalStyle.appIconButton}
                     component={MuiLink}
                   >
@@ -207,6 +228,7 @@ const Footer: FooterFunc = () => {
                 <NextLink href="https://twitter.com/Contentionary/" passHref>
                   <IconButton
                     size="small"
+                    target="_blank"
                     className={globalStyle.appIconButton}
                     component={MuiLink}
                   >

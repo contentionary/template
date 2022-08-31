@@ -164,7 +164,10 @@ const StepSection: HomePageFunc = () => {
                   </TimelineItem>
                 </Timeline>
               </div>
-              <NextLink href="/create-account" passHref>
+              <NextLink
+                href="https://web.contentionary.com/create-account"
+                passHref
+              >
                 <Button
                   size="large"
                   disableElevation

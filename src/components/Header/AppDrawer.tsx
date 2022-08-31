@@ -66,28 +66,34 @@ const AppDrawer = () => {
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="/pricing" passHref>
+            <NextLink href="https://web.contentionary.com/pricing" passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Pricing</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="/marketplace" passHref>
+            <NextLink
+              href="https://web.contentionary.com/market-place"
+              passHref
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Marketplace</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="/login" passHref>
+            <NextLink href="https://web.contentionary.com/login" passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Login</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="/create-account" passHref>
+            <NextLink
+              href="https://web.contentionary.com/create-account"
+              passHref
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Create Account</ListItemText>

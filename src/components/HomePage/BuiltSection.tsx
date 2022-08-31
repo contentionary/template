@@ -12,11 +12,9 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
-//
+// components and styles
 import useGlobalStyle from "@src/styles";
-//
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import CodeHighlighter from "@src/components/shared/CodeHighlighter";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -27,17 +25,6 @@ import InfinityIcon from "@src/assets/icons/infinity.svg";
 
 const BuiltSection: HomePageFunc = () => {
   const globalStyle = useGlobalStyle();
-  //
-  const codeString = `const africa1 = require(‘stripe’)(‘sk_test_BQoikJ’)
-
-await africa1.paymentIntents.create({
-    amount: 2000,
-    currency: ‘usd’
-});
-var service = new PaymentIntentService();
-var paymentIntent = service.Create(options);
-
-service.Confirm(paymentIntent.Id, confirmOptions);`;
 
   return (
     <Fragment>
@@ -126,7 +113,10 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 contentionary. If you don’t have a domain you can choose a
                 subdomain that best suit your business name.
               </Typography>
-              <NextLink href="/create-account" passHref>
+              <NextLink
+                href="https://web.contentionary.com/create-account"
+                passHref
+              >
                 <Button
                   size="large"
                   disableElevation
@@ -177,7 +167,10 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                   <MuiLink>Read more...</MuiLink>
                 </NextLink>
               </Typography>
-              <NextLink href="/create-account" passHref>
+              <NextLink
+                href="https://web.contentionary.com/create-account"
+                passHref
+              >
                 <Button
                   size="large"
                   disableElevation
@@ -208,17 +201,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 elevation={0}
                 sx={{ padding: { xs: 2, sm: 3, lg: 4 }, bgcolor: "#FFFCF8" }}
               >
-                <SyntaxHighlighter
-                  language="javascript"
-                  style={a11yDark}
-                  lineProps={{
-                    style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-                  }}
-                  showLineNumbers={true}
-                  wrapLines={true}
-                >
-                  {codeString}
-                </SyntaxHighlighter>
+                <CodeHighlighter />
               </Paper>
             </Grid>
           </Grid>
