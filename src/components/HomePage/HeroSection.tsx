@@ -63,7 +63,7 @@ const HeroSection: HomePageFunc = () => {
                 alt="Contentionary"
               />
             </Grid>
-            <Grid item xs={12} md={6} xl={8} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} lg={6} xl={6} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="h1"
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
@@ -172,6 +172,7 @@ const HeroSection: HomePageFunc = () => {
               item
               xs={12}
               md={6}
+              lg={5}
               xl={4}
               order={{ xs: 3, md: 3 }}
               sx={{

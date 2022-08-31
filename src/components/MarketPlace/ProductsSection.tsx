@@ -40,7 +40,7 @@ const ProductsSection: MarketPlaceFunc = () => {
             component="h2"
             sx={{ textAlign: "center" }}
           >
-            &middot; WHAT WE OFFER &middot;
+            &middot; What we Offer &middot;
           </Typography>
           <Grid
             container

@@ -42,27 +42,32 @@ const AppDrawer = () => {
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          <Box sx={{ px: 2, py: 1 }}>
+          <Box sx={{ px: 2, py: 1.5 }}>
             <Image
               src={ContentionaryLogo}
               alt="Contentionary logo"
-              width={180}
-              height={33}
+              width={210}
+              height={40}
             />
           </Box>
           <Divider />
           <List>
-            {["Course", "Exams", "About Us", "Login", "Signup"].map(
-              (page, index) => (
-                <NextLink href={`/#${page}`} passHref key={index}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <ListItemText>{page}</ListItemText>
-                    </ListItemIcon>
-                  </ListItemButton>
-                </NextLink>
-              )
-            )}
+            {[
+              "Apps",
+              "Resources",
+              "Pricing",
+              "Marketplace",
+              "Login",
+              "Signup",
+            ].map((page, index) => (
+              <NextLink href={`/#${page}`} passHref key={index}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ListItemText>{page}</ListItemText>
+                  </ListItemIcon>
+                </ListItemButton>
+              </NextLink>
+            ))}
           </List>
         </Box>
       </Drawer>

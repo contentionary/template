@@ -1,35 +1,31 @@
 import React, { Fragment } from "react";
 // next
 import Image from "next/image";
-// import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
+import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
+import AvatarGroup from "@mui/material/AvatarGroup";
 import OutlinedInput from "@mui/material/OutlinedInput";
 //
 // import { useTheme } from "@mui/material/styles";
 //
 import useGlobalStyle from "@src/styles";
-import useButtonStyle from "@src/styles/button";
+import useCardStyle from "@src/styles/card";
 // app components
-import VideoModal from "@src/components/shared/video";
 // icons
-import PlayIcon from "@src/assets/icons/play.svg";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface
 import { MarketPlaceFunc } from "./interfaceType";
 
 const HeroSection: MarketPlaceFunc = () => {
   // const theme = useTheme();
-  const [openVideo, setOpenVideo] = React.useState(false);
-  const buttonStyle = useButtonStyle();
+  const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  //
-  const handleOpenVideo = () => setOpenVideo(true);
 
   return (
     <Fragment>
@@ -61,7 +57,7 @@ const HeroSection: MarketPlaceFunc = () => {
                 alt="Contentionary"
               />
             </Grid>
-            <Grid item xs={12} md={7} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="h1"
                 sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
@@ -118,58 +114,79 @@ const HeroSection: MarketPlaceFunc = () => {
                 </Button>
               </Stack>
             </Grid>
-            <Grid
-              item
-              md={5}
-              xl={5}
-              xs={12}
-              order={{ xs: 3, md: 3 }}
-              sx={{
-                display: "flex",
-                justifyContent: { xs: "center", md: "end" },
-              }}
-            >
+            <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
               <Box
-                className={globalStyle.bgArtifact}
                 sx={{
-                  width: "100%",
-                  minHeight: "auto",
-                  position: "relative",
-                  padding: { xs: 2, sm: 3 },
+                  display: "flex",
+                  justifyContent: "center",
                 }}
+                className={cardStyle.breathCard}
               >
-                <ButtonBase
-                  focusRipple
-                  onClick={handleOpenVideo}
-                  className={buttonStyle.imageButton}
+                <Paper
+                  sx={{ maxWidth: 240, borderRadius: "20px !important" }}
+                  className="left"
                 >
-                  <Box
-                    component="span"
-                    className="MuiImageBase-root"
-                    sx={{
-                      backgroundImage: "url(/images/hero-img.png)",
-                    }}
-                  />
-                  <Box component="span" className="MuiImageBackdrop-root" />
-                  <Box component="span" className="MuiImageFlex-root">
-                    <Typography component="h5" variant="h5" color="inherit">
-                      <Avatar
-                        sx={{
-                          backgroundColor: "transparent",
-                          border: "2px solid white",
-                        }}
-                      >
-                        <PlayIcon className="MuiSvgFlip-root" fill="white" />
-                      </Avatar>
-                    </Typography>
+                  <Typography variant="h5" component="h5">
+                    Learn from best{" "}
+                    <Typography
+                      variant="h5"
+                      component="span"
+                      color="primary.main"
+                      fontWeight={"inherit"}
+                    >
+                      instructors
+                    </Typography>{" "}
+                    around the globe Explore Top
+                  </Typography>
+                  <Box maxWidth={200} mx="auto" mt={2}>
+                    <AvatarGroup max={5} total={100}>
+                      {Array.from({ length: 8 }).map((_, index) => (
+                        <Avatar
+                          key={`${index}-avatar`}
+                          sx={{
+                            mx: "auto",
+                            bgcolor: "#FBEEE6",
+                          }}
+                        >
+                          <PersonOutlineOutlinedIcon color="primary" />
+                        </Avatar>
+                      ))}
+                    </AvatarGroup>
                   </Box>
-                </ButtonBase>
+                </Paper>
+                <Paper
+                  sx={{ maxWidth: 160, top: "70% !important" }}
+                  className="right"
+                >
+                  <Avatar
+                    sx={{
+                      mx: "auto",
+                      bgcolor: "#FBEEE6",
+                    }}
+                  >
+                    <PersonOutlineOutlinedIcon color="primary" />
+                  </Avatar>
+                  <Typography variant="h4" component="h5" color="primary">
+                    15K
+                  </Typography>
+                  <Typography variant="h6" component="h5">
+                    Amazing students around the globe
+                  </Typography>
+                </Paper>
+                <Box
+                  className="breath-img-container"
+                  sx={{
+                    width: "70% !important",
+                    "&::before": {
+                      backgroundImage: "url(/images/publication-img.jpg)",
+                    },
+                  }}
+                ></Box>
               </Box>
             </Grid>
           </Grid>
         </Container>
       </Box>
-      <VideoModal isOpen={openVideo} setIsOpen={setOpenVideo} />
     </Fragment>
   );
 };

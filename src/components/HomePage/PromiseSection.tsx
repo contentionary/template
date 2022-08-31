@@ -18,37 +18,17 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 //
 import List from "@mui/material/List";
-import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-//
+// component and styles
+import TickAvatar from "@src/components/shared/TickAvatar";
 import useGlobalStyle from "@src/styles";
 // import { useTheme } from "@mui/material/styles";
 // interface
 import { HomePageFunc } from "./interfaceType";
-// icons
-import TickIcon from "@src/assets/icons/tick.svg";
-
-//
-const TickAvatar = () => {
-  // const theme = useTheme();
-  return (
-    <Avatar
-      sx={{
-        bgcolor: "#EEB389",
-        width: 24,
-        height: 24,
-        mr: 2,
-      }}
-    >
-      <TickIcon style={{ transform: "scale(2)" }} />
-    </Avatar>
-  );
-};
 
 const PromiseSection: HomePageFunc = () => {
   const [value, setValue] = React.useState("1");
-
   // const theme = useTheme();
   const globalStyle = useGlobalStyle();
 

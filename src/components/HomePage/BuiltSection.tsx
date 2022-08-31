@@ -68,7 +68,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
           </Box>
           <Grid
             container
-            spacing={2}
+            spacing={4}
             sx={{ alignItems: "center", justifyContent: "center" }}
           >
             <Grid
@@ -146,7 +146,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
           </Grid>
           <Grid
             container
-            spacing={2}
+            spacing={4}
             sx={{ alignItems: "center", justifyContent: "center", mb: 8 }}
           >
             <Grid item xs={12} md={6} lg={5}>

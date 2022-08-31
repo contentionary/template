@@ -20,7 +20,7 @@ import useCardStyle from "@src/styles/card";
 // interface
 import { MarketPlaceFunc } from "./interfaceType";
 
-const CourseListSection: MarketPlaceFunc = () => {
+const PublicationListSection: MarketPlaceFunc = () => {
   const cardStyle = useCardStyle();
   // const globalStyle = useGlobalStyle();
 
@@ -38,16 +38,16 @@ const CourseListSection: MarketPlaceFunc = () => {
             component="h2"
             sx={{ textAlign: { xs: "center", md: "left" } }}
           >
-            Explore{" "}
+            Top{" "}
             <Typography
               variant="h4"
               component="span"
               color="primary.main"
               fontWeight={"inherit"}
             >
-              Top Online
+              Featured Publications
             </Typography>{" "}
-            Courses From Highly Qualified Educators
+            From Experts
           </Typography>
           <Grid container spacing={{ xs: 2, md: 3, lg: 4 }}>
             {Array.from({ length: 4 }).map((_, index) => (
@@ -156,4 +156,4 @@ const CourseListSection: MarketPlaceFunc = () => {
   );
 };
 
-export default CourseListSection;
+export default PublicationListSection;

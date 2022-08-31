@@ -6,6 +6,9 @@ import NextLink from "next/link";
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { Link as MuiLink } from "@mui/material";
@@ -17,8 +20,11 @@ import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
-//
+// styles and components
 import useGlobalStyle from "@src/styles";
+// icons
+import UserAddIcon from "@src/assets/icons/user-add.svg";
+import StatusIcon from "@src/assets/icons/status.svg";
 // interface
 import { HomePageFunc } from "./interfaceType";
 
@@ -42,15 +48,60 @@ const StepSection: HomePageFunc = () => {
             >
               <Box
                 sx={{
+                  p: { xs: 2 },
+                  borderRadius: 2,
+                  bgcolor: "#F8E4D3",
                   position: "relative",
-                  height: "auto",
-                  width: { xs: "100%", md: "80%" },
+                  width: { xs: "100%", md: "70%" },
+                  height: { xs: "100%", md: "60%" },
                 }}
               >
+                <Paper
+                  sx={{
+                    p: 1,
+                    zIndex: 1,
+                    width: 180,
+                    left: "1.25rem",
+                    bottom: "1.25rem",
+                    position: "absolute",
+                  }}
+                  className="right"
+                >
+                  <Stack
+                    mb={2}
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="start"
+                  >
+                    <Typography variant="h6" component="h5">
+                      Total Users
+                    </Typography>
+                    <StatusIcon />
+                  </Stack>
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Avatar
+                      variant="rounded"
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        bgcolor: "primary.main",
+                      }}
+                    >
+                      <UserAddIcon fill="white" />
+                    </Avatar>
+                    <Typography
+                      variant="h5"
+                      component="h5"
+                      color="secondary.light"
+                    >
+                      12,000
+                    </Typography>
+                  </Stack>
+                </Paper>
                 <Image
                   width="100%"
-                  height="96%"
-                  objectFit="contain"
+                  height="90%"
+                  objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
                   src="/images/step-img.png"
