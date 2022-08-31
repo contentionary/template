@@ -52,14 +52,20 @@ const AppDrawer = () => {
           </Box>
           <Divider />
           <List>
-            <NextLink href="/#apps" passHref>
+            <NextLink
+              href="https://web.contentionary.com/features/online-learning-video-and-audio"
+              passHref
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Apps</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="/#Resources" passHref>
+            <NextLink
+              href="https://www.contentionary.group/resources/creating-a-centre"
+              passHref
+            >
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Resources</ListItemText>
