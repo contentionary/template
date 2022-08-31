@@ -52,22 +52,48 @@ const AppDrawer = () => {
           </Box>
           <Divider />
           <List>
-            {[
-              "Apps",
-              "Resources",
-              "Pricing",
-              "Marketplace",
-              "Login",
-              "Signup",
-            ].map((page, index) => (
-              <NextLink href={`/#${page}`} passHref key={index}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <ListItemText>{page}</ListItemText>
-                  </ListItemIcon>
-                </ListItemButton>
-              </NextLink>
-            ))}
+            <NextLink href="/#apps" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Apps</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+            <NextLink href="/#Resources" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Resources</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+            <NextLink href="/pricing" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Pricing</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+            <NextLink href="/marketplace" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Marketplace</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+            <NextLink href="/login" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Login</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+            <NextLink href="/create-account" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Create Account</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
           </List>
         </Box>
       </Drawer>
