@@ -21,7 +21,7 @@ const cardStyle = makeStyles({
       },
     },
     "&.MuiBox-root .breath-img-container": {
-      borderRadius: 8,
+      borderRadius: "1rem",
       width: "85%",
       height: "450px",
       position: "relative",

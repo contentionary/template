@@ -123,13 +123,13 @@ const HeroSection: MarketPlaceFunc = () => {
                 className={cardStyle.breathCard}
               >
                 <Paper
-                  sx={{ maxWidth: 240, borderRadius: "20px !important" }}
+                  sx={{ maxWidth: 180, borderRadius: "20px !important" }}
                   className="left"
                 >
-                  <Typography variant="h5" component="h5">
+                  <Typography variant="subtitle2">
                     Learn from best{" "}
                     <Typography
-                      variant="h5"
+                      variant="subtitle2"
                       component="span"
                       color="primary.main"
                       fontWeight={"inherit"}
@@ -138,13 +138,12 @@ const HeroSection: MarketPlaceFunc = () => {
                     </Typography>{" "}
                     around the globe Explore Top
                   </Typography>
-                  <Box maxWidth={200} mx="auto" mt={2}>
-                    <AvatarGroup max={5} total={100}>
-                      {Array.from({ length: 8 }).map((_, index) => (
+                  <Box maxWidth={140} mx="auto" mt={2}>
+                    <AvatarGroup max={4} total={100}>
+                      {Array.from({ length: 5 }).map((_, index) => (
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            mx: "auto",
                             bgcolor: "#FBEEE6",
                           }}
                         >
@@ -155,7 +154,7 @@ const HeroSection: MarketPlaceFunc = () => {
                   </Box>
                 </Paper>
                 <Paper
-                  sx={{ maxWidth: 160, top: "70% !important" }}
+                  sx={{ maxWidth: 140, top: "75% !important" }}
                   className="right"
                 >
                   <Avatar
@@ -166,10 +165,10 @@ const HeroSection: MarketPlaceFunc = () => {
                   >
                     <PersonOutlineOutlinedIcon color="primary" />
                   </Avatar>
-                  <Typography variant="h4" component="h5" color="primary">
+                  <Typography variant="h5" component="h5" color="primary">
                     15K
                   </Typography>
-                  <Typography variant="h6" component="h5">
+                  <Typography variant="subtitle2">
                     Amazing students around the globe
                   </Typography>
                 </Paper>
@@ -177,8 +176,9 @@ const HeroSection: MarketPlaceFunc = () => {
                   className="breath-img-container"
                   sx={{
                     width: "70% !important",
+                    borderRadius: "1.5rem !important",
                     "&::before": {
-                      backgroundImage: "url(/images/publication-img.jpg)",
+                      backgroundImage: "url(/images/online-class1-img.jpg)",
                     },
                   }}
                 ></Box>
