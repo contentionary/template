@@ -24,8 +24,11 @@ const cardStyle = makeStyles({
       borderRadius: "1rem",
       width: "85%",
       height: "450px",
-      position: "relative",
       overflow: "hidden",
+      position: "relative",
+      isolation: "isolate",
+      transform: "translateZ(0)",
+      "-webkit-mask-image": "-webkit-radial-gradient(white, black)",
       "&::before": {
         content: "''",
         left: 0,
