@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 // interface
 import { HomePageFunc } from "./interfaceType";
 // icons
@@ -18,12 +18,12 @@ import ShopAddIcon from "@src/assets/icons/shop-add.svg";
 import MedalStarIcon from "@src/assets/icons/medal-star.svg";
 
 const CenterSection: HomePageFunc = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8 }} className="">
+      <Box component="section" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Typography
             variant="caption"
@@ -43,8 +43,8 @@ const CenterSection: HomePageFunc = () => {
           >
             What you can do with your centre
           </Typography>
-          <Grid container spacing={4}>
-            <Grid item md={6} xs={12}>
+          <Grid container spacing={{ xs: 4, sm: 2, md: 4 }}>
+            <Grid item sm={6} md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <TeacherIcon />
@@ -52,14 +52,14 @@ const CenterSection: HomePageFunc = () => {
                 <Typography variant="h5" gutterBottom>
                   As an Academy
                 </Typography>
-                <Typography paragraph mb={0}>
+                <Typography paragraph mb={0} sx={{ maxWidth: 400 }}>
                   Upload your contents and allow your students to access them
                   for a fee or with an access code, conduct remote exams with
                   online supervision and issue online certification.
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item sm={6} md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <BookIcon />
@@ -67,14 +67,14 @@ const CenterSection: HomePageFunc = () => {
                 <Typography variant="h5" gutterBottom>
                   As an Exam Centre:
                 </Typography>
-                <Typography paragraph mb={0}>
+                <Typography paragraph mb={0} sx={{ maxWidth: 400 }}>
                   Set remote exams for your students, host screening test with
                   instant marking, multiple question types, online supervision,
                   questions randomization and many more super features.
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item sm={6} md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <ShopAddIcon />
@@ -82,14 +82,14 @@ const CenterSection: HomePageFunc = () => {
                 <Typography variant="h5" gutterBottom>
                   As a Marketplace
                 </Typography>
-                <Typography paragraph mb={0}>
+                <Typography paragraph mb={0} sx={{ maxWidth: 400 }}>
                   Trade contents to your subscribers via your Centre. Online
                   courses, exam preparatory questions, ebooks, podcasts and
                   other publications. Prices for contents are decided by you.
                 </Typography>
               </Paper>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item sm={6} md={6} xs={12}>
               <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                 <Avatar sx={{ bgcolor: "#FBEEE6" }} variant="rounded">
                   <MedalStarIcon />
@@ -97,7 +97,7 @@ const CenterSection: HomePageFunc = () => {
                 <Typography variant="h5" gutterBottom>
                   As an Edu-Game Application:
                 </Typography>
-                <Typography paragraph mb={0}>
+                <Typography paragraph mb={0} sx={{ maxWidth: 400 }}>
                   Use your centre to engage your audience. Host online
                   competitions for your subscribers to participate and win
                   prices. Invite candidates to the competition and configure

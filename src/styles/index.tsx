@@ -14,6 +14,17 @@ export default makeStyles({
       transform: "translateX(var(--scroll-end))",
     },
   },
+
+  hiddenScrollbar: {
+    "-ms-overflow-style": "none",
+    "scrollbar-color": "transparent transparent",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "& ::-moz-scrollbar": {
+      display: "none",
+    },
+  },
   bgPrimary: {
     backgroundColor: theme.palette.primary.main,
   },
@@ -44,10 +55,26 @@ export default makeStyles({
   paperShadow: {
     boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
   },
+  paperShadowSm: {
+    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+  },
   textGradient: {
     background: appGradient,
     ["-webkit-background-clip"]: "text",
     ["-webkit-text-fill-color"]: "transparent",
+  },
+  modalStyle: {
+    top: "50%",
+    left: "50%",
+    maxWidth: "100%",
+    boxShadow:
+      "rgb(0 0 0 / 20%) 0px 11px 15px -7px, rgb(0 0 0 / 14%) 0px 24px 38px 3px, rgb(0 0 0 / 12%) 0px 9px 46px 8px",
+    backgroundColor: "black",
+    transform: "translate(-50%, -50%)",
+    position: "absolute" as "absolute",
+    "& .react-player": {
+      [theme.breakpoints.down("sm")]: { width: "100vw !important" },
+    },
   },
   appIconButton: {
     borderRadius: 4,
@@ -76,7 +103,7 @@ export default makeStyles({
     },
     "& .MuiTimelineItem-root .MuiTimelineConnector-root": {
       width: "1px",
-      backgroundColor: "#FBEEE6",
+      backgroundColor: "#E99C66",
     },
     "& .MuiTimelineItem-root .MuiTimelineContent-root": {
       paddingTop: 0,
@@ -87,7 +114,7 @@ export default makeStyles({
   marquee: {
     " --size": "clamp(10rem, 1rem + 40vmin, 30rem)",
     "--gap": "calc(var(--size) / 14)",
-    "--duration": "60s",
+    "--duration": "20s",
     "--scroll-start": 0,
     "--scroll-end": "calc(-100% - var(--gap))",
     gap: "var(--gap)",
@@ -97,8 +124,8 @@ export default makeStyles({
     maskImage: `linear-gradient(
       to right,
       hsl(0 0% 0% / 0),
-      hsl(0 0% 0% / 1) 20%,
-      hsl(0 0% 0% / 1) 80%,
+      hsl(0 0% 0% / 1) 10%,
+      hsl(0 0% 0% / 1) 90%,
       hsl(0 0% 0% / 0)
     )`,
     "& .marquee__content": {

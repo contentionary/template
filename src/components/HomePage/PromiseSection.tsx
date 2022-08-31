@@ -18,38 +18,18 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 //
 import List from "@mui/material/List";
-import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-//
+// component and styles
+import TickAvatar from "@src/components/shared/TickAvatar";
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 // interface
 import { HomePageFunc } from "./interfaceType";
-// icons
-import TickIcon from "@src/assets/icons/tick.svg";
-
-//
-const TickAvatar = () => {
-  const theme = useTheme();
-  return (
-    <Avatar
-      sx={{
-        bgcolor: "#EEB389",
-        width: 24,
-        height: 24,
-        mr: 2,
-      }}
-    >
-      <TickIcon style={{ transform: "scale(2)" }} />
-    </Avatar>
-  );
-};
 
 const PromiseSection: HomePageFunc = () => {
   const [value, setValue] = React.useState("1");
-
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
 
   //
@@ -59,7 +39,10 @@ const PromiseSection: HomePageFunc = () => {
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8, bgcolor: "#FFFCF8" }}>
+      <Box
+        component="section"
+        sx={{ py: 8, px: { md: 6 }, bgcolor: "#FFFCF8" }}
+      >
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>
@@ -87,7 +70,7 @@ const PromiseSection: HomePageFunc = () => {
             </Box>
           </Box>
           <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Box>
               <TabList
                 onChange={handleChange}
                 textColor="inherit"
@@ -95,6 +78,22 @@ const PromiseSection: HomePageFunc = () => {
                 scrollButtons="auto"
                 allowScrollButtonsMobile
                 aria-label="lab API tabs example"
+                sx={{
+                  "&.MuiTabs-root": {
+                    maxWidth: 1100,
+                    justifyContent: "center",
+                    borderBottom: 1,
+                    borderColor: "divider",
+                    mx: "auto",
+                  },
+                  "& .MuiTabs-flexContainer": {
+                    justifyContent: "space-between",
+                    gap: 4,
+                  },
+                  "& .MuiTabScrollButton-root": {
+                    "&.Mui-disabled": { opacity: 0.3 },
+                  },
+                }}
               >
                 <Tab label="Build your centre" value="1" />
                 <Tab label="Measure performance" value="2" />
@@ -105,8 +104,12 @@ const PromiseSection: HomePageFunc = () => {
               </TabList>
             </Box>
             <TabPanel sx={{ px: 0 }} value="1">
-              <Grid container spacing={2} sx={{ alignItems: "center" }}>
-                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <Grid item xs={12} md={6} lg={5} order={{ xs: 2, md: 1 }}>
                   <Typography variant="h5">Create your Centre</Typography>
                   <List>
                     <ListItem sx={{ px: 0 }}>
@@ -122,7 +125,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Configure other setups." />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -142,6 +145,7 @@ const PromiseSection: HomePageFunc = () => {
                 <Grid
                   item
                   md={6}
+                  lg={5}
                   xs={12}
                   order={{ xs: 1, md: 2 }}
                   sx={{
@@ -169,8 +173,12 @@ const PromiseSection: HomePageFunc = () => {
               </Grid>
             </TabPanel>
             <TabPanel sx={{ px: 0 }} value="2">
-              <Grid container spacing={2} sx={{ alignItems: "center" }}>
-                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <Grid item xs={12} md={6} lg={5} order={{ xs: 2, md: 1 }}>
                   <Typography variant="h5" mb={2}>
                     Qualitative and Quantitative analysis
                   </Typography>
@@ -195,7 +203,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Google Analytics to your Centre to measure traffic" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -215,6 +223,7 @@ const PromiseSection: HomePageFunc = () => {
                 <Grid
                   item
                   md={6}
+                  lg={5}
                   xs={12}
                   order={{ xs: 1, md: 2 }}
                   sx={{
@@ -242,8 +251,12 @@ const PromiseSection: HomePageFunc = () => {
               </Grid>
             </TabPanel>
             <TabPanel sx={{ px: 0 }} value="3">
-              <Grid container spacing={2} sx={{ alignItems: "center" }}>
-                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <Grid item xs={12} md={6} lg={5} order={{ xs: 2, md: 1 }}>
                   <Typography variant="h5">Gain Visibility</Typography>
                   <Typography paragraph color={"primary.main"} width={250}>
                     Apps to Drive Potentially New and Existing Subscribers to
@@ -271,7 +284,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Chat box" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -291,6 +304,7 @@ const PromiseSection: HomePageFunc = () => {
                 <Grid
                   item
                   md={6}
+                  lg={5}
                   xs={12}
                   order={{ xs: 1, md: 2 }}
                   sx={{
@@ -318,8 +332,12 @@ const PromiseSection: HomePageFunc = () => {
               </Grid>
             </TabPanel>
             <TabPanel sx={{ px: 0 }} value="4">
-              <Grid container spacing={2} sx={{ alignItems: "center" }}>
-                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <Grid item xs={12} md={6} lg={5} order={{ xs: 2, md: 1 }}>
                   <Typography variant="h5">What do you want to do?</Typography>
                   <Typography paragraph color={"primary.main"} width={250}>
                     Tools to Why You Created Your Centre
@@ -350,7 +368,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Publishing, blogging" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -370,6 +388,7 @@ const PromiseSection: HomePageFunc = () => {
                 <Grid
                   item
                   md={6}
+                  lg={5}
                   xs={12}
                   order={{ xs: 1, md: 2 }}
                   sx={{
@@ -397,8 +416,12 @@ const PromiseSection: HomePageFunc = () => {
               </Grid>
             </TabPanel>
             <TabPanel sx={{ px: 0 }} value="5">
-              <Grid container spacing={2} sx={{ alignItems: "center" }}>
-                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <Grid item xs={12} md={6} lg={5} order={{ xs: 2, md: 1 }}>
                   <Typography variant="h5">Access Payment</Typography>
                   <Typography paragraph color={"primary.main"} width={250}>
                     Add Apps That Can Help You Receive Payments
@@ -421,7 +444,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Paypal and Stripe" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -441,6 +464,7 @@ const PromiseSection: HomePageFunc = () => {
                 <Grid
                   item
                   md={6}
+                  lg={5}
                   xs={12}
                   order={{ xs: 1, md: 2 }}
                   sx={{
@@ -468,8 +492,12 @@ const PromiseSection: HomePageFunc = () => {
               </Grid>
             </TabPanel>
             <TabPanel sx={{ px: 0 }} value="6">
-              <Grid container spacing={2} sx={{ alignItems: "center" }}>
-                <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+              <Grid
+                container
+                spacing={2}
+                sx={{ alignItems: "center", justifyContent: "center" }}
+              >
+                <Grid item xs={12} md={6} lg={5} order={{ xs: 2, md: 1 }}>
                   <Typography variant="h5">Customize Your Centre</Typography>
                   <List>
                     <ListItem sx={{ px: 0 }}>
@@ -489,7 +517,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Support and CRM" />
                     </ListItem>
                   </List>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/create-account" passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -509,6 +537,7 @@ const PromiseSection: HomePageFunc = () => {
                 <Grid
                   item
                   md={6}
+                  lg={5}
                   xs={12}
                   order={{ xs: 1, md: 2 }}
                   sx={{

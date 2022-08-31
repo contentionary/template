@@ -31,17 +31,21 @@ const Footer: FooterFunc = () => {
 
   return (
     <Fragment>
-      <Box component="footer" sx={{ py: 8 }} className="">
+      <Box component="footer" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4} order={{ xs: 3, md: 1 }}>
               <div className="">
-                <Image
-                  src="/images/logo.png"
-                  alt="Contentionary logo"
-                  width={157}
-                  height={30}
-                />
+                <NextLink href="/" passHref>
+                  <MuiLink sx={{ display: "flex", alignItems: "center" }}>
+                    <Image
+                      src="/images/logo.png"
+                      alt="Contentionary logo"
+                      width={210}
+                      height={40}
+                    />
+                  </MuiLink>
+                </NextLink>
               </div>
               <Box py={2}>
                 <Typography variant="h6" gutterBottom>
@@ -90,12 +94,12 @@ const Footer: FooterFunc = () => {
                 <Typography variant="h6" gutterBottom>
                   Company
                 </Typography>
-                <NextLink href="/" passHref>
+                <NextLink href="/about" passHref>
                   <MuiLink underline="hover" color="inherit">
                     About us
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="/features" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Features
                   </MuiLink>
@@ -110,17 +114,17 @@ const Footer: FooterFunc = () => {
                 <Typography mt={3} variant="h6" gutterBottom>
                   Legal
                 </Typography>
-                <NextLink href="/" passHref>
+                <NextLink href="/privacy-policy" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Privacy Policy
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="/intellectual-property" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Intellectual Property
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="/terms-of-service" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Terms of use
                   </MuiLink>
@@ -132,7 +136,7 @@ const Footer: FooterFunc = () => {
                 <Typography variant="h6" gutterBottom>
                   General
                 </Typography>
-                <NextLink href="/" passHref>
+                <NextLink href="/create-account" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Sign up
                   </MuiLink>
@@ -142,18 +146,18 @@ const Footer: FooterFunc = () => {
                     Developer’s tools
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="/login" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Create a centre
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
+                <NextLink href="/marketplace" passHref>
                   <MuiLink underline="hover" color="inherit">
                     Marketplace
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/" passHref>
-                  <MuiLink underline="hover" color="inherit">
+                <NextLink href="https://medium.com/@contentionary" passHref>
+                  <MuiLink underline="hover" target="_blank" color="inherit">
                     Blog
                   </MuiLink>
                 </NextLink>
@@ -164,7 +168,10 @@ const Footer: FooterFunc = () => {
                 Social follows
               </Typography>
               <Stack direction="row" spacing={1}>
-                <NextLink href="/#" passHref>
+                <NextLink
+                  href="https://web.facebook.com/contentionary/"
+                  passHref
+                >
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
@@ -173,7 +180,10 @@ const Footer: FooterFunc = () => {
                     <FacebookIcon />
                   </IconButton>
                 </NextLink>
-                <NextLink href="/#" passHref>
+                <NextLink
+                  href="https://www.linkedin.com/company/contentionary/"
+                  passHref
+                >
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
@@ -182,7 +192,10 @@ const Footer: FooterFunc = () => {
                     <LinkedInIcon />
                   </IconButton>
                 </NextLink>
-                <NextLink href="/#" passHref>
+                <NextLink
+                  href="https://www.youtube.com/channel/UCTjpCZ29ZTeG6HuwHLRURFw"
+                  passHref
+                >
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}
@@ -191,7 +204,7 @@ const Footer: FooterFunc = () => {
                     <YouTubeIcon />
                   </IconButton>
                 </NextLink>
-                <NextLink href="/#" passHref>
+                <NextLink href="https://twitter.com/Contentionary/" passHref>
                   <IconButton
                     size="small"
                     className={globalStyle.appIconButton}

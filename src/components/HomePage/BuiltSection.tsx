@@ -14,7 +14,6 @@ import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
 //
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -27,7 +26,6 @@ import TrendUpIcon from "@src/assets/icons/trend-up.svg";
 import InfinityIcon from "@src/assets/icons/infinity.svg";
 
 const BuiltSection: HomePageFunc = () => {
-  const theme = useTheme();
   const globalStyle = useGlobalStyle();
   //
   const codeString = `const africa1 = require(‘stripe’)(‘sk_test_BQoikJ’)
@@ -43,7 +41,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8 }} className="">
+      <Box component="section" sx={{ py: 8, px: { md: 6 } }} className="">
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600}>
@@ -68,10 +66,15 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={2} sx={{ alignItems: "center" }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{ alignItems: "center", justifyContent: "center" }}
+          >
             <Grid
               item
               md={6}
+              lg={5}
               xs={12}
               order={{ xs: 2, md: 1 }}
               sx={{
@@ -82,15 +85,15 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               <Box
                 className={globalStyle.bgArtifactFlipped}
                 sx={{
-                  p: 4,
                   width: "100%",
                   height: "auto",
                   position: "relative",
+                  padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
                 <Image
                   width="100%"
-                  height="100%"
+                  height="80%"
                   objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
@@ -98,7 +101,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 />
               </Box>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} lg={5} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="caption"
                 display="block"
@@ -123,7 +126,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 contentionary. If you don’t have a domain you can choose a
                 subdomain that best suit your business name.
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/create-account" passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -141,8 +144,12 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </NextLink>
             </Grid>
           </Grid>
-          <Grid container spacing={2} sx={{ alignItems: "center", mb: 8 }}>
-            <Grid item xs={12} md={6}>
+          <Grid
+            container
+            spacing={4}
+            sx={{ alignItems: "center", justifyContent: "center", mb: 8 }}
+          >
+            <Grid item xs={12} md={6} lg={5}>
               <Typography
                 variant="caption"
                 display="block"
@@ -170,7 +177,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                   <MuiLink>Read more...</MuiLink>
                 </NextLink>
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/create-account" passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -189,14 +196,18 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
             </Grid>
             <Grid
               item
-              md={6}
               xs={12}
+              md={6}
+              lg={5}
               sx={{
                 display: "flex",
                 justifyContent: "center",
               }}
             >
-              <Paper elevation={0} sx={{ p: 4, bgcolor: "#FFFCF8" }}>
+              <Paper
+                elevation={0}
+                sx={{ padding: { xs: 2, sm: 3, lg: 4 }, bgcolor: "#FFFCF8" }}
+              >
                 <SyntaxHighlighter
                   language="javascript"
                   style={a11yDark}

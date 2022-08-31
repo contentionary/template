@@ -12,7 +12,14 @@
   ],
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "no-unused-vars": "warn",
     "quotes": ["warn", "double"],
-    "semi": ["warn", "always"]
+    "semi": ["warn", "always"],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }

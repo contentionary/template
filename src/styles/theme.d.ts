@@ -1,11 +1,7 @@
-import {
-  Color,
-  PaletteOptions,
-  PaletteColorOptions,
-  SimplePaletteColorOptions,
-} from "@mui/material";
+import { Color, SimplePaletteColorOptions } from "@mui/material";
 
 declare module "@mui/material/styles" {
+  // eslint-disable-next-line no-unused-vars
   interface Theme {
     palette: {
       primary: Color | SimplePaletteColorOptions;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface WrapperInt {
   children: JSX.Element;
   title: string;
@@ -7,4 +8,4 @@ export interface WrapperInt {
   showFooter?: boolean;
 }
 
-export declare type WrapperFunc = (props: WrapperInt) => JSX.Element
+export declare type WrapperFunc = (props: WrapperInt) => JSX.Element;

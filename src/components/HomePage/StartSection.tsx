@@ -12,7 +12,7 @@ import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 //
 import useGlobalStyle from "@src/styles";
-import { useTheme } from "@mui/material/styles";
+// import { useTheme } from "@mui/material/styles";
 //
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -20,7 +20,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { HomePageFunc } from "./interfaceType";
 
 const StartSection: HomePageFunc = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
   const globalStyle = useGlobalStyle();
   //
   const codeString = `const africa1 = require(‘stripe’)(‘sk_test_BQoikJ’)
@@ -36,7 +36,10 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
 
   return (
     <Fragment>
-      <Box component="section" sx={{ py: 8, bgcolor: "#FFFCF8" }}>
+      <Box
+        component="section"
+        sx={{ py: 8, px: { md: 6 }, bgcolor: "#FFFCF8" }}
+      >
         <Container maxWidth="xl">
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Box maxWidth={600} sx={{ textAlign: "center" }}>
@@ -51,7 +54,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 From page beauty, to engagement to finance to tracking. Build
                 your centre to your taste and size
               </Typography>
-              <NextLink href="/" passHref>
+              <NextLink href="/create-account" passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -89,11 +92,20 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={4} sx={{ alignItems: "center", mb: 8 }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              mb: 8,
+            }}
+          >
             <Grid
               item
-              md={6}
               xs={12}
+              md={6}
+              lg={5}
               order={{ xs: 2, md: 1 }}
               sx={{
                 display: "flex",
@@ -114,7 +126,7 @@ service.Confirm(paymentIntent.Id, confirmOptions);`;
                 </SyntaxHighlighter>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+            <Grid item xs={12} md={6} lg={5} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="caption"
                 display="block"
