@@ -63,12 +63,18 @@ const Header: HeaderFunc = () => {
                     }}
                   >
                     <Stack direction="row" spacing={2}>
-                      <NextLink href="/#apps" passHref>
+                      <NextLink
+                        href="/https://web.contentionary.com//features/online-learning-video-and-audio"
+                        passHref
+                      >
                         <Button component={MuiLink} sx={{ color: "#616161" }}>
                           Apps
                         </Button>
                       </NextLink>
-                      <NextLink href="/#resources" passHref>
+                      <NextLink
+                        href="https://web.contentionary.group/resources/creating-a-centre"
+                        passHref
+                      >
                         <Button component={MuiLink} sx={{ color: "#616162" }}>
                           Resources
                         </Button>
