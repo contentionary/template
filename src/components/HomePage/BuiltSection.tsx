@@ -56,7 +56,7 @@ const BuiltSection: HomePageFunc = () => {
           <Grid
             container
             spacing={4}
-            sx={{ alignItems: "center", justifyContent: "center" }}
+            sx={{ alignItems: "center", justifyContent: "center", mb: 8 }}
           >
             <Grid
               item

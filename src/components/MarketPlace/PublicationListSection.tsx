@@ -59,7 +59,7 @@ const PublicationListSection: MarketPlaceFunc = () => {
                 xs={12}
                 sm={6}
                 md={4}
-                xl={3}
+                lg={3}
               >
                 <Card className={cardStyle.courseCard}>
                   <CardActionArea className="MuiCourseCardActionBase-root">
@@ -105,7 +105,6 @@ const PublicationListSection: MarketPlaceFunc = () => {
                   <CardActions>
                     <NextLink href="/" passHref>
                       <Button
-                        size="large"
                         disableElevation
                         variant="contained"
                         component={MuiLink}

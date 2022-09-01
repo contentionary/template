@@ -14,11 +14,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 //
 import { Link as MuiLink } from "@mui/material";
-// components/resources
+// components and styles
+import AppMenu from "./AppMenu";
 import AppDrawer from "./AppDrawer";
+import ResourceMenu from "./ResourceMenu";
 import HideOnScroll from "./HideOnScroll";
-//
 import useGlobalStyle from "@src/styles/index";
+// icons/icons
 // interface
 import { HeaderFunc } from "./interfaceType";
 
@@ -63,27 +65,16 @@ const Header: HeaderFunc = () => {
                     }}
                   >
                     <Stack direction="row" spacing={2}>
-                      <NextLink
-                        href="https://web.contentionary.com/features/online-learning-video-and-audio"
-                        passHref
-                      >
-                        <Button component={MuiLink} sx={{ color: "#616161" }}>
-                          Apps
-                        </Button>
-                      </NextLink>
-                      <NextLink
-                        href="https://www.contentionary.group/resources/creating-a-centre"
-                        passHref
-                      >
-                        <Button component={MuiLink} sx={{ color: "#616162" }}>
-                          Resources
-                        </Button>
-                      </NextLink>
+                      <AppMenu />
+                      <ResourceMenu />
                       <NextLink
                         href="https://web.contentionary.com/pricing"
                         passHref
                       >
-                        <Button component={MuiLink} sx={{ color: "#616161" }}>
+                        <Button
+                          component={MuiLink}
+                          sx={{ color: "secondary.light" }}
+                        >
                           Pricing
                         </Button>
                       </NextLink>
@@ -91,7 +82,10 @@ const Header: HeaderFunc = () => {
                         href="https://web.contentionary.com/market-place"
                         passHref
                       >
-                        <Button component={MuiLink} sx={{ color: "#616161" }}>
+                        <Button
+                          component={MuiLink}
+                          sx={{ color: "secondary.light" }}
+                        >
                           Marketplace
                         </Button>
                       </NextLink>

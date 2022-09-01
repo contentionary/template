@@ -80,6 +80,10 @@ export const theme = createTheme({
     body2: {
       color: "#616161",
     },
+    caption: {
+      color: "#616161",
+      lineHeight: "1rem",
+    },
     fontFamily: ["'Matter'", "sans-serif"].join(","),
   },
   components: {

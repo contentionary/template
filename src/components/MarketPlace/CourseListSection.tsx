@@ -49,7 +49,7 @@ const CourseListSection: MarketPlaceFunc = () => {
             </Typography>{" "}
             Courses From Highly Qualified Educators
           </Typography>
-          <Grid container spacing={{ xs: 2, md: 3, lg: 4 }}>
+          <Grid container spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}>
             {Array.from({ length: 4 }).map((_, index) => (
               <Grid
                 key={`${index}-course-card`}
@@ -57,7 +57,7 @@ const CourseListSection: MarketPlaceFunc = () => {
                 xs={12}
                 sm={6}
                 md={4}
-                xl={3}
+                lg={3}
               >
                 <Card className={cardStyle.courseCard}>
                   <CardActionArea className="MuiCourseCardActionBase-root">
@@ -112,7 +112,7 @@ const CourseListSection: MarketPlaceFunc = () => {
                           mb={0}
                           sx={{ order: { xs: 2, md: 2 } }}
                         >
-                          4 weeks ago
+                          4 weeks
                         </Typography>
                         <Typography
                           paragraph

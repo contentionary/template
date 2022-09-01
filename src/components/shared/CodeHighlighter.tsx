@@ -7,7 +7,7 @@ const CodeHighlighter = () => {
   const codeString = `const cttn = require('cttn')('sk_test_BQoikJ')
 await cttn.centre.create({
     name: "Example centre name",
-    proce: '200',
+    price: '200',
     isPrivate: true,
     description: "Centre example description"
 });

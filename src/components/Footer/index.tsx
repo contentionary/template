@@ -82,7 +82,7 @@ const Footer: FooterFunc = () => {
                   <MuiLink>+44 7754 601138</MuiLink>
                 </NextLink>
                 <Typography mt={4} variant="h6" gutterBottom>
-                  United Kingdom Office:
+                  Contact Email
                 </Typography>
                 <NextLink href={"mailto:contact@contentionary.com"} passHref>
                   <MuiLink>contact@contentionary.com</MuiLink>
