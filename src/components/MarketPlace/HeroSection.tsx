@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
