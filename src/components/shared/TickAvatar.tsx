@@ -21,7 +21,7 @@ const TickAvatar = ({
   return (
     <Avatar
       sx={{
-        bgcolor: "#EEB389",
+        bgcolor: "#DD782468",
         width: width,
         height: height,
         mr: mr,

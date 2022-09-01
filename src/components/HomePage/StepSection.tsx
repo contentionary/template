@@ -25,7 +25,8 @@ import useGlobalStyle from "@src/styles";
 // icons
 import UserAddIcon from "@src/assets/icons/user-add.svg";
 import StatusIcon from "@src/assets/icons/status.svg";
-// interface
+// interface and config
+import config from "@src/utils/config";
 import { HomePageFunc } from "./interfaceType";
 
 const StepSection: HomePageFunc = () => {
@@ -164,10 +165,7 @@ const StepSection: HomePageFunc = () => {
                   </TimelineItem>
                 </Timeline>
               </div>
-              <NextLink
-                href="https://web.contentionary.com/create-account"
-                passHref
-              >
+              <NextLink href={`${config.URL.WEB}create-account`} passHref>
                 <Button
                   size="large"
                   disableElevation

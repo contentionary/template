@@ -19,7 +19,8 @@ import NavbarMenu from "@src/components/shared/dropdown/NavbarMenu";
 // icons/icons
 import PlayIcon from "@src/assets/icons/play.svg";
 import TickAvatar from "@src/components/shared/TickAvatar";
-// interface
+// interface and config
+import config from "@src/utils/config";
 
 interface ResourceMenuLinkInt {
   children: React.ReactNode;
@@ -63,8 +64,8 @@ const ResourceMenuLink = ({ children, href }: ResourceMenuLinkInt) => {
 
 const ResourceMenu = () => {
   const smAvatarProps = {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     size: 1,
     mr: 1,
   };
@@ -72,11 +73,11 @@ const ResourceMenu = () => {
   return (
     <NavbarMenu title="Resources">
       <React.Fragment>
-        <Grid container spacing={0}>
-          <Grid item xs={6}>
-            <Box p={2}>
-              <Typography mb={2} variant="h5" color="primary">
-                Resources
+        <Grid container spacing={0} columns={24}>
+          <Grid item xs={13}>
+            <Box p={2.5}>
+              <Typography mb={2} fontSize="medium" variant="h4" color="primary">
+                RESOURCES
               </Typography>
               <Typography variant="h6">Features</Typography>
               <Typography variant="caption" component="p">
@@ -126,37 +127,45 @@ const ResourceMenu = () => {
               </List>
             </Box>
           </Grid>
-          <Grid item xs={6} sx={{ bgcolor: "#FFF8F0" }}>
-            <Box p={2}>
+          <Grid item xs={11} sx={{ bgcolor: "#FFF8F0" }}>
+            <Box p={2.5}>
               <Typography variant="h6" color="primary">
                 How to create a centre
               </Typography>
-              <ResourceMenuLink href="https://www.contentionary.group/resources/creating-a-centre">
+              <ResourceMenuLink
+                href={`${config.URL.GROUP}resources/creating-a-centre`}
+              >
                 Learn how to create a center here
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary">
                 How to set a exam
               </Typography>
-              <ResourceMenuLink href="https://www.contentionary.group/resources/creating-a-new-exam">
+              <ResourceMenuLink
+                href={`${config.URL.GROUP}resources/creating-a-new-exam`}
+              >
                 Learn how to set a public or private exam for your candidates
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary" lineHeight={1.25}>
                 How to create courses in modules and Upload Publications
               </Typography>
-              <ResourceMenuLink href="https://www.contentionary.group/resources/hosting-online-courses">
+              <ResourceMenuLink
+                href={`${config.URL.GROUP}resources/hosting-online-courses`}
+              >
                 Learn how to create a course and add publication in your centre
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary">
                 Our API Integration
               </Typography>
-              <ResourceMenuLink href="https://contentionary.com/integration">
+              <ResourceMenuLink href={`${config.URL.APP}integration`}>
                 Learn our to integrate our software to your personal website
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary" lineHeight={1.25}>
                 How to monetize your publication and other contents available in
                 your centre
               </Typography>
-              <ResourceMenuLink href="https://www.contentionary.group/resources/creating-a-new-publication">
+              <ResourceMenuLink
+                href={`${config.URL.GROUP}resources/creating-a-new-publication`}
+              >
                 You can monetize any of your content in your centre.
               </ResourceMenuLink>
             </Box>

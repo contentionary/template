@@ -40,23 +40,6 @@ const HeroSection: MarketPlaceFunc = () => {
             spacing={4}
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
-            <Grid
-              item
-              xs={12}
-              order={{ xs: 2, md: 1 }}
-              sx={{
-                display: "flex",
-                justifyContent: { xs: "end", md: "center" },
-              }}
-            >
-              <Image
-                width={40}
-                height={40}
-                src="/images/bg-artifacts/burst-bloat.png"
-                objectFit="cover"
-                alt="Contentionary"
-              />
-            </Grid>
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
               <Typography
                 variant="h1"

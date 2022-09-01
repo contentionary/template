@@ -14,6 +14,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 //
 import ContentionaryLogo from "@src/assets/images/logo.png";
 import MenuBurger from "@src/assets/icons/menu-hamburger.svg";
+// interface and config
+import config from "@src/utils/config";
 
 const AppDrawer = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -53,7 +55,7 @@ const AppDrawer = () => {
           <Divider />
           <List>
             <NextLink
-              href="https://web.contentionary.com/features/online-learning-video-and-audio"
+              href={`${config.URL.WEB}features/online-learning-video-and-audio`}
               passHref
             >
               <ListItemButton>
@@ -63,7 +65,7 @@ const AppDrawer = () => {
               </ListItemButton>
             </NextLink>
             <NextLink
-              href="https://www.contentionary.group/resources/creating-a-centre"
+              href={`${config.URL.GROUP}resources/creating-a-centre`}
               passHref
             >
               <ListItemButton>
@@ -72,34 +74,28 @@ const AppDrawer = () => {
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="https://web.contentionary.com/pricing" passHref>
+            <NextLink href={`${config.URL.WEB}pricing`} passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Pricing</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink
-              href="https://web.contentionary.com/market-place"
-              passHref
-            >
+            <NextLink href={`${config.URL.WEB}market-place`} passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Marketplace</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink href="https://web.contentionary.com/login" passHref>
+            <NextLink href={`${config.URL.WEB}login`} passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Login</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
-            <NextLink
-              href="https://web.contentionary.com/create-account"
-              passHref
-            >
+            <NextLink href={`${config.URL.WEB}create-account`} passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Create Account</ListItemText>

@@ -14,7 +14,8 @@ import Typography from "@mui/material/Typography";
 import useGlobalStyle from "@src/styles";
 import CodeHighlighter from "@src/components/shared/CodeHighlighter";
 // import { useTheme } from "@mui/material/styles";
-// interface
+// interface and config
+import config from "@src/utils/config";
 import { HomePageFunc } from "./interfaceType";
 
 const StartSection: HomePageFunc = () => {
@@ -42,10 +43,7 @@ const StartSection: HomePageFunc = () => {
                 From page beauty, to engagement to finance to tracking. Build
                 your centre to your taste and size
               </Typography>
-              <NextLink
-                href="https://web.contentionary.com/create-account"
-                passHref
-              >
+              <NextLink href={`${config.URL.WEB}create-account`} passHref>
                 <Button
                   size="large"
                   disableElevation

@@ -13,17 +13,17 @@ import Container from "@mui/material/Container";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-//
+import { Link as MuiLink } from "@mui/material";
+// icons
 import EastIcon from "@mui/icons-material/East";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-//
+// colors
 import { grey } from "@mui/material/colors";
-
-//
-import { Link as MuiLink } from "@mui/material";
+// interface ans config
+import config from "@src/utils/config";
 import { FooterFunc } from "./interfaceType";
 
 const Footer: FooterFunc = () => {
@@ -94,20 +94,17 @@ const Footer: FooterFunc = () => {
                 <Typography variant="h6" gutterBottom>
                   Company
                 </Typography>
-                <NextLink href="https://web.contentionary.com/about" passHref>
+                <NextLink href={`${config.URL.WEB}about`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     About us
                   </MuiLink>
                 </NextLink>
-                <NextLink
-                  href="https://web.contentionary.com/features"
-                  passHref
-                >
+                <NextLink href={`${config.URL.WEB}features`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Features
                   </MuiLink>
                 </NextLink>
-                <NextLink href="https://web.contentionary.com/pricing" passHref>
+                <NextLink href={`${config.URL.WEB}pricing`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Pricing
                   </MuiLink>
@@ -117,26 +114,20 @@ const Footer: FooterFunc = () => {
                 <Typography mt={3} variant="h6" gutterBottom>
                   Legal
                 </Typography>
-                <NextLink
-                  href="https://web.contentionary.com/privacy-policy"
-                  passHref
-                >
+                <NextLink href={`${config.URL.WEB}privacy-policy`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Privacy Policy
                   </MuiLink>
                 </NextLink>
                 <NextLink
-                  href="https://web.contentionary.com/intellectual-property"
+                  href={`${config.URL.WEB}intellectual-property`}
                   passHref
                 >
                   <MuiLink underline="hover" color="inherit">
                     Intellectual Property
                   </MuiLink>
                 </NextLink>
-                <NextLink
-                  href="https://web.contentionary.com/terms-of-service"
-                  passHref
-                >
+                <NextLink href={`${config.URL.WEB}terms-of-service`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Terms of use
                   </MuiLink>
@@ -148,33 +139,27 @@ const Footer: FooterFunc = () => {
                 <Typography variant="h6" gutterBottom>
                   General
                 </Typography>
-                <NextLink
-                  href="https://web.contentionary.com/create-account"
-                  passHref
-                >
+                <NextLink href={`${config.URL.WEB}create-account`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Sign up
                   </MuiLink>
                 </NextLink>
-                <NextLink href="https://web.contentionary.com/login" passHref>
+                <NextLink href={`${config.URL.WEB}login`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Developer’s tools
                   </MuiLink>
                 </NextLink>
-                <NextLink href="https://web.contentionary.com/login" passHref>
+                <NextLink href={`${config.URL.WEB}login`} passHref>
                   <MuiLink underline="hover" color="inherit">
                     Create a centre
                   </MuiLink>
                 </NextLink>
-                <NextLink
-                  href="https://web.contentionary.com/market-place"
-                  passHref
-                >
+                <NextLink href={`${config.URL.WEB}market-place`} passHref>
                   <MuiLink underline="hover" target="_blank" color="inherit">
                     Marketplace
                   </MuiLink>
                 </NextLink>
-                <NextLink href="https://medium.com/@contentionary" passHref>
+                <NextLink href={config.URL.BLOG} passHref>
                   <MuiLink underline="hover" target="_blank" color="inherit">
                     Blog
                   </MuiLink>
@@ -186,10 +171,7 @@ const Footer: FooterFunc = () => {
                 Social follows
               </Typography>
               <Stack direction="row" spacing={1}>
-                <NextLink
-                  href="https://web.facebook.com/contentionary/"
-                  passHref
-                >
+                <NextLink href={config.URL.FACEBOOK} passHref>
                   <IconButton
                     size="small"
                     target="_blank"
@@ -199,10 +181,7 @@ const Footer: FooterFunc = () => {
                     <FacebookIcon />
                   </IconButton>
                 </NextLink>
-                <NextLink
-                  href="https://www.linkedin.com/company/contentionary/"
-                  passHref
-                >
+                <NextLink href={config.URL.LINKEDIN} passHref>
                   <IconButton
                     size="small"
                     target="_blank"
@@ -212,10 +191,7 @@ const Footer: FooterFunc = () => {
                     <LinkedInIcon />
                   </IconButton>
                 </NextLink>
-                <NextLink
-                  href="https://www.youtube.com/channel/UCTjpCZ29ZTeG6HuwHLRURFw"
-                  passHref
-                >
+                <NextLink href={config.URL.YOUTUBE} passHref>
                   <IconButton
                     size="small"
                     target="_blank"
@@ -225,7 +201,7 @@ const Footer: FooterFunc = () => {
                     <YouTubeIcon />
                   </IconButton>
                 </NextLink>
-                <NextLink href="https://twitter.com/Contentionary/" passHref>
+                <NextLink href={config.URL.TWITTER} passHref>
                   <IconButton
                     size="small"
                     target="_blank"

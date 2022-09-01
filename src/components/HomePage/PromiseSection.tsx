@@ -23,7 +23,8 @@ import ListItemText from "@mui/material/ListItemText";
 import TickAvatar from "@src/components/shared/TickAvatar";
 import useGlobalStyle from "@src/styles";
 // import { useTheme } from "@mui/material/styles";
-// interface
+// interface and config
+import config from "@src/utils/config";
 import { HomePageFunc } from "./interfaceType";
 
 const PromiseSection: HomePageFunc = () => {
@@ -124,10 +125,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Configure other setups." />
                     </ListItem>
                   </List>
-                  <NextLink
-                    href="https://web.contentionary.com/create-account"
-                    passHref
-                  >
+                  <NextLink href={`${config.URL.WEB}create-account`} passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -205,10 +203,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Google Analytics to your Centre to measure traffic" />
                     </ListItem>
                   </List>
-                  <NextLink
-                    href="https://web.contentionary.com/create-account"
-                    passHref
-                  >
+                  <NextLink href={`${config.URL.WEB}create-account`} passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -289,10 +284,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Chat box" />
                     </ListItem>
                   </List>
-                  <NextLink
-                    href="https://web.contentionary.com/create-account"
-                    passHref
-                  >
+                  <NextLink href={`${config.URL.WEB}create-account`} passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -376,10 +368,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Publishing, blogging" />
                     </ListItem>
                   </List>
-                  <NextLink
-                    href="https://web.contentionary.com/create-account"
-                    passHref
-                  >
+                  <NextLink href={`${config.URL.WEB}create-account`} passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -455,10 +444,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Paypal and Stripe" />
                     </ListItem>
                   </List>
-                  <NextLink
-                    href="https://web.contentionary.com/create-account"
-                    passHref
-                  >
+                  <NextLink href={`${config.URL.WEB}create-account`} passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -531,10 +517,7 @@ const PromiseSection: HomePageFunc = () => {
                       <ListItemText primary="Support and CRM" />
                     </ListItem>
                   </List>
-                  <NextLink
-                    href="https://web.contentionary.com/create-account"
-                    passHref
-                  >
+                  <NextLink href={`${config.URL.WEB}create-account`} passHref>
                     <Button
                       size="large"
                       disableElevation

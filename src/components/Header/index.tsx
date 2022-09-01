@@ -20,8 +20,9 @@ import AppDrawer from "./AppDrawer";
 import ResourceMenu from "./ResourceMenu";
 import HideOnScroll from "./HideOnScroll";
 import useGlobalStyle from "@src/styles/index";
-// icons/icons
-// interface
+// icons
+// interface and config
+import config from "@src/utils/config";
 import { HeaderFunc } from "./interfaceType";
 
 const Header: HeaderFunc = () => {
@@ -67,10 +68,7 @@ const Header: HeaderFunc = () => {
                     <Stack direction="row" spacing={2}>
                       <AppMenu />
                       <ResourceMenu />
-                      <NextLink
-                        href="https://web.contentionary.com/pricing"
-                        passHref
-                      >
+                      <NextLink href={`${config.URL.WEB}pricing`} passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
@@ -78,10 +76,7 @@ const Header: HeaderFunc = () => {
                           Pricing
                         </Button>
                       </NextLink>
-                      <NextLink
-                        href="https://web.contentionary.com/market-place"
-                        passHref
-                      >
+                      <NextLink href={`${config.URL.WEB}market-place`} passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
@@ -91,14 +86,11 @@ const Header: HeaderFunc = () => {
                       </NextLink>
                     </Stack>
                     <Stack direction="row" spacing={2} alignItems="center">
-                      <NextLink
-                        href="https://web.contentionary.com/login"
-                        passHref
-                      >
+                      <NextLink href={`${config.URL.WEB}login`} passHref>
                         <MuiLink>Login</MuiLink>
                       </NextLink>
                       <NextLink
-                        href="https://web.contentionary.com/create-account"
+                        href={`${config.URL.WEB}create-account`}
                         passHref
                       >
                         <Button

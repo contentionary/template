@@ -17,8 +17,8 @@ import TickAvatar from "@src/components/shared/TickAvatar";
 
 const AppMenu = () => {
   const smAvatarProps = {
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     size: 1,
     mr: 1,
   };
@@ -26,9 +26,9 @@ const AppMenu = () => {
   return (
     <NavbarMenu title="Apps">
       <React.Fragment>
-        <Grid container spacing={0}>
-          <Grid item xs={6}>
-            <Box p={2}>
+        <Grid container spacing={0} columns={24}>
+          <Grid item xs={13}>
+            <Box p={2.5}>
               <Typography variant="h6">Our Solution</Typography>
               <Typography variant="caption" component="p">
                 Providing the safest, most seamless Testing and Learning
@@ -69,8 +69,8 @@ const AppMenu = () => {
               </List>
             </Box>
           </Grid>
-          <Grid item xs={6} sx={{ bgcolor: "#FFF8F0" }}>
-            <Box p={2}>
+          <Grid item xs={11} sx={{ bgcolor: "#FFF8F0" }}>
+            <Box p={2.5}>
               <Typography variant="h6" color="primary">
                 Talent Assessment
               </Typography>

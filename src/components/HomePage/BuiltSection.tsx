@@ -15,7 +15,8 @@ import Typography from "@mui/material/Typography";
 // components and styles
 import useGlobalStyle from "@src/styles";
 import CodeHighlighter from "@src/components/shared/CodeHighlighter";
-// interface
+// interface and config
+import config from "@src/utils/config";
 import { HomePageFunc } from "./interfaceType";
 // icons
 import ShareIcon from "@src/assets/icons/share.svg";
@@ -113,10 +114,7 @@ const BuiltSection: HomePageFunc = () => {
                 contentionary. If you don’t have a domain you can choose a
                 subdomain that best suit your business name.
               </Typography>
-              <NextLink
-                href="https://web.contentionary.com/create-account"
-                passHref
-              >
+              <NextLink href={`${config.URL.WEB}create-account`} passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -167,10 +165,7 @@ const BuiltSection: HomePageFunc = () => {
                   <MuiLink>Read more...</MuiLink>
                 </NextLink>
               </Typography>
-              <NextLink
-                href="https://web.contentionary.com/create-account"
-                passHref
-              >
+              <NextLink href={`${config.URL.WEB}create-account`} passHref>
                 <Button
                   size="large"
                   disableElevation

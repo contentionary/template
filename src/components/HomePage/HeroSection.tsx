@@ -19,7 +19,8 @@ import { Link as MuiLink } from "@mui/material";
 //
 import useGlobalStyle from "@src/styles";
 import useButtonStyle from "@src/styles/button";
-// interface
+// interface and config
+import config from "@src/utils/config";
 import { HomePageFunc } from "./interfaceType";
 // app components
 import VideoModal from "@src/components/shared/video";
@@ -98,10 +99,7 @@ const HeroSection: HomePageFunc = () => {
                 spacing={2}
                 className=""
               >
-                <NextLink
-                  href="https://web.contentionary.com/create-account"
-                  passHref
-                >
+                <NextLink href={`${config.URL.WEB}create-account`} passHref>
                   <Button
                     size="large"
                     disableElevation
