@@ -51,6 +51,7 @@ const ResourceMenuLink = ({ children, href }: ResourceMenuLinkInt) => {
         underline="none"
         color="inherit"
         sx={{
+          mb: 1,
           gap: 1,
           display: "flex",
           alignItems: "center",
@@ -129,40 +130,89 @@ const ResourceMenu = () => {
           </Grid>
           <Grid item xs={11} sx={{ bgcolor: "#FFF8F0" }}>
             <Box p={2.5}>
-              <Typography variant="h6" color="primary">
-                How to create a centre
-              </Typography>
+              <NextLink
+                href={`${config.URL.GROUP}resources/creating-a-centre`}
+                passHref
+              >
+                <MuiLink
+                  variant="h6"
+                  color="primary"
+                  display="block"
+                  underline="none"
+                >
+                  How to create a centre
+                </MuiLink>
+              </NextLink>
               <ResourceMenuLink
                 href={`${config.URL.GROUP}resources/creating-a-centre`}
               >
                 Learn how to create a center here
               </ResourceMenuLink>
-              <Typography mt={2} variant="h6" color="primary">
-                How to set a exam
-              </Typography>
+              <NextLink
+                href={`${config.URL.GROUP}resources/creating-a-new-exam`}
+                passHref
+              >
+                <MuiLink
+                  variant="h6"
+                  color="primary"
+                  display="block"
+                  underline="none"
+                >
+                  How to set a exam
+                </MuiLink>
+              </NextLink>
               <ResourceMenuLink
                 href={`${config.URL.GROUP}resources/creating-a-new-exam`}
               >
                 Learn how to set a public or private exam for your candidates
               </ResourceMenuLink>
-              <Typography mt={2} variant="h6" color="primary" lineHeight={1.25}>
-                How to create courses in modules and Upload Publications
-              </Typography>
+              <NextLink
+                href={`${config.URL.GROUP}resources/hosting-online-courses`}
+                passHref
+              >
+                <MuiLink
+                  variant="h6"
+                  display="block"
+                  color="primary"
+                  underline="none"
+                  lineHeight={1.25}
+                >
+                  How to create courses in modules and Upload Publications
+                </MuiLink>
+              </NextLink>
               <ResourceMenuLink
                 href={`${config.URL.GROUP}resources/hosting-online-courses`}
               >
                 Learn how to create a course and add publication in your centre
               </ResourceMenuLink>
-              <Typography mt={2} variant="h6" color="primary">
-                Our API Integration
-              </Typography>
+              <NextLink href={`${config.URL.APP}integration`} passHref>
+                <MuiLink
+                  variant="h6"
+                  display="block"
+                  color="primary"
+                  underline="none"
+                >
+                  Our API Integration
+                </MuiLink>
+              </NextLink>
               <ResourceMenuLink href={`${config.URL.APP}integration`}>
                 Learn our to integrate our software to your personal website
               </ResourceMenuLink>
-              <Typography mt={2} variant="h6" color="primary" lineHeight={1.25}>
-                How to monetize your publication and other contents available in
-                your centre
-              </Typography>
+              <NextLink
+                href={`${config.URL.GROUP}resources/creating-a-new-publication`}
+                passHref
+              >
+                <MuiLink
+                  variant="h6"
+                  color="primary"
+                  display="block"
+                  underline="none"
+                  lineHeight={1.25}
+                >
+                  How to monetize your publication and other contents available
+                  in your centre
+                </MuiLink>
+              </NextLink>
               <ResourceMenuLink
                 href={`${config.URL.GROUP}resources/creating-a-new-publication`}
               >

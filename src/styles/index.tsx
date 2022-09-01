@@ -68,7 +68,7 @@ export default makeStyles({
       transition: "300ms ease-in",
     },
     "& .MuiPopover-paper": {
-      maxWidth: 564,
+      maxWidth: 576,
       borderRadius: "8px",
       backgroundColor: "#FFFFFF",
       boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
