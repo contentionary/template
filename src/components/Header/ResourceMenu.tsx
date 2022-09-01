@@ -131,32 +131,32 @@ const ResourceMenu = () => {
               <Typography variant="h6" color="primary">
                 How to create a centre
               </Typography>
-              <ResourceMenuLink href="/">
+              <ResourceMenuLink href="https://www.contentionary.group/resources/creating-a-centre">
                 Learn how to create a center here
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary">
                 How to set a exam
               </Typography>
-              <ResourceMenuLink href="/">
+              <ResourceMenuLink href="https://www.contentionary.group/resources/creating-a-new-exam">
                 Learn how to set a public or private exam for your candidates
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary" lineHeight={1.25}>
                 How to create courses in modules and Upload Publications
               </Typography>
-              <ResourceMenuLink href="/">
+              <ResourceMenuLink href="https://www.contentionary.group/resources/hosting-online-courses">
                 Learn how to create a course and add publication in your centre
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary">
                 Our API Integration
               </Typography>
-              <ResourceMenuLink href="/">
+              <ResourceMenuLink href="https://contentionary.com/integration">
                 Learn our to integrate our software to your personal website
               </ResourceMenuLink>
               <Typography mt={2} variant="h6" color="primary" lineHeight={1.25}>
                 How to monetize your publication and other contents available in
                 your centre
               </Typography>
-              <ResourceMenuLink href="/">
+              <ResourceMenuLink href="https://www.contentionary.group/resources/creating-a-new-publication">
                 You can monetize any of your content in your centre.
               </ResourceMenuLink>
             </Box>
