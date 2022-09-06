@@ -2,7 +2,7 @@ import React from "react";
 // next
 import Image from "next/image";
 import NextLink from "next/link";
-// mui components
+
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -24,9 +24,9 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
-import { MarketPlaceFunc } from "./interfaceType";
+import { AcademyFunc } from "./interfaceType";
 
-const PublicationSection: MarketPlaceFunc = () => {
+const FutureSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
 
@@ -38,7 +38,7 @@ const PublicationSection: MarketPlaceFunc = () => {
     >
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
-          Explore Publications
+          Be Ready for the Future
         </Typography>
         <Grid
           container
@@ -57,15 +57,12 @@ const PublicationSection: MarketPlaceFunc = () => {
                   <BusinessCenterOutlinedIcon color="primary" />
                 </Avatar>
                 <Typography
-                  variant="h4"
-                  component="h5"
+                  my={2}
+                  variant="h5"
                   color="primary"
                   className={globalStyle.underlinedCurve}
                 >
-                  Job
-                </Typography>
-                <Typography variant="h6" component="h5">
-                  Opportunities
+                  Get Certified
                 </Typography>
               </Paper>
               <Box className="breath-img-container">
@@ -73,24 +70,15 @@ const PublicationSection: MarketPlaceFunc = () => {
                   layout="fill"
                   alt="yes we can"
                   objectFit="cover"
-                  objectPosition="center"
-                  src="/images/publication-img.jpg"
+                  objectPosition="right"
+                  src="/images/courses-4.png"
                 />
               </Box>
             </Box>
           </Grid>
           <Grid item md={8} xs={12}>
             <Typography variant="h3" component="h2">
-              Explore Top{" "}
-              <Typography
-                variant="h3"
-                component="span"
-                color="primary.main"
-                fontWeight={"inherit"}
-              >
-                Featured Publications
-              </Typography>{" "}
-              From Experts
+              Stay Ahead and Compete Globally
             </Typography>
             <List>
               <ListItem sx={{ px: 0 }}>
@@ -102,7 +90,7 @@ const PublicationSection: MarketPlaceFunc = () => {
                 >
                   <AutoStoriesOutlinedIcon color="primary" />
                 </Avatar>
-                <ListItemText primary="Free E-book, Videos and kits" />
+                <ListItemText primary="Top Learning Contents thought by experts" />
               </ListItem>
               <ListItem sx={{ px: 0 }}>
                 <Avatar
@@ -124,7 +112,7 @@ const PublicationSection: MarketPlaceFunc = () => {
                 >
                   <BusinessCenterOutlinedIcon color="primary" />
                 </Avatar>
-                <ListItemText primary="Collaborate with different learners around the globe" />
+                <ListItemText primary="Ask questions while learning" />
               </ListItem>
               <ListItem sx={{ px: 0 }}>
                 <Avatar
@@ -135,7 +123,7 @@ const PublicationSection: MarketPlaceFunc = () => {
                 >
                   <PeopleOutlinedIcon color="primary" />
                 </Avatar>
-                <ListItemText primary="Top instructors around the globe" />
+                <ListItemText primary="Inbuilt Test and exercises while learning" />
               </ListItem>
             </List>
             <NextLink href="/" passHref>
@@ -180,4 +168,4 @@ const PublicationSection: MarketPlaceFunc = () => {
     </Box>
   );
 };
-export default PublicationSection;
+export default FutureSection;

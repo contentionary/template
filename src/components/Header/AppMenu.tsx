@@ -29,12 +29,19 @@ const AppMenu = () => {
         <Grid container spacing={0} columns={24}>
           <Grid item xs={13}>
             <Box p={2.5}>
-              <Typography variant="h6">Our Solution</Typography>
-              <Typography variant="caption" component="p">
+              <Typography
+                variant="caption"
+                component="h6"
+                fontWeight="bold"
+                mb={2}
+              >
+                Our Solution
+              </Typography>
+              <Typography variant="body2" component="p" mb={3}>
                 Providing the safest, most seamless Testing and Learning
                 solutions to suit your business needs, anywhere in the world.
               </Typography>
-              <Typography mt={2} variant="h6">
+              <Typography mt={2} variant="caption" fontWeight="bold">
                 Your Business Categories
               </Typography>
               <List>
@@ -71,28 +78,43 @@ const AppMenu = () => {
           </Grid>
           <Grid item xs={11} sx={{ bgcolor: "#FFF8F0" }}>
             <Box p={2.5}>
-              <Typography variant="h6" color="primary">
+              <Typography variant="caption" fontWeight="bold" color="primary">
                 Talent Assessment
               </Typography>
               <Typography variant="caption" component="p">
                 Use contentionary to assess/screen unlimited number of candidate
                 remotely, Secured and Easy.
               </Typography>
-              <Typography mt={2} variant="h6" color="primary">
+              <Typography
+                mt={2}
+                variant="caption"
+                fontWeight="bold"
+                color="primary"
+              >
                 E-learning
               </Typography>
               <Typography variant="caption" component="p">
                 Use your center to teach online (in modules), set assessments
                 and share notes to your subscribers.
               </Typography>
-              <Typography mt={2} variant="h6" color="primary">
+              <Typography
+                mt={2}
+                variant="caption"
+                fontWeight="bold"
+                color="primary"
+              >
                 Sales
               </Typography>
               <Typography variant="caption" component="p">
                 With your centre, you can upload and sell your contents
                 independently.
               </Typography>
-              <Typography mt={2} variant="h6" color="primary">
+              <Typography
+                mt={2}
+                variant="caption"
+                fontWeight="bold"
+                color="primary"
+              >
                 Our API Integration
               </Typography>
               <Typography variant="caption" component="p">
@@ -100,7 +122,12 @@ const AppMenu = () => {
                 features you need to teach, test candidates or/and publish
                 contents
               </Typography>
-              <Typography mt={2} variant="h6" color="primary">
+              <Typography
+                mt={2}
+                variant="caption"
+                fontWeight="bold"
+                color="primary"
+              >
                 Contentionary Marketplace
               </Typography>
               <Typography variant="caption" component="p">

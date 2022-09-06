@@ -24,6 +24,21 @@ export default makeStyles({
       display: "none",
     },
   },
+  underlinedCurve: {
+    position: "relative",
+    "&:after": {
+      left: 0,
+      content: "''",
+      height: "10px",
+      width: "100%",
+      bottom: "-10px",
+      borderRadius: "50%",
+      position: "absolute",
+      clipPath: "inset(0 0 50% 0)",
+      border: `solid 2px ${theme.palette.primary.main}`,
+      borderColor: `${theme.palette.primary.main} transparent transparent transparent`,
+    },
+  },
   bgPrimary: {
     backgroundColor: theme.palette.primary.main,
   },

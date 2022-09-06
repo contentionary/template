@@ -11,19 +11,18 @@ import Hidden from "@mui/material/Hidden";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 //
 // import { useTheme } from "@mui/material/styles";
 //
 import useGlobalStyle from "@src/styles";
-import useButtonStyle from "@src/styles/button";
 // interface and config
 import config from "@src/utils/config";
 import { HomePageFunc } from "./interfaceType";
 // app components
 import VideoModal from "@src/components/shared/video";
+import ImageButton from "@src/components/shared/buttons/ImageButton";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
 import SimcardIcon from "@src/assets/icons/simcard.svg";
@@ -33,7 +32,6 @@ import UserAddIcon from "@src/assets/icons/user-circle-add.svg";
 const HeroSection: HomePageFunc = () => {
   // const theme = useTheme();
   const [openVideo, setOpenVideo] = React.useState(false);
-  const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
   //
   const handleOpenVideo = () => setOpenVideo(true);
@@ -115,27 +113,24 @@ const HeroSection: HomePageFunc = () => {
                     Get Started for Free
                   </Button>
                 </NextLink>
-
-                <NextLink href="/" passHref>
-                  <Button
-                    size="large"
-                    variant="outlined"
-                    onClick={handleOpenVideo}
-                    sx={{
+                <Button
+                  size="large"
+                  variant="outlined"
+                  onClick={handleOpenVideo}
+                  sx={{
+                    borderWidth: 2,
+                    ":hover": {
                       borderWidth: 2,
-                      ":hover": {
-                        borderWidth: 2,
-                      },
-                      display: "flex",
-                      textAlign: "center",
-                      alignItems: "center",
-                      width: { xs: "100%", sm: "42.24px" },
-                      height: { xs: "100%", sm: "42.24px" },
-                    }}
-                  >
-                    <Hidden smUp>Play Demo &nbsp;</Hidden> <PlayIcon />
-                  </Button>
-                </NextLink>
+                    },
+                    display: "flex",
+                    textAlign: "center",
+                    alignItems: "center",
+                    width: { xs: "100%", sm: "42.24px" },
+                    height: { xs: "100%", sm: "42.24px" },
+                  }}
+                >
+                  <Hidden smUp>Play Demo &nbsp;</Hidden> <PlayIcon />
+                </Button>
               </Stack>
               <Stack
                 direction="row"
@@ -190,32 +185,22 @@ const HeroSection: HomePageFunc = () => {
                   padding: { xs: 2, sm: 3 },
                 }}
               >
-                <ButtonBase
-                  focusRipple
+                <ImageButton
                   onClick={handleOpenVideo}
-                  className={buttonStyle.imageButton}
+                  src="/images/hero-img.png"
+                  alt="contentionary introduction video"
                 >
-                  <Box
-                    component="span"
-                    className="MuiImageBase-root"
-                    sx={{
-                      backgroundImage: "url(/images/hero-img.png)",
-                    }}
-                  />
-                  <Box component="span" className="MuiImageBackdrop-root" />
-                  <Box component="span" className="MuiImageFlex-root">
-                    <Typography component="h5" variant="h5" color="inherit">
-                      <Avatar
-                        sx={{
-                          backgroundColor: "transparent",
-                          border: "2px solid white",
-                        }}
-                      >
-                        <PlayIcon className="MuiSvgFlip-root" fill="white" />
-                      </Avatar>
-                    </Typography>
-                  </Box>
-                </ButtonBase>
+                  <Typography component="h5" variant="h5" color="inherit">
+                    <Avatar
+                      sx={{
+                        backgroundColor: "transparent",
+                        border: "2px solid white",
+                      }}
+                    >
+                      <PlayIcon className="MuiSvgFlip-root" fill="white" />
+                    </Avatar>
+                  </Typography>
+                </ImageButton>
               </Box>
             </Grid>
           </Grid>

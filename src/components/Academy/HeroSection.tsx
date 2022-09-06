@@ -1,28 +1,29 @@
 import React, { Fragment } from "react";
-// next
+// next components
 import Image from "next/image";
+import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
-import OutlinedInput from "@mui/material/OutlinedInput";
 // import { useTheme } from "@mui/material/styles";
-// app components
-// icons
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-// styles and interface
+//
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
-import { MarketPlaceFunc } from "./interfaceType";
+// icons and resources
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+// interface and config
+import config from "@src/utils/config";
+import { AcademyFunc } from "./interfaceType";
 
-const HeroSection: MarketPlaceFunc = () => {
-  // const theme = useTheme();
+const HeroSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
 
@@ -40,61 +41,31 @@ const HeroSection: MarketPlaceFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+              <Typography mb={2} variant="h5">
+                WELCOME TO
+              </Typography>
               <Typography
+                mb={3}
                 variant="h1"
-                sx={{ mb: 2, textAlign: { xs: "center", sm: "left" } }}
-                component="h1"
+                className={globalStyle.textGradient}
               >
-                The Foremost{" "}
-                <Typography
-                  variant="h1"
-                  component="span"
-                  fontWeight={"inherit"}
-                  className={globalStyle.textGradient}
-                >
-                  Preparatory
-                </Typography>{" "}
-                Marketplace
+                Ed Sherman school Academy
               </Typography>
-              <Typography
-                sx={{
-                  maxWidth: "450px",
-                  mb: 3,
-                  textAlign: { xs: "center", sm: "left" },
-                }}
-                paragraph
-              >
-                Join a Centre and access prep contents and prep tests by
-                verified instructors and examiners.
+              <Typography mb={3} paragraph maxWidth="450px">
+                We are changing the way our students access vocational skills
+                and in- demand skill contents.
               </Typography>
-              <Stack
-                sx={{ mb: 2 }}
-                alignItems="center"
-                direction={{ xs: "column", sm: "row" }}
-                spacing={2}
-                className=""
-              >
-                <OutlinedInput
-                  size="small"
-                  placeholder="search for preparatory content..."
-                  sx={{
-                    minWidth: { xs: "100%", sm: "320px" },
-                    display: { xs: "block", sm: "inline-block" },
-                  }}
-                />
+              <NextLink href={`${config.URL.WEB}login`} passHref>
                 <Button
                   size="large"
                   disableElevation
                   variant="contained"
+                  component={MuiLink}
                   className={globalStyle.bgGradient}
-                  sx={{
-                    width: { xs: "100%", sm: "auto" },
-                    display: { xs: "block", sm: "inline-block" },
-                  }}
                 >
-                  Search marketplace
+                  Get Started
                 </Button>
-              </Stack>
+              </NextLink>
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
               <Box
@@ -145,13 +116,10 @@ const HeroSection: MarketPlaceFunc = () => {
                       bgcolor: "#FBEEE6",
                     }}
                   >
-                    <PersonOutlineOutlinedIcon color="primary" />
+                    <AutoStoriesOutlinedIcon color="primary" />
                   </Avatar>
-                  <Typography variant="h5" component="h5" color="primary">
-                    15K
-                  </Typography>
                   <Typography variant="subtitle2">
-                    Amazing students around the globe
+                    Be certified upon course completion
                   </Typography>
                 </Paper>
                 <Box

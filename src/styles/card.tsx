@@ -42,7 +42,16 @@ const cardStyle = makeStyles({
         backgroundPosition: "center center",
         transition: "transform 0.75s cubic-bezier(.56,.82,.54,.99)",
       },
-      "&:hover::before": {
+      "& img": {
+        left: 0,
+        top: 0,
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        willChange: "transform",
+        transition: "transform 0.75s cubic-bezier(.56,.82,.54,.99)",
+      },
+      "&:hover::before, &:hover img": {
         transform: "scale(1.125)",
       },
     },

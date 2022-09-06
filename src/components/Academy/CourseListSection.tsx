@@ -1,30 +1,28 @@
 import React, { Fragment } from "react";
 // next
 import Image from "next/image";
-import NextLink from "next/link";
+// import NextLink from "next/link";
 //
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardActionArea from "@mui/material/CardActionArea";
-import { Link as MuiLink } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 //
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 //
-import useGlobalStyle from "@src/styles";
+// import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 // interface
-import { MarketPlaceFunc } from "./interfaceType";
+import { AcademyFunc } from "./interfaceType";
 
-const PublicationListSection: MarketPlaceFunc = () => {
+const CourseListSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
-  const globalStyle = useGlobalStyle();
+  // const globalStyle = useGlobalStyle();
 
   return (
     <Fragment>
@@ -40,22 +38,22 @@ const PublicationListSection: MarketPlaceFunc = () => {
             component="h2"
             sx={{ textAlign: { xs: "center", md: "left" } }}
           >
-            Top{" "}
+            Explore{" "}
             <Typography
               variant="h4"
               component="span"
               color="primary.main"
               fontWeight={"inherit"}
             >
-              Featured Publications
+              Top Online
             </Typography>{" "}
-            From Experts
+            Courses From Highly Qualified Educators
           </Typography>
           <Grid
             container
             direction="row-reverse"
-            mb={{ xs: 2, xl: 4 }}
-            spacing={{ xs: 2, xl: 4 }}
+            mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
+            spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
           >
             {Array.from({ length: 4 }).map((_, index) => (
               <Grid
@@ -101,30 +99,63 @@ const PublicationListSection: MarketPlaceFunc = () => {
                           4.5
                         </Typography>
                       </Stack>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" color="text.secondary" mb={2}>
                         Premium Centre gives you a vast categories by top
                         industry expert...
                       </Typography>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        sx={{
+                          flexWrap: { xs: "wrap", md: "nowrap" },
+                          alignItems: "center",
+                          justifyContent: "between",
+                        }}
+                      >
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{ order: { xs: 2, md: 2 } }}
+                        >
+                          4 weeks
+                        </Typography>
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            order: { xs: 3, md: 2 },
+                          }}
+                        >
+                          <PeopleAltOutlinedIcon
+                            color="primary"
+                            fontSize="inherit"
+                          />{" "}
+                          1.5k Students
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          color="primary"
+                          mb={0}
+                          sx={{
+                            ml: "auto",
+                            flexGrow: 1,
+                            order: { xs: 1, md: 3 },
+                            width: { xs: "100%", md: "auto" },
+                            textAlign: { xs: "left", md: "right" },
+                          }}
+                        >
+                          35.5$
+                        </Typography>
+                      </Stack>
                     </CardContent>
                   </CardActionArea>
-                  <CardActions>
-                    <NextLink href="/" passHref>
-                      <Button
-                        disableElevation
-                        variant="contained"
-                        component={MuiLink}
-                        className={globalStyle.bgGradient}
-                        fullWidth
-                      >
-                        View publication
-                      </Button>
-                    </NextLink>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}
           </Grid>
-          <Grid container spacing={{ xs: 2, xl: 4 }}>
+          <Grid container spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}>
             {Array.from({ length: 4 }).map((_, index) => (
               <Grid
                 key={`${index}-course-card`}
@@ -169,25 +200,58 @@ const PublicationListSection: MarketPlaceFunc = () => {
                           4.5
                         </Typography>
                       </Stack>
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" color="text.secondary" mb={2}>
                         Premium Centre gives you a vast categories by top
                         industry expert...
                       </Typography>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        sx={{
+                          flexWrap: { xs: "wrap", md: "nowrap" },
+                          alignItems: "center",
+                          justifyContent: "between",
+                        }}
+                      >
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{ order: { xs: 2, md: 2 } }}
+                        >
+                          4 weeks
+                        </Typography>
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            order: { xs: 3, md: 2 },
+                          }}
+                        >
+                          <PeopleAltOutlinedIcon
+                            color="primary"
+                            fontSize="inherit"
+                          />{" "}
+                          1.5k Students
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          color="primary"
+                          mb={0}
+                          sx={{
+                            ml: "auto",
+                            flexGrow: 1,
+                            order: { xs: 1, md: 3 },
+                            width: { xs: "100%", md: "auto" },
+                            textAlign: { xs: "left", md: "right" },
+                          }}
+                        >
+                          35.5$
+                        </Typography>
+                      </Stack>
                     </CardContent>
                   </CardActionArea>
-                  <CardActions>
-                    <NextLink href="/" passHref>
-                      <Button
-                        disableElevation
-                        variant="contained"
-                        component={MuiLink}
-                        className={globalStyle.bgGradient}
-                        fullWidth
-                      >
-                        View publication
-                      </Button>
-                    </NextLink>
-                  </CardActions>
                 </Card>
               </Grid>
             ))}
@@ -198,4 +262,4 @@ const PublicationListSection: MarketPlaceFunc = () => {
   );
 };
 
-export default PublicationListSection;
+export default CourseListSection;

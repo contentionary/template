@@ -11,7 +11,7 @@ import PublicationListSection from "./PublicationListSection";
 //
 import { MarketPlaceFunc } from "./interfaceType";
 
-const HomePage: MarketPlaceFunc = () => {
+const MarketPlace: MarketPlaceFunc = () => {
   return (
     <Box component="main" sx={{ pt: 8 }}>
       <HeroSection />
@@ -23,4 +23,4 @@ const HomePage: MarketPlaceFunc = () => {
     </Box>
   );
 };
-export default HomePage;
+export default MarketPlace;

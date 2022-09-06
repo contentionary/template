@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 // next
-// import Image from "next/image";
-// import NextLink from "next/link";
+import Image from "next/image";
 //
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
@@ -10,11 +9,11 @@ import Container from "@mui/material/Container";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 // import { Link as MuiLink } from "@mui/material";
-//
+// app components
+import ImageLink from "@src/components/shared/buttons/ImageLink";
+// styles and interface
 import useGlobalStyle from "@src/styles";
 import useButtonStyle from "@src/styles/button";
-//
-// interface
 import { MarketPlaceFunc } from "./interfaceType";
 // icons
 import NoteIcon from "@src/assets/icons/note.svg";
@@ -60,19 +59,15 @@ const ProductsSection: MarketPlaceFunc = () => {
                 scrollSnapAlign: "start",
               }}
             >
-              <ButtonBase focusRipple className={buttonStyle.imageButton}>
-                <Box
-                  component="span"
-                  className="MuiImageBase-root"
-                  sx={{ backgroundImage: "url(/images/exam-img.jpg)" }}
-                />
-                <Box component="span" className="MuiImageBackdrop-root" />
-                <Box component="span" className="MuiImageFlex-root">
-                  <Typography component="h5" variant="h5" color="inherit">
-                    <BookIcon className="MuiSvgFlip-root" fill="white" /> Exams
-                  </Typography>
-                </Box>
-              </ButtonBase>
+              <ImageLink
+                href="/"
+                alt="Exams image link"
+                src="/images/exam-img.jpg"
+              >
+                <Typography component="h5" variant="h5" color="inherit">
+                  <BookIcon className="MuiSvgFlip-root" fill="white" /> Exams
+                </Typography>
+              </ImageLink>
             </Grid>
             <Grid
               item
@@ -86,11 +81,14 @@ const ProductsSection: MarketPlaceFunc = () => {
               }}
             >
               <ButtonBase focusRipple className={buttonStyle.imageButton}>
-                <Box
-                  component="span"
-                  className="MuiImageBase-root"
-                  sx={{ backgroundImage: "url(/images/league-img.jpg)" }}
-                />
+                <Box component="span" className="MuiImageBase-root">
+                  <Image
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Contentionary"
+                    src="/images/league-img.jpg"
+                  />
+                </Box>
                 <Box component="span" className="MuiImageBackdrop-root" />
                 <Box component="span" className="MuiImageFlex-root">
                   <Typography component="h5" variant="h5" color="inherit">
@@ -112,13 +110,14 @@ const ProductsSection: MarketPlaceFunc = () => {
               }}
             >
               <ButtonBase focusRipple className={buttonStyle.imageButton}>
-                <Box
-                  component="span"
-                  className="MuiImageBase-root"
-                  sx={{
-                    backgroundImage: "url(/images/online-course-img.jpg)",
-                  }}
-                />
+                <Box component="span" className="MuiImageBase-root">
+                  <Image
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Contentionary"
+                    src="/images/online-course-img.jpg"
+                  />
+                </Box>
                 <Box component="span" className="MuiImageBackdrop-root" />
                 <Box component="span" className="MuiImageFlex-root">
                   <Typography component="h5" variant="h5" color="inherit">
@@ -140,13 +139,14 @@ const ProductsSection: MarketPlaceFunc = () => {
               }}
             >
               <ButtonBase focusRipple className={buttonStyle.imageButton}>
-                <Box
-                  component="span"
-                  className="MuiImageBase-root"
-                  sx={{
-                    backgroundImage: "url(/images/publication-img.jpg)",
-                  }}
-                />
+                <Box component="span" className="MuiImageBase-root">
+                  <Image
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Contentionary"
+                    src="/images/publication-img.jpg"
+                  />
+                </Box>
                 <Box component="span" className="MuiImageBackdrop-root" />
                 <Box component="span" className="MuiImageFlex-root">
                   <Typography component="h5" variant="h5" color="inherit">

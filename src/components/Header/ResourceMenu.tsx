@@ -80,7 +80,9 @@ const ResourceMenu = () => {
               <Typography mb={2} fontSize="medium" variant="h4" color="primary">
                 RESOURCES
               </Typography>
-              <Typography variant="h6">Features</Typography>
+              <Typography variant="caption" fontWeight="bold">
+                Features
+              </Typography>
               <Typography variant="caption" component="p">
                 Everything you do in contentionary revolves around your Centre.
                 You can create free Centre(s) where you can teach, publish and
@@ -89,7 +91,12 @@ const ResourceMenu = () => {
               <NextLink href="/" passHref>
                 <MuiLink fontSize="small">Learn more</MuiLink>
               </NextLink>
-              <Typography mt={2} variant="h6">
+              <Typography
+                mt={2}
+                display="block"
+                variant="caption"
+                fontWeight="bold"
+              >
                 Your Business Categories
               </Typography>
               <List>
@@ -135,7 +142,9 @@ const ResourceMenu = () => {
                 passHref
               >
                 <MuiLink
-                  variant="h6"
+                  mb={1}
+                  variant="caption"
+                  fontWeight="bold"
                   color="primary"
                   display="block"
                   underline="none"
@@ -153,10 +162,12 @@ const ResourceMenu = () => {
                 passHref
               >
                 <MuiLink
-                  variant="h6"
-                  color="primary"
+                  mb={1}
                   display="block"
+                  color="primary"
                   underline="none"
+                  fontWeight="bold"
+                  variant="caption"
                 >
                   How to set a exam
                 </MuiLink>
@@ -171,11 +182,13 @@ const ResourceMenu = () => {
                 passHref
               >
                 <MuiLink
-                  variant="h6"
+                  mb={1}
                   display="block"
                   color="primary"
                   underline="none"
                   lineHeight={1.25}
+                  variant="caption"
+                  fontWeight="bold"
                 >
                   How to create courses in modules and Upload Publications
                 </MuiLink>
@@ -187,7 +200,8 @@ const ResourceMenu = () => {
               </ResourceMenuLink>
               <NextLink href={`${config.URL.APP}integration`} passHref>
                 <MuiLink
-                  variant="h6"
+                  variant="caption"
+                  fontWeight="bold"
                   display="block"
                   color="primary"
                   underline="none"
@@ -203,7 +217,8 @@ const ResourceMenu = () => {
                 passHref
               >
                 <MuiLink
-                  variant="h6"
+                  variant="caption"
+                  fontWeight="bold"
                   color="primary"
                   display="block"
                   underline="none"

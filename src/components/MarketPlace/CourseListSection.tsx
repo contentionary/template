@@ -49,6 +49,112 @@ const CourseListSection: MarketPlaceFunc = () => {
             </Typography>{" "}
             Courses From Highly Qualified Educators
           </Typography>
+          <Grid
+            container
+            direction="row-reverse"
+            mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
+            spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
+          >
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Grid
+                key={`${index}-course-card`}
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+              >
+                <Card className={cardStyle.courseCard}>
+                  <CardActionArea className="MuiCourseCardActionBase-root">
+                    <Image
+                      src={`/images/courses-${index}.png`}
+                      width="100%"
+                      height="60%"
+                      layout="responsive"
+                      objectFit="cover"
+                      alt="Contentionary"
+                    />
+                    <CardContent>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        sx={{
+                          flexWrap: "nowrap",
+                          alignItems: "start",
+                          justifyContent: "between",
+                        }}
+                      >
+                        <Typography gutterBottom variant="h5" component="h5">
+                          Learn Marketing from Top Instructors.
+                        </Typography>
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          <StarBorderOutlinedIcon
+                            color="primary"
+                            fontSize="inherit"
+                          />{" "}
+                          4.5
+                        </Typography>
+                      </Stack>
+                      <Typography variant="body2" color="text.secondary" mb={2}>
+                        Premium Centre gives you a vast categories by top
+                        industry expert...
+                      </Typography>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        sx={{
+                          flexWrap: { xs: "wrap", md: "nowrap" },
+                          alignItems: "center",
+                          justifyContent: "between",
+                        }}
+                      >
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{ order: { xs: 2, md: 2 } }}
+                        >
+                          4 weeks
+                        </Typography>
+                        <Typography
+                          paragraph
+                          mb={0}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            order: { xs: 3, md: 2 },
+                          }}
+                        >
+                          <PeopleAltOutlinedIcon
+                            color="primary"
+                            fontSize="inherit"
+                          />{" "}
+                          1.5k Students
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          color="primary"
+                          mb={0}
+                          sx={{
+                            ml: "auto",
+                            flexGrow: 1,
+                            order: { xs: 1, md: 3 },
+                            width: { xs: "100%", md: "auto" },
+                            textAlign: { xs: "left", md: "right" },
+                          }}
+                        >
+                          35.5$
+                        </Typography>
+                      </Stack>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
           <Grid container spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}>
             {Array.from({ length: 4 }).map((_, index) => (
               <Grid
