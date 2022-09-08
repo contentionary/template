@@ -186,6 +186,7 @@ const HeroSection: HomePageFunc = () => {
                 }}
               >
                 <ImageButton
+                  priority
                   onClick={handleOpenVideo}
                   src="/images/hero-img.png"
                   alt="contentionary introduction video"

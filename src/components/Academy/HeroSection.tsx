@@ -130,11 +130,12 @@ const HeroSection: AcademyFunc = () => {
                   }}
                 >
                   <Image
+                    priority
                     layout="fill"
                     alt="yes we can"
                     objectFit="cover"
                     objectPosition="center"
-                    src="/images/online-class1-img.jpg"
+                    src="/images/courses-0.png"
                   />
                 </Box>
               </Box>

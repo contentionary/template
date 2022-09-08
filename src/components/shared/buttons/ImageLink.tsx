@@ -13,7 +13,7 @@ import { ImageLinkFunc } from "./InterfaceType";
 
 const ImageLink: ImageLinkFunc = (props) => {
   const buttonStyle = useButtonStyle();
-  const { src, alt, children, onClick, href } = props;
+  const { src, alt, children, onClick, href, priority } = props;
 
   return (
     <NextLink href={href} passHref>
@@ -24,7 +24,13 @@ const ImageLink: ImageLinkFunc = (props) => {
         className={buttonStyle.imageButton}
       >
         <Box component="div" className="MuiImageBase-root">
-          <Image layout="fill" objectFit="cover" alt={alt} src={src} />
+          <Image
+            alt={alt}
+            src={src}
+            layout="fill"
+            objectFit="cover"
+            priority={priority}
+          />
         </Box>
         <Box component="span" className="MuiImageBackdrop-root" />
         <Box component="span" className="MuiImageFlex-root">

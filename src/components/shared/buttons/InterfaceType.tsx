@@ -2,6 +2,7 @@
 export interface ImageButtonInt {
   alt: string;
   src: string;
+  priority?: boolean;
   onClick?: () => void;
   children: React.ReactElement;
 }

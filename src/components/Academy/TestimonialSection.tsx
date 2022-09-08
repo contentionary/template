@@ -31,8 +31,8 @@ const TestimonialSection: AcademyFunc = () => {
           <Typography mb={4} textAlign="center" variant="h4" component="h2">
             Why Us?
           </Typography>
-          <Grid container columns={10} spacing={4}>
-            <Grid item xs={10} md={3}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={4}>
               <Grid container spacing={2}>
                 <Grid item xs={8} md={12}>
                   <Typography mb={2} variant="h3" component="h2">
@@ -58,7 +58,7 @@ const TestimonialSection: AcademyFunc = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={10} md={7}>
+            <Grid item xs={12} md={8}>
               <Grid
                 container
                 wrap="nowrap"
@@ -66,7 +66,7 @@ const TestimonialSection: AcademyFunc = () => {
                 className={globalStyle.hiddenScrollbar}
                 sx={{ overflowX: "auto", scrollSnapType: "x mandatory" }}
               >
-                <Grid item xs={8} md={6} xl={4}>
+                <Grid item xs={8} md={5} xl={4} flexShrink={0}>
                   <Stack mb={2} direction="row" alignItems="center" spacing={2}>
                     <Avatar sx={{ width: 56, height: 56 }}>
                       <Image
@@ -84,7 +84,7 @@ const TestimonialSection: AcademyFunc = () => {
                     reviewed by quality control experts.
                   </Typography>
                 </Grid>
-                <Grid item xs={8} md={6} xl={4}>
+                <Grid item xs={8} md={5} xl={4} flexShrink={0}>
                   <Stack mb={2} direction="row" alignItems="center" spacing={2}>
                     <Avatar sx={{ width: 56, height: 56 }}>
                       <Image
@@ -103,7 +103,7 @@ const TestimonialSection: AcademyFunc = () => {
                     for the students.
                   </Typography>
                 </Grid>
-                <Grid item xs={8} md={6} xl={4}>
+                <Grid item xs={8} md={5} xl={4} flexShrink={0}>
                   <Stack mb={2} direction="row" alignItems="center" spacing={2}>
                     <Avatar sx={{ width: 56, height: 56 }}>
                       <Image

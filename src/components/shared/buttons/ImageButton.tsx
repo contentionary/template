@@ -13,7 +13,7 @@ import { ImageButtonFunc } from "./InterfaceType";
 
 const ImageButton: ImageButtonFunc = (props) => {
   const buttonStyle = useButtonStyle();
-  const { src, alt, children, onClick } = props;
+  const { src, alt, children, onClick, priority } = props;
 
   return (
     <ButtonBase
@@ -22,7 +22,13 @@ const ImageButton: ImageButtonFunc = (props) => {
       className={buttonStyle.imageButton}
     >
       <Box component="div" className="MuiImageBase-root">
-        <Image layout="fill" objectFit="cover" alt={alt} src={src} />
+        <Image
+          alt={alt}
+          src={src}
+          layout="fill"
+          objectFit="cover"
+          priority={priority}
+        />
       </Box>
       <Box component="span" className="MuiImageBackdrop-root" />
       <Box component="span" className="MuiImageFlex-root">

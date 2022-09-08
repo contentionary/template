@@ -20,8 +20,9 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 // component and styles
-import TickAvatar from "@src/components/shared/TickAvatar";
 import useGlobalStyle from "@src/styles";
+import useTabStyle from "@src/styles/tab";
+import TickAvatar from "@src/components/shared/TickAvatar";
 // import { useTheme } from "@mui/material/styles";
 // interface and config
 import config from "@src/utils/config";
@@ -29,7 +30,7 @@ import { HomePageFunc } from "./interfaceType";
 
 const PromiseSection: HomePageFunc = () => {
   const [value, setValue] = React.useState("1");
-  // const theme = useTheme();
+  const tabStyle = useTabStyle();
   const globalStyle = useGlobalStyle();
 
   //
@@ -78,22 +79,7 @@ const PromiseSection: HomePageFunc = () => {
                 scrollButtons="auto"
                 allowScrollButtonsMobile
                 aria-label="lab API tabs example"
-                sx={{
-                  "&.MuiTabs-root": {
-                    maxWidth: 1100,
-                    justifyContent: "center",
-                    borderBottom: 1,
-                    borderColor: "divider",
-                    mx: "auto",
-                  },
-                  "& .MuiTabs-flexContainer": {
-                    justifyContent: "space-between",
-                    gap: 4,
-                  },
-                  "& .MuiTabScrollButton-root": {
-                    "&.Mui-disabled": { opacity: 0.3 },
-                  },
-                }}
+                className={`${tabStyle.appTab} w-1100 border-bottom`}
               >
                 <Tab label="Build your centre" value="1" />
                 <Tab label="Measure performance" value="2" />

@@ -162,6 +162,7 @@ const HeroSection: MarketPlaceFunc = () => {
                   }}
                 >
                   <Image
+                    priority
                     layout="fill"
                     alt="yes we can"
                     objectFit="cover"
