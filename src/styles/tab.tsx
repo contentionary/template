@@ -19,9 +19,10 @@ const tabStyle = makeStyles({
       justifyContent: "space-between",
     },
     "& .MuiButtonBase-root": {
-      paddingBottom: "1.1rem !important",
+      paddingBottom: "1rem !important",
     },
     "& .MuiTabScrollButton-root": {
+      paddingTop: "1rem !important",
       "&.Mui-disabled": { opacity: 0.3 },
     },
   },

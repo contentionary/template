@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import Image from "next/image";
 // mui components
+import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
@@ -21,11 +22,17 @@ const CourseReview: CourseDetailsPageFunc = () => {
   return (
     <Fragment>
       <List>
-        {Array.from({ length: 2 }).map((_, index) => (
-          <Fragment key={`${index}-video-list`}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar sx={{ width: 56, height: 56, mr: 2 }}>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <Fragment key={`${index}-review-list`}>
+            <ListItem alignItems="flex-start" sx={{ px: 0 }}>
+              <ListItemAvatar sx={{ display: { xs: "none", md: "block" } }}>
+                <Avatar
+                  sx={{
+                    mr: 2,
+                    width: 56,
+                    height: 56,
+                  }}
+                >
                   <Image
                     alt="user"
                     layout="fill"
@@ -36,22 +43,46 @@ const CourseReview: CourseDetailsPageFunc = () => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <Typography variant="h6" mb={1}>
-                    Brunch Malt Flint
-                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <Avatar
+                      sx={{
+                        mr: 2,
+                        width: 56,
+                        height: 56,
+                        display: { xs: "block", md: "none" },
+                      }}
+                    >
+                      <Image
+                        alt="user"
+                        layout="fill"
+                        objectFit="contain"
+                        src="/images/avatar.png"
+                      />
+                    </Avatar>
+                    <Box sx={{ ml: "0 !important" }}>
+                      <Typography variant="h6" mb={1}>
+                        Brunch Malt Flint
+                      </Typography>
+                      <Stack
+                        direction={{ xs: "column", sm: "row" }}
+                        spacing={1}
+                      >
+                        <Typography paragraph color="primary.light" mb={0}>
+                          <StarOutlinedIcon />
+                          <StarOutlinedIcon />
+                          <StarOutlinedIcon />
+                          <StarHalfOutlinedIcon />
+                          <StarOutlineOutlinedIcon />
+                        </Typography>
+                        <Typography paragraph mb={0} mt="0 !important">
+                          {index + 2} months ago
+                        </Typography>
+                      </Stack>
+                    </Box>
+                  </Stack>
                 }
                 secondary={
                   <Fragment>
-                    <Stack direction="row" spacing={1}>
-                      <Typography paragraph color="primary.light" mb={0}>
-                        <StarOutlinedIcon />
-                        <StarOutlinedIcon />
-                        <StarOutlinedIcon />
-                        <StarHalfOutlinedIcon />
-                        <StarOutlineOutlinedIcon />
-                      </Typography>
-                      <Typography paragraph>3 months ago</Typography>
-                    </Stack>
                     <Typography paragraph mb={0}>
                       Max is very clear on the explanation of the content. The
                       course is very complete with the exception of User
@@ -61,7 +92,7 @@ const CourseReview: CourseDetailsPageFunc = () => {
                 }
               />
             </ListItem>
-            <Divider variant="inset" component="li" />
+            <Divider component="li" />
           </Fragment>
         ))}
       </List>

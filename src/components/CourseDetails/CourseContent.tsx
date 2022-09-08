@@ -10,6 +10,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
@@ -45,21 +46,25 @@ const CourseContent: CourseDetailsPageFunc = () => {
             aria-controls={`content-list-${index + 1}`}
             id={`content-list-${index + 1}`}
           >
-            <Typography variant="h5" sx={{ width: "100px", flexShrink: 0 }}>
-              Module {`${index + 1}`}
-            </Typography>
-            <Stack
-              flexGrow={1}
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography variant="h6">
-                Introduction to the project of designing
+            <Stack flexGrow={1} direction={{ xs: "column", md: "row" }}>
+              <Typography variant="h5" sx={{ width: "100px", flexShrink: 0 }}>
+                Module {`${index + 1}`}
               </Typography>
-              <Typography color="text.secondary">
-                7 Lectures &middot; 34min
-              </Typography>
+              <Stack
+                flexGrow={1}
+                direction={{ xs: "column", md: "row" }}
+                justifyContent="space-between"
+              >
+                <Typography variant="h6">
+                  Introduction to the project of designing
+                </Typography>
+                <Typography
+                  color="text.secondary"
+                  display={{ xs: "none", md: "block" }}
+                >
+                  7 Lectures &middot; 34min
+                </Typography>
+              </Stack>
             </Stack>
           </AccordionSummary>
           <AccordionDetails>
@@ -67,20 +72,20 @@ const CourseContent: CourseDetailsPageFunc = () => {
               {Array.from({ length: 2 }).map((_, index) => (
                 <ListItem key={`${index}-video-list`} disablePadding>
                   <ListItemButton>
-                    <PlayIcon
-                      fill="secondary.main"
-                      style={{ transform: "scale(0.75)" }}
-                    />
+                    <ListItemIcon>
+                      <PlayIcon
+                        fill="secondary.main"
+                        style={{ transform: "scale(0.75)" }}
+                      />
+                    </ListItemIcon>
                     <ListItemText
                       primary={
                         <Stack
-                          direction="row"
-                          alignItems="center"
+                          direction={{ xs: "column", md: "row" }}
                           justifyContent="space-between"
                         >
                           <Typography paragraph mb={0}>
-                            &nbsp; Video: Introduction to th project of
-                            designing
+                            Video: Introduction to th project of designing
                           </Typography>
                           <Typography paragraph mb={0}>
                             25:04
@@ -93,16 +98,17 @@ const CourseContent: CourseDetailsPageFunc = () => {
               ))}
               <ListItem disablePadding>
                 <ListItemButton>
-                  <KeyboardVoiceOutlinedIcon />
+                  <ListItemIcon>
+                    <KeyboardVoiceOutlinedIcon />
+                  </ListItemIcon>
                   <ListItemText
                     primary={
                       <Stack
-                        direction="row"
-                        alignItems="center"
+                        direction={{ xs: "column", md: "row" }}
                         justifyContent="space-between"
                       >
                         <Typography paragraph mb={0}>
-                          &nbsp; Audio: Introduction to th project of designing
+                          Audio: Introduction to th project of designing
                         </Typography>
                         <Typography paragraph mb={0}>
                           25:04
@@ -114,17 +120,17 @@ const CourseContent: CourseDetailsPageFunc = () => {
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <AutoStoriesOutlinedIcon />
+                  <ListItemIcon>
+                    <AutoStoriesOutlinedIcon />
+                  </ListItemIcon>
                   <ListItemText
                     primary={
                       <Stack
-                        direction="row"
-                        alignItems="center"
+                        direction={{ xs: "column", md: "row" }}
                         justifyContent="space-between"
                       >
                         <Typography paragraph mb={0}>
-                          &nbsp; Document: Introduction to th project of
-                          designing
+                          Document: Introduction to th project of designing
                         </Typography>
                         <Typography paragraph mb={0}>
                           56 pages

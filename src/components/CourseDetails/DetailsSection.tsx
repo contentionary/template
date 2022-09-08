@@ -71,38 +71,56 @@ const DetailsSection: CourseDetailsPageFunc = () => {
                 </TabList>
               </Container>
             </Box>
-            <Container maxWidth="xl" sx={{ px: { md: 6 } }}>
-              <Grid container spacing={2}>
-                <Grid item md={8} xl={9}>
-                  <TabPanel value="1">
+            <Container maxWidth="xl" sx={{ px: { sm: 4, md: 6, xl: 3 } }}>
+              <Grid container spacing={{ xs: 2, xl: 0 }}>
+                <Grid item xs={12} md={8} xl={9}>
+                  <TabPanel
+                    value="1"
+                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
+                  >
                     <CourseOverview />
                   </TabPanel>
-                  <TabPanel value="2">
+                  <TabPanel
+                    value="2"
+                    sx={{ px: { xs: 0, md: 4, lg: 3, xl: 0 } }}
+                  >
                     <CourseContent />
                   </TabPanel>
-                  <TabPanel value="3">
+                  <TabPanel
+                    value="3"
+                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
+                  >
                     <Typography variant="h4" textAlign="center">
                       Course Settings
                     </Typography>
                     <UnderConstruction />
                   </TabPanel>
-                  <TabPanel value="4">
+                  <TabPanel
+                    value="4"
+                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
+                  >
                     <Typography variant="h4" textAlign="center">
                       Certificate Manager
                     </Typography>
                     <UnderConstruction />
                   </TabPanel>
-                  <TabPanel value="5">
+                  <TabPanel
+                    value="5"
+                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
+                  >
                     <Typography variant="h4" textAlign="center">
                       Subscribers
                     </Typography>
                     <UnderConstruction />
                   </TabPanel>
-                  <TabPanel value="6">
+                  <TabPanel
+                    value="6"
+                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
+                  >
                     <CourseReview />
                   </TabPanel>
                 </Grid>
-                <Grid item md={4} xl={3}>
+                <Grid item xs={12} md={4} xl={3}>
                   <Box pt={3}>
                     <CourseStats />
                   </Box>
