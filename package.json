@@ -21,13 +21,16 @@
     "classnames": "^2.3.1",
     "material-ui-popup-state": "^4.0.2",
     "next": "12.2.5",
+    "next-compose-plugins": "^2.2.1",
+    "next-videos": "1.5.0",
     "pure-react-carousel": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-player": "^2.10.1",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "simplebar-react": "^2.4.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.3.1",
@@ -37,6 +40,7 @@
     "@types/react-swipeable-views": "^0.13.1",
     "@types/react-swipeable-views-utils": "^0.13.3",
     "@types/react-syntax-highlighter": "^15.5.5",
+    "@types/video.js": "^7.3.47",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "eslint": "8.22.0",
@@ -45,6 +49,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
     "prettier": "^2.7.1",
-    "typescript": "4.7.4"
+    "typescript": "4.7.4",
+    "video.js": "^7.20.2"
   }
 }

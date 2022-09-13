@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import React from "react";
 // next
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 // mui components
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import { Link as MuiLink } from "@mui/material";
+import Typography from "@mui/material/Typography";
 //
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -13,19 +13,22 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
+// simplebar
+import SimpleBar from "simplebar-react";
+import "simplebar-react/dist/simplebar.min.css";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
-// interface, styles and config
+// interface props, styles and config
+import { LessonListFunc } from "./interfaceType";
 import useAccordionStyle from "@src/styles/accordion";
-import { CourseDetailsPageFunc } from "./interfaceType";
 
-const CourseContent: CourseDetailsPageFunc = () => {
+const LessonList: LessonListFunc = () => {
   const [expanded, setExpanded] = React.useState<string | false>("1");
   const accordionStyle = useAccordionStyle();
   const router = useRouter();
@@ -37,7 +40,7 @@ const CourseContent: CourseDetailsPageFunc = () => {
     };
 
   return (
-    <Fragment>
+    <Box component={SimpleBar} className="list-content">
       {Array.from({ length: 5 }).map((_, index) => (
         <Accordion
           key={`${index + 1}-content-list`}
@@ -48,100 +51,74 @@ const CourseContent: CourseDetailsPageFunc = () => {
           className={accordionStyle.appAccordion}
         >
           <AccordionSummary
+            id={`content-list-${index + 1}`}
             expandIcon={<ChevronRightOutlinedIcon />}
             aria-controls={`content-list-${index + 1}`}
-            id={`content-list-${index + 1}`}
+            sx={{ px: 0, flexDirection: "row !important" }}
           >
-            <Stack flexGrow={1} direction={{ xs: "column", md: "row" }}>
-              <Typography variant="h5" sx={{ width: "100px", flexShrink: 0 }}>
-                Module {`${index + 1}`}
-              </Typography>
-              <Stack
-                flexGrow={1}
-                direction={{ xs: "column", md: "row" }}
-                justifyContent="space-between"
-              >
-                <Typography variant="h6">
-                  Introduction to the project of designing
-                </Typography>
-                <Typography
-                  color="text.secondary"
-                  display={{ xs: "none", md: "block" }}
-                >
-                  7 Lectures &middot; 34min
-                </Typography>
-              </Stack>
-            </Stack>
+            <Typography variant="h6">
+              Introduction to the project of designing
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <List>
+            <List sx={{ py: 0 }}>
               {Array.from({ length: 2 }).map((_, index) => (
                 <ListItem key={`${index}-video-list`} disablePadding>
                   <NextLink href={`/courses/${slug}/lesson/${index}`} passHref>
                     <ListItemButton LinkComponent={MuiLink}>
-                      <ListItemIcon>
+                      <ListItemIcon sx={{ minWidth: 32 }}>
                         <PlayIcon
                           fill="secondary.main"
                           style={{ transform: "scale(0.75)" }}
                         />
                       </ListItemIcon>
-                      <Stack
-                        direction={{ xs: "column", md: "row" }}
-                        justifyContent="space-between"
-                      >
-                        <Typography paragraph mb={0}>
-                          Video: Introduction to th project of designing
-                        </Typography>
-                        <Typography paragraph mb={0}>
-                          25:04
-                        </Typography>
-                      </Stack>
+                      <Typography variant="body2" mb={0}>
+                        <strong>Video</strong>: Introduction to th project of
+                        designing
+                      </Typography>
                     </ListItemButton>
                   </NextLink>
                 </ListItem>
               ))}
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: 32 }}>
                     <KeyboardVoiceOutlinedIcon />
                   </ListItemIcon>
-                  <Stack
-                    direction={{ xs: "column", md: "row" }}
-                    justifyContent="space-between"
-                  >
-                    <Typography paragraph mb={0}>
-                      Audio: Introduction to th project of designing
-                    </Typography>
-                    <Typography paragraph mb={0}>
-                      25:04
-                    </Typography>
-                  </Stack>
+                  <Typography variant="body2" mb={0}>
+                    <strong>Audio</strong>: Introduction to th project of
+                    designing
+                  </Typography>
                 </ListItemButton>
               </ListItem>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
+                  <ListItemIcon sx={{ minWidth: 32 }}>
                     <AutoStoriesOutlinedIcon />
                   </ListItemIcon>
-                  <Stack
-                    direction={{ xs: "column", md: "row" }}
-                    justifyContent="space-between"
-                  >
-                    <Typography paragraph mb={0}>
-                      Document: Introduction to th project of designing
-                    </Typography>
-                    <Typography paragraph mb={0}>
-                      56 pages
-                    </Typography>
-                  </Stack>
+                  <Typography variant="body2" mb={0}>
+                    <strong>Document</strong>: Introduction to th project of
+                    designing
+                  </Typography>
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon sx={{ minWidth: 32 }}>
+                    <ReceiptLongOutlinedIcon />
+                  </ListItemIcon>
+                  <Typography variant="body2" mb={0}>
+                    <strong>Exam</strong>: Introduction to th project of
+                    designing
+                  </Typography>
                 </ListItemButton>
               </ListItem>
             </List>
           </AccordionDetails>
         </Accordion>
       ))}
-    </Fragment>
+    </Box>
   );
 };
 
-export default CourseContent;
+export default LessonList;
