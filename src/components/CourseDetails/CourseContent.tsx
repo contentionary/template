@@ -13,7 +13,6 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 // icons

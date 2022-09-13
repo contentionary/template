@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 // icons
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";

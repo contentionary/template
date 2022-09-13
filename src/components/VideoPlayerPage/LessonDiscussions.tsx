@@ -87,7 +87,7 @@ const LessonDiscussions: LessonPlayerFunc = () => {
                     <Stack direction="row" spacing={1}>
                       <Box>
                         <Typography variant="h6" mb={0}>
-                          Emmanuel Emenike
+                          Emmanuel Clinton
                         </Typography>
                         <Typography paragraph mb={0}>
                           {index + 2} months ago
@@ -161,7 +161,7 @@ const LessonDiscussions: LessonPlayerFunc = () => {
                             <Stack direction="row" spacing={1}>
                               <Box>
                                 <Typography variant="h6" mb={0}>
-                                  Emmanuel Emenike
+                                  David Richard
                                 </Typography>
                                 <Typography paragraph mb={0}>
                                   {index + 2} months ago
