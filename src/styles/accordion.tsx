@@ -26,6 +26,10 @@ const accordionStyle = makeStyles({
         padding: theme.spacing(0),
         borderTop: `1px solid ${theme.palette.divider}`,
       },
+      "&.flush": {
+        borderLeft: 0,
+        borderRight: 0,
+      },
     },
   },
 });

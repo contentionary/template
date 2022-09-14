@@ -43,12 +43,13 @@ const LessonList: LessonListFunc = () => {
     <Box component={SimpleBar} className="list-content">
       {Array.from({ length: 5 }).map((_, index) => (
         <Accordion
-          key={`${index + 1}-content-list`}
+          square
           elevation={0}
           disableGutters
+          key={`${index + 1}-content-list`}
           expanded={expanded === `${index + 1}`}
           onChange={handleChange(`${index + 1}`)}
-          className={accordionStyle.appAccordion}
+          className={`${accordionStyle.appAccordion} flush`}
         >
           <AccordionSummary
             id={`content-list-${index + 1}`}
