@@ -7,6 +7,7 @@ import useVideoPlayerStyle from "@src/styles/videoPlayer";
 // video player
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
+import "@videojs/themes/dist/city/index.css";
 
 interface IVideoPlayerProps {
   options: videojs.PlayerOptions;
@@ -38,7 +39,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
     <Box data-vjs-player className={videoPlayerStyle.mainContainer}>
       <video
         ref={videoRef}
-        className="video-js vjs-big-play-centered vjs-16-9"
+        className="video-js vjs-big-play-centered vjs-16-9 vjs-theme-city"
       />
     </Box>
   );

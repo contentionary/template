@@ -18,6 +18,7 @@
     "@mui/lab": "^5.0.0-alpha.96",
     "@mui/material": "^5.10.1",
     "@mui/styles": "^5.9.3",
+    "@videojs/themes": "^1.0.1",
     "classnames": "^2.3.1",
     "material-ui-popup-state": "^4.0.2",
     "next": "12.2.5",
