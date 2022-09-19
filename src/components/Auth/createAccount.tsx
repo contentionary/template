@@ -26,7 +26,7 @@ const CreateAccount = (): JSX.Element => {
         throw "password mis-matched";
       }
       const { data } = await request.post({
-        url: `/auth/register`,
+        url: "/auth/register",
         data: values,
       });
       resetValues();

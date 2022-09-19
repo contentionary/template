@@ -10,7 +10,7 @@ export default function SnackbarComponent({
   message,
   vertical = "top",
   horizontal = "right",
-}: Props):JSX.Element {
+}: Props): JSX.Element {
   return (
     <Snackbar
       anchorOrigin={{ vertical, horizontal }}
