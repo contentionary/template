@@ -17,11 +17,7 @@ import { AcademyFunc } from "./interfaceType";
 const PromoSection: AcademyFunc = () => {
   const globalStyle = useGlobalStyle();
   return (
-    <Box
-      component="section"
-      sx={{ py: 8, px: { md: 6 }, bgcolor: "secondary.dark" }}
-      className=""
-    >
+    <Box py={8} px={{ md: 6 }} component="section" bgcolor="secondary.dark">
       <Container maxWidth="xl">
         <Grid container spacing={6} alignItems="center" mt={{ xs: 0, md: -20 }}>
           <Grid item xs={12} md={5} display={{ xs: "none", md: "block" }}>

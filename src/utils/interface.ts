@@ -23,3 +23,103 @@ export interface UserInt extends UserBaseInt {
   managedCentre: Array<string>;
   subscribedCentre: Array<string>;
 }
+
+export interface RequestResponseInt {
+  success: boolean;
+  data: Record<string, any>;
+}
+
+export interface ErrorResponseInt {
+  message: string;
+  statusCode: number;
+}
+
+export interface RequestInt {
+  url: string;
+  method?: "GET" | "POST" | "PATCH" | "DELETE";
+}
+
+export interface PostRequestInt extends RequestInt {
+  data: Record<string, any>;
+}
+
+export interface CachedCentreInt {
+  id: string;
+  name: string;
+  logo: string;
+  slug: string;
+  theme: string;
+}
+
+export interface BasePageProps {
+  centre: CachedCentreInt;
+  error: ErrorResponseInt;
+}
+
+export interface CourseContentInt {
+  name: string;
+  id: string;
+  centreId: string;
+  moduleId: string | null;
+  type: "MODULE" | "CONTENT";
+  format: string | null;
+  isModule: boolean;
+  duration?: string;
+  pageCount?: string;
+}
+
+export interface CourseModuleInt {
+  name: string;
+  id: string;
+  centreId: string;
+  moduleId: string | null;
+  type: "MODULE" | "CONTENT";
+  format: string | null;
+  isModule: boolean;
+  contents: Array<CourseContentInt>;
+}
+
+export interface CourseInt {
+  id: string;
+  centreId: string;
+  folderId: string | null;
+  name: string;
+  slug: string;
+  imageUrl: string;
+  description: string;
+  learnings: string[];
+  price: number;
+  isPrivate: boolean;
+  type: "COURSE" | "FOLDER";
+  status: "PUBLISHED" | "PENDING";
+  createdAt: Date;
+  updatedAt: Date;
+  allowSearch: boolean;
+  subscriberCount: number;
+  contents?: Array<CourseContentInt | CourseModuleInt>;
+  duration: string;
+}
+
+export interface CourseFolderInt extends CourseInt {
+  topContents?: CourseInt[];
+}
+
+export interface TemplateDataInt {
+  templateDetails: Record<string, object>;
+  courses: {
+    direct: CourseInt[];
+    folders: CourseInt[];
+  };
+}
+
+export interface CourseListInt {
+  courses: Array<CourseInt | CourseFolderInt>;
+  totalCount: number;
+  pageId: number;
+  pageCount: number;
+  limit: number;
+}
+
+export declare type CourseDetailsPageFunc = (
+  courseDetails: CourseInt
+) => JSX.Element;

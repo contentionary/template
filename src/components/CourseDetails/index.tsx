@@ -4,10 +4,8 @@ import Box from "@mui/material/Box";
 // App components
 import HeroSection from "./HeroSection";
 import DetailsSection from "./DetailsSection";
-//
-import { CourseDetailsPageFunc } from "./interfaceType";
 
-const CourseDetailsPage: CourseDetailsPageFunc = () => {
+const CourseDetailsPage = () => {
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
       <HeroSection />

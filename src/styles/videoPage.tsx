@@ -55,9 +55,9 @@ const videoPageStyle = makeStyles({
     justifyContent: "space-between",
   },
   lessonListDrawer: {
-    width: drawerWidth,
     flexShrink: 0,
-    zIndex: "1",
+    width: drawerWidth,
+    zIndex: theme.zIndex.drawer,
     "& .MuiDrawer-paper": {
       top: 0,
       position: "sticky",
@@ -87,9 +87,14 @@ const videoPageStyle = makeStyles({
 
   lessonListToggler: {
     left: drawerWidth - 20,
-    zIndex: theme.zIndex.drawer + 1,
     top: "5rem",
-    position: "absolute",
+    zIndex: theme.zIndex.drawer + 1,
+    [theme.breakpoints.down("md")]: {
+      position: "fixed",
+    },
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+    },
     backgroundColor: "white",
     color: theme.palette.secondary.dark,
     transition: theme.transitions.create("left", {

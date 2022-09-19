@@ -37,13 +37,7 @@ const LessonListDrawer: LessonListDrawerFunc = ({
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
-            sx={{
-              display: { xs: "block", md: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: 280,
-              },
-            }}
+            className={videoPageStyle.lessonListMobileDrawer}
           >
             <Box className={videoPageStyle.drawerHeader}>
               <Typography variant="h6" mb={0}>

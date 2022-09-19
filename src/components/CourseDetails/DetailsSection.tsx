@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useContext } from "react";
 // next
 // import Image from "next/image";
 // import NextLink from "next/link";
@@ -22,11 +22,17 @@ import UnderConstruction from "@src/components/shared/UnderConstruction";
 // interface, styles and config
 // import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
-import { CourseDetailsPageFunc } from "./interfaceType";
+import useGlobalStyle from "@src/styles/index";
+import { CourseDetailsPageFunc, CourseInt } from "@src/utils/interface";
+import { CourseDetailsContext } from "@src/pages/courses/[slug]/[courseId]";
 
 const DetailsSection: CourseDetailsPageFunc = () => {
+  const courseDetails = useContext(CourseDetailsContext) as CourseInt;
   const [value, setValue] = React.useState("1");
   const tabStyle = useTabStyle();
+  const globalStyle = useGlobalStyle();
+
+  const courseContents = courseDetails.contents;
 
   //
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -34,7 +40,7 @@ const DetailsSection: CourseDetailsPageFunc = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <Box
         borderTop={1}
         component="section"
@@ -78,13 +84,13 @@ const DetailsSection: CourseDetailsPageFunc = () => {
                     value="1"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseOverview />
+                    <CourseOverview {...courseDetails} />
                   </TabPanel>
                   <TabPanel
                     value="2"
                     sx={{ px: { xs: 0, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseContent />
+                    <CourseContent courseContents={courseContents || []} />
                   </TabPanel>
                   <TabPanel
                     value="3"
@@ -121,7 +127,14 @@ const DetailsSection: CourseDetailsPageFunc = () => {
                   </TabPanel>
                 </Grid>
                 <Grid item xs={12} md={4} xl={3}>
-                  <Box pt={3}>
+                  <Box
+                    p={3}
+                    mt={3}
+                    top="2rem"
+                    borderRadius={3}
+                    position="sticky"
+                    className={globalStyle.paperShadow}
+                  >
                     <CourseStats />
                   </Box>
                 </Grid>
@@ -130,7 +143,7 @@ const DetailsSection: CourseDetailsPageFunc = () => {
           </Box>
         </TabContext>
       </Box>
-    </Fragment>
+    </>
   );
 };
 export default DetailsSection;

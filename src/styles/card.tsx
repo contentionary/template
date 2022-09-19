@@ -1,5 +1,6 @@
 import { makeStyles } from "@mui/styles";
-// import { theme } from "./theme";
+import { alpha } from "@mui/material/styles";
+import { theme } from "./theme";
 
 const cardStyle = makeStyles({
   breathCard: {
@@ -56,7 +57,7 @@ const cardStyle = makeStyles({
       },
     },
   },
-  courseCard: {
+  defaultCard: {
     boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
     transition: "300ms ease-out",
     "&:hover": {
@@ -69,6 +70,19 @@ const cardStyle = makeStyles({
     "&	.MuiCardActionArea-root:hover .MuiCardActionArea-focusHighlight": {
       opacity: 0,
     },
+  },
+  get courseCard() {
+    return {
+      ...this.defaultCard,
+    };
+  },
+  get publicationCard() {
+    return {
+      ...this.defaultCard,
+      "&	.MuiCardActionArea-root .MuiBox-root.card-img": {
+        backgroundColor: alpha(theme.palette.text.primary, 0.05),
+      },
+    };
   },
 });
 export default cardStyle;

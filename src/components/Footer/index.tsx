@@ -2,8 +2,6 @@ import React, { Fragment } from "react";
 // next components
 import Image from "next/image";
 import NextLink from "next/link";
-//
-import useGlobalStyle from "@src/styles/index";
 // mui
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -22,9 +20,10 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 // colors
 import { grey } from "@mui/material/colors";
-// interface ans config
+// styles, interface ans config
 import config from "@src/utils/config";
 import { FooterFunc } from "./interfaceType";
+import useGlobalStyle from "@src/styles/index";
 
 const Footer: FooterFunc = () => {
   const globalStyle = useGlobalStyle();
@@ -35,7 +34,7 @@ const Footer: FooterFunc = () => {
         <Container maxWidth="xl">
           <Grid container spacing={2}>
             <Grid item xs={12} md={4} order={{ xs: 3, md: 1 }}>
-              <div className="">
+              <Box className="">
                 <NextLink href="/" passHref>
                   <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                     <Image
@@ -46,7 +45,7 @@ const Footer: FooterFunc = () => {
                     />
                   </MuiLink>
                 </NextLink>
-              </div>
+              </Box>
               <Box py={2}>
                 <Typography variant="h6" gutterBottom>
                   Nigeria Office:

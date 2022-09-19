@@ -18,6 +18,9 @@ const tabStyle = makeStyles({
       gap: "1rem",
       justifyContent: "space-between",
     },
+    "&.tab-justify-start .MuiTabs-flexContainer": {
+      justifyContent: "start",
+    },
     "& .MuiButtonBase-root": {
       paddingBottom: "1rem !important",
     },

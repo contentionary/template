@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { useContext, useState } from "react";
 // next
 import NextLink from "next/link";
 //
@@ -11,10 +11,11 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 // styles, interface and config
 import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
-import { CourseDetailsPageFunc } from "./interfaceType";
+import { CourseInt } from "@src/utils/interface";
 // app components
 import VideoModal from "@src/components/shared/video";
 import ImageButton from "@src/components/shared/buttons/ImageButton";
@@ -22,16 +23,30 @@ import ImageButton from "@src/components/shared/buttons/ImageButton";
 import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import { CourseDetailsContext } from "@src/pages/courses/[slug]/[courseId]";
 
-const HeroSection: CourseDetailsPageFunc = () => {
-  // const theme = useTheme();
-  const [openVideo, setOpenVideo] = React.useState(false);
+const HeroSection = () => {
+  const courseDetails = useContext(CourseDetailsContext) as CourseInt;
+  const theme = useTheme();
+  const [openVideo, setOpenVideo] = useState(false);
   const globalStyle = useGlobalStyle();
   //
   const handleOpenVideo = () => setOpenVideo(true);
 
+  if (!courseDetails) return <h1>Course not found</h1>;
+  const {
+    name,
+    description,
+    learnings,
+    id,
+    contents,
+    imageUrl,
+    price,
+    subscriberCount,
+  } = courseDetails;
+
   return (
-    <Fragment>
+    <>
       <Box
         bgcolor="#FFFCF8"
         component="section"
@@ -53,15 +68,16 @@ const HeroSection: CourseDetailsPageFunc = () => {
               <Box
                 bgcolor="white"
                 sx={{
-                  border: "1px solid #E8E8E8",
                   width: "100%",
+                  borderRadius: 2,
                   padding: { xs: 2, sm: 3 },
+                  border: `1px solid ${theme.palette.divider}`,
                 }}
               >
                 <ImageButton
                   priority
                   onClick={handleOpenVideo}
-                  src="/images/hero-img.png"
+                  src={imageUrl}
                   alt="contentionary introduction video"
                 >
                   <Typography component="h5" variant="h5" color="inherit">
@@ -79,7 +95,7 @@ const HeroSection: CourseDetailsPageFunc = () => {
             </Grid>
             <Grid item xs={12} md={6} lg={8}>
               <Typography variant="h2" component="h1">
-                We Offer International Certifications
+                {name}
               </Typography>
               <Typography variant="h6" mb={3}>
                 Indorama Centre
@@ -88,7 +104,7 @@ const HeroSection: CourseDetailsPageFunc = () => {
                 <Typography variant="h6" component="span" color="primary">
                   Course ID
                 </Typography>{" "}
-                bfd6bb40-124f-11ec-a161-bdf69d9cefd9
+                {id}
               </Typography>
               <Typography
                 mb={3}
@@ -96,10 +112,11 @@ const HeroSection: CourseDetailsPageFunc = () => {
                 display="flex"
                 alignItems="center"
               >
-                <PeopleOutlineOutlinedIcon color="primary" /> 1.5k Students
+                <PeopleOutlineOutlinedIcon color="primary" /> {subscriberCount}{" "}
+                Students
               </Typography>
               <Typography variant="h2" component="h1">
-                #30,000
+                ₦{price}
               </Typography>
               <Stack mt={1} spacing={2} direction="row" alignItems="center">
                 <NextLink href={`${config.URL.WEB}create-account`} passHref>
@@ -134,7 +151,7 @@ const HeroSection: CourseDetailsPageFunc = () => {
         </Container>
       </Box>
       <VideoModal isOpen={openVideo} setIsOpen={setOpenVideo} />
-    </Fragment>
+    </>
   );
 };
 export default HeroSection;

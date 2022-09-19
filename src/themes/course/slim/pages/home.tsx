@@ -1,10 +1,9 @@
-import type { NextPage } from "next";
 import Academy from "@src/components/Academy";
-import Wrapper from "@src/components/Wrapper";
+import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
 
-const AcademyPage: NextPage = () => {
+const AcademyPage = () => {
   return (
-    <Wrapper
+    <AcademyWrapper
       title="Contentionary | Academy"
       description="Welcome to contentionary"
       image="/public/images/logo.png"
@@ -12,7 +11,7 @@ const AcademyPage: NextPage = () => {
       showFooter={true}
     >
       <Academy />
-    </Wrapper>
+    </AcademyWrapper>
   );
 };
 

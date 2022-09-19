@@ -44,7 +44,7 @@ const CategoriesSection: AcademyFunc = () => {
               }}
             >
               <ImageLink
-                href="/"
+                href="/courses"
                 src="/images/courses-3.png"
                 alt="contentionary introduction video"
               >

@@ -16,6 +16,7 @@ import { useTheme } from "@mui/material/styles";
 import { Link as MuiLink } from "@mui/material";
 // components and styles
 import AppMenu from "./AppMenu";
+import AppsMenu from "./AppsMenu";
 import AppDrawer from "./AppDrawer";
 import ResourceMenu from "./ResourceMenu";
 import HideOnScroll from "./HideOnScroll";
@@ -51,7 +52,9 @@ const Header: HeaderFunc = () => {
                 </MuiLink>
               </NextLink>
               {isMatch ? (
-                <AppDrawer />
+                <AppDrawer>
+                  <AppMenu />
+                </AppDrawer>
               ) : (
                 <Fragment>
                   <Box
@@ -66,7 +69,7 @@ const Header: HeaderFunc = () => {
                     }}
                   >
                     <Stack direction="row" spacing={2}>
-                      <AppMenu />
+                      <AppsMenu />
                       <ResourceMenu />
                       <NextLink href={`${config.URL.WEB}pricing`} passHref>
                         <Button

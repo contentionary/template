@@ -1,0 +1,100 @@
+import React, { Fragment } from "react";
+// next
+import Image from "next/image";
+import NextLink from "next/link";
+// mui components
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import { Link as MuiLink } from "@mui/material";
+import Typography from "@mui/material/Typography";
+// app components
+// styles and interface
+import config from "@src/utils/config";
+import useGlobalStyle from "@src/styles";
+import { PublicationsFunc } from "./interfaceType";
+
+const BestAuthorSection: PublicationsFunc = () => {
+  const globalStyle = useGlobalStyle();
+
+  return (
+    <Fragment>
+      <Box
+        component="section"
+        sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
+        className="hero-section"
+      >
+        <Container maxWidth="xl">
+          <Grid
+            mb={8}
+            container
+            spacing={4}
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Grid item xs={12} md={6} lg={5}>
+              <Typography mt={4} variant="h5">
+                JOHNSON JONES
+              </Typography>
+              <Typography mb={2} variant="h4" component="h2">
+                Best Author of the year on this platform
+              </Typography>
+              <Typography mb={4} paragraph>
+                You don’t need any technical knowledge to launch a centre in
+                contentionary. If you don’t have a domain you can choose a
+                subdomain that best suit your business name.
+              </Typography>
+              <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <Button
+                  size="large"
+                  disableElevation
+                  variant="contained"
+                  component={MuiLink}
+                  className={globalStyle.bgGradient}
+                  sx={{
+                    textAlign: "center",
+                    width: { xs: "100%", sm: "auto" },
+                    display: { xs: "block", sm: "inline-block" },
+                  }}
+                >
+                  Get Started
+                </Button>
+              </NextLink>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+              sx={{
+                display: "flex",
+                justifyContent: { xs: "center", md: "start" },
+              }}
+            >
+              <Box
+                className={globalStyle.bgArtifact}
+                sx={{
+                  width: "100%",
+                  height: "auto",
+                  position: "relative",
+                  padding: { xs: 2, sm: 3, lg: 4 },
+                }}
+              >
+                <Image
+                  width="100%"
+                  height="80%"
+                  objectFit="cover"
+                  layout="responsive"
+                  alt="Contentionary"
+                  src="/images/study.png"
+                  style={{ borderRadius: 8 }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </Fragment>
+  );
+};
+export default BestAuthorSection;

@@ -1,7 +1,7 @@
 import React from "react";
 //
 import Box from "@mui/material/Box";
-//
+// app components
 import HeroSection from "./HeroSection";
 import PromoSection from "./PromoSection";
 import FutureSection from "./FutureSection";

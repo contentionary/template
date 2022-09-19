@@ -77,6 +77,13 @@ export default makeStyles({
     ["-webkit-background-clip"]: "text",
     ["-webkit-text-fill-color"]: "transparent",
   },
+  text2LineTruncate: {
+    overflow: "hidden",
+    display: "-webkit-box",
+    "-webkit-line-clamp": 2,
+    textOverflow: "ellipsis",
+    "-webkit-box-orient": "vertical",
+  },
   navbarMenuStyle: {
     "&.MuiPopover-root": {
       backgroundColor: "rgba(0, 0, 0, 0.05)",

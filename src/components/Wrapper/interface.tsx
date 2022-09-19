@@ -9,3 +9,7 @@ export interface WrapperInt {
 }
 
 export declare type WrapperFunc = (props: WrapperInt) => JSX.Element;
+export declare type AcademyWrapperFunc = (props: WrapperInt) => JSX.Element;
+export declare type PublicationsWrapperFunc = (
+  props: WrapperInt
+) => JSX.Element;
