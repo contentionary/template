@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
+import { useTheme } from "@mui/material/styles";
 //
 import ContentionaryLogo from "@src/assets/images/logo.png";
 import MenuBurger from "@src/assets/icons/menu-hamburger.svg";
@@ -13,6 +14,7 @@ import MenuBurger from "@src/assets/icons/menu-hamburger.svg";
 import { AppDrawerFunc } from "./interfaceType";
 
 const AppDrawer: AppDrawerFunc = ({ children }) => {
+  const theme = useTheme();
   const [openDrawer, setOpenDrawer] = useState(false);
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -32,6 +34,7 @@ const AppDrawer: AppDrawerFunc = ({ children }) => {
         anchor="left"
         open={openDrawer}
         onClose={() => setOpenDrawer(false)}
+        sx={{ zIndex: theme.zIndex.drawer + 3 }}
       >
         <Box
           sx={{ width: 250 }}
