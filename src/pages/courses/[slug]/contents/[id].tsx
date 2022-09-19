@@ -1,25 +1,16 @@
 import type { GetServerSideProps } from "next";
-import { createContext } from "react";
 import themes from "@src/themes";
 import { request } from "@src/utils";
 import { getCentre, handleError } from "@src/utils";
-import { BasePageProps, CourseInt } from "@src/utils/interface";
+import { BasePageProps } from "@src/utils/interface";
+import { queryClient } from "@src/pages";
 
-interface PageProps extends BasePageProps {
-  courseContents: CourseInt;
-}
-
-export const CourseContentsContext = createContext<CourseInt | null>(null);
-
-const CourseContents = ({ centre, courseContents, error }: PageProps) => {
+const CourseContents = ({ error, ...pageProps }: BasePageProps) => {
   if (error) return <h1>{error.message}</h1>;
-  const ActiveTheme = themes[centre.theme]("Contents");
+  queryClient.setQueryData("pageProps", pageProps);
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Contents");
 
-  return (
-    <CourseContentsContext.Provider value={courseContents}>
-      <ActiveTheme />
-    </CourseContentsContext.Provider>
-  );
+  return <ActiveTheme />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

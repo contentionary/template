@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { useDialog } from "@src/hooks";
 import useForm from "@src/hooks/useForm";
-import { errorMessage, postContent } from "@src/utils";
+import { handleError, request } from "@src/utils";
 import Dialog from "../shared/dialog";
 import TextFields from "../shared/input/textField";
 import useStyles from "./styles";
@@ -24,7 +24,7 @@ const ForgottenPassword = ({ setMessage }: Props): JSX.Element => {
       if (Object.keys(values).length === 0 || values.email === "") {
         throw "kindly enter your email";
       }
-      const { message } = await postContent({
+      const { message } = await request.post({
         url: "/auth/security/send-reset-password-link",
         data: { ...values, redirectUrl: "forgotten-password" },
       });
@@ -33,7 +33,7 @@ const ForgottenPassword = ({ setMessage }: Props): JSX.Element => {
       setIsLoading(false);
       closeDialog();
     } catch (error) {
-      setMessage(errorMessage(error));
+      setMessage(handleError(error).message);
       setTimeout(() => setMessage(""), 3000);
     }
   }

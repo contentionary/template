@@ -1,3 +1,4 @@
+import React from "react";
 // next components
 import Image from "next/image";
 import NextLink from "next/link";
@@ -8,13 +9,12 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
 import useMediaQuery from "@mui/material/useMediaQuery";
-//
 import { useTheme } from "@mui/material/styles";
-//
 import { Link as MuiLink } from "@mui/material";
 // components and styles
 import AppDrawer from "./AppDrawer";
 import AcademyMenu from "./AcademyMenu";
+import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
 import useGlobalStyle from "@src/styles/index";
 // icons
@@ -100,14 +100,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                       </NextLink>
                     </Stack>
                     {user ? (
-                      <NextLink href="/logout">
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light" }}
-                        >
-                          Logout
-                        </Button>
-                      </NextLink>
+                      <ProfileMenu title={user.firstname} />
                     ) : (
                       <Stack direction="row" spacing={2} alignItems="center">
                         <NextLink href="/login" passHref>
