@@ -17,13 +17,6 @@ export interface UserRegistrationInt extends UserBaseInt {
   confirmPassword: string;
 }
 
-export interface UserInt extends UserBaseInt {
-  gender: Gender;
-  ownCentre: Array<string>;
-  managedCentre: Array<string>;
-  subscribedCentre: Array<string>;
-}
-
 export interface RequestResponseInt {
   success: boolean;
   data: Record<string, any>;
@@ -123,3 +116,24 @@ export interface CourseListInt {
 export declare type CourseDetailsPageFunc = (
   courseDetails: CourseInt
 ) => JSX.Element;
+
+export interface UserInt {
+  id: string;
+  firstname: string;
+  surname: string;
+  username: string;
+  email: string;
+  phoneNumber: string;
+  avatar: string;
+  gender: Gender;
+  status: string;
+  token: string;
+  ownCentres: string[];
+  managingCentres: string[];
+  subscribedCentres: string[];
+  pendingCentres: string[];
+  subscribedExams: string[];
+  joinedLeagues: string[];
+  subscribedCourses: string[];
+  subscribedPublications: string[];
+}

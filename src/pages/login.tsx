@@ -11,6 +11,10 @@ export const getServerSideProps = async (
 ) => {
   const token = cache.get("token", context);
   if (token) return redirect("/");
+
+  return {
+    props: {},
+  };
 };
 
 export default LoginEntry;

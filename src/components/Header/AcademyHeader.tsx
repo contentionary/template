@@ -20,13 +20,14 @@ import HideOnScroll from "./HideOnScroll";
 import useGlobalStyle from "@src/styles/index";
 // icons
 // interface and config
-import config from "@src/utils/config";
+import { cache } from "@src/utils";
 import { AcademyHeaderFunc } from "./interfaceType";
 
 const AcademyHeader: AcademyHeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const user = cache.get("user");
 
   return (
     <>
@@ -99,22 +100,33 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                         </Button>
                       </NextLink>
                     </Stack>
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <NextLink href="/login" passHref>
-                        <MuiLink>Login</MuiLink>
-                      </NextLink>
-                      <NextLink href="/register" passHref>
+                    {user ? (
+                      <NextLink href="/" passHref>
                         <Button
-                          size="large"
-                          disableElevation
-                          variant="contained"
                           component={MuiLink}
-                          className={globalStyle.bgGradient}
+                          sx={{ color: "secondary.light" }}
                         >
-                          Register
+                          Logout
                         </Button>
                       </NextLink>
-                    </Stack>
+                    ) : (
+                      <Stack direction="row" spacing={2} alignItems="center">
+                        <NextLink href="/login" passHref>
+                          <MuiLink>Login</MuiLink>
+                        </NextLink>
+                        <NextLink href="/register" passHref>
+                          <Button
+                            size="large"
+                            disableElevation
+                            variant="contained"
+                            component={MuiLink}
+                            className={globalStyle.bgGradient}
+                          >
+                            Register
+                          </Button>
+                        </NextLink>
+                      </Stack>
+                    )}
                   </Stack>
                 </>
               )}

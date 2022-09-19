@@ -5,12 +5,14 @@ import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
 import { Box } from "@mui/system";
 import useStyles from "./styles";
-import { handleError, request, cache } from "@src/utils";
+import { handleError, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
 import Snackbar from "@src/components/shared/snackerBar";
 import { useRouter } from "next/router";
 import ForgottenPassword from "./forgottenPassword";
+import { setAuth } from "@src/utils/auth";
+import { UserInt } from "@src/utils/interface";
 
 const CreateAccount = (): JSX.Element => {
   const loginForm = useForm(submit);
@@ -28,8 +30,7 @@ const CreateAccount = (): JSX.Element => {
         url: `/auth/login`,
         data: values,
       });
-      cache.set("user", data);
-      cache.set("token", data.token, true);
+      setAuth(data as UserInt);
       router.push("/");
       setIsLoading(false);
     } catch (error) {

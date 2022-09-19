@@ -22,7 +22,7 @@ const AcademyMenu = () => {
       <NextLink href="/courses" passHref>
         <ListItemButton>
           <ListItemIcon>
-            <ListItemText>Courses</ListItemText>
+            <ListItemText>Courses 900</ListItemText>
           </ListItemIcon>
         </ListItemButton>
       </NextLink>

@@ -133,41 +133,6 @@ export const request = {
     await request.post({ ...params, method: "PATCH" }),
 };
 
-export const getCentre = async (
-  context: GetServerSidePropsContext
-): Promise<CachedCentreInt> => {
-  try {
-    const isDev =
-      process.env.NODE_ENV === "development" ||
-      process.env.NEXT_PUBLIC_NODE_ENV === "development";
-    const host = context.req.headers.host as string;
-
-    let centre = cache.get(host, context);
-    if (centre) return centre;
-
-    const urlToken = host.split(".");
-    if (urlToken.length === 1 && !isDev) throw new Error("Invalid url");
-
-    const subdomain = isDev ? "new-centre-test" : urlToken[0];
-    const { data } = (await request.get(
-      `/centre/${subdomain}`
-    )) as RequestResponseInt;
-    centre = {
-      id: data.id,
-      slug: data.slug,
-      name: data.name,
-      theme: data.theme,
-      logo: data.logo,
-    };
-
-    cache.set(host, centre, context);
-
-    return centre;
-  } catch (err) {
-    throw err;
-  }
-};
-
 export const kCount = (count: number) => {
   function parseNumberFloat(divider: number, quantity: string) {
     let kView = String(count / divider);
@@ -186,4 +151,40 @@ export const kCount = (count: number) => {
   } else if (count >= 1000000) {
     return parseNumberFloat(1000000, "M");
   } else return parseNumberFloat(1000, "K");
+};
+
+export const getCentre = async (
+  context: GetServerSidePropsContext
+): Promise<CachedCentreInt> => {
+  try {
+    const isDev =
+      process.env.NODE_ENV === "development" ||
+      process.env.NEXT_PUBLIC_NODE_ENV === "development";
+    const host = context.req.headers.host as string;
+
+    let centre = cache.get(host, context);
+    if (centre) return centre;
+
+    const urlToken = host.split(".");
+    if (urlToken.length === 1 && !isDev) throw new Error("Invalid url");
+
+    const subdomain = isDev ? "new-centre-test" : urlToken[0];
+    // const subdomain = urlToken[0];
+    const { data } = (await request.get(
+      `/centre/${subdomain}`
+    )) as RequestResponseInt;
+    centre = {
+      id: data.id,
+      slug: data.slug,
+      name: data.name,
+      theme: data.theme,
+      logo: data.logo,
+    };
+
+    cache.set(host, centre, context);
+
+    return centre;
+  } catch (err) {
+    throw err;
+  }
 };
