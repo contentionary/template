@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, getCookie } from "cookies-next";
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { GetServerSidePropsContext } from "next";
 import {
   CachedCentreInt,
@@ -61,8 +61,7 @@ export const cache = {
     try {
       value = typeof value === "string" ? value : JSON.stringify(value);
       if (isServerSide) {
-        context = context as GetServerSidePropsContext;
-        setCookie(key, value, context);
+        setCookie(key, value, context as GetServerSidePropsContext);
       } else {
         localStorage.setItem(key, value);
         if (context) setCookie(key, value);
@@ -86,6 +85,22 @@ export const cache = {
       value = parseJSON(value);
 
       return value;
+    } catch (err) {
+      handleError(err);
+    }
+  },
+
+  delete: (
+    key: string,
+    context?: GetServerSidePropsContext | boolean
+  ): void => {
+    try {
+      if (isServerSide) {
+        deleteCookie(key, context as GetServerSidePropsContext);
+      } else {
+        localStorage.removeItem(key);
+        if (context) deleteCookie(key);
+      }
     } catch (err) {
       handleError(err);
     }

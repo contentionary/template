@@ -26,12 +26,14 @@ function App({ Component, pageProps }: AppProps) {
     })
   );
 
+  const client = queryClient.current;
+
   return (
-    <QueryClientProvider client={queryClient.current}>
+    <QueryClientProvider client={client}>
       <Hydrate state={pageProps.dehydrateState}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+          <Component {...pageProps} client={client} />
         </ThemeProvider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />

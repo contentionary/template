@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 // next
 // import Image from "next/image";
 // import NextLink from "next/link";
@@ -23,16 +23,16 @@ import UnderConstruction from "@src/components/shared/UnderConstruction";
 // import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
-import { CourseDetailsPageFunc, CourseInt } from "@src/utils/interface";
-import { CourseDetailsContext } from "@src/pages/courses/[slug]/[courseId]";
+import { BasePageProps } from "@src/utils/interface";
+import { queryClient } from "@src/pages";
 
-const DetailsSection: CourseDetailsPageFunc = () => {
-  const courseDetails = useContext(CourseDetailsContext) as CourseInt;
+const DetailsSection = () => {
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const [value, setValue] = React.useState("1");
   const tabStyle = useTabStyle();
   const globalStyle = useGlobalStyle();
 
-  const courseContents = courseDetails.contents;
+  const courseContents = pageData.courseDetails.contents;
 
   //
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -84,7 +84,7 @@ const DetailsSection: CourseDetailsPageFunc = () => {
                     value="1"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseOverview {...courseDetails} />
+                    <CourseOverview {...pageData.courseDetails} />
                   </TabPanel>
                   <TabPanel
                     value="2"

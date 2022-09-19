@@ -1,4 +1,3 @@
-import { useContext } from "react";
 // next components
 import Image from "next/image";
 import NextLink from "next/link";
@@ -19,15 +18,15 @@ import AcademyMenu from "./AcademyMenu";
 import HideOnScroll from "./HideOnScroll";
 import useGlobalStyle from "@src/styles/index";
 // icons
+import { queryClient } from "@src/pages";
 // interface and config
-import { cache } from "@src/utils";
 import { AcademyHeaderFunc } from "./interfaceType";
 
 const AcademyHeader: AcademyHeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const user = cache.get("user");
+  const { user = null } = queryClient.getQueryData<any>("pageProps").cachedData;
 
   return (
     <>
@@ -101,7 +100,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                       </NextLink>
                     </Stack>
                     {user ? (
-                      <NextLink href="/" passHref>
+                      <NextLink href="/logout">
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}

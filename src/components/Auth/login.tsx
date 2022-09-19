@@ -27,7 +27,7 @@ const CreateAccount = (): JSX.Element => {
     try {
       setIsLoading(true);
       const { data } = await request.post({
-        url: `/auth/login`,
+        url: "/auth/login",
         data: values,
       });
       setAuth(data as UserInt);

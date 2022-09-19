@@ -46,7 +46,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
             height="60%"
             layout="responsive"
             objectFit="cover"
-            alt="Contentionary"
+            alt={name}
           />
           <CardContent>
             <Stack
@@ -95,8 +95,10 @@ const CourseCard: CourseCardFunc = ({ course }) => {
                 alignItems="center"
                 variant="body2"
               >
-                <AccessTimeOutlinedIcon color="primary" fontSize="inherit" />{" "}
-                {createdAt}
+                <>
+                  <AccessTimeOutlinedIcon color="primary" fontSize="inherit" />{" "}
+                  {createdAt}
+                </>
               </Typography>
               <Typography
                 noWrap

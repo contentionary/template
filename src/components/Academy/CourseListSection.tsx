@@ -1,4 +1,4 @@
-import { Fragment, useContext, memo } from "react";
+import { Fragment, memo } from "react";
 import NextLink from "next/link";
 //
 import Box from "@mui/material/Box";
@@ -12,13 +12,13 @@ import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { AcademyFunc } from "./interfaceType";
-import { TemplateData } from "@src/pages";
-import { TemplateDataInt } from "@src/utils/interface";
+import { queryClient } from "@src/pages";
+import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
 
 const CourseListSection: AcademyFunc = () => {
   const globalStyle = useGlobalStyle();
-  const templateData: TemplateDataInt = useContext(TemplateData);
-  if (!templateData) return <h1>Loading....</h1>;
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const templateData = pageData.templateData as TemplateDataInt;
 
   return (
     <Fragment>

@@ -45,8 +45,13 @@ export interface CachedCentreInt {
 }
 
 export interface BasePageProps {
-  centre: CachedCentreInt;
   error: ErrorResponseInt;
+  pageData: Record<string, any>;
+  cachedData: {
+    user: UserInt;
+    token: string;
+    centre: CachedCentreInt;
+  };
 }
 
 export interface CourseContentInt {

@@ -1,37 +1,33 @@
 import type { GetServerSideProps } from "next";
-import { createContext } from "react";
 import themes from "@src/themes";
 import { request } from "@src/utils";
 import { getCentre, handleError } from "@src/utils";
-import { BasePageProps, CourseInt } from "@src/utils/interface";
+import { BasePageProps } from "@src/utils/interface";
+import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/pages";
 
-interface PageProps extends BasePageProps {
-  courseDetails: CourseInt;
-}
-
-export const CourseDetailsContext = createContext<CourseInt | null>(null);
-
-const CourseDetails = ({ centre, courseDetails, error }: PageProps) => {
+const CourseDetails = ({ error, ...pageProps }: BasePageProps) => {
   if (error) return <h1>{error.message}</h1>;
-  const ActiveTheme = themes[centre.theme]("Details");
+  queryClient.setQueryData("pageProps", pageProps);
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Details");
 
-  return (
-    <CourseDetailsContext.Provider value={courseDetails}>
-      <ActiveTheme />
-    </CourseDetailsContext.Provider>
-  );
+  return <ActiveTheme />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { courseId = 1 } = context.query;
     const centre = await getCentre(context);
+    const { user, token } = getAuthData(context);
     const { data: courseDetails } = await request.get(
       `/centre/${centre.id}/course/${courseId}`
     );
 
     return {
-      props: { centre, courseDetails },
+      props: {
+        cachedData: { centre, user, token },
+        pageData: { courseDetails },
+      },
     };
   } catch (err) {
     return {

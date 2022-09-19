@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 // next
 import NextLink from "next/link";
 //
@@ -15,7 +15,7 @@ import { useTheme } from "@mui/material/styles";
 // styles, interface and config
 import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
-import { CourseInt } from "@src/utils/interface";
+import { BasePageProps, CourseInt } from "@src/utils/interface";
 // app components
 import VideoModal from "@src/components/shared/video";
 import ImageButton from "@src/components/shared/buttons/ImageButton";
@@ -23,10 +23,11 @@ import ImageButton from "@src/components/shared/buttons/ImageButton";
 import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import { CourseDetailsContext } from "@src/pages/courses/[slug]/[courseId]";
+import { queryClient } from "@src/pages";
 
 const HeroSection = () => {
-  const courseDetails = useContext(CourseDetailsContext) as CourseInt;
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const courseDetails = pageData.courseDetails as CourseInt;
   const theme = useTheme();
   const [openVideo, setOpenVideo] = useState(false);
   const globalStyle = useGlobalStyle();
@@ -34,16 +35,7 @@ const HeroSection = () => {
   const handleOpenVideo = () => setOpenVideo(true);
 
   if (!courseDetails) return <h1>Course not found</h1>;
-  const {
-    name,
-    description,
-    learnings,
-    id,
-    contents,
-    imageUrl,
-    price,
-    subscriberCount,
-  } = courseDetails;
+  const { name, id, imageUrl, price, subscriberCount } = courseDetails;
 
   return (
     <>
