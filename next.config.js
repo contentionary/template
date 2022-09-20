@@ -23,7 +23,10 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["contentionary.s3.eu-west-3.amazonaws.com"],
+    domains: [
+      "contentionary.s3.eu-west-3.amazonaws.com",
+      "cttn-filemanager.herokuapp.com",
+    ],
   },
 };
 
