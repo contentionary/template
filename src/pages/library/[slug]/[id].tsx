@@ -3,32 +3,32 @@ import themes from "@src/themes";
 import { request } from "@src/utils";
 import { getCentre, handleError } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
-import { getAuthData } from "../../utils/auth";
-import { queryClient } from "..";
+import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/pages";
 
-const LibraryPage = ({ error, ...pageProps }: BasePageProps) => {
+const PublicationDetailsPage = ({ error, ...pageProps }: BasePageProps) => {
   if (error) {
     return <h1>An error occured {error.message}</h1>;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Library");
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Details");
 
   return <ActiveTheme />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { pageId = 1 } = context.query;
+    const { id } = context.query;
     const centre = await getCentre(context);
     const { token, user } = getAuthData(context);
-    const { data: publicationData } = await request.get({
-      url: `/centre/${centre.id}/publications?pageId=${pageId}`,
+    const { data: publication } = await request.get({
+      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
       token,
     });
 
     return {
       props: {
-        pageData: { publicationData },
+        pageData: { publication },
         cachedData: { user, centre, token },
       },
     };
@@ -40,4 +40,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-export default LibraryPage;
+export default PublicationDetailsPage;

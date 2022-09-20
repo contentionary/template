@@ -7,7 +7,14 @@ import { request } from "@src/utils";
 import { QueryClient } from "react-query";
 import { getAuthData } from "../utils/auth";
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: Infinity,
+      staleTime: Infinity,
+    },
+  },
+});
 
 export const TemplateData = createContext<any>(null);
 
@@ -21,10 +28,11 @@ const HomePage = (props: BasePageProps) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const centre = await getCentre(context);
-    const { data: templateData } = await request.get(
-      `/centre/${centre.id}/centre-template`
-    );
     const { user, token } = getAuthData(context);
+    const { data: templateData } = await request.get({
+      url: `/centre/${centre.id}/centre-template`,
+      token,
+    });
 
     return {
       props: {

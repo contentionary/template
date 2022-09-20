@@ -21,10 +21,15 @@ import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationsFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
+import { queryClient } from "@src/pages";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = cachedData.centre;
+  // const templateData = pageData.templateData as TemplateDataInt;
 
   return (
     <Fragment>
@@ -48,7 +53,7 @@ const HeroSection: PublicationsFunc = () => {
                 variant="h1"
                 className={globalStyle.textGradient}
               >
-                Ed Sherman school Academy
+                {centre.name}
               </Typography>
               <Typography mb={3} paragraph maxWidth="450px">
                 We are changing the way our students access vocational skills

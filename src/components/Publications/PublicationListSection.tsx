@@ -13,9 +13,15 @@ import PublicationCard from "@src/components/shared/cards/PublicationCard";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { PublicationsFunc } from "./interfaceType";
+import { queryClient } from "@src/pages";
+import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const PublicationListSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const publications = pageData.templateData.publications
+    .direct as PublicationInt[];
+
   return (
     <Fragment>
       <Box
@@ -38,9 +44,9 @@ const PublicationListSection: PublicationsFunc = () => {
             spacing={{ xs: 1, md: 2, xl: 3 }}
             columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
           >
-            {Array.from({ length: 10 }).map((_, index) => (
+            {publications.map((publication, index) => (
               <Grid key={`${index}-publication-card`} item xs={1}>
-                <PublicationCard />
+                <PublicationCard {...publication} />
               </Grid>
             ))}
           </Grid>

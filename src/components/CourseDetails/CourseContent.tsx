@@ -26,7 +26,7 @@ const CourseContent = ({
   const [expanded, setExpanded] = React.useState<string | false>("1");
   const accordionStyle = useAccordionStyle();
   const router = useRouter();
-  const { slug } = router.query;
+  const { slug, courseId } = router.query;
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -76,8 +76,8 @@ const CourseContent = ({
                     {contents.map((content, index) => (
                       <ListItem key={`${index}-video-list`} disablePadding>
                         <ContentListButton
+                          courseId={courseId}
                           slug={slug}
-                          index={index}
                           {...content}
                         />
                       </ListItem>
@@ -89,8 +89,12 @@ const CourseContent = ({
           );
 
         return (
-          <ListItem key={`${90}-video-list`} disablePadding>
-            <ContentListButton slug={slug} index={index} {...courseContent} />
+          <ListItem key={`${courseContent.id}-video-list`} disablePadding>
+            <ContentListButton
+              courseId={courseId}
+              slug={slug}
+              {...courseContent}
+            />
           </ListItem>
         );
       })}

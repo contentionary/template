@@ -8,14 +8,12 @@ import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
 import { CoursesPageFunc } from "./interfaceType";
 import { BasePageProps, CourseListInt } from "../../utils/interface";
-import { devLog } from "../../utils";
 import { queryClient } from "../../pages";
 
 const CourseListSection: CoursesPageFunc = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courses = pageData.courseList as CourseListInt;
   if (!courses) return <h1>....Loading</h1>;
-  devLog("courses listed", { courses });
   return (
     <>
       <Box>

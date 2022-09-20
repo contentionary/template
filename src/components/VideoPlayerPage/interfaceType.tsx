@@ -10,6 +10,9 @@ export declare type LessonListDrawerFunc = (
 ) => JSX.Element;
 export declare type LessonListFunc = () => JSX.Element;
 
-export declare type LessonPlayerFunc = () => JSX.Element;
+export declare type LessonPlayerFunc = (props: {
+  description: string;
+  learnings: string[];
+}) => JSX.Element;
 export declare type DiscussionSectionFunc = () => JSX.Element;
 export declare type VideoPlayerPagePageFunc = () => JSX.Element;

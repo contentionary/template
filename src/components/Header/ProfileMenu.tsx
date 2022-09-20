@@ -112,7 +112,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
-                  <NextLink href="/" passHref>
+                  <NextLink href="/library/my-publications" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
                         <BookOutlinedIcon fontSize="small" />
@@ -120,7 +120,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                       Publications
                     </MenuItem>
                   </NextLink>
-                  <NextLink href="/" passHref>
+                  <NextLink href="/courses/my-courses" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
                         <PlayLessonOutlinedIcon fontSize="small" />
@@ -128,7 +128,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                       My Courses
                     </MenuItem>
                   </NextLink>
-                  <NextLink href="/" passHref>
+                  <NextLink href="#" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
                         <MenuBookOutlinedIcon fontSize="small" />
@@ -137,7 +137,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                     </MenuItem>
                   </NextLink>
                   <Divider />
-                  <NextLink href="/" passHref>
+                  <NextLink href="#" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
                         <PersonOutlineOutlinedIcon fontSize="small" />
@@ -145,7 +145,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                       My Profile
                     </MenuItem>
                   </NextLink>
-                  <NextLink href="/login" passHref>
+                  <NextLink href="/logout" passHref>
                     <MenuItem
                       component={MuiLink}
                       color="primary.main"

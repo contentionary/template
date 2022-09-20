@@ -4,6 +4,7 @@ import { GetServerSidePropsContext } from "next";
 import {
   CachedCentreInt,
   ErrorResponseInt,
+  GetRequestInt,
   PostRequestInt,
   RequestResponseInt,
 } from "@src/utils/interface";
@@ -108,11 +109,12 @@ export const cache = {
 };
 
 export const request = {
-  get: async (
-    url: string,
-    method: "GET" | "DELETE" = "GET"
-  ): Promise<RequestResponseInt> => {
-    const authorization = cache.get("token");
+  get: async ({
+    url,
+    method = "GET",
+    token,
+  }: GetRequestInt): Promise<RequestResponseInt> => {
+    const authorization = token || cache.get("token");
     const headers: any = {};
     if (authorization) headers.authorization = authorization;
 
@@ -130,20 +132,23 @@ export const request = {
     url,
     data,
     method = "POST",
+    token,
   }: PostRequestInt): Promise<RequestResponseInt> => {
+    const authorization = token || cache.get("token");
+    const headers: any = {};
+    if (authorization) headers.authorization = authorization;
+
     const response = await axios({
       method,
       url: baseUrl + url,
-      headers: {
-        authorization: cache.get("token"),
-      },
+      headers,
       data,
     });
 
     return response.data;
   },
 
-  delete: async (url: string) => await request.get(url, "DELETE"),
+  delete: async (url: string) => await request.get({ url, method: "DELETE" }),
   patch: async (params: PostRequestInt) =>
     await request.post({ ...params, method: "PATCH" }),
 };
@@ -185,9 +190,9 @@ export const getCentre = async (
 
     const subdomain = isDev ? "new-centre-test" : urlToken[0];
     // const subdomain = urlToken[0];
-    const { data } = (await request.get(
-      `/centre/${subdomain}`
-    )) as RequestResponseInt;
+    const { data } = (await request.get({
+      url: `/centre/${subdomain}`,
+    })) as RequestResponseInt;
     centre = {
       id: data.id,
       slug: data.slug,

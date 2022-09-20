@@ -1,8 +1,7 @@
-import type { NextPage } from "next";
-import BookDetails from "@src/components/BookDetails";
+import Publications from "@src/components/Publications";
 import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
 
-const BookDetailsPage: NextPage = () => {
+const PublicationsPage = () => {
   return (
     <PublicationsWrapper
       title="Contentionary | Publications"
@@ -11,9 +10,9 @@ const BookDetailsPage: NextPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <BookDetails />
+      <Publications />
     </PublicationsWrapper>
   );
 };
 
-export default BookDetailsPage;
+export default PublicationsPage;

@@ -12,7 +12,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import { BookDetailsPageFunc } from "./interfaceType";
 // app components
@@ -22,7 +21,15 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 
-const HeroSection: BookDetailsPageFunc = () => {
+const HeroSection: BookDetailsPageFunc = ({
+  id,
+  imageUrl,
+  name,
+  price,
+  subscriberCount,
+  authors,
+  fileUrl = "#",
+}) => {
   const globalStyle = useGlobalStyle();
 
   return (
@@ -50,7 +57,7 @@ const HeroSection: BookDetailsPageFunc = () => {
                 <Typography variant="h6" component="span">
                   Publication ID
                 </Typography>{" "}
-                bfd6bb40-124f-11ec-a161-bdf69d9cefd9
+                {id}
               </Typography>
               <Box width="100%">
                 <Image
@@ -58,18 +65,19 @@ const HeroSection: BookDetailsPageFunc = () => {
                   height="120%"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/book-2.png"
+                  src={imageUrl || "/images/book-2.png"}
                 />
               </Box>
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
               <Typography variant="h2" component="h1">
-                Partial truths - How Fractions Distort Our Thinking.
+                {name}
               </Typography>
               <Stack direction="row" spacing={2} mt={1}>
-                <Typography variant="h6">Indorama Centre</Typography>
+                {/* <Typography variant="h6">Indorama Centre</Typography> */}
                 <Typography paragraph display="flex" alignItems="center">
-                  <PeopleOutlineOutlinedIcon color="primary" /> 1.5k Students
+                  <PeopleOutlineOutlinedIcon color="primary" />{" "}
+                  {subscriberCount}k Subscribers
                 </Typography>
               </Stack>
               <Stack
@@ -80,65 +88,30 @@ const HeroSection: BookDetailsPageFunc = () => {
               >
                 <Typography variant="h6">Author(s):</Typography>
                 <Stack direction="row" flexWrap="wrap" justifyContent="start">
-                  <Stack
-                    mr={4}
-                    mb={1}
-                    spacing={1}
-                    direction="row"
-                    alignItems="center"
-                  >
-                    <Avatar sx={{ width: 32, height: 32 }}>
-                      <Image
-                        alt="user"
-                        layout="fill"
-                        objectFit="contain"
-                        src="/images/avatar.png"
-                      />
-                    </Avatar>
-                    <Typography paragraph>Chukwuemeka Peter Ukpaka</Typography>
-                  </Stack>
-                  <Stack
-                    mr={4}
-                    mb={1}
-                    spacing={1}
-                    direction="row"
-                    alignItems="center"
-                  >
-                    <Avatar sx={{ width: 32, height: 32 }}>
-                      <Image
-                        alt="user"
-                        layout="fill"
-                        objectFit="contain"
-                        src="/images/avatar.png"
-                      />
-                    </Avatar>
-                    <Typography paragraph>
-                      CP. Ukpaka Chukwuemeka Peter
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    mr={4}
-                    mb={1}
-                    spacing={1}
-                    direction="row"
-                    alignItems="center"
-                  >
-                    <Avatar sx={{ width: 32, height: 32 }}>
-                      <Image
-                        alt="user"
-                        layout="fill"
-                        objectFit="contain"
-                        src="/images/avatar.png"
-                      />
-                    </Avatar>
-                    <Typography paragraph>
-                      CP. Ukpaka Chukwuemeka Peter
-                    </Typography>
-                  </Stack>
+                  {authors?.map(({ name, imageUrl }, index) => (
+                    <Stack
+                      mr={4}
+                      mb={1}
+                      spacing={1}
+                      direction="row"
+                      alignItems="center"
+                      key={index + "author"}
+                    >
+                      <Avatar sx={{ width: 32, height: 32 }}>
+                        <Image
+                          alt="user"
+                          layout="fill"
+                          objectFit="contain"
+                          src={imageUrl || "/images/avatar.png"}
+                        />
+                      </Avatar>
+                      <Typography paragraph>{name}</Typography>
+                    </Stack>
+                  ))}
                 </Stack>
               </Stack>
               <Typography variant="h3" component="h1">
-                ₦10,000
+                ₦{price}
               </Typography>
               <Stack
                 mt={1}
@@ -148,7 +121,7 @@ const HeroSection: BookDetailsPageFunc = () => {
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <NextLink href={fileUrl} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -162,7 +135,7 @@ const HeroSection: BookDetailsPageFunc = () => {
                     </Stack>
                   </Button>
                 </NextLink>
-                <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <NextLink href={fileUrl} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -176,7 +149,7 @@ const HeroSection: BookDetailsPageFunc = () => {
                     </Stack>
                   </Button>
                 </NextLink>
-                <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <NextLink href={fileUrl} passHref>
                   <MuiLink
                     gap={2}
                     color="inherit"

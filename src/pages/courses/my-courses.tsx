@@ -1,17 +1,20 @@
+import { createContext } from "react";
 import { GetServerSideProps } from "next";
 import themes from "@src/themes";
 import { request } from "@src/utils";
 import { getCentre, handleError } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+import { BasePageProps, CourseListInt } from "@src/utils/interface";
 import { getAuthData } from "../../utils/auth";
 import { queryClient } from "..";
 
-const LibraryPage = ({ error, ...pageProps }: BasePageProps) => {
+export const CentreCoursesContext = createContext<CourseListInt | null>(null);
+
+const CoursesPage = ({ error, ...pageProps }: BasePageProps) => {
   if (error) {
     return <h1>An error occured {error.message}</h1>;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Library");
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("MyCourses");
 
   return <ActiveTheme />;
 };
@@ -21,16 +24,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { pageId = 1 } = context.query;
     const centre = await getCentre(context);
     const { token, user } = getAuthData(context);
-    const { data: publicationData } = await request.get({
-      url: `/centre/${centre.id}/publications?pageId=${pageId}`,
+    const { data: courseList } = await request.get({
+      url: `/my-courses?pageId=${pageId}&centreId=${centre.id}`,
       token,
     });
 
     return {
-      props: {
-        pageData: { publicationData },
-        cachedData: { user, centre, token },
-      },
+      props: { pageData: { courseList }, cachedData: { user, centre, token } },
     };
   } catch (err) {
     return {
@@ -40,4 +40,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-export default LibraryPage;
+export default CoursesPage;

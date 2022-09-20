@@ -19,9 +19,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { courseId = 1 } = context.query;
     const centre = await getCentre(context);
     const { user, token } = getAuthData(context);
-    const { data: courseDetails } = await request.get(
-      `/centre/${centre.id}/course/${courseId}`
-    );
+    const { data: courseDetails } = await request.get({
+      url: `/centre/${centre.id}/course/${courseId}`,
+      token,
+    });
 
     return {
       props: {
