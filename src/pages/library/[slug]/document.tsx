@@ -1,19 +1,43 @@
-import type { NextPage } from "next";
-import Document from "@src/components/Document";
-import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
+import { GetServerSideProps } from "next";
+import themes from "@src/themes";
+import { request } from "@src/utils";
+import { getCentre, handleError } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
+import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/pages";
 
-const DocumentPage: NextPage = () => {
-  return (
-    <PublicationsWrapper
-      title="Contentionary | Publications"
-      description="Welcome to contentionary"
-      image="/public/images/logo.png"
-      showHeader={true}
-      showFooter={true}
-    >
-      <Document />
-    </PublicationsWrapper>
-  );
+const DocumentPage = ({ error, ...pageProps }: BasePageProps) => {
+  if (error) {
+    return <h1>An error occurred {error.message}</h1>;
+  }
+  queryClient.setQueryData("pageProps", pageProps);
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Details");
+
+  return <ActiveTheme />;
 };
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const { id } = context.query;
+    const centre = await getCentre(context);
+    const { token, user } = getAuthData(context);
+    const { data: publication } = await request.get({
+      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
+      token,
+    });
+
+    return {
+      props: {
+        pageData: { publication },
+        cachedData: { user, centre, token },
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        error: handleError(err),
+      },
+    };
+  }
+};
 export default DocumentPage;
