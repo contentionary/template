@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
+// import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
 // mui components
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -9,10 +9,10 @@ import { DocumentFunc } from "./interfaceType";
 // icons
 
 const ReaderSection: DocumentFunc = () => {
-  const docs = [
-    { uri: "https://url-to-my-pdf.pdf" },
-    // { uri: "/documents/count-sort.pdf" },
-  ];
+  // const docs = [
+  //   { uri: "https://url-to-my-pdf.pdf" },
+  //   // { uri: "/documents/count-sort.pdf" },
+  // ];
 
   return (
     <Fragment>
