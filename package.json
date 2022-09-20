@@ -31,6 +31,7 @@
     "next-videos": "1.5.0",
     "pure-react-carousel": "^1.29.0",
     "react": "18.2.0",
+    "react-doc-viewer": "^0.1.5",
     "react-dom": "18.2.0",
     "react-player": "^2.10.1",
     "react-query": "^3.39.2",

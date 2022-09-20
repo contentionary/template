@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 // next
 import Image from "next/image";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -30,8 +31,9 @@ const HeroSection: BookDetailsPageFunc = ({
   authors,
   fileUrl = "#",
 }) => {
+  const router = useRouter();
+  const { slug } = router.query;
   const globalStyle = useGlobalStyle();
-
   return (
     <Fragment>
       <Box
@@ -41,7 +43,11 @@ const HeroSection: BookDetailsPageFunc = ({
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
         <Container maxWidth="xl">
-          <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{ justifyContent: "space-between", alignItems: "center" }}
+          >
             <Grid
               item
               xs={12}
@@ -49,20 +55,14 @@ const HeroSection: BookDetailsPageFunc = ({
               lg={3}
               sx={{
                 display: "flex",
+                alignItems: "center",
                 flexDirection: "column",
-                alignItems: { xs: "center", md: "end" },
               }}
             >
-              <Typography mb={0} paragraph>
-                <Typography variant="h6" component="span">
-                  Publication ID
-                </Typography>{" "}
-                {id}
-              </Typography>
-              <Box width="100%">
+              <Box width="90%">
                 <Image
-                  width="100%"
-                  height="120%"
+                  width="90%"
+                  height="100%"
                   layout="responsive"
                   alt="Contentionary"
                   src={imageUrl || "/images/book-2.png"}
@@ -70,6 +70,12 @@ const HeroSection: BookDetailsPageFunc = ({
               </Box>
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
+              <Typography mb={1} paragraph>
+                <Typography variant="h6" component="span">
+                  Publication ID
+                </Typography>{" "}
+                {id}
+              </Typography>
               <Typography variant="h2" component="h1">
                 {name}
               </Typography>
@@ -121,7 +127,7 @@ const HeroSection: BookDetailsPageFunc = ({
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={fileUrl} passHref>
+                <NextLink href={`/library/${slug}/document`} passHref>
                   <Button
                     size="large"
                     disableElevation
