@@ -8,8 +8,8 @@ import {
 import NextLink from "next/link";
 import PlayIcon from "@src/assets/icons/play.svg";
 
-const VideoListButton = ({ name, duration, index, slug }: any) => (
-  <NextLink href={`/courses/${slug}/lesson/${index}`} passHref>
+const VideoListButton = ({ name, duration, slug, id, courseId }: any) => (
+  <NextLink href={`/courses/${slug}/${courseId}/contents/${id}`} passHref>
     <ListItemButton LinkComponent={Link}>
       <ListItemIcon>
         <PlayIcon fill="secondary.main" style={{ transform: "scale(0.75)" }} />

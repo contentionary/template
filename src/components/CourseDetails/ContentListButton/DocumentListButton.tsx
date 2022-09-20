@@ -8,8 +8,8 @@ import {
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import NextLink from "next/link";
 
-const DocumentListButton = ({ name, pageCount, slug, index }: any) => (
-  <NextLink href={`/courses/${slug}/lesson/${index}`} passHref>
+const DocumentListButton = ({ pageCount, name, slug, id, courseId }: any) => (
+  <NextLink href={`/courses/${slug}/${courseId}/contents/${id}`} passHref>
     <ListItemButton LinkComponent={Link}>
       <ListItemIcon>
         <AutoStoriesOutlinedIcon />

@@ -31,10 +31,15 @@ export interface ErrorResponseInt {
 export interface RequestInt {
   url: string;
   method?: "GET" | "POST" | "PATCH" | "DELETE";
+  token?: string;
 }
 
 export interface PostRequestInt extends RequestInt {
   data: Record<string, any>;
+}
+
+export interface GetRequestInt extends RequestInt {
+  data?: Record<string, any>;
 }
 
 export interface CachedCentreInt {
@@ -78,6 +83,37 @@ export interface CourseModuleInt {
   contents: Array<CourseContentInt>;
 }
 
+interface AuthorInt {
+  id: string;
+  imageUrl: string;
+  name: string;
+}
+
+export interface PublicationInt {
+  id: string;
+  centreId: string;
+  folderId: string | null;
+  name: string;
+  slug: string;
+  imageUrl: string;
+  fileUrl: string;
+  description: string;
+  learnings: string[];
+  price: number;
+  isPrivate: boolean;
+  type: "PUBLICATION" | "FOLDER";
+  status: "PUBLISHED" | "PENDING";
+  createdAt: Date;
+  updatedAt: Date;
+  allowSearch: boolean;
+  subscriberCount: number;
+  viewCount: number;
+  downloadCount: number;
+  publicationCategoryName: string;
+  pageCount: string;
+  authors?: AuthorInt[];
+}
+
 export interface CourseInt {
   id: string;
   centreId: string;
@@ -104,7 +140,7 @@ export interface CourseFolderInt extends CourseInt {
 }
 
 export interface TemplateDataInt {
-  templateDetails: Record<string, object>;
+  templateDetails: Record<string, any>;
   courses: {
     direct: CourseInt[];
     folders: CourseInt[];

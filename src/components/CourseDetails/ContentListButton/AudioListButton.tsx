@@ -8,8 +8,8 @@ import {
 import NextLink from "next/link";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 
-const AudioListButton = ({ name, duration, slug, index }: any) => (
-  <NextLink href={`/courses/${slug}/lesson/${index}`} passHref>
+const AudioListButton = ({ name, duration, slug, id, courseId }: any) => (
+  <NextLink href={`/courses/${slug}/${courseId}/contents/${id}`} passHref>
     <ListItemButton LinkComponent={Link}>
       <ListItemIcon>
         <KeyboardVoiceOutlinedIcon />

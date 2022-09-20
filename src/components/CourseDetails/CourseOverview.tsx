@@ -18,14 +18,6 @@ const CourseOverview = ({ description, learnings }: CourseInt) => {
         ABOUT THIS COURSE:
       </Typography>
       <Typography paragraph>{description}</Typography>
-      {/* <Typography variant="h5" mb={1}>
-        Aim of the course:
-      </Typography>
-      <Typography paragraph mb={3}>
-        some schools already had all it takes to still continue their curriculum
-        through adopted technologies.But in as much as the pandemic became
-        intense, some schools
-      </Typography> */}
       <Typography variant="h5" mb={1}>
         WHAT YOU WILL LEARN
       </Typography>
@@ -39,17 +31,6 @@ const CourseOverview = ({ description, learnings }: CourseInt) => {
               >
                 <TickAvatar />
                 <ListItemText primary={learning} />
-              </ListItem>
-            ))}
-          </Grid>
-          <Grid item md={6}>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <ListItem
-                key={`${index}-overview-list`}
-                sx={{ px: 0, borderBottom: 1, borderColor: "divider" }}
-              >
-                <TickAvatar />
-                <ListItemText primary="What are the things you want to learn that’s causing problem" />
               </ListItem>
             ))}
           </Grid>

@@ -24,9 +24,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { pageId = 1 } = context.query;
     const centre = await getCentre(context);
     const { token, user } = getAuthData(context);
-    const { data: courseList } = await request.get(
-      `/centre/${centre.id}/courses?pageId=${pageId}`
-    );
+    const { data: courseList } = await request.get({
+      url: `/centre/${centre.id}/courses?pageId=${pageId}`,
+      token,
+    });
 
     return {
       props: { pageData: { courseList }, cachedData: { user, centre, token } },

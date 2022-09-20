@@ -6,12 +6,13 @@ import { BasePageProps } from "@src/utils/interface";
 import { getAuthData } from "../../utils/auth";
 import { queryClient } from "..";
 
-const LibraryPage = ({ error, ...pageProps }: BasePageProps) => {
+const MyPublicationPage = ({ error, ...pageProps }: BasePageProps) => {
   if (error) {
     return <h1>An error occured {error.message}</h1>;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Library");
+  const ActiveTheme =
+    themes[pageProps.cachedData.centre.theme]("MyPublications");
 
   return <ActiveTheme />;
 };
@@ -22,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const centre = await getCentre(context);
     const { token, user } = getAuthData(context);
     const { data: publicationData } = await request.get({
-      url: `/centre/${centre.id}/publications?pageId=${pageId}`,
+      url: `/my-publications?pageId=${pageId}&centreId=${centre.id}`,
       token,
     });
 
@@ -40,4 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-export default LibraryPage;
+export default MyPublicationPage;

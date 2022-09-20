@@ -14,6 +14,7 @@ export const getServerSideProps = async (
 ) => {
   cache.delete("user", context);
   cache.delete("token", context);
+  cache.delete(context.req.headers.host as string, context);
   return redirect("/");
 
   return {

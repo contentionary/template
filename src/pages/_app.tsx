@@ -18,7 +18,7 @@ function App({ Component, pageProps }: AppProps) {
           refetchOnWindowFocus: false,
           staleTime: 0, //Result should be considered stalled after 30 seconds
           retry: 0, //Failed request should not be retried
-          cacheTime: 10 * 60 * 1000, //cached data should be purged after 10 minutes
+          cacheTime: Infinity, //cached data should be purged after 10 minutes
           onError: handleError,
           refetchOnMount: false,
         },

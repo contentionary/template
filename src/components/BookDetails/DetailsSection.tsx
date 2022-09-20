@@ -23,7 +23,7 @@ import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
 import { BookDetailsPageFunc } from "./interfaceType";
 
-const DetailsSection: BookDetailsPageFunc = () => {
+const DetailsSection: BookDetailsPageFunc = (props) => {
   const [value, setValue] = React.useState("1");
   const tabStyle = useTabStyle();
   const globalStyle = useGlobalStyle();
@@ -75,19 +75,19 @@ const DetailsSection: BookDetailsPageFunc = () => {
                     value="1"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <BookAbstract />
+                    <BookAbstract {...props} />
                   </TabPanel>
                   <TabPanel
                     value="2"
                     sx={{ px: { xs: 0, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <BookContent />
+                    <BookContent {...props} />
                   </TabPanel>
                   <TabPanel
                     value="6"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <BookReview />
+                    <BookReview {...props} />
                   </TabPanel>
                 </Grid>
                 <Grid item xs={12} md={4} xl={3}>
@@ -99,7 +99,7 @@ const DetailsSection: BookDetailsPageFunc = () => {
                     position="sticky"
                     className={globalStyle.paperShadow}
                   >
-                    <BookStats />
+                    <BookStats {...props} />
                   </Box>
                 </Grid>
               </Grid>

@@ -19,14 +19,18 @@ import HideOnScroll from "./HideOnScroll";
 import PublicationsMenu from "./PublicationsMenu";
 // icons
 // styles, interface and config
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles/index";
 import { PublicationsHeaderFunc } from "./interfaceType";
+import { queryClient } from "@src/pages";
+import { BasePageProps } from "@src/utils/interface";
+import ProfileMenu from "./ProfileMenu";
 
 const PublicationsHeader: PublicationsHeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const user = cachedData.user;
 
   return (
     <>
@@ -66,7 +70,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                     display={{ xs: "none", md: "flex" }}
                   >
                     <Stack direction="row" spacing={2}>
-                      <NextLink href="/publications" passHref>
+                      <NextLink href="/" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
@@ -82,7 +86,15 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                           Library
                         </Button>
                       </NextLink>
-                      <NextLink href="/about-us" passHref>
+                      <NextLink href="/library/my-publications" passHref>
+                        <Button
+                          component={MuiLink}
+                          sx={{ color: "secondary.light" }}
+                        >
+                          My Publications
+                        </Button>
+                      </NextLink>
+                      <NextLink href="#" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
@@ -91,25 +103,26 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                         </Button>
                       </NextLink>
                     </Stack>
-                    <Stack direction="row" spacing={2} alignItems="center">
-                      <NextLink href={`${config.URL.WEB}login`} passHref>
-                        <MuiLink>Login</MuiLink>
-                      </NextLink>
-                      <NextLink
-                        href={`${config.URL.WEB}create-account`}
-                        passHref
-                      >
-                        <Button
-                          size="large"
-                          disableElevation
-                          variant="contained"
-                          component={MuiLink}
-                          className={globalStyle.bgGradient}
-                        >
-                          Register
-                        </Button>
-                      </NextLink>
-                    </Stack>
+                    {user ? (
+                      <ProfileMenu title={user.firstname} />
+                    ) : (
+                      <Stack direction="row" spacing={2} alignItems="center">
+                        <NextLink href="/login" passHref>
+                          <MuiLink>Login</MuiLink>
+                        </NextLink>
+                        <NextLink href="/register" passHref>
+                          <Button
+                            size="large"
+                            disableElevation
+                            variant="contained"
+                            component={MuiLink}
+                            className={globalStyle.bgGradient}
+                          >
+                            Register
+                          </Button>
+                        </NextLink>
+                      </Stack>
+                    )}
                   </Stack>
                 </Fragment>
               )}
