@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 // next
 import Image from "next/image";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -23,8 +24,9 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 
 const HeroSection: BookDetailsPageFunc = () => {
+  const router = useRouter();
+  const { slug } = router.query;
   const globalStyle = useGlobalStyle();
-
   return (
     <Fragment>
       <Box
@@ -34,7 +36,11 @@ const HeroSection: BookDetailsPageFunc = () => {
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
         <Container maxWidth="xl">
-          <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>
+          <Grid
+            container
+            spacing={4}
+            sx={{ justifyContent: "space-between", alignItems: "center" }}
+          >
             <Grid
               item
               xs={12}
@@ -42,34 +48,35 @@ const HeroSection: BookDetailsPageFunc = () => {
               lg={3}
               sx={{
                 display: "flex",
+                alignItems: "center",
                 flexDirection: "column",
-                alignItems: { xs: "center", md: "end" },
               }}
             >
-              <Typography mb={0} paragraph>
+              <Box width="90%">
+                <Image
+                  width="90%"
+                  height="100%"
+                  layout="responsive"
+                  objectFit="contain"
+                  alt="Contentionary"
+                  src="/images/book-1.png"
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={8} lg={9}>
+              <Typography mb={1} paragraph>
                 <Typography variant="h6" component="span">
                   Publication ID
                 </Typography>{" "}
                 bfd6bb40-124f-11ec-a161-bdf69d9cefd9
               </Typography>
-              <Box width="100%">
-                <Image
-                  width="100%"
-                  height="120%"
-                  layout="responsive"
-                  alt="Contentionary"
-                  src="/images/book-2.png"
-                />
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={8} lg={9}>
-              <Typography variant="h2" component="h1">
+              <Typography mb={1} variant="h2" component="h1">
                 Partial truths - How Fractions Distort Our Thinking.
               </Typography>
-              <Stack direction="row" spacing={2} mt={1}>
+              <Stack direction="row" spacing={2} mt={0}>
                 <Typography variant="h6">Indorama Centre</Typography>
                 <Typography paragraph display="flex" alignItems="center">
-                  <PeopleOutlineOutlinedIcon color="primary" /> 1.5k Students
+                  <PeopleOutlineOutlinedIcon color="primary" /> 1.5k Readers
                 </Typography>
               </Stack>
               <Stack
@@ -148,7 +155,7 @@ const HeroSection: BookDetailsPageFunc = () => {
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <NextLink href={`/library/${slug}/document`} passHref>
                   <Button
                     size="large"
                     disableElevation

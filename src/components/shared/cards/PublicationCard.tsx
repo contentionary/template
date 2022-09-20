@@ -31,7 +31,7 @@ const PublicationCard: PublicationCardFunc = () => {
         >
           <Box p={1} className="card-img">
             <Image
-              src="/images/book-2.png"
+              src="/images/book-1.png"
               width="90%"
               height="100%"
               layout="responsive"
