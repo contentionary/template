@@ -28,7 +28,7 @@ function MyFormHelperText({ label, helperTextClass }: HelperTextProps) {
     }
 
     return label;
-  }, [focused]);
+  }, [focused, label]);
 
   return (
     <FormHelperText className={helperTextClass}>{helperText}</FormHelperText>
@@ -43,7 +43,6 @@ export default function CustomizedInputs({
   name,
   type,
   dummyText,
-  required,
   error,
 }: Props): JSX.Element {
   return (

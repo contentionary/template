@@ -3,13 +3,15 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 // type/interface
-import { LessonPlayerFunc } from "./interfaceType";
 import useVideoPageStyle from "@src/styles/videoPage";
 // app components
 import VideoPlayer from "@src/components/shared/video/VideoPlayer";
+import { queryClient } from "../../pages";
+import { BasePageProps } from "../../utils/interface";
 
-const LessonPlayer: LessonPlayerFunc = () => {
+const LessonPlayer = () => {
   const videoPageStyle = useVideoPageStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const videoJsOptions = {
     autoplay: true,
@@ -17,20 +19,7 @@ const LessonPlayer: LessonPlayerFunc = () => {
     fill: true,
     sources: [
       {
-        src: "http://techslides.com/demos/sample-videos/small.webm",
-        type: "video/webm",
-      },
-      {
-        src: "http://techslides.com/demos/sample-videos/small.ogv",
-        type: "video/ogg",
-      },
-      {
-        src: "http://techslides.com/demos/sample-videos/small.mp4",
-        type: "video/mp4",
-      },
-      {
-        src: "http://techslides.com/demos/sample-videos/small.3gp",
-        type: "video/3gp",
+        src: pageData.courseContent.fileUrl,
       },
     ],
   };

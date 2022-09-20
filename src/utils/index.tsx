@@ -1,9 +1,10 @@
 import axios from "axios";
-import { setCookie, getCookie } from "cookies-next";
+import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { GetServerSidePropsContext } from "next";
 import {
   CachedCentreInt,
   ErrorResponseInt,
+  GetRequestInt,
   PostRequestInt,
   RequestResponseInt,
 } from "@src/utils/interface";
@@ -61,8 +62,7 @@ export const cache = {
     try {
       value = typeof value === "string" ? value : JSON.stringify(value);
       if (isServerSide) {
-        context = context as GetServerSidePropsContext;
-        setCookie(key, value, context);
+        setCookie(key, value, context as GetServerSidePropsContext);
       } else {
         localStorage.setItem(key, value);
         if (context) setCookie(key, value);
@@ -90,14 +90,31 @@ export const cache = {
       handleError(err);
     }
   },
+
+  delete: (
+    key: string,
+    context?: GetServerSidePropsContext | boolean
+  ): void => {
+    try {
+      if (isServerSide) {
+        deleteCookie(key, context as GetServerSidePropsContext);
+      } else {
+        localStorage.removeItem(key);
+        if (context) deleteCookie(key);
+      }
+    } catch (err) {
+      handleError(err);
+    }
+  },
 };
 
 export const request = {
-  get: async (
-    url: string,
-    method: "GET" | "DELETE" = "GET"
-  ): Promise<RequestResponseInt> => {
-    const authorization = cache.get("token");
+  get: async ({
+    url,
+    method = "GET",
+    token,
+  }: GetRequestInt): Promise<RequestResponseInt> => {
+    const authorization = token || cache.get("token");
     const headers: any = {};
     if (authorization) headers.authorization = authorization;
 
@@ -115,20 +132,23 @@ export const request = {
     url,
     data,
     method = "POST",
+    token,
   }: PostRequestInt): Promise<RequestResponseInt> => {
+    const authorization = token || cache.get("token");
+    const headers: any = {};
+    if (authorization) headers.authorization = authorization;
+
     const response = await axios({
       method,
       url: baseUrl + url,
-      headers: {
-        authorization: cache.get("token"),
-      },
+      headers,
       data,
     });
 
     return response.data;
   },
 
-  delete: async (url: string) => await request.get(url, "DELETE"),
+  delete: async (url: string) => await request.get({ url, method: "DELETE" }),
   patch: async (params: PostRequestInt) =>
     await request.post({ ...params, method: "PATCH" }),
 };
@@ -170,9 +190,9 @@ export const getCentre = async (
 
     const subdomain = isDev ? "new-centre-test" : urlToken[0];
     // const subdomain = urlToken[0];
-    const { data } = (await request.get(
-      `/centre/${subdomain}`
-    )) as RequestResponseInt;
+    const { data } = (await request.get({
+      url: `/centre/${subdomain}`,
+    })) as RequestResponseInt;
     centre = {
       id: data.id,
       slug: data.slug,

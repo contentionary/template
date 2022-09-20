@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 // next components
 import Image from "next/image";
 import NextLink from "next/link";
@@ -18,15 +18,17 @@ import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
 import useGlobalStyle from "@src/styles/index";
 // icons
+import { queryClient } from "@src/pages";
 // interface and config
-import { cache } from "@src/utils";
 import { AcademyHeaderFunc } from "./interfaceType";
+import { BasePageProps } from "../../utils/interface";
 
 const AcademyHeader: AcademyHeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const user = cache.get("user");
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const user = cachedData.user;
 
   return (
     <>
@@ -66,7 +68,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                     display={{ xs: "none", md: "flex" }}
                   >
                     <Stack direction="row" spacing={2}>
-                      <NextLink href="/academy" passHref>
+                      <NextLink href="/" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
@@ -82,15 +84,15 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                           Courses
                         </Button>
                       </NextLink>
-                      <NextLink href="/practice-test" passHref>
+                      <NextLink href="/courses/my-courses" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
                         >
-                          Practice Test
+                          My Courses
                         </Button>
                       </NextLink>
-                      <NextLink href="/about-us" passHref>
+                      <NextLink href="#" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}

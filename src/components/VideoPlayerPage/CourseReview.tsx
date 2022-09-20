@@ -15,9 +15,9 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import StarHalfOutlinedIcon from "@mui/icons-material/StarHalfOutlined";
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 // interface and config
-import { LessonPlayerFunc } from "./interfaceType";
+// import { LessonPlayerFunc } from "./interfaceType";
 
-const CourseReview: LessonPlayerFunc = () => {
+const CourseReview = () => {
   return (
     <Fragment>
       <List>

@@ -20,12 +20,14 @@ import UnderConstruction from "@src/components/shared/UnderConstruction";
 // interface, styles and config
 // import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
-import { LessonPlayerFunc } from "./interfaceType";
+import { queryClient } from "@src/pages";
+import { BasePageProps, CourseInt } from "../../utils/interface";
 
-const LessonDetailsSection: LessonPlayerFunc = () => {
+const LessonDetailsSection = () => {
   const [value, setValue] = React.useState("1");
   const tabStyle = useTabStyle();
-
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const courseDetails = pageData.courseDetails as CourseInt;
   //
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -74,7 +76,10 @@ const LessonDetailsSection: LessonPlayerFunc = () => {
           <Box>
             <Container maxWidth="xl" sx={{ px: { sm: 4, md: 6, xl: 3 } }}>
               <TabPanel value="1" sx={{ px: px }}>
-                <LessonOverview />
+                <LessonOverview
+                  description={courseDetails.description}
+                  learnings={courseDetails.learnings}
+                />
               </TabPanel>
               <TabPanel value="2" sx={{ px: px }}>
                 <LessonDiscussions />

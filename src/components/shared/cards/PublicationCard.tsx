@@ -18,20 +18,29 @@ import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
 
-const PublicationCard: PublicationCardFunc = () => {
+const PublicationCard: PublicationCardFunc = ({
+  slug,
+  name,
+  price,
+  description,
+  subscriberCount,
+  imageUrl,
+  viewCount,
+  id,
+}) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
 
   return (
     <Card className={cardStyle.publicationCard}>
-      <NextLink href="/library/the-big-bang-theory" passHref>
+      <NextLink href={`/library/${slug}/${id}`} passHref>
         <CardActionArea
           LinkComponent={MuiLink}
           className="MuiCourseCardActionBase-root"
         >
           <Box p={1} className="card-img">
             <Image
-              src="/images/book-1.png"
+              src={imageUrl || "/images/book-1.png"}
               width="90%"
               height="100%"
               layout="responsive"
@@ -41,7 +50,7 @@ const PublicationCard: PublicationCardFunc = () => {
           </Box>
           <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
             <Typography noWrap gutterBottom variant="h6">
-              Learn Marketing from Top Instructors.
+              {name}
             </Typography>
             <Typography
               mb={1}
@@ -49,8 +58,7 @@ const PublicationCard: PublicationCardFunc = () => {
               color="text.secondary"
               className={globalStyle.text2LineTruncate}
             >
-              Premium Centre gives you a vast categories by top industry Premium
-              Centre gives you a vast categories by top industry expert...
+              {description}
             </Typography>
             <Stack
               direction="row"
@@ -68,7 +76,7 @@ const PublicationCard: PublicationCardFunc = () => {
                 order={{ xs: 2, sm: 2 }}
               >
                 <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp;1.5K+
+                &nbsp;{subscriberCount}K+
               </Typography>
               <Typography
                 mb={0}
@@ -82,7 +90,7 @@ const PublicationCard: PublicationCardFunc = () => {
                   color="primary"
                   fontSize="inherit"
                 />
-                &nbsp;1.5K+
+                &nbsp;{viewCount || 0}K+
               </Typography>
               <Typography
                 mb={0}
@@ -94,7 +102,7 @@ const PublicationCard: PublicationCardFunc = () => {
                 ml={{ xs: "0 !important", sm: "auto" }}
                 textAlign={{ xs: "left", sm: "right" }}
               >
-                ₦399.99
+                ₦{price}
               </Typography>
             </Stack>
           </CardContent>

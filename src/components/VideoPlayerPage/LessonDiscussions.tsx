@@ -20,9 +20,9 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 // icons
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 // interface, styles and config
-import { LessonPlayerFunc } from "./interfaceType";
+// import { LessonPlayerFunc } from "./interfaceType";
 
-const LessonDiscussions: LessonPlayerFunc = () => {
+const LessonDiscussions = () => {
   const [open, setOpen] = useState<string>("");
 
   //

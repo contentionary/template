@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "format": "prettier --single-quote=false --print-width 80 --trailing-comma es5 --write \"src/**/*.tsx\""
   },
   "dependencies": {
     "@emotion/react": "^11.10.0",
@@ -21,7 +22,9 @@
     "@videojs/themes": "^1.0.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
+    "cookie": "^0.5.0",
     "cookies-next": "^2.1.1",
+    "js-cookie": "^3.0.1",
     "material-ui-popup-state": "^4.0.2",
     "next": "12.2.5",
     "next-compose-plugins": "^2.2.1",
@@ -41,6 +44,7 @@
     "@svgr/webpack": "^6.3.1",
     "@types/axios": "^0.14.0",
     "@types/cookie": "^0.5.1",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "18.7.6",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",

@@ -20,6 +20,7 @@ export interface UserRegistrationInt extends UserBaseInt {
 export interface RequestResponseInt {
   success: boolean;
   data: Record<string, any>;
+  message: string;
 }
 
 export interface ErrorResponseInt {
@@ -30,10 +31,15 @@ export interface ErrorResponseInt {
 export interface RequestInt {
   url: string;
   method?: "GET" | "POST" | "PATCH" | "DELETE";
+  token?: string;
 }
 
 export interface PostRequestInt extends RequestInt {
   data: Record<string, any>;
+}
+
+export interface GetRequestInt extends RequestInt {
+  data?: Record<string, any>;
 }
 
 export interface CachedCentreInt {
@@ -45,8 +51,13 @@ export interface CachedCentreInt {
 }
 
 export interface BasePageProps {
-  centre: CachedCentreInt;
   error: ErrorResponseInt;
+  pageData: Record<string, any>;
+  cachedData: {
+    user: UserInt;
+    token: string;
+    centre: CachedCentreInt;
+  };
 }
 
 export interface CourseContentInt {
@@ -70,6 +81,37 @@ export interface CourseModuleInt {
   format: string | null;
   isModule: boolean;
   contents: Array<CourseContentInt>;
+}
+
+interface AuthorInt {
+  id: string;
+  imageUrl: string;
+  name: string;
+}
+
+export interface PublicationInt {
+  id: string;
+  centreId: string;
+  folderId: string | null;
+  name: string;
+  slug: string;
+  imageUrl: string;
+  fileUrl: string;
+  description: string;
+  learnings: string[];
+  price: number;
+  isPrivate: boolean;
+  type: "PUBLICATION" | "FOLDER";
+  status: "PUBLISHED" | "PENDING";
+  createdAt: Date;
+  updatedAt: Date;
+  allowSearch: boolean;
+  subscriberCount: number;
+  viewCount: number;
+  downloadCount: number;
+  publicationCategoryName: string;
+  pageCount: string;
+  authors?: AuthorInt[];
 }
 
 export interface CourseInt {
@@ -98,7 +140,7 @@ export interface CourseFolderInt extends CourseInt {
 }
 
 export interface TemplateDataInt {
-  templateDetails: Record<string, object>;
+  templateDetails: Record<string, any>;
   courses: {
     direct: CourseInt[];
     folders: CourseInt[];
