@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const centre = await getCentre(context);
     const { token, user } = getAuthData(context);
     const { data: publication } = await request.get({
-      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
+      url: `/centre/${centre.id}/publication/b2a13450-5f34-11ec-9709-65dd78642aaf?allowRead=true`,
       token,
     });
 

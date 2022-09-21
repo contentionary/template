@@ -21,6 +21,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import { FILE_DOWNLOAD_URL } from "../../utils";
 
 const HeroSection: BookDetailsPageFunc = ({
   id,
@@ -30,6 +31,8 @@ const HeroSection: BookDetailsPageFunc = ({
   subscriberCount,
   authors,
   fileUrl = "#",
+  allowDownload,
+  allowRead,
 }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -127,7 +130,7 @@ const HeroSection: BookDetailsPageFunc = ({
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`/library/${slug}/document`} passHref>
+                <NextLink href={fileUrl} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -141,10 +144,11 @@ const HeroSection: BookDetailsPageFunc = ({
                     </Stack>
                   </Button>
                 </NextLink>
-                <NextLink href={fileUrl} passHref>
+                {Boolean(allowDownload) && (
                   <Button
                     size="large"
                     disableElevation
+                    href={FILE_DOWNLOAD_URL + fileUrl}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}
@@ -154,8 +158,8 @@ const HeroSection: BookDetailsPageFunc = ({
                       <FileDownloadOutlinedIcon /> &nbsp; Download
                     </Stack>
                   </Button>
-                </NextLink>
-                <NextLink href={fileUrl} passHref>
+                )}
+                {/* <NextLink href={fileUrl} passHref>
                   <MuiLink
                     gap={2}
                     color="inherit"
@@ -168,7 +172,7 @@ const HeroSection: BookDetailsPageFunc = ({
                     </Avatar>{" "}
                     Share this Book
                   </MuiLink>
-                </NextLink>
+                </NextLink> */}
               </Stack>
             </Grid>
           </Grid>

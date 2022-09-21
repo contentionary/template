@@ -27,8 +27,10 @@ const AcademyHeader: AcademyHeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const user = cachedData.user;
+  const { cachedData = null } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const user = cachedData?.user;
 
   return (
     <>

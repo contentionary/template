@@ -112,6 +112,8 @@ export interface PublicationInt {
   publicationCategoryName: string;
   pageCount: string;
   authors?: AuthorInt[];
+  allowDownload: boolean;
+  allowRead: boolean;
 }
 
 export interface CourseInt {

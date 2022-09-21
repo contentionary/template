@@ -188,8 +188,10 @@ export const getCentre = async (
     const urlToken = host.split(".");
     if (urlToken.length === 1 && !isDev) throw new Error("Invalid url");
 
-    const subdomain = isDev ? "new-centre-test" : urlToken[0];
-    // const subdomain = urlToken[0];
+    // const subdomain = isDev
+    //   ? "3fa8c900-259e-11ed-bcac-15e9d7a17758"
+    //   : urlToken[0];
+    const subdomain = urlToken[0];
     const { data } = (await request.get({
       url: `/centre/${subdomain}`,
     })) as RequestResponseInt;
@@ -197,7 +199,7 @@ export const getCentre = async (
       id: data.id,
       slug: data.slug,
       name: data.name,
-      theme: data.theme,
+      theme: data.theme || "course-slim",
       logo: data.logo,
     };
 
@@ -208,3 +210,7 @@ export const getCentre = async (
     throw err;
   }
 };
+
+export const FILE_DOWNLOAD_URL =
+  process.env.NEXT_PUBLIC_FILE_DOWNLOAD_URL ||
+  "https://storage.contentionary.com/v1/download?fileUrl=";
