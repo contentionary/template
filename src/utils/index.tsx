@@ -2,6 +2,7 @@ import axios from "axios";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { GetServerSidePropsContext } from "next";
 import {
+  UserInt,
   CachedCentreInt,
   ErrorResponseInt,
   GetRequestInt,
@@ -172,6 +173,18 @@ export const kCount = (count: number) => {
     return parseNumberFloat(1000000, "M");
   } else return parseNumberFloat(1000, "K");
 };
+
+export const pageErrorHandler = (
+  err: unknown,
+  user: UserInt,
+  token: string,
+  centre: CachedCentreInt
+) => ({
+  props: {
+    error: handleError(err),
+    cachedData: { user, centre, token },
+  },
+});
 
 export const getCentre = async (
   context: GetServerSidePropsContext

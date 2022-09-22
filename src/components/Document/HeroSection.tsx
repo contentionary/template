@@ -11,13 +11,15 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import { DocumentFunc } from "./interfaceType";
 // app components
 // icons
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 const HeroSection: DocumentFunc = ({
   id,
@@ -28,6 +30,12 @@ const HeroSection: DocumentFunc = ({
   fileUrl = "#",
 }) => {
   const globalStyle = useGlobalStyle();
+  const btnStyle = {
+    color: "secondary.light",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  };
 
   return (
     <Fragment>
@@ -85,13 +93,18 @@ const HeroSection: DocumentFunc = ({
           <Typography my={1} paragraph>
             {description}
           </Typography>
-          <Stack direction="row" spacing={2}>
-            <Button
-              variant="text"
-              color="secondary"
-              sx={{ display: "flex", flexDirection: "column" }}
-            >
-              Save
+          <Stack direction="row" spacing={1}>
+            <Button variant="text" color="secondary" sx={btnStyle}>
+              <BookmarkAddOutlinedIcon />
+              Subscribe
+            </Button>
+            <Button variant="text" color="secondary" sx={btnStyle}>
+              <FavoriteBorderOutlinedIcon />
+              Like
+            </Button>
+            <Button variant="text" color="secondary" sx={btnStyle}>
+              <ShareOutlinedIcon />
+              Share
             </Button>
           </Stack>
           <Box mt={2}>

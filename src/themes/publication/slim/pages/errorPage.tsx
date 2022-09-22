@@ -1,5 +1,3 @@
-import React from "react";
-//
 import PageError from "@src/components/shared/state/PageError";
 import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
 

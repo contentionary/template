@@ -4,6 +4,7 @@ import List from "./pages/list";
 import Details from "./pages/details";
 import Contents from "./pages/content";
 import MyCourses from "./pages/myCourses";
+import ErrorPage from "./pages/errorPage";
 import { CoursePages } from "./interface";
 
 const coursePages: Record<CoursePages, WrapperFunc> = {
@@ -11,6 +12,7 @@ const coursePages: Record<CoursePages, WrapperFunc> = {
   List,
   Details,
   Contents,
+  ErrorPage,
   MyCourses,
 };
 
