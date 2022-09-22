@@ -11,7 +11,7 @@ const DocumentPage = ({ error, ...pageProps }: BasePageProps) => {
     return <h1>An error occurred {error.message}</h1>;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Details");
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Document");
 
   return <ActiveTheme />;
 };

@@ -188,7 +188,10 @@ export const getCentre = async (
     const urlToken = host.split(".");
     if (urlToken.length === 1 && !isDev) throw new Error("Invalid url");
 
-    const subdomain = isDev ? "new-centre-test" : urlToken[0];
+    // const subdomain = isDev ? "new-centre-test" : urlToken[0];
+    const subdomain = isDev
+      ? "1774ac30-39a6-11ed-9d0a-35803f7b4527"
+      : urlToken[0];
     // const subdomain = urlToken[0];
     const { data } = (await request.get({
       url: `/centre/${subdomain}`,
@@ -197,7 +200,8 @@ export const getCentre = async (
       id: data.id,
       slug: data.slug,
       name: data.name,
-      theme: data.theme,
+      // theme: data.theme,
+      theme: "PUBLICATION:SLIM",
       logo: data.logo,
     };
 

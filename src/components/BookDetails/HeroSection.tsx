@@ -24,9 +24,9 @@ import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined
 
 const HeroSection: BookDetailsPageFunc = ({
   id,
-  imageUrl,
   name,
   price,
+  imageUrl,
   subscriberCount,
   authors,
   fileUrl = "#",
@@ -34,6 +34,7 @@ const HeroSection: BookDetailsPageFunc = ({
   const router = useRouter();
   const { slug } = router.query;
   const globalStyle = useGlobalStyle();
+
   return (
     <Fragment>
       <Box
@@ -59,11 +60,12 @@ const HeroSection: BookDetailsPageFunc = ({
                 flexDirection: "column",
               }}
             >
-              <Box width="90%">
+              <Box width="80%">
                 <Image
-                  width="90%"
+                  width="100%"
                   height="100%"
                   layout="responsive"
+                  objectFit="contain"
                   alt="Contentionary"
                   src={imageUrl || "/images/book-2.png"}
                 />
@@ -127,7 +129,7 @@ const HeroSection: BookDetailsPageFunc = ({
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`/library/${slug}/document`} passHref>
+                <NextLink href={`/library/${slug}/document/${id}`} passHref>
                   <Button
                     size="large"
                     disableElevation

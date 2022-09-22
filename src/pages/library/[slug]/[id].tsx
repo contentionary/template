@@ -8,7 +8,7 @@ import { queryClient } from "@src/pages";
 
 const PublicationDetailsPage = ({ error, ...pageProps }: BasePageProps) => {
   if (error) {
-    return <h1>An error occured {error.message}</h1>;
+    return <h1>An error occurred {error.message}</h1>;
   }
   queryClient.setQueryData("pageProps", pageProps);
   const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Details");
