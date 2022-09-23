@@ -1,14 +1,17 @@
 import { GetServerSideProps } from "next";
 import themes from "@src/themes";
 import { request } from "@src/utils";
-import { getCentre, handleError } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+import { getCentre, pageErrorHandler } from "@src/utils";
+import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "../../utils/auth";
 import { queryClient } from "..";
 
-const LibraryPage = ({ error, ...pageProps }: BasePageProps) => {
-  if (error) {
-    return <h1>An error occured {error.message}</h1>;
+const LibraryPage = (pageProps: BasePageProps) => {
+  if (pageProps.error) {
+    queryClient.setQueryData("pageProps", pageProps);
+    const ActiveTheme = themes[pageProps.cachedData.centre.theme]("ErrorPage");
+
+    return <ActiveTheme />;
   }
   queryClient.setQueryData("pageProps", pageProps);
   const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Library");
@@ -17,10 +20,11 @@ const LibraryPage = ({ error, ...pageProps }: BasePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  let centre: any = {};
+  const { pageId = 1 } = context.query;
+  const { token, user } = getAuthData(context);
   try {
-    const { pageId = 1 } = context.query;
-    const centre = await getCentre(context);
-    const { token, user } = getAuthData(context);
+    centre = (await getCentre(context)) as CachedCentreInt;
     const { data: publicationData } = await request.get({
       url: `/centre/${centre.id}/publications?pageId=${pageId}`,
       token,
@@ -33,11 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (err) {
-    return {
-      props: {
-        error: handleError(err),
-      },
-    };
+    return pageErrorHandler(err, user, token, centre);
   }
 };
 export default LibraryPage;

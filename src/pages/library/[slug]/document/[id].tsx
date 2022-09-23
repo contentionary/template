@@ -1,12 +1,12 @@
-import type { GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 import themes from "@src/themes";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
-import { queryClient } from "@src/pages";
 import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/pages";
 
-const CourseContents = (pageProps: BasePageProps) => {
+const DocumentPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
     const ActiveTheme = themes[pageProps.cachedData.centre.theme]("ErrorPage");
@@ -14,38 +14,30 @@ const CourseContents = (pageProps: BasePageProps) => {
     return <ActiveTheme />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Contents");
+  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Document");
 
   return <ActiveTheme />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query;
   let centre: any = {};
-  const { user, token } = getAuthData(context);
+  const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { courseId, contentId } = context.query;
-    const [{ data: courseDetails }, { data: courseContent }] =
-      await Promise.all([
-        request.get({
-          url: `/centre/${centre.id}/course/${courseId}`,
-          token,
-        }),
-        request.get({
-          url: `/centre/${centre.id}/course/${courseId}/content/${contentId}`,
-          token,
-        }),
-      ]);
+    const { data: publication } = await request.get({
+      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
+      token,
+    });
 
     return {
       props: {
-        cachedData: { centre, user, token },
-        pageData: { courseContent, courseDetails },
+        pageData: { publication },
+        cachedData: { user, centre, token },
       },
     };
   } catch (err) {
     return pageErrorHandler(err, user, token, centre);
   }
 };
-
-export default CourseContents;
+export default DocumentPage;

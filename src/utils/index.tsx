@@ -2,6 +2,7 @@ import axios from "axios";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { GetServerSidePropsContext } from "next";
 import {
+  UserInt,
   CachedCentreInt,
   ErrorResponseInt,
   GetRequestInt,
@@ -173,6 +174,18 @@ export const kCount = (count: number) => {
   } else return parseNumberFloat(1000, "K");
 };
 
+export const pageErrorHandler = (
+  err: unknown,
+  user: UserInt,
+  token: string,
+  centre: CachedCentreInt
+) => ({
+  props: {
+    error: handleError(err),
+    cachedData: { user, centre, token },
+  },
+});
+
 export const getCentre = async (
   context: GetServerSidePropsContext
 ): Promise<CachedCentreInt> => {
@@ -188,10 +201,11 @@ export const getCentre = async (
     const urlToken = host.split(".");
     if (urlToken.length === 1 && !isDev) throw new Error("Invalid url");
 
-    // const subdomain = isDev
-    //   ? "3fa8c900-259e-11ed-bcac-15e9d7a17758"
-    //   : urlToken[0];
-    const subdomain = urlToken[0];
+    // const subdomain = isDev ? "new-centre-test" : urlToken[0];
+    const subdomain = isDev
+      ? "1774ac30-39a6-11ed-9d0a-35803f7b4527"
+      : urlToken[0];
+    // const subdomain = urlToken[0];
     const { data } = (await request.get({
       url: `/centre/${subdomain}`,
     })) as RequestResponseInt;
@@ -199,7 +213,8 @@ export const getCentre = async (
       id: data.id,
       slug: data.slug,
       name: data.name,
-      theme: data.theme || "course-slim",
+      // theme: data.theme,
+      theme: "PUBLICATION:SLIM",
       logo: data.logo,
     };
 

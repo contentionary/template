@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-// import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
 // mui components
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -8,12 +7,8 @@ import { DocumentFunc } from "./interfaceType";
 // app components
 // icons
 
-const ReaderSection: DocumentFunc = () => {
-  // const docs = [
-  //   { uri: "https://url-to-my-pdf.pdf" },
-  //   // { uri: "/documents/count-sort.pdf" },
-  // ];
-
+const ReaderSection: DocumentFunc = ({ fileUrl = "#" }) => {
+  // const docs = [{ uri: fileUrl }];
   return (
     <Fragment>
       <Box
@@ -22,7 +17,6 @@ const ReaderSection: DocumentFunc = () => {
         sx={{ px: { md: 6 } }}
       >
         <Container maxWidth="xl">
-          {/* <DocViewer pluginRenderers={DocViewerRenderers} documents={docs} /> */}
           <embed
             style={{
               width: "100%",
@@ -30,7 +24,7 @@ const ReaderSection: DocumentFunc = () => {
               minHeight: 800,
             }}
             type="application/pdf"
-            src="/documents/count-sort.pdf"
+            src={fileUrl}
           />
         </Container>
       </Box>
