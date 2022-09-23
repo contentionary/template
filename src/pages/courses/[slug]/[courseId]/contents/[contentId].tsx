@@ -1,13 +1,18 @@
 import type { GetServerSideProps } from "next";
 import themes from "@src/themes";
 import { request } from "@src/utils";
-import { getCentre, handleError } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+import { getCentre, pageErrorHandler } from "@src/utils";
+import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { queryClient } from "@src/pages";
 import { getAuthData } from "@src/utils/auth";
 
-const CourseContents = ({ error, ...pageProps }: BasePageProps) => {
-  if (error) return <h1>{error.message}</h1>;
+const CourseContents = (pageProps: BasePageProps) => {
+  if (pageProps.error) {
+    queryClient.setQueryData("pageProps", pageProps);
+    const ActiveTheme = themes[pageProps.cachedData.centre.theme]("ErrorPage");
+
+    return <ActiveTheme />;
+  }
   queryClient.setQueryData("pageProps", pageProps);
   const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Contents");
 
@@ -15,10 +20,11 @@ const CourseContents = ({ error, ...pageProps }: BasePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  let centre: any = {};
+  const { user, token } = getAuthData(context);
   try {
+    centre = (await getCentre(context)) as CachedCentreInt;
     const { courseId, contentId } = context.query;
-    const centre = await getCentre(context);
-    const { user, token } = getAuthData(context);
     const [{ data: courseDetails }, { data: courseContent }] =
       await Promise.all([
         request.get({
@@ -38,12 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (err) {
-    const { message, statusCode } = handleError(err);
-    return {
-      props: {
-        error: { message, statusCode },
-      },
-    };
+    return pageErrorHandler(err, user, token, centre);
   }
 };
 
