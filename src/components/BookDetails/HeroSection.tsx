@@ -23,6 +23,7 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { FILE_DOWNLOAD_URL } from "../../utils";
 
 const HeroSection: BookDetailsPageFunc = ({
   id,
@@ -32,6 +33,8 @@ const HeroSection: BookDetailsPageFunc = ({
   subscriberCount,
   authors,
   fileUrl = "#",
+  allowDownload,
+  allowRead,
 }) => {
   const router = useRouter();
   const { slug } = router.query;
@@ -166,10 +169,11 @@ const HeroSection: BookDetailsPageFunc = ({
                     </Stack>
                   </Button>
                 </NextLink>
-                <NextLink href={fileUrl} passHref>
+                {Boolean(allowDownload) && (
                   <Button
                     size="large"
                     disableElevation
+                    href={FILE_DOWNLOAD_URL + fileUrl}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}
@@ -179,7 +183,21 @@ const HeroSection: BookDetailsPageFunc = ({
                       <FileDownloadOutlinedIcon /> &nbsp; Download
                     </Stack>
                   </Button>
-                </NextLink>
+                )}
+                {/* <NextLink href={fileUrl} passHref>
+                  <MuiLink
+                    gap={2}
+                    color="inherit"
+                    underline="none"
+                    alignItems="center"
+                    display={{ xs: "flex", sm: "inline-flex" }}
+                  >
+                    <Avatar variant="rounded" sx={{ bgcolor: "primary.main" }}>
+                      <ShareOutlinedIcon htmlColor="white" />
+                    </Avatar>{" "}
+                    Share this Book
+                  </MuiLink>
+                </NextLink> */}
               </Stack>
             </Grid>
           </Grid>

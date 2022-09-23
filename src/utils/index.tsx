@@ -225,3 +225,7 @@ export const getCentre = async (
     throw err;
   }
 };
+
+export const FILE_DOWNLOAD_URL =
+  process.env.NEXT_PUBLIC_FILE_DOWNLOAD_URL ||
+  "https://storage.contentionary.com/v1/download?fileUrl=";
