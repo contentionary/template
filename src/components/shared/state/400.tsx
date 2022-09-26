@@ -12,11 +12,9 @@ import Container from "@mui/material/Container";
 import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 // icon
-import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import KeyboardBackspaceOutlinedIcon from "@mui/icons-material/KeyboardBackspaceOutlined";
 
 const Page400: ErrorPageFunc = ({ error }) => {
-  console.log(error);
   return (
     <Box
       component="section"

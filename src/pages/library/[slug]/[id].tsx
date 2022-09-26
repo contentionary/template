@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
     const { data: publication } = await request.get({
-      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
+      url: `/centre/${centre.id}/publication/${id}?allowRead=false`,
       token,
     });
 
