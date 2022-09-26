@@ -50,8 +50,13 @@ export const parseJSON = (data: any) => {
 };
 
 export const handleError = (err: any): ErrorResponseInt => {
+  if (err?.name === "AxiosError") {
+    const { data } = err.response;
+    err.message = data.message;
+    err.statusCode = data.httpStatusCode;
+  }
+  const statusCode = err.statusCode || 500;
   const message = err.message || "Something went wrong";
-  const statusCode = err.statusCode || 404;
   devLog("Error handler", err);
 
   return { message, statusCode };
