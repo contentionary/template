@@ -4,8 +4,8 @@ import { CoursePages } from "./course/slim/interface";
 import { PublicationPages } from "./publication/slim/interface";
 
 const themes: Record<string, Function> = {
-  "course-slim": (pages: CoursePages) => CourseSlim[pages],
-  "publication-slim": (pages: PublicationPages) => PublicationSlim[pages],
+  course: (pages: CoursePages) => CourseSlim[pages],
+  publication: (pages: PublicationPages) => PublicationSlim[pages],
 };
 
 export default themes;

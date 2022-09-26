@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import type { GetServerSideProps } from "next";
-import themes from "@src/themes";
+import themes from "@src/templates";
 import { devLog, getCentre, handleError } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { request } from "@src/utils";
@@ -22,8 +22,8 @@ const HomePage = (props: BasePageProps) => {
   queryClient.setQueryData("pageProps", props);
   const { centre } = props.cachedData;
   devLog("Theme", { centre });
-  const ActiveTheme = themes[centre.theme]("Home");
-  return <ActiveTheme />;
+  const ActiveTemplate = themes[centre.template]("Home");
+  return <ActiveTemplate />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

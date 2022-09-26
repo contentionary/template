@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { GetServerSideProps } from "next";
-import themes from "@src/themes";
+import themes from "@src/templates";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
@@ -16,14 +16,16 @@ export const CentreCoursesContext = createContext<CourseListInt | null>(null);
 const CoursesPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTheme = themes[pageProps.cachedData.centre.theme]("ErrorPage");
+    const ActiveTemplate =
+      themes[pageProps.cachedData.centre.template]("ErrorPage");
 
-    return <ActiveTheme />;
+    return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("MyCourses");
+  const ActiveTemplate =
+    themes[pageProps.cachedData.centre.template]("MyCourses");
 
-  return <ActiveTheme />;
+  return <ActiveTemplate />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

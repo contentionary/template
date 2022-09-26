@@ -47,7 +47,7 @@ export interface CachedCentreInt {
   name: string;
   logo: string;
   slug: string;
-  theme: string;
+  template: string;
 }
 
 export interface BasePageProps {
