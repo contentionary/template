@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
     const { data: publicationData } = await request.get({
-      url: `/centre/${centre.id}/publications?limit=5&pageId=${pageId}${
+      url: `/centre/${centre.id}/publications?&pageId=${pageId}${
         folderId === "" ? "" : `&folderId=${folderId}`
       }`,
       token,
