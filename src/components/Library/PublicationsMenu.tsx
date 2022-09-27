@@ -12,38 +12,30 @@ import ListItemButton from "@mui/material/ListItemButton";
 // app components
 // styles and interface
 import useListMenuStyle from "@src/styles/listMenu";
-import { LibraryPageFunc } from "./interfaceType";
+import { PublicationInt } from "@src/utils/interface";
 
-const PublicationsMenu: LibraryPageFunc = () => {
+const PublicationsMenu = ({ pageData }: Record<string, any>) => {
   const listMenuStyle = useListMenuStyle();
+  const publications = pageData.publicationData
+    .publications as PublicationInt[];
 
   return (
     <Box top={32} position="sticky">
       <Typography mb={2} variant="h5">
-        Categories
+        Folders
       </Typography>
       <List disablePadding className={listMenuStyle.listMenuRoot}>
-        <ListItem disablePadding>
-          <NextLink href="/" passHref>
-            <ListItemButton component={MuiLink}>
-              <ListItemText primary="Marketing" />
-            </ListItemButton>
-          </NextLink>
-        </ListItem>
-        <ListItem disablePadding>
-          <NextLink href="/" passHref>
-            <ListItemButton component={MuiLink}>
-              <ListItemText primary="Marketing" />
-            </ListItemButton>
-          </NextLink>
-        </ListItem>
-        <ListItem disablePadding>
-          <NextLink href="/" passHref>
-            <ListItemButton component={MuiLink}>
-              <ListItemText primary="Marketing" />
-            </ListItemButton>
-          </NextLink>
-        </ListItem>
+        {publications
+          .filter((publication) => publication.type === "FOLDER")
+          .map((publication, index) => (
+            <ListItem key={`${index}-publication-folder`} disablePadding>
+              <NextLink href={`/library?folderId=${publication.id}`} passHref>
+                <ListItemButton component={MuiLink}>
+                  <ListItemText primary={publication.name} />
+                </ListItemButton>
+              </NextLink>
+            </ListItem>
+          ))}
       </List>
     </Box>
   );

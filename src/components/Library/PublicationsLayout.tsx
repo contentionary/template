@@ -9,26 +9,30 @@ import PublicationsMenu from "./PublicationsMenu";
 import PublicationBreadcrumbs from "./PublicationBreadcrumbs";
 import PublicationListSection from "./PublicationListSection";
 // interface
+import { queryClient } from "@src/pages";
 import { LibraryPageFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const PublicationsLayout: LibraryPageFunc = () => {
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+
   return (
     <Box component="section" sx={{ pt: 2, px: { md: 6 }, pb: 8 }}>
       <Container maxWidth="xl">
-        <PublicationBreadcrumbs />
+        <PublicationBreadcrumbs pageData={pageData} />
         <Grid
           container
           spacing={{ xs: 1, lg: 2 }}
           columns={{ xs: 1, sm: 3, md: 4, lg: 5, xl: 6 }}
         >
           <Grid item xs={1} sm={3} md={1} lg={1} xl={1}>
-            <PublicationsMenu />
+            <PublicationsMenu pageData={pageData} />
           </Grid>
           <Grid item xs={1} sm={3} md={3} lg={4} xl={5}>
             <Typography mb={4} variant="h4" component="h2">
               Explore Publications
             </Typography>
-            <PublicationListSection />
+            <PublicationListSection pageData={pageData} />
           </Grid>
         </Grid>
       </Container>

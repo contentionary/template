@@ -1,6 +1,7 @@
 import React from "react";
 // next
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 // mui components
 import { Link as MuiLink } from "@mui/material";
 import Stack from "@mui/material/Stack";
@@ -8,12 +9,17 @@ import Typography from "@mui/material/Typography";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 // interface
-import { LibraryPageFunc } from "./interfaceType";
+// import { PublicationInt } from "@src/utils/interface";
 
-const PublicationBreadcrumbs: LibraryPageFunc = () => {
+const PublicationBreadcrumbs = ({ pageData }: Record<string, any>) => {
+  const { query } = useRouter();
+  const { folderId } = query;
+  const folder = pageData.publicationData.folder as Record<string, any>;
+
   return (
     <Stack top={0} position="sticky" spacing={2} mb={2}>
       <Breadcrumbs
+        maxItems={4}
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
       >
@@ -22,7 +28,20 @@ const PublicationBreadcrumbs: LibraryPageFunc = () => {
             Home
           </MuiLink>
         </NextLink>
-        <Typography color="text.primary">Library</Typography>
+        {folderId === undefined ? (
+          <Typography color="text.primary">Library</Typography>
+        ) : (
+          [
+            <NextLink key="2" href="/library" passHref>
+              <MuiLink underline="hover" color="inherit">
+                Library
+              </MuiLink>
+            </NextLink>,
+            <Typography key="3" color="text.primary">
+              {folder.name}
+            </Typography>,
+          ]
+        )}
       </Breadcrumbs>
     </Stack>
   );
