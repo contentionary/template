@@ -2,7 +2,7 @@ export const data = [
   {
     type: "CARD",
     paymentType: "Pay with Naira",
-    logo: "/media/images/payment/payStack.svg",
+    logo: "/images/payment/payStack.svg",
     motto: "Secured by Paystack",
     active: true,
     height: "100%",
@@ -12,7 +12,7 @@ export const data = [
   {
     type: "CARD",
     paymentType: "Pay with Dollar",
-    logo: "/media/images/payment/stripe.svg",
+    logo: "/images/payment/stripe.svg",
     motto: "Secured by Stripe",
     active: false,
     currency: "USD",
@@ -22,7 +22,7 @@ export const data = [
   {
     type: "WALLET",
     paymentType: "Pay with Wallet",
-    logo: "/media/images/payment/logo.svg",
+    logo: "/images/payment/logo.svg",
     motto: "Secured by Contentionary",
     active: false,
     link: "https://checkout.flutterwave.com/v3/hosted/pay",
