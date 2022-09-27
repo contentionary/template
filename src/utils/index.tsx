@@ -2,6 +2,7 @@ import axios from "axios";
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
 import { GetServerSidePropsContext } from "next";
 import {
+  UserInt,
   CachedCentreInt,
   ErrorResponseInt,
   GetRequestInt,
@@ -11,6 +12,9 @@ import {
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
+export const FILE_DOWNLOAD_URL =
+  process.env.NEXT_PUBLIC_FILE_DOWNLOAD_URL ||
+  "https://storage.contentionary.com/v1/download?fileUrl=";
 
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
@@ -46,8 +50,13 @@ export const parseJSON = (data: any) => {
 };
 
 export const handleError = (err: any): ErrorResponseInt => {
+  if (err?.name === "AxiosError") {
+    const { data } = err.response;
+    err.message = data.message;
+    err.statusCode = data.httpStatusCode;
+  }
+  const statusCode = err.statusCode || 500;
   const message = err.message || "Something went wrong";
-  const statusCode = err.statusCode || 404;
   devLog("Error handler", err);
 
   return { message, statusCode };
@@ -173,32 +182,35 @@ export const kCount = (count: number) => {
   } else return parseNumberFloat(1000, "K");
 };
 
+export const pageErrorHandler = (
+  err: unknown,
+  user: UserInt,
+  token: string,
+  centre: CachedCentreInt
+) => ({
+  props: {
+    error: handleError(err),
+    cachedData: { user, centre, token },
+  },
+});
+
 export const getCentre = async (
   context: GetServerSidePropsContext
 ): Promise<CachedCentreInt> => {
   try {
-    const isDev =
-      process.env.NODE_ENV === "development" ||
-      process.env.NEXT_PUBLIC_NODE_ENV === "development";
     const host = context.req.headers.host as string;
-
     let centre = cache.get(host, context);
     devLog("Cached centre 1", centre);
     if (centre) return centre;
 
-    const urlToken = host.split(".");
-    if (urlToken.length === 1 && !isDev) throw new Error("Invalid url");
-
-    const subdomain = isDev ? "new-centre-test" : urlToken[0];
-    // const subdomain = urlToken[0];
     const { data } = (await request.get({
-      url: `/centre/${subdomain}`,
+      url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;
     centre = {
       id: data.id,
       slug: data.slug,
       name: data.name,
-      theme: data.theme || "publication-slim",
+      template: data.template,
       logo: data.logo,
     };
 

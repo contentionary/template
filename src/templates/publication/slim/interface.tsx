@@ -2,5 +2,6 @@ export type PublicationPages =
   | "Home"
   | "Library"
   | "Details"
-  | "DocumentPage"
+  | "Document"
+  | "ErrorPage"
   | "MyPublications";

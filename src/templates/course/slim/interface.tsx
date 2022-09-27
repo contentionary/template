@@ -3,4 +3,5 @@ export type CoursePages =
   | "List"
   | "Details"
   | "Contents"
+  | "ErrorPage"
   | "MyCourses";

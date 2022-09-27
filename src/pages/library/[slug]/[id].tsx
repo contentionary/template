@@ -1,28 +1,34 @@
 import { GetServerSideProps } from "next";
-import themes from "@src/themes";
+import themes from "@src/templates";
 import { request } from "@src/utils";
-import { getCentre, handleError } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+import { getCentre, pageErrorHandler } from "@src/utils";
+import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/pages";
 
-const PublicationDetailsPage = ({ error, ...pageProps }: BasePageProps) => {
-  if (error) {
-    return <h1>An error occured {error.message}</h1>;
+const PublicationDetailsPage = (pageProps: BasePageProps) => {
+  if (pageProps.error) {
+    queryClient.setQueryData("pageProps", pageProps);
+    const ActiveTemplate =
+      themes[pageProps.cachedData.centre.template]("ErrorPage");
+
+    return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("Details");
+  const ActiveTemplate =
+    themes[pageProps.cachedData.centre.template]("Details");
 
-  return <ActiveTheme />;
+  return <ActiveTemplate />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query;
+  let centre: any = {};
+  const { token, user } = getAuthData(context);
   try {
-    const { id } = context.query;
-    const centre = await getCentre(context);
-    const { token, user } = getAuthData(context);
+    centre = (await getCentre(context)) as CachedCentreInt;
     const { data: publication } = await request.get({
-      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
+      url: `/centre/${centre.id}/publication/${id}?allowRead=false`,
       token,
     });
 
@@ -33,11 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (err) {
-    return {
-      props: {
-        error: handleError(err),
-      },
-    };
+    return pageErrorHandler(err, user, token, centre);
   }
 };
 export default PublicationDetailsPage;

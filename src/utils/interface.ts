@@ -47,7 +47,7 @@ export interface CachedCentreInt {
   name: string;
   logo: string;
   slug: string;
-  theme: string;
+  template: string;
 }
 
 export interface BasePageProps {
@@ -112,6 +112,8 @@ export interface PublicationInt {
   publicationCategoryName: string;
   pageCount: string;
   authors?: AuthorInt[];
+  allowDownload: boolean;
+  allowRead: boolean;
 }
 
 export interface CourseInt {

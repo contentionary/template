@@ -1,29 +1,39 @@
 import { createContext } from "react";
 import { GetServerSideProps } from "next";
-import themes from "@src/themes";
+import themes from "@src/templates";
 import { request } from "@src/utils";
-import { getCentre, handleError } from "@src/utils";
-import { BasePageProps, CourseListInt } from "@src/utils/interface";
+import { getCentre, pageErrorHandler } from "@src/utils";
+import {
+  BasePageProps,
+  CourseListInt,
+  CachedCentreInt,
+} from "@src/utils/interface";
 import { getAuthData } from "../../utils/auth";
 import { queryClient } from "..";
 
 export const CentreCoursesContext = createContext<CourseListInt | null>(null);
 
-const CoursesPage = ({ error, ...pageProps }: BasePageProps) => {
-  if (error) {
-    return <h1>An error occured {error.message}</h1>;
+const CoursesPage = (pageProps: BasePageProps) => {
+  if (pageProps.error) {
+    queryClient.setQueryData("pageProps", pageProps);
+    const ActiveTemplate =
+      themes[pageProps.cachedData.centre.template]("ErrorPage");
+
+    return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTheme = themes[pageProps.cachedData.centre.theme]("MyCourses");
+  const ActiveTemplate =
+    themes[pageProps.cachedData.centre.template]("MyCourses");
 
-  return <ActiveTheme />;
+  return <ActiveTemplate />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  let centre: any = {};
+  const { pageId = 1 } = context.query;
+  const { token, user } = getAuthData(context);
   try {
-    const { pageId = 1 } = context.query;
-    const centre = await getCentre(context);
-    const { token, user } = getAuthData(context);
+    centre = (await getCentre(context)) as CachedCentreInt;
     const { data: courseList } = await request.get({
       url: `/my-courses?pageId=${pageId}&centreId=${centre.id}`,
       token,
@@ -33,11 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       props: { pageData: { courseList }, cachedData: { user, centre, token } },
     };
   } catch (err) {
-    return {
-      props: {
-        error: handleError(err),
-      },
-    };
+    return pageErrorHandler(err, user, token, centre);
   }
 };
 export default CoursesPage;

@@ -11,16 +11,31 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import { DocumentFunc } from "./interfaceType";
 // app components
 // icons
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
-const HeroSection: DocumentFunc = () => {
+const HeroSection: DocumentFunc = ({
+  id,
+  name,
+  authors,
+  subscriberCount,
+  description,
+  fileUrl = "#",
+}) => {
   const globalStyle = useGlobalStyle();
+  const btnStyle = {
+    color: "secondary.light",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  };
 
   return (
     <Fragment>
@@ -34,15 +49,15 @@ const HeroSection: DocumentFunc = () => {
             <Typography variant="h6" component="span">
               Publication ID
             </Typography>{" "}
-            bfd6bb40-124f-11ec-a161-bdf69d9cefd9
+            {id}
           </Typography>
           <Typography mb={1} variant="h3" component="h1">
-            How Fractions Distort Our Thinking.
+            {name}
           </Typography>
           <Stack direction="row" spacing={2} mt={0}>
-            <Typography variant="h6">Indorama Centre</Typography>
             <Typography paragraph display="flex" alignItems="center">
-              <PeopleOutlineOutlinedIcon color="primary" /> 1.5k Readers
+              <PeopleOutlineOutlinedIcon color="primary" /> {subscriberCount}{" "}
+              Readers
             </Typography>
           </Stack>
           <Stack
@@ -53,41 +68,49 @@ const HeroSection: DocumentFunc = () => {
           >
             <Typography variant="h6">Author(s):</Typography>
             <Stack direction="row" flexWrap="wrap" justifyContent="start">
-              <Stack
-                mr={4}
-                mb={1}
-                spacing={1}
-                direction="row"
-                alignItems="center"
-              >
-                <Avatar sx={{ width: 32, height: 32 }}>
-                  <Image
-                    alt="user"
-                    layout="fill"
-                    objectFit="contain"
-                    src="/images/avatar.png"
-                  />
-                </Avatar>
-                <Typography paragraph>Benjamin Peter Franklin</Typography>
-              </Stack>
+              {authors?.map(({ name, imageUrl }, index) => (
+                <Stack
+                  mr={4}
+                  mb={1}
+                  spacing={1}
+                  direction="row"
+                  alignItems="center"
+                  key={index + "author"}
+                >
+                  <Avatar sx={{ width: 32, height: 32 }}>
+                    <Image
+                      alt="user"
+                      layout="fill"
+                      objectFit="contain"
+                      src={imageUrl || "/images/avatar.png"}
+                    />
+                  </Avatar>
+                  <Typography paragraph>{name}</Typography>
+                </Stack>
+              ))}
             </Stack>
           </Stack>
           <Typography my={1} paragraph>
-            A federal judge in Seattle ruled today that Microsoft can move
-            forward with a lawsuit against the U.S. Department of Justice,
-            challenging the U.S. government’s ability to keep the company from
-            telling customers when they’re the targets of government warrants.
+            {description}
           </Typography>
-          {/* <Stack
-            spacing={2}
-            rowGap={1}
-            flexWrap="wrap"
-            direction="row"
-            alignItems="center"
-          ></Stack> */}
+          <Stack direction="row" spacing={1}>
+            <Button variant="text" color="secondary" sx={btnStyle}>
+              <BookmarkAddOutlinedIcon />
+              Subscribe
+            </Button>
+            <Button variant="text" color="secondary" sx={btnStyle}>
+              <FavoriteBorderOutlinedIcon />
+              Like
+            </Button>
+            <Button variant="text" color="secondary" sx={btnStyle}>
+              <ShareOutlinedIcon />
+              Share
+            </Button>
+          </Stack>
           <Box mt={2}>
-            <NextLink href={`${config.URL.WEB}create-account`} passHref>
+            <NextLink passHref href={fileUrl}>
               <Button
+                download
                 size="large"
                 disableElevation
                 variant="contained"

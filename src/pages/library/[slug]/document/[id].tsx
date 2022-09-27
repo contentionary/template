@@ -1,4 +1,4 @@
-import type { GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 import themes from "@src/templates";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
@@ -6,7 +6,7 @@ import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/pages";
 
-const CourseDetails = (pageProps: BasePageProps) => {
+const DocumentPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
     const ActiveTemplate =
@@ -16,31 +16,30 @@ const CourseDetails = (pageProps: BasePageProps) => {
   }
   queryClient.setQueryData("pageProps", pageProps);
   const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("Details");
+    themes[pageProps.cachedData.centre.template]("Document");
 
   return <ActiveTemplate />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query;
   let centre: any = {};
-  const { user, token } = getAuthData(context);
+  const { token, user } = getAuthData(context);
   try {
-    const { courseId = 1 } = context.query;
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: courseDetails } = await request.get({
-      url: `/centre/${centre.id}/course/${courseId}`,
+    const { data: publication } = await request.get({
+      url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
       token,
     });
 
     return {
       props: {
-        cachedData: { centre, user, token },
-        pageData: { courseDetails },
+        pageData: { publication },
+        cachedData: { user, centre, token },
       },
     };
   } catch (err) {
     return pageErrorHandler(err, user, token, centre);
   }
 };
-
-export default CourseDetails;
+export default DocumentPage;

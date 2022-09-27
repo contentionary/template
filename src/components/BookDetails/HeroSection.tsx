@@ -19,21 +19,34 @@ import { BookDetailsPageFunc } from "./interfaceType";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import { FILE_DOWNLOAD_URL } from "../../utils";
 
 const HeroSection: BookDetailsPageFunc = ({
   id,
-  imageUrl,
   name,
   price,
+  imageUrl,
   subscriberCount,
   authors,
   fileUrl = "#",
+  allowDownload,
+  allowRead,
 }) => {
   const router = useRouter();
   const { slug } = router.query;
   const globalStyle = useGlobalStyle();
+
+  const btnStyle = {
+    color: "secondary.light",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  };
+
   return (
     <Fragment>
       <Box
@@ -59,11 +72,12 @@ const HeroSection: BookDetailsPageFunc = ({
                 flexDirection: "column",
               }}
             >
-              <Box width="90%">
+              <Box width="80%">
                 <Image
-                  width="90%"
+                  width="100%"
                   height="100%"
                   layout="responsive"
+                  objectFit="contain"
                   alt="Contentionary"
                   src={imageUrl || "/images/book-2.png"}
                 />
@@ -119,6 +133,20 @@ const HeroSection: BookDetailsPageFunc = ({
               <Typography variant="h3" component="h1">
                 ₦{price}
               </Typography>
+              <Stack direction="row" spacing={1}>
+                <Button variant="text" color="secondary" sx={btnStyle}>
+                  <BookmarkAddOutlinedIcon />
+                  Subscribe
+                </Button>
+                <Button variant="text" color="secondary" sx={btnStyle}>
+                  <FavoriteBorderOutlinedIcon />
+                  Like
+                </Button>
+                <Button variant="text" color="secondary" sx={btnStyle}>
+                  <ShareOutlinedIcon />
+                  Share
+                </Button>
+              </Stack>
               <Stack
                 mt={1}
                 spacing={2}
@@ -127,7 +155,7 @@ const HeroSection: BookDetailsPageFunc = ({
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`/library/${slug}/document`} passHref>
+                <NextLink href={`/library/${slug}/document/${id}`} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -141,10 +169,11 @@ const HeroSection: BookDetailsPageFunc = ({
                     </Stack>
                   </Button>
                 </NextLink>
-                <NextLink href={fileUrl} passHref>
+                {Boolean(allowDownload) && (
                   <Button
                     size="large"
                     disableElevation
+                    href={FILE_DOWNLOAD_URL + fileUrl}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}
@@ -154,8 +183,8 @@ const HeroSection: BookDetailsPageFunc = ({
                       <FileDownloadOutlinedIcon /> &nbsp; Download
                     </Stack>
                   </Button>
-                </NextLink>
-                <NextLink href={fileUrl} passHref>
+                )}
+                {/* <NextLink href={fileUrl} passHref>
                   <MuiLink
                     gap={2}
                     color="inherit"
@@ -168,7 +197,7 @@ const HeroSection: BookDetailsPageFunc = ({
                     </Avatar>{" "}
                     Share this Book
                   </MuiLink>
-                </NextLink>
+                </NextLink> */}
               </Stack>
             </Grid>
           </Grid>

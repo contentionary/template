@@ -1,9 +1,10 @@
-import CourseDetailsPage from "@src/components/CourseDetails";
+import PageError from "@src/components/shared/state/PageError";
 import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+//
 import { queryClient } from "@src/pages";
-import { BasePageProps } from "../../../../utils/interface";
+import { BasePageProps } from "@src/utils/interface";
 
-const DetailsPage = () => {
+const ErrorPage = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   return (
@@ -14,9 +15,9 @@ const DetailsPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <CourseDetailsPage />
+      <PageError />
     </AcademyWrapper>
   );
 };
 
-export default DetailsPage;
+export default ErrorPage;

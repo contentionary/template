@@ -1,8 +1,7 @@
-import type { NextPage } from "next";
-import Publications from "@src/components/Publications";
+import PageError from "@src/components/shared/state/PageError";
 import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
 
-const PublicationsPage: NextPage = () => {
+const ErrorPage = () => {
   return (
     <PublicationsWrapper
       title="Contentionary | Publications"
@@ -11,9 +10,9 @@ const PublicationsPage: NextPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <Publications />
+      <PageError />
     </PublicationsWrapper>
   );
 };
 
-export default PublicationsPage;
+export default ErrorPage;
