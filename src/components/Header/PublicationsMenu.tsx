@@ -33,14 +33,14 @@ const PublicationsMenu = () => {
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href={`${config.URL.WEB}login`} passHref>
+      <NextLink href="/login" passHref>
         <ListItemButton>
           <ListItemIcon>
             <ListItemText>Login</ListItemText>
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href={`${config.URL.WEB}create-account`} passHref>
+      <NextLink href="/register" passHref>
         <ListItemButton>
           <ListItemIcon>
             <ListItemText>Create Account</ListItemText>

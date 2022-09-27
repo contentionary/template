@@ -52,8 +52,8 @@ export const parseJSON = (data: any) => {
 export const handleError = (err: any): ErrorResponseInt => {
   if (err?.name === "AxiosError") {
     const { data } = err.response;
-    err.message = data.message;
-    err.statusCode = data.httpStatusCode;
+    err.message = data?.message || "Something went wrong with your request";
+    err.statusCode = data?.httpStatusCode || 500;
   }
   const statusCode = err.statusCode || 500;
   const message = err.message || "Something went wrong";
@@ -199,6 +199,7 @@ export const getCentre = async (
 ): Promise<CachedCentreInt> => {
   try {
     const host = context.req.headers.host as string;
+    cache.delete(host, context);
     let centre = cache.get(host, context);
     if (centre) return centre;
 
