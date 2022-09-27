@@ -23,12 +23,13 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { FILE_DOWNLOAD_URL } from "@src/utils";
+import { devLog, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
   const router = useRouter();
   const globalStyle = useGlobalStyle();
-  const { slug } = router.query;
+  const { slug, reference } = router.query;
 
   const {
     id,
@@ -51,7 +52,9 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
     alignItems: "center",
   };
 
-  const paymentLink = `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD`;
+  devLog("Page path", { base: router.basePath, router });
+  const redirectUrl = !isServerSide ? window.location.href : "";
+  const paymentLink = `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
 
   let Read = {
     link: `/library/${slug}/document/${id}`,
@@ -77,6 +80,9 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
+        {reference && (
+          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        )}
         <Container maxWidth="xl">
           <Grid
             container

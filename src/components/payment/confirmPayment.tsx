@@ -48,10 +48,11 @@ export default function CircularDeterminate({
       });
       if (data.valueGiven) {
         setShow(false);
-        router.push(redirectUrl);
+        const [url] = redirectUrl.split("trxref");
+        router.push(url);
       }
     } catch ({ message }) {
-      toggleToast(message);
+      toggleToast(message as string);
     }
   }
   useEffect(() => {

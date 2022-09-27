@@ -10,7 +10,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const token = cache.get("token", context);
-  if (token) return redirect("/");
+  if (!token) return redirect("/");
 
   return {
     props: {},

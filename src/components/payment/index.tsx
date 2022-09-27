@@ -75,7 +75,7 @@ export default function Payment(): JSX.Element {
       router.push(data.redirectUrl);
       setIsLoading(false);
     } catch ({ message }) {
-      toggleToast(message);
+      toggleToast(message as string);
       setIsLoading(false);
     }
   }

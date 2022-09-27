@@ -20,6 +20,7 @@ export interface UserRegistrationInt extends UserBaseInt {
 export interface RequestResponseInt {
   success: boolean;
   data: Record<string, any>;
+  auth: Record<string, any>;
   message: string;
 }
 
