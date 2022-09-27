@@ -14,6 +14,7 @@ import { Link as MuiLink } from "@mui/material";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // styles and interface
+import { kCount } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
@@ -54,6 +55,7 @@ const PublicationCard: PublicationCardFunc = ({
             </Typography>
             <Typography
               mb={1}
+              minHeight={40}
               variant="body2"
               color="text.secondary"
               className={globalStyle.text2LineTruncate}
@@ -61,8 +63,9 @@ const PublicationCard: PublicationCardFunc = ({
               {description}
             </Typography>
             <Stack
-              direction="row"
+              mt="auto"
               spacing={1}
+              direction="row"
               alignItems="center"
               justifyContent="between"
               flexWrap={{ xs: "wrap", sm: "nowrap" }}
@@ -76,7 +79,7 @@ const PublicationCard: PublicationCardFunc = ({
                 order={{ xs: 2, sm: 2 }}
               >
                 <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp;{subscriberCount}K+
+                &nbsp;{kCount(subscriberCount)}
               </Typography>
               <Typography
                 mb={0}
@@ -90,7 +93,7 @@ const PublicationCard: PublicationCardFunc = ({
                   color="primary"
                   fontSize="inherit"
                 />
-                &nbsp;{viewCount || 0}K+
+                &nbsp;{kCount(viewCount) || 0}
               </Typography>
               <Typography
                 mb={0}
@@ -102,7 +105,7 @@ const PublicationCard: PublicationCardFunc = ({
                 ml={{ xs: "0 !important", sm: "auto" }}
                 textAlign={{ xs: "left", sm: "right" }}
               >
-                ₦{price}
+                {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
             </Stack>
           </CardContent>

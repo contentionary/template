@@ -6,22 +6,16 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 // app components
 import PublicationsMenu from "./PublicationsMenu";
+import PublicationBreadcrumbs from "./PublicationBreadcrumbs";
 import PublicationListSection from "./PublicationListSection";
 // interface
 import { LibraryPageFunc } from "./interfaceType";
 
 const PublicationsLayout: LibraryPageFunc = () => {
   return (
-    <Box component="section" sx={{ pt: 4, px: { md: 6 }, pb: 8 }}>
+    <Box component="section" sx={{ pt: 2, px: { md: 6 }, pb: 8 }}>
       <Container maxWidth="xl">
-        <Typography
-          mb={4}
-          variant="h4"
-          component="h2"
-          sx={{ textAlign: "center" }}
-        >
-          Explore Publications
-        </Typography>
+        <PublicationBreadcrumbs />
         <Grid
           container
           spacing={{ xs: 1, lg: 2 }}
@@ -31,6 +25,9 @@ const PublicationsLayout: LibraryPageFunc = () => {
             <PublicationsMenu />
           </Grid>
           <Grid item xs={1} sm={3} md={3} lg={4} xl={5}>
+            <Typography mb={4} variant="h4" component="h2">
+              Explore Publications
+            </Typography>
             <PublicationListSection />
           </Grid>
         </Grid>

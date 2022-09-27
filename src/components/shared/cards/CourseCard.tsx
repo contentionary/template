@@ -14,10 +14,10 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // styles and interface
+import { kCount } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { CourseCardFunc } from "./interfaceType";
-import { kCount } from "@src/utils";
 
 const CourseCard: CourseCardFunc = ({ course }) => {
   const cardStyle = useCardStyle();
@@ -55,7 +55,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
               sx={{
                 flexWrap: "nowrap",
                 alignItems: "start",
-                justifyContent: "between",
+                justifyContent: "space-between",
               }}
             >
               <Typography
@@ -118,7 +118,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
                 color="primary"
                 textAlign="right"
               >
-                ₦{price}
+                {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
             </Stack>
           </CardContent>

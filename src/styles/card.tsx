@@ -58,8 +58,9 @@ const cardStyle = makeStyles({
     },
   },
   defaultCard: {
-    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+    height: "100%",
     transition: "300ms ease-out",
+    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
     "&:hover": {
       transform: "translateY(-1rem)",
     },
