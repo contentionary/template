@@ -14,8 +14,8 @@ const BookDetails = () => {
 
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
-      <HeroSection {...publication} />
-      <DetailsSection {...publication} />
+      <HeroSection publication={publication} auth={pageData.auth} />
+      <DetailsSection publication={publication} auth={pageData.auth} />
     </Box>
   );
 };

@@ -178,7 +178,7 @@ export interface UserInt {
   subscribedCentres: string[];
   pendingCentres: string[];
   subscribedExams: string[];
-  joinedLeagues: string[];
+  subscribedLeagues: string[];
   subscribedCourses: string[];
   subscribedPublications: string[];
 }

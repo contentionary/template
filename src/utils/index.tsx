@@ -142,7 +142,7 @@ export const request = {
     data,
     method = "POST",
     token,
-    headers,
+    headers = {},
   }: PostRequestInt): Promise<RequestResponseInt> => {
     const authorization = token || cache.get("token");
 
