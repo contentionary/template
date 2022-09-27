@@ -109,7 +109,7 @@ export interface PublicationInt {
   updatedAt: Date;
   allowSearch: boolean;
   subscriberCount: number;
-  viewCount: number;
+  readCount: number;
   downloadCount: number;
   publicationCategoryName: string;
   pageCount: string;

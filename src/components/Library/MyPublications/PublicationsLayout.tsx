@@ -8,9 +8,13 @@ import Typography from "@mui/material/Typography";
 import PublicationsMenu from "../PublicationsMenu";
 import PublicationListSection from "../PublicationListSection";
 // interface
+import { queryClient } from "@src/pages";
 import { LibraryPageFunc } from "../interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const MyPublicationsLayout: LibraryPageFunc = () => {
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+
   return (
     <Box component="section" sx={{ pt: 4, px: { md: 6 }, pb: 8 }}>
       <Container maxWidth="xl">
@@ -28,10 +32,10 @@ const MyPublicationsLayout: LibraryPageFunc = () => {
           columns={{ xs: 1, sm: 3, md: 4, lg: 5, xl: 6 }}
         >
           <Grid item xs={1} sm={3} md={1} lg={1} xl={1}>
-            <PublicationsMenu />
+            <PublicationsMenu pageData={pageData} />
           </Grid>
           <Grid item xs={1} sm={3} md={3} lg={4} xl={5}>
-            <PublicationListSection />
+            <PublicationListSection pageData={pageData} />
           </Grid>
         </Grid>
       </Container>
