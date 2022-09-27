@@ -120,7 +120,7 @@ const CreateAccount = (): JSX.Element => {
                     color="primary"
                     type="submit"
                     className={styles.btn}
-                    disableElevation={true}
+                    disableElevation
                   >
                     <span>
                       Login
@@ -138,7 +138,7 @@ const CreateAccount = (): JSX.Element => {
                   component="p"
                   className={styles.loginInstead}
                 >
-                  {"Don't have an account?"}
+                  {"Don't have an account? "}
                   <b
                     style={{
                       color: "#333333",

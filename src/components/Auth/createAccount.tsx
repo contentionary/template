@@ -163,8 +163,9 @@ const CreateAccount = (): JSX.Element => {
                 <Box>
                   <ButtonComponent
                     type="submit"
-                    variant="contained"
                     color="primary"
+                    disableElevation
+                    variant="contained"
                     className={styles.btn}
                   >
                     <span>
