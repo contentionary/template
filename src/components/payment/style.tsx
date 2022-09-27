@@ -105,7 +105,7 @@ export const useStyles = makeStyles({
     zIndex: -1,
   },
   cardHeight: {
-    height: 150,
+    // height: 150,
     [theme.breakpoints.down("md")]: {
       height: 200,
     },

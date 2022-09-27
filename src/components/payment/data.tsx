@@ -5,8 +5,7 @@ export const data = [
     logo: "/images/payment/payStack.svg",
     motto: "Secured by Paystack",
     active: true,
-    height: "100%",
-    width: "100%",
+    width: 150,
     currency: "NGN",
   },
   {
@@ -16,8 +15,7 @@ export const data = [
     motto: "Secured by Stripe",
     active: false,
     currency: "USD",
-    height: "100%",
-    width: "100%",
+    width: 80,
   },
   {
     type: "WALLET",
@@ -27,17 +25,8 @@ export const data = [
     active: false,
     link: "https://checkout.flutterwave.com/v3/hosted/pay",
     currency: "NGN",
-    height: "100%",
-    width: "100%",
+    width: 200,
   },
-  // {
-  //     type: 'transfer',
-  //     paymentType: 'Pay via bank transfer',
-  //     logo: '/media/images/payment/woven.svg',
-  //     motto: 'Secured by Woven',
-  //     active: false,
-  //     currency: 'TRANSFER',
-  // },
 ];
 
 export const currencies = [

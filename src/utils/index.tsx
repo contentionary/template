@@ -142,9 +142,10 @@ export const request = {
     data,
     method = "POST",
     token,
+    headers,
   }: PostRequestInt): Promise<RequestResponseInt> => {
     const authorization = token || cache.get("token");
-    const headers: any = {};
+
     if (authorization) headers.authorization = authorization;
 
     const response = await axios({

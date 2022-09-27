@@ -4,25 +4,23 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Image from "@src/components/shared/image";
 
-export default function BasicCard({ item, className, contentClass }) {
+interface Props {
+  logo: string;
+  paymentType: string;
+  className: string;
+  contentClass: string;
+  width: number;
+}
+export default function BasicCard({
+  logo,
+  paymentType,
+  className,
+  contentClass,
+  width,
+}: Props) {
   return (
     <Card variant="outlined" className={className}>
       <CardContent>
-        {item.type != "transfer" && (
-          <Typography
-            variant="h6"
-            component="p"
-            style={{
-              color: "#666666",
-              fontWeight: 400,
-              fontSize: 16,
-              fontStyle: "normal",
-              fontFamily: "Open Sans",
-            }}
-          >
-            {item.type}
-          </Typography>
-        )}
         <div
           className={contentClass}
           style={{
@@ -33,12 +31,7 @@ export default function BasicCard({ item, className, contentClass }) {
             alignItems: "center",
           }}
         >
-          <Image
-            src={item.logo}
-            alt="card payment"
-            height={item.height}
-            width={item.width}
-          />
+          <Image src={logo} alt="card payment" height="100%" width={width} />
           <Typography
             variant="h6"
             component="p"
@@ -50,7 +43,7 @@ export default function BasicCard({ item, className, contentClass }) {
               color: "#000000",
             }}
           >
-            {item.paymentType}
+            {paymentType}
           </Typography>
         </div>
       </CardContent>
