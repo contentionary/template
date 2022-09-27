@@ -38,7 +38,8 @@
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
     "react-syntax-highlighter": "^15.5.0",
-    "simplebar-react": "^2.4.1"
+    "simplebar-react": "^2.4.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.3.1",
@@ -51,6 +52,7 @@
     "@types/react-swipeable-views": "^0.13.1",
     "@types/react-swipeable-views-utils": "^0.13.3",
     "@types/react-syntax-highlighter": "^15.5.5",
+    "@types/uuid": "^8.3.4",
     "@types/video.js": "^7.3.47",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",

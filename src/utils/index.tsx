@@ -183,6 +183,7 @@ export const getCentre = async (
     const host = context.req.headers.host as string;
 
     let centre = cache.get(host, context);
+    devLog("Cached centre 1", centre);
     if (centre) return centre;
 
     const urlToken = host.split(".");
@@ -197,10 +198,11 @@ export const getCentre = async (
       id: data.id,
       slug: data.slug,
       name: data.name,
-      theme: data.theme,
+      theme: data.theme || "publication-slim",
       logo: data.logo,
     };
 
+    devLog("Cached centre 2", centre);
     cache.set(host, centre, context);
 
     return centre;
