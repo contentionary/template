@@ -6,9 +6,10 @@ import LinearProgress, {
 import Typography from "@mui/material/Typography";
 import Close from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
-import { getServerData } from "@src/utils";
-import Toast from "@src/components/shared/snackerBar";
+import { request } from "@src/utils";
+import Toast from "@src/components/shared/toast";
 import { useRouter } from "next/router";
+import { useToast } from "@src/utils/hooks";
 
 interface Props {
   position?: "static" | "relative" | "absolute" | "sticky" | "fixed";
@@ -38,17 +39,19 @@ export default function CircularDeterminate({
 }: Props) {
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
-  const [message, setMessage] = useState("");
+  const { toastMessage, toggleToast } = useToast();
   const router = useRouter();
   async function getPaymentConfirmation() {
     try {
-      const { data } = await getServerData(`/transaction/${reference}/verify`);
+      const { data } = await request.get({
+        url: `/transaction/${reference}/verify`,
+      });
       if (data.valueGiven) {
         setShow(false);
         router.push(redirectUrl);
       }
     } catch ({ message }) {
-      setMessage(message);
+      toggleToast(message);
     }
   }
   useEffect(() => {
@@ -97,7 +100,13 @@ export default function CircularDeterminate({
           <LinearProgressWithLabel value={progress} />
         </Paper>
       )}
-      {message && <Toast message={message} />}
+      {toastMessage && (
+        <Toast
+          status={Boolean(toastMessage)}
+          message={toastMessage}
+          showToast={toggleToast}
+        />
+      )}
     </>
   );
 }

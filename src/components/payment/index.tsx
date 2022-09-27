@@ -19,14 +19,6 @@ import Toast from "@src/components/shared/toast";
 import { v4 as uuid } from "uuid";
 import { useToast } from "@src/utils/hooks";
 
-// interface Props {
-//   amount: number | string;
-//   redirectUrl: string;
-//   purpose: string;
-//   itemId: string;
-//   currency: string;
-// }
-
 export default function Payment(): JSX.Element {
   const [cards, setCards] = useState(data);
   const router = useRouter();
