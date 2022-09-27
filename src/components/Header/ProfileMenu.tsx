@@ -2,8 +2,6 @@ import React from "react";
 // next
 import NextLink from "next/link";
 // mui components
-// import Box from "@mui/material/Box";
-// import Menu from "@mui/material/Menu";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";

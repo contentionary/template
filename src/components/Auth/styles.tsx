@@ -8,14 +8,12 @@ export default makeStyles({
     },
   },
   registerWithUs: {
-    fontFamily: "Matter",
     fontStyle: "normal",
     fontWeight: 700,
     fontSize: 32,
     color: "#333333",
   },
   helperTextClass: {
-    fontFamily: "DM Sans",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 16,
@@ -35,14 +33,12 @@ export default makeStyles({
     padding: 13,
   },
   loginInstead: {
-    fontFamily: "DM Sans",
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 16,
     color: "#888888",
   },
-  fogotton: {
-    fontFamily: "DM Sans",
+  forgotten: {
     fontStyle: "normal",
     fontWeight: 400,
     fontSize: 12,

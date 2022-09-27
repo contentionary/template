@@ -49,7 +49,7 @@ const ForgottenPassword = ({ setMessage }: Props): JSX.Element => {
 
   return (
     <>
-      <Typography variant="body1" component="p" className={styles.fogotton}>
+      <Typography variant="body1" component="p" className={styles.forgotten}>
         <span style={{ cursor: "pointer" }} onClick={() => openDialog()}>
           Forgot password?
         </span>
