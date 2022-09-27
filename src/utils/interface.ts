@@ -32,6 +32,7 @@ export interface RequestInt {
   url: string;
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   token?: string;
+  headers?: any;
 }
 
 export interface PostRequestInt extends RequestInt {
