@@ -26,7 +26,7 @@ const PublicationCard: PublicationCardFunc = ({
   description,
   subscriberCount,
   imageUrl,
-  viewCount,
+  readCount,
   id,
 }) => {
   const cardStyle = useCardStyle();
@@ -79,7 +79,7 @@ const PublicationCard: PublicationCardFunc = ({
                 order={{ xs: 2, sm: 2 }}
               >
                 <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp;{kCount(subscriberCount)}
+                &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
               </Typography>
               <Typography
                 mb={0}
@@ -93,7 +93,7 @@ const PublicationCard: PublicationCardFunc = ({
                   color="primary"
                   fontSize="inherit"
                 />
-                &nbsp;{kCount(viewCount) || 0}
+                &nbsp;{kCount(readCount)}
               </Typography>
               <Typography
                 mb={0}
