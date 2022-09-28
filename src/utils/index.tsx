@@ -200,9 +200,8 @@ export const getCentre = async (
 ): Promise<CachedCentreInt> => {
   try {
     const host = context.req.headers.host as string;
-    cache.delete(host, context);
+    // cache.delete(host, context);
     let centre = cache.get(host, context);
-    devLog("Cached centre 1", centre);
     if (centre) return centre;
 
     const { data } = (await request.get({
@@ -216,8 +215,7 @@ export const getCentre = async (
       logo: data.logo,
     };
 
-    devLog("Cached centre 2", centre);
-    cache.set(host, centre, context);
+    // cache.set(host, centre, context);
 
     return centre;
   } catch (err) {
