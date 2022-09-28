@@ -17,7 +17,9 @@ const CourseOverview = ({ description, learnings }: CourseInt) => {
       <Typography variant="h5" mb={2}>
         ABOUT THIS COURSE:
       </Typography>
-      <Typography paragraph>{description}</Typography>
+      <Typography paragraph>
+        <p dangerouslySetInnerHTML={{ __html: description }} />
+      </Typography>
       <Typography variant="h5" mb={1}>
         WHAT YOU WILL LEARN
       </Typography>

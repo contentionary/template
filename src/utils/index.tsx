@@ -201,17 +201,17 @@ export const getCentre = async (
   try {
     const host = context.req.headers.host as string;
     // cache.delete(host, context);
-    let centre = cache.get(host, context);
-    if (centre) return centre;
+    // let centre = cache.get(host, context);
+    // if (centre) return centre;
 
     const { data } = (await request.get({
       url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;
-    centre = {
+    let centre = {
       id: data.id,
       slug: data.slug,
       name: data.name,
-      template: data.template,
+      template: "course" || data.template,
       logo: data.logo,
     };
 
