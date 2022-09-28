@@ -23,7 +23,7 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { devLog, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
+import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
@@ -52,7 +52,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
     alignItems: "center",
   };
 
-  devLog("Page path", { base: router.basePath, router });
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
 

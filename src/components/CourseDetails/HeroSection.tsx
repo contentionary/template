@@ -1,6 +1,7 @@
 import { useState } from "react";
 // next
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 //
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
@@ -24,8 +25,12 @@ import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import { queryClient } from "@src/pages";
+import { isServerSide } from "@src/utils";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection = () => {
+  const router = useRouter();
+  const { reference } = router.query;
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
   const theme = useTheme();
@@ -35,7 +40,24 @@ const HeroSection = () => {
   const handleOpenVideo = () => setOpenVideo(true);
 
   if (!courseDetails) return <h1>Course not found</h1>;
-  const { name, id, imageUrl, price, subscriberCount } = courseDetails;
+  const { name, id, imageUrl, price, subscriberCount, slug } = courseDetails;
+  const { isCentreManager = false, isCourseSubscriber = false } =
+    pageData.auth || {};
+
+  const redirectUrl = !isServerSide ? window.location.href : "";
+  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
+
+  let Action = {
+    link: `/courses/${slug}/${id}/contents/${id}`,
+    text: "CONTINUE COURSE",
+  };
+
+  if (!isCourseSubscriber || !isCentreManager) {
+    Action.text = "ENROLL NOW";
+    Action.link = paymentLink;
+  }
+
+  if (!pageData.auth) Action.link = "/login";
 
   return (
     <>
@@ -45,6 +67,9 @@ const HeroSection = () => {
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
+        {reference && (
+          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        )}
         <Container maxWidth="xl">
           <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>
             <Grid
@@ -90,7 +115,7 @@ const HeroSection = () => {
                 {name}
               </Typography>
               <Typography variant="h6" mb={3}>
-                Indorama Centre
+                Cource Centre
               </Typography>
               <Typography mb={0} paragraph>
                 <Typography variant="h6" component="span" color="primary">
@@ -111,7 +136,7 @@ const HeroSection = () => {
                 ₦{price}
               </Typography>
               <Stack mt={1} spacing={2} direction="row" alignItems="center">
-                <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <NextLink href={Action.link} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -120,7 +145,7 @@ const HeroSection = () => {
                     className={globalStyle.bgGradient}
                     display={{ xs: "block", sm: "inline-block" }}
                   >
-                    ENROLL NOW
+                    {Action.text}
                   </Button>
                 </NextLink>
                 <NextLink href={`${config.URL.WEB}create-account`} passHref>
