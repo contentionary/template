@@ -216,7 +216,7 @@ export const getCentre = async (
       logo: data.logo,
     };
 
-    // cache.set(host, centre, context);
+    cache.set(host, centre, context);
 
     return centre;
   } catch (err) {
