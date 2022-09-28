@@ -47,7 +47,6 @@ const CourseListSection: AcademyFunc = () => {
           </Typography>
           <Grid
             container
-            direction="row-reverse"
             mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
             spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
           >

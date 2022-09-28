@@ -209,9 +209,12 @@ export const getCentre = async (
       id: data.id,
       slug: data.slug,
       name: data.name,
-      template: data.template,
+      // template: data.template,
+      template: "course",
       logo: data.logo,
     };
+
+    console.log(centre);
 
     cache.set(host, centre, context);
 
