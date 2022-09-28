@@ -20,8 +20,8 @@ export const TemplateData = createContext<any>(null);
 
 const HomePage = (props: BasePageProps) => {
   queryClient.setQueryData("pageProps", props);
+  devLog("Page props", props);
   const { centre } = props.cachedData;
-  devLog("Theme", { centre });
   const ActiveTemplate = themes[centre.template]("Home");
   return <ActiveTemplate />;
 };

@@ -27,14 +27,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: publication } = await request.get({
+    const { data: publication, auth } = await request.get({
       url: `/centre/${centre.id}/publication/${id}?allowRead=false`,
       token,
     });
 
     return {
       props: {
-        pageData: { publication },
+        pageData: { publication, auth },
         cachedData: { user, centre, token },
       },
     };

@@ -23,22 +23,27 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { FILE_DOWNLOAD_URL } from "../../utils";
+import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
-const HeroSection: BookDetailsPageFunc = ({
-  id,
-  name,
-  price,
-  imageUrl,
-  subscriberCount,
-  authors,
-  fileUrl = "#",
-  allowDownload,
-  allowRead,
-}) => {
+const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
   const router = useRouter();
-  const { slug } = router.query;
   const globalStyle = useGlobalStyle();
+  const { slug, reference } = router.query;
+
+  const {
+    id,
+    name,
+    price,
+    imageUrl,
+    subscriberCount,
+    authors,
+    fileUrl = "#",
+    allowDownload,
+    allowRead,
+  } = publication;
+
+  const { isCentreManager, isPublicationSubscriber } = auth;
 
   const btnStyle = {
     color: "secondary.light",
@@ -46,6 +51,25 @@ const HeroSection: BookDetailsPageFunc = ({
     flexDirection: "column",
     alignItems: "center",
   };
+
+  const redirectUrl = !isServerSide ? window.location.href : "";
+  const paymentLink = `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
+
+  let Read = {
+    link: `/library/${slug}/document/${id}`,
+    show: allowRead,
+    text: "READ",
+  };
+  let Download = { link: FILE_DOWNLOAD_URL + fileUrl, show: allowDownload };
+
+  if (isCentreManager) {
+    Read.show = true;
+    Download.show = true;
+  } else if (!isPublicationSubscriber) {
+    Read.text = "SUBSCRIBE";
+    Read.link = paymentLink;
+    Download.link = paymentLink;
+  }
 
   return (
     <Fragment>
@@ -55,6 +79,9 @@ const HeroSection: BookDetailsPageFunc = ({
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
+        {reference && (
+          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        )}
         <Container maxWidth="xl">
           <Grid
             container
@@ -155,25 +182,27 @@ const HeroSection: BookDetailsPageFunc = ({
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`/library/${slug}/document/${id}`} passHref>
+                {Read.show && (
+                  <NextLink href={Read.link} passHref>
+                    <Button
+                      size="large"
+                      disableElevation
+                      variant="contained"
+                      component={MuiLink}
+                      className={globalStyle.bgGradient}
+                      display={{ xs: "block", sm: "inline-block" }}
+                    >
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <AutoStoriesOutlinedIcon /> &nbsp; {Read.text}
+                      </Stack>
+                    </Button>
+                  </NextLink>
+                )}
+                {Download.show && (
                   <Button
                     size="large"
                     disableElevation
-                    variant="contained"
-                    component={MuiLink}
-                    className={globalStyle.bgGradient}
-                    display={{ xs: "block", sm: "inline-block" }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                      <AutoStoriesOutlinedIcon /> &nbsp; READ
-                    </Stack>
-                  </Button>
-                </NextLink>
-                {Boolean(allowDownload) && (
-                  <Button
-                    size="large"
-                    disableElevation
-                    href={FILE_DOWNLOAD_URL + fileUrl}
+                    href={Download.link}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}

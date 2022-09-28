@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { courseId = 1 } = context.query;
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: courseDetails } = await request.get({
+    const { data: courseDetails, auth = null } = await request.get({
       url: `/centre/${centre.id}/course/${courseId}`,
       token,
     });
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         cachedData: { centre, user, token },
-        pageData: { courseDetails },
+        pageData: { courseDetails, auth },
       },
     };
   } catch (err) {

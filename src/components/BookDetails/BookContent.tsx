@@ -12,7 +12,8 @@ import TickAvatar from "@src/components/shared/TickAvatar";
 // interface, styles and config
 import { BookDetailsPageFunc } from "./interfaceType";
 
-const BookContent: BookDetailsPageFunc = ({ learnings }) => {
+const BookContent: BookDetailsPageFunc = ({ publication }) => {
+  const { learnings } = publication;
   return (
     <Fragment>
       <Typography variant="h5" mb={1}>

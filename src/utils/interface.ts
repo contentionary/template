@@ -20,6 +20,7 @@ export interface UserRegistrationInt extends UserBaseInt {
 export interface RequestResponseInt {
   success: boolean;
   data: Record<string, any>;
+  auth: Record<string, any>;
   message: string;
 }
 
@@ -32,6 +33,7 @@ export interface RequestInt {
   url: string;
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   token?: string;
+  headers?: any;
 }
 
 export interface PostRequestInt extends RequestInt {
@@ -177,7 +179,7 @@ export interface UserInt {
   subscribedCentres: string[];
   pendingCentres: string[];
   subscribedExams: string[];
-  joinedLeagues: string[];
+  subscribedLeagues: string[];
   subscribedCourses: string[];
   subscribedPublications: string[];
 }

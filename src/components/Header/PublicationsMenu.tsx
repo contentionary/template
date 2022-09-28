@@ -6,8 +6,6 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
-// interface and config
-import config from "@src/utils/config";
 
 const PublicationsMenu = () => {
   return (
@@ -33,14 +31,14 @@ const PublicationsMenu = () => {
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href={`${config.URL.WEB}login`} passHref>
+      <NextLink href="/login" passHref>
         <ListItemButton>
           <ListItemIcon>
             <ListItemText>Login</ListItemText>
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href={`${config.URL.WEB}create-account`} passHref>
+      <NextLink href="/register" passHref>
         <ListItemButton>
           <ListItemIcon>
             <ListItemText>Create Account</ListItemText>
