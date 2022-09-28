@@ -200,18 +200,18 @@ export const getCentre = async (
 ): Promise<CachedCentreInt> => {
   try {
     const host = context.req.headers.host as string;
-    // cache.delete(host, context);
-    // let centre = cache.get(host, context);
-    // if (centre) return centre;
+
+    let centre = cache.get(host, context);
+    if (centre) return centre;
 
     const { data } = (await request.get({
       url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;
-    let centre = {
+    centre = {
       id: data.id,
       slug: data.slug,
       name: data.name,
-      template: "course" || data.template,
+      template: data.template,
       logo: data.logo,
     };
 
