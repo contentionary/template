@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: publication, auth } = await request.get({
+    const { data: publication, auth = null } = await request.get({
       url: `/centre/${centre.id}/publication/${id}?allowRead=false`,
       token,
     });

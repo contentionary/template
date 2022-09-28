@@ -30,7 +30,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const user = cachedData.user;
+  const { user, centre } = cachedData;
 
   return (
     <>
@@ -49,10 +49,11 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                   <Image
-                    src="/images/logo.png"
+                    src={centre.logo || "/images/logo.png"}
                     alt="Contentionary logo"
-                    width={210}
-                    height={40}
+                    width={80}
+                    height={80}
+                    objectFit="contain"
                   />
                 </MuiLink>
               </NextLink>
@@ -86,22 +87,24 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                           Library
                         </Button>
                       </NextLink>
-                      <NextLink href="/library/my-publications" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light" }}
-                        >
-                          My Publications
-                        </Button>
-                      </NextLink>
-                      <NextLink href="#" passHref>
+                      {user && (
+                        <NextLink href="/library/my-publications" passHref>
+                          <Button
+                            component={MuiLink}
+                            sx={{ color: "secondary.light" }}
+                          >
+                            My Books
+                          </Button>
+                        </NextLink>
+                      )}
+                      {/* <NextLink href="#" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light" }}
                         >
                           About Us
                         </Button>
-                      </NextLink>
+                      </NextLink> */}
                     </Stack>
                     {user ? (
                       <ProfileMenu title={user.firstname} />

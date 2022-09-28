@@ -5,7 +5,7 @@ import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
 import { Box } from "@mui/system";
 import useStyles from "./styles";
-import { handleError, request } from "@src/utils";
+import { cache, handleError, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
 import Snackbar from "@src/components/shared/snackerBar";
@@ -31,7 +31,8 @@ const CreateAccount = (): JSX.Element => {
         data: values,
       });
       setAuth(data as UserInt);
-      router.push("/");
+      const redirectUrl = cache.get("redirectUrl") || "/";
+      router.push(redirectUrl);
       setIsLoading(false);
     } catch (error) {
       setMessage(handleError(error).message);

@@ -33,16 +33,14 @@ const HeroSection = () => {
   const { reference } = router.query;
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
+  const auth = pageData?.auth;
   const theme = useTheme();
   const [openVideo, setOpenVideo] = useState(false);
   const globalStyle = useGlobalStyle();
-  //
-  const handleOpenVideo = () => setOpenVideo(true);
 
-  if (!courseDetails) return <h1>Course not found</h1>;
+  const handleOpenVideo = () => setOpenVideo(true);
   const { name, id, imageUrl, price, subscriberCount, slug } = courseDetails;
-  const { isCentreManager = false, isCourseSubscriber = false } =
-    pageData.auth || {};
+  const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
@@ -57,7 +55,7 @@ const HeroSection = () => {
     Action.link = paymentLink;
   }
 
-  if (!pageData.auth) Action.link = "/login";
+  if (!auth) Action.link = "/login";
 
   return (
     <>

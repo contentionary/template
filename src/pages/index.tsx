@@ -20,7 +20,6 @@ export const TemplateData = createContext<any>(null);
 
 const HomePage = (props: BasePageProps) => {
   queryClient.setQueryData("pageProps", props);
-  devLog("Page props", props);
   const { centre } = props.cachedData;
   const ActiveTemplate = themes[centre.template]("Home");
   return <ActiveTemplate />;
@@ -33,17 +32,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { data: templateData } = await request.get({
       url: `/centre/${centre.id}/centre-template`,
       token,
-    });
-
-    devLog("Centre coll", {
-      pageData: {
-        templateData,
-      },
-      cachedData: {
-        centre,
-        user,
-        token,
-      },
     });
 
     return {

@@ -14,7 +14,9 @@ const MyPublicationPage = (pageProps: BasePageProps) => {
 
     return <ActiveTemplate />;
   }
+
   queryClient.setQueryData("pageProps", pageProps);
+
   const ActiveTemplate =
     themes[pageProps.cachedData.centre.template]("MyPublications");
 

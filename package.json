@@ -24,6 +24,7 @@
     "classnames": "^2.3.1",
     "cookie": "^0.5.0",
     "cookies-next": "^2.1.1",
+    "date-fns": "^2.29.3",
     "js-cookie": "^3.0.1",
     "material-ui-popup-state": "^4.0.2",
     "next": "12.2.5",

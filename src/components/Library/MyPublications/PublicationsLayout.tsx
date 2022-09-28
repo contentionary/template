@@ -24,7 +24,7 @@ const MyPublicationsLayout: LibraryPageFunc = () => {
           component="h2"
           sx={{ textAlign: "center" }}
         >
-          My Publications
+          My Books
         </Typography>
         <Grid
           container

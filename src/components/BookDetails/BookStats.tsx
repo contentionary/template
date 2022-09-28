@@ -5,44 +5,71 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+//Date-fn
+import { format } from "date-fns";
 // icons
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
-import AllInclusiveOutlinedIcon from "@mui/icons-material/AllInclusiveOutlined";
+import UpdatedAt from "@mui/icons-material/CalendarMonthOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import OndemandVideoOutlinedIcon from "@mui/icons-material/OndemandVideoOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import Readers from "@mui/icons-material/GroupOutlined";
+import Reads from "@mui/icons-material/BookOutlined";
+import CreatedAt from "@mui/icons-material/DateRangeOutlined";
 // interface and config
 import { BookDetailsPageFunc } from "./interfaceType";
 
-const BookStats: BookDetailsPageFunc = () => {
+const BookStats: BookDetailsPageFunc = ({ publication }) => {
+  const { subscriberCount, downloadCount, readCount, createdAt, updatedAt } =
+    publication;
   return (
     <Fragment>
-      <Typography variant="h5">This Book includes:</Typography>
+      <Typography variant="h5">Book Quick Stats</Typography>
       <List>
         <ListItem sx={{ px: 0 }}>
-          <OndemandVideoOutlinedIcon />
-          <ListItemText primary="&nbsp; 23k read hours accumulated" />
+          <Reads />
+          <ListItemText
+            primary={`\u00A0 ${
+              subscriberCount < 100 ? "Less than 100 " : readCount
+            }  reads`}
+          />
         </ListItem>
+
         <ListItem sx={{ px: 0 }}>
+          <Readers />
+          <ListItemText
+            primary={`\u00A0 ${
+              subscriberCount < 100 ? "Less than 100 " : subscriberCount
+            }  Readers`}
+          />
+        </ListItem>
+        {/* <ListItem sx={{ px: 0 }}>
           <InsertDriveFileOutlinedIcon />
           <ListItemText primary="&nbsp; 256 Pages" />
-        </ListItem>
+        </ListItem> */}
         <ListItem sx={{ px: 0 }}>
           <FileDownloadOutlinedIcon />
-          <ListItemText primary="&nbsp; 1 downloadable resource" />
+          <ListItemText
+            primary={`\u00A0 ${
+              subscriberCount < 100 ? "Less than 100 " : downloadCount
+            }  Downloads`}
+          />
         </ListItem>
         <ListItem sx={{ px: 0 }}>
-          <AllInclusiveOutlinedIcon />
-          <ListItemText primary="&nbsp; Full lifetime access" />
+          <CreatedAt />
+          <ListItemText
+            primary={`\u00A0 Created on ${format(
+              new Date(createdAt),
+              "dd-MM-yyy"
+            )}`}
+          />
         </ListItem>
         <ListItem sx={{ px: 0 }}>
-          <SettingsCellOutlinedIcon />
-          <ListItemText primary="&nbsp; Access on mobile" />
-        </ListItem>
-        <ListItem sx={{ px: 0 }}>
-          <EmojiEventsOutlinedIcon />
-          <ListItemText primary="&nbsp; Certificate of completion" />
+          <UpdatedAt />
+          <ListItemText
+            primary={`\u00A0 Last updated on ${format(
+              new Date(createdAt),
+              "dd-MM-yyy"
+            )}`}
+          />
         </ListItem>
       </List>
     </Fragment>

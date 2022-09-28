@@ -9,6 +9,7 @@ import {
   PostRequestInt,
   RequestResponseInt,
 } from "@src/utils/interface";
+import { NextRouter } from "next/router";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -195,19 +196,24 @@ export const pageErrorHandler = (
   },
 });
 
+export const resumePage = (auth: any, router: NextRouter) => {
+  if (["/login", "/register", "/"].includes(router.pathname) || auth) return;
+  cache.set("redirectUrl", router.asPath);
+};
+
 export const getCentre = async (
   context: GetServerSidePropsContext
 ): Promise<CachedCentreInt> => {
   try {
     const host = context.req.headers.host as string;
 
-    let centre = cache.get(host, context);
-    if (centre) return centre;
+    // let centre = cache.get(host, context);
+    // if (centre) return centre;
 
     const { data } = (await request.get({
       url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;
-    centre = {
+    let centre = {
       id: data.id,
       slug: data.slug,
       name: data.name,
@@ -215,7 +221,7 @@ export const getCentre = async (
       logo: data.logo,
     };
 
-    cache.set(host, centre, context);
+    // cache.set(host, centre, context);
 
     return centre;
   } catch (err) {

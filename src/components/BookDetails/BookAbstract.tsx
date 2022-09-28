@@ -16,7 +16,7 @@ const BookAbstract: BookDetailsPageFunc = ({ publication }) => {
   return (
     <Fragment>
       <Typography variant="h5" mb={2}>
-        ABOUT THIS Book:
+        ABOUT THIS BOOK:
       </Typography>
       <Typography paragraph>{description}</Typography>
       <Typography variant="h5" mb={1}>

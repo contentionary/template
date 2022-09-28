@@ -7,9 +7,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 //
 import { theme } from "@src/styles/theme";
 import { useRef } from "react";
-import { handleError } from "../utils";
+import { handleError, resumePage } from "../utils";
+import { useRouter } from "next/router";
 
 function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  resumePage(pageProps.pageData?.auth, router);
+
   const queryClient = useRef(
     new QueryClient({
       defaultOptions: {

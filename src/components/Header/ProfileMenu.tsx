@@ -115,10 +115,10 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                       <ListItemIcon>
                         <BookOutlinedIcon fontSize="small" />
                       </ListItemIcon>
-                      Publications
+                      My Books
                     </MenuItem>
                   </NextLink>
-                  <NextLink href="/courses/my-courses" passHref>
+                  {/* <NextLink href="/courses/my-courses" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
                         <PlayLessonOutlinedIcon fontSize="small" />
@@ -142,7 +142,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                       </ListItemIcon>
                       My Profile
                     </MenuItem>
-                  </NextLink>
+                  </NextLink> */}
                   <NextLink href="/logout" passHref>
                     <MenuItem
                       component={MuiLink}
