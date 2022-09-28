@@ -11,10 +11,10 @@ import CardActionArea from "@mui/material/CardActionArea";
 import { Link as MuiLink } from "@mui/material";
 // icons
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+// import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // styles and interface
-import { kCount } from "@src/utils";
+import { kCount, dateTimeFormat, timeAgo } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { CourseCardFunc } from "./interfaceType";
@@ -58,21 +58,17 @@ const CourseCard: CourseCardFunc = ({ course }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Typography
-                gutterBottom
-                variant="h6"
-                className={globalStyle.text2LineTruncate}
-              >
+              <Typography noWrap gutterBottom variant="h6">
                 {name}
               </Typography>
-              <Typography
+              {/* <Typography
                 paragraph
                 mb={0}
                 sx={{ display: "flex", alignItems: "center" }}
               >
                 <StarBorderOutlinedIcon color="primary" fontSize="inherit" />{" "}
                 4.5
-              </Typography>
+              </Typography> */}
             </Stack>
             <Typography
               mb={2}
@@ -83,6 +79,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
               {description}
             </Typography>
             <Stack
+              mt="auto"
               spacing={1}
               direction="row"
               alignItems="center"
@@ -92,12 +89,14 @@ const CourseCard: CourseCardFunc = ({ course }) => {
                 mb={0}
                 noWrap
                 display="flex"
-                alignItems="center"
                 variant="body2"
+                alignItems="center"
+                title={dateTimeFormat(createdAt, true)}
               >
                 <>
-                  <AccessTimeOutlinedIcon color="primary" fontSize="inherit" />{" "}
-                  {createdAt}
+                  <AccessTimeOutlinedIcon color="primary" fontSize="inherit" />
+                  &nbsp;
+                  {timeAgo(createdAt)}
                 </>
               </Typography>
               <Typography
@@ -107,8 +106,9 @@ const CourseCard: CourseCardFunc = ({ course }) => {
                 display="flex"
                 alignItems="center"
               >
-                <PeopleAltOutlinedIcon color="primary" fontSize="inherit" />{" "}
-                {kCount(subscriberCount)}
+                <PeopleAltOutlinedIcon color="primary" fontSize="inherit" />
+                &nbsp;
+                {subscriberCount ? kCount(subscriberCount) : 0}
               </Typography>
               <Typography
                 mb={0}

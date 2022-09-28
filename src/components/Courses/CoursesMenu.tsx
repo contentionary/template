@@ -1,50 +1,41 @@
 import React from "react";
+// next
+import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
-import TreeView from "@mui/lab/TreeView";
-import TreeItem from "@mui/lab/TreeItem";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
 // app components
 // styles and interface
-import useTreeViewStyle from "@src/styles/treeView";
-import { CoursesPageFunc } from "./interfaceType";
+import useListMenuStyle from "@src/styles/listMenu";
+import { CourseListInt } from "@src/utils/interface";
 
-const CoursesMenu: CoursesPageFunc = () => {
-  const treeViewStyle = useTreeViewStyle();
+const CoursesMenu = ({ pageData }: Record<string, any>) => {
+  const listMenuStyle = useListMenuStyle();
+  const coursesListData = pageData.courseList as CourseListInt;
 
   return (
-    <Box top={0} position="sticky">
-      <Typography mb={2} mt={-1} pl={1} variant="h5">
-        Categories
+    <Box top={32} position="sticky">
+      <Typography mb={2} variant="h5">
+        Folders
       </Typography>
-      <TreeView
-        aria-label="disabled items"
-        defaultCollapseIcon={<FolderOpenOutlinedIcon />}
-        defaultExpandIcon={<FolderOutlinedIcon />}
-        className={treeViewStyle.treeViewRoot}
-      >
-        <TreeItem nodeId="1" label="Marketing">
-          <TreeItem nodeId="2" label="Google Marketing" />
-          <TreeItem nodeId="3" label="Digital Marketing" />
-          <TreeItem nodeId="4" label="Marketing" />
-        </TreeItem>
-        <TreeItem nodeId="7" label="Engineering">
-          <TreeItem nodeId="8" label="Civil Engineering" />
-          <TreeItem nodeId="9" label="Computer Engineering">
-            <TreeItem nodeId="10" label="Software Engineering" />
-            <TreeItem nodeId="11" label="Artificial Intelligence" />
-          </TreeItem>
-        </TreeItem>
-        <TreeItem nodeId="12" label="Engineering">
-          <TreeItem nodeId="13" label="Civil Engineering" />
-          <TreeItem nodeId="14" label="Computer Engineering">
-            <TreeItem nodeId="15" label="Software Engineering" />
-            <TreeItem nodeId="16" label="Artificial Intelligence" />
-          </TreeItem>
-        </TreeItem>
-      </TreeView>
+      <List disablePadding className={listMenuStyle.listMenuRoot}>
+        {coursesListData.courses
+          .filter((course) => course.type === "FOLDER")
+          .map((course, index) => (
+            <ListItem key={`${index}-course-folder`} disablePadding>
+              <NextLink href={`/library?folderId=${course.id}`} passHref>
+                <ListItemButton component={MuiLink}>
+                  <ListItemText primary={course.name} />
+                </ListItemButton>
+              </NextLink>
+            </ListItem>
+          ))}
+      </List>
     </Box>
   );
 };
