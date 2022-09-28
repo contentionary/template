@@ -6,8 +6,6 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
-// interface and config
-import config from "@src/utils/config";
 
 const PublicationsMenu = () => {
   return (

@@ -163,7 +163,7 @@ export default function Payment(): JSX.Element {
                 }}
               >
                 Select your preferred currency (Naira or dollar) to change the
-                amount of transaction"
+                amount of transaction
               </Typography>
             </div>
           </div>

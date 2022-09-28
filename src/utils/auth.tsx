@@ -63,7 +63,6 @@ export const Auth = {
   },
   isPublicationSubscriber: ({
     publicationId,
-    centreId,
     user,
   }: {
     publicationId: string;
