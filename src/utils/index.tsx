@@ -211,11 +211,6 @@ export const pageErrorHandler = (
   },
 });
 
-export const resumePage = (auth: any, router: NextRouter) => {
-  if (["/login", "/register", "/"].includes(router.pathname) || auth) return;
-  cache.set("redirectUrl", router.asPath);
-};
-
 export const getCentre = async (
   context: GetServerSidePropsContext
 ): Promise<CachedCentreInt> => {
@@ -234,6 +229,9 @@ export const getCentre = async (
       name: data.name,
       template: data.template,
       logo: data.logo,
+      phoneNumber: data.phoneNumber || "+234 902 239 6389",
+      emailAddress: data.emailAddress || "contact@contentionary.com",
+      address: data.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
     };
 
     // cache.set(host, centre, context);

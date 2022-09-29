@@ -13,9 +13,15 @@ import { Link as MuiLink } from "@mui/material";
 import useGlobalStyle from "@src/styles";
 //
 import { PublicationsFunc } from "./interfaceType";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { description, imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[2];
+
   return (
     <Box
       component="section"
@@ -39,24 +45,20 @@ const PromoSection: PublicationsFunc = () => {
                 alt="yes we can"
                 objectFit="cover"
                 layout="responsive"
-                src="/images/avatar.png"
+                src={imageUrl}
               />
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
             <Box>
-              <Typography mb={1} variant="h4" color="white">
-                A reader lives a thousand lives before he dies... The man who
-                never reads lives only one.”
+              <Typography mb={1} variant="h4" color="GrayText">
+                {title}
               </Typography>
-              <Typography mb={4} variant="h4" color="white" fontStyle="italic">
-                ~ George R.R. Martin
-              </Typography>
-              <Typography mb={4} paragraph color="white">
-                Signup and start learning on your pace and time.
+              <Typography mb={1} align="justify" variant="h6" color="white">
+                {description}
               </Typography>
             </Box>
-            <NextLink href="/" passHref>
+            <NextLink href="/library" passHref>
               <Button
                 size="large"
                 disableElevation

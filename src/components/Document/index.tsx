@@ -21,7 +21,6 @@ const Document = () => {
 
   return (
     <Box component="main" sx={{ pt: 8 }}>
-      <HeroSection {...publication} />
       {isWindow === true ? <ReaderSection {...publication} /> : ""}
     </Box>
   );

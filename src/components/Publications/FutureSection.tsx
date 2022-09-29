@@ -25,16 +25,21 @@ import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
 import { PublicationsFunc } from "./interfaceType";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { description, imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
 
   return (
     <Box className="" component="section" sx={{ py: 8, px: { md: 6 } }}>
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
-          The Smarter way to Read
+          {title}
         </Typography>
         <Grid
           container
@@ -67,7 +72,7 @@ const FutureSection: PublicationsFunc = () => {
                   alt="yes we can"
                   objectFit="cover"
                   objectPosition="right"
-                  src="/images/courses-4.png"
+                  src={imageUrl}
                 />
               </Box>
             </Box>

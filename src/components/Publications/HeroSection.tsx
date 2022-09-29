@@ -26,10 +26,8 @@ import { queryClient } from "@src/utils";
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { cachedData, pageData } = queryClient.getQueryData(
-    "pageProps"
-  ) as BasePageProps;
-  const centre = cachedData.centre;
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
   // const templateData = pageData.templateData as TemplateDataInt;
