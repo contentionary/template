@@ -1,8 +1,8 @@
 // mui components
 import Box from "@mui/material/Box";
-import ReaderSection from "./ReaderSection";
+// import ReaderSection from "./ReaderSection";
 //
-import { isServerSide, queryClient } from "@src/utils";
+import { queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const Document = () => {

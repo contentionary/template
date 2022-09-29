@@ -10,7 +10,6 @@ import { format } from "date-fns";
 // icons
 import UpdatedAt from "@mui/icons-material/CalendarMonthOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import Readers from "@mui/icons-material/GroupOutlined";
 import Reads from "@mui/icons-material/BookOutlined";
 import CreatedAt from "@mui/icons-material/DateRangeOutlined";
@@ -18,8 +17,7 @@ import CreatedAt from "@mui/icons-material/DateRangeOutlined";
 import { BookDetailsPageFunc } from "./interfaceType";
 
 const BookStats: BookDetailsPageFunc = ({ publication }) => {
-  const { subscriberCount, downloadCount, readCount, createdAt, updatedAt } =
-    publication;
+  const { subscriberCount, downloadCount, readCount, createdAt } = publication;
   return (
     <Fragment>
       <Typography variant="h5">Book Quick Stats</Typography>

@@ -32,7 +32,8 @@ const FutureSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { description, imageUrl, title } =
+  /* description, */
+  const { imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
 
   return (

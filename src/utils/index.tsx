@@ -9,7 +9,7 @@ import {
   PostRequestInt,
   RequestResponseInt,
 } from "@src/utils/interface";
-import { NextRouter } from "next/router";
+// import { NextRouter } from "next/router";
 import { QueryClient } from "react-query";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
@@ -196,7 +196,58 @@ export const kCount = (count: number) => {
     return parseNumberFloat(1000000000, "B");
   } else if (count >= 1000000) {
     return parseNumberFloat(1000000, "M");
-  } else return parseNumberFloat(1000, "K");
+  } else if (count >= 1000) {
+    return parseNumberFloat(1000, "K");
+  } else return count;
+};
+
+export const dateTimeFormat = (dateTimeStamp: Date, timeStyle?: boolean) => {
+  let dateTimeFormat;
+  let date = new Date(dateTimeStamp);
+  const dateOption: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  const timeOption: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  if (timeStyle)
+    dateTimeFormat = date.toLocaleDateString("en-US", {
+      ...dateOption,
+      ...timeOption,
+    });
+  else dateTimeFormat = date.toLocaleDateString("en-US", dateOption);
+
+  return dateTimeFormat;
+};
+
+export const timeAgo = (dateTimeStamp: Date) => {
+  const date =
+    dateTimeStamp instanceof Date ? dateTimeStamp : new Date(dateTimeStamp);
+  const formatter = new Intl.RelativeTimeFormat("en");
+  const ranges: Record<string, number> = {
+    years: 3600 * 24 * 365,
+    months: 3600 * 24 * 30,
+    weeks: 3600 * 24 * 7,
+    days: 3600 * 24,
+    hours: 3600,
+    minutes: 60,
+    seconds: 1,
+  };
+  const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+  for (let key in ranges) {
+    if (ranges[key] < Math.abs(secondsElapsed)) {
+      const delta = secondsElapsed / ranges[key];
+      return formatter.format(
+        Math.round(delta),
+        key as Intl.RelativeTimeFormatUnit
+      );
+    }
+  }
 };
 
 export const pageErrorHandler = (

@@ -21,7 +21,6 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
@@ -43,7 +42,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
     name,
     price,
     imageUrl,
-    subscriberCount,
     authors,
     fileUrl = "#",
     allowDownload,

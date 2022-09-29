@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { PublicationInt } from "@src/utils/interface";
 
 export declare type BookDetailsPageFunc = (props: {
