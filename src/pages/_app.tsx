@@ -8,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { theme } from "@src/styles/theme";
 import { useRef } from "react";
 import { queryClient } from "@src/utils";
+import Error from "next/error";
 
 function App({ Component, pageProps }: AppProps) {
   const client = useRef(queryClient);
@@ -22,6 +23,14 @@ function App({ Component, pageProps }: AppProps) {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Component {...pageProps} />
+          {/* {pageProps?.cachedData?.centre ? (
+            
+          ) : (
+            <Error statusCode={404} />
+            // <h1 style={{ width: "100%", height: "100%", textAlign: "center" }}>
+            //   Centre Not found
+            // </h1>
+          )} */}
         </ThemeProvider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />

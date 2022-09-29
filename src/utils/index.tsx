@@ -264,7 +264,7 @@ export const pageErrorHandler = (
 
 export const getCentre = async (
   context: GetServerSidePropsContext
-): Promise<CachedCentreInt> => {
+): Promise<CachedCentreInt | null> => {
   try {
     const host = context.req.headers.host as string;
 
@@ -274,17 +274,19 @@ export const getCentre = async (
     const { data } = (await request.get({
       url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;
-    let centre = {
-      id: data.id,
-      slug: data.slug,
-      name: data.name,
-      template: data.template,
-      // template: "course",
-      logo: data.logo,
-      phoneNumber: data.phoneNumber || "+234 902 239 6389",
-      emailAddress: data.emailAddress || "contact@contentionary.com",
-      address: data.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
-    };
+    let centre = data
+      ? {
+          id: data.id,
+          slug: data.slug,
+          name: data.name,
+          template: data.template,
+          logo: data.logo,
+          phoneNumber: data.phoneNumber || "+234 902 239 6389",
+          emailAddress: data.emailAddress || "contact@contentionary.com",
+          address:
+            data.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
+        }
+      : null;
 
     // cache.set(host, centre, context);
 
