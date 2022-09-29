@@ -13,7 +13,7 @@ export const getServerSideProps = async (
   if (token) return redirect("/");
 
   return {
-    props: { pageData: { refererUrl: context.req.headers.referer } },
+    props: {},
   };
 };
 
