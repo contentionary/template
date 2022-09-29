@@ -7,15 +7,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 //
 import { theme } from "@src/styles/theme";
 import { useRef } from "react";
-import { queryClient, resumePage } from "../utils";
-import { useRouter } from "next/router";
+import { queryClient } from "@src/utils";
 
 function App({ Component, pageProps }: AppProps) {
-  const router = useRouter();
   const client = useRef(queryClient);
 
   queryClient.setQueryData("pageProps", pageProps);
-  resumePage(pageProps.pageData?.auth, router);
 
   // const client = Client.current;
 

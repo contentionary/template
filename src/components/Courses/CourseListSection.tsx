@@ -7,8 +7,8 @@ import Pagination from "@mui/material/Pagination";
 import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
 import { CoursesPageFunc } from "./interfaceType";
-import { BasePageProps, CourseListInt } from "../../utils/interface";
-import { queryClient } from "../../pages";
+import { BasePageProps, CourseListInt } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 
 const CourseListSection: CoursesPageFunc = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
