@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import CourseListSection from "../CourseListSection";
 import MyCoursesBreadcrumbs from "./MyCoursesBreadcrumbs";
 // interface
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { CoursesPageFunc } from "../interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 

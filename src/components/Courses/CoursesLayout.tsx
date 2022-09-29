@@ -8,7 +8,7 @@ import CoursesMenu from "./CoursesMenu";
 import CourseListSection from "./CourseListSection";
 import CourseBreadcrumbs from "./CourseBreadcrumbs";
 // interface
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { CoursesPageFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
