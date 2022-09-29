@@ -12,7 +12,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const ReaderSection: DocumentFunc = ({ fileUrl = "#" }) => {
   const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  /* setPageNumber */
+  const [pageNumber] = useState(1);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number | null }) {
     setNumPages(numPages);
