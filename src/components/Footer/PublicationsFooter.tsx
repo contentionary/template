@@ -14,8 +14,13 @@ import { grey } from "@mui/material/colors";
 // styles, interface ans config
 import config from "@src/utils/config";
 import { PublicationsFooterFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 
 const PublicationsFooter: PublicationsFooterFunc = () => {
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { logo, emailAddress, phoneNumber, address } = cachedData.centre;
+
   return (
     <Fragment>
       <Box
@@ -31,10 +36,10 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
                 <NextLink href="/" passHref>
                   <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                     <Image
-                      src="/images/logo.png"
+                      src={logo}
                       alt="Contentionary logo"
-                      width={210}
-                      height={40}
+                      width={80}
+                      height={80}
                     />
                   </MuiLink>
                 </NextLink>
@@ -50,19 +55,19 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
                   Address:
                 </Typography>
                 <Typography paragraph color={grey["400"]} gutterBottom>
-                  38 Opebi Road, Ikeja, Lagos State, Nigeria.
+                  {address}
                 </Typography>
                 <Typography variant="h6" color="white" gutterBottom>
                   TelePhone:
                 </Typography>
-                <NextLink href={"tel:+2349022396389"} passHref>
-                  <MuiLink>+234 902 239 6389</MuiLink>
+                <NextLink href={`tel:${phoneNumber}`} passHref>
+                  <MuiLink>{phoneNumber}</MuiLink>
                 </NextLink>
                 <Typography mt={4} variant="h6" color="white" gutterBottom>
                   Contact Email
                 </Typography>
-                <NextLink href={"mailto:contact@contentionary.com"} passHref>
-                  <MuiLink>contact@contentionary.com</MuiLink>
+                <NextLink href={`mailto:${emailAddress}`} passHref>
+                  <MuiLink>{emailAddress}</MuiLink>
                 </NextLink>
               </Box>
             </Grid>
@@ -71,11 +76,11 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
                 <Typography variant="h6" color="white" gutterBottom>
                   Company
                 </Typography>
-                <NextLink href="/academy" passHref>
+                {/* <NextLink href="/academy" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     About us
                   </MuiLink>
-                </NextLink>
+                </NextLink> */}
                 <NextLink href="/library" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     Library

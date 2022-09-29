@@ -20,7 +20,7 @@ import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 // interface props, styles and config
 import { LessonListFunc } from "./interfaceType";
 import useAccordionStyle from "@src/styles/accordion";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, CourseModuleInt } from "../../utils/interface";
 import ContentListButton from "../CourseDetails/ContentListButton";
 

@@ -13,7 +13,7 @@ import PublicationCard from "@src/components/shared/cards/PublicationCard";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { PublicationsFunc } from "./interfaceType";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const PublicationListSection: PublicationsFunc = () => {

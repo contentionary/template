@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import HeroSection from "./HeroSection";
 import DetailsSection from "./DetailsSection";
 //
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const BookDetails = () => {
@@ -14,8 +14,8 @@ const BookDetails = () => {
 
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
-      <HeroSection publication={publication} auth={pageData.auth} />
-      <DetailsSection publication={publication} auth={pageData.auth} />
+      <HeroSection publication={publication} auth={pageData?.auth} />
+      <DetailsSection publication={publication} auth={pageData?.auth} />
     </Box>
   );
 };

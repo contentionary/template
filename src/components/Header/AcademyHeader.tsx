@@ -18,7 +18,7 @@ import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
 import useGlobalStyle from "@src/styles/index";
 // icons
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 // interface and config
 import { AcademyHeaderFunc } from "./interfaceType";
 import { BasePageProps } from "../../utils/interface";

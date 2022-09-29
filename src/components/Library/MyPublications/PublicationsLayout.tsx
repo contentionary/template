@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import PublicationListSection from "../PublicationListSection";
 import MyPublicationsBreadcrumbs from "./MyPublicationsBreadcrumbs";
 // interface
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { LibraryPageFunc } from "../interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
@@ -19,7 +19,7 @@ const MyPublicationsLayout: LibraryPageFunc = () => {
       <Container maxWidth="xl">
         <MyPublicationsBreadcrumbs />
         <Typography mb={4} variant="h4" component="h2">
-          My Publications
+          My Books
         </Typography>
         <PublicationListSection pageData={pageData} />
       </Container>

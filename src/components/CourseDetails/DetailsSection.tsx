@@ -24,7 +24,7 @@ import UnderConstruction from "@src/components/shared/UnderConstruction";
 import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
 import { BasePageProps } from "@src/utils/interface";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 
 const DetailsSection = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;

@@ -6,8 +6,8 @@ import Container from "@mui/material/Container";
 import useVideoPageStyle from "@src/styles/videoPage";
 // app components
 import VideoPlayer from "@src/components/shared/video/VideoPlayer";
-import { queryClient } from "../../pages";
-import { BasePageProps } from "../../utils/interface";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 const LessonPlayer = () => {
   const videoPageStyle = useVideoPageStyle();

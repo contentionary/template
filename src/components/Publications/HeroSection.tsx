@@ -17,18 +17,19 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // styles, interface and config
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const centre = cachedData.centre;
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+
+  const { landingPageSectionOne = null } =
+    pageData?.templateData?.templateDetails || {};
   // const templateData = pageData.templateData as TemplateDataInt;
 
   return (
@@ -45,21 +46,27 @@ const HeroSection: PublicationsFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-              <Typography mb={2} variant="h5">
+              {/* <Typography mb={2} variant="h5">
                 WELCOME TO
-              </Typography>
+              </Typography> */}
               <Typography
                 mb={3}
                 variant="h1"
                 className={globalStyle.textGradient}
               >
-                {centre.name}
+                {landingPageSectionOne.title}
               </Typography>
-              <Typography mb={3} paragraph maxWidth="450px">
-                We are changing the way our students access vocational skills
-                and in- demand skill contents.
+              <Typography
+                color="GrayText"
+                fontSize={30}
+                lineHeight={1.3}
+                mb={3}
+                paragraph
+                maxWidth="450px"
+              >
+                {landingPageSectionOne.description}
               </Typography>
-              <NextLink href={`${config.URL.WEB}login`} passHref>
+              <NextLink href="/library" passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -114,7 +121,7 @@ const HeroSection: PublicationsFunc = () => {
                     <AutoStoriesOutlinedIcon color="primary" />
                   </Avatar>
                   <Typography variant="subtitle2">
-                    Be certified upon course completion
+                    Compatible on all devices
                   </Typography>
                 </Paper>
                 <Box
@@ -130,7 +137,7 @@ const HeroSection: PublicationsFunc = () => {
                     alt="yes we can"
                     objectFit="cover"
                     objectPosition="center"
-                    src="/images/courses-0.png"
+                    src={landingPageSectionOne.imageUrl}
                   />
                 </Box>
               </Box>
