@@ -21,7 +21,7 @@ import PublicationsMenu from "./PublicationsMenu";
 // styles, interface and config
 import useGlobalStyle from "@src/styles/index";
 import { PublicationsHeaderFunc } from "./interfaceType";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import ProfileMenu from "./ProfileMenu";
 

@@ -4,7 +4,7 @@ import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 
 const PublicationDetailsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {

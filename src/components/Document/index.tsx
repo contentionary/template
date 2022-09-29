@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import HeroSection from "./HeroSection";
 import ReaderSection from "./ReaderSection";
 //
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const Document = () => {

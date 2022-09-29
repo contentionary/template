@@ -24,7 +24,7 @@ import ImageButton from "@src/components/shared/buttons/ImageButton";
 import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 

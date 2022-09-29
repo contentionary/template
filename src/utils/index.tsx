@@ -10,6 +10,7 @@ import {
   RequestResponseInt,
 } from "@src/utils/interface";
 import { NextRouter } from "next/router";
+import { QueryClient } from "react-query";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -20,6 +21,20 @@ export const FILE_DOWNLOAD_URL =
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
 };
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity, //Result should be considered stalled after 30 seconds
+      retry: 0, //Failed request should not be retried
+      cacheTime: Infinity, //cached data should be purged after 10 minutes
+      // onError: handleError,
+      refetchOnMount: false,
+    },
+  },
+});
 
 export const redirect = (
   destination: string,

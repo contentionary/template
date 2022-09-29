@@ -12,7 +12,7 @@ import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { AcademyFunc } from "./interfaceType";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
 
 const CourseListSection: AcademyFunc = () => {

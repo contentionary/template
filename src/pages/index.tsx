@@ -1,25 +1,14 @@
 import { createContext } from "react";
 import type { GetServerSideProps } from "next";
 import themes from "@src/templates";
-import { devLog, getCentre, handleError } from "@src/utils";
+import { getCentre, handleError } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { request } from "@src/utils";
-import { QueryClient } from "react-query";
 import { getAuthData } from "../utils/auth";
-
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      cacheTime: Infinity,
-      staleTime: Infinity,
-    },
-  },
-});
 
 export const TemplateData = createContext<any>(null);
 
 const HomePage = (props: BasePageProps) => {
-  queryClient.setQueryData("pageProps", props);
   const { centre } = props.cachedData;
   const ActiveTemplate = themes[centre.template]("Home");
   return <ActiveTemplate />;

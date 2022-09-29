@@ -21,7 +21,7 @@ import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();

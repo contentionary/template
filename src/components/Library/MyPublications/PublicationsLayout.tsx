@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import PublicationsMenu from "../PublicationsMenu";
 import PublicationListSection from "../PublicationListSection";
 // interface
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { LibraryPageFunc } from "../interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
