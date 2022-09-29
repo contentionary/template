@@ -8,8 +8,8 @@ import {
   CourseListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
-import { getAuthData } from "../../utils/auth";
-import { queryClient } from "..";
+import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/utils";
 
 export const CentreCoursesContext = createContext<CourseListInt | null>(null);
 
