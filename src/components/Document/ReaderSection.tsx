@@ -35,7 +35,11 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#" }) => {
           }}
           maxWidth="xl"
         >
-          <Document file={fileUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Document
+            file={fileUrl}
+            onLoadSuccess={onDocumentLoadSuccess}
+            // onContextMenu={(e) => e.preventDefault()}
+          >
             <Page pageNumber={pageNumber} />
           </Document>
           <p>
