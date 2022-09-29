@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const centre = await getCentre(context);
     const { user, token } = getAuthData(context);
     const { data: templateData } = await request.get({
-      url: `/centre/${centre.id}/centre-template`,
+      url: `/centre/${centre?.id}/centre-template`,
       token,
     });
 
