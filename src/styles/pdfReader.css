@@ -1,0 +1,73 @@
+.pdfPage {
+  margin: 0;
+  background-color: #525659;
+  font-family: Segoe UI, Tahoma, sans-serif;
+}
+
+.pdfWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.pdfWrapper__load {
+  margin-top: 1em;
+  color: white;
+}
+
+.innerWrapper {
+  margin: 0;
+}
+
+.innerWrapper .react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.innerWrapper .react-pdf__Page {
+  max-width: calc(100% - 2em);
+  margin-top: 0px;
+  user-select: none;
+}
+
+.innerWrapper .react-pdf__Page canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.pdfButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 0;
+  background-color: #2f363c;
+}
+
+.pdfButtons p {
+  color: aliceblue;
+}
+
+.pdfHolder {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  position: relative;
+}
+
+.pdfReader {
+  margin-top: 80px !important;
+}
+
+@media print {
+  .pdfPage {
+    display: none !important;
+  }
+}

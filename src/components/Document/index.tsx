@@ -1,8 +1,8 @@
 // mui components
 import Box from "@mui/material/Box";
-// import ReaderSection from "./ReaderSection";
+import ReaderSection from "./ReaderSection";
 //
-import { queryClient } from "@src/utils";
+import { isServerSide, queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const Document = () => {
@@ -11,10 +11,9 @@ const Document = () => {
 
   return (
     <Box component="main" sx={{ pt: 8 }}>
-      {/* {!isServerSide ? <ReaderSection {...publication} /> : ""}
-       */}
+      {!isServerSide ? <ReaderSection {...publication} /> : ""}
 
-      <embed
+      {/* <embed
         style={{
           width: "100%",
           height: "300%",
@@ -22,7 +21,7 @@ const Document = () => {
           userSelect: "none",
         }}
         src={`${publication.fileUrl}#toolbar=0`}
-      />
+      /> */}
     </Box>
   );
 };

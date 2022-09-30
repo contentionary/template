@@ -18,6 +18,7 @@ import Logout from "@mui/icons-material/Logout";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
+// import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 
 interface ProfileMenuInt {
   title: string;
@@ -73,7 +74,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
           color="secondary"
           aria-haspopup="true"
           onClick={handleToggle}
-          sx={{ color: "secondary.light" }}
+          sx={{ color: "secondary.light", fontSize: 18 }}
           aria-expanded={open ? "true" : undefined}
           aria-controls={open ? "composition-menu" : undefined}
         >
@@ -106,8 +107,12 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
-                  <NextLink href="/library/my-publications" passHref>
-                    <MenuItem component={MuiLink} onClick={handleClose}>
+                  <NextLink href="/library/my-books" passHref>
+                    <MenuItem
+                      style={{ fontSize: 18 }}
+                      component={MuiLink}
+                      onClick={handleClose}
+                    >
                       <ListItemIcon>
                         <BookOutlinedIcon fontSize="small" />
                       </ListItemIcon>
@@ -144,6 +149,7 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                       component={MuiLink}
                       color="primary.main"
                       onClick={handleClose}
+                      style={{ fontSize: 18 }}
                     >
                       <ListItemIcon>
                         <Logout fontSize="small" />

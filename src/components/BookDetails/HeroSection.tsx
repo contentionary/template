@@ -19,7 +19,6 @@ import { BookDetailsPageFunc } from "./interfaceType";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
@@ -160,10 +159,10 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                 ₦{price}
               </Typography>
               <Stack direction="row" spacing={1}>
-                <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button variant="text" color="secondary" sx={btnStyle}>
                   <BookmarkAddOutlinedIcon />
                   Subscribe
-                </Button>
+                </Button> */}
                 <Button variant="text" color="secondary" sx={btnStyle}>
                   <FavoriteBorderOutlinedIcon />
                   Like
