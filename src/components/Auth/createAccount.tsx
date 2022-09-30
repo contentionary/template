@@ -5,11 +5,12 @@ import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
 import { Box } from "@mui/system";
 import useStyles from "./styles";
-import { handleError, request, cache } from "@src/utils";
+import { handleError, request, cache, queryClient } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
 import Snackbar from "@src/components/shared/snackerBar";
 import { useRouter } from "next/router";
+import { BasePageProps } from "@src/utils/interface";
 
 const CreateAccount = (): JSX.Element => {
   const { getData, values, resetValues } = useForm(submit);
@@ -17,6 +18,7 @@ const CreateAccount = (): JSX.Element => {
   const [message, setMessage] = useState("");
   const styles = useStyles();
   const router = useRouter();
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   async function submit() {
     try {
@@ -82,10 +84,11 @@ const CreateAccount = (): JSX.Element => {
           >
             <Box sx={{ marginTop: 2 }}>
               <Image
-                src="/images/logo.svg"
+                src={cachedData.centre.logo || "/images/logo.svg"}
                 alt="contentionary create account"
-                width={135}
-                height={28}
+                width={80}
+                height={80}
+                objectFit="contain"
               />
             </Box>
             <Typography

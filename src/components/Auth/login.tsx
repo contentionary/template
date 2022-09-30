@@ -20,7 +20,9 @@ const CreateAccount = (): JSX.Element => {
   const [message, setMessage] = useState("");
   const styles = useStyles();
   const router = useRouter();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
 
   const { getData, values } = loginForm;
 
@@ -84,10 +86,11 @@ const CreateAccount = (): JSX.Element => {
           >
             <Box sx={{ marginBottom: 7 }}>
               <Image
-                src="/images/logo.svg"
+                src={cachedData.centre.logo || "/images/logo.svg"}
                 alt="contentionary create account"
-                width={135}
-                height={28}
+                width={80}
+                height={80}
+                objectFit="contain"
               />
             </Box>
             <Typography
