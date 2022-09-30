@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "kill": "kill $(lsof -t -i:3000)",
     "type-check": "tsc --noEmit",
     "format": "prettier --single-quote=false --print-width 80 --trailing-comma es5 --write \"src/**/*.tsx\""
   },

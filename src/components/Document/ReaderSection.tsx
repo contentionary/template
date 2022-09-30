@@ -54,7 +54,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#" }) => {
             options={options}
             className="pdfHolder"
           >
-            <Page className="pdfReader" pageNumber={pageNumber} />
+            <Page scale={1.7} className="pdfReader" pageNumber={pageNumber} />
             <p className="pdfButtons">
               {pageNumber > 1 ? (
                 <button onClick={previousPage}>Previous</button>
