@@ -9,6 +9,8 @@ import {
   PostRequestInt,
   RequestResponseInt,
 } from "@src/utils/interface";
+// import { NextRouter } from "next/router";
+import { QueryClient } from "react-query";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -19,6 +21,20 @@ export const FILE_DOWNLOAD_URL =
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
 };
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: false,
+      staleTime: Infinity, //Result should be considered stalled after 30 seconds
+      retry: 0, //Failed request should not be retried
+      cacheTime: Infinity, //cached data should be purged after 10 minutes
+      // onError: handleError,
+      refetchOnMount: false,
+    },
+  },
+});
 
 export const redirect = (
   destination: string,
@@ -180,7 +196,58 @@ export const kCount = (count: number) => {
     return parseNumberFloat(1000000000, "B");
   } else if (count >= 1000000) {
     return parseNumberFloat(1000000, "M");
-  } else return parseNumberFloat(1000, "K");
+  } else if (count >= 1000) {
+    return parseNumberFloat(1000, "K");
+  } else return count;
+};
+
+export const dateTimeFormat = (dateTimeStamp: Date, timeStyle?: boolean) => {
+  let dateTimeFormat;
+  let date = new Date(dateTimeStamp);
+  const dateOption: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  const timeOption: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  if (timeStyle)
+    dateTimeFormat = date.toLocaleDateString("en-US", {
+      ...dateOption,
+      ...timeOption,
+    });
+  else dateTimeFormat = date.toLocaleDateString("en-US", dateOption);
+
+  return dateTimeFormat;
+};
+
+export const timeAgo = (dateTimeStamp: Date) => {
+  const date =
+    dateTimeStamp instanceof Date ? dateTimeStamp : new Date(dateTimeStamp);
+  const formatter = new Intl.RelativeTimeFormat("en");
+  const ranges: Record<string, number> = {
+    years: 3600 * 24 * 365,
+    months: 3600 * 24 * 30,
+    weeks: 3600 * 24 * 7,
+    days: 3600 * 24,
+    hours: 3600,
+    minutes: 60,
+    seconds: 1,
+  };
+  const secondsElapsed = (date.getTime() - Date.now()) / 1000;
+  for (let key in ranges) {
+    if (ranges[key] < Math.abs(secondsElapsed)) {
+      const delta = secondsElapsed / ranges[key];
+      return formatter.format(
+        Math.round(delta),
+        key as Intl.RelativeTimeFormatUnit
+      );
+    }
+  }
 };
 
 export const pageErrorHandler = (
@@ -197,25 +264,31 @@ export const pageErrorHandler = (
 
 export const getCentre = async (
   context: GetServerSidePropsContext
-): Promise<CachedCentreInt> => {
+): Promise<CachedCentreInt | null> => {
   try {
     const host = context.req.headers.host as string;
 
-    let centre = cache.get(host, context);
-    if (centre) return centre;
+    // let centre = cache.get(host, context);
+    // if (centre) return centre;
 
     const { data } = (await request.get({
       url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;
-    centre = {
-      id: data.id,
-      slug: data.slug,
-      name: data.name,
-      template: data.template,
-      logo: data.logo,
-    };
+    let centre = data
+      ? {
+          id: data.id,
+          slug: data.slug,
+          name: data.name,
+          template: data.template,
+          logo: data.logo,
+          phoneNumber: data.phoneNumber || "+234 902 239 6389",
+          emailAddress: data.emailAddress || "contact@contentionary.com",
+          address:
+            data.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
+        }
+      : null;
 
-    cache.set(host, centre, context);
+    // cache.set(host, centre, context);
 
     return centre;
   } catch (err) {

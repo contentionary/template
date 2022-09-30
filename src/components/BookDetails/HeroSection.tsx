@@ -19,9 +19,7 @@ import { BookDetailsPageFunc } from "./interfaceType";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
@@ -31,20 +29,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
   const globalStyle = useGlobalStyle();
   const { slug, reference } = router.query;
 
-  const {
-    id,
-    name,
-    price,
-    imageUrl,
-    subscriberCount,
-    authors,
-    fileUrl = "#",
-    allowDownload,
-    allowRead,
-  } = publication;
-
-  const { isCentreManager, isPublicationSubscriber } = auth;
-
   const btnStyle = {
     color: "secondary.light",
     display: "flex",
@@ -52,8 +36,25 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
     alignItems: "center",
   };
 
+  const {
+    id,
+    name,
+    price,
+    imageUrl,
+    authors,
+    fileUrl = "#",
+    allowDownload,
+    allowRead,
+    publicationCategoryName,
+  } = publication;
+
+  const { isCentreManager = false, isPublicationSubscriber = false } =
+    auth || {};
+
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
+  const paymentLink = auth
+    ? `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
+    : "/login";
 
   let Read = {
     link: `/library/${slug}/document/${id}`,
@@ -111,22 +112,19 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
               </Box>
             </Grid>
             <Grid item xs={12} md={8} lg={9}>
-              <Typography mb={1} paragraph>
-                <Typography variant="h6" component="span">
-                  Publication ID
-                </Typography>{" "}
-                {id}
+              <Typography color="primary" mb={1} paragraph>
+                {publicationCategoryName}
               </Typography>
               <Typography variant="h2" component="h1">
                 {name}
               </Typography>
-              <Stack direction="row" spacing={2} mt={1}>
-                {/* <Typography variant="h6">Indorama Centre</Typography> */}
+              {/* <Stack direction="row" spacing={2} mt={1}>
+                <Typography variant="h6">Indorama Centre</Typography>
                 <Typography paragraph display="flex" alignItems="center">
                   <PeopleOutlineOutlinedIcon color="primary" />{" "}
                   {subscriberCount}k Subscribers
                 </Typography>
-              </Stack>
+              </Stack> */}
               <Stack
                 mt={3}
                 mb={6}
@@ -161,10 +159,10 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                 ₦{price}
               </Typography>
               <Stack direction="row" spacing={1}>
-                <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button variant="text" color="secondary" sx={btnStyle}>
                   <BookmarkAddOutlinedIcon />
                   Subscribe
-                </Button>
+                </Button> */}
                 <Button variant="text" color="secondary" sx={btnStyle}>
                   <FavoriteBorderOutlinedIcon />
                   Like

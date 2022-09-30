@@ -5,14 +5,14 @@ import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
 import { Box } from "@mui/system";
 import useStyles from "./styles";
-import { handleError, request } from "@src/utils";
+import { handleError, queryClient, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
 import Snackbar from "@src/components/shared/snackerBar";
 import { useRouter } from "next/router";
 import ForgottenPassword from "./forgottenPassword";
 import { setAuth } from "@src/utils/auth";
-import { UserInt } from "@src/utils/interface";
+import { BasePageProps, UserInt } from "@src/utils/interface";
 
 const CreateAccount = (): JSX.Element => {
   const loginForm = useForm(submit);
@@ -20,6 +20,7 @@ const CreateAccount = (): JSX.Element => {
   const [message, setMessage] = useState("");
   const styles = useStyles();
   const router = useRouter();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const { getData, values } = loginForm;
 
@@ -31,7 +32,8 @@ const CreateAccount = (): JSX.Element => {
         data: values,
       });
       setAuth(data as UserInt);
-      router.push("/");
+      const redirectUrl = pageData?.refererUrl || "/";
+      router.push(redirectUrl);
       setIsLoading(false);
     } catch (error) {
       setMessage(handleError(error).message);
@@ -159,4 +161,5 @@ const CreateAccount = (): JSX.Element => {
     </>
   );
 };
+
 export default CreateAccount;

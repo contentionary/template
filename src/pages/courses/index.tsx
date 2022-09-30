@@ -8,8 +8,8 @@ import {
   CourseListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
-import { getAuthData } from "../../utils/auth";
-import { queryClient } from "..";
+import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/utils";
 
 export const CentreCoursesContext = createContext<CourseListInt | null>(null);
 
@@ -29,12 +29,14 @@ const CoursesPage = (pageProps: BasePageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let centre: any = {};
-  const { pageId = 1 } = context.query;
+  const { pageId = 1, folderId = "" } = context.query;
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
     const { data: courseList } = await request.get({
-      url: `/centre/${centre.id}/courses?pageId=${pageId}`,
+      url: `/centre/${centre.id}/courses?pageId=${pageId}${
+        folderId === "" ? "" : `&folderId=${folderId}`
+      }`,
       token,
     });
 

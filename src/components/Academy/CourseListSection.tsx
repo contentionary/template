@@ -12,7 +12,7 @@ import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { AcademyFunc } from "./interfaceType";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
 
 const CourseListSection: AcademyFunc = () => {
@@ -47,7 +47,6 @@ const CourseListSection: AcademyFunc = () => {
           </Typography>
           <Grid
             container
-            direction="row-reverse"
             mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
             spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
           >

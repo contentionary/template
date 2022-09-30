@@ -50,8 +50,10 @@ export interface CachedCentreInt {
   logo: string;
   slug: string;
   template: string;
+  phoneNumber: string;
+  emailAddress: string;
+  address: string;
 }
-
 export interface BasePageProps {
   error: ErrorResponseInt;
   pageData: Record<string, any>;

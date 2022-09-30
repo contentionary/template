@@ -20,7 +20,7 @@ import UnderConstruction from "@src/components/shared/UnderConstruction";
 // interface, styles and config
 // import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps, CourseInt } from "../../utils/interface";
 
 const LessonDetailsSection = () => {

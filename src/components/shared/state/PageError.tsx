@@ -2,7 +2,7 @@ import React from "react";
 // mui components
 import Box from "@mui/material/Box";
 //
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 // app components
 import Page400 from "./400";

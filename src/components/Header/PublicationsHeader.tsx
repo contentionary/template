@@ -21,7 +21,7 @@ import PublicationsMenu from "./PublicationsMenu";
 // styles, interface and config
 import useGlobalStyle from "@src/styles/index";
 import { PublicationsHeaderFunc } from "./interfaceType";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import ProfileMenu from "./ProfileMenu";
 
@@ -30,7 +30,9 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const user = cachedData.user;
+  const { user, centre } = cachedData;
+
+  const fontSize = 18;
 
   return (
     <>
@@ -49,10 +51,11 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                   <Image
-                    src="/images/logo.png"
+                    src={centre.logo || "/images/logo.png"}
                     alt="Contentionary logo"
-                    width={210}
-                    height={40}
+                    width={80}
+                    height={80}
+                    objectFit="contain"
                   />
                 </MuiLink>
               </NextLink>
@@ -73,7 +76,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                       <NextLink href="/" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize }}
                         >
                           Home
                         </Button>
@@ -81,27 +84,29 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                       <NextLink href="/library" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize }}
                         >
                           Library
                         </Button>
                       </NextLink>
-                      <NextLink href="/library/my-publications" passHref>
+                      {user && (
+                        <NextLink href="/library/my-books" passHref>
+                          <Button
+                            component={MuiLink}
+                            sx={{ color: "secondary.light", fontSize }}
+                          >
+                            My Books
+                          </Button>
+                        </NextLink>
+                      )}
+                      {/* <NextLink href="#" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
-                        >
-                          My Publications
-                        </Button>
-                      </NextLink>
-                      <NextLink href="#" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize, }}
                         >
                           About Us
                         </Button>
-                      </NextLink>
+                      </NextLink> */}
                     </Stack>
                     {user ? (
                       <ProfileMenu title={user.firstname} />

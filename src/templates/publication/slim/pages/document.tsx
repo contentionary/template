@@ -8,7 +8,7 @@ const DocumentPage = () => {
       description="Welcome to contentionary"
       image="/public/images/logo.png"
       showHeader={true}
-      showFooter={true}
+      showFooter={false}
     >
       <Document />
     </PublicationsWrapper>

@@ -14,9 +14,14 @@ import Typography from "@mui/material/Typography";
 import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import { PublicationsFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 
 const BestAuthorSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { description, imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[0];
 
   return (
     <Fragment>
@@ -34,16 +39,11 @@ const BestAuthorSection: PublicationsFunc = () => {
             justifyContent="space-between"
           >
             <Grid item xs={12} md={6} lg={5}>
-              <Typography mt={4} variant="h5">
-                JOHNSON JONES
-              </Typography>
               <Typography mb={2} variant="h4" component="h2">
-                Best Author of the year on this platform
+                {title}
               </Typography>
-              <Typography mb={4} paragraph>
-                You don’t need any technical knowledge to launch a centre in
-                contentionary. If you don’t have a domain you can choose a
-                subdomain that best suit your business name.
+              <Typography fontSize={20} mb={4} paragraph>
+                {description}
               </Typography>
               <NextLink href={`${config.URL.WEB}create-account`} passHref>
                 <Button
@@ -86,7 +86,7 @@ const BestAuthorSection: PublicationsFunc = () => {
                   objectFit="cover"
                   layout="responsive"
                   alt="Contentionary"
-                  src="/images/study.png"
+                  src={imageUrl}
                   style={{ borderRadius: 8 }}
                 />
               </Box>

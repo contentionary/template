@@ -12,6 +12,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import { Link as MuiLink } from "@mui/material";
 // icons
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // styles and interface
 import { kCount } from "@src/utils";
@@ -27,6 +28,7 @@ const PublicationCard: PublicationCardFunc = ({
   subscriberCount,
   imageUrl,
   readCount,
+  type,
   id,
 }) => {
   const cardStyle = useCardStyle();
@@ -34,14 +36,25 @@ const PublicationCard: PublicationCardFunc = ({
 
   return (
     <Card className={cardStyle.publicationCard}>
-      <NextLink href={`/library/${slug}/${id}`} passHref>
+      <NextLink
+        href={
+          type === "FOLDER"
+            ? `/library?folderId=${id}`
+            : `/library/${slug}/${id}`
+        }
+        passHref
+      >
         <CardActionArea
           LinkComponent={MuiLink}
           className="MuiCourseCardActionBase-root"
         >
           <Box p={1} className="card-img">
             <Image
-              src={imageUrl || "/images/book-1.png"}
+              src={
+                type === "FOLDER"
+                  ? "/images/cards/resume-folder.svg"
+                  : imageUrl || "/images/book-1.png"
+              }
               width="90%"
               height="100%"
               layout="responsive"
@@ -62,52 +75,65 @@ const PublicationCard: PublicationCardFunc = ({
             >
               {description}
             </Typography>
-            <Stack
-              mt="auto"
-              spacing={1}
-              direction="row"
-              alignItems="center"
-              justifyContent="between"
-              flexWrap={{ xs: "wrap", sm: "nowrap" }}
-            >
+            {type === "FOLDER" ? (
               <Typography
                 mb={0}
                 noWrap
                 display="flex"
                 variant="body2"
                 alignItems="center"
-                order={{ xs: 2, sm: 2 }}
               >
-                <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
+                <FolderCopyOutlinedIcon color="primary" fontSize="inherit" />
+                &nbsp; 0
               </Typography>
-              <Typography
-                mb={0}
-                noWrap
-                display="flex"
-                variant="body2"
+            ) : (
+              <Stack
+                mt="auto"
+                spacing={1}
+                direction="row"
                 alignItems="center"
-                order={{ xs: 3, sm: 2 }}
+                justifyContent="between"
+                flexWrap={{ xs: "wrap", sm: "nowrap" }}
               >
-                <FavoriteBorderOutlinedIcon
+                <Typography
+                  mb={0}
+                  noWrap
+                  display="flex"
+                  variant="body2"
+                  alignItems="center"
+                  order={{ xs: 2, sm: 2 }}
+                >
+                  <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
+                  &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
+                </Typography>
+                <Typography
+                  mb={0}
+                  noWrap
+                  display="flex"
+                  variant="body2"
+                  alignItems="center"
+                  order={{ xs: 3, sm: 2 }}
+                >
+                  <FavoriteBorderOutlinedIcon
+                    color="primary"
+                    fontSize="inherit"
+                  />
+                  &nbsp;{kCount(readCount)}
+                </Typography>
+                <Typography
+                  mb={0}
+                  flexGrow={1}
+                  variant="h5"
                   color="primary"
-                  fontSize="inherit"
-                />
-                &nbsp;{kCount(readCount)}
-              </Typography>
-              <Typography
-                mb={0}
-                flexGrow={1}
-                variant="h5"
-                color="primary"
-                order={{ xs: 1, sm: 3 }}
-                width={{ xs: "100%", sm: "auto" }}
-                ml={{ xs: "0 !important", sm: "auto" }}
-                textAlign={{ xs: "left", sm: "right" }}
-              >
-                {price <= 0 ? "Free" : ` ₦${price}`}
-              </Typography>
-            </Stack>
+                  order={{ xs: 1, sm: 3 }}
+                  width={{ xs: "100%", sm: "auto" }}
+                  ml={{ xs: "0 !important", sm: "auto" }}
+                  textAlign={{ xs: "left", sm: "right" }}
+                >
+                  {price <= 0 ? "Free" : ` ₦${price}`}
+                </Typography>
+              </Stack>
+            )}
           </CardContent>
         </CardActionArea>
       </NextLink>

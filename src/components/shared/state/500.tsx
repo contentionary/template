@@ -18,7 +18,7 @@ const Page500: ErrorPageFunc = ({ error }) => {
   return (
     <Box
       component="section"
-      className="hero-section"
+      className="error-section"
       sx={{ pt: 4, pb: 8, px: { md: 6 } }}
     >
       <Container

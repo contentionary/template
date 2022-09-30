@@ -4,7 +4,7 @@ import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
-import { queryClient } from "@src/pages";
+import { queryClient } from "@src/utils";
 
 const PublicationDetailsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: publication, auth } = await request.get({
+    const { data: publication, auth = null } = await request.get({
       url: `/centre/${centre.id}/publication/${id}?allowRead=false`,
       token,
     });

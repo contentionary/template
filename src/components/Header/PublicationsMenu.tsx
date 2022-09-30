@@ -6,11 +6,16 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 const PublicationsMenu = () => {
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { user } = cachedData;
+
   return (
     <List>
-      <NextLink href="/publication" passHref>
+      <NextLink href="/" passHref>
         <ListItemButton>
           <ListItemIcon>
             <ListItemText>Home</ListItemText>
@@ -24,27 +29,39 @@ const PublicationsMenu = () => {
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href="/about-us" passHref>
+      <NextLink href="/library/my-books" passHref>
         <ListItemButton>
           <ListItemIcon>
-            <ListItemText>About Us</ListItemText>
+            <ListItemText>My Books</ListItemText>
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href="/login" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Login</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/register" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Create Account</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
+      {user ? (
+        <NextLink href="/logout" passHref>
+          <ListItemButton>
+            <ListItemIcon>
+              <ListItemText>Logout</ListItemText>
+            </ListItemIcon>
+          </ListItemButton>
+        </NextLink>
+      ) : (
+        <>
+          <NextLink href="/login" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>Login</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/register" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>Create Account</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+        </>
+      )}
     </List>
   );
 };

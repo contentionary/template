@@ -3,8 +3,8 @@ import themes from "@src/templates";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
-import { getAuthData } from "../../utils/auth";
-import { queryClient } from "..";
+import { getAuthData } from "@src/utils/auth";
+import { queryClient } from "@src/utils";
 
 const LibraryPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
@@ -15,6 +15,7 @@ const LibraryPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
+
   const ActiveTemplate =
     themes[pageProps.cachedData.centre.template]("Library");
 
@@ -23,13 +24,13 @@ const LibraryPage = (pageProps: BasePageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let centre: any = {};
-  const { pageId = 1, folderId = "" } = context.query;
+  const { pageId = 1, folderId = "", limit = 5 } = context.query;
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
     const { data: publicationData } = await request.get({
       url: `/centre/${centre.id}/publications?&pageId=${pageId}${
-        folderId === "" ? "" : `&folderId=${folderId}`
+        folderId === "" ? "" : `&folderId=${folderId}&limit=${limit}`
       }`,
       token,
     });

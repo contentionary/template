@@ -1,10 +1,9 @@
 import { GetServerSideProps } from "next";
 import themes from "@src/templates";
-import { request } from "@src/utils";
+import { queryClient, request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
-import { getAuthData } from "../../utils/auth";
-import { queryClient } from "..";
+import { getAuthData } from "@src/utils/auth";
 
 const MyPublicationPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
@@ -14,7 +13,9 @@ const MyPublicationPage = (pageProps: BasePageProps) => {
 
     return <ActiveTemplate />;
   }
+
   queryClient.setQueryData("pageProps", pageProps);
+
   const ActiveTemplate =
     themes[pageProps.cachedData.centre.template]("MyPublications");
 
