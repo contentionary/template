@@ -1,16 +1,13 @@
 import React from "react";
 // next
 import Image from "next/image";
-import NextLink from "next/link";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link as MuiLink } from "@mui/material";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -32,7 +29,6 @@ const FutureSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  /* description, */
   const { imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
 
@@ -128,42 +124,6 @@ const FutureSection: PublicationsFunc = () => {
                 <ListItemText primary="Drop reviews and feedbacks while reading" />
               </ListItem>
             </List>
-            <NextLink href="/" passHref>
-              <Button
-                size="large"
-                disableElevation
-                variant="contained"
-                component={MuiLink}
-                className={globalStyle.bgGradient}
-                sx={{
-                  textAlign: "center",
-                  width: { xs: "100%", md: "auto" },
-                  display: { xs: "block", md: "inline-block" },
-                }}
-              >
-                Try Premium Centres
-              </Button>
-            </NextLink>{" "}
-            <NextLink href="/" passHref>
-              <Button
-                size="large"
-                variant="outlined"
-                component={MuiLink}
-                sx={{
-                  textAlign: "center",
-                  mt: { xs: 2, md: 0 },
-                  textDecoration: "underline",
-                  borderWidth: { xs: 2, md: 0 },
-                  ":hover": {
-                    borderWidth: { xs: 2, md: 0 },
-                  },
-                  width: { xs: "100%", md: "auto" },
-                  display: { xs: "block", md: "inline-block" },
-                }}
-              >
-                Learn more
-              </Button>
-            </NextLink>
           </Grid>
         </Grid>
       </Container>
