@@ -1,16 +1,13 @@
 import React from "react";
 // next
 import Image from "next/image";
-import NextLink from "next/link";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link as MuiLink } from "@mui/material";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
