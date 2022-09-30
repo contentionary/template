@@ -4,6 +4,11 @@ export enum Gender {
   FEMALE = "Female",
 }
 
+export interface ElementProps {
+  target: HTMLInputElement;
+  preventDefault: Function
+}
+
 export interface UserBaseInt {
   firstName: string;
   surname: string;

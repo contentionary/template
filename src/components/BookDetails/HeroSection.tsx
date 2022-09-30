@@ -23,10 +23,15 @@ import BookmarkAddOutlinedIcon from "@mui/icons-material/BookmarkAddOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+
 import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
+import ShareContentOnMedia from "./share";
+import { useDialog } from "@src/hooks";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
+  const { isOpen, openDialog, closeDialog } = useDialog();
+
   const router = useRouter();
   const globalStyle = useGlobalStyle();
   const { slug, reference } = router.query;
@@ -170,7 +175,12 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                   <FavoriteBorderOutlinedIcon />
                   Like
                 </Button>
-                <Button variant="text" color="secondary" sx={btnStyle}>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  sx={btnStyle}
+                  onClick={() => openDialog()}
+                >
                   <ShareOutlinedIcon />
                   Share
                 </Button>
@@ -233,6 +243,12 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
           </Grid>
         </Container>
       </Box>
+      <ShareContentOnMedia
+        contentToShare=""
+        openDialog={openDialog}
+        isOpen={isOpen}
+        closeDialog={closeDialog}
+      />
     </Fragment>
   );
 };

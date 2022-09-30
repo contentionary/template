@@ -17,11 +17,14 @@ import { Link as MuiLink } from "@mui/material";
 // mui icons
 import Logout from "@mui/icons-material/Logout";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import PlayLessonOutlinedIcon from "@mui/icons-material/PlayLessonOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 interface ProfileMenuInt {
   title: string;
@@ -31,6 +34,8 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
   const menuStyle = useMenuStyle();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -116,6 +121,14 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                         <BookOutlinedIcon fontSize="small" />
                       </ListItemIcon>
                       My Books
+                    </MenuItem>
+                  </NextLink>
+                  <NextLink href={`/admin`} passHref>
+                    <MenuItem component={MuiLink} onClick={handleClose}>
+                      <ListItemIcon>
+                        <SettingsOutlined fontSize="small" />
+                      </ListItemIcon>
+                      Admin
                     </MenuItem>
                   </NextLink>
                   {/* <NextLink href="/courses/my-courses" passHref>
