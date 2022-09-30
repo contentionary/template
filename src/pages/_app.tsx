@@ -1,3 +1,10 @@
+// React component
+import { useEffect, useState } from "react";
+// next components
+import Router from "next/router";
+// mui component
+import LinearProgress from "@mui/material/LinearProgress";
+//
 import type { AppProps } from "next/app";
 import { Hydrate, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -9,31 +16,35 @@ import { theme } from "@src/styles/theme";
 import { useRef } from "react";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
-import Page404 from "@src/components/shared/state/400";
+import Custom404 from "./404";
 import "@src/styles/pdfReader.css";
 
 function App({ Component, pageProps }: AppProps) {
+  const [pageLoading, setPageLoading] = useState(false);
   const client = useRef(queryClient);
   const { cachedData = null } = pageProps as BasePageProps;
 
   queryClient.setQueryData("pageProps", pageProps);
+
+  useEffect(() => {
+    Router.events.on("routeChangeStart", () => {
+      setPageLoading(true);
+    });
+    Router.events.on("routeChangeComplete", () => {
+      setPageLoading(false);
+    });
+    Router.events.on("routeChangeError", () => {
+      setPageLoading(false);
+    });
+  }, []);
 
   return (
     <QueryClientProvider client={client.current}>
       <Hydrate state={pageProps.dehydrateState}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {cachedData?.centre ? (
-            <Component {...pageProps} />
-          ) : (
-            <Page404
-              error={{
-                statusCode: 404,
-                message: "Website resource not found, Kindly contact Admin",
-              }}
-              showButton={false}
-            />
-          )}
+          {pageLoading && <LinearProgress sx={{ zIndex: 2000 }} />}
+          {cachedData?.centre ? <Component {...pageProps} /> : <Custom404 />}
         </ThemeProvider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />
