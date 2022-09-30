@@ -52,7 +52,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
           <Image
             src={
               type === "FOLDER"
-                ? "/images/cards/image-folder..svg"
+                ? "/images/cards/image-folder.svg"
                 : imageUrl || "/images/book-1.png"
             }
             width="100%"
