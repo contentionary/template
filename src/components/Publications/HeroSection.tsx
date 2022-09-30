@@ -26,7 +26,9 @@ import { queryClient } from "@src/utils";
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData = null } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
 
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};

@@ -24,13 +24,13 @@ const LibraryPage = (pageProps: BasePageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   let centre: any = {};
-  const { pageId = 1, folderId = "" } = context.query;
+  const { pageId = 1, folderId = "", limit = 5 } = context.query;
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
     const { data: publicationData } = await request.get({
       url: `/centre/${centre.id}/publications?&pageId=${pageId}${
-        folderId === "" ? "" : `&folderId=${folderId}`
+        folderId === "" ? "" : `&folderId=${folderId}&limit=${limit}`
       }`,
       token,
     });

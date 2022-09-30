@@ -3,6 +3,7 @@ import { ErrorResponseInt } from "@src/utils/interface";
 /* eslint-disable no-unused-vars */
 export interface ErrorPageInt {
   error: ErrorResponseInt;
+  showButton?: boolean;
 }
 export interface EmptyPageInt {
   href?: string;

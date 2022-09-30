@@ -1,0 +1,80 @@
+.pdfPage {
+  margin: 0;
+  background-color: #525659;
+  font-family: Segoe UI, Tahoma, sans-serif;
+}
+
+.pdfWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.pdfWrapper__load {
+  margin-top: 1em;
+  color: white;
+}
+
+.innerWrapper {
+  margin: 1em 0;
+}
+
+.innerWrapper .react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.innerWrapper .react-pdf__Page {
+  max-width: calc(100% - 2em);
+  box-shadow: 0 0 8px rgba(203, 168, 168, 0.5);
+  margin-top: 20px;
+  user-select: none;
+}
+
+.innerWrapper .react-pdf__Page canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.innerWrapper .react-pdf__message {
+  padding: 20px;
+  color: white;
+}
+
+.pdfButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 20px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 0;
+  background-color: #2f363c;
+}
+
+.pdfButtons p {
+  color: aliceblue;
+}
+
+.pdfHolder {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  position: relative;
+}
+
+.pdfReader {
+  margin-top: 80px !important;
+}
+
+@media print {
+  .pdfPage {
+    display: none !important;
+  }
+}

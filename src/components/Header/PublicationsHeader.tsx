@@ -32,6 +32,8 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
 
+  const fontSize = 18;
+
   return (
     <>
       <HideOnScroll>
@@ -74,7 +76,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                       <NextLink href="/" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize }}
                         >
                           Home
                         </Button>
@@ -82,16 +84,16 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                       <NextLink href="/library" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize }}
                         >
                           Library
                         </Button>
                       </NextLink>
                       {user && (
-                        <NextLink href="/library/my-publications" passHref>
+                        <NextLink href="/library/my-books" passHref>
                           <Button
                             component={MuiLink}
-                            sx={{ color: "secondary.light" }}
+                            sx={{ color: "secondary.light", fontSize }}
                           >
                             My Books
                           </Button>
@@ -100,7 +102,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                       {/* <NextLink href="#" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize, }}
                         >
                           About Us
                         </Button>
