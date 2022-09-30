@@ -40,7 +40,7 @@ const PublicationCard: PublicationCardFunc = ({
         href={
           type === "FOLDER"
             ? `/library?folderId=${id}`
-            : `/library/${slug}/document/${id}`
+            : `/library/${slug}/${id}`
         }
         passHref
       >
