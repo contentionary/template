@@ -42,7 +42,7 @@ const PublicationListSection: PublicationsFunc = () => {
             container
             mb={{ xs: 1, md: 2, xl: 3 }}
             spacing={{ xs: 1, md: 2, xl: 3 }}
-            columns={{ xs: 2, sm: 2, md: 3, lg: 4, xl: 5 }}
+            columns={{ xs: 2, sm: 2, md: 3, lg: 5, xl: 5 }}
           >
             {publications.map((publication, index) => (
               <Grid key={`${index}-publication-card`} item xs={1}>
