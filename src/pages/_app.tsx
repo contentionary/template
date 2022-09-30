@@ -9,7 +9,7 @@ import { theme } from "@src/styles/theme";
 import { useRef } from "react";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
-import Page404 from "@src/components/shared/state/400";
+import Custom404 from "./404";
 import "@src/styles/pdfReader.css";
 
 function App({ Component, pageProps }: AppProps) {
@@ -23,17 +23,7 @@ function App({ Component, pageProps }: AppProps) {
       <Hydrate state={pageProps.dehydrateState}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {cachedData?.centre ? (
-            <Component {...pageProps} />
-          ) : (
-            <Page404
-              error={{
-                statusCode: 404,
-                message: "Website resource not found, Kindly contact Admin",
-              }}
-              showButton={false}
-            />
-          )}
+          {cachedData?.centre ? <Component {...pageProps} /> : <Custom404 />}
         </ThemeProvider>
       </Hydrate>
       <ReactQueryDevtools initialIsOpen={false} />
