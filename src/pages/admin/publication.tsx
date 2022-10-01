@@ -13,12 +13,12 @@ interface Props {
 
 export const CentreContext = createContext<Array<CentreProps | Function>>([]);
 
-const AdminPageEntry = ({ centreData, publications }: Props) => {
+const AdminPageEntry = ({ centreData }: Props) => {
   const [centre, setCentre] = useState<CentreProps>(centreData);
   return (
     <CentreContext.Provider value={[centre, setCentre]}>
       <Wrapper>
-        <AdminPage publications={publications} />
+        <AdminPage />
       </Wrapper>
     </CentreContext.Provider>
   );
@@ -28,18 +28,20 @@ export default AdminPageEntry;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const { user, token } = getAuthData(context);
+    const { token } = getAuthData(context);
     const centre = (await getCentre(context)) as CachedCentreInt;
     const { data: fullCentre } = await request.get({
       url: `/centre/${centre.id}`,
       token,
     });
-    const { data: publications } = await request.get({
+    const { data } = await request.get({
       url: `/centre/${centre.id}/publications`,
       token,
     });
 
-    return { props: { centreData: fullCentre, publications } };
+    return {
+      props: { centreData: fullCentre, publications: data.publications },
+    };
   } catch (error) {
     return { props: { error: handleError(error) } };
   }

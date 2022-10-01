@@ -6,7 +6,7 @@ export enum Gender {
 
 export interface ElementProps {
   target: HTMLInputElement;
-  preventDefault: Function
+  preventDefault: Function;
 }
 
 export interface UserBaseInt {
@@ -191,7 +191,6 @@ export interface UserInt {
   subscribedPublications: string[];
 }
 
-
 export interface CentreProps {
   address: string;
   allowJoinRequest: boolean;
@@ -230,4 +229,9 @@ export interface CentreProps {
   videoCount: number;
   websiteUrl: string;
   plugins: Record<string, boolean>;
+}
+
+export interface PublicationCategoryInt {
+  id: string;
+  name: string;
 }

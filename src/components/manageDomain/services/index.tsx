@@ -1,7 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import Card from "../plugins/card";
-import useGlobalStyle from "@src/styles";
 import useStyles from "../plugins/styles";
 import Grid from "@mui/material/Grid";
 
@@ -15,7 +14,7 @@ import {
   publication,
   result,
 } from "../plugins/data";
-import { CentreProps } from "@src/pages/manage-domain/[centreId]";
+import { CentreProps } from "@src/utils/interface";
 
 interface Props {
   title: string;
@@ -27,7 +26,6 @@ const Services = ({
   centre,
   numberOfPluginsToShow,
 }: Props): JSX.Element => {
-  const globalStyle = useGlobalStyle();
   const styles = useStyles();
 
   const data = [

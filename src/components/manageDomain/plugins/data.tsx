@@ -9,7 +9,7 @@ import {
 
 export const exam = {
   name: "Exam",
-  link: `/exam-plugin`,
+  link: "/exam-plugin",
   description:
     "Plugin makes you conduct unlimited proctored exams, set preparatory exams and mocks, permits the selling of prep exams to your subscribers/students",
 
@@ -19,7 +19,7 @@ export const exam = {
 };
 export const league = {
   name: "Competition ",
-  link: `/league-plugin`,
+  link: "/league-plugin",
   description:
     "Host online competition among your students. The best online competition generator. Very competitive and interractive",
 
@@ -29,7 +29,7 @@ export const league = {
 };
 export const result = {
   name: "Result",
-  link: `/session`,
+  link: "/session",
   description:
     "Generate end-of-term results for your students. Students can view and download results in PDFs.",
 
@@ -39,7 +39,7 @@ export const result = {
 };
 export const certificate = {
   name: "Certificate",
-  link: `/certificate-plugin`,
+  link: "/certificate-plugin",
   description:
     "Generate Certification for your students who have completed a course.",
 
@@ -49,7 +49,7 @@ export const certificate = {
 };
 export const course = {
   name: "Online Course ",
-  link: `/admin/course`,
+  link: "/admin/course",
   description:
     "Plugin makes you host unlimited Online courses with your students. These could be pre-recorded vidoes, audio or PDFs. Set courses in Modules and many more.",
 
@@ -59,7 +59,7 @@ export const course = {
 };
 export const publication = {
   name: "Publisher ",
-  link: `/admin/publication`,
+  link: "/admin/publication",
   description:
     "Use this plugins to sell and share Downloadable contents. Books, journals, notes, templates, woorsheets, projects etc. can be sold easily with this plugin",
 

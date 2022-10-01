@@ -16,19 +16,14 @@ import Loading from "@src/components/shared/loading";
 import ButtonComponent from "@src/components/shared/button";
 import Button from "@src/components/shared/button";
 import useStyles from "./styles";
+import { PublicationInt } from "@src/utils/interface";
 
 interface Props {
   centreId: string;
-  setListOfPublication: Function;
-  listOfPublication: [];
-  index: number;
+  listOfPublication: PublicationInt[];
 }
 
-const createPublication = ({
-  centreId,
-  setListOfPublication,
-  listOfPublication,
-}: Props) => {
+const CreatePublication = ({ centreId, listOfPublication }: Props) => {
   const styles = useStyles();
 
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -45,7 +40,7 @@ const createPublication = ({
         data: values,
       });
 
-      setListOfPublication([...listOfPublication, data]);
+      // setListOfPublication([...listOfPublication, data]);
       toggleToast(data.message);
       setIsLoading(false);
       closeDialog();
@@ -124,4 +119,4 @@ const createPublication = ({
   );
 };
 
-export default createPublication;
+export default CreatePublication;

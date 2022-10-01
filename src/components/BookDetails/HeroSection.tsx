@@ -240,11 +240,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
           </Grid>
         </Container>
       </Box>
-      <ShareContentOnMedia
-        contentToShare=""
-        isOpen={isOpen}
-        closeDialog={closeDialog}
-      />
+      <ShareContentOnMedia isOpen={isOpen} closeDialog={closeDialog} />
     </Fragment>
   );
 };

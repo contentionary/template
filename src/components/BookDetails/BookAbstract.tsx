@@ -25,7 +25,7 @@ const BookAbstract: BookDetailsPageFunc = ({ publication }) => {
       <List>
         <Grid container spacing={2}>
           <Grid item md={6}>
-            {learnings?.map((learning, index) => (
+            {learnings.map((learning, index) => (
               <ListItem
                 key={`${index}-overview-list`}
                 sx={{ px: 0, borderBottom: 1, borderColor: "divider" }}

@@ -1,7 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import Stack from "@mui/system/Stack";
 import {
   certificate,
@@ -12,7 +11,6 @@ import {
   result,
 } from "../plugins/data";
 
-import useGlobalStyle from "@src/styles";
 import useStyles from "./styles";
 import Card from "../plugins/card";
 
@@ -34,7 +32,6 @@ const Services: PluginFunc = ({
   numberOfPluginsToShow,
   pluginPage,
 }) => {
-  const globalStyle = useGlobalStyle();
   const styles = useStyles();
   const router = useRouter();
   const { isOpen, openDialog, closeDialog } = useDialog();

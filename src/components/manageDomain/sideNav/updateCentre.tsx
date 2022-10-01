@@ -15,18 +15,16 @@ import Toast from "@src/components/shared/toast";
 
 import { useDialog } from "@src/hooks";
 import { useState } from "react";
-import { cache, handleError, request } from "@src/utils";
+import { request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
-import { CentreProps } from "@src/pages/manage-domain/[centreId]";
-import axios from "axios";
+import { CentreProps } from "@src/utils/interface";
 import ButtonComponent from "@src/components/shared/button";
 
 interface Props {
   centre: CentreProps;
-  setCentre: Function;
 }
 
-const UpdateCentre = ({ centre, setCentre }: Props) => {
+const UpdateCentre = ({ centre }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit } = useForm(update);
@@ -35,16 +33,10 @@ const UpdateCentre = ({ centre, setCentre }: Props) => {
   async function update() {
     try {
       setIsLoading(true);
-      console.log(cache.get("token"));
-      const headers = {
-        "X-Requested-With": "XMLHttpRequest",
-        Authorization: `bearer ${cache.get("token")}`,
-      };
-      const data = await axios({
-        method: "PATCH",
-        url: `https://centre-api.contentionary.com/v1/centre/6d3b16d0-3c2c-11ed-a144-1b3dbfe593a5`,
-        headers,
+
+      const data = await request.patch({
         data: values,
+        url: `/centre/${centre.id}`,
       });
       console.log(data);
       // const data = await request.get({

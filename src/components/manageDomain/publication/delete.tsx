@@ -12,18 +12,10 @@ import { useState } from "react";
 interface Props {
   id: string;
   centreId: string;
-  setListOfPublication: Function;
-  listOfPublication: [];
   index: number;
 }
 
-const DeleteCentre = ({
-  id,
-  centreId,
-  setListOfPublication,
-  listOfPublication,
-  index,
-}: Props) => {
+const DeleteCentre = ({ id, centreId, index }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -34,8 +26,6 @@ const DeleteCentre = ({
       const data = await request.delete(
         `/centre/${centreId}/publication/${id}`
       );
-      listOfPublication.splice(index, 1);
-      setListOfPublication([...listOfPublication]);
       toggleToast(data.message);
       closeDialog();
       setIsLoading(false);

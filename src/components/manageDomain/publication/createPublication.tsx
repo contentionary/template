@@ -1,3 +1,4 @@
+import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -18,10 +19,13 @@ import ButtonComponent from "@src/components/shared/button";
 import Button from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
+import { PublicationCategoryInt } from "@src/utils/interface";
 
-const createPublication = ({ centreId }: { centreId: string }) => {
+const CreatePublication = ({ centreId }: { centreId: string }) => {
   const styles = useStyles();
-  const [listOfCategory, setListOfCategory] = useState([]);
+  const [listOfCategory, setListOfCategory] = useState<
+    PublicationCategoryInt[]
+  >([]);
 
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
@@ -30,8 +34,10 @@ const createPublication = ({ centreId }: { centreId: string }) => {
 
   const getCategory = async () => {
     try {
-      const { data } = await request.get({ url: `/publication-categories` });
-      setListOfCategory(data);
+      const { data = [] } = await request.get({
+        url: "/publication-categories",
+      });
+      setListOfCategory(data as PublicationCategoryInt[]);
       openDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
@@ -183,4 +189,4 @@ const createPublication = ({ centreId }: { centreId: string }) => {
   );
 };
 
-export default createPublication;
+export default CreatePublication;

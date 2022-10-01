@@ -1,28 +1,26 @@
 import Box from "@mui/material/Box";
 import useStyles from "./styles";
 import CreatePublication from "./createPublication";
-import { useContext, useState } from "react";
-import { CentreContext } from "@src/pages/admin/publication";
 import CreateFolder from "./createFolder";
 import PublicationCard from "@src/components/shared/cards/PublicationCard";
-import { Grid, IconButton } from "@mui/material";
+import { Grid } from "@mui/material";
 import Delete from "./delete";
 import UpdatePublication from "./update";
+import { CentreProps, PublicationInt } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 
-const PublicationAdmin = ({ publications }: { publications: any }) => {
-  const [listOfPublication, setListOfPublication] = useState(
-    publications.publications
-  );
-  const [centre] = useContext(CentreContext);
+const PublicationAdmin = () => {
   const styles = useStyles();
+
+  const { centre, publications } = queryClient.getQueryData("pageProps") as {
+    centre: CentreProps;
+    publications: PublicationInt[];
+  };
+
   return (
     <Box>
       <Box className={styles.switchContainer}>
-        <CreateFolder
-          centreId={centre.id}
-          listOfPublication={listOfPublication}
-          setListOfPublication={setListOfPublication}
-        />
+        <CreateFolder centreId={centre.id} listOfPublication={publications} />
         <CreatePublication centreId={centre.id} />
       </Box>
 
@@ -32,7 +30,7 @@ const PublicationAdmin = ({ publications }: { publications: any }) => {
         spacing={{ xs: 1, md: 2, xl: 3 }}
         columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
       >
-        {listOfPublication?.map((publication, index) => (
+        {publications?.map((publication, index) => (
           <Grid
             sx={{ position: "relative" }}
             key={`${index}-publication-card`}
@@ -49,19 +47,10 @@ const PublicationAdmin = ({ publications }: { publications: any }) => {
               }}
             >
               <UpdatePublication
-                index={index}
                 centreId={centre.id}
-                id={publication.id}
                 publication={publication}
-                setListOfPublication={setListOfPublication}
               />
-              <Delete
-                index={index}
-                centreId={centre.id}
-                id={publication.id}
-                listOfPublication={listOfPublication}
-                setListOfPublication={setListOfPublication}
-              />
+              <Delete index={index} centreId={centre.id} id={publication.id} />
             </Box>
             <PublicationCard {...publication} />
           </Grid>

@@ -14,16 +14,15 @@ import Loading from "@src/components/shared/loading";
 import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import { ElementProps } from "@src/utils/interface";
-import { CentreProps } from "@src/pages/manage-domain/[centreId]";
+import { CentreProps } from "@src/utils/interface";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 
 interface Props {
   centre: CentreProps;
-  setCentre: Function;
 }
 
-const UpdateLogo = ({ centre, setCentre }: Props) => {
+const UpdateLogo = ({ centre }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +64,7 @@ const UpdateLogo = ({ centre, setCentre }: Props) => {
             data: { imageUrl: data.fileUrl },
           });
           centre.logo = res.data.logo;
-          setCentre({ ...centre });
+          // setCentre({ ...centre });
           toggleToast(res.message);
           closeDialog();
         }

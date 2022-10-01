@@ -1,5 +1,4 @@
 import * as React from "react";
-import Dashboard from "./dashboard";
 import SideNav from "./sideNav";
 import AppBarWithSiseNav from "@src/components/shared/appbarWithsideNav";
 import MobileAppBar from "./appBar";

@@ -16,15 +16,15 @@ const useForm = (submitAction: Function): UseForm => {
     submitAction();
   };
   const getFile = (e: ChangeEvent<any>) => {
-    console.log(e.target.files[0], '///.')
+    console.log(e.target.files[0], "///.");
     setValue({
       ...values,
       [e.target.name || e.target.id]: e.target.files[0],
     });
   };
-  const check=(e:ChangeEvent)=>{
-      setValue({...values, [e.target.name || e.target.id]: e.target.checked})
-  }
+  const check = (e: ChangeEvent<any>) => {
+    setValue({ ...values, [e.target.name || e.target.id]: e.target.checked });
+  };
 
   return {
     values,
@@ -32,7 +32,7 @@ const useForm = (submitAction: Function): UseForm => {
     submit,
     resetValues,
     getFile,
-    check
+    check,
   };
 };
 

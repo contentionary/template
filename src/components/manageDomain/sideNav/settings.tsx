@@ -9,15 +9,14 @@ import UpdateCentre from "./updateCentre";
 import UpdateLogo from "./updateLogo";
 // import DeleteCentre from "./delete";
 import UploadBackgroundImage from "./centreBackground";
-import { CentreProps } from "@src/utils/interface";
+import { BasePageProps, CentreProps } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 
-interface Props {
-  centre: CentreProps;
-  setCentre: Function;
-}
-
-const CentreSettings = ({ centre, setCentre }: Props): JSX.Element => {
+const CentreSettings = (): JSX.Element => {
   const [open, setOpen] = useState(true);
+
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = pageData.centre as CentreProps;
 
   const handleClick = () => {
     setOpen(!open);
@@ -42,9 +41,9 @@ const CentreSettings = ({ centre, setCentre }: Props): JSX.Element => {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <UpdateCentre centre={centre} setCentre={setCentre} />
-          <UpdateLogo centre={centre} setCentre={setCentre} />
-          <UploadBackgroundImage centre={centre} setCentre={setCentre} />
+          <UpdateCentre centre={centre} />
+          <UpdateLogo centre={centre} />
+          <UploadBackgroundImage centre={centre} />
           {/* <DeleteCentre id={centre?.id} /> */}
         </List>
       </Collapse>

@@ -16,7 +16,9 @@ export const getServerSideProps = async (
     if (token) return redirect("/");
     return {
       props: {
-        pageData: {},
+        pageData: {
+          refererUrl: context.req.headers.referer,
+        },
         cachedData: {
           centre,
           user,

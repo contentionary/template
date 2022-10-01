@@ -2,24 +2,14 @@ import AdminPage from "@src/components/manageDomain/dashboard";
 import Wrapper from "@src/components/manageDomain";
 import { getAuthData } from "@src/utils/auth";
 import { getCentre, handleError, request } from "@src/utils";
-import { CentreProps, CachedCentreInt } from "@src/utils/interface";
-import { createContext, useState } from "react";
+import { CachedCentreInt } from "@src/utils/interface";
 import { GetServerSideProps } from "next";
 
-interface Props {
-  centreData: CentreProps;
-}
-
-export const CentreContext = createContext<Array<CentreProps | Function>>([]);
-
-const AdminPageEntry = ({ centreData }: Props) => {
-  const [centre, setCentre] = useState<CentreProps>(centreData);
+const AdminPageEntry = () => {
   return (
-    <CentreContext.Provider value={[centre, setCentre]}>
-      <Wrapper>
-        <AdminPage />
-      </Wrapper>
-    </CentreContext.Provider>
+    <Wrapper>
+      <AdminPage />
+    </Wrapper>
   );
 };
 
@@ -29,12 +19,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: fullCentre } = await request.get({
+    const { data: centreData } = await request.get({
       url: `/centre/${centre.id}`,
       token,
     });
 
-    return { props: { centreData: fullCentre } };
+    return {
+      props: {
+        pageData: { centre: centreData },
+        cachedData: { user, centre, token },
+      },
+    };
   } catch (error) {
     return { props: { error: handleError(error) } };
   }

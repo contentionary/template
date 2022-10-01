@@ -14,17 +14,15 @@ import Loading from "@src/components/shared/loading";
 import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import { CameraEnhanceOutlined } from "@mui/icons-material";
-import { ElementProps } from "@src/utils/interface";
-import { CentreProps } from "@src/pages/manage-domain/[centreId]";
+import { ElementProps, CentreProps } from "@src/utils/interface";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
 interface Props {
   centre: CentreProps;
-  setCentre: Function;
 }
 
-const UpdateBackground = ({ setCentre, centre }: Props) => {
+const UpdateBackground = ({ centre }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +63,7 @@ const UpdateBackground = ({ setCentre, centre }: Props) => {
             data: { imageUrl: data.fileUrl },
           });
           centre.backgroundImage = res.data.backgroundImage;
-          setCentre({ ...centre });
+          // setCentre({ ...centre });
           toggleToast(res.message);
           closeDialog();
         }

@@ -23,8 +23,6 @@ import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 // import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
-import { queryClient } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
 
 interface ProfileMenuInt {
   title: string;
