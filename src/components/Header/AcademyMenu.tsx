@@ -20,21 +20,7 @@ const AcademyMenu = () => {
       <NextLink href="/courses" passHref>
         <ListItemButton>
           <ListItemIcon>
-            <ListItemText>Courses 900</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/practice-test" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Practice Test</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/about-us" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>About Us</ListItemText>
+            <ListItemText>Courses</ListItemText>
           </ListItemIcon>
         </ListItemButton>
       </NextLink>

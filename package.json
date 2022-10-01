@@ -31,6 +31,7 @@
     "next": "12.2.5",
     "next-compose-plugins": "^2.2.1",
     "next-videos": "1.5.0",
+    "plaiceholder": "^2.5.0",
     "pure-react-carousel": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -40,6 +41,7 @@
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
     "react-syntax-highlighter": "^15.5.0",
+    "sharp": "^0.31.1",
     "simplebar-react": "^2.4.1",
     "uuid": "^9.0.0"
   },

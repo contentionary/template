@@ -18,21 +18,12 @@ import { grey } from "@mui/material/colors";
 // app components
 // styles and interface
 import useListMenuStyle from "@src/styles/listMenu";
+import useButtonStyle from "@src/styles/button";
 import { PublicationInt } from "@src/utils/interface";
 // icons
 import FolderListIcon from "@src/assets/images/cards/folder-item.svg";
-import UnfoldMoreOutlinedIcon from "@mui/icons-material/UnfoldMoreOutlined";
-
-export const outlineButtonStyle = {
-  display: "flex",
-  alignItems: "center",
-  borderColor: grey[300],
-  width: { xs: "100%", sm: "auto" },
-  justifyContent: "space-between",
-  "&:hover, &:focus": {
-    borderColor: grey[300],
-  },
-};
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 export const MenuList = ({
   publications,
@@ -60,6 +51,7 @@ export const MenuList = ({
 
 const PublicationsMenu = ({ pageData }: Record<string, any>) => {
   const theme = useTheme();
+  const buttonStyle = useButtonStyle();
   const [collapse, setCollapse] = React.useState(false);
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   //
@@ -94,13 +86,17 @@ const PublicationsMenu = ({ pageData }: Record<string, any>) => {
     <Box top={32} position="sticky">
       {isMatch ? (
         <Button
-          onClick={handleChange}
+          variant="text"
           color="secondary"
-          variant="outlined"
-          sx={outlineButtonStyle}
+          onClick={handleChange}
+          className={buttonStyle.menuFullButton}
         >
           Categories
-          <UnfoldMoreOutlinedIcon htmlColor={grey[400]} />
+          {collapse ? (
+            <KeyboardArrowDownOutlinedIcon htmlColor={grey[400]} />
+          ) : (
+            <KeyboardArrowLeftOutlinedIcon htmlColor={grey[400]} />
+          )}
         </Button>
       ) : (
         <Typography mb={2} variant="h5">

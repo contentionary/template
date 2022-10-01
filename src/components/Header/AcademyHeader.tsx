@@ -94,14 +94,6 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                           My Courses
                         </Button>
                       </NextLink>
-                      <NextLink href="#" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light" }}
-                        >
-                          About Us
-                        </Button>
-                      </NextLink>
                     </Stack>
                     {user ? (
                       <ProfileMenu title={user.firstname} />

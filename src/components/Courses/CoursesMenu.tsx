@@ -15,15 +15,15 @@ import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ListItemButton from "@mui/material/ListItemButton";
-
 // app components
 // styles and interface
+import useButtonStyle from "@src/styles/button";
 import useListMenuStyle from "@src/styles/listMenu";
 import { CourseListInt } from "@src/utils/interface";
-import { outlineButtonStyle } from "../Library/PublicationsMenu";
 // icons
 import FolderListIcon from "@src/assets/images/cards/folder-item.svg";
-import UnfoldMoreOutlinedIcon from "@mui/icons-material/UnfoldMoreOutlined";
+import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 //
 
 export const MenuList = ({
@@ -39,7 +39,7 @@ export const MenuList = ({
         .filter((course) => course.type === "FOLDER")
         .map((course, index) => (
           <ListItem key={`${index}-course-folder`} disablePadding>
-            <NextLink href={`/library?folderId=${course.id}`} passHref>
+            <NextLink href={`/courses?folderId=${course.id}`} passHref>
               <ListItemButton component={MuiLink}>
                 <ListItemText primary={course.name} />
               </ListItemButton>
@@ -52,6 +52,7 @@ export const MenuList = ({
 
 const CoursesMenu = ({ pageData }: Record<string, any>) => {
   const theme = useTheme();
+  const buttonStyle = useButtonStyle();
   const [collapse, setCollapse] = React.useState(false);
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   //
@@ -85,13 +86,17 @@ const CoursesMenu = ({ pageData }: Record<string, any>) => {
     <Box top={32} position="sticky">
       {isMatch ? (
         <Button
-          onClick={handleChange}
+          variant="text"
           color="secondary"
-          variant="outlined"
-          sx={outlineButtonStyle}
+          onClick={handleChange}
+          className={buttonStyle.menuFullButton}
         >
           Categories
-          <UnfoldMoreOutlinedIcon htmlColor={grey[400]} />
+          {collapse ? (
+            <KeyboardArrowDownOutlinedIcon htmlColor={grey[400]} />
+          ) : (
+            <KeyboardArrowLeftOutlinedIcon htmlColor={grey[400]} />
+          )}
         </Button>
       ) : (
         <Typography mb={2} variant="h5">
@@ -102,8 +107,8 @@ const CoursesMenu = ({ pageData }: Record<string, any>) => {
         <Collapse in={collapse}>
           <Paper
             elevation={0}
-            variant="outlined"
-            sx={{ mt: 2, p: 2, bgcolor: grey[50] }}
+            square
+            sx={{ borderBottom: `1px solid ${theme.palette.divider}` }}
           >
             <MenuList coursesListData={coursesListData} />
           </Paper>

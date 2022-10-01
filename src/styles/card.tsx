@@ -71,6 +71,9 @@ const cardStyle = makeStyles({
     "&	.MuiCardActionArea-root:hover .MuiCardActionArea-focusHighlight": {
       opacity: 0,
     },
+    "&	.MuiCardActionArea-root .MuiBox-root.card-img": {
+      backgroundColor: alpha(theme.palette.text.primary, 0.05),
+    },
   },
   get courseCard() {
     return {
@@ -80,9 +83,6 @@ const cardStyle = makeStyles({
   get publicationCard() {
     return {
       ...this.defaultCard,
-      "&	.MuiCardActionArea-root .MuiBox-root.card-img": {
-        backgroundColor: alpha(theme.palette.text.primary, 0.05),
-      },
     };
   },
 });

@@ -49,6 +49,7 @@ function App({ Component, pageProps }: AppProps) {
             <LinearProgress
               sx={{
                 top: 0,
+                width: "100%",
                 position: "fixed",
                 zIndex: appTheme.zIndex.drawer + 4,
               }}
