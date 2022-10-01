@@ -9,10 +9,11 @@ import { useTheme } from "@mui/material/styles";
 
 interface BtnsProps {
   text: string | JSX.Element;
-  action: Function;
+  action?: Function;
   variant?: "text" | "outlined" | "contained" | undefined;
   className?: string;
   sx?: object;
+  type?: "submit";
 }
 
 interface Props {
@@ -23,7 +24,7 @@ interface Props {
   btns?: Array<BtnsProps>;
   content?: JSX.Element;
   icon?: JSX.Element;
-  width?: any;
+  width?: "md" | "sm" | "xs" | "lg" | "xl";
 }
 
 export default function ResponsiveDialog({
@@ -36,13 +37,14 @@ export default function ResponsiveDialog({
   icon,
   width,
 }: Props): JSX.Element {
+  const theme = useTheme();
+
   return (
     <Dialog
       fullWidth={true}
       maxWidth={width}
       open={isOpen}
       onClose={() => closeDialog()}
-      aria-labelledby="responsive-dialog-title"
     >
       <DialogTitle
         id="responsive-dialog-title"
@@ -56,12 +58,13 @@ export default function ResponsiveDialog({
       </DialogContent>
       {btns && (
         <DialogActions>
-          {btns.map(({ text, action, variant, className, sx }, index) => (
+          {btns.map(({ text, action, variant, className, sx, type }, index) => (
             <Button
+              type={type}
               key={index}
               variant={variant}
               autoFocus
-              onClick={() => action()}
+              onClick={() => action && action()}
               className={className}
               sx={sx}
             >

@@ -36,6 +36,8 @@ export const queryClient = new QueryClient({
   },
 });
 
+export const copy = (id: string) => navigator.clipboard.writeText(id);
+
 export const redirect = (
   destination: string,
   environment: "client" | "server" = "server"
