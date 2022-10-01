@@ -27,9 +27,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
+    const { data: contentViewToken } = await request.get({
+      url: "/content-security/view-access",
+      token,
+      headers: { contentid: id },
+    });
     const { data: publication } = await request.get({
       url: `/centre/${centre.id}/publication/${id}?allowRead=true`,
       token,
+      headers: { accesskey: contentViewToken.accessKey },
     });
 
     return {

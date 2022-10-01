@@ -1,7 +1,14 @@
-import { CentreProps } from "@src/pages/admin";
-import { copy, handleError, request, cache } from "@src/utils";
-import { UserInt } from "@src/utils/interface";
-import AllPlugins from "@src/components/manageDomain/plugins";
+import { BasePageProps, CentreProps } from "@src/utils/interface";
+import {
+  copy,
+  handleError,
+  request,
+  cache,
+  getCentre,
+  queryClient,
+} from "@src/utils";
+// import { UserInt } from "@src/utils/interface";
+// import AllPlugins from "@src/components/manageDomain/plugins";
 import SideNav from "@src/components/manageDomain/sideNav";
 import AppBarWithSiseNav from "@src/components/shared/appbarWithsideNav";
 import MobileAppBar from "@src/components/manageDomain/appBar";
@@ -13,18 +20,13 @@ import Typography from "@mui/material/Typography";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
-interface Props {
-  centre: CentreProps;
-  user: UserInt;
-  error: any;
-  exams: [];
-  courses: [];
-  leagues: [];
-}
-const CentrePage = (props: Props): JSX.Element => {
+const CentrePage = (): JSX.Element => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [centre, setCentre] = useState(props.centre);
   const { toastMessage, toggleToast } = useToast();
+
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = pageData.centre as CentreProps;
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -75,13 +77,13 @@ const CentrePage = (props: Props): JSX.Element => {
             </Box>
           </Box>
         </Box>
-        <AllPlugins
+        {/* <AllPlugins
           title="My Centre Pluggins"
           centre={centre}
           setCentre={setCentre}
           numberOfPluginsToShow={6}
           pluginPage={true}
-        />
+        /> */}
         {toastMessage && (
           <Toast
             showToast={toggleToast}
@@ -96,14 +98,15 @@ const CentrePage = (props: Props): JSX.Element => {
 export async function getServerSideProps(context: any) {
   try {
     const { user, token } = cache.get(context);
+    const centre = await getCentre(context);
     const { data }: any = await request.get({
-      url: `/centre/6d3b16d0-3c2c-11ed-a144-1b3dbfe593a5`,
+      url: `/centre/${centre?.id}`,
       token,
     });
     return {
       props: {
-        centre: data.data,
-        user,
+        pageData: { centre: data.data },
+        cachedData: { user, centre, token },
       },
     };
   } catch (error) {

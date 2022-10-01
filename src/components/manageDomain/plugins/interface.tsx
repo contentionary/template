@@ -1,4 +1,4 @@
-import { CentreProps } from "@src/components/cards/centre";
+import { CentreProps } from "@src/utils/interface";
 
 export interface PluginProps {
   title: string;

@@ -26,7 +26,7 @@ const TextArea = ({
       placeholder={placeholder}
       style={style}
       defaultValue={defaultValue}
-      onChange={onChange}
+      onChange={(e) => onChange(e)}
       required={required}
       name={name}
       maxLength={maxLength}

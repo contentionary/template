@@ -5,7 +5,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
 
 import Card from "./card";
-import Plugins from "./plugins";
+// import Plugins from "./plugins";
 import Services from "./services";
 import useStyles from "./styles";
 
@@ -15,13 +15,14 @@ import Link from "@src/components/shared/link";
 import { useToast } from "@src/utils/hooks";
 
 import { copy } from "@src/utils";
-import { useContext } from "react";
-import { CentreContext } from "@src/pages/admin";
+import { BasePageProps, CentreProps } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 
 const Dashboard = (): JSX.Element => {
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const [centre, setCentre] = useContext(CentreContext);
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = pageData.centre as CentreProps;
 
   return (
     <Box mt={3}>
@@ -112,12 +113,12 @@ const Dashboard = (): JSX.Element => {
         )}
       </Box>
 
-      <Plugins
+      {/* <Plugins
         centre={centre}
         setCentre={setCentre}
         title="Better your experience by installing more pluggins"
         numberOfPluginsToShow={6}
-      />
+      /> */}
       {toastMessage && (
         <Toast
           message={toastMessage}

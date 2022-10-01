@@ -14,7 +14,7 @@ import {
 import { ExpandLessOutlined, ExpandMoreOutlined } from "@mui/icons-material";
 import { Collapse, List, ListItem } from "@mui/material";
 import { useState } from "react";
-import { CentreProps } from "@src/pages/manage-domain/[centreId]";
+import { CentreProps } from "@src/utils/interface";
 
 interface Props {
   centre: CentreProps;

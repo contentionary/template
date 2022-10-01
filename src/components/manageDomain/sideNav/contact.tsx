@@ -7,7 +7,7 @@ import MailOutline from "@mui/icons-material/MailOutline";
 import LanguageOutlined from "@mui/icons-material/LanguageOutlined";
 
 import Dialog from "@src/components/shared/dialog";
-import { CentreProps } from "@src/pages/manage-domain/[centreId]";
+import { CentreProps } from "@src/utils/interface";
 
 interface Props {
   centre: CentreProps;

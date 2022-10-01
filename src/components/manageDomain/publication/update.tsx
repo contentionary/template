@@ -19,16 +19,19 @@ import Loading from "@src/components/shared/loading";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
+import { PublicationCategoryInt, PublicationInt } from "@src/utils/interface";
 
 const UpdatePublication = ({
   centreId,
   publication,
 }: {
   centreId: string;
-  publication: {};
+  publication: PublicationInt;
 }) => {
   const styles = useStyles();
-  const [listOfCategory, setListOfCategory] = useState([]);
+  const [listOfCategory, setListOfCategory] = useState<
+    PublicationCategoryInt[]
+  >([]);
 
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
@@ -37,8 +40,8 @@ const UpdatePublication = ({
 
   const getCategory = async () => {
     try {
-      const { data } = await request.get({ url: `/publication-categories` });
-      setListOfCategory(data);
+      const { data } = await request.get({ url: "/publication-categories" });
+      setListOfCategory(data as PublicationCategoryInt[]);
       openDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
@@ -112,7 +115,7 @@ const UpdatePublication = ({
                 <TextArea
                   placeholder="Type in description here ..."
                   name="description"
-                  defaultValue={publication?.address}
+                  defaultValue={publication?.description}
                   onChange={getData}
                   style={{
                     width: "100%",
@@ -127,7 +130,7 @@ const UpdatePublication = ({
                 type="file"
                 label="Pdf File"
                 name="pdfFile"
-                defaultValue={publication?.pdfile}
+                defaultValue={publication?.fileUrl}
                 onChange={getFile}
               />
               <Stack direction="row" spacing={3}>
