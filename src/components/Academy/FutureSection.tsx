@@ -24,11 +24,16 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
+import { queryClient } from "@src/utils";
 import { AcademyFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
 
   return (
     <Box
@@ -38,7 +43,7 @@ const FutureSection: AcademyFunc = () => {
     >
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
-          Be Ready for the Future
+          {title}
         </Typography>
         <Grid
           container
@@ -71,7 +76,7 @@ const FutureSection: AcademyFunc = () => {
                   alt="yes we can"
                   objectFit="cover"
                   objectPosition="right"
-                  src="/images/courses-4.png"
+                  src={imageUrl}
                 />
               </Box>
             </Box>

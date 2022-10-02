@@ -17,8 +17,12 @@ import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: AcademyFunc = () => {
   const globalStyle = useGlobalStyle();
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData = null, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const { user } = cachedData;
+  const { description, imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[2];
 
   return (
     <Box py={8} px={{ md: 6 }} component="section" bgcolor="secondary.dark">
@@ -39,18 +43,17 @@ const PromoSection: AcademyFunc = () => {
                 alt="yes we can"
                 objectFit="cover"
                 layout="responsive"
-                src="/images/avatar.png"
+                src={imageUrl}
               />
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
             <Box>
               <Typography mb={4} variant="h3" component="h2" color="white">
-                You don’t have to see the whole staircase just take the first
-                step
+                {title}
               </Typography>
               <Typography mb={4} paragraph color="white">
-                Signup and start learning on your pace and time.
+                {description}
               </Typography>
             </Box>
             <NextLink href={user ? "/courses" : "/register"} passHref>

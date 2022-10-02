@@ -27,11 +27,12 @@ import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
 const HeroSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { cachedData, pageData } = queryClient.getQueryData(
+  const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { centre, user } = cachedData;
-  const templateData = pageData.templateData as TemplateDataInt;
+  const { user } = cachedData;
+  const { landingPageSectionOne = null } =
+    pageData?.templateData?.templateDetails || {};
 
   return (
     <Fragment>
@@ -55,13 +56,12 @@ const HeroSection: AcademyFunc = () => {
                 variant="h1"
                 className={globalStyle.textGradient}
               >
-                {centre.name}
+                {landingPageSectionOne?.title}
               </Typography>
               <Typography mb={3} paragraph maxWidth="450px">
                 {`We are changing the way our students access vocational skills
                 and in- demand skill contents.` ||
-                  templateData?.templateDetails?.landingPageSectionOne
-                    ?.description}
+                  landingPageSectionOne?.description}
               </Typography>
               <NextLink href={user ? "/courses" : "/login"} passHref>
                 <Button
@@ -143,7 +143,7 @@ const HeroSection: AcademyFunc = () => {
                     alt="yes we can"
                     objectFit="cover"
                     objectPosition="center"
-                    src="/images/courses-0.png"
+                    src={landingPageSectionOne?.imageUrl}
                   />
                 </Box>
               </Box>

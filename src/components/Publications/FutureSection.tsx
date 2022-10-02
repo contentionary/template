@@ -21,8 +21,8 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
-import { PublicationsFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
+import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: PublicationsFunc = () => {

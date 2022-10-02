@@ -59,11 +59,11 @@ const HeroSection: PublicationsFunc = () => {
                 {landingPageSectionOne.title}
               </Typography>
               <Typography
-                color="GrayText"
-                fontSize={30}
-                lineHeight={1.3}
                 mb={3}
                 paragraph
+                fontSize={30}
+                color="GrayText"
+                lineHeight={1.3}
                 maxWidth="450px"
               >
                 {landingPageSectionOne.description}
