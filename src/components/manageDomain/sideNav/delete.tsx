@@ -4,7 +4,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
 
-import ConfirmDialog from "@src/components/shared/confirmationMoal";
+import ConfirmDialog from "@src/components/shared/confirmationModal";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 
