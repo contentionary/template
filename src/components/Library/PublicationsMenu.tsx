@@ -21,9 +21,9 @@ import useListMenuStyle from "@src/styles/listMenu";
 import useButtonStyle from "@src/styles/button";
 import { PublicationInt } from "@src/utils/interface";
 // icons
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FolderListIcon from "@src/assets/images/cards/folder-item.svg";
-import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import UnfoldMoreOutlinedIcon from "@mui/icons-material/UnfoldMoreOutlined";
 
 export const MenuList = ({
   publications,
@@ -68,9 +68,7 @@ const PublicationsMenu = ({ pageData }: Record<string, any>) => {
   ) {
     return (
       <Box top={32} position="sticky">
-        {isMatch ? (
-          <></>
-        ) : (
+        {!isMatch && (
           <>
             <Typography mb={8} variant="h5">
               Categories
@@ -93,9 +91,9 @@ const PublicationsMenu = ({ pageData }: Record<string, any>) => {
         >
           Categories
           {collapse ? (
-            <KeyboardArrowDownOutlinedIcon htmlColor={grey[400]} />
+            <CloseOutlinedIcon htmlColor={grey[400]} />
           ) : (
-            <KeyboardArrowLeftOutlinedIcon htmlColor={grey[400]} />
+            <UnfoldMoreOutlinedIcon htmlColor={grey[400]} />
           )}
         </Button>
       ) : (
@@ -106,9 +104,9 @@ const PublicationsMenu = ({ pageData }: Record<string, any>) => {
       {isMatch ? (
         <Collapse in={collapse}>
           <Paper
+            square
             elevation={0}
-            variant="outlined"
-            sx={{ mt: 2, p: 2, bgcolor: grey[50] }}
+            sx={{ borderBottom: `1px solid ${theme.palette.divider}`, pl: 1 }}
           >
             <MenuList publications={publications} />
           </Paper>

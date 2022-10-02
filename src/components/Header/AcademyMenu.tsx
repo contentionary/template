@@ -6,8 +6,16 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
+//
+import { UserInt, CachedCentreInt } from "@src/utils/interface";
 
-const AcademyMenu = () => {
+interface ProfileMenuInt {
+  cachedData: { user: UserInt; token: string; centre: CachedCentreInt };
+}
+
+const AcademyMenu = ({ cachedData }: ProfileMenuInt) => {
+  const { user } = cachedData;
+
   return (
     <List>
       <NextLink href="/academy" passHref>
@@ -24,20 +32,41 @@ const AcademyMenu = () => {
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href="/login" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Login</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/register" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Create Account</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
+      {user ? (
+        <>
+          <NextLink href="/courses/my-courses" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>My Courses</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/logout" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>Logout</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+        </>
+      ) : (
+        <>
+          <NextLink href="/login" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>Login</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/register" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>Create Account</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+        </>
+      )}
     </List>
   );
 };

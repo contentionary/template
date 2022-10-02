@@ -20,7 +20,6 @@ import useCardStyle from "@src/styles/card";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and config
-import config from "@src/utils/config";
 import { AcademyFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
 import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
@@ -31,7 +30,7 @@ const HeroSection: AcademyFunc = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const centre = cachedData.centre;
+  const { centre, user } = cachedData;
   const templateData = pageData.templateData as TemplateDataInt;
 
   return (
@@ -64,7 +63,7 @@ const HeroSection: AcademyFunc = () => {
                   templateData?.templateDetails?.landingPageSectionOne
                     ?.description}
               </Typography>
-              <NextLink href={`${config.URL.WEB}login`} passHref>
+              <NextLink href={user ? "/courses" : "/login"} passHref>
                 <Button
                   size="large"
                   disableElevation

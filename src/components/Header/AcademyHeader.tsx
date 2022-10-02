@@ -27,10 +27,8 @@ const AcademyHeader: AcademyHeaderFunc = () => {
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
-  const { cachedData = null } = queryClient.getQueryData(
-    "pageProps"
-  ) as BasePageProps;
-  const user = cachedData?.user;
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { user, centre } = cachedData;
 
   return (
     <>
@@ -49,7 +47,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                   <Image
-                    src="/images/logo.png"
+                    src={centre.logo || "/images/logo.png"}
                     alt="Contentionary logo"
                     width={210}
                     height={40}
@@ -58,7 +56,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
               </NextLink>
               {isMatch ? (
                 <AppDrawer>
-                  <AcademyMenu />
+                  <AcademyMenu cachedData={cachedData} />
                 </AppDrawer>
               ) : (
                 <>
@@ -86,17 +84,19 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                           Courses
                         </Button>
                       </NextLink>
-                      <NextLink href="/courses/my-courses" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light" }}
-                        >
-                          My Courses
-                        </Button>
-                      </NextLink>
+                      {user && (
+                        <NextLink href="/courses/my-courses" passHref>
+                          <Button
+                            component={MuiLink}
+                            sx={{ color: "secondary.light" }}
+                          >
+                            My Courses
+                          </Button>
+                        </NextLink>
+                      )}
                     </Stack>
                     {user ? (
-                      <ProfileMenu title={user.firstname} />
+                      <ProfileMenu cachedData={cachedData} />
                     ) : (
                       <Stack direction="row" spacing={2} alignItems="center">
                         <NextLink href="/login" passHref>

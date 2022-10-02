@@ -18,7 +18,10 @@ import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const { user } = cachedData;
   const { description, imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[2];
 
@@ -58,7 +61,7 @@ const PromoSection: PublicationsFunc = () => {
                 {description}
               </Typography>
             </Box>
-            <NextLink href="/library" passHref>
+            <NextLink href={user ? "/library" : "/login"} passHref>
               <Button
                 size="large"
                 disableElevation

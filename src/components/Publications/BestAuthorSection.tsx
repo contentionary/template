@@ -11,15 +11,17 @@ import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 // app components
 // styles and interface
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
+import { queryClient } from "@src/utils";
 import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
 
 const BestAuthorSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const { user } = cachedData;
   const { description, imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[0];
 
@@ -45,7 +47,7 @@ const BestAuthorSection: PublicationsFunc = () => {
               <Typography fontSize={20} mb={4} paragraph>
                 {description}
               </Typography>
-              <NextLink href={`${config.URL.WEB}create-account`} passHref>
+              <NextLink href={user ? "/library" : "/login"} passHref>
                 <Button
                   size="large"
                   disableElevation

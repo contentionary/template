@@ -26,10 +26,10 @@ import { queryClient } from "@src/utils";
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { pageData = null } = queryClient.getQueryData(
+  const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-
+  const { user } = cachedData;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
   // const templateData = pageData.templateData as TemplateDataInt;
@@ -68,7 +68,7 @@ const HeroSection: PublicationsFunc = () => {
               >
                 {landingPageSectionOne.description}
               </Typography>
-              <NextLink href="/library" passHref>
+              <NextLink href={user ? "/library" : "/login"} passHref>
                 <Button
                   size="large"
                   disableElevation

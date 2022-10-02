@@ -9,13 +9,17 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
-//
+// styles, interface and cosmic queries
 import useGlobalStyle from "@src/styles";
-//
+import { queryClient } from "@src/utils";
 import { AcademyFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: AcademyFunc = () => {
   const globalStyle = useGlobalStyle();
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { user } = cachedData;
+
   return (
     <Box py={8} px={{ md: 6 }} component="section" bgcolor="secondary.dark">
       <Container maxWidth="xl">
@@ -49,7 +53,7 @@ const PromoSection: AcademyFunc = () => {
                 Signup and start learning on your pace and time.
               </Typography>
             </Box>
-            <NextLink href="/" passHref>
+            <NextLink href={user ? "/courses" : "/register"} passHref>
               <Button
                 size="large"
                 disableElevation
