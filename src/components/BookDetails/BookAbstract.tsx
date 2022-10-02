@@ -19,26 +19,29 @@ const BookAbstract: BookDetailsPageFunc = ({ publication }) => {
         ABOUT THIS BOOK:
       </Typography>
       <Typography paragraph>{description}</Typography>
-      <Typography variant="h5" mb={1}>
-        WHAT YOU WILL LEARN
-      </Typography>
-      <List>
-        <Grid container spacing={2}>
-          <Grid item md={6}>
-            {learnings &&
-              learnings.length &&
-              learnings.map((learning, index) => (
-                <ListItem
-                  key={`${index}-overview-list`}
-                  sx={{ px: 0, borderBottom: 1, borderColor: "divider" }}
-                >
-                  <TickAvatar />
-                  <ListItemText primary={learning} />
-                </ListItem>
-              ))}
-          </Grid>
-        </Grid>
-      </List>
+      {learnings?.length && (
+        <>
+          {" "}
+          <Typography variant="h5" mb={1}>
+            WHAT YOU WILL LEARN
+          </Typography>
+          <List>
+            <Grid container spacing={2}>
+              <Grid item md={6}>
+                {learnings?.map((learning, index) => (
+                  <ListItem
+                    key={`${index}-overview-list`}
+                    sx={{ px: 0, borderBottom: 1, borderColor: "divider" }}
+                  >
+                    <TickAvatar />
+                    <ListItemText primary={learning} />
+                  </ListItem>
+                ))}
+              </Grid>
+            </Grid>
+          </List>
+        </>
+      )}
     </Fragment>
   );
 };

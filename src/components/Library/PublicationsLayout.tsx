@@ -30,7 +30,8 @@ const PublicationsLayout: LibraryPageFunc = () => {
           </Grid>
           <Grid item xs={1} sm={3} md={3} lg={4} xl={5}>
             <Typography mb={4} variant="h4" component="h2">
-              Explore Publications
+              {pageData?.publicationData?.folder?.name ||
+                "Explore Publications"}
             </Typography>
             <PublicationListSection pageData={pageData} />
           </Grid>

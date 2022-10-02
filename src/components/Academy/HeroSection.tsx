@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next components
-import Image from "next/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -13,26 +12,27 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
 // import { useTheme } from "@mui/material/styles";
-//
-import useGlobalStyle from "@src/styles";
-import useCardStyle from "@src/styles/card";
+// app components
+import ImageComponent from "@src/components/shared/image";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-// interface and config
-import config from "@src/utils/config";
-import { AcademyFunc } from "./interfaceType";
+// interface and styles
 import { queryClient } from "@src/utils";
-import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
+import useGlobalStyle from "@src/styles";
+import useCardStyle from "@src/styles/card";
+import { AcademyFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { cachedData, pageData } = queryClient.getQueryData(
+  const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const centre = cachedData.centre;
-  const templateData = pageData.templateData as TemplateDataInt;
+  const { user } = cachedData;
+  const { landingPageSectionOne = null } =
+    pageData?.templateData?.templateDetails || {};
 
   return (
     <Fragment>
@@ -56,15 +56,14 @@ const HeroSection: AcademyFunc = () => {
                 variant="h1"
                 className={globalStyle.textGradient}
               >
-                {centre.name}
+                {landingPageSectionOne?.title}
               </Typography>
               <Typography mb={3} paragraph maxWidth="450px">
                 {`We are changing the way our students access vocational skills
                 and in- demand skill contents.` ||
-                  templateData?.templateDetails?.landingPageSectionOne
-                    ?.description}
+                  landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={`${config.URL.WEB}login`} passHref>
+              <NextLink href={user ? "/courses" : "/login"} passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -138,13 +137,13 @@ const HeroSection: AcademyFunc = () => {
                     borderRadius: "1.5rem !important",
                   }}
                 >
-                  <Image
+                  <ImageComponent
                     priority
                     layout="fill"
                     alt="yes we can"
                     objectFit="cover"
                     objectPosition="center"
-                    src="/images/courses-0.png"
+                    src={landingPageSectionOne?.imageUrl}
                   />
                 </Box>
               </Box>

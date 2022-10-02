@@ -10,6 +10,7 @@ interface Props {
   type?: string;
   fullWidth?: boolean;
   defaultValue?: any;
+  required?: boolean;
 }
 export default function TextFields({
   id,
@@ -22,6 +23,7 @@ export default function TextFields({
   type,
   fullWidth,
   defaultValue,
+  required,
 }: Props) {
   return (
     <TextField
@@ -35,6 +37,7 @@ export default function TextFields({
       type={type}
       onChange={(e) => onChange && onChange(e)}
       defaultValue={defaultValue}
+      required={required}
     />
   );
 }

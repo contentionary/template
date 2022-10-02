@@ -14,7 +14,6 @@ import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 // styles, interface and config
-import config from "@src/utils/config";
 import useGlobalStyle from "@src/styles";
 import { BasePageProps, CourseInt } from "@src/utils/interface";
 // app components
@@ -113,7 +112,7 @@ const HeroSection = () => {
                 {name}
               </Typography>
               <Typography variant="h6" mb={3}>
-                Cource Centre
+                Course Centre
               </Typography>
               <Typography mb={0} paragraph>
                 <Typography variant="h6" component="span" color="primary">
@@ -146,7 +145,7 @@ const HeroSection = () => {
                     {Action.text}
                   </Button>
                 </NextLink>
-                <NextLink href={`${config.URL.WEB}create-account`} passHref>
+                <NextLink href={"/share"} passHref>
                   <MuiLink
                     gap={2}
                     color="inherit"
