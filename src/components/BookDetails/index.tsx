@@ -5,17 +5,24 @@ import Box from "@mui/material/Box";
 import HeroSection from "./HeroSection";
 import DetailsSection from "./DetailsSection";
 //
-import { queryClient } from "@src/utils";
-import { BasePageProps, PublicationInt } from "@src/utils/interface";
+import { PublicationInt } from "@src/utils/interface";
 
-const BookDetails = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const publication = pageData.publication as PublicationInt;
+const BookDetails = ({
+  publication,
+  auth,
+}: {
+  publication: PublicationInt;
+  auth: any;
+}) => {
+  publication.learnings =
+    publication.learnings && publication.learnings.length
+      ? publication.learnings
+      : [];
 
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
-      <HeroSection publication={publication} auth={pageData?.auth} />
-      <DetailsSection publication={publication} auth={pageData?.auth} />
+      <HeroSection publication={publication} auth={auth} />
+      <DetailsSection publication={publication} auth={auth} />
     </Box>
   );
 };

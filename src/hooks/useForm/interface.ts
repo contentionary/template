@@ -4,8 +4,8 @@ export interface UseForm {
   getData: Function;
   resetValues: Function;
   getFile: Function;
+  check: Function;
   // setData: Function;
-  // check: Function;
   // setDefault: Function;
   // formData: Function;
   // getEditor: Function;

@@ -32,6 +32,8 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
+  // const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };

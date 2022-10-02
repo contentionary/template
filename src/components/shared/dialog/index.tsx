@@ -5,8 +5,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 
 interface BtnsProps {
   text: string | JSX.Element;
@@ -24,6 +22,7 @@ interface Props {
   btns?: Array<BtnsProps>;
   content?: JSX.Element;
   icon?: JSX.Element;
+  width?: any;
 }
 
 export default function ResponsiveDialog({
@@ -34,13 +33,12 @@ export default function ResponsiveDialog({
   btns,
   content,
   icon,
+  width,
 }: Props): JSX.Element {
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Dialog
-      fullScreen={fullScreen}
+      fullWidth={true}
+      maxWidth={width}
       open={isOpen}
       onClose={() => closeDialog()}
       aria-labelledby="responsive-dialog-title"

@@ -18,6 +18,8 @@ export const FILE_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_FILE_DOWNLOAD_URL ||
   "https://storage.contentionary.com/v1/download?fileUrl=";
 
+export const DEFAULT_LOGO = "/public/images/logo.png";
+
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
 };
@@ -35,6 +37,8 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
+export const copy = (id: string) => navigator.clipboard.writeText(id);
 
 export const redirect = (
   destination: string,
@@ -138,9 +142,9 @@ export const request = {
     url,
     method = "GET",
     token,
+    headers = {},
   }: GetRequestInt): Promise<RequestResponseInt> => {
     const authorization = token || cache.get("token");
-    const headers: any = {};
     if (authorization) headers.authorization = authorization;
 
     url = baseUrl + url;
@@ -290,6 +294,7 @@ export const getCentre = async (
       : null;
 
     // cache.set(host, centre, context);
+    if (!centre) throw new Error("Centre not found");
 
     return centre;
   } catch (err) {
