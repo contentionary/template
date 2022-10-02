@@ -8,4 +8,6 @@ export declare type BookDetailsPageFunc = (props: {
     isPublicationSubscriber: boolean;
     isCentreSubscriber: boolean;
   };
+  read: Record<string, any>;
+  download: Record<string, any>;
 }) => JSX.Element;
