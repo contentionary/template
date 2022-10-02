@@ -1,7 +1,6 @@
 import React from "react";
 // next
-import Image from "next/image";
-
+// mui component
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -12,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+// app components
+import ImageComponent from "@src/components/shared/image";
 // icons
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -64,7 +65,7 @@ const FutureSection: PublicationsFunc = () => {
                 </Typography>
               </Paper>
               <Box className="breath-img-container">
-                <Image
+                <ImageComponent
                   layout="fill"
                   alt="yes we can"
                   objectFit="cover"

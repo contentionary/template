@@ -1,6 +1,5 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 // mui component
 import Box from "@mui/material/Box";
@@ -9,11 +8,12 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
-//
+// app components
+import ImageComponent from "@src/components/shared/image";
+// styles, interface and cosmic query
 import useGlobalStyle from "@src/styles";
-//
-import { PublicationsFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
+import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: PublicationsFunc = () => {
@@ -42,7 +42,7 @@ const PromoSection: PublicationsFunc = () => {
                 borderRadius: 2,
               }}
             >
-              <Image
+              <ImageComponent
                 width="100%"
                 height="100%"
                 alt="yes we can"

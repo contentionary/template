@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -10,6 +9,7 @@ import Container from "@mui/material/Container";
 import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 // app components
+import ImageComponent from "@src/components/shared/image";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { queryClient } from "@src/utils";
@@ -82,7 +82,7 @@ const BestAuthorSection: PublicationsFunc = () => {
                   padding: { xs: 2, sm: 3, lg: 4 },
                 }}
               >
-                <Image
+                <ImageComponent
                   width="100%"
                   height="80%"
                   objectFit="cover"

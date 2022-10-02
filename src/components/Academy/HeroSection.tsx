@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next components
-import Image from "next/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -13,15 +12,16 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
 // import { useTheme } from "@mui/material/styles";
-//
-import useGlobalStyle from "@src/styles";
-import useCardStyle from "@src/styles/card";
+// app components
+import ImageComponent from "@src/components/shared/image";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-// interface and config
-import { AcademyFunc } from "./interfaceType";
+// interface and styles
 import { queryClient } from "@src/utils";
+import useGlobalStyle from "@src/styles";
+import useCardStyle from "@src/styles/card";
+import { AcademyFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection: AcademyFunc = () => {
@@ -137,7 +137,7 @@ const HeroSection: AcademyFunc = () => {
                     borderRadius: "1.5rem !important",
                   }}
                 >
-                  <Image
+                  <ImageComponent
                     priority
                     layout="fill"
                     alt="yes we can"

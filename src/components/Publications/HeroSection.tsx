@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next components
-import Image from "next/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -13,6 +12,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
 // import { useTheme } from "@mui/material/styles";
+// app components
+import ImageComponent from "@src/components/shared/image";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -133,7 +134,7 @@ const HeroSection: PublicationsFunc = () => {
                     borderRadius: "1.5rem !important",
                   }}
                 >
-                  <Image
+                  <ImageComponent
                     priority
                     layout="fill"
                     alt="yes we can"
