@@ -15,7 +15,11 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // styles and interface
-import { kCount } from "@src/utils";
+import {
+  BOOK_IMAGE_PLACEHOLDER,
+  FOLDER_IMAGE_PLACEHOLDER,
+  kCount,
+} from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
@@ -52,8 +56,8 @@ const PublicationCard: PublicationCardFunc = ({
             <Image
               src={
                 type === "FOLDER"
-                  ? "/images/cards/resume-folder.svg"
-                  : imageUrl || "/images/book-1.png"
+                  ? FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl || BOOK_IMAGE_PLACEHOLDER
               }
               width="90%"
               height="100%"
@@ -106,7 +110,7 @@ const PublicationCard: PublicationCardFunc = ({
                   <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
                   &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
                 </Typography>
-                <Typography
+                {/* <Typography
                   mb={0}
                   noWrap
                   display="flex"
@@ -119,7 +123,7 @@ const PublicationCard: PublicationCardFunc = ({
                     fontSize="inherit"
                   />
                   &nbsp;{kCount(readCount)}
-                </Typography>
+                </Typography> */}
                 <Typography
                   mb={0}
                   flexGrow={1}

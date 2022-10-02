@@ -17,7 +17,7 @@ export const getServerSideProps = async (
     return {
       props: {
         pageData: {
-          refererUrl: context.req.headers.referer,
+          refererUrl: context.req.headers?.referer || "",
         },
         cachedData: {
           centre,
