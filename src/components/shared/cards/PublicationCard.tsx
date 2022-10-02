@@ -111,7 +111,7 @@ const PublicationCard: PublicationCardFunc = ({
                   <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
                   &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
                 </Typography>
-                {/* <Typography
+                <Typography
                   mb={0}
                   noWrap
                   display="flex"
@@ -124,7 +124,7 @@ const PublicationCard: PublicationCardFunc = ({
                     fontSize="inherit"
                   />
                   &nbsp;{kCount(readCount)}
-                </Typography> */}
+                </Typography>
                 <Typography
                   mb={0}
                   flexGrow={1}

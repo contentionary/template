@@ -44,7 +44,7 @@ const ImageCropper = ({
     (croppedArea: any, croppedAreaPixels: any) => {
       setCroppedAreaPixels(croppedAreaPixels);
     },
-    []
+    [setCroppedAreaPixels]
   );
 
   return (
