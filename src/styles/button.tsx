@@ -72,6 +72,16 @@ const buttonStyle = makeStyles({
       },
     },
   },
+  menuFullButton: {
+    padding: "6px 0",
+    display: "flex",
+    alignItems: "center",
+    transition: "250ms ease-out",
+    justifyContent: "space-between",
+    [theme.breakpoints.up("xs")]: { width: "100%" },
+    [theme.breakpoints.up("sm")]: { sm: "auto" },
+    "&:focus": { padding: "6px 2px" },
+  },
 });
 
 export default buttonStyle;

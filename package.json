@@ -42,6 +42,7 @@
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",
     "react-syntax-highlighter": "^15.5.0",
+    "sharp": "^0.31.1",
     "simplebar-react": "^2.4.1",
     "uuid": "^9.0.0"
   },

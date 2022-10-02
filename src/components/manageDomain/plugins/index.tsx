@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 import { useDialog } from "@src/hooks";
 import { useState } from "react";
 
-import ConfirmDialog from "@src/components/shared/confirmationMoal";
+import ConfirmDialog from "@src/components/shared/confirmationModal";
 import NextLink from "@src/components/shared/link/btnLink";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";

@@ -19,11 +19,11 @@ import HideOnScroll from "./HideOnScroll";
 import PublicationsMenu from "./PublicationsMenu";
 // icons
 // styles, interface and config
-import useGlobalStyle from "@src/styles/index";
-import { PublicationsHeaderFunc } from "./interfaceType";
-import { queryClient } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
 import ProfileMenu from "./ProfileMenu";
+import { queryClient } from "@src/utils";
+import useGlobalStyle from "@src/styles/index";
+import { BasePageProps } from "@src/utils/interface";
+import { PublicationsHeaderFunc } from "./interfaceType";
 
 const PublicationsHeader: PublicationsHeaderFunc = () => {
   const theme = useTheme();
@@ -61,7 +61,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
               </NextLink>
               {isMatch ? (
                 <AppDrawer>
-                  <PublicationsMenu />
+                  <PublicationsMenu cachedData={cachedData} />
                 </AppDrawer>
               ) : (
                 <Fragment>
@@ -109,7 +109,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                       </NextLink> */}
                     </Stack>
                     {user ? (
-                      <ProfileMenu title={user.firstname} />
+                      <ProfileMenu cachedData={cachedData} />
                     ) : (
                       <Stack direction="row" spacing={2} alignItems="center">
                         <NextLink href="/login" passHref>

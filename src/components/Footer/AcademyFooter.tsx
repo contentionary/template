@@ -13,9 +13,14 @@ import { Link as MuiLink } from "@mui/material";
 import { grey } from "@mui/material/colors";
 // styles, interface ans config
 import config from "@src/utils/config";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 import { AcademyFooterFunc } from "./interfaceType";
 
 const AcademyFooter: AcademyFooterFunc = () => {
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { logo, emailAddress, phoneNumber, address, name } = cachedData.centre;
+
   return (
     <Fragment>
       <Box
@@ -31,10 +36,11 @@ const AcademyFooter: AcademyFooterFunc = () => {
                 <NextLink href="/" passHref>
                   <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                     <Image
-                      src="/images/logo.png"
-                      alt="Contentionary logo"
-                      width={210}
-                      height={40}
+                      alt={name}
+                      width={64}
+                      height={64}
+                      src={logo}
+                      objectFit="contain"
                     />
                   </MuiLink>
                 </NextLink>
@@ -50,19 +56,19 @@ const AcademyFooter: AcademyFooterFunc = () => {
                   Address:
                 </Typography>
                 <Typography paragraph color={grey["400"]} gutterBottom>
-                  38 Opebi Road, Ikeja, Lagos State, Nigeria.
+                  {address}
                 </Typography>
                 <Typography variant="h6" color="white" gutterBottom>
                   TelePhone:
                 </Typography>
-                <NextLink href={"tel:+2349022396389"} passHref>
-                  <MuiLink>+234 902 239 6389</MuiLink>
+                <NextLink href={`tel:${phoneNumber}`} passHref>
+                  <MuiLink>{phoneNumber}</MuiLink>
                 </NextLink>
                 <Typography mt={4} variant="h6" color="white" gutterBottom>
                   Contact Email
                 </Typography>
-                <NextLink href={"mailto:contact@contentionary.com"} passHref>
-                  <MuiLink>contact@contentionary.com</MuiLink>
+                <NextLink href={`mailto:${emailAddress}`} passHref>
+                  <MuiLink>{emailAddress}</MuiLink>
                 </NextLink>
               </Box>
             </Grid>
@@ -71,21 +77,21 @@ const AcademyFooter: AcademyFooterFunc = () => {
                 <Typography variant="h6" color="white" gutterBottom>
                   Company
                 </Typography>
-                <NextLink href="/academy" passHref>
+                {/* <NextLink href="/academy" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     About us
                   </MuiLink>
-                </NextLink>
+                </NextLink> */}
                 <NextLink href="/courses" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     Courses
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/academy" passHref>
+                {/* <NextLink href="/academy" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     Practice Test
                   </MuiLink>
-                </NextLink>
+                </NextLink> */}
               </Stack>
             </Grid>
           </Grid>

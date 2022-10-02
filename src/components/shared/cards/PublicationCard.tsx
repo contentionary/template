@@ -1,8 +1,7 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
-//
+// mui components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
@@ -10,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link as MuiLink } from "@mui/material";
+// app components
+import ImageComponent from "../image";
 // icons
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
@@ -53,7 +54,7 @@ const PublicationCard: PublicationCardFunc = ({
           className="MuiCourseCardActionBase-root"
         >
           <Box p={1} className="card-img">
-            <Image
+            <ImageComponent
               src={
                 type === "FOLDER"
                   ? FOLDER_IMAGE_PLACEHOLDER

@@ -1,6 +1,5 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 
 import Box from "@mui/material/Box";
@@ -15,6 +14,8 @@ import { Link as MuiLink } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+// app components
+import ImageComponent from "@src/components/shared/image";
 // icons
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -24,11 +25,16 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
+import { queryClient } from "@src/utils";
 import { AcademyFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
 
   return (
     <Box
@@ -38,7 +44,7 @@ const FutureSection: AcademyFunc = () => {
     >
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
-          Be Ready for the Future
+          {title}
         </Typography>
         <Grid
           container
@@ -66,12 +72,12 @@ const FutureSection: AcademyFunc = () => {
                 </Typography>
               </Paper>
               <Box className="breath-img-container">
-                <Image
+                <ImageComponent
                   layout="fill"
                   alt="yes we can"
                   objectFit="cover"
                   objectPosition="right"
-                  src="/images/courses-4.png"
+                  src={imageUrl}
                 />
               </Box>
             </Box>

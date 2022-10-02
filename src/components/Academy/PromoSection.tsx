@@ -1,6 +1,5 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 // mui component
 import Box from "@mui/material/Box";
@@ -9,13 +8,23 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
-//
+// app components
+import ImageComponent from "@src/components/shared/image";
+// styles, interface and cosmic queries
 import useGlobalStyle from "@src/styles";
-//
+import { queryClient } from "@src/utils";
 import { AcademyFunc } from "./interfaceType";
+import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: AcademyFunc = () => {
   const globalStyle = useGlobalStyle();
+  const { pageData = null, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const { user } = cachedData;
+  const { description, imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[2];
+
   return (
     <Box py={8} px={{ md: 6 }} component="section" bgcolor="secondary.dark">
       <Container maxWidth="xl">
@@ -29,27 +38,26 @@ const PromoSection: AcademyFunc = () => {
                 borderRadius: 2,
               }}
             >
-              <Image
+              <ImageComponent
                 width="100%"
                 height="100%"
                 alt="yes we can"
                 objectFit="cover"
                 layout="responsive"
-                src="/images/avatar.png"
+                src={imageUrl}
               />
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
             <Box>
               <Typography mb={4} variant="h3" component="h2" color="white">
-                You don’t have to see the whole staircase just take the first
-                step
+                {title}
               </Typography>
               <Typography mb={4} paragraph color="white">
-                Signup and start learning on your pace and time.
+                {description}
               </Typography>
             </Box>
-            <NextLink href="/" passHref>
+            <NextLink href={user ? "/courses" : "/register"} passHref>
               <Button
                 size="large"
                 disableElevation

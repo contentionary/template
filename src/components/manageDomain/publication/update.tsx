@@ -38,6 +38,7 @@ const UpdatePublication = ({
   const { getData, values, submit, check, getFile } = useForm(create);
   const [isLoading, setIsLoading] = useState(false);
 
+  // eslint-disable-next-line no-unused-vars
   const getCategory = async () => {
     try {
       const { data } = await request.get({ url: "/publication-categories" });

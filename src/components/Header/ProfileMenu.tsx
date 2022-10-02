@@ -16,20 +16,19 @@ import { Link as MuiLink } from "@mui/material";
 // mui icons
 import Logout from "@mui/icons-material/Logout";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
-// import { fontSize } from "@mui/joy/styles/styleFunctionSx";
-import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
-// import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-// import PlayLessonOutlinedIcon from "@mui/icons-material/PlayLessonOutlined";
-// import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PlayLessonOutlinedIcon from "@src/assets/icons/play.svg";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
+import { UserInt, CachedCentreInt } from "@src/utils/interface";
+// import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 
 interface ProfileMenuInt {
-  title: string;
+  cachedData: { user: UserInt; token: string; centre: CachedCentreInt };
 }
 
-const ProfileMenu = ({ title }: ProfileMenuInt) => {
+const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
   const menuStyle = useMenuStyle();
+  const { user, centre } = cachedData;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -69,9 +68,6 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
     prevOpen.current = open;
   }, [open]);
 
-  /*  transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
- */
   return (
     <React.Fragment>
       <Tooltip title="Account settings">
@@ -84,9 +80,11 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
           aria-expanded={open ? "true" : undefined}
           aria-controls={open ? "composition-menu" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>{Array.from(title)[0]}</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }}>
+            {Array.from(user?.firstname)[0]}
+          </Avatar>
           &nbsp; &nbsp;
-          {title}
+          {user?.firstname}
         </Button>
       </Tooltip>
       <Popper
@@ -113,34 +111,32 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
-                  <NextLink href="/library/my-books" passHref>
-                    <MenuItem
-                      style={{ fontSize: 18 }}
-                      component={MuiLink}
-                      onClick={handleClose}
-                    >
-                      <ListItemIcon>
-                        <BookOutlinedIcon fontSize="small" />
-                      </ListItemIcon>
-                      My Books
-                    </MenuItem>
-                  </NextLink>
-                  <NextLink href={"/admin"} passHref>
-                    <MenuItem component={MuiLink} onClick={handleClose}>
-                      <ListItemIcon>
-                        <SettingsOutlined fontSize="small" />
-                      </ListItemIcon>
-                      Admin
-                    </MenuItem>
-                  </NextLink>
-                  {/* <NextLink href="/courses/my-courses" passHref>
-                    <MenuItem component={MuiLink} onClick={handleClose}>
-                      <ListItemIcon>
-                        <PlayLessonOutlinedIcon fontSize="small" />
-                      </ListItemIcon>
-                      My Courses
-                    </MenuItem>
-                  </NextLink>
+                  {centre.template === "course" && (
+                    <NextLink href="/courses/my-courses" passHref>
+                      <MenuItem component={MuiLink} onClick={handleClose}>
+                        <ListItemIcon>
+                          <PlayLessonOutlinedIcon fontSize="small" />
+                        </ListItemIcon>
+                        My Courses
+                      </MenuItem>
+                    </NextLink>
+                  )}
+                  {centre.template === "publication" && (
+                    <NextLink href="/library/my-books" passHref>
+                      <MenuItem
+                        style={{ fontSize: 18 }}
+                        component={MuiLink}
+                        onClick={handleClose}
+                      >
+                        <ListItemIcon>
+                          <BookOutlinedIcon fontSize="small" />
+                        </ListItemIcon>
+                        My Books
+                      </MenuItem>
+                    </NextLink>
+                  )}
+
+                  {/*
                   <NextLink href="#" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>

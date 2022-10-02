@@ -23,6 +23,7 @@ interface Props {
   listOfPublication: PublicationInt[];
 }
 
+// eslint-disable-next-line no-unused-vars
 const CreatePublication = ({ centreId, listOfPublication }: Props) => {
   const styles = useStyles();
 
