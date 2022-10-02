@@ -22,7 +22,7 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 // interface and config
 import { AcademyFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
-import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
+import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
