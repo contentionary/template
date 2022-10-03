@@ -98,6 +98,11 @@ interface AuthorInt {
   name: string;
 }
 
+interface publicationCapter {
+  title: string;
+  pageNo: number;
+}
+
 export interface PublicationInt {
   id: string;
   centreId: string;
@@ -123,6 +128,10 @@ export interface PublicationInt {
   authors?: AuthorInt[];
   allowDownload: boolean;
   allowRead: boolean;
+  allowReview: boolean;
+  tags: string;
+  summary: string;
+  tableOfContents: publicationCapter[];
 }
 
 export interface CourseInt {

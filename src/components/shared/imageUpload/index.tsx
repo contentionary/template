@@ -13,6 +13,7 @@ import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import { CameraEnhanceOutlined } from "@mui/icons-material";
 import { ElementProps } from "@src/utils/interface";
+import Image from "next/image";
 
 interface Props {
   img: Record<string, string>;
@@ -66,7 +67,7 @@ const UpdateBackground = ({ setImg, img, uploadText }: Props) => {
           />
         </ListItemButton>
       </ListItem>
-      {img && <img src={img.bobImage} />}
+      {img && <Image src={img.bobImage} alt="cropping" />}
       <Dialog
         title="Upload logo image "
         isOpen={isOpen}

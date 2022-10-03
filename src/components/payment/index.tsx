@@ -20,8 +20,8 @@ import { v4 as uuid } from "uuid";
 import { useToast } from "@src/utils/hooks";
 
 export default function Payment(): JSX.Element {
-  const [cards, setCards] = useState(data);
   const router = useRouter();
+  const [cards, setCards] = useState(data);
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const [type, setType] = useState(cards[0].type);
