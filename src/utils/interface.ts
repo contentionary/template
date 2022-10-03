@@ -9,11 +9,11 @@ export interface ElementProps {
   preventDefault: Function;
 }
 export interface landingPageSectionTwo{
-  contents:Array<any>
+  contents:Array<any>;
 }
 export interface TemplateInt{
   landingPageSectionTwo:Record<any, any>;
-  landingPageSectionOne:{}
+  landingPageSectionOne:{};
 }
 
 export interface UserBaseInt {
