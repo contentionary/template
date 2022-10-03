@@ -14,7 +14,6 @@ import {
 import useStyles from "./styles";
 import Card from "../plugins/card";
 
-import { PluginFunc } from "../plugins/interface";
 import { handleError, queryClient, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useDialog } from "@src/hooks";
@@ -26,7 +25,15 @@ import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 import { BasePageProps } from "@src/utils/interface";
 
-const Services: PluginFunc = ({ title, numberOfPluginsToShow, pluginPage }) => {
+const Pluggins = ({
+  title,
+  numberOfPluginsToShow,
+  pluginPage,
+}: {
+  title: string;
+  numberOfPluginsToShow: number;
+  pluginPage?: boolean;
+}) => {
   const styles = useStyles();
   const router = useRouter();
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -176,4 +183,4 @@ const Services: PluginFunc = ({ title, numberOfPluginsToShow, pluginPage }) => {
     </Box>
   );
 };
-export default Services;
+export default Pluggins;
