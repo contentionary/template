@@ -1,181 +1,178 @@
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import EditOutlined from "@mui/icons-material/EditOutlined";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 
-import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
-import { useDialog } from "@src/hooks";
 import { useState } from "react";
-import { request } from "@src/utils";
+import {
+  getFileKey,
+  handleError,
+  queryClient,
+  request,
+  uploadFiles,
+} from "@src/utils";
 import Loading from "@src/components/shared/loading";
-import { CentreProps } from "@src/utils/interface";
+import { BasePageProps, CentreProps } from "@src/utils/interface";
 import ButtonComponent from "@src/components/shared/button";
+import Container from "@mui/material/Container";
+import { useRouter } from "next/router";
+import ImageUpload from "@src/components/shared/imageUpload";
 
-interface Props {
-  centre: CentreProps;
-}
-
-const UpdateCentre = ({ centre }: Props) => {
-  const { isOpen, openDialog, closeDialog } = useDialog();
+const UpdateCentre = () => {
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit } = useForm(update);
   const [isLoading, setIsLoading] = useState(false);
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const [img, setImg] = useState<Record<string, any>>({});
+  const [convertedImage, setConvertedImage] = useState<any>();
+  const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
 
+  const router = useRouter();
+  const { centre } = pageData as {
+    centre: CentreProps;
+  };
   async function update() {
     try {
       setIsLoading(true);
-
+      if (img.base64 && !convertedImage) {
+        const imageUrl = await uploadFiles(
+          getFileKey("png"),
+          img.base64,
+          setImageLoadingProgress
+        );
+        values.logo = imageUrl;
+        setConvertedImage(imageUrl);
+      }
       const data = await request.patch({
         data: values,
         url: `/centre/${centre.id}`,
       });
-      console.log(data);
-      // const data = await request.get({
-      //   url: `/centre/${centre.id}`,
-      //   data: values,
-      //   method: "PATCH",
-      // });
-      // setCentre({ ...data.data });
-      // toggleToast(data.message);
+      toggleToast(data.message);
       setIsLoading(false);
-      closeDialog();
     } catch (error) {
-      console.log(error);
-      // toggleToast(handleError(error).message);
+      toggleToast(handleError(error).message);
       setIsLoading(false);
     }
   }
-  function UpdateCentre() {
-    centre.name && (values.name = centre.name);
-    centre.description && (values.description = centre.description);
-    centre.phoneNumber && (values.phoneNumber = centre.phoneNumber);
-    centre.emailAddress && (values.emailAddress = centre.emailAddress);
-    centre.price && (values.price = centre.price);
-    centre.address && (values.address = centre.address);
-    centre.websiteUrl && (values.websiteUrl = centre.websiteUrl);
-    centre.description && (values.description = centre.description);
-    openDialog();
-  }
 
   return (
-    <>
-      <ListItem disablePadding onClick={() => UpdateCentre()}>
-        <ListItemButton sx={{ pl: 5 }}>
-          <ListItemIcon>
-            <EditOutlined />
-          </ListItemIcon>
-          <ListItemText
-            primaryTypographyProps={{
-              color: "#616161",
-              fontWeight: 400,
-              fontSize: 14,
-              fontStyle: "normal",
-            }}
-            primary="Edit Centre"
+    <Container maxWidth="md">
+      <Typography
+        onClick={() => router.back()}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          cursor: "pointer",
+          marginTop: 30,
+        }}
+      >
+        <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
+      </Typography>
+      <Typography
+        variant="h4"
+        component="p"
+        style={{
+          textTransform: "uppercase",
+          marginTop: 20,
+          marginBottom: 20,
+          textAlign: "center",
+        }}
+      >
+        Update Domain
+      </Typography>
+      <form onSubmit={(e) => submit(e)}>
+        <Stack spacing={3} mb={2}>
+          <TextFields
+            type="text"
+            label="Centre name"
+            name="name"
+            defaultValue={centre.name}
+            onChange={getData}
+            inputProps={{ maxLength: 20 }}
           />
-        </ListItemButton>
-      </ListItem>
-      <Dialog
-        title="Centre Update "
-        isOpen={isOpen}
-        closeDialog={closeDialog}
-        content={
-          <form onSubmit={(e) => submit(e)}>
-            <Stack>
-              {centre.id}
-              <TextFields
-                type="text"
-                label="Centre name"
-                name="name"
-                defaultValue={values?.name}
-                onChange={getData}
-                sx={{ width: 500, marginTop: 3 }}
-                inputProps={{ maxLength: 20 }}
-              />
-              <TextFields
-                type="text"
-                label="Centre phone number"
-                name="phoneNumber"
-                defaultValue={values?.phoneNumber}
-                onChange={getData}
-                sx={{ width: 500, marginTop: 3 }}
-              />
-              <TextFields
-                type="text"
-                label="Centre Email Address"
-                name="emailAddress"
-                defaultValue={values?.emailAddress}
-                onChange={getData}
-                sx={{ width: 500, marginTop: 3 }}
-              />
-              <TextFields
-                type="number"
-                label="Centre Price"
-                name="price"
-                defaultValue={values?.price}
-                onChange={getData}
-                sx={{ width: 500, marginTop: 3 }}
-              />
+          <TextFields
+            type="text"
+            label="Centre phone number"
+            name="phoneNumber"
+            defaultValue={centre?.phoneNumber}
+            onChange={getData}
+          />
+          <TextFields
+            type="text"
+            label="Centre Email Address"
+            name="emailAddress"
+            defaultValue={centre?.emailAddress}
+            onChange={getData}
+          />
+          <TextFields
+            type="number"
+            label="Centre Price"
+            name="price"
+            defaultValue={centre?.price}
+            onChange={getData}
+          />
 
-              <TextFields
-                type="text"
-                label="Centre address"
-                name="address"
-                defaultValue={values?.address}
-                onChange={getData}
-                sx={{ width: 500, marginTop: 3 }}
-              />
-              <TextFields
-                type="text"
-                label="Website Url (https://example.com)"
-                name="websiteUrl"
-                defaultValue={values?.websiteUrl}
-                onChange={getData}
-                sx={{ width: 500, marginTop: 3 }}
-              />
-              <Typography variant="body2" component="p">
-                Description
-              </Typography>
-              <TextArea
-                placeholder="description"
-                maxRows={4}
-                name="description"
-                defaultValue={values?.description}
-                onChange={getData}
-                maxLength={200}
-                style={{
-                  width: 500,
-                  marginTop: 20,
-                  padding: "20px 10px",
-                  borderRadius: 5,
-                }}
-              />
-            </Stack>
-            <Typography style={{ textAlign: "right", marginTop: 20 }}>
-              <ButtonComponent type="submit">
-                <>
-                  Update Centre
-                  {isLoading && (
-                    <Loading color="primary" size={12} sx={{ marginLeft: 2 }} />
-                  )}
-                </>
-              </ButtonComponent>
-              <ButtonComponent onClick={() => closeDialog()}>
-                Cancel
-              </ButtonComponent>
+          <TextFields
+            type="text"
+            label="Centre address"
+            name="address"
+            defaultValue={centre?.address}
+            onChange={getData}
+          />
+          <TextFields
+            type="text"
+            label="Website Url (https://example.com)"
+            name="websiteUrl"
+            defaultValue={centre?.websiteUrl}
+            onChange={getData}
+          />
+          <Stack>
+            <Typography
+              variant="subtitle1"
+              component="p"
+              style={{ marginTop: 20, width: "100%" }}
+            >
+              Description
             </Typography>
-          </form>
-        }
-      />
+            <TextArea
+              placeholder="description"
+              maxRows={4}
+              name="description"
+              defaultValue={centre?.description}
+              onChange={getData}
+              maxLength={200}
+              style={{
+                padding: "20px 10px",
+                borderRadius: 5,
+                height: 120,
+              }}
+            />
+          </Stack>
+        </Stack>
+
+        <ImageUpload setImg={setImg} img={img} uploadText="Edit logo" />
+
+        <Typography style={{ textAlign: "right", marginTop: 20 }}>
+          <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
+            <>
+              Update Centre
+              {isLoading && (
+                <Loading
+                  color="primary"
+                  value={imageLoadingProgres}
+                  size={12}
+                  sx={{ marginLeft: 2 }}
+                />
+              )}
+            </>
+          </ButtonComponent>
+        </Typography>
+      </form>
       {toastMessage && (
         <Toast
           message={toastMessage}
@@ -183,7 +180,7 @@ const UpdateCentre = ({ centre }: Props) => {
           showToast={toggleToast}
         />
       )}
-    </>
+    </Container>
   );
 };
 

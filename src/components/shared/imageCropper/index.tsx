@@ -41,10 +41,10 @@ const ImageCropper = ({
   };
 
   const onCropComplete = useCallback(
-    (croppedArea: any, croppedAreaPixels: any) => {
+    (croppedAreaPixels: any) => {
       setCroppedAreaPixels(croppedAreaPixels);
     },
-    []
+    [setCroppedAreaPixels]
   );
 
   return (

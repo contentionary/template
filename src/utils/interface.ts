@@ -8,6 +8,13 @@ export interface ElementProps {
   target: HTMLInputElement;
   preventDefault: Function;
 }
+export interface landingPageSectionTwo{
+  contents:[]
+}
+export interface TemplateInt{
+  landingPageSectionTwo:Record<any, any>;
+  landingPageSectionOne:{}
+}
 
 export interface UserBaseInt {
   firstName: string;
@@ -92,10 +99,15 @@ export interface CourseModuleInt {
   contents: Array<CourseContentInt>;
 }
 
-interface AuthorInt {
+export interface AuthorInt {
   id: string;
   imageUrl: string;
   name: string;
+}
+
+export interface TableOfContentsInt {
+  title: string;
+  pageNo: number;
 }
 
 export interface PublicationInt {
@@ -123,6 +135,8 @@ export interface PublicationInt {
   authors?: AuthorInt[];
   allowDownload: boolean;
   allowRead: boolean;
+  tags:string[];
+  tableOfContents?: TableOfContentsInt[];
 }
 
 export interface CourseInt {

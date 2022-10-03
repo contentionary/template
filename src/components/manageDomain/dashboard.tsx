@@ -5,7 +5,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
 
 import Card from "./card";
-// import Plugins from "./plugins";
+import Plugins from "./plugins";
 import Services from "./services";
 import useStyles from "./styles";
 
@@ -113,12 +113,10 @@ const Dashboard = (): JSX.Element => {
         )}
       </Box>
 
-      {/* <Plugins
-        centre={centre}
-        setCentre={setCentre}
+      <Plugins
         title="Better your experience by installing more pluggins"
         numberOfPluginsToShow={6}
-      /> */}
+      />
       {toastMessage && (
         <Toast
           message={toastMessage}

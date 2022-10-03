@@ -11,6 +11,7 @@ interface Props {
   fullWidth?: boolean;
   defaultValue?: any;
   required?: boolean;
+  hidden?: boolean;
 }
 export default function TextFields({
   id,
@@ -24,6 +25,7 @@ export default function TextFields({
   fullWidth,
   defaultValue,
   required,
+  hidden,
 }: Props) {
   return (
     <TextField
@@ -38,6 +40,7 @@ export default function TextFields({
       onChange={(e) => onChange && onChange(e)}
       defaultValue={defaultValue}
       required={required}
+      hidden={hidden}
     />
   );
 }
