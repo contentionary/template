@@ -6,11 +6,14 @@ import List from "@mui/material/List";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
-import { queryClient } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+//
+import { UserInt, CachedCentreInt } from "@src/utils/interface";
 
-const PublicationsMenu = () => {
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+interface ProfileMenuInt {
+  cachedData: { user: UserInt; token: string; centre: CachedCentreInt };
+}
+
+const PublicationsMenu = ({ cachedData }: ProfileMenuInt) => {
   const { user } = cachedData;
 
   return (
@@ -29,21 +32,23 @@ const PublicationsMenu = () => {
           </ListItemIcon>
         </ListItemButton>
       </NextLink>
-      <NextLink href="/library/my-books" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>My Books</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
       {user ? (
-        <NextLink href="/logout" passHref>
-          <ListItemButton>
-            <ListItemIcon>
-              <ListItemText>Logout</ListItemText>
-            </ListItemIcon>
-          </ListItemButton>
-        </NextLink>
+        <>
+          <NextLink href="/library/my-books" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>My Books</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/logout" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>Logout</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+        </>
       ) : (
         <>
           <NextLink href="/login" passHref>

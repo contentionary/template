@@ -63,7 +63,7 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
                   className={`${tabStyle.appTab} tab-justify-start`}
                 >
                   <Tab label="Abstract" value="1" />
-                  <Tab label="Table of Content" value="2" />
+                  <Tab label="Table of Contents" value="2" />
                   <Tab label="Reviews" value="6" />
                 </TabList>
               </Container>

@@ -1,24 +1,25 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
-//
+// mui components
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link as MuiLink } from "@mui/material";
+// app components
+import ImageComponent from "../image";
 // icons
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-// import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // styles and interface
-import { kCount, dateTimeFormat, timeAgo } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { CourseCardFunc } from "./interfaceType";
+import { kCount, dateTimeFormat, timeAgo } from "@src/utils";
 
 const CourseCard: CourseCardFunc = ({ course }) => {
   const cardStyle = useCardStyle();
@@ -49,18 +50,20 @@ const CourseCard: CourseCardFunc = ({ course }) => {
           LinkComponent={MuiLink}
           className="MuiCourseCardActionBase-root"
         >
-          <Image
-            src={
-              type === "FOLDER"
-                ? "/images/cards/image-folder.svg"
-                : imageUrl || "/images/book-1.png"
-            }
-            width="100%"
-            height="60%"
-            layout="responsive"
-            objectFit="cover"
-            alt={name}
-          />
+          <Box className="card-img">
+            <ImageComponent
+              src={
+                type === "FOLDER"
+                  ? "/images/cards/video-folder.svg"
+                  : imageUrl || "/images/book-1.png"
+              }
+              width="100%"
+              height="60%"
+              layout="responsive"
+              objectFit={type === "FOLDER" ? "contain" : "cover"}
+              alt={name}
+            />
+          </Box>
           <CardContent>
             <Stack
               direction="row"
@@ -85,6 +88,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
             </Stack>
             <Typography
               mb={2}
+              minHeight={40}
               variant="body2"
               color="text.secondary"
               className={globalStyle.text2LineTruncate}

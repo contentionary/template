@@ -13,13 +13,13 @@ import { Link as MuiLink } from "@mui/material";
 import { grey } from "@mui/material/colors";
 // styles, interface ans config
 import config from "@src/utils/config";
-import { PublicationsFooterFunc } from "./interfaceType";
-import { BasePageProps } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
+import { PublicationsFooterFunc } from "./interfaceType";
 
 const PublicationsFooter: PublicationsFooterFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { logo, emailAddress, phoneNumber, address } = cachedData.centre;
+  const { logo, emailAddress, phoneNumber, address, name } = cachedData.centre;
 
   return (
     <Fragment>
@@ -37,9 +37,10 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
                   <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                     <Image
                       src={logo}
-                      alt="Contentionary logo"
-                      width={80}
-                      height={80}
+                      alt={name}
+                      width={64}
+                      height={64}
+                      objectFit="contain"
                     />
                   </MuiLink>
                 </NextLink>

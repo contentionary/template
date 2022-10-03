@@ -4,6 +4,11 @@ export enum Gender {
   FEMALE = "Female",
 }
 
+export interface ElementProps {
+  target: HTMLInputElement;
+  preventDefault: Function;
+}
+
 export interface UserBaseInt {
   firstName: string;
   surname: string;
@@ -93,6 +98,11 @@ interface AuthorInt {
   name: string;
 }
 
+interface publicationCapter {
+  title: string;
+  pageNo: number;
+}
+
 export interface PublicationInt {
   id: string;
   centreId: string;
@@ -118,6 +128,10 @@ export interface PublicationInt {
   authors?: AuthorInt[];
   allowDownload: boolean;
   allowRead: boolean;
+  allowReview: boolean;
+  tags: string;
+  summary: string;
+  tableOfContents: publicationCapter[];
 }
 
 export interface CourseInt {
@@ -184,4 +198,49 @@ export interface UserInt {
   subscribedLeagues: string[];
   subscribedCourses: string[];
   subscribedPublications: string[];
+}
+
+export interface CentreProps {
+  address: string;
+  allowJoinRequest: boolean;
+  audioCount: number;
+  backgroundImage: string;
+  bookCount: number;
+  courseContentCount: number;
+  createdAt: string;
+  customDomain: string;
+  customPublicationDomain: string;
+  description: string;
+  emailAddress: string;
+  examCount: number;
+  hasCourse: boolean;
+  hasExam: boolean;
+  hasLeague: boolean;
+  hasPublication: boolean;
+  hasResult: boolean;
+  id: string;
+  isPrivate: boolean;
+  leagueCount: number;
+  logo: string;
+  name: string;
+  nextPaymentDate: string;
+  onlineCourseSubdomain: string;
+  phoneNumber: number;
+  plan: string;
+  price: number;
+  publicationCount: number;
+  publicationSubdomain: string;
+  questionCount: number;
+  referralPercentage: number;
+  slug: string;
+  subscriberCount: number;
+  updatedAt: string;
+  videoCount: number;
+  websiteUrl: string;
+  plugins: Record<string, boolean>;
+}
+
+export interface PublicationCategoryInt {
+  id: string;
+  name: string;
 }

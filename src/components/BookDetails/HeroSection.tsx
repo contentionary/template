@@ -21,13 +21,18 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
-import ConfirmPayment from "@src/components/payment/confirmPayment";
 
-const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
+import { BOOK_IMAGE_PLACEHOLDER, isServerSide } from "@src/utils";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
+import ShareContentOnMedia from "./share";
+import { useDialog } from "@src/hooks";
+
+const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
+  const { isOpen, openDialog, closeDialog } = useDialog();
+
   const router = useRouter();
   const globalStyle = useGlobalStyle();
-  const { slug, reference } = router.query;
+  const { reference } = router.query;
 
   const btnStyle = {
     color: "secondary.light",
@@ -37,40 +42,14 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
   };
 
   const {
-    id,
     name,
     price,
     imageUrl,
-    authors,
-    fileUrl = "#",
-    allowDownload,
-    allowRead,
+    authors = [],
     publicationCategoryName,
   } = publication;
 
-  const { isCentreManager = false, isPublicationSubscriber = false } =
-    auth || {};
-
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = auth
-    ? `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
-    : "/login";
-
-  let Read = {
-    link: `/library/${slug}/document/${id}`,
-    show: allowRead,
-    text: "READ",
-  };
-  let Download = { link: FILE_DOWNLOAD_URL + fileUrl, show: allowDownload };
-
-  if (isCentreManager) {
-    Read.show = true;
-    Download.show = true;
-  } else if (!isPublicationSubscriber) {
-    Read.text = "SUBSCRIBE";
-    Read.link = paymentLink;
-    Download.link = paymentLink;
-  }
 
   return (
     <Fragment>
@@ -107,7 +86,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                   layout="responsive"
                   objectFit="contain"
                   alt="Contentionary"
-                  src={imageUrl || "/images/book-2.png"}
+                  src={imageUrl || BOOK_IMAGE_PLACEHOLDER}
                 />
               </Box>
             </Grid>
@@ -131,7 +110,9 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                 spacing={4}
                 direction={{ xs: "column", md: "row" }}
               >
-                <Typography variant="h6">Author(s):</Typography>
+                <Typography variant="h6">
+                  {authors?.length > 1 ? "Authors" : "Author"}:
+                </Typography>
                 <Stack direction="row" flexWrap="wrap" justifyContent="start">
                   {authors?.map(({ name, imageUrl }, index) => (
                     <Stack
@@ -143,12 +124,16 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                       key={index + "author"}
                     >
                       <Avatar sx={{ width: 32, height: 32 }}>
-                        <Image
-                          alt="user"
-                          layout="fill"
-                          objectFit="contain"
-                          src={imageUrl || "/images/avatar.png"}
-                        />
+                        {imageUrl ? (
+                          <Image
+                            alt="user"
+                            layout="fill"
+                            objectFit="contain"
+                            src={imageUrl || "/images/avatar.png"}
+                          />
+                        ) : (
+                          name[0]
+                        )}
                       </Avatar>
                       <Typography paragraph>{name}</Typography>
                     </Stack>
@@ -167,7 +152,12 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                   <FavoriteBorderOutlinedIcon />
                   Like
                 </Button>
-                <Button variant="text" color="secondary" sx={btnStyle}>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  sx={btnStyle}
+                  onClick={() => openDialog()}
+                >
                   <ShareOutlinedIcon />
                   Share
                 </Button>
@@ -180,8 +170,8 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                 direction="row"
                 alignItems="center"
               >
-                {Read.show && (
-                  <NextLink href={Read.link} passHref>
+                {read.show && (
+                  <NextLink href={read.link} passHref>
                     <Button
                       size="large"
                       disableElevation
@@ -191,16 +181,16 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                       display={{ xs: "block", sm: "inline-block" }}
                     >
                       <Stack direction="row" alignItems="center" spacing={2}>
-                        <AutoStoriesOutlinedIcon /> &nbsp; {Read.text}
+                        <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
                       </Stack>
                     </Button>
                   </NextLink>
                 )}
-                {Download.show && (
+                {download.show && (
                   <Button
                     size="large"
                     disableElevation
-                    href={Download.link}
+                    href={download.link}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}
@@ -230,6 +220,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
           </Grid>
         </Container>
       </Box>
+      <ShareContentOnMedia isOpen={isOpen} closeDialog={closeDialog} />
     </Fragment>
   );
 };
