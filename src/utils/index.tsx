@@ -284,6 +284,7 @@ export const getCentre = async (
           slug: data.slug,
           name: data.name,
           template: data.template,
+          // template: "course",
           logo: data.logo,
           phoneNumber: data.phoneNumber || "+234 902 239 6389",
           emailAddress: data.emailAddress || "contact@contentionary.com",

@@ -16,11 +16,11 @@ const ImageComponent = (props: ImageComponentProps) => {
 
   const handleImageError = (
     e: React.SyntheticEvent<HTMLImageElement, Event>,
-    fallback = "/images/failed.svg"
+    fallback = "/images/state/failed.svg"
   ) => {
     e?.currentTarget?.src !== fallback && setOnErrorSrc(fallback);
   };
-
+  //"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN88h8AAs0B5QWO2loAAAAASUVORK5CYII="
   return (
     <Fragment>
       <Image
@@ -28,7 +28,7 @@ const ImageComponent = (props: ImageComponentProps) => {
         alt={props.alt}
         src={
           loading === true
-            ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN88h8AAs0B5QWO2loAAAAASUVORK5CYII="
+            ? "/images/state/eclipse-loader.svg"
             : onErrorSrc || props.src
         }
         onError={(e) => handleImageError(e, props.fallback)}

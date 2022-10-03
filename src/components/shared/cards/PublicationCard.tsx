@@ -52,9 +52,7 @@ const PublicationCard: PublicationCardFunc = ({
           <Box p={1} className="card-img">
             <ImageComponent
               src={
-                type === "FOLDER"
-                  ? "/images/cards/resume-folder.svg"
-                  : imageUrl || "/images/book-1.png"
+                type === "FOLDER" ? "/images/cards/resume-folder.svg" : imageUrl
               }
               width="90%"
               height="100%"

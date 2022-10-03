@@ -16,11 +16,12 @@ import { Link as MuiLink } from "@mui/material";
 import useGlobalStyle from "@src/styles";
 import { BookDetailsPageFunc } from "./interfaceType";
 // app components
+import ImageComponent from "@src/components/shared/image";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
@@ -106,13 +107,13 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
               }}
             >
               <Box width="80%">
-                <Image
+                <ImageComponent
                   width="100%"
                   height="100%"
                   layout="responsive"
                   objectFit="contain"
                   alt="Contentionary"
-                  src={imageUrl || "/images/book-2.png"}
+                  src={imageUrl}
                 />
               </Box>
             </Grid>
@@ -148,11 +149,11 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                       key={index + "author"}
                     >
                       <Avatar sx={{ width: 32, height: 32 }}>
-                        <Image
+                        <ImageComponent
                           alt="user"
                           layout="fill"
                           objectFit="contain"
-                          src={imageUrl || "/images/avatar.png"}
+                          src={imageUrl}
                         />
                       </Avatar>
                       <Typography paragraph>{name}</Typography>
@@ -161,17 +162,17 @@ const HeroSection: BookDetailsPageFunc = ({ publication, auth }) => {
                 </Stack>
               </Stack>
               <Typography variant="h3" component="h1">
-                ₦{price}
+                {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
               <Stack direction="row" spacing={1}>
                 {/* <Button variant="text" color="secondary" sx={btnStyle}>
                   <BookmarkAddOutlinedIcon />
                   Subscribe
                 </Button> */}
-                <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button variant="text" color="secondary" sx={btnStyle}>
                   <FavoriteBorderOutlinedIcon />
                   Like
-                </Button>
+                </Button> */}
                 <Button
                   variant="text"
                   color="secondary"
