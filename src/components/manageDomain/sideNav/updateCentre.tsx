@@ -155,7 +155,12 @@ const UpdateCentre = () => {
           </Stack>
         </Stack>
 
-        <ImageUpload setImg={setImg} img={img} uploadText="Edit logo" />
+        <ImageUpload
+          setImg={setImg}
+          img={img}
+          uploadText="Edit logo"
+          defaultImage={centre.logo}
+        />
 
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
           <ButtonComponent type="submit" sx={{ fontSize: 18 }}>

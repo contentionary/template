@@ -433,6 +433,7 @@ const CreatePublication = () => {
             setImg={setImg}
             img={img}
             uploadText="Select and upload centre logo"
+            defaultImage={publication.imageUrl}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>

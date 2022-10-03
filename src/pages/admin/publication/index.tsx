@@ -25,7 +25,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       token,
     });
     const { data } = await request.get({
-      url: `/centre/${centre.id}/publications`,
+      url: context.query.folderId
+        ? `/centre/${centre.id}/publications?folderId=${context.query.folderId}`
+        : `/centre/${centre.id}/publications`,
       token,
     });
 
