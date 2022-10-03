@@ -279,7 +279,7 @@ const CreatePublication = () => {
                     onClick={() =>
                       setTableOfContent([
                         ...tableOfContents,
-                        { title: "", pageNo: null },
+                        { title: "", pageNo: 0 },
                       ])
                     }
                   >

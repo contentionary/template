@@ -19,7 +19,7 @@ import {
 } from "@src/utils";
 import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
-import { BasePageProps, TemplateInt } from "@src/utils/interface";
+import { BasePageProps, ContentInt, TemplateInt } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import ImageUpload from "@src/components/shared/imageUpload";
@@ -33,19 +33,19 @@ const CreatePublication = () => {
   const { values, submit, resetValues } = useForm(Update);
   const { template } = pageData as { template: TemplateInt };
 
-  const [img, setImg] = useState<Record<string, any>>({});
-  const [img3, setImg3] = useState<Record<string, any>>({});
-  const [img2, setImg2] = useState<Record<string, any>>({});
-  const [img1, setImg1] = useState<Record<string, any>>({});
+  const [img, setImg] = useState<Record<string, string>>({});
+  const [img3, setImg3] = useState<Record<string, string>>({});
+  const [img2, setImg2] = useState<Record<string, string>>({});
+  const [img1, setImg1] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
-  const [convertedImage, setConvertedImage] = useState<any>();
-  const [contents, setContents] = useState<Array<Record<any, any>>>(
+  const [convertedImage, setConvertedImage] = useState<string>();
+  const [contents, setContents] = useState<Array<ContentInt>>(
     template.landingPageSectionTwo.contents
   );
 
   const [landingPageSectionOne, setLandingPageSectionOne] = useState<
-    Record<any, any>
+    Record<string, string>
   >(template.landingPageSectionOne);
 
   const router = useRouter();

@@ -44,7 +44,7 @@ const CreatePublication = () => {
   const [convertedFile, setConvertedFile] = useState<any>();
   const [file, setFile] = useState<Record<string, any>>();
   const [tableOfContents, setTableOfContent] = useState([
-    { title: "", pageNo: null },
+    { title: "", pageNo: 0 },
   ]);
   const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
 
@@ -232,7 +232,7 @@ const CreatePublication = () => {
                     onClick={() =>
                       setTableOfContent([
                         ...tableOfContents,
-                        { title: "", pageNo: null },
+                        { title: "", pageNo: 0 },
                       ])
                     }
                   >
