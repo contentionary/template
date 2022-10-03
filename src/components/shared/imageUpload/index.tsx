@@ -20,7 +20,7 @@ interface Props {
   setImg: Function;
   uploadText: string;
   actionListBtnStyle?: {};
-  defaultImage?: string;
+  defaultImage: string;
 }
 
 const UpdateBackground = ({
