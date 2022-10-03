@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 // mui components
