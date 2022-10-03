@@ -3,10 +3,7 @@ import useStyles from "./styles";
 import NextLink from "@src/components/shared/link/btnLink";
 import PublicationCard from "./PublicationCard";
 import { Grid } from "@mui/material";
-import {
-  BasePageProps,
-  PublicationInt,
-} from "@src/utils/interface";
+import { BasePageProps, PublicationInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 
 const PublicationAdmin = () => {

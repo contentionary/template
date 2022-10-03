@@ -29,12 +29,9 @@ const CreatePublication = () => {
     "pageProps"
   ) as BasePageProps;
 
-
   const { toastMessage, toggleToast } = useToast();
   const { values, submit, resetValues } = useForm(Update);
-  const { template } = pageData as {
-    template: TemplateInt;
-  };
+  const { template } = pageData as { template: TemplateInt };
 
   const [img, setImg] = useState<Record<string, any>>({});
   const [img3, setImg3] = useState<Record<string, any>>({});

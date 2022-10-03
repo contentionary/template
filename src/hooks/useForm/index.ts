@@ -14,7 +14,6 @@ const useForm = (submitAction: Function): UseForm => {
   const submit = (e: ChangeEvent<HTMLInputElement>): void => {
     if (e) e.preventDefault();
     submitAction();
-    
   };
   const getFile = (e: ChangeEvent<any>) => {
     setValue({
