@@ -9,7 +9,7 @@ export interface ElementProps {
   preventDefault: Function;
 }
 export interface landingPageSectionTwo{
-  contents:[]
+  contents:Array<any>
 }
 export interface TemplateInt{
   landingPageSectionTwo:Record<any, any>;

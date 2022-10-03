@@ -352,7 +352,7 @@ const CreatePublication = () => {
                     Add more authors
                   </ButtonComponent>
                 </Box>
-                {authors.map(({ name }, index) => (
+                {authors.map(({}, index) => (
                   <Box
                     key={`${index}-content`}
                     sx={{

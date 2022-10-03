@@ -19,7 +19,6 @@ import {
 } from "@src/utils";
 import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
-import useStyles from "./styles";
 import { BasePageProps, TemplateInt } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
@@ -30,7 +29,6 @@ const CreatePublication = () => {
     "pageProps"
   ) as BasePageProps;
 
-  const styles = useStyles();
 
   const { toastMessage, toggleToast } = useToast();
   const { values, submit, resetValues } = useForm(Update);
