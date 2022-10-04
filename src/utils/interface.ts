@@ -252,6 +252,7 @@ export interface CentreProps {
   updatedAt: string;
   videoCount: number;
   websiteUrl: string;
+  template: string;
   plugins: Record<string, boolean>;
 }
 
