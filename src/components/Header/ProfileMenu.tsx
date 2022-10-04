@@ -34,7 +34,7 @@ interface ProfileMenuInt {
 
 const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
   const menuStyle = useMenuStyle();
-  const { user, centre } = cachedData;
+  const { user } = cachedData;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 

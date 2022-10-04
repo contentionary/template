@@ -6,14 +6,7 @@ import Grid from "@mui/material/Grid";
 
 import NextLink from "@src/components/shared/link/btnLink";
 import Stack from "@mui/system/Stack";
-import {
-  certificate,
-  course,
-  exam,
-  league,
-  publication,
-  result,
-} from "../plugins/data";
+import ALL_PLUGINS from "../plugins/data";
 import { CentreProps } from "@src/utils/interface";
 
 interface Props {
@@ -28,14 +21,18 @@ const Services = ({
 }: Props): JSX.Element => {
   const styles = useStyles();
 
-  const data = [
-    { item: exam, status: centre.plugins.EXAM },
-    { item: league, status: centre.plugins.LEAGUE },
-    { item: course, status: centre.plugins.COURSE },
-    { item: publication, status: centre.plugins.PUBLICATION },
-    { item: result, status: centre.plugins.RESULT },
-    { item: certificate, status: false },
-  ];
+  const data = ALL_PLUGINS.filter(({ plugin }) => centre.plugins[plugin]);
+
+  data.length = numberOfPluginsToShow;
+
+  // [
+  //   { item: exam, status: centre.plugins.EXAM },
+  //   { item: league, status: centre.plugins.LEAGUE },
+  //   { item: course, status: centre.plugins.COURSE },
+  //   { item: publication, status: centre.plugins.PUBLICATION },
+  //   { item: result, status: centre.plugins.RESULT },
+  //   { item: certificate, status: false },
+  // ];
 
   return (
     <Box mt={3} id="service">
@@ -51,15 +48,11 @@ const Services = ({
         </Box>
         <Box>
           <Grid container spacing={{ xs: 5, md: 4, lg: 9 }}>
-            {data.map(
-              ({ item, status }, index) =>
-                status &&
-                index < numberOfPluginsToShow && (
-                  <Grid item xs={12} md={12} lg={4} key={index}>
-                    <Card {...item} />
-                  </Grid>
-                )
-            )}
+            {data.map((item, index) => (
+              <Grid item xs={12} md={12} lg={4} key={index}>
+                <Card {...item} />
+              </Grid>
+            ))}
           </Grid>
         </Box>
         <Box sx={{ textAlign: "center" }} mt={3} paddingY={{ xs: 3, md: 5 }}>
