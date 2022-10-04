@@ -17,7 +17,6 @@ import Header from "./Header";
 import useForm from "@src/hooks/useForm";
 import { useRouter } from "next/router";
 import Link from "@src/components/shared/link";
-import { cache } from "@src/utils";
 
 interface Props {
   window?: () => Window;
@@ -28,7 +27,6 @@ export default function MobileAppBar(props: Props): JSX.Element {
   const [show, setShow] = React.useState(false);
   const { getData, values, submit } = useForm(search);
   const router = useRouter();
-  const user = cache.get("user");
   const bg = "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)";
 
   function search() {
@@ -112,7 +110,7 @@ export default function MobileAppBar(props: Props): JSX.Element {
           </IconButton>
         </Box>
 
-        <Header user={user} />
+        <Header />
       </Toolbar>
       <Divider sx={{ borderColor: "#F1F2F3" }} />
     </>

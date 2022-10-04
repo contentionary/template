@@ -9,6 +9,21 @@ export interface ElementProps {
   preventDefault: Function;
 }
 
+export interface ContentInt {
+  title: string;
+  imageUrl: string;
+  description: string;
+}
+
+export interface landingPageSectionTwo {
+  contents: ContentInt[];
+}
+
+export interface TemplateInt {
+  landingPageSectionTwo: Record<string, Array<ContentInt>>;
+  landingPageSectionOne: {};
+}
+
 export interface UserBaseInt {
   firstName: string;
   surname: string;
@@ -92,13 +107,13 @@ export interface CourseModuleInt {
   contents: Array<CourseContentInt>;
 }
 
-interface AuthorInt {
+export interface AuthorInt {
   id: string;
   imageUrl: string;
   name: string;
 }
 
-interface publicationCapter {
+export interface PublicationChapterInt {
   title: string;
   pageNo: number;
 }
@@ -128,10 +143,10 @@ export interface PublicationInt {
   authors?: AuthorInt[];
   allowDownload: boolean;
   allowRead: boolean;
-  allowReview: boolean;
-  tags: string;
+  tags: string[];
+  tableOfContents?: PublicationChapterInt[];
   summary: string;
-  tableOfContents: publicationCapter[];
+  allowReview: boolean;
 }
 
 export interface CourseInt {

@@ -1,23 +1,23 @@
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Button from "@src/components/shared/button";
-import Typography from "@mui/material/Typography";
-import useGlobalStyle from "@src/styles/index";
-import SearchIcon from "@mui/icons-material/Search";
-import Input from "@src/components/shared/input/textField";
-import Avatar from "@src/components/shared/avatar/imageAvatar";
-import { useRouter } from "next/router";
-import useForm from "@src/hooks/useForm";
-import { UserInt } from "@src/utils/interface";
+// import Stack from "@mui/material/Stack";
+// import Button from "@src/components/shared/button";
+// import Typography from "@mui/material/Typography";
+// import useGlobalStyle from "@src/styles/index";
+// import SearchIcon from "@mui/icons-material/Search";
+// import Input from "@src/components/shared/input/textField";
+// import Avatar from "@src/components/shared/avatar/imageAvatar";
+// import { useRouter } from "next/router";
+// import useForm from "@src/hooks/useForm";
+// import { UserInt } from "@src/utils/interface";
 
-const Header = ({ user }: { user: UserInt }) => {
-  const globalStyle = useGlobalStyle();
-  const router = useRouter();
-  const { getData, values, submit } = useForm(search);
+const Header = () => {
+  // const globalStyle = useGlobalStyle();
+  // const router = useRouter();
+  // const { getData, values, submit } = useForm(search);
 
-  function search() {
-    router.push({ pathname: "/search", query: { phrase: values.search } });
-  }
+  // function search() {
+  //   router.push({ pathname: "/search", query: { phrase: values.search } });
+  // }
 
   return (
     <Box
@@ -33,7 +33,7 @@ const Header = ({ user }: { user: UserInt }) => {
         height: 104,
       }}
     >
-      <form onSubmit={(e) => submit(e)}>
+      {/* <form onSubmit={(e) => submit(e)}>
         <Stack direction="row" spacing={1}>
           <Input
             id="centre-search"
@@ -67,9 +67,9 @@ const Header = ({ user }: { user: UserInt }) => {
         <Typography>
           {" "}
           firstname surname
-          {/* {user?.firstname} {user?.surname} */}
+          {user?.firstname} {user?.surname}
         </Typography>
-      </Stack>
+      </Stack> */}
     </Box>
   );
 };

@@ -11,6 +11,10 @@ import {
 } from "@src/utils/interface";
 // import { NextRouter } from "next/router";
 import { QueryClient } from "react-query";
+import { v4 as uuid } from "uuid";
+
+import { Upload } from "@aws-sdk/lib-storage";
+import { S3Client } from "@aws-sdk/client-s3";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -26,6 +30,54 @@ export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
 };
 
+export const getFileKey = (file: any) => {
+  const date = new Date();
+  const fileFormat =
+    typeof file === "string" ? file : file.name.split(".").pop();
+  const FILE_LOCATION = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
+  return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
+};
+
+// export const cancelCourse = () => {
+//   Document.getElementById("create-course-form").reset();
+// };
+
+export const uploadFiles = async (
+  key: string,
+  file: string,
+  setProgress: Function
+) => {
+  try {
+    const parallelUploads3 = new Upload({
+      client: new S3Client({
+        region: "eu-west-3",
+        credentials: {
+          accessKeyId: process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID as string,
+          secretAccessKey: process.env
+            .NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID as string,
+        },
+      }),
+
+      params: {
+        Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET,
+        Key: key,
+        Body: file,
+      },
+      leavePartsOnError: false, // optional manually handle dropped parts
+    });
+
+    parallelUploads3.on("httpUploadProgress", (progress) => {
+      let progressValue =
+        (Number(progress.loaded) / Number(progress.total)) * 100;
+      setProgress(Math.ceil(progressValue));
+    });
+
+    const res: any = await parallelUploads3.done();
+    return res.Location.split(".com/").pop();
+  } catch (err) {
+    throw err;
+  }
+};
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -276,7 +328,6 @@ export const getCentre = async (
 
     // let centre = cache.get(host, context);
     // if (centre) return centre;
-
     const { data } = (await request.get({
       url: `/centre/domain-centre?domain=${host}`,
     })) as RequestResponseInt;

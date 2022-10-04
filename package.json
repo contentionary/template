@@ -13,6 +13,8 @@
     "format": "prettier --single-quote=false --print-width 80 --trailing-comma es5 --write \"src/**/*.tsx\""
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.181.0",
+    "@aws-sdk/lib-storage": "^3.182.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/icons-material": "^5.10.2",
@@ -34,8 +36,8 @@
     "pure-react-carousel": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-pdf": "^5.7.2",
     "react-easy-crop": "^4.5.1",
+    "react-pdf": "^5.7.2",
     "react-player": "^2.10.1",
     "react-query": "^3.39.2",
     "react-share": "^4.4.0",

@@ -16,7 +16,6 @@ const useForm = (submitAction: Function): UseForm => {
     submitAction();
   };
   const getFile = (e: ChangeEvent<any>) => {
-    console.log(e.target.files[0], "///.");
     setValue({
       ...values,
       [e.target.name || e.target.id]: e.target.files[0],
