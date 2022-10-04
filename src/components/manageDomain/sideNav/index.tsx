@@ -29,7 +29,7 @@ const SideNav = (): JSX.Element => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const centre = pageData.centre as CentreProps;
 
-  const pages = [{ title: "Home", icon: <HomeOutlinedIcon />, link: "/" }];
+  const pages = [{ title: "Home", icon: <HomeOutlinedIcon />, link: "/admin" }];
 
   return (
     <div style={{ paddingTop: 20, background: "#FCFCFC" }}>

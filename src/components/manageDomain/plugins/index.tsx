@@ -2,14 +2,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/system/Stack";
-import {
-  certificate,
-  course,
-  exam,
-  league,
-  publication,
-  result,
-} from "../plugins/data";
+import ALL_PLUGINS from "../plugins/data";
 
 import useStyles from "./styles";
 import Card from "../plugins/card";
@@ -42,14 +35,11 @@ const Pluggins = ({
   const [isLoading, setIsLoading] = useState(false);
   const pagePros = queryClient.getQueryData("pageProps") as BasePageProps;
   const centre = pagePros.pageData.centre;
-  const data = [
-    { item: exam, status: centre?.plugins?.EXAM },
-    { item: league, status: centre?.plugins?.LEAGUE },
-    { item: course, status: centre?.plugins?.COURSE },
-    { item: publication, status: centre?.plugins?.PUBLICATION },
-    { item: result, status: centre?.plugins?.RESULT },
-    { item: certificate, status: false },
-  ];
+
+  const data = ALL_PLUGINS.map((plugin) => ({
+    ...plugin,
+    status: Boolean(centre.plugins[plugin.plugin]),
+  }));
 
   function updatePlugin(plugin: string, status: boolean) {
     if (plugin === "EXAM") {
@@ -133,12 +123,11 @@ const Pluggins = ({
         <Box mt={2}>
           <Grid container spacing={{ xs: 5, md: 4, lg: 9 }}>
             {data.map(
-              ({ item, status }, index) =>
+              (item, index) =>
                 index < numberOfPluginsToShow && (
                   <Grid item xs={12} md={12} lg={4} key={index}>
                     <Card
                       {...item}
-                      status={status}
                       installPlugin={installPlugin}
                       isLoading={isLoading}
                     />

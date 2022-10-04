@@ -132,7 +132,7 @@ const CreatePublication = () => {
             label="Name"
             name="name"
             onChange={getData}
-            inputProps={{ maxLength: 35 }}
+            inputProps={{ maxLength: 100 }}
             required
           />
 
@@ -202,7 +202,7 @@ const CreatePublication = () => {
                 borderRadius: 5,
                 padding: 15,
               }}
-              maxLength={200}
+              maxLength={10000}
             />
           </Box>
 
@@ -221,7 +221,7 @@ const CreatePublication = () => {
                 borderRadius: 5,
                 padding: 15,
               }}
-              maxLength={200}
+              maxLength={250}
             />
           </Box>
 

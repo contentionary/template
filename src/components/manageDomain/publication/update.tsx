@@ -104,6 +104,7 @@ const CreatePublication = () => {
       }
       if (folderId) values.folderId = folderId;
       values.type = type;
+      if (values.tags) values.tags = values.tags.split(",");
       convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
       delete values.type;
