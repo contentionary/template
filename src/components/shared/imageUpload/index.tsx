@@ -128,7 +128,7 @@ const UpdateBackground = ({
             />
             <ImageCropper
               image={previewLogo}
-              cropSize={{ width: 600, height: 600 }}
+              cropSize={{ width: 500, height: 500 }}
               cropShape="rect"
               rotation={rotation}
               setRotation={setRotation}

@@ -145,6 +145,7 @@ export interface PublicationInt {
   allowRead: boolean;
   tags: string[];
   tableOfContents?: TableOfContentsInt[];
+  summary: string;
 }
 
 export interface CourseInt {

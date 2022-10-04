@@ -76,13 +76,11 @@ const CreatePublication = () => {
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (values.tags && typeof values.tags === "string") {
-        values.tags = values.tags.split(",");
-      }
+
       if (values.authors && authors[0].name) {
         values.authors = authors;
       }
-      if (values.learnings) {
+      if (values.learnings && typeof values.learnings === "string") {
         values.learnings = values.learnings.split(",");
       }
       if (tableOfContents && tableOfContents[0].title) {
@@ -181,18 +179,13 @@ const CreatePublication = () => {
               </Box>
             </>
           )}
-          <Box>
-            <Typography variant="caption" component="div">
-              Add tags by seperating it with comma (,)
-            </Typography>
-            <TextFields
-              type="text"
-              label="Publication tags"
-              name="tags"
-              onChange={getData}
-              sx={{ width: "100%", mt: 1 }}
-            />
-          </Box>
+
+          <TextFields
+            type="text"
+            label="Publication tags"
+            name="tags"
+            onChange={getData}
+          />
 
           <Box>
             <Typography variant="subtitle1" component="div">
@@ -202,6 +195,25 @@ const CreatePublication = () => {
               required
               placeholder="Type in description here ..."
               name="description"
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
               onChange={getData}
               style={{
                 width: "100%",

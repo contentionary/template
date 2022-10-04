@@ -39,9 +39,8 @@ const ImageCropper = ({
   const rotateImage = (event: Event, newValue: number | number[]) => {
     setRotation(newValue as number);
   };
-
   const onCropComplete = useCallback(
-    (croppedAreaPixels: any) => {
+    (croppedArea: any, croppedAreaPixels: any) => {
       setCroppedAreaPixels(croppedAreaPixels);
     },
     [setCroppedAreaPixels]
