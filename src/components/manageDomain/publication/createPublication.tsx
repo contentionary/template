@@ -202,7 +202,7 @@ const CreatePublication = () => {
                 borderRadius: 5,
                 padding: 15,
               }}
-              maxLength={5000}
+              maxLength={10000}
             />
           </Box>
 
