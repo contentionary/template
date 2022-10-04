@@ -1,64 +1,121 @@
+import React, { ChangeEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import EditOutlined from "@mui/icons-material/EditOutlined";
-import IconButton from "@mui/material/IconButton";
-import { MenuItem, Select } from "@mui/material";
+import { IconButton, MenuItem, Select } from "@mui/material";
 
-import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
-import { useDialog } from "@src/hooks";
 import { useState } from "react";
-import { handleError, request } from "@src/utils";
-import Loading from "@src/components/shared/loading";
+import {
+  getFileKey,
+  handleError,
+  queryClient,
+  request,
+  uploadFiles,
+} from "@src/utils";
+import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
-import { PublicationCategoryInt, PublicationInt } from "@src/utils/interface";
+import {
+  BasePageProps,
+  PublicationCategoryInt,
+  PublicationInt,
+  PublicationChapterInt,
+} from "@src/utils/interface";
+import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
+import { useRouter } from "next/router";
+import ImageUpload from "@src/components/shared/imageUpload";
+import Delete from "./delete";
 
-const UpdatePublication = ({
-  centreId,
-  publication,
-}: {
-  centreId: string;
-  publication: PublicationInt;
-}) => {
+const CreatePublication = () => {
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+
   const styles = useStyles();
-  const [listOfCategory, setListOfCategory] = useState<
-    PublicationCategoryInt[]
-  >([]);
 
-  const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, check, getFile } = useForm(create);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // eslint-disable-next-line no-unused-vars
-  const getCategory = async () => {
-    try {
-      const { data } = await request.get({ url: "/publication-categories" });
-      setListOfCategory(data as PublicationCategoryInt[]);
-      openDialog();
-    } catch (error) {
-      toggleToast(handleError(error).message);
-    }
+  const { getData, values, submit, check, resetValues } = useForm(Update);
+  const { publication, publicationCategories } = pageData as {
+    publication: PublicationInt;
+    publicationCategories: PublicationCategoryInt[];
   };
+  const [img, setImg] = useState<Record<string, any>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
+  const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
+  const [convertedImage, setConvertedImage] = useState<any>();
+  const [convertedFile, setConvertedFile] = useState<any>();
+  const [file, setFile] = useState<Record<string, any>>();
+  const [tableOfContents, setTableOfContent] = useState<
+    Array<PublicationChapterInt>
+  >(
+    publication?.tableOfContents?.length
+      ? publication?.tableOfContents
+      : [{ title: "", pageNo: 0 }]
+  );
+  const [authors, setAuthors] = useState<Array<any>>([
+    publication?.authors?.length
+      ? publication?.authors
+      : { name: "", imageUrl: "" },
+  ]);
 
-  async function create() {
+  const getFile = (e: ChangeEvent<any>) => {
+    setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
+  };
+  const router = useRouter();
+  const { type, folderId } = router.query;
+
+  async function Update() {
     try {
       setIsLoading(true);
-      const data = await request.post({
-        url: `/centre/${centreId}/publication`,
+      if (img.base64 && !convertedImage) {
+        const imageUrl = await uploadFiles(
+          getFileKey("png"),
+          img.base64,
+          setImageLoadingProgress
+        );
+        values.imageUrl = imageUrl;
+        setConvertedImage(imageUrl);
+      }
+      if (file && !convertedFile) {
+        const fileUrl = await uploadFiles(
+          getFileKey(file.fileUrl),
+          file.fileUrl,
+          setFileLoadingProgress
+        );
+        values.fileUrl = fileUrl;
+        setConvertedFile(fileUrl);
+      }
+      if (values.learnings && typeof values.learnings === "string") {
+        values.learnings = values.learnings.split(",");
+      }
+      if (values.authors && authors[0].name) {
+        values.authors = authors;
+      }
+      if (tableOfContents && tableOfContents[0].title) {
+        values.tableOfContents = tableOfContents;
+      }
+      if (folderId) values.folderId = folderId;
+      values.type = type;
+      convertedFile && (values.fileUrl = convertedFile);
+      convertedImage && (values.imageUrl = convertedImage);
+      const data = await request.patch({
+        url:
+          type === "FOLDER"
+            ? `/centre/${cachedData.centre.id}/publication-folder/${publication.id}`
+            : `/centre/${cachedData.centre.id}/publication/${publication.id}`,
         data: values,
       });
       toggleToast(data.message);
+      resetValues();
       setIsLoading(false);
-      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -66,44 +123,76 @@ const UpdatePublication = ({
   }
 
   return (
-    <>
-      <IconButton onClick={() => openDialog()}>
-        <EditOutlined htmlColor="#616161" />
-      </IconButton>
+    <Box mt={6}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          onClick={() => router.back()}
+          style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        >
+          <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
+        </Typography>
+        <Box sx={{ textAlign: "center" }}>
+          <Delete centreId={cachedData.centre.id} id={publication.id} />
+          <Typography variant="caption" component="div">
+            Want to delete Publication?
+          </Typography>
+        </Box>
+      </Box>
 
-      <Dialog
-        title="Update Publication "
-        isOpen={isOpen}
-        closeDialog={closeDialog}
-        content={
-          <form onSubmit={(e) => submit(e)}>
-            <Stack spacing={3} mt={3}>
-              <TextFields
-                type="text"
-                label="Publication name"
-                name="name"
-                defaultValue={publication?.name}
-                onChange={getData}
-                inputProps={{ maxLength: 35 }}
-              />
+      <Typography
+        variant="h4"
+        component="div"
+        style={{
+          textTransform: "uppercase",
+          marginTop: 40,
+          textAlign: "center",
+        }}
+      >
+        Update {type}
+      </Typography>
+      <form onSubmit={(e) => submit(e)} style={{ marginTop: 40 }}>
+        <Stack spacing={3} mt={3}>
+          <TextFields
+            type="text"
+            label="Name"
+            name="name"
+            defaultValue={publication.name}
+            onChange={getData}
+            inputProps={{ maxLength: 35 }}
+            required
+          />
 
+          {type != "FOLDER" && (
+            <>
               <TextFields
                 type="number"
                 label="Publication Price"
+                defaultValue={publication.price}
                 name="price"
-                defaultValue={publication?.price}
                 onChange={getData}
               />
               <Stack>
-                <Typography variant="body1" component="p">
+                <Typography
+                  variant="body1"
+                  component="p"
+                  // defaultValue={publication.cat}
+                >
                   Select Category
                 </Typography>
-                <Select name="categoryId">
-                  {listOfCategory?.map((category, index) => (
+                <Select name="publicationCategoryId">
+                  {publicationCategories?.map((category, index) => (
                     <MenuItem
                       key={`${index}-catygory`}
-                      value={publication.name}
-                      onClick={() => (values.categoryId = category.id)}
+                      value={category.id}
+                      onClick={() =>
+                        (values.publicationCategoryId = category.id)
+                      }
                       id={category.id}
                     >
                       {category.name}
@@ -112,28 +201,204 @@ const UpdatePublication = ({
                 </Select>
               </Stack>
               <Box>
-                <Typography>Description</Typography>
-                <TextArea
-                  placeholder="Type in description here ..."
-                  name="description"
-                  defaultValue={publication?.description}
+                <Typography variant="caption" component="div">
+                  Add learnings by seperating it with comma (,)
+                </Typography>
+                <TextFields
+                  type="text"
+                  label="Publication learnings"
+                  defaultValue={
+                    publication?.learnings?.length > 0
+                      ? publication.learnings.toString()
+                      : null
+                  }
+                  name="learnings"
                   onChange={getData}
-                  style={{
-                    width: "100%",
-                    height: 100,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
+                  sx={{ width: "100%", mt: 1 }}
                 />
               </Box>
+            </>
+          )}
+          <TextFields
+            type="text"
+            label="Publication tags"
+            name="tags"
+            defaultValue={publication?.tags}
+            onChange={getData}
+          />
 
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in description here ..."
+              name="description"
+              onChange={getData}
+              defaultValue={publication.description}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              defaultValue={publication.summary}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          {type != "FOLDER" && (
+            <>
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Table of contents
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography variant="caption" component="div">
+                    Click add more content, to add more titles and pages
+                  </Typography>
+                  <ButtonComponent
+                    onClick={() =>
+                      setTableOfContent([
+                        ...tableOfContents,
+                        { title: "", pageNo: 0 },
+                      ])
+                    }
+                  >
+                    Add more content
+                  </ButtonComponent>
+                </Box>
+                {tableOfContents.map(({ title, pageNo }, index) => (
+                  <Box
+                    key={`${index}-content`}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 2,
+                    }}
+                  >
+                    <TextFields
+                      type="text"
+                      label="Title"
+                      name="title"
+                      defaultValue={title}
+                      onChange={(e: ChangeEvent<any>) => {
+                        tableOfContents[index].title = e.target.value;
+                        setTableOfContent([...tableOfContents]);
+                      }}
+                      sx={{ width: "78%" }}
+                    />
+                    <TextFields
+                      type="number"
+                      label="Page number"
+                      name="pageNo"
+                      defaultValue={pageNo}
+                      onChange={(e: ChangeEvent<any>) => {
+                        tableOfContents[index].pageNo = e.target.value;
+                        setTableOfContent([...tableOfContents]);
+                      }}
+                      sx={{ width: "16%" }}
+                    />
+                    <Box sx={{ width: "5%" }}>
+                      <IconButton
+                        onClick={() => {
+                          tableOfContents.splice(index, 1);
+                          setTableOfContent([...tableOfContents]);
+                        }}
+                      >
+                        <CloseOutlined htmlColor="red" />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Authors
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography variant="caption" component="div">
+                    Click add more authors, to add more authors
+                  </Typography>
+                  <ButtonComponent
+                    onClick={() =>
+                      setAuthors([...authors, { name: "", imageUrl: "" }])
+                    }
+                  >
+                    Add more authors
+                  </ButtonComponent>
+                </Box>
+                {authors.map(({}, index) => (
+                  <Box
+                    key={`${index}-content`}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 2,
+                    }}
+                  >
+                    <TextFields
+                      type="text"
+                      label="name"
+                      name="title"
+                      onChange={(e: ChangeEvent<any>) => {
+                        authors[index].name = e.target.value;
+                        setAuthors([...authors]);
+                      }}
+                      sx={{ width: "78%" }}
+                    />
+                    <Box sx={{ width: "5%" }}>
+                      <IconButton
+                        onClick={() => {
+                          authors.splice(index, 1);
+                          setAuthors([...authors]);
+                        }}
+                      >
+                        <CloseOutlined htmlColor="red" />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
               <TextFields
                 type="file"
                 label="Pdf File"
-                name="pdfFile"
-                defaultValue={publication?.fileUrl}
+                name="fileUrl"
                 onChange={getFile}
               />
+
               <Stack direction="row" spacing={3}>
                 <CheckBox
                   label={
@@ -141,8 +406,8 @@ const UpdatePublication = ({
                       Show in search result
                     </Typography>
                   }
-                  name="allowSearch"
                   value={publication.allowSearch}
+                  name="allowSearch"
                   onChange={check}
                   className={styles.checkbox}
                 />
@@ -152,8 +417,8 @@ const UpdatePublication = ({
                       Allow read
                     </Typography>
                   }
-                  name="allowRead"
                   value={publication.allowRead}
+                  name="allowRead"
                   onChange={check}
                   className={styles.checkbox}
                 />
@@ -163,29 +428,38 @@ const UpdatePublication = ({
                       Allow download
                     </Typography>
                   }
+                  value={publication.allowDownload}
                   name="allowDownload"
-                  // value={plugins.COURSE}
                   onChange={check}
                   className={styles.checkbox}
                 />
               </Stack>
-            </Stack>
-            <Typography style={{ textAlign: "right", marginTop: 20 }}>
-              <ButtonComponent type="submit">
-                <>
-                  Update publication
-                  {isLoading && (
-                    <Loading color="primary" size={12} sx={{ marginLeft: 2 }} />
-                  )}
-                </>
-              </ButtonComponent>
-              <ButtonComponent onClick={() => closeDialog()}>
-                Cancel
-              </ButtonComponent>
-            </Typography>
-          </form>
-        }
-      />
+            </>
+          )}
+          <ImageUpload
+            setImg={setImg}
+            img={img}
+            uploadText="Select and upload centre logo"
+            defaultImage={publication.imageUrl}
+          />
+        </Stack>
+        <Typography style={{ textAlign: "right", marginTop: 20 }}>
+          <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
+            <>
+              Update {type === "FOLDER" ? "folder" : "publication"}
+              {isLoading && (
+                <Loading
+                  color="primary"
+                  size={35}
+                  sx={{ marginLeft: 2 }}
+                  value={fileLoadingProgres || imageLoadingProgres}
+                />
+              )}
+            </>
+          </ButtonComponent>
+        </Typography>
+      </form>
+
       {toastMessage && (
         <Toast
           message={toastMessage}
@@ -193,8 +467,8 @@ const UpdatePublication = ({
           showToast={toggleToast}
         />
       )}
-    </>
+    </Box>
   );
 };
 
-export default UpdatePublication;
+export default CreatePublication;

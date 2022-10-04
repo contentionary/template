@@ -14,8 +14,7 @@ import {
 import useStyles from "./styles";
 import Card from "../plugins/card";
 
-import { PluginFunc } from "../plugins/interface";
-import { handleError, request } from "@src/utils";
+import { handleError, queryClient, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useDialog } from "@src/hooks";
 import { useState } from "react";
@@ -24,22 +23,25 @@ import ConfirmDialog from "@src/components/shared/confirmationModal";
 import NextLink from "@src/components/shared/link/btnLink";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
+import { BasePageProps } from "@src/utils/interface";
 
-const Services: PluginFunc = ({
+const Pluggins = ({
   title,
-  centre,
-  setCentre,
   numberOfPluginsToShow,
   pluginPage,
+}: {
+  title: string;
+  numberOfPluginsToShow: number;
+  pluginPage?: boolean;
 }) => {
   const styles = useStyles();
   const router = useRouter();
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const { id, centreSlug } = router.query;
   const [removePlugin, setRemovePlugin] = useState("");
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-
+  const pagePros = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = pagePros.pageData.centre;
   const data = [
     { item: exam, status: centre?.plugins?.EXAM },
     { item: league, status: centre?.plugins?.LEAGUE },
@@ -61,7 +63,9 @@ const Services: PluginFunc = ({
     } else if (plugin === "RESULT") {
       centre.plugins.RESULT = status;
     }
-    setCentre({ ...centre });
+
+    pagePros.pageData.centre = centre;
+    queryClient.setQueryData("pageProps", pagePros);
   }
 
   async function installPlugin(plugin: string, status: boolean, price: number) {
@@ -76,15 +80,15 @@ const Services: PluginFunc = ({
             query: {
               currency: "NGN",
               purpose: "RESULT_PLUGIN",
-              redirectUrl: `/${centreSlug}/${id}`,
+              redirectUrl: "/admin",
               amount: price,
-              itemId: id,
+              itemId: centre.id,
             },
           });
         } else {
           setIsLoading(true);
           const { message } = await request.post({
-            url: `/centre/${id}/plugin`,
+            url: `/centre/${centre.id}/plugin`,
             data: { plugin },
           });
           updatePlugin(plugin, true);
@@ -102,7 +106,7 @@ const Services: PluginFunc = ({
     try {
       setIsLoading(true);
       const { message } = await request.delete(
-        `/centre/${id}/plugin/${removePlugin}`
+        `/centre/${centre.id}/plugin/${removePlugin}`
       );
       updatePlugin(removePlugin, false);
       toggleToast(message);
@@ -179,4 +183,4 @@ const Services: PluginFunc = ({
     </Box>
   );
 };
-export default Services;
+export default Pluggins;

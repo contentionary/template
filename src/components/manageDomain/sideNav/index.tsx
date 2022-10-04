@@ -12,7 +12,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShareCentre from "./share";
 import Modules from "./modules";
 import CentreContact from "./contact";
-import CentreSettings from "./settings";
 
 import Image from "@src/components/shared/image";
 import config from "@src/utils/config";
@@ -21,6 +20,7 @@ import { useRouter } from "next/router";
 import { cache, queryClient } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
+import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 
 const SideNav = (): JSX.Element => {
   const router = useRouter();
@@ -81,7 +81,23 @@ const SideNav = (): JSX.Element => {
             />
           </ListItemButton>
         </ListItem>
-        <CentreSettings />
+        <ListItemButton
+          onClick={() => router.push("/admin/update-domain")}
+          sx={{ marginBottom: 1 }}
+        >
+          <ListItemIcon>
+            <SettingsOutlined />
+          </ListItemIcon>
+          <ListItemText
+            primaryTypographyProps={{
+              color: "#333333",
+              fontWeight: 500,
+              fontSize: 16,
+              fontStyle: "normal",
+            }}
+            primary="update-domain"
+          />
+        </ListItemButton>
         <ShareCentre
           contentToShare={`${config.URL.APP}/${centre.slug}/${centre.id}?referralCode=${user?.id}`}
           userId={user?.id}

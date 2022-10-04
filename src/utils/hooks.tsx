@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-export const useToast = () => {
+// : { toastMessage: string; toggleToast: Function }
+export const useToast: any = () => {
   const [toastMessage, setToastMessage] = useState("");
   const toggleToast = (message: string) => setToastMessage(message);
   return {
