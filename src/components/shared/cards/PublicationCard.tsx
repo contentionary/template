@@ -1,8 +1,7 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
-//
+// mui components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
@@ -10,12 +9,18 @@ import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link as MuiLink } from "@mui/material";
+// app components
+import ImageComponent from "../image";
 // icons
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // styles and interface
-import { kCount } from "@src/utils";
+import {
+  BOOK_IMAGE_PLACEHOLDER,
+  FOLDER_IMAGE_PLACEHOLDER,
+  kCount,
+} from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
@@ -49,11 +54,11 @@ const PublicationCard: PublicationCardFunc = ({
           className="MuiCourseCardActionBase-root"
         >
           <Box p={1} className="card-img">
-            <Image
+            <ImageComponent
               src={
                 type === "FOLDER"
-                  ? "/images/cards/resume-folder.svg"
-                  : imageUrl || "/images/book-1.png"
+                  ? FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl || BOOK_IMAGE_PLACEHOLDER
               }
               width="90%"
               height="100%"

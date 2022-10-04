@@ -1,44 +1,40 @@
-import Image from "next/image";
+import React, { Fragment } from "react";
+//
+import Image, { ImageProps } from "next/image";
 
-interface Props {
-  src: string;
+interface ImageComponentProps extends ImageProps {
+  fallback?: string;
+  debug?: string;
   alt: string;
-  height: number | string;
-  width: number | string;
-  className?: string;
-  hidden?: boolean;
-  style?: object;
-  layout?: "fixed" | "responsive" | "fill" | "intrinsic" | undefined;
-  objectFit?: any;
-  onClick?: Function;
 }
-const ImageComponent = ({
-  src,
-  alt,
-  height,
-  width,
-  className,
-  hidden,
-  style,
-  layout,
-  onClick,
-  objectFit,
-  ...rest
-}: Props): JSX.Element => {
+
+const ImageComponent = (props: ImageComponentProps) => {
+  const [loading, setLoading] = React.useState(true);
+  const [onErrorSrc, setOnErrorSrc] = React.useState<string | undefined>(
+    undefined
+  );
+
+  const handleImageError = (
+    e: React.SyntheticEvent<HTMLImageElement, Event>,
+    fallback = "/images/failed.svg"
+  ) => {
+    e?.currentTarget?.src !== fallback && setOnErrorSrc(fallback);
+  };
+
   return (
-    <Image
-      src={src}
-      alt={alt}
-      height={height}
-      width={width}
-      className={className}
-      hidden={hidden}
-      style={style}
-      layout={layout}
-      objectFit={objectFit}
-      onClick={(e) => onClick && onClick(e)}
-      {...rest}
-    />
+    <Fragment>
+      <Image
+        {...props}
+        alt={props.alt}
+        src={
+          loading === true
+            ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN88h8AAs0B5QWO2loAAAAASUVORK5CYII="
+            : onErrorSrc || props.src
+        }
+        onError={(e) => handleImageError(e, props.fallback)}
+        onLoadingComplete={() => !props.debug && setLoading(false)}
+      />
+    </Fragment>
   );
 };
 

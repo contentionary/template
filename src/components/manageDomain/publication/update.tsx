@@ -26,7 +26,7 @@ import {
   BasePageProps,
   PublicationCategoryInt,
   PublicationInt,
-  TableOfContentsInt,
+  PublicationChapterInt,
 } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
@@ -54,7 +54,7 @@ const CreatePublication = () => {
   const [convertedFile, setConvertedFile] = useState<any>();
   const [file, setFile] = useState<Record<string, any>>();
   const [tableOfContents, setTableOfContent] = useState<
-    Array<TableOfContentsInt>
+    Array<PublicationChapterInt>
   >(
     publication?.tableOfContents?.length
       ? publication?.tableOfContents

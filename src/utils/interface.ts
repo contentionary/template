@@ -113,7 +113,7 @@ export interface AuthorInt {
   name: string;
 }
 
-export interface TableOfContentsInt {
+export interface PublicationChapterInt {
   title: string;
   pageNo: number;
 }
@@ -144,8 +144,9 @@ export interface PublicationInt {
   allowDownload: boolean;
   allowRead: boolean;
   tags: string[];
-  tableOfContents?: TableOfContentsInt[];
+  tableOfContents?: PublicationChapterInt[];
   summary: string;
+  allowReview: boolean;
 }
 
 export interface CourseInt {

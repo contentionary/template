@@ -23,6 +23,8 @@ export const FILE_DOWNLOAD_URL =
   "https://storage.contentionary.com/v1/download?fileUrl=";
 
 export const DEFAULT_LOGO = "/public/images/logo.png";
+export const BOOK_IMAGE_PLACEHOLDER = "/images/book-1.png";
+export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
 
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);

@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next components
-import Image from "next/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -13,6 +12,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
 // import { useTheme } from "@mui/material/styles";
+// app components
+import ImageComponent from "@src/components/shared/image";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -26,10 +27,10 @@ import { queryClient } from "@src/utils";
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-  const { pageData = null } = queryClient.getQueryData(
+  const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-
+  const { user } = cachedData;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
   // const templateData = pageData.templateData as TemplateDataInt;
@@ -59,16 +60,16 @@ const HeroSection: PublicationsFunc = () => {
                 {landingPageSectionOne.title}
               </Typography>
               <Typography
-                color="GrayText"
-                fontSize={30}
-                lineHeight={1.3}
                 mb={3}
                 paragraph
+                fontSize={30}
+                color="GrayText"
+                lineHeight={1.3}
                 maxWidth="450px"
               >
                 {landingPageSectionOne.description}
               </Typography>
-              <NextLink href="/library" passHref>
+              <NextLink href={user ? "/library" : "/login"} passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -133,7 +134,7 @@ const HeroSection: PublicationsFunc = () => {
                     borderRadius: "1.5rem !important",
                   }}
                 >
-                  <Image
+                  <ImageComponent
                     priority
                     layout="fill"
                     alt="yes we can"

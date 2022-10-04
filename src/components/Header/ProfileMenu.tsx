@@ -22,15 +22,19 @@ import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 // import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 // import PlayLessonOutlinedIcon from "@mui/icons-material/PlayLessonOutlined";
 // import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+// import PlayLessonOutlinedIcon from "@src/assets/icons/play.svg";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
+import { UserInt, CachedCentreInt } from "@src/utils/interface";
+// import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 
 interface ProfileMenuInt {
-  title: string;
+  cachedData: { user: UserInt; token: string; centre: CachedCentreInt };
 }
 
-const ProfileMenu = ({ title }: ProfileMenuInt) => {
+const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
   const menuStyle = useMenuStyle();
+  const { user, centre } = cachedData;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -70,9 +74,6 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
     prevOpen.current = open;
   }, [open]);
 
-  /*  transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
- */
   return (
     <React.Fragment>
       <Tooltip title="Account settings">
@@ -85,9 +86,11 @@ const ProfileMenu = ({ title }: ProfileMenuInt) => {
           aria-expanded={open ? "true" : undefined}
           aria-controls={open ? "composition-menu" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>{Array.from(title)[0]}</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }}>
+            {Array.from(user?.firstname)[0]}
+          </Avatar>
           &nbsp; &nbsp;
-          {title}
+          {user?.firstname}
         </Button>
       </Tooltip>
       <Popper

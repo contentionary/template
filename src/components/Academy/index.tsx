@@ -8,7 +8,6 @@ import FutureSection from "./FutureSection";
 import CategoriesSection from "./CategoriesSection";
 import CourseListSection from "./CourseListSection";
 import TestimonialSection from "./TestimonialSection";
-import PracticeTestSection from "./PracticeTestSection";
 //
 import { AcademyFunc } from "./interfaceType";
 
@@ -18,7 +17,6 @@ const Academy: AcademyFunc = () => {
       <HeroSection />
       <CategoriesSection />
       <CourseListSection />
-      <PracticeTestSection />
       <FutureSection />
       <TestimonialSection />
       <PromoSection />
