@@ -77,7 +77,7 @@ const CreatePublication = () => {
         setConvertedFile(fileUrl);
       }
 
-      if (values.authors && authors[0].name) {
+      if (authors.length && authors[0].name) {
         values.authors = authors;
       }
       if (values.learnings && typeof values.learnings === "string") {

@@ -106,6 +106,7 @@ const CreatePublication = () => {
       values.type = type;
       convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
+      delete values.type;
       const data = await request.patch({
         url:
           type === "FOLDER"
