@@ -21,25 +21,20 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-
-import { isServerSide } from "@src/utils";
-import ConfirmPayment from "@src/components/payment/confirmPayment";
-import ShareContentOnMedia from "./share";
+//
 import { useDialog } from "@src/hooks";
+import { isServerSide } from "@src/utils";
+import ShareContentOnMedia from "./share";
+import useButtonStyle from "@src/styles/button";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
+  const buttonStyle = useButtonStyle();
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   const router = useRouter();
   const globalStyle = useGlobalStyle();
   const { reference } = router.query;
-
-  const btnStyle = {
-    color: "secondary.light",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
 
   const {
     name,
@@ -144,19 +139,18 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
               <Stack direction="row" spacing={1}>
-                {/* <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
                   <BookmarkAddOutlinedIcon />
                   Subscribe
                 </Button> */}
-                {/* <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
                   <FavoriteBorderOutlinedIcon />
                   Like
                 </Button> */}
                 <Button
-                  variant="text"
                   color="secondary"
-                  sx={btnStyle}
                   onClick={() => openDialog()}
+                  className={buttonStyle.iconTextButton}
                 >
                   <ShareOutlinedIcon />
                   Share

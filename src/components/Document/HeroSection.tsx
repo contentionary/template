@@ -13,6 +13,7 @@ import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
 import useGlobalStyle from "@src/styles";
 import { DocumentFunc } from "./interfaceType";
+import useButtonStyle from "@src/styles/button";
 // app components
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -30,12 +31,7 @@ const HeroSection: DocumentFunc = ({
   fileUrl = "#",
 }) => {
   const globalStyle = useGlobalStyle();
-  const btnStyle = {
-    color: "secondary.light",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
+  const buttonStyle = useButtonStyle();
 
   return (
     <Fragment>
@@ -94,15 +90,27 @@ const HeroSection: DocumentFunc = ({
             {description}
           </Typography>
           <Stack direction="row" spacing={1}>
-            <Button variant="text" color="secondary" sx={btnStyle}>
+            <Button
+              variant="text"
+              color="secondary"
+              className={buttonStyle.iconTextButton}
+            >
               <BookmarkAddOutlinedIcon />
               Subscribe
             </Button>
-            <Button variant="text" color="secondary" sx={btnStyle}>
+            <Button
+              variant="text"
+              color="secondary"
+              className={buttonStyle.iconTextButton}
+            >
               <FavoriteBorderOutlinedIcon />
               Like
             </Button>
-            <Button variant="text" color="secondary" sx={btnStyle}>
+            <Button
+              variant="text"
+              color="secondary"
+              className={buttonStyle.iconTextButton}
+            >
               <ShareOutlinedIcon />
               Share
             </Button>

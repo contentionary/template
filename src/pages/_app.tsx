@@ -1,22 +1,22 @@
 // React component
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 // next components
 import Router from "next/router";
+import type { AppProps } from "next/app";
 // mui component
 import LinearProgress from "@mui/material/LinearProgress";
-//
-import type { AppProps } from "next/app";
-import { Hydrate, QueryClientProvider } from "react-query";
+// react query
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Hydrate, QueryClientProvider } from "react-query";
 //
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-//
-import { theme } from "@src/styles/theme";
 import { useTheme } from "@mui/material/styles";
-import { useRef } from "react";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
+// interface, styles and util
 import { queryClient } from "@src/utils";
+import { theme } from "@src/styles/theme";
 import { BasePageProps } from "@src/utils/interface";
+//
 import Custom404 from "./404";
 import "@src/styles/pdfReader.css";
 
