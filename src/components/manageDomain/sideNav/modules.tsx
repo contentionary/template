@@ -3,14 +3,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { useRouter } from "next/router";
-import {
-  certificate,
-  course,
-  exam,
-  league,
-  publication,
-  result,
-} from "../plugins/data";
+import ALL_PLUGINS from "../plugins/data";
 import { ExpandLessOutlined, ExpandMoreOutlined } from "@mui/icons-material";
 import { Collapse, List, ListItem } from "@mui/material";
 import { useState } from "react";
@@ -23,14 +16,8 @@ interface Props {
 const Modules = ({ centre }: Props): JSX.Element => {
   const router = useRouter();
   const [open, setOpen] = useState(true);
-  const data = [
-    { item: exam, status: centre?.plugins?.EXAM },
-    { item: league, status: centre?.plugins?.LEAGUE },
-    { item: course, status: centre?.plugins?.COURSE },
-    { item: publication, status: centre?.plugins?.PUBLICATION },
-    { item: result, status: centre?.plugins?.RESULT },
-    { item: certificate, status: false },
-  ];
+  const data = ALL_PLUGINS.filter(({ plugin }) => centre.plugins[plugin]);
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -54,29 +41,26 @@ const Modules = ({ centre }: Props): JSX.Element => {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {data.map(
-            ({ status, item }, index) =>
-              status && (
-                <ListItem
-                  disablePadding
-                  key={index}
-                  onClick={() => router.push(`/${item.link}`)}
-                >
-                  <ListItemButton sx={{ pl: 5 }}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText
-                      primaryTypographyProps={{
-                        color: "#616161",
-                        fontWeight: 400,
-                        fontSize: 14,
-                        fontStyle: "normal",
-                      }}
-                      primary={item.name}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              )
-          )}
+          {data.map((item, index) => (
+            <ListItem
+              disablePadding
+              key={index}
+              onClick={() => router.push(`${item.link}`)}
+            >
+              <ListItemButton sx={{ pl: 5 }}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{
+                    color: "#616161",
+                    fontWeight: 400,
+                    fontSize: 14,
+                    fontStyle: "normal",
+                  }}
+                  primary={item.name}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       </Collapse>
     </>

@@ -32,7 +32,6 @@ const Card = ({
   const globalStyle = useGlobalStyle();
   const router = useRouter();
   const styles = useStyles();
-  const { centreSlug, id } = router.query;
 
   return (
     <Stack>
@@ -76,7 +75,7 @@ const Card = ({
             className={globalStyle.bgGradient}
             onClick={() =>
               !installPlugin
-                ? router.push(`/${centreSlug}/${id}/${link}`)
+                ? router.push(`/${link}`)
                 : installPlugin(plugin, status, price)
             }
           >

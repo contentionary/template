@@ -5,7 +5,7 @@ import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
 
 import Card from "./card";
-// import Plugins from "./plugins";
+import Plugins from "./plugins";
 import Services from "./services";
 import useStyles from "./styles";
 
@@ -14,29 +14,29 @@ import Toast from "@src/components/shared/toast";
 import Link from "@src/components/shared/link";
 import { useToast } from "@src/utils/hooks";
 
-import { copy } from "@src/utils";
+import { copy, DEFAULT_LOGO } from "@src/utils";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 
 const Dashboard = (): JSX.Element => {
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const centre = pageData.centre as CentreProps;
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = cachedData.centre as unknown as CentreProps;
 
   return (
     <Box mt={3}>
       <Box sx={{ display: "flex", alignItems: "center" }} marginBottom={3}>
         <Image
-          src={centre?.logo ? centre?.logo : "/images/centre/centreIcon.svg"}
-          alt="Contentionary logo"
+          src={centre?.logo ? centre?.logo : DEFAULT_LOGO}
+          alt={`${centre.name} logo`}
           width={71}
           height={70}
           style={{ borderRadius: "50%" }}
         />
         <Box marginLeft={2}>
           <Typography variant="h5" component="p" className={styles.centrName}>
-            {centre?.name}
+            {centre.name}
           </Typography>
           <Box sx={{ display: "flex" }}>
             <Typography variant="body2" component="p" className={styles.copyId}>
@@ -100,11 +100,7 @@ const Dashboard = (): JSX.Element => {
         </Grid>
       </Grid>
       <Box sx={{ marginTop: 10 }}>
-        {(centre?.plugins?.COURSE ||
-          centre?.plugins?.LEAGUE ||
-          centre?.plugins?.EXAM ||
-          centre?.plugins?.PUBLICATION ||
-          centre?.plugins?.RESULT) && (
+        {Object.keys(centre.plugins).length && (
           <Services
             centre={centre}
             title="My Centre Pluggins"
@@ -113,12 +109,10 @@ const Dashboard = (): JSX.Element => {
         )}
       </Box>
 
-      {/* <Plugins
-        centre={centre}
-        setCentre={setCentre}
+      <Plugins
         title="Better your experience by installing more pluggins"
         numberOfPluginsToShow={6}
-      /> */}
+      />
       {toastMessage && (
         <Toast
           message={toastMessage}

@@ -46,15 +46,16 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
             zIndex: theme.zIndex.drawer + 2,
           }}
         >
-          <Container maxWidth="xl">
+          <Container style={{ padding: "5px" }} maxWidth="xl">
             <Toolbar disableGutters>
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                   <Image
                     src={centre.logo || "/images/logo.png"}
                     alt="Contentionary logo"
-                    width={80}
-                    height={80}
+                    width={60}
+                    height={60}
+                    style={{ borderRadius: 50 }}
                     objectFit="contain"
                   />
                 </MuiLink>

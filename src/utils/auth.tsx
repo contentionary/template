@@ -10,6 +10,7 @@ export const setAuth = ({
   status,
   token,
   subscribedPublications,
+  isAdmin,
 }: UserInt) => {
   cache.set(
     "user",
@@ -20,6 +21,7 @@ export const setAuth = ({
       status,
       surname,
       subscribedPublications,
+      isAdmin,
     },
     true
   );

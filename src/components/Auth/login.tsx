@@ -30,7 +30,7 @@ const CreateAccount = (): JSX.Element => {
     try {
       setIsLoading(true);
       const { data } = await request.post({
-        url: "/auth/login",
+        url: `/auth/login?centreId=${cachedData.centre.id}`,
         data: values,
       });
       setAuth(data as UserInt);

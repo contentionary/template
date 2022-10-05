@@ -8,9 +8,14 @@ import {
   GetRequestInt,
   PostRequestInt,
   RequestResponseInt,
+  CentreProps,
 } from "@src/utils/interface";
 // import { NextRouter } from "next/router";
 import { QueryClient } from "react-query";
+import { v4 as uuid } from "uuid";
+
+import { Upload } from "@aws-sdk/lib-storage";
+import { S3Client } from "@aws-sdk/client-s3";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -26,6 +31,81 @@ export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
 };
 
+export const getFileKey = (file: any) => {
+  if (typeof file === "string") return file;
+  const date = new Date();
+  const fileFormat =
+    typeof file === "string" ? file : file.name.split(".").pop();
+  const FILE_LOCATION = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
+  return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
+};
+
+// export const cancelCourse = () => {
+//   Document.getElementById("create-course-form").reset();
+// };
+
+export const uploadFiles = async (file: any, setProgress: Function) => {
+  try {
+    const date = new Date();
+
+    let params: any = {
+      Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET,
+      Key: `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}`,
+      ACL: "public-read",
+    };
+
+    if (typeof file === "string") {
+      file = file.replace(/^data:image\/\w+;base64,/, "");
+
+      let format = file.charAt(0);
+      if (format === "/") format = "jpg";
+      else if (format === "i") format = "png";
+      else if (format === "R") format = "gif";
+
+      const Body = Buffer.from(file, "base64");
+
+      params = {
+        ...params,
+        Key: `${params.Key}.${format}`,
+        Body,
+        ContentType: `image/${format}`,
+      };
+    } else {
+      params.Body = file;
+      params.Key = `${params.Key}.${file.name.split(".").pop()}`;
+    }
+
+    const parallelUploads3 = new Upload({
+      client: new S3Client({
+        region: "eu-west-3",
+        credentials: {
+          accessKeyId: process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID as string,
+          secretAccessKey: process.env
+            .NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID as string,
+        },
+      }),
+      params,
+      leavePartsOnError: false, // optional manually handle dropped parts
+    });
+
+    parallelUploads3.on("httpUploadProgress", (progress) => {
+      let progressValue =
+        (Number(progress.loaded) / Number(progress.total)) * 100;
+
+      setProgress(Math.ceil(progressValue));
+    });
+
+    const res: any = await parallelUploads3.done();
+    devLog("Result", {
+      url: res.Location,
+      uri: res.Location.split(".com/").pop(),
+      res,
+    });
+    return res.Location.split(".com/").pop();
+  } catch (err) {
+    throw err;
+  }
+};
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -269,36 +349,35 @@ export const pageErrorHandler = (
 });
 
 export const getCentre = async (
-  context: GetServerSidePropsContext
-): Promise<CachedCentreInt | null> => {
+  context: GetServerSidePropsContext,
+  returnFullData: boolean = false
+): Promise<CachedCentreInt | CentreProps | null> => {
   try {
     const host = context.req.headers.host as string;
 
     // let centre = cache.get(host, context);
     // if (centre) return centre;
+    let { data: centre } = await request.get({
+      url: `/centre/domain-centre?domain=${host}&proxy=learnafrica.cttn.ac`,
+    });
 
-    const { data } = (await request.get({
-      url: `/centre/domain-centre?domain=${host}`,
-    })) as RequestResponseInt;
-    let centre = data
-      ? {
-          id: data.id,
-          slug: data.slug,
-          name: data.name,
-          template: data.template,
-          // template: "course",
-          logo: data.logo,
-          phoneNumber: data.phoneNumber || "+234 902 239 6389",
-          emailAddress: data.emailAddress || "contact@contentionary.com",
-          address:
-            data.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
-        }
-      : null;
+    if (!returnFullData && centre)
+      centre = {
+        id: centre.id,
+        slug: centre.slug,
+        name: centre.name,
+        template: centre.template,
+        logo: centre.logo,
+        phoneNumber: centre.phoneNumber || "+234 902 239 6389",
+        emailAddress: centre.emailAddress || "contact@contentionary.com",
+        address:
+          centre.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
+      };
 
     // cache.set(host, centre, context);
     if (!centre) throw new Error("Centre not found");
 
-    return centre;
+    return centre as CachedCentreInt | CentreProps;
   } catch (err) {
     throw err;
   }

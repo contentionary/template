@@ -1,8 +1,8 @@
 // React component
 import { useEffect, useState, useRef } from "react";
 // next components
-import Router from "next/router";
 import type { AppProps } from "next/app";
+import Router, { useRouter } from "next/router";
 // mui component
 import LinearProgress from "@mui/material/LinearProgress";
 // react query
@@ -21,6 +21,7 @@ import Custom404 from "./404";
 import "@src/styles/pdfReader.css";
 
 function App({ Component, pageProps }: AppProps) {
+  const route = useRouter();
   const appTheme = useTheme();
   const [pageLoading, setPageLoading] = useState(false);
   //
@@ -39,6 +40,10 @@ function App({ Component, pageProps }: AppProps) {
       Router.events.off("routeChangeError", () => setPageLoading(false));
     };
   }, []);
+
+  // Authenticate admin
+  if (route.pathname.includes("/admin") && !cachedData?.user?.isAdmin)
+    return <Custom404 />;
 
   return (
     <QueryClientProvider client={client.current}>

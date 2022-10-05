@@ -7,18 +7,18 @@ import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 interface Props {
   id: string;
   centreId: string;
-  index: number;
 }
-// please delete this line for prop validation
-// eslint-disable-next-line no-unused-vars
-const DeleteCentre = ({ id, centreId, index }: Props) => {
+
+const DeleteCentre = ({ id, centreId }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
+  const router = useRouter();
 
   async function deleteCentre() {
     try {
@@ -29,6 +29,7 @@ const DeleteCentre = ({ id, centreId, index }: Props) => {
       toggleToast(data.message);
       closeDialog();
       setIsLoading(false);
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
