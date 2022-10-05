@@ -14,7 +14,7 @@ const menuStyle = makeStyles({
       marginLeft: -0.5,
       marginRight: 1,
     },
-    "&:before": {
+    "&caret:before": {
       content: "''",
       display: "block",
       position: "absolute",

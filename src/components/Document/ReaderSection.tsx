@@ -12,6 +12,7 @@ import { grey } from "@mui/material/colors";
 // app components
 import ReaderMenu from "./ReaderMenu";
 import ReaderToolbar from "./ReaderToolbar";
+import ReaderToolbarMobile from "./ReaderToolbarMobile";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 // styles, interface and config
 import { DocumentFunc } from "./interfaceType";
@@ -89,7 +90,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
     renderedPageNumber !== pageNumber || renderedScale !== scale;
 
   return (
-    <Box className={pdfStyle.pdfPage}>
+    <Box bgcolor={grey[100]} className={pdfStyle.pdfPage}>
       <Box
         pt="18px"
         bgcolor={grey[100]}
@@ -139,6 +140,12 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
               }
               className="pdfReader"
               pageNumber={pageNumber}
+            />
+            <ReaderToolbarMobile
+              numPages={numPages}
+              nextPage={nextPage}
+              pageNumber={pageNumber}
+              previousPage={previousPage}
             />
           </Document>
         </Stack>

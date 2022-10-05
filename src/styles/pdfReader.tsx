@@ -32,6 +32,7 @@ const pdfStyle = makeStyles({
     zIndex: 2,
     width: "100%",
     position: "sticky",
+    "&.nav-bottom": { top: "calc(100% - 48px)", bottom: 0, position: "fixed" },
   },
 });
 export default pdfStyle;
