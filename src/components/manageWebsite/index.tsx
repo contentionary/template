@@ -318,17 +318,7 @@ const CreatePublication = () => {
           </Box>
           <Typography style={{ textAlign: "right" }}>
             <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-              <>
-                Mange website
-                {isLoading && (
-                  <Loading
-                    color="primary"
-                    size={35}
-                    sx={{ marginLeft: 2 }}
-                    value={imageLoadingProgres}
-                  />
-                )}
-              </>
+              Mange website
             </ButtonComponent>
           </Typography>
         </Stack>
@@ -341,6 +331,13 @@ const CreatePublication = () => {
           showToast={toggleToast}
         />
       )}
+      <Loading
+        open={isLoading}
+        color="primary"
+        size={100}
+        sx={{ marginLeft: 2 }}
+        value={imageLoadingProgres}
+      />
     </Box>
   );
 };

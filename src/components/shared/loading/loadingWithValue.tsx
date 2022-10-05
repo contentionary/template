@@ -2,7 +2,7 @@ import * as React from "react";
 import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Backdrop } from "@mui/material";
 
 interface Props {
   variant?: "determinate" | "indeterminate";
@@ -20,6 +20,7 @@ interface Props {
     | undefined;
   value: number;
   className?: string;
+  open: boolean;
 }
 
 function CircularProgressWithLabel(
@@ -59,16 +60,22 @@ export default function CircularUnderLoad({
   color,
   value,
   className,
+  open,
 }: Props) {
   return (
-    <CircularProgressWithLabel
-      color={color}
-      sx={sx}
-      size={size}
-      variant={variant}
-      value={value}
-      thickness={thickness}
-      className={className}
-    />
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}
+    >
+      <CircularProgressWithLabel
+        color={color}
+        sx={sx}
+        size={size}
+        variant={variant}
+        value={value}
+        thickness={thickness}
+        className={className}
+      />
+    </Backdrop>
   );
 }

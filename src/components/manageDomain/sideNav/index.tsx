@@ -34,10 +34,10 @@ const SideNav = (): JSX.Element => {
     <div style={{ paddingTop: 20, background: "#FCFCFC" }}>
       <Toolbar>
         <Image
-          src={centre.logo || DEFAULT_LOGO}
-          alt="Contentionary logo"
-          width={200}
-          height={40}
+          src={centre?.logo || DEFAULT_LOGO}
+          alt={`${centre.name} logo`}
+          width={71}
+          height={70}
         />
       </Toolbar>
       <List sx={{ marginTop: 6 }}>

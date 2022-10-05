@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 // mui components
@@ -16,30 +15,26 @@ import { Link as MuiLink } from "@mui/material";
 import useGlobalStyle from "@src/styles";
 import { BookDetailsPageFunc } from "./interfaceType";
 // app components
+import ImageComponent from "@src/components/shared/image";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-
-import { BOOK_IMAGE_PLACEHOLDER, isServerSide } from "@src/utils";
-import ConfirmPayment from "@src/components/payment/confirmPayment";
-import ShareContentOnMedia from "./share";
+// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+//
 import { useDialog } from "@src/hooks";
+import { isServerSide } from "@src/utils";
+import ShareContentOnMedia from "./share";
+import useButtonStyle from "@src/styles/button";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
+  const buttonStyle = useButtonStyle();
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   const router = useRouter();
   const globalStyle = useGlobalStyle();
   const { reference } = router.query;
-
-  const btnStyle = {
-    color: "secondary.light",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
 
   const {
     name,
@@ -80,13 +75,13 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
               }}
             >
               <Box width="80%">
-                <Image
+                <ImageComponent
                   width="100%"
                   height="100%"
                   layout="responsive"
                   objectFit="contain"
                   alt="Contentionary"
-                  src={imageUrl || BOOK_IMAGE_PLACEHOLDER}
+                  src={imageUrl}
                 />
               </Box>
             </Grid>
@@ -125,11 +120,11 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                     >
                       <Avatar sx={{ width: 32, height: 32 }}>
                         {imageUrl ? (
-                          <Image
+                          <ImageComponent
                             alt="user"
                             layout="fill"
                             objectFit="contain"
-                            src={imageUrl || "/images/avatar.png"}
+                            src={imageUrl}
                           />
                         ) : (
                           name[0]
@@ -141,22 +136,21 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 </Stack>
               </Stack>
               <Typography variant="h3" component="h1">
-                ₦{price}
+                {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
               <Stack direction="row" spacing={1}>
-                {/* <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
                   <BookmarkAddOutlinedIcon />
                   Subscribe
                 </Button> */}
-                <Button variant="text" color="secondary" sx={btnStyle}>
+                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
                   <FavoriteBorderOutlinedIcon />
                   Like
-                </Button>
+                </Button> */}
                 <Button
-                  variant="text"
                   color="secondary"
-                  sx={btnStyle}
                   onClick={() => openDialog()}
+                  className={buttonStyle.iconTextButton}
                 >
                   <ShareOutlinedIcon />
                   Share

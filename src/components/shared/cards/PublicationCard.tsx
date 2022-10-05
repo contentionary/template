@@ -16,11 +16,7 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // styles and interface
-import {
-  BOOK_IMAGE_PLACEHOLDER,
-  FOLDER_IMAGE_PLACEHOLDER,
-  kCount,
-} from "@src/utils";
+import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
@@ -55,11 +51,7 @@ const PublicationCard: PublicationCardFunc = ({
         >
           <Box p={1} className="card-img">
             <ImageComponent
-              src={
-                type === "FOLDER"
-                  ? FOLDER_IMAGE_PLACEHOLDER
-                  : imageUrl || BOOK_IMAGE_PLACEHOLDER
-              }
+              src={type === "FOLDER" ? FOLDER_IMAGE_PLACEHOLDER : imageUrl}
               width="90%"
               height="100%"
               layout="responsive"

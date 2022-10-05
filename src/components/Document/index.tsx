@@ -6,7 +6,7 @@ import { PublicationInt } from "@src/utils/interface";
 
 const Document = ({ publication }: { publication: PublicationInt }) => {
   return (
-    <Box component="main" sx={{ pt: 8 }}>
+    <Box component="main" mt={0}>
       <ReaderSection {...publication} />
     </Box>
   );
