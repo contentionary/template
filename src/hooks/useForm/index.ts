@@ -4,14 +4,17 @@ import { UseForm } from "./interface";
 const useForm = (submitAction: Function): UseForm => {
   const [values, setValue] = useState<any>({});
 
-  const resetValues = () => setValue({});
+  const resetValues = (e: any) => {
+    if (e) e.target.reset();
+    else alert("Operation completed successfully!");
+  };
   const getData = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({
       ...values,
       [e.target.name || e.target.id]: e.target.value,
     });
   };
-  const submit = (e: ChangeEvent<HTMLInputElement>): void => {
+  const submit = (e: any): void => {
     if (e) e.preventDefault();
     submitAction();
   };

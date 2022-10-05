@@ -9,13 +9,7 @@ import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
 import { useState } from "react";
-import {
-  getFileKey,
-  handleError,
-  queryClient,
-  request,
-  uploadFiles,
-} from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import ButtonComponent from "@src/components/shared/button";
@@ -40,11 +34,7 @@ const UpdateCentre = () => {
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
-        const imageUrl = await uploadFiles(
-          getFileKey("png"),
-          img.base64,
-          setImageLoadingProgress
-        );
+        const imageUrl = await uploadFiles(img.base64, setImageLoadingProgress);
         values.logo = imageUrl;
         setConvertedImage(imageUrl);
       }

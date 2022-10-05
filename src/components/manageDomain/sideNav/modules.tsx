@@ -45,7 +45,7 @@ const Modules = ({ centre }: Props): JSX.Element => {
             <ListItem
               disablePadding
               key={index}
-              onClick={() => router.push(`/${item.link}`)}
+              onClick={() => router.push(`${item.link}`)}
             >
               <ListItemButton sx={{ pl: 5 }}>
                 <ListItemIcon>{item.icon}</ListItemIcon>

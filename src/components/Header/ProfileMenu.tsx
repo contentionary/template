@@ -129,22 +129,26 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                       My Books
                     </MenuItem>
                   </NextLink>
-                  <NextLink href={"/admin"} passHref>
-                    <MenuItem component={MuiLink} onClick={handleClose}>
-                      <ListItemIcon>
-                        <SettingsOutlined fontSize="small" />
-                      </ListItemIcon>
-                      Admin
-                    </MenuItem>
-                  </NextLink>
-                  <NextLink href="/manage-website" passHref>
-                    <MenuItem component={MuiLink} onClick={handleClose}>
-                      <ListItemIcon>
-                        <LanguageOutlined fontSize="small" />
-                      </ListItemIcon>
-                      Manage Website
-                    </MenuItem>
-                  </NextLink>
+                  {user.isAdmin && (
+                    <>
+                      <NextLink href={"/admin"} passHref>
+                        <MenuItem component={MuiLink} onClick={handleClose}>
+                          <ListItemIcon>
+                            <SettingsOutlined fontSize="small" />
+                          </ListItemIcon>
+                          Admin
+                        </MenuItem>
+                      </NextLink>
+                      <NextLink href="/manage-website" passHref>
+                        <MenuItem component={MuiLink} onClick={handleClose}>
+                          <ListItemIcon>
+                            <LanguageOutlined fontSize="small" />
+                          </ListItemIcon>
+                          Manage Website
+                        </MenuItem>
+                      </NextLink>
+                    </>
+                  )}
                   {/* <NextLink href="/courses/my-courses" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>

@@ -44,36 +44,35 @@ export const getFileKey = (file: any) => {
 //   Document.getElementById("create-course-form").reset();
 // };
 
-export const uploadFiles = async (
-  key: string,
-  file: string,
-  setProgress: Function
-) => {
+export const uploadFiles = async (file: any, setProgress: Function) => {
   try {
+    const date = new Date();
+
     let params: any = {
       Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET,
-      Key: key,
+      Key: `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}`,
+      ACL: "public-read",
     };
 
     if (typeof file === "string") {
       file = file.replace(/^data:image\/\w+;base64,/, "");
+
       let format = file.charAt(0);
       if (format === "/") format = "jpg";
       else if (format === "i") format = "png";
       else if (format === "R") format = "gif";
 
       const Body = Buffer.from(file, "base64");
-      const date = new Date();
 
       params = {
-        Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET,
-        Key: `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}.${format}`,
+        ...params,
+        Key: `${params.Key}.${format}`,
         Body,
-        ACL: "public-read",
         ContentType: `image/${format}`,
       };
     } else {
       params.Body = file;
+      params.Key = `${params.Key}.${file.name.split(".").pop()}`;
     }
 
     const parallelUploads3 = new Upload({
@@ -85,7 +84,6 @@ export const uploadFiles = async (
             .NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID as string,
         },
       }),
-
       params,
       leavePartsOnError: false, // optional manually handle dropped parts
     });
@@ -93,6 +91,7 @@ export const uploadFiles = async (
     parallelUploads3.on("httpUploadProgress", (progress) => {
       let progressValue =
         (Number(progress.loaded) / Number(progress.total)) * 100;
+
       setProgress(Math.ceil(progressValue));
     });
 
@@ -359,7 +358,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}`,
+      url: `/centre/domain-centre?domain=${host}&proxy=learnafrica.cttn.ac`,
     });
 
     if (!returnFullData && centre)

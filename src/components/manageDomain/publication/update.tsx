@@ -11,13 +11,7 @@ import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
 import { useState } from "react";
-import {
-  getFileKey,
-  handleError,
-  queryClient,
-  request,
-  uploadFiles,
-} from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
@@ -76,20 +70,12 @@ const CreatePublication = () => {
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
-        const imageUrl = await uploadFiles(
-          getFileKey("png"),
-          img.base64,
-          setImageLoadingProgress
-        );
+        const imageUrl = await uploadFiles(img.base64, setImageLoadingProgress);
         values.imageUrl = imageUrl;
         setConvertedImage(imageUrl);
       }
       if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(
-          getFileKey(file.fileUrl),
-          file.fileUrl,
-          setFileLoadingProgress
-        );
+        const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
