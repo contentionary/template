@@ -3,9 +3,6 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import {
-  Backdrop,
-  CircularProgress,
-  CircularProgressProps,
   FormControl,
   IconButton,
   InputLabel,
@@ -41,8 +38,7 @@ const CreatePublication = () => {
   const { getData, values, submit, check, resetValues } = useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
-  const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
+  const [progres, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedFile, setConvertedFile] = useState<any>();
   const [file, setFile] = useState<Record<string, any>>();
@@ -63,12 +59,12 @@ const CreatePublication = () => {
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
-        const imageUrl = await uploadFiles(img.base64, setImageLoadingProgress);
+        const imageUrl = await uploadFiles(img.base64, setProgress);
         values.imageUrl = imageUrl;
         setConvertedImage(imageUrl);
       }
       if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
+        const fileUrl = await uploadFiles(file.fileUrl, setProgress);
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
@@ -355,12 +351,7 @@ const CreatePublication = () => {
                   </Box>
                 ))}
               </Box>
-              <TextFields
-                type="file"
-                label="Pdf File"
-                name="fileUrl"
-                onChange={getFile}
-              />
+              <TextFields type="file" name="fileUrl" onChange={getFile} />
               <Stack direction="row" spacing={3}>
                 <CheckBox
                   label={
@@ -408,17 +399,7 @@ const CreatePublication = () => {
             type="submit"
             sx={{ fontSize: 18 }}
           >
-            <>
-              Create {type === "FOLDER" ? "folder" : "publication"}
-              {isLoading && (
-                <Loading
-                  color="primary"
-                  size={35}
-                  sx={{ marginLeft: 2 }}
-                  value={fileLoadingProgres || imageLoadingProgres}
-                />
-              )}
-            </>
+            {type === "FOLDER" ? "Create folder" : "Create publication"}
           </ButtonComponent>
         </Typography>
       </form>
@@ -431,12 +412,13 @@ const CreatePublication = () => {
         />
       )}
 
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      <Loading
         open={isLoading}
-      >
-        <Loading color="primary" size={100} value={fileLoadingProgres} />
-      </Backdrop>
+        sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
+        color="primary"
+        size={100}
+        value={progres}
+      />
     </Box>
   );
 };

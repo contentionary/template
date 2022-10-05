@@ -147,6 +147,7 @@ export interface PublicationInt {
   tableOfContents?: PublicationChapterInt[];
   summary: string;
   allowReview: boolean;
+  publicationCategoryId: string;
 }
 
 export interface CourseInt {
