@@ -35,7 +35,7 @@ const CreatePublication = () => {
   const styles = useStyles();
 
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, check, resetValues } = useForm(Update);
+  const { getData, values, submit, check } = useForm(Update);
   const { publication, publicationCategories } = pageData as {
     publication: PublicationInt;
     publicationCategories: PublicationCategoryInt[];
@@ -102,7 +102,6 @@ const CreatePublication = () => {
         data: values,
       });
       toggleToast(data.message);
-      resetValues();
       setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
@@ -111,7 +110,7 @@ const CreatePublication = () => {
   }
 
   return (
-    <Box mt={6}>
+    <Box mt={6} mb={10}>
       <Box
         sx={{
           display: "flex",
@@ -173,14 +172,18 @@ const CreatePublication = () => {
                 >
                   Select Category
                 </Typography>
-                <Select name="publicationCategoryId">
+                <Select
+                  name="publicationCategoryId"
+                  value={
+                    values.publicationCategoryId ||
+                    "42b04340-d8ff-11eb-a654-8b6d560906aa"
+                  }
+                  onChange={(e) => getData(e)}
+                >
                   {publicationCategories?.map((category, index) => (
                     <MenuItem
                       key={`${index}-catygory`}
                       value={category.id}
-                      onClick={() =>
-                        (values.publicationCategoryId = category.id)
-                      }
                       id={category.id}
                     >
                       {category.name}
@@ -347,7 +350,7 @@ const CreatePublication = () => {
                     Add more authors
                   </ButtonComponent>
                 </Box>
-                {authors.map(({}, index) => (
+                {authors.map(({ name }, index) => (
                   <Box
                     key={`${index}-content`}
                     sx={{
@@ -360,6 +363,7 @@ const CreatePublication = () => {
                     <TextFields
                       type="text"
                       label="name"
+                      defaultValue={name}
                       name="title"
                       onChange={(e: ChangeEvent<any>) => {
                         authors[index].name = e.target.value;
@@ -380,12 +384,7 @@ const CreatePublication = () => {
                   </Box>
                 ))}
               </Box>
-              <TextFields
-                type="file"
-                label="Pdf File"
-                name="fileUrl"
-                onChange={getFile}
-              />
+              <TextFields type="file" name="fileUrl" onChange={getFile} />
 
               <Stack direction="row" spacing={3}>
                 <CheckBox
@@ -431,19 +430,13 @@ const CreatePublication = () => {
             defaultImage={publication.imageUrl}
           />
         </Stack>
-        <Typography style={{ textAlign: "right", marginTop: 20 }}>
-          <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-            <>
-              Update {type === "FOLDER" ? "folder" : "publication"}
-              {isLoading && (
-                <Loading
-                  color="primary"
-                  size={35}
-                  sx={{ marginLeft: 2 }}
-                  value={fileLoadingProgres || imageLoadingProgres}
-                />
-              )}
-            </>
+        <Typography style={{ textAlign: "right", marginTop: 25 }}>
+          <ButtonComponent
+            type="submit"
+            sx={{ fontSize: 18 }}
+            variant="contained"
+          >
+            {type === "FOLDER" ? "Update folder" : "Update publication"}
           </ButtonComponent>
         </Typography>
       </form>
@@ -455,6 +448,13 @@ const CreatePublication = () => {
           showToast={toggleToast}
         />
       )}
+      <Loading
+        open={isLoading}
+        color="primary"
+        size={100}
+        sx={{ marginLeft: 2 }}
+        value={fileLoadingProgres || imageLoadingProgres}
+      />
     </Box>
   );
 };
