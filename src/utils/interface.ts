@@ -205,6 +205,7 @@ export interface UserInt {
   gender: Gender;
   status: string;
   token: string;
+  isAdmin: boolean;
   ownCentres: string[];
   managingCentres: string[];
   subscribedCentres: string[];

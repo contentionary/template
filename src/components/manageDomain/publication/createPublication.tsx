@@ -1,8 +1,17 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, FormEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import {
+  Backdrop,
+  CircularProgress,
+  CircularProgressProps,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
@@ -11,13 +20,7 @@ import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
 import { useState } from "react";
-import {
-  getFileKey,
-  handleError,
-  queryClient,
-  request,
-  uploadFiles,
-} from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
@@ -47,6 +50,7 @@ const CreatePublication = () => {
     { title: "", pageNo: 0 },
   ]);
   const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
+  const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
   const { type, folderId } = router.query;
@@ -59,20 +63,12 @@ const CreatePublication = () => {
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
-        const imageUrl = await uploadFiles(
-          getFileKey("png"),
-          img.base64,
-          setImageLoadingProgress
-        );
+        const imageUrl = await uploadFiles(img.base64, setImageLoadingProgress);
         values.imageUrl = imageUrl;
         setConvertedImage(imageUrl);
       }
       if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(
-          getFileKey(file.fileUrl),
-          file.fileUrl,
-          setFileLoadingProgress
-        );
+        const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
@@ -88,6 +84,8 @@ const CreatePublication = () => {
       }
       if (folderId) values.folderId = folderId;
       values.type = type;
+      if (typeof values?.tags === "string")
+        values.tags = values.tags.split(",");
       convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
       const data = await request.post({
@@ -98,7 +96,7 @@ const CreatePublication = () => {
         data: values,
       });
       toggleToast(data.message);
-      resetValues();
+      resetValues(formEvent);
       setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
@@ -107,7 +105,7 @@ const CreatePublication = () => {
   }
 
   return (
-    <Box mt={6}>
+    <Box mt={6} mb={10}>
       <Typography
         onClick={() => router.back()}
         style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
@@ -125,7 +123,13 @@ const CreatePublication = () => {
       >
         Create {type}
       </Typography>
-      <form onSubmit={(e) => submit(e)} style={{ marginTop: 40 }}>
+      <form
+        onSubmit={(e) => {
+          submit(e);
+          setFormEvent(e);
+        }}
+        style={{ marginTop: 40 }}
+      >
         <Stack spacing={3} mt={3}>
           <TextFields
             type="text"
@@ -144,19 +148,21 @@ const CreatePublication = () => {
                 name="price"
                 onChange={getData}
               />
-              <Stack>
-                <Typography variant="body1" component="p">
-                  Select Category
-                </Typography>
-                <Select name="publicationCategoryId">
+              <FormControl fullWidth>
+                <InputLabel>Publication category</InputLabel>
+                <Select
+                  name="publicationCategoryId"
+                  value={
+                    values.publicationCategoryId ||
+                    "42b04340-d8ff-11eb-a654-8b6d560906aa"
+                  }
+                  onChange={(e) => getData(e)}
+                >
                   {pageData.publicationCategories?.map(
                     (category: PublicationCategoryInt, index: number) => (
                       <MenuItem
                         key={`${index}-catygory`}
                         value={category.id}
-                        onClick={() =>
-                          (values.publicationCategoryId = category.id)
-                        }
                         id={category.id}
                       >
                         {category.name}
@@ -164,7 +170,8 @@ const CreatePublication = () => {
                     )
                   )}
                 </Select>
-              </Stack>
+              </FormControl>
+
               <Box>
                 <Typography variant="caption" component="div">
                   Add learnings by seperating it with comma (,)
@@ -396,7 +403,11 @@ const CreatePublication = () => {
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
-          <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
+          <ButtonComponent
+            variant="contained"
+            type="submit"
+            sx={{ fontSize: 18 }}
+          >
             <>
               Create {type === "FOLDER" ? "folder" : "publication"}
               {isLoading && (
@@ -419,6 +430,13 @@ const CreatePublication = () => {
           showToast={toggleToast}
         />
       )}
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <Loading color="primary" size={100} value={fileLoadingProgres} />
+      </Backdrop>
     </Box>
   );
 };
