@@ -4,6 +4,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
+import Link from "@mui/icons-material/Link";
 
 import PowerSettingsNewOutlined from "@mui/icons-material/PowerSettingsNewOutlined";
 import CallOutlined from "@mui/icons-material/CallOutlined";
@@ -15,27 +16,25 @@ import CentreContact from "./contact";
 
 import Image from "@src/components/shared/image";
 import config from "@src/utils/config";
+// Next
+import NextLink from "next/link";
 
-import { useRouter } from "next/router";
-import { cache, queryClient } from "@src/utils";
+import { cache, DEFAULT_LOGO, queryClient } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 
 const SideNav = (): JSX.Element => {
-  const router = useRouter();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const user = cache.get("user");
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const centre = pageData.centre as CentreProps;
 
-  const pages = [{ title: "Home", icon: <HomeOutlinedIcon />, link: "/admin" }];
-
   return (
     <div style={{ paddingTop: 20, background: "#FCFCFC" }}>
       <Toolbar>
         <Image
-          src="/images/logo.png"
+          src={centre.logo || DEFAULT_LOGO}
           alt="Contentionary logo"
           width={200}
           height={40}
@@ -43,10 +42,12 @@ const SideNav = (): JSX.Element => {
       </Toolbar>
       <List sx={{ marginTop: 6 }}>
         <Modules centre={centre} />
-        {pages.map(({ icon, title }, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{icon}</ListItemIcon>
+        <ListItem disablePadding>
+          <NextLink href="/admin" passHref>
+            <ListItemButton LinkComponent={Link}>
+              <ListItemIcon>
+                <HomeOutlinedIcon />
+              </ListItemIcon>
               <ListItemText
                 primaryTypographyProps={{
                   color: "#333333",
@@ -54,11 +55,11 @@ const SideNav = (): JSX.Element => {
                   fontSize: 16,
                   fontStyle: "normal",
                 }}
-                primary={title}
+                primary="Dashboard"
               />
             </ListItemButton>
-          </ListItem>
-        ))}
+          </NextLink>
+        </ListItem>
 
         <ListItem
           disablePadding
@@ -81,42 +82,46 @@ const SideNav = (): JSX.Element => {
             />
           </ListItemButton>
         </ListItem>
-        <ListItemButton
-          onClick={() => router.push("/admin/update-domain")}
-          sx={{ marginBottom: 1 }}
-        >
-          <ListItemIcon>
-            <SettingsOutlined />
-          </ListItemIcon>
-          <ListItemText
-            primaryTypographyProps={{
-              color: "#333333",
-              fontWeight: 500,
-              fontSize: 16,
-              fontStyle: "normal",
-            }}
-            primary="update-domain"
-          />
-        </ListItemButton>
+
+        <ListItem disablePadding>
+          <NextLink href="/admin/centre" passHref>
+            <ListItemButton LinkComponent={Link}>
+              <ListItemIcon>
+                <SettingsOutlined />
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 16,
+                  fontStyle: "normal",
+                }}
+                primary="Manage centre"
+              />
+            </ListItemButton>
+          </NextLink>
+        </ListItem>
         <ShareCentre
           contentToShare={`${config.URL.APP}/${centre.slug}/${centre.id}?referralCode=${user?.id}`}
           userId={user?.id}
         />
-        <ListItem disablePadding onClick={() => router.push("/")}>
-          <ListItemButton>
-            <ListItemIcon>
-              <PowerSettingsNewOutlined />
-            </ListItemIcon>
-            <ListItemText
-              primaryTypographyProps={{
-                color: "#333333",
-                fontWeight: 500,
-                fontSize: 16,
-                fontStyle: "normal",
-              }}
-              primary="Exit Admin"
-            />
-          </ListItemButton>
+        <ListItem disablePadding>
+          <NextLink href="/" passHref>
+            <ListItemButton LinkComponent={Link}>
+              <ListItemIcon>
+                <PowerSettingsNewOutlined />
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 16,
+                  fontStyle: "normal",
+                }}
+                primary="Exit Admin"
+              />
+            </ListItemButton>
+          </NextLink>
         </ListItem>
       </List>
       <CentreContact
