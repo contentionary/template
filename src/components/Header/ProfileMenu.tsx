@@ -139,7 +139,7 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                           Admin
                         </MenuItem>
                       </NextLink>
-                      <NextLink href="/manage-website" passHref>
+                      <NextLink href="/admin/template" passHref>
                         <MenuItem component={MuiLink} onClick={handleClose}>
                           <ListItemIcon>
                             <LanguageOutlined fontSize="small" />

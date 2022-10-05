@@ -10,17 +10,7 @@ const DocumentPage = () => {
   const { name, logo } = cachedData.centre;
   const publication = pageData.publication as PublicationInt;
 
-  return (
-    <PublicationsWrapper
-      title={`${name} | ${publication.name} reader`}
-      description={publication.description}
-      image={logo || DEFAULT_LOGO}
-      showHeader={true}
-      showFooter={false}
-    >
-      <Document publication={publication} />
-    </PublicationsWrapper>
-  );
+  return <Document publication={publication} />;
 };
 
 export default DocumentPage;

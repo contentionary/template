@@ -92,7 +92,6 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
   return (
     <Box bgcolor={grey[100]} className={pdfStyle.pdfPage}>
       <Box
-        pt="18px"
         bgcolor={grey[100]}
         className="react-pdf__innerWrapper"
         onContextMenu={(e) => e.preventDefault()}
