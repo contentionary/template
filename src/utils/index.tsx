@@ -358,7 +358,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}`,
+      url: `/centre/domain-centre?domain=${host}&proxy=learnafrica.cttn.ac`,
     });
 
     if (!returnFullData && centre)

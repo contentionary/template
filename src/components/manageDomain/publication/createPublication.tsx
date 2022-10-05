@@ -20,13 +20,7 @@ import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 
 import { useState } from "react";
-import {
-  devLog,
-  handleError,
-  queryClient,
-  request,
-  uploadFiles,
-} from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
@@ -108,34 +102,6 @@ const CreatePublication = () => {
       toggleToast(handleError(error).message);
       setIsLoading(false);
     }
-  }
-
-  function CircularProgressWithLabel(
-    props: CircularProgressProps & { value: number }
-  ) {
-    return (
-      <Box sx={{ position: "relative", display: "inline-flex" }}>
-        <CircularProgress variant="determinate" color="primary" {...props} />
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography
-            variant="caption"
-            component="div"
-            color="text.secondary"
-          >{`${Math.round(props.value)}%`}</Typography>
-        </Box>
-      </Box>
-    );
   }
 
   return (

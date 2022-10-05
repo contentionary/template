@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import { devLog } from "../../utils";
 import { UseForm } from "./interface";
 
 const useForm = (submitAction: Function): UseForm => {
