@@ -1,5 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { theme } from "./theme";
+// import { grey } from "@mui/material/colors";
 
 const buttonStyle = makeStyles({
   imageButton: {
@@ -81,6 +82,13 @@ const buttonStyle = makeStyles({
     [theme.breakpoints.up("xs")]: { width: "100%" },
     [theme.breakpoints.up("sm")]: { sm: "auto" },
     "&:focus": { padding: "6px 2px" },
+  },
+  iconTextButton: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    borderRadius: "4px",
+    color: theme.palette.secondary.light,
   },
 });
 

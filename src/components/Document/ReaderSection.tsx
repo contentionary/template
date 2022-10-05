@@ -1,17 +1,26 @@
-import { Typography } from "@mui/material";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
-//React-pdf
+// next components
+import { useRouter } from "next/router";
+// React-pdf
 import { Document, Page, pdfjs } from "react-pdf";
+// mui components
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+// colors
+import { grey } from "@mui/material/colors";
+// app components
+import ReaderMenu from "./ReaderMenu";
+import ReaderToolbar from "./ReaderToolbar";
+import ReaderToolbarMobile from "./ReaderToolbarMobile";
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 // styles, interface and config
 import { DocumentFunc } from "./interfaceType";
-// app components
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 //
-import ReaderMenu from "./ReaderMenu";
-import SocialMediaShare from "@src/components/BookDetails/share";
 import { useDialog } from "@src/hooks";
-import { FILE_DOWNLOAD_URL, isServerSide } from "../../utils";
+import usePdfReaderStyle from "@src/styles/pdfReader";
+import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
+import SocialMediaShare from "@src/components/BookDetails/share";
 
 const options = {
   cMapUrl: "cmaps/",
@@ -21,16 +30,23 @@ const options = {
 
 const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
   const router = useRouter();
-  const [numPages, setNumPages] = useState<number | null>(null);
+  const pdfStyle = usePdfReaderStyle();
+  //
+  const [scale, setScale] = useState(1.4);
+  const [renderedScale, setRenderedScale] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(
     Number(router.query.pageNo) || 1
   );
-  const [scale, setScale] = useState(1.5);
+  const [numPages, setNumPages] = useState<number | null>(null);
+  const [renderedPageNumber, setRenderedPageNumber] = useState<number | null>(
+    null
+  );
+  //
   const { isOpen, openDialog, closeDialog } = useDialog();
 
-  function onDocumentLoadSuccess({ numPages }: { numPages: number | null }) {
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number | null }) => {
     setNumPages(numPages);
-  }
+  };
   const changePage = (offset: number) => {
     setPageNumber((prevPageNumber: number | null) => {
       let nextPage = (prevPageNumber as number) + offset;
@@ -48,12 +64,16 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
     changePage(+1);
   };
 
+  const changeScale = (offset: number) => {
+    setScale((prevScale) => Number((prevScale + offset).toFixed(2)));
+  };
+
   const zoomIn = () => {
-    setScale(scale + 0.2);
+    changeScale(+0.2);
   };
 
   const zoomOut = () => {
-    setScale(scale - 0.2);
+    changeScale(-0.2);
   };
 
   const closeBook = () => {
@@ -66,71 +86,85 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
     if (allowDownload) window.open(FILE_DOWNLOAD_URL + fileUrl, "_blank");
   };
 
+  const isLoading =
+    renderedPageNumber !== pageNumber || renderedScale !== scale;
+
   return (
-    <div className="pdfPage">
-      <div
-        className="innerWrapper"
-        style={{}}
+    <Box bgcolor={grey[100]} className={pdfStyle.pdfPage}>
+      <Box
+        pt="18px"
+        bgcolor={grey[100]}
+        className="react-pdf__innerWrapper"
         onContextMenu={(e) => e.preventDefault()}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            alignContent: "center",
-            flexFlow: "column",
-            userSelect: "none",
-            position: "relative",
-          }}
-        >
+        <Stack sx={{ userSelect: "none", position: "relative" }}>
           <Document
             file={fileUrl}
-            onLoadSuccess={onDocumentLoadSuccess}
             options={options}
-            className="pdfHolder"
+            imageResourcesPath="/public/images/"
+            onLoadSuccess={onDocumentLoadSuccess}
           >
+            <ReaderToolbar
+              scale={scale}
+              zoomIn={zoomIn}
+              zoomOut={zoomOut}
+              numPages={numPages}
+              nextPage={nextPage}
+              pageNumber={pageNumber}
+              previousPage={previousPage}
+              allowDownload={allowDownload}
+              share={() => openDialog()}
+              closeBook={closeBook}
+              download={download}
+              setScale={setScale}
+            />
+            {isLoading && renderedPageNumber && renderedScale ? (
+              <Page
+                scale={renderedScale}
+                className="prevPage"
+                pageNumber={renderedPageNumber}
+                key={renderedPageNumber + "@" + renderedScale}
+              />
+            ) : null}
             <Page
               scale={scale}
+              key={pageNumber + "@" + scale}
+              onRenderSuccess={() => {
+                setRenderedScale(scale);
+                setRenderedPageNumber(pageNumber);
+              }}
               loading={
-                <Typography mt={100}>
+                <Typography mt={100} minHeight="75vh">
                   ....Please wait while we load your page
                 </Typography>
               }
               className="pdfReader"
               pageNumber={pageNumber}
             />
-            <p className="pdfButtons">
-              {pageNumber > 1 ? (
-                <button onClick={previousPage}>Previous</button>
-              ) : (
-                <p></p>
-              )}
-
-              <p>
-                Page {pageNumber} of {numPages}
-              </p>
-
-              {numPages && pageNumber < numPages ? (
-                <button onClick={nextPage}>Next</button>
-              ) : (
-                <p></p>
-              )}
-            </p>
+            <ReaderToolbarMobile
+              numPages={numPages}
+              nextPage={nextPage}
+              pageNumber={pageNumber}
+              previousPage={previousPage}
+            />
           </Document>
-        </div>
-      </div>
+        </Stack>
+      </Box>
       <ReaderMenu
-        nextPage={nextPage}
-        previousPage={previousPage}
+        scale={scale}
         zoomIn={zoomIn}
         zoomOut={zoomOut}
+        nextPage={nextPage}
+        numPages={numPages}
+        pageNumber={pageNumber}
+        previousPage={previousPage}
+        allowDownload={allowDownload}
         share={() => openDialog()}
         closeBook={closeBook}
         download={download}
-        allowDownload={allowDownload}
       />
       <SocialMediaShare isOpen={isOpen} closeDialog={closeDialog} />
-    </div>
+    </Box>
   );
 };
 export default ReaderSection;

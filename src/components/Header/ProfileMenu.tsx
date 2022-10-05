@@ -109,7 +109,7 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                 placement === "bottom-start" ? "left top" : "left bottom",
             }}
           >
-            <Paper elevation={0} className={menuStyle.menuPaper}>
+            <Paper elevation={0} className={`${menuStyle.menuPaper} caret`}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList
                   autoFocusItem={open}
