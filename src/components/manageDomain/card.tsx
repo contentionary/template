@@ -3,15 +3,18 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Image from "@src/components/shared/image";
 
 interface Props {
-  src?: string;
+  bgColor: string;
   title: string;
   icon?: JSX.Element;
 }
 
-export default function BasicCard({ src, icon, title }: Props): JSX.Element {
+export default function BasicCard({
+  bgColor,
+  icon,
+  title,
+}: Props): JSX.Element {
   return (
     <Card
       sx={{
@@ -37,29 +40,18 @@ export default function BasicCard({ src, icon, title }: Props): JSX.Element {
             width: 40,
           }}
         >
-          {src && (
-            <Image
-              width="100%"
-              height="100%"
-              objectFit="contain"
-              layout="responsive"
-              alt="Contentionary"
-              src={src}
-            />
-          )}
-          {icon && (
-            <Box
-              sx={{
-                background: "#ffffe0",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: 40,
-              }}
-            >
-              {icon}
-            </Box>
-          )}
+          <Box
+            sx={{
+              background: bgColor,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: 40,
+              borderRadius: 1,
+            }}
+          >
+            {icon}
+          </Box>
         </Box>
 
         <Typography

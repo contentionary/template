@@ -17,6 +17,8 @@ import Header from "./Header";
 import useForm from "@src/hooks/useForm";
 import { useRouter } from "next/router";
 import Link from "@src/components/shared/link";
+import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 interface Props {
   window?: () => Window;
@@ -28,18 +30,19 @@ export default function MobileAppBar(props: Props): JSX.Element {
   const { getData, values, submit } = useForm(search);
   const router = useRouter();
   const bg = "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)";
-
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   function search() {
     router.push({ pathname: "/search", query: { phrase: values.search } });
   }
   return (
     <>
-      <Toolbar sx={{ width: { xs: 550, md: "100%" } }}>
+      <Toolbar sx={{ width: { xs: 500, md: "100%" } }}>
         <Box
           sx={{
             display: { xs: "flex", sm: "none" },
             justifyContent: "space-between",
-            paddingY: 4,
+            pb: 2,
+            pt: 4,
             width: "100%",
           }}
         >
@@ -49,9 +52,9 @@ export default function MobileAppBar(props: Props): JSX.Element {
           <Link href="/" passHref>
             <a>
               <Image
-                src="/images/logo.png"
-                alt="Contentionary logo"
-                width={270}
+                src={cachedData.centre?.logo || DEFAULT_LOGO}
+                alt={cachedData.centre.name}
+                width={240}
                 height={50}
               />
             </a>
@@ -100,14 +103,16 @@ export default function MobileAppBar(props: Props): JSX.Element {
               </form>
             </Box>
           )}
-          <IconButton
-            onClick={() => setShow(true)}
-            sx={{
-              background: bg,
-            }}
-          >
-            <SearchOutlined htmlColor="#ffffff" fontSize="large" />
-          </IconButton>
+          <Box>
+            <IconButton
+              onClick={() => setShow(true)}
+              sx={{
+                background: bg,
+              }}
+            >
+              <SearchOutlined htmlColor="#ffffff" fontSize="large" />
+            </IconButton>
+          </Box>
         </Box>
 
         <Header />

@@ -18,12 +18,8 @@ export default PublicationPageEntry;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
-    const centre = (await getCentre(context)) as CachedCentreInt;
+    const centre = (await getCentre(context, true)) as CachedCentreInt;
 
-    const { data: fullCentre } = await request.get({
-      url: `/centre/${centre.id}`,
-      token,
-    });
     const { data } = await request.get({
       url: context.query.folderId
         ? `/centre/${centre.id}/publications?folderId=${context.query.folderId}`
@@ -33,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
-        pageData: { centre: fullCentre, publications: data.publications },
+        pageData: { centre: centre, publications: data.publications },
         cachedData: { user, centre, token },
       },
     };
