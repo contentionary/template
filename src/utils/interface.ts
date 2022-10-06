@@ -137,6 +137,7 @@ export interface PublicationInt {
   allowSearch: boolean;
   subscriberCount: number;
   readCount: number;
+  folderContentCount: number;
   downloadCount: number;
   publicationCategoryName: string;
   pageCount: string;
