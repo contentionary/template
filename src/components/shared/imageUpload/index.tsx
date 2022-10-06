@@ -31,8 +31,6 @@ const UpdateBackground = ({
   uploadText,
   actionListBtnStyle,
   defaultImage,
-  width,
-  height,
 }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);

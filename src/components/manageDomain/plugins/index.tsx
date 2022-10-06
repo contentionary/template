@@ -109,7 +109,7 @@ const Pluggins = ({
           </Typography>
         </Box>
         <Box mt={2}>
-          <Grid container spacing={{ xs: 5, md: 4, lg: 9 }}>
+          <Grid container spacing={{ xs: 2, md: 2, lg: 2 }}>
             {latestPlugins.map((item, index) => (
               <Grid item xs={12} md={12} lg={4} key={index}>
                 <Card {...item} installPlugin={installPlugin} />
