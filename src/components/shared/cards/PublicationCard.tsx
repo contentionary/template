@@ -25,12 +25,13 @@ const PublicationCard: PublicationCardFunc = ({
   slug,
   name,
   price,
-  description,
+  summary,
   subscriberCount,
   imageUrl,
   readCount,
   type,
   id,
+  folderContentCount,
 }) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -70,7 +71,7 @@ const PublicationCard: PublicationCardFunc = ({
               color="text.secondary"
               className={globalStyle.text2LineTruncate}
             >
-              {description}
+              {summary}
             </Typography>
             {type === "FOLDER" ? (
               <Typography
@@ -81,7 +82,7 @@ const PublicationCard: PublicationCardFunc = ({
                 alignItems="center"
               >
                 <FolderCopyOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp; 0
+                &nbsp; {folderContentCount}
               </Typography>
             ) : (
               <Stack

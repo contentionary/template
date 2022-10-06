@@ -42,6 +42,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
     imageUrl,
     authors = [],
     publicationCategoryName,
+    summary,
   } = publication;
 
   const redirectUrl = !isServerSide ? window.location.href : "";
@@ -91,6 +92,9 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
               </Typography>
               <Typography variant="h2" component="h1">
                 {name}
+              </Typography>
+              <Typography variant="h6" mt={1} color="GrayText" component="h1">
+                {summary}
               </Typography>
               {/* <Stack direction="row" spacing={2} mt={1}>
                 <Typography variant="h6">Indorama Centre</Typography>

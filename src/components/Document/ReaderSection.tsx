@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 // colors
-import { grey } from "@mui/material/colors";
+import grey from "@mui/material/colors/grey";
 // app components
 import ReaderMenu from "./ReaderMenu";
 import ReaderToolbar from "./ReaderToolbar";
@@ -19,7 +19,7 @@ import { DocumentFunc } from "./interfaceType";
 //
 import { useDialog } from "@src/hooks";
 import usePdfReaderStyle from "@src/styles/pdfReader";
-import { FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
+import { cache, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import SocialMediaShare from "@src/components/BookDetails/share";
 
 const options = {
@@ -28,14 +28,15 @@ const options = {
   standardFontDataUrl: "standard_fonts/",
 };
 
-const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
+const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
   const router = useRouter();
   const pdfStyle = usePdfReaderStyle();
+  const resumptionKey = `${id}-last-page`;
   //
   const [scale, setScale] = useState(1.4);
   const [renderedScale, setRenderedScale] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState(
-    Number(router.query.pageNo) || 1
+    Number(router.query.pageNo) || cache.get(resumptionKey) || 1
   );
   const [numPages, setNumPages] = useState<number | null>(null);
   const [renderedPageNumber, setRenderedPageNumber] = useState<number | null>(
@@ -52,6 +53,9 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload }) => {
       let nextPage = (prevPageNumber as number) + offset;
       if (nextPage < 1) nextPage = 1;
       else if (nextPage > Number(numPages)) nextPage = Number(numPages);
+      //
+      cache.set(resumptionKey, nextPage);
+
       return nextPage;
     });
   };
