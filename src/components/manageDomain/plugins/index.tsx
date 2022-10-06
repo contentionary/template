@@ -2,7 +2,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/system/Stack";
-import ALL_PLUGINS from "../plugins/data";
 
 import useStyles from "./styles";
 import Card from "../plugins/card";
@@ -12,19 +11,17 @@ import { useRouter } from "next/router";
 import { useDialog } from "@src/hooks";
 import { useState } from "react";
 
-import ConfirmDialog from "@src/components/shared/confirmationModal";
-import NextLink from "@src/components/shared/link/btnLink";
 import { useToast } from "@src/utils/hooks";
-import Toast from "@src/components/shared/toast";
-import { BasePageProps } from "@src/utils/interface";
+import { BasePageProps, PluginsInt } from "@src/utils/interface";
+import dynamic from "next/dynamic";
 
 const Pluggins = ({
   title,
-  numberOfPluginsToShow,
+  plugins,
   pluginPage,
 }: {
   title: string;
-  numberOfPluginsToShow: number;
+  plugins: PluginsInt[];
   pluginPage?: boolean;
 }) => {
   const styles = useStyles();
@@ -32,35 +29,32 @@ const Pluggins = ({
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [removePlugin, setRemovePlugin] = useState("");
   const { toastMessage, toggleToast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-  const pagePros = queryClient.getQueryData("pageProps") as BasePageProps;
-  const centre = pagePros.pageData.centre;
+  const [installing, setInstalling] = useState(false);
+  const [latestPlugins, setLatestPlugins] =
+    useState<Array<PluginsInt>>(plugins);
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = cachedData.centre;
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const ConfirmDialog = dynamic(
+    () => import("@src/components/shared/confirmationModal")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
 
-  const data = ALL_PLUGINS.map((plugin) => ({
-    ...plugin,
-    status: Boolean(centre.plugins[plugin.plugin]),
-  }));
-
-  function updatePlugin(plugin: string, status: boolean) {
-    if (plugin === "EXAM") {
-      centre.plugins.EXAM = status;
-    } else if (plugin === "LEAGUE") {
-      centre.plugins.LEAGUE = status;
-    } else if (plugin === "PUBLICATION") {
-      centre.plugins.PUBLICATION = status;
-    } else if (plugin === "COURSE") {
-      centre.plugins.COURSE = status;
-    } else if (plugin === "RESULT") {
-      centre.plugins.RESULT = status;
-    }
-
-    pagePros.pageData.centre = centre;
-    queryClient.setQueryData("pageProps", pagePros);
+  async function updatePlugins() {
+    const { data } = await request.get({
+      url: `/centre/${centre.id}/plugins`,
+    });
+    setLatestPlugins([...(data as any)]);
+    toggleToast("Successful");
+    setInstalling(false);
   }
 
-  async function installPlugin(plugin: string, status: boolean, price: number) {
+  async function installPlugin(plugin: string, active: boolean, price: number) {
     try {
-      if (status) {
+      setInstalling(true);
+      if (active) {
         setRemovePlugin(plugin);
         openDialog();
       } else {
@@ -76,35 +70,29 @@ const Pluggins = ({
             },
           });
         } else {
-          setIsLoading(true);
-          const { message } = await request.post({
+          await request.post({
             url: `/centre/${centre.id}/plugin`,
             data: { plugin },
           });
-          updatePlugin(plugin, true);
-          toggleToast(message);
-          setIsLoading(false);
+          updatePlugins();
         }
       }
     } catch (error) {
       const message = handleError(error).message;
       toggleToast(message);
+      setInstalling(false);
     }
   }
 
   async function uninstallPlugin() {
     try {
-      setIsLoading(true);
-      const { message } = await request.delete(
-        `/centre/${centre.id}/plugin/${removePlugin}`
-      );
-      updatePlugin(removePlugin, false);
-      toggleToast(message);
-      setIsLoading(false);
+      await request.delete(`/centre/${centre.id}/plugin/${removePlugin}`);
+      updatePlugins();
       closeDialog();
     } catch (error) {
       const message = handleError(error).message;
       toggleToast(message);
+      setInstalling(false);
     }
   }
   return (
@@ -122,41 +110,15 @@ const Pluggins = ({
         </Box>
         <Box mt={2}>
           <Grid container spacing={{ xs: 5, md: 4, lg: 9 }}>
-            {data.map(
-              (item, index) =>
-                index < numberOfPluginsToShow && (
-                  <Grid item xs={12} md={12} lg={4} key={index}>
-                    <Card
-                      {...item}
-                      installPlugin={installPlugin}
-                      isLoading={isLoading}
-                    />
-                  </Grid>
-                )
-            )}
+            {latestPlugins.map((item, index) => (
+              <Grid item xs={12} md={12} lg={4} key={index}>
+                <Card {...item} installPlugin={installPlugin} />
+              </Grid>
+            ))}
           </Grid>
         </Box>
-        {!pluginPage && (
-          <Box sx={{ textAlign: "center" }} mt={3} paddingY={5}>
-            <NextLink
-              href={`/${centre?.slug}/${centre?.id}/plugins`}
-              size="large"
-              disableElevation
-              variant="outlined"
-              color="primary"
-              sx={{
-                textAlign: "center",
-                width: { xs: "100%", sm: "auto" },
-                display: { xs: "block", sm: "inline-block" },
-              }}
-            >
-              View More
-            </NextLink>
-          </Box>
-        )}
       </Stack>
       <ConfirmDialog
-        isLoading={isLoading}
         isOpen={isOpen}
         closeDialog={closeDialog}
         action={uninstallPlugin}
@@ -169,6 +131,7 @@ const Pluggins = ({
           showToast={toggleToast}
         />
       )}
+      <Loading value={5} size={100} open={installing} />
     </Box>
   );
 };

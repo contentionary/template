@@ -9,7 +9,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
-import { Link as MuiLink } from "@mui/material";
+import Link from "@mui/material/Link";
 // icons
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
@@ -48,7 +48,7 @@ const PublicationCard = ({
         passHref
       >
         <CardActionArea
-          LinkComponent={MuiLink}
+          LinkComponent={Link}
           className="MuiCourseCardActionBase-root"
         >
           <Box p={1} className="card-img">

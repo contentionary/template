@@ -10,9 +10,9 @@ import PowerSettingsNewOutlined from "@mui/icons-material/PowerSettingsNewOutlin
 import CallOutlined from "@mui/icons-material/CallOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 
-import ShareCentre from "./share";
-import Modules from "./modules";
-import CentreContact from "./contact";
+// import ShareCentre from "./share";
+// import Modules from "./modules";
+// import CentreContact from "./contact";
 
 import Image from "@src/components/shared/image";
 import config from "@src/utils/config";
@@ -23,13 +23,15 @@ import { cache, DEFAULT_LOGO, queryClient } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
+import dynamic from "next/dynamic";
 
 const SideNav = (): JSX.Element => {
+  const CentreContact = dynamic(() => import("./contact"));
+  const ShareCentre = dynamic(() => import("./share"));
   const { isOpen, openDialog, closeDialog } = useDialog();
   const user = cache.get("user");
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const centre = pageData.centre as CentreProps;
-
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const centre = cachedData.centre as unknown as CentreProps;
   return (
     <div style={{ paddingTop: 20, background: "#FCFCFC" }}>
       <Toolbar>
@@ -41,7 +43,6 @@ const SideNav = (): JSX.Element => {
         />
       </Toolbar>
       <List sx={{ marginTop: 6 }}>
-        <Modules centre={centre} />
         <ListItem disablePadding>
           <NextLink href="/admin" passHref>
             <ListItemButton LinkComponent={Link}>

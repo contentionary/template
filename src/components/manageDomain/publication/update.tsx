@@ -8,11 +8,9 @@ import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
-import Toast from "@src/components/shared/toast";
 
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
-import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
@@ -24,8 +22,7 @@ import {
 } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import ImageUpload from "@src/components/shared/imageUpload";
-import Delete from "./delete";
+import dynamic from "next/dynamic";
 
 const CreatePublication = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
@@ -59,7 +56,14 @@ const CreatePublication = () => {
       ? publication?.authors
       : { name: "", imageUrl: "" },
   ]);
-
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
+  const Delete = dynamic(() => import("./delete"));
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };

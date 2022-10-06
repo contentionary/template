@@ -4,14 +4,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import Box from "@mui/material/Box";
+
 import Dialog from "@src/components/shared/dialog";
-import { useDialog } from "@src/hooks";
 import TextFields from "@src/components/shared/input/textField";
+import ShareContent from "@src/components/shared/shareContentOnMedia";
+
+import { useDialog } from "@src/hooks";
 import { copy } from "@src/utils";
 import { useState } from "react";
-import ShareContent from "@src/components/shared/shareContentOnMedia";
 import { useToast } from "@src/utils/hooks";
-import Toast from "@src/components/shared/toast";
+
+import dynamic from "next/dynamic";
 
 interface Props {
   contentToShare: string;
@@ -19,6 +22,7 @@ interface Props {
 }
 
 const ShareCentreLink = ({ contentToShare, userId }: Props) => {
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
   const [url, setUrl] = useState("");
