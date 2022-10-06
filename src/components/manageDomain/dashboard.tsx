@@ -3,27 +3,33 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
+import SubscriptionsOutlined from "@mui/icons-material/SubscriptionsOutlined";
+import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
+import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
 import Card from "./card";
-import Plugins from "./plugins";
-import Services from "./services";
 import useStyles from "./styles";
 
 import Image from "@src/components/shared/image";
-import Toast from "@src/components/shared/toast";
-import Link from "@src/components/shared/link";
 import { useToast } from "@src/utils/hooks";
 
 import { copy, DEFAULT_LOGO } from "@src/utils";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
+import dynamic from "next/dynamic";
 
 const Dashboard = (): JSX.Element => {
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { cachedData, pageData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const centre = cachedData.centre as unknown as CentreProps;
-
+  const { plugins } = pageData;
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const Plugins = dynamic(() => import("./plugins"));
+  const Services = dynamic(() => import("./services"));
   return (
     <Box mt={3}>
       <Box sx={{ display: "flex", alignItems: "center" }} marginBottom={3}>
@@ -43,15 +49,11 @@ const Dashboard = (): JSX.Element => {
               {centre?.isPrivate ? "Private" : "Public"} Center Id: {centre?.id}
             </Typography>
 
-            <Image
+            <CopyAllOutlined
               onClick={() => {
                 copy(centre?.id);
                 toggleToast("Copied");
               }}
-              src="/images/centre/copy.svg"
-              alt="Contentionary logo"
-              width={15}
-              height={15}
               className={styles.pointer}
             />
           </Box>
@@ -65,53 +67,43 @@ const Dashboard = (): JSX.Element => {
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={6} md={3}>
-          <Link href={`/${centre?.slug}/${centre?.id}/subscribers`} passHref>
-            <a>
-              <Card src="/images/centre/person.svg" title="Subscribers" />
-            </a>
-          </Link>
+          <Card
+            icon={<SubscriptionsOutlined htmlColor="#0047ab" />}
+            title="Subscribers"
+            bgColor="#add8e6"
+          />
         </Grid>
         <Grid item xs={6} md={3}>
-          <Link
-            href={`/wallet?centreSlug=${centre?.slug}&centreId=${centre?.id}`}
-            passHref
-          >
-            <a>
-              <Card src="/images/centre/wallet.svg" title="Centre Wallet" />
-            </a>
-          </Link>
+          <Card
+            icon={<ManageAccountsOutlinedIcon htmlColor="#ff9f00" />}
+            title="Managers"
+            bgColor="#ffe5b4"
+          />
         </Grid>
         <Grid item xs={6} md={3}>
-          <Link href={`/${centre?.slug}/${centre?.id}/managers`} passHref>
-            <a>
-              <Card src="/images/centre/manager.svg" title="Managers" />
-            </a>
-          </Link>
+          <Card
+            icon={<WalletOutlinedIcon htmlColor="#9400d3" />}
+            title="Centre Wallet"
+            bgColor="#cea2fd"
+          />
         </Grid>
         <Grid item xs={6} md={3}>
-          <Link href={`/${centre?.slug}/${centre?.id}/managers`} passHref>
-            <a>
-              <Card
-                icon={<Diversity2OutlinedIcon htmlColor="#fff017" />}
-                title="Group"
-              />
-            </a>
-          </Link>
+          <Card
+            icon={<Diversity2OutlinedIcon htmlColor="#fff017" />}
+            title="Group"
+            bgColor="#ffffe0"
+          />
         </Grid>
       </Grid>
       <Box sx={{ marginTop: 10 }}>
-        {Object.keys(centre.plugins).length && (
-          <Services
-            centre={centre}
-            title="My Centre Pluggins"
-            numberOfPluginsToShow={6}
-          />
+        {plugins.length && (
+          <Services plugins={plugins} title="My Centre Pluggins" />
         )}
       </Box>
 
       <Plugins
         title="Better your experience by installing more pluggins"
-        numberOfPluginsToShow={6}
+        plugins={plugins}
       />
       {toastMessage && (
         <Toast

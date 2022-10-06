@@ -4,36 +4,16 @@ import Card from "../plugins/card";
 import useStyles from "../plugins/styles";
 import Grid from "@mui/material/Grid";
 
-import NextLink from "@src/components/shared/link/btnLink";
 import Stack from "@mui/system/Stack";
-import ALL_PLUGINS from "../plugins/data";
-import { CentreProps } from "@src/utils/interface";
+import { PluginsInt } from "@src/utils/interface";
 
 interface Props {
   title: string;
-  centre: CentreProps;
-  numberOfPluginsToShow: number;
+  plugins: PluginsInt[];
 }
-const Services = ({
-  title,
-  centre,
-  numberOfPluginsToShow,
-}: Props): JSX.Element => {
+const Services = ({ title, plugins }: Props): JSX.Element => {
   const styles = useStyles();
-
-  const data = ALL_PLUGINS.filter(({ plugin }) => centre.plugins[plugin]);
-
-  data.length = numberOfPluginsToShow;
-
-  // [
-  //   { item: exam, status: centre.plugins.EXAM },
-  //   { item: league, status: centre.plugins.LEAGUE },
-  //   { item: course, status: centre.plugins.COURSE },
-  //   { item: publication, status: centre.plugins.PUBLICATION },
-  //   { item: result, status: centre.plugins.RESULT },
-  //   { item: certificate, status: false },
-  // ];
-
+  const pluginsWithLink = plugins.filter((plugin) => plugin.active);
   return (
     <Box mt={3} id="service">
       <Stack spacing={8}>
@@ -48,28 +28,12 @@ const Services = ({
         </Box>
         <Box>
           <Grid container spacing={{ xs: 5, md: 4, lg: 9 }}>
-            {data.map((item, index) => (
+            {pluginsWithLink.map((item, index) => (
               <Grid item xs={12} md={12} lg={4} key={index}>
-                <Card {...item} />
+                <Card {...item} link={`admin/${item.name.toLowerCase()}`} />
               </Grid>
             ))}
           </Grid>
-        </Box>
-        <Box sx={{ textAlign: "center" }} mt={3} paddingY={{ xs: 3, md: 5 }}>
-          <NextLink
-            href="/"
-            size="large"
-            disableElevation
-            variant="outlined"
-            color="primary"
-            sx={{
-              textAlign: "center",
-              width: { xs: "100%", sm: "auto" },
-              display: { xs: "block", sm: "inline-block" },
-            }}
-          >
-            View More
-          </NextLink>
         </Box>
       </Stack>
     </Box>

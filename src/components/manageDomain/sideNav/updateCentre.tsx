@@ -1,33 +1,35 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
+import Container from "@mui/material/Container";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
-import Toast from "@src/components/shared/toast";
+import ButtonComponent from "@src/components/shared/button";
 
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
-import Loading from "@src/components/shared/loading";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
-import ButtonComponent from "@src/components/shared/button";
-import Container from "@mui/material/Container";
 import { useRouter } from "next/router";
-import ImageUpload from "@src/components/shared/imageUpload";
+import dynamic from "next/dynamic";
 
 const UpdateCentre = () => {
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit } = useForm(update);
   const [isLoading, setIsLoading] = useState(false);
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const [img, setImg] = useState<Record<string, any>>({});
   const [convertedImage, setConvertedImage] = useState<any>();
   const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
-
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const Loading = dynamic(() => import("@src/components/shared/loading"));
   const router = useRouter();
-  const { centre } = pageData as {
+  const { centre } = cachedData as unknown as {
     centre: CentreProps;
   };
   async function update() {

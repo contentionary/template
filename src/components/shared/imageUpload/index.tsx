@@ -21,6 +21,8 @@ interface Props {
   uploadText: string;
   actionListBtnStyle?: {};
   defaultImage: string;
+  height?: number;
+  width?: number;
 }
 
 const UpdateBackground = ({
@@ -29,6 +31,8 @@ const UpdateBackground = ({
   uploadText,
   actionListBtnStyle,
   defaultImage,
+  width,
+  height,
 }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -114,7 +118,7 @@ const UpdateBackground = ({
           <Box
             sx={{
               width: "100%",
-              height: 700,
+              height: 1000,
               display: show ? "flex" : "",
               justifyContent: "center",
             }}
@@ -128,7 +132,10 @@ const UpdateBackground = ({
             />
             <ImageCropper
               image={previewLogo}
-              cropSize={{ width: 500, height: 500 }}
+              cropSize={{
+                width: 600,
+                height: 600,
+              }}
               cropShape="rect"
               rotation={rotation}
               setRotation={setRotation}
