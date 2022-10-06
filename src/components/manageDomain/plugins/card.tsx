@@ -6,17 +6,15 @@ import Button from "@src/components/shared/button";
 import useGlobalStyle from "@src/styles";
 import useStyles from "./styles";
 import { useRouter } from "next/router";
-import Loading from "@src/components/shared/loading";
 
 interface Props {
-  link: string;
+  link?: string;
   name: string;
-  description: string;
+  description?: string;
   installPlugin?: Function;
-  plugin?: string;
-  status?: boolean;
+  active?: boolean;
   price?: number;
-  isLoading?: boolean;
+  imageUrl: string;
 }
 
 const Card = ({
@@ -24,10 +22,9 @@ const Card = ({
   name,
   description,
   installPlugin,
-  plugin,
-  status,
+  active,
   price,
-  isLoading,
+  imageUrl,
 }: Props): JSX.Element => {
   const globalStyle = useGlobalStyle();
   const router = useRouter();
@@ -37,12 +34,7 @@ const Card = ({
     <Stack>
       <Box sx={{ display: "flex" }}>
         <Box sx={{ width: 106 }}>
-          <Image
-            src="/images/centre/service.svg"
-            alt="contentionary"
-            height="100%"
-            width={106}
-          />
+          <Image src={imageUrl} alt="contentionary" height="100%" width={106} />
         </Box>
 
         <Box sx={{ width: 401 }} paddingLeft={2}>
@@ -76,13 +68,10 @@ const Card = ({
             onClick={() =>
               !installPlugin
                 ? router.push(`/${link}`)
-                : installPlugin(plugin, status, price)
+                : installPlugin(name, active, price)
             }
           >
-            <>
-              {installPlugin ? (status ? "Uninstall" : "Install") : "Open"}{" "}
-              {isLoading && <Loading size="small" sx={{ color: "#ffffff" }} />}
-            </>
+            {installPlugin ? (active ? "Uninstall" : "Install") : "Open"}
           </Button>
         </Box>
       </Box>

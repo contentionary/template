@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 interface Props {
-  id: string;
+  id?: string | any;
   centreId: string;
 }
 

@@ -14,29 +14,25 @@ import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
-import Toast from "@src/components/shared/toast";
-
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
-import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
 import { BasePageProps, PublicationCategoryInt } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import ImageUpload from "@src/components/shared/imageUpload";
+import dynamic from "next/dynamic";
 
 const CreatePublication = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-
   const styles = useStyles();
-
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check, resetValues } = useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
+  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [progres, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
@@ -50,7 +46,13 @@ const CreatePublication = () => {
 
   const router = useRouter();
   const { type, folderId } = router.query;
-
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
@@ -64,20 +66,15 @@ const CreatePublication = () => {
         setConvertedImage(imageUrl);
       }
       if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(file.fileUrl, setProgress);
+        const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-
-      if (authors.length && authors[0].name) {
-        values.authors = authors;
-      }
-      if (values.learnings && typeof values.learnings === "string") {
+      if (authors.length && authors[0].name) values.authors = authors;
+      if (values.learnings && typeof values.learnings === "string")
         values.learnings = values.learnings.split(",");
-      }
-      if (tableOfContents && tableOfContents[0].title) {
+      if (tableOfContents && tableOfContents[0].title)
         values.tableOfContents = tableOfContents;
-      }
       if (folderId) values.folderId = folderId;
       values.type = type;
       if (typeof values?.tags === "string")
@@ -391,6 +388,8 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload centre logo"
             defaultImage=""
+            height={1000}
+            width={1000}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
@@ -417,7 +416,7 @@ const CreatePublication = () => {
         sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
         color="primary"
         size={100}
-        value={progres}
+        value={fileLoadingProgres || progres}
       />
     </Box>
   );

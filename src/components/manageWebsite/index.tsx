@@ -7,16 +7,14 @@ import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
-import Toast from "@src/components/shared/toast";
 
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
-import Loading from "@src/components/shared/loading/loadingWithValue";
 import ButtonComponent from "@src/components/shared/button";
 import { BasePageProps, TemplateInt } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import ImageUpload from "@src/components/shared/imageUpload";
+import dynamic from "next/dynamic";
 
 const CreatePublication = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
@@ -45,6 +43,13 @@ const CreatePublication = () => {
   >(template.landingPageSectionOne);
 
   const router = useRouter();
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
 
   async function Update() {
     try {

@@ -4,6 +4,14 @@ export enum Gender {
   FEMALE = "Female",
 }
 
+export interface PluginsInt {
+  name: string;
+  description: string;
+  imageUrl: string;
+  active: boolean;
+  price: number;
+}
+
 export interface ElementProps {
   target: HTMLInputElement;
   preventDefault: Function;
