@@ -16,7 +16,6 @@ import { Link as MuiLink } from "@mui/material";
 // mui icons
 import Logout from "@mui/icons-material/Logout";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
-import LanguageOutlined from "@mui/icons-material/LanguageOutlined";
 // import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 // import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
@@ -130,24 +129,14 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                     </MenuItem>
                   </NextLink>
                   {user.isAdmin && (
-                    <>
-                      <NextLink href={"/admin"} passHref>
-                        <MenuItem component={MuiLink} onClick={handleClose}>
-                          <ListItemIcon>
-                            <SettingsOutlined fontSize="small" />
-                          </ListItemIcon>
-                          Admin
-                        </MenuItem>
-                      </NextLink>
-                      <NextLink href="/admin/template" passHref>
-                        <MenuItem component={MuiLink} onClick={handleClose}>
-                          <ListItemIcon>
-                            <LanguageOutlined fontSize="small" />
-                          </ListItemIcon>
-                          Manage Website
-                        </MenuItem>
-                      </NextLink>
-                    </>
+                    <NextLink href={"/admin"} passHref>
+                      <MenuItem component={MuiLink} onClick={handleClose}>
+                        <ListItemIcon>
+                          <SettingsOutlined fontSize="small" />
+                        </ListItemIcon>
+                        Admin
+                      </MenuItem>
+                    </NextLink>
                   )}
                   {/* <NextLink href="/courses/my-courses" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>

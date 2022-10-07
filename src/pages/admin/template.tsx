@@ -3,7 +3,7 @@ import { getAuthData } from "@src/utils/auth";
 import { getCentre, handleError, request } from "@src/utils";
 import { CachedCentreInt } from "@src/utils/interface";
 import { GetServerSideProps } from "next";
-import { Container } from "@mui/material";
+import Container from "@mui/material/Container";
 
 const ManageWebsitePageEntry = () => {
   return (

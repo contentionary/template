@@ -156,6 +156,7 @@ export interface PublicationInt {
   summary: string;
   allowReview: boolean;
   publicationCategoryId: string;
+  folderContentCount: number;
 }
 
 export interface CourseInt {

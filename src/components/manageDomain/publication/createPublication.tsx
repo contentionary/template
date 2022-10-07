@@ -182,7 +182,7 @@ const CreatePublication = () => {
 
           <TextFields
             type="text"
-            label="Publication tags"
+            label="Publication tags (keywords)"
             name="tags"
             onChange={getData}
           />

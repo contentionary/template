@@ -6,6 +6,7 @@ export default makeStyles({
     fontStyle: "normal",
     fontWeight: 500,
     color: "#333333",
+    fontSize: 40,
 
     [theme.breakpoints.down("sm")]: {
       fontSize: 28,
@@ -33,7 +34,7 @@ export default makeStyles({
   pluginDescription: {
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: 19,
+    fontSize: 17,
     color: "#616161",
     marginBottom: 5,
     height: 140,

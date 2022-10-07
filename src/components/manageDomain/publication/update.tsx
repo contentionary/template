@@ -69,7 +69,6 @@ const CreatePublication = () => {
   };
   const router = useRouter();
   const { type, folderId } = router.query;
-
   async function Update() {
     try {
       setIsLoading(true);
@@ -216,7 +215,7 @@ const CreatePublication = () => {
           )}
           <TextFields
             type="text"
-            label="Publication tags"
+            label="Publication tags (keywords)"
             name="tags"
             defaultValue={publication?.tags}
             onChange={getData}
@@ -397,9 +396,13 @@ const CreatePublication = () => {
                       Show in search result
                     </Typography>
                   }
-                  value={publication.allowSearch}
+                  checked={publication.allowSearch}
+                  value={values.allowSearch}
                   name="allowSearch"
-                  onChange={check}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowSearch = e.target.checked;
+                    check(e);
+                  }}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -408,9 +411,13 @@ const CreatePublication = () => {
                       Allow read
                     </Typography>
                   }
-                  value={publication.allowRead}
+                  checked={publication.allowRead}
+                  value={values.allowRead}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowRead = e.target.checked;
+                    check(e);
+                  }}
                   name="allowRead"
-                  onChange={check}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -419,9 +426,13 @@ const CreatePublication = () => {
                       Allow download
                     </Typography>
                   }
-                  value={publication.allowDownload}
+                  checked={publication.allowDownload}
+                  value={values.allowDownload}
                   name="allowDownload"
-                  onChange={check}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowDownload = e.target.checked;
+                    check(e);
+                  }}
                   className={styles.checkbox}
                 />
               </Stack>
@@ -432,6 +443,8 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload centre logo"
             defaultImage={publication.imageUrl}
+            width={450}
+            height={630}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 25 }}>
