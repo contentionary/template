@@ -37,6 +37,7 @@ const CreatePublication = () => {
     publication: PublicationInt;
     publicationCategories: PublicationCategoryInt[];
   };
+  console.log(publication);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
@@ -85,7 +86,7 @@ const CreatePublication = () => {
       if (values.learnings && typeof values.learnings === "string") {
         values.learnings = values.learnings.split(",");
       }
-      if (values.authors && authors[0].name) {
+      if (authors.length && authors[0].name) {
         values.authors = authors;
       }
       if (tableOfContents && tableOfContents[0].title) {
@@ -98,14 +99,12 @@ const CreatePublication = () => {
       convertedImage && (values.imageUrl = convertedImage);
       delete values.type;
       const data = await request.patch({
-        url:
-          type === "FOLDER"
-            ? `/centre/${cachedData.centre.id}/publication-folder/${publication.id}`
-            : `/centre/${cachedData.centre.id}/publication/${publication.id}`,
+        url: `/centre/${cachedData.centre.id}/publication/${publication.id}`,
         data: values,
       });
       toggleToast(data.message);
       setIsLoading(false);
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -433,6 +432,21 @@ const CreatePublication = () => {
                     publication.allowDownload = e.target.checked;
                     check(e);
                   }}
+                  className={styles.checkbox}
+                />
+                <CheckBox
+                  label={
+                    <Typography variant="h6" className={styles.checkbox}>
+                      Allow review
+                    </Typography>
+                  }
+                  checked={publication.allowReview}
+                  value={values.allowReview}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowReview = e.target.checked;
+                    check(e);
+                  }}
+                  name="allowReview"
                   className={styles.checkbox}
                 />
               </Stack>

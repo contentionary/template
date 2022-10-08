@@ -148,7 +148,6 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload logo"
             defaultImage={landingPageSectionOne.imageUrl}
-            aspect={`${1 / 2}`}
           />
           <Box>
             <Typography variant="subtitle1" component="div">
@@ -198,7 +197,6 @@ const CreatePublication = () => {
               img={img1}
               defaultImage={contents[0].imageUrl}
               uploadText="Select and upload logo"
-              aspect={`${2 / 4}`}
             />
             <Box sx={{ mt: 2 }}>
               <Typography variant="subtitle1" component="div">
@@ -249,7 +247,6 @@ const CreatePublication = () => {
               img={img2}
               defaultImage={contents[1].imageUrl}
               uploadText="Select and upload logo"
-              aspect={`${3 / 4}`}
             />
             <Box sx={{ mt: 2 }}>
               <Typography variant="subtitle1" component="div">
@@ -300,7 +297,6 @@ const CreatePublication = () => {
               img={img3}
               defaultImage={contents[2].imageUrl}
               uploadText="Select and upload logo"
-              aspect={`${4 / 4}`}
             />
             <Box sx={{ mt: 2 }}>
               <Typography variant="subtitle1" component="div">

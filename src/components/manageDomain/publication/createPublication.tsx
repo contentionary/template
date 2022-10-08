@@ -91,6 +91,7 @@ const CreatePublication = () => {
       toggleToast(data.message);
       resetValues(formEvent);
       setIsLoading(false);
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -388,8 +389,7 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload centre logo"
             defaultImage=""
-            height={1000}
-            width={1000}
+            aspect={`${2 / 3}`}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
