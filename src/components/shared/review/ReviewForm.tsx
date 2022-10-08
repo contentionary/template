@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// next component
+import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -36,6 +38,8 @@ interface ReviewFormInt {
 
 const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
   const theme = useTheme();
+  const router = useRouter();
+  const { id: queryId } = router.query;
   const [loading, setLoading] = useState(false);
   // comment
   const [comment, setComment] = useState("");
@@ -56,9 +60,11 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
     },
     {
       onSuccess: () => {
+        setRating(0);
+        setComment("");
         setLoading(false);
         // Invalidate and refetch
-        queryClient.invalidateQueries([query, { id }]);
+        queryClient.invalidateQueries(["reviews", { id: queryId }]);
       },
       onError: () => {
         setLoading(false);
@@ -104,40 +110,47 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Stack direction="row" alignItems="center" flexGrow={1} spacing={1}>
-              <Typography variant="body1">Rating:</Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
+            {query === "reviews" && (
+              <Stack
+                direction="row"
+                alignItems="center"
+                flexGrow={1}
+                spacing={1}
               >
-                <Rating
-                  size="large"
-                  value={rating}
-                  precision={1}
-                  name="rating"
-                  getLabelText={getLabelText}
+                <Typography variant="body1">Rating:</Typography>
+                <Box
                   sx={{
-                    "& .MuiRating-iconFilled": {
-                      color: "primary.light",
-                    },
+                    display: "flex",
+                    alignItems: "center",
                   }}
-                  onChange={(_event, newRating) => {
-                    setRating(newRating);
-                  }}
-                  onChangeActive={(_event, newHover) => {
-                    setHover(newHover);
-                  }}
-                />
-                {rating !== null && (
-                  <Box sx={{ ml: 2 }}>
-                    {labels[hover !== -1 ? hover : rating]}
-                  </Box>
-                )}
-              </Box>
-            </Stack>
-            <Stack direction="row" spacing={1}>
+                >
+                  <Rating
+                    size="large"
+                    value={rating}
+                    precision={1}
+                    name="rating"
+                    getLabelText={getLabelText}
+                    sx={{
+                      "& .MuiRating-iconFilled": {
+                        color: "primary.light",
+                      },
+                    }}
+                    onChange={(_event, newRating) => {
+                      setRating(newRating);
+                    }}
+                    onChangeActive={(_event, newHover) => {
+                      setHover(newHover);
+                    }}
+                  />
+                  {rating !== null && (
+                    <Box sx={{ ml: 2 }}>
+                      {labels[hover !== -1 ? hover : rating]}
+                    </Box>
+                  )}
+                </Box>
+              </Stack>
+            )}
+            <Stack direction="row" spacing={1} ml="auto">
               <Button
                 variant="text"
                 color="secondary"
