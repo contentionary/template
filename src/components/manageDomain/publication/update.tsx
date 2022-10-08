@@ -28,9 +28,7 @@ const CreatePublication = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-
   const styles = useStyles();
-
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check } = useForm(Update);
   const { publication, publicationCategories } = pageData as {
@@ -170,7 +168,6 @@ const CreatePublication = () => {
                 <Typography
                   variant="body1"
                   component="p"
-                  // defaultValue={publication.cat}
                 >
                   Select Category
                 </Typography>
