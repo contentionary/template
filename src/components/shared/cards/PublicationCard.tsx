@@ -52,7 +52,11 @@ const PublicationCard: PublicationCardFunc = ({
         >
           <Box p={1} className="card-img">
             <ImageComponent
-              src={type === "FOLDER" ? FOLDER_IMAGE_PLACEHOLDER : imageUrl}
+              src={
+                type === "FOLDER"
+                  ? imageUrl || FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl
+              }
               width="90%"
               height="100%"
               layout="responsive"

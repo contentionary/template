@@ -34,16 +34,7 @@ const CourseListSection: AcademyFunc = () => {
             component="h2"
             sx={{ textAlign: { xs: "center", md: "left" } }}
           >
-            Explore{" "}
-            <Typography
-              variant="h4"
-              component="span"
-              color="primary.main"
-              fontWeight={"inherit"}
-            >
-              Top Online
-            </Typography>{" "}
-            Courses From Highly Qualified Educators
+            Browse Courses
           </Typography>
           <Grid
             container

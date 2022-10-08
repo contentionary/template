@@ -26,7 +26,9 @@ const ImageComponent = (props: ImageComponentProps) => {
         {...props}
         alt={props.alt}
         src={
-          loading === true
+          !props.src
+            ? "/images/state/failed.svg"
+            : loading === true
             ? "/images/state/eclipse-loader.svg"
             : onErrorSrc || props.src
         }

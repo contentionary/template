@@ -98,7 +98,7 @@ export interface CourseContentInt {
   centreId: string;
   moduleId: string | null;
   type: "MODULE" | "CONTENT";
-  format: string | null;
+  format: "video" | "audio" | "document";
   isModule: boolean;
   duration?: string;
   pageCount?: string;
@@ -159,25 +159,37 @@ export interface PublicationInt {
   publicationCategoryId: string;
 }
 
+interface CourseContentStats {
+  videoCount: number;
+  audioCount: number;
+  documentCount: number;
+}
 export interface CourseInt {
-  id: string;
-  centreId: string;
-  folderId: string | null;
+  id?: string;
   name: string;
+  price: number;
   slug: string;
   imageUrl: string;
+  previewVideoUrl: string;
   description: string;
-  learnings: string[];
-  price: number;
   isPrivate: boolean;
+  allowSearch: boolean;
   type: "COURSE" | "FOLDER";
+  learnings?: string[];
+  folderId?: string;
   status: "PUBLISHED" | "PENDING";
   createdAt: Date;
   updatedAt: Date;
-  allowSearch: boolean;
+  centreId?: string;
   subscriberCount: number;
-  contents?: Array<CourseContentInt | CourseModuleInt>;
-  duration: string;
+  referralPercentage: number;
+  tags?: string[];
+  summary: string;
+  allowReview: boolean;
+  folderContentCount: number;
+  contents: CourseModuleInt[];
+  courseContentStats?: CourseContentStats;
+  // duration: string;
 }
 
 export interface CourseFolderInt extends CourseInt {

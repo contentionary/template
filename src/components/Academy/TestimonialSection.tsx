@@ -8,10 +8,6 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-// app components and icon
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
-import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import { AcademyFunc } from "./interfaceType";
@@ -47,14 +43,6 @@ const TestimonialSection: AcademyFunc = () => {
                       Students
                     </Typography>{" "}
                   </Typography>
-                </Grid>
-                <Grid item xs={4} md={12}>
-                  <IconButton color="primary">
-                    <ArrowBackIosOutlinedIcon />
-                  </IconButton>
-                  <IconButton color="primary">
-                    <ArrowForwardIosOutlinedIcon />
-                  </IconButton>
                 </Grid>
               </Grid>
             </Grid>

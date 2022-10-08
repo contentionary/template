@@ -23,7 +23,7 @@ import UnderConstruction from "@src/components/shared/UnderConstruction";
 // import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
-import { BasePageProps } from "@src/utils/interface";
+import { BasePageProps, CourseInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 
 const DetailsSection = () => {
@@ -32,7 +32,7 @@ const DetailsSection = () => {
   const tabStyle = useTabStyle();
   const globalStyle = useGlobalStyle();
 
-  const courseContents = pageData.courseDetails.contents;
+  const course = pageData?.courseDetails as CourseInt;
 
   //
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -90,7 +90,7 @@ const DetailsSection = () => {
                     value="2"
                     sx={{ px: { xs: 0, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseContent courseContents={courseContents || []} />
+                    <CourseContent courseContents={course.contents || []} />
                   </TabPanel>
                   <TabPanel
                     value="3"
@@ -135,7 +135,7 @@ const DetailsSection = () => {
                     position="sticky"
                     className={globalStyle.paperShadow}
                   >
-                    <CourseStats />
+                    <CourseStats {...course} />
                   </Box>
                 </Grid>
               </Grid>

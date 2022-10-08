@@ -3,6 +3,7 @@ import React from "react";
 /* eslint-disable no-unused-vars */
 export interface VideoModalInt {
   isOpen: boolean;
+  src: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

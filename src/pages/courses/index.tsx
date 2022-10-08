@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     centre = (await getCentre(context)) as CachedCentreInt;
     const { data: courseList } = await request.get({
       url: `/centre/${centre.id}/courses?pageId=${pageId}${
-        folderId === "" ? "" : `&folderId=${folderId}`
+        folderId && `&folderId=${folderId}`
       }`,
       token,
     });

@@ -48,9 +48,6 @@ const HeroSection: AcademyFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-              <Typography mb={2} variant="h5">
-                WELCOME TO
-              </Typography>
               <Typography
                 mb={3}
                 variant="h1"
@@ -58,10 +55,15 @@ const HeroSection: AcademyFunc = () => {
               >
                 {landingPageSectionOne?.title}
               </Typography>
-              <Typography mb={3} paragraph maxWidth="450px">
-                {`We are changing the way our students access vocational skills
-                and in- demand skill contents.` ||
-                  landingPageSectionOne?.description}
+              <Typography
+                mb={3}
+                paragraph
+                fontSize={30}
+                color="GrayText"
+                lineHeight={1.3}
+                maxWidth="450px"
+              >
+                {landingPageSectionOne?.description}
               </Typography>
               <NextLink href={user ? "/courses" : "/login"} passHref>
                 <Button
@@ -84,23 +86,14 @@ const HeroSection: AcademyFunc = () => {
                 className={cardStyle.breathCard}
               >
                 <Paper
-                  sx={{ maxWidth: 180, borderRadius: "20px !important" }}
+                  sx={{ maxWidth: 150, borderRadius: "20px !important" }}
                   className="left"
                 >
                   <Typography variant="subtitle2">
-                    Learn from best{" "}
-                    <Typography
-                      variant="subtitle2"
-                      component="span"
-                      color="primary.main"
-                      fontWeight={"inherit"}
-                    >
-                      instructors
-                    </Typography>{" "}
-                    around the globe Explore Top
+                    Access the best anywhere and anytime
                   </Typography>
-                  <Box maxWidth={140} mx="auto" mt={2}>
-                    <AvatarGroup max={4} total={100}>
+                  <Box maxWidth={120} mx="auto" mt={2}>
+                    <AvatarGroup max={3} total={100}>
                       {Array.from({ length: 5 }).map((_, index) => (
                         <Avatar
                           key={`${index}-avatar`}
@@ -127,7 +120,7 @@ const HeroSection: AcademyFunc = () => {
                     <AutoStoriesOutlinedIcon color="primary" />
                   </Avatar>
                   <Typography variant="subtitle2">
-                    Be certified upon course completion
+                    Compatible on all devices
                   </Typography>
                 </Paper>
                 <Box
