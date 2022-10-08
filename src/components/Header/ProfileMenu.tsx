@@ -19,10 +19,6 @@ import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import LanguageOutlined from "@mui/icons-material/LanguageOutlined";
 // import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
-// import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-// import PlayLessonOutlinedIcon from "@mui/icons-material/PlayLessonOutlined";
-// import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-// import PlayLessonOutlinedIcon from "@src/assets/icons/play.svg";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
 import { UserInt, CachedCentreInt } from "@src/utils/interface";

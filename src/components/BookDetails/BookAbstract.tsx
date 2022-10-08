@@ -7,7 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 // icons
-import TickAvatar from "@src/components/shared/TickAvatar";
+import TickAvatar from "@src/components/shared/avatar/TickAvatar";
 // interface and config
 import { BookDetailsPageFunc } from "./interfaceType";
 

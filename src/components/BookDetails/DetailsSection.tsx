@@ -35,12 +35,7 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
 
   return (
     <Fragment>
-      <Box
-        borderTop={1}
-        component="section"
-        borderColor="divider"
-        sx={{ pb: 8 }}
-      >
+      <Box component="section" sx={{ pb: 8 }}>
         <TabContext value={value}>
           <Box>
             <Box
@@ -48,9 +43,8 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
               zIndex={2}
               bgcolor="white"
               position="sticky"
-              borderBottom={1}
-              borderColor="divider"
               sx={{ px: { md: 6 } }}
+              className={globalStyle.paperShadowSm}
             >
               <Container maxWidth="xl" sx={{ mb: -0.3 }}>
                 <TabList
@@ -97,7 +91,7 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
                     top="2rem"
                     borderRadius={3}
                     position="sticky"
-                    className={globalStyle.paperShadow}
+                    className={globalStyle.paperShadowSm}
                   >
                     <BookStats {...props} />
                   </Box>
