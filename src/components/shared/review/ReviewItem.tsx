@@ -91,7 +91,6 @@ const ReviewItem = ({
             color="secondary"
             onClick={() => {
               setShowReplyForm(!showReplyForm);
-              handleToggleReply && handleToggleReply(`${review.id}`);
             }}
             className={buttonStyle.iconTextButton}
           >
@@ -109,8 +108,7 @@ const ReviewItem = ({
                 handleToggleReply && handleToggleReply(`${review.id}`)
               }
             >
-              {openReply === `${review.id}` ? "Hide" : "View"}{" "}
-              {review.replyCount} replies
+              {openReply === `${review.id}` ? "Hide" : "View"} replies
             </Button>
           )}
         </Stack>
