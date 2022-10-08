@@ -24,7 +24,6 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 
 const LessonDiscussions = () => {
   const [open, setOpen] = useState<string>("");
-
   //
   const handleToggleReply = (discussion: string) => {
     if (open === discussion) setOpen("");

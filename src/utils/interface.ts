@@ -180,6 +180,27 @@ export interface CourseInt {
   duration: string;
 }
 
+export interface ReviewInt {
+  id: string;
+  userId: string;
+  comment: string;
+  rating: number;
+  replyCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  firstname: string;
+  surname: string;
+  avatar: string;
+}
+
+export interface ReviewListInt {
+  reviews: Array<ReviewInt>;
+  limit: number;
+  pageId: number;
+  pageCount: number;
+  totalCount: number;
+}
+
 export interface CourseFolderInt extends CourseInt {
   topContents?: CourseInt[];
 }
