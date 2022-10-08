@@ -31,7 +31,7 @@ const getLabelText = (value: number) => {
 
 interface ReviewFormInt {
   id: string;
-  query?: "reviews" | "replies";
+  query?: string;
 }
 
 const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
@@ -45,21 +45,20 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
   const [rating, setRating] = useState<number | null>(0);
   //
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { user, token } = cachedData;
+  const { user } = cachedData;
   // Mutations
   const mutation = useMutation(
     async () => {
       return await request.post({
         url: `/review/${id}`,
         data: { comment, rating },
-        token,
       });
     },
     {
       onSuccess: () => {
         setLoading(false);
         // Invalidate and refetch
-        queryClient.invalidateQueries(query);
+        queryClient.invalidateQueries([query, { id }]);
       },
       onError: () => {
         setLoading(false);

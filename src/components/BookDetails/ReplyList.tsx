@@ -1,41 +1,29 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 // mui components
 import List from "@mui/material/List";
-import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
 // app components
-import ReviewForm from "@src/components/shared/review/ReviewForm";
 import ReviewItem from "@src/components/shared/review/ReviewItem";
 // interface, styles and utils
 import { useQuery } from "react-query";
 import { request, queryClient } from "@src/utils";
-import { BasePageProps, ReviewInt } from "@src/utils/interface";
+import { ReviewInt } from "@src/utils/interface";
 
 interface ReviewListInterface {
   reviewId: string;
 }
 
 const ReplyList = ({ reviewId }: ReviewListInterface) => {
-  const [openReply, setOpenReply] = useState<string>("");
-  //
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { token } = cachedData;
-  //
+  queryClient.invalidateQueries(["replies", { reviewId }]);
   const { isLoading, isError, data } = useQuery(
-    "replies",
+    ["replies", { id: reviewId }],
     async () =>
       await await request.get({
         url: `/reviews/${reviewId}`,
-        token,
       })
   );
   //
-  const handleToggleReply = (discussion: string) => {
-    if (openReply === discussion) setOpenReply("");
-    else setOpenReply(discussion);
-  };
-
   if (isLoading) {
     return (
       <Fragment>
@@ -61,19 +49,7 @@ const ReplyList = ({ reviewId }: ReviewListInterface) => {
       <List dense>
         {data?.data?.reviews.map((review: ReviewInt) => (
           <Fragment key={`${review.id}-review-list`}>
-            <ReviewItem
-              reply={true}
-              review={review}
-              openReply={openReply}
-              handleToggleReply={handleToggleReply}
-            />
-            <Collapse
-              in={openReply === `${review.id}`}
-              timeout="auto"
-              unmountOnExit
-            >
-              <Fragment></Fragment>
-            </Collapse>
+            <ReviewItem reply={true} review={review} />
           </Fragment>
         ))}
       </List>

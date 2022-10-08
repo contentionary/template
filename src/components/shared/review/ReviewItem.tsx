@@ -21,10 +21,10 @@ import { timeAgo } from "@src/utils";
 
 interface ReviewItemProps {
   reply?: boolean;
-  openReply: string;
   review: ReviewInt;
+  openReply?: string;
   // eslint-disable-next-line no-unused-vars
-  handleToggleReply: (discussion: string) => void;
+  handleToggleReply?: (discussion: string) => void;
 }
 
 const ReviewItem = ({
@@ -89,7 +89,10 @@ const ReviewItem = ({
             size="large"
             variant="text"
             color="secondary"
-            onClick={() => setShowReplyForm(!showReplyForm)}
+            onClick={() => {
+              setShowReplyForm(!showReplyForm);
+              handleToggleReply && handleToggleReply(`${review.id}`);
+            }}
             className={buttonStyle.iconTextButton}
           >
             <Stack direction="row" alignItems="center" spacing={2}>
@@ -102,7 +105,9 @@ const ReviewItem = ({
               variant="text"
               color="secondary"
               className={buttonStyle.iconTextButton}
-              onClick={() => handleToggleReply(`${review.id}`)}
+              onClick={() =>
+                handleToggleReply && handleToggleReply(`${review.id}`)
+              }
             >
               {openReply === `${review.id}` ? "Hide" : "View"}{" "}
               {review.replyCount} replies

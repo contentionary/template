@@ -9,9 +9,9 @@ import ReplyList from "./ReplyList";
 import ReviewForm from "@src/components/shared/review/ReviewForm";
 import ReviewItem from "@src/components/shared/review/ReviewItem";
 // interface, styles and utils
+import { request } from "@src/utils";
 import { useQuery } from "react-query";
-import { request, queryClient } from "@src/utils";
-import { ReviewInt, BasePageProps } from "@src/utils/interface";
+import { ReviewInt } from "@src/utils/interface";
 
 interface ReviewListInterface {
   publicationId: string;
@@ -20,19 +20,21 @@ interface ReviewListInterface {
 const ReviewList = ({ publicationId }: ReviewListInterface) => {
   const [openReply, setOpenReply] = useState<string>("");
   //
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { token } = cachedData;
-  //
-  const { isLoading, isError, data } = useQuery("reviews", async () => {
-    return await request.get({
-      url: `/reviews/${publicationId}`,
-      token,
-    });
-  });
+  const { isLoading, isError, data } = useQuery(
+    ["reviews", { id: publicationId }],
+    async () => {
+      return await request.get({
+        url: `/reviews/${publicationId}`,
+      });
+    }
+  );
   //
   const handleToggleReply = (discussion: string) => {
-    if (openReply === discussion) setOpenReply("");
-    else setOpenReply(discussion);
+    if (openReply === discussion) {
+      setOpenReply("");
+    } else {
+      setOpenReply(discussion);
+    }
   };
 
   if (isLoading) {
