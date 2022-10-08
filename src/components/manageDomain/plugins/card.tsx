@@ -80,6 +80,8 @@ const PublicationCard = ({
             >
               {installPlugin ? (active ? "Uninstall" : "Install") : "Open"}
             </Button>
+
+
           </Box>
         </Box>
       </Stack>

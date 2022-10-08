@@ -10,10 +10,11 @@ const pdfStyle = makeStyles({
         alignItems: "center",
         position: "relative",
         flexDirection: "column",
+        background: "#525659;",
       },
       "& .react-pdf__Page": {
         maxWidth: "calc(100% - 2em)",
-        marginTop: "1rem",
+        marginTop: "2rem",
         userSelect: "none",
         "& canvas": {
           maxWidth: "100%",
