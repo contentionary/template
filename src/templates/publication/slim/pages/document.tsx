@@ -4,7 +4,6 @@ import { queryClient } from "@src/utils";
 
 const DocumentPage = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  // const { name, logo } = cachedData.centre;
   const publication = pageData.publication as PublicationInt;
 
   return <Document publication={publication} />;

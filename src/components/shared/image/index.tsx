@@ -20,7 +20,6 @@ const ImageComponent = (props: ImageComponentProps) => {
   ) => {
     e?.currentTarget?.src !== fallback && setOnErrorSrc(fallback);
   };
-  //"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN88h8AAs0B5QWO2loAAAAASUVORK5CYII="
   return (
     <Fragment>
       <Image

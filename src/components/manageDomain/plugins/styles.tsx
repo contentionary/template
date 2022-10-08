@@ -33,7 +33,7 @@ export default makeStyles({
   pluginDescription: {
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: 19,
+    fontSize: 17,
     color: "#616161",
     marginBottom: 5,
     height: 140,
