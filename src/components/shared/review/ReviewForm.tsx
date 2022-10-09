@@ -83,7 +83,7 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
     <Stack direction="row" alignItems="flex-start" spacing={2} mb={3}>
       <UserAvatar
         src={user?.avatar}
-        sx={{ mt: 0.5, flexShrink: 0 }}
+        sx={{ mt: 0.5, flexShrink: 0, display: { xs: "none", sm: "flex" } }}
         user={{ firstname: user?.firstname, lastname: user?.surname }}
       />
       <form style={{ flexGrow: 1 }} onSubmit={(e) => submit(e)}>
@@ -106,9 +106,9 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
 
         <Collapse in={reviewFormFocused}>
           <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
+            direction={{ sx: "column", sm: "row" }}
+            alignItems={{ sx: "start", sm: "center" }}
+            justifyContent={{ sx: "start", sm: "space-between" }}
           >
             {query === "reviews" && (
               <Stack
@@ -117,18 +117,26 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
                 flexGrow={1}
                 spacing={1}
               >
-                <Typography variant="body1">Rating:</Typography>
+                <Typography
+                  variant="body1"
+                  display={{ xs: "none", sm: "inline-block" }}
+                >
+                  Rating:
+                </Typography>
                 <Box
                   sx={{
+                    flexGrow: 1,
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: { xs: "center", sm: "flex-start" },
+                    flexDirection: { xs: "column", sm: "row" },
                   }}
                 >
+                  {/* <input name="rating" value={Number(rating)} hidden readOnly /> */}
                   <Rating
                     size="large"
                     value={rating}
                     precision={1}
-                    name="rating"
                     getLabelText={getLabelText}
                     sx={{
                       "& .MuiRating-iconFilled": {

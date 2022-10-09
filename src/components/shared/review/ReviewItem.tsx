@@ -38,10 +38,10 @@ const ReviewItem = ({
 
   return (
     <ListItem alignItems="flex-start" sx={{ pr: 0, pl: reply ? 4 : 0 }}>
-      <ListItemAvatar sx={{ display: { xs: "none", md: "block" } }}>
+      <ListItemAvatar sx={{ display: { xs: "none", md: "flex" } }}>
         <UserAvatar
           src={review.avatar}
-          sx={{ mr: 2 }}
+          sx={{ mr: 2, ...{ width: reply ? 32 : 40, height: reply ? 32 : 40 } }}
           user={{ firstname: review.firstname, lastname: review.surname }}
         />
       </ListItemAvatar>
@@ -49,7 +49,11 @@ const ReviewItem = ({
         <Stack direction="row" spacing={2}>
           <UserAvatar
             src={review.avatar}
-            sx={{ mr: 2, display: { xs: "block", md: "none" } }}
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              ...{ width: reply ? 32 : 40, height: reply ? 32 : 40 },
+            }}
             user={{ firstname: review.firstname, lastname: review.surname }}
           />
           <Box sx={{ ml: "0 !important" }}>
