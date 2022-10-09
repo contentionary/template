@@ -165,10 +165,7 @@ const CreatePublication = () => {
                 onChange={getData}
               />
               <Stack>
-                <Typography
-                  variant="body1"
-                  component="p"
-                >
+                <Typography variant="body1" component="p">
                   Select Category
                 </Typography>
                 <Select
