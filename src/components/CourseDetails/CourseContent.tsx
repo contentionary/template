@@ -21,7 +21,7 @@ import ContentListButton from "./ContentListButton";
 const CourseContent = ({
   courseContents,
 }: {
-  courseContents: Array<CourseModuleInt>;
+  courseContents: CourseModuleInt[];
 }) => {
   const [expanded, setExpanded] = React.useState<string | false>("1");
   const accordionStyle = useAccordionStyle();

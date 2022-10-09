@@ -19,7 +19,12 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { CourseCardFunc } from "./interfaceType";
-import { kCount, dateTimeFormat, timeAgo } from "@src/utils";
+import {
+  kCount,
+  dateTimeFormat,
+  timeAgo,
+  VIDEO_FOLDER_IMAGE_PLACEHOLDER,
+} from "@src/utils";
 
 const CourseCard: CourseCardFunc = ({ course }) => {
   const cardStyle = useCardStyle();
@@ -28,12 +33,13 @@ const CourseCard: CourseCardFunc = ({ course }) => {
     id,
     name,
     slug,
-    description,
     imageUrl,
     price,
     subscriberCount,
     createdAt,
     type,
+    summary,
+    folderContentCount,
   } = course;
 
   return (
@@ -53,7 +59,9 @@ const CourseCard: CourseCardFunc = ({ course }) => {
           <Box className="card-img">
             <ImageComponent
               src={
-                type === "FOLDER" ? "/images/cards/video-folder.svg" : imageUrl
+                type === "FOLDER"
+                  ? imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl || "/images/state/failed.svg"
               }
               width="100%"
               height="60%"
@@ -75,14 +83,6 @@ const CourseCard: CourseCardFunc = ({ course }) => {
               <Typography noWrap gutterBottom variant="h6">
                 {name}
               </Typography>
-              {/* <Typography
-                paragraph
-                mb={0}
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                <StarBorderOutlinedIcon color="primary" fontSize="inherit" />{" "}
-                4.5
-              </Typography> */}
             </Stack>
             <Typography
               mb={2}
@@ -91,7 +91,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
               color="text.secondary"
               className={globalStyle.text2LineTruncate}
             >
-              {description}
+              {summary}
             </Typography>
             {type === "FOLDER" ? (
               <Typography
@@ -102,7 +102,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
                 alignItems="center"
               >
                 <FolderCopyOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp; 0
+                &nbsp; {folderContentCount || 0}
               </Typography>
             ) : (
               <Stack

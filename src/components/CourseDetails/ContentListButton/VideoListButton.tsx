@@ -15,6 +15,7 @@ const VideoListButton = ({ name, duration, slug, id, courseId }: any) => (
         <PlayIcon fill="secondary.main" style={{ transform: "scale(0.75)" }} />
       </ListItemIcon>
       <Stack
+        flexGrow={1}
         direction={{ xs: "column", md: "row" }}
         justifyContent="space-between"
       >
