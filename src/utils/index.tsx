@@ -367,7 +367,7 @@ export const getCentre = async (
         id: centre.id,
         slug: centre.slug,
         name: centre.name,
-        template: "course" || centre.template,
+        template: "publication" || centre.template,
         logo: centre.logo,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@contentionary.com",

@@ -1,31 +1,36 @@
-export const data = [
+import { Currency, PaymentMethod } from "./interface";
+
+export const data: any[] = [
   {
-    type: "CARD",
+    method: PaymentMethod.CARD,
     paymentType: "Pay with Naira",
     logo: "/images/payment/payStack.svg",
     motto: "Secured by Paystack",
-    active: true,
+    active: false,
     width: 150,
-    currency: "NGN",
+    currency: Currency.NGN,
+    isDefault: true,
   },
   {
-    type: "CARD",
+    method: PaymentMethod.CARD,
     paymentType: "Pay with Dollar",
     logo: "/images/payment/stripe.svg",
     motto: "Secured by Stripe",
     active: false,
-    currency: "USD",
+    currency: Currency.USD,
     width: 80,
+    isDefault: true,
   },
   {
-    type: "WALLET",
+    method: PaymentMethod.WALLET,
     paymentType: "Pay with Wallet",
     logo: "/images/payment/logo.svg",
     motto: "Secured by Contentionary",
     active: false,
     link: "https://checkout.flutterwave.com/v3/hosted/pay",
-    currency: "NGN",
+    currency: "*",
     width: 200,
+    isDefault: false,
   },
 ];
 
@@ -38,10 +43,10 @@ export const currencies = [
     value: "NGN",
     label: "Pay in Naira",
   },
-  {
-    value: "WALLET",
-    label: "Pay From Wallet",
-  },
+  // {
+  //   value: "WALLET",
+  //   label: "Pay From Wallet",
+  // },
   // {
   //     value: 'TRANSFER',
   //     label: 'Pay by Transfer',

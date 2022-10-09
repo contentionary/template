@@ -41,7 +41,7 @@ const CourseListSection: AcademyFunc = () => {
             mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
             spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
           >
-            {templateData.courses.direct.map((course, index) => (
+            {templateData.courses?.map((course, index) => (
               <Grid
                 key={`${index}-course-card`}
                 item

@@ -219,10 +219,7 @@ export interface CourseFolderInt extends CourseInt {
 
 export interface TemplateDataInt {
   templateDetails: Record<string, any>;
-  courses: {
-    direct: CourseInt[];
-    folders: CourseInt[];
-  };
+  courses: CourseInt[];
 }
 
 export interface CourseListInt {
