@@ -35,24 +35,26 @@ function createData(
 
 export default function MuiTable({
   data,
+  columnSx,
   columns,
 }: {
   data: any[];
   columns: any[];
+  columnSx: {};
 }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 740 }}>
         <Table stickyHeader aria-label="sticky table">
-          <TableHead>
+          <TableHead sx={columnSx}>
             <TableRow>
               {columns.map((column, index) => (
                 <TableCell
-                  key={`${index}-${column}`}
+                  key={`${index}-${column.name}`}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {column}
+                  {column.name}
                 </TableCell>
               ))}
             </TableRow>
@@ -67,7 +69,7 @@ export default function MuiTable({
                   key={`${index}-table`}
                 >
                   {columns.map((column) => {
-                    const value = item[column];
+                    const value: any = item[column.key];
                     return (
                       <TableCell key={column} align={column.align}>
                         {column.format && typeof value === "number"

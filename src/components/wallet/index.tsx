@@ -46,6 +46,20 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   },
 }));
 const bg = "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)";
+
+const btnStyle = {
+  borderRadius: 2,
+  color: "#000",
+  fontSize: 14,
+  fontWeight: 500,
+  paddingY: 1.7,
+  paddingX: 3,
+};
+const active = {
+  ...btnStyle,
+  background: "#DD6E20",
+  color: "#fff",
+};
 const ColorlibStepIconRoot = styled("div")<{
   ownerState: { completed?: boolean; active?: boolean };
 }>(({ theme, ownerState }) => ({
@@ -92,6 +106,7 @@ const steps = ["Home", "Admin", "Wallet"];
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
+  const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -100,24 +115,25 @@ export default function CustomizedSteppers() {
   );
 
   const columns = [
-    "index",
-    "date",
-    "balance",
-    "amount",
-    "reference",
-    "currency",
-    "narration",
-    "type",
+    { name: "No", key: "index" },
+    { name: "Date", key: "date" },
+    { name: "Amount", key: "amount" },
+    { name: "Balance", key: "balance" },
+    { name: "Naration", key: "narration" },
+    { name: "Currency", key: "currency" },
+    { name: "Type", key: "type" },
+    { name: "Reference", key: "reference" },
   ];
 
   const data = transactions.map((item, index) => ({
-    index: index++,
+    index: ++index,
     date: format(new Date(item.createdAt), "dd-MM-yyy"),
     ...item,
   }));
 
   async function getTransactions(type: string) {
     try {
+      setTransactionType(type);
       if (type === "all") {
         setTransaction([...pageData.transactionHistory]);
       } else {
@@ -180,19 +196,40 @@ export default function CustomizedSteppers() {
         <Typography variant="h4" component="p">
           Transactions
         </Typography>
-        <Box sx={{ background: "#FAEFE8", width: 390 }}>
-          <ButtonComponent onClick={() => getTransactions("all")}>
+        <Box
+          sx={{
+            background: "#FAEFE8",
+            width: 390,
+            mt: 2,
+            padding: 0.5,
+            borderRadius: 2,
+          }}
+        >
+          <ButtonComponent
+            sx={transactionType === "all" ? active : btnStyle}
+            onClick={() => getTransactions("all")}
+          >
             All Transactions
           </ButtonComponent>
-          <ButtonComponent onClick={() => getTransactions("DEBIT")}>
+          <ButtonComponent
+            sx={transactionType === "DEBIT" ? active : btnStyle}
+            onClick={() => getTransactions("DEBIT")}
+          >
             Deposits
           </ButtonComponent>
-          <ButtonComponent onClick={() => getTransactions("CREDIT")}>
+          <ButtonComponent
+            sx={transactionType === "CREDIT" ? active : btnStyle}
+            onClick={() => getTransactions("CREDIT")}
+          >
             Withdrawals
           </ButtonComponent>
         </Box>
       </Box>
-      <MuiTable data={data} columns={columns} />
+      <MuiTable
+        data={data}
+        columns={columns}
+        columnSx={{ background: "red" }}
+      />
       {toastMessage && (
         <Toast
           message={toastMessage}
