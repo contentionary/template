@@ -5,15 +5,24 @@ import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 //
-import ReactPlayer from "react-player/youtube";
+// import ReactPlayer from "react-player";
+import VideoPlayer from "@src/components/shared/video/VideoPlayer";
 //
 import useGlobalStyle from "@src/styles";
 //
 import { VideoModalFunc } from "./interfaceType";
 
-const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen }) => {
+const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen, src }) => {
   const globalStyle = useGlobalStyle();
   const handleClose = () => setIsOpen(false);
+
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    fill: true,
+    sources: [{ src }],
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -28,12 +37,7 @@ const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen }) => {
     >
       <Fade in={isOpen}>
         <Box className={globalStyle.modalStyle}>
-          <ReactPlayer
-            className="react-player"
-            controls={false}
-            playing={isOpen}
-            url="https://youtu.be/TT-oVoZgdX0"
-          />
+          <VideoPlayer options={videoJsOptions} />
         </Box>
       </Fade>
     </Modal>

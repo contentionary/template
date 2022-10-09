@@ -34,23 +34,14 @@ const CourseListSection: AcademyFunc = () => {
             component="h2"
             sx={{ textAlign: { xs: "center", md: "left" } }}
           >
-            Explore{" "}
-            <Typography
-              variant="h4"
-              component="span"
-              color="primary.main"
-              fontWeight={"inherit"}
-            >
-              Top Online
-            </Typography>{" "}
-            Courses From Highly Qualified Educators
+            Browse Courses
           </Typography>
           <Grid
             container
             mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
             spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
           >
-            {templateData.courses.direct.map((course, index) => (
+            {templateData.courses?.map((course, index) => (
               <Grid
                 key={`${index}-course-card`}
                 item

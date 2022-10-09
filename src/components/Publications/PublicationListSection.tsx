@@ -19,8 +19,7 @@ import { BasePageProps, PublicationInt } from "@src/utils/interface";
 const PublicationListSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const publications = pageData.templateData.publications
-    .direct as PublicationInt[];
+  const publications = pageData.templateData.publications as PublicationInt[];
 
   return (
     <Fragment>

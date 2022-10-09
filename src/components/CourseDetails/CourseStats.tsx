@@ -13,21 +13,27 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import OndemandVideoOutlinedIcon from "@mui/icons-material/OndemandVideoOutlined";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 // interface and config
-import { CourseDetailsPageFunc } from "./interfaceType";
+import { CourseInt } from "@src/utils/interface";
 
-const CourseStats: CourseDetailsPageFunc = () => {
+const CourseStats = ({ courseContentStats, subscriberCount }: CourseInt) => {
   return (
     <Fragment>
       <Typography variant="h5">This course includes:</Typography>
       <List>
-        <ListItem sx={{ px: 0 }}>
-          <OndemandVideoOutlinedIcon />
-          <ListItemText primary="&nbsp; 23 hours on-demand video" />
-        </ListItem>
-        <ListItem sx={{ px: 0 }}>
-          <InsertDriveFileOutlinedIcon />
-          <ListItemText primary="&nbsp; 23 articles" />
-        </ListItem>
+        {courseContentStats?.videoCount && (
+          <ListItem sx={{ px: 0 }}>
+            <OndemandVideoOutlinedIcon />
+            <ListItemText
+              primary={`&nbsp; ${courseContentStats?.videoCount} on-demand videos`}
+            />
+          </ListItem>
+        )}
+        {courseContentStats?.documentCount && (
+          <ListItem sx={{ px: 0 }}>
+            <InsertDriveFileOutlinedIcon />
+            <ListItemText primary="&nbsp; 23 articles" />
+          </ListItem>
+        )}
         <ListItem sx={{ px: 0 }}>
           <FileDownloadOutlinedIcon />
           <ListItemText primary="&nbsp; 1 downloadable resource" />

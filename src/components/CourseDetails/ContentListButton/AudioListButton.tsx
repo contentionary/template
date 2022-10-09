@@ -15,6 +15,7 @@ const AudioListButton = ({ name, duration, slug, id, courseId }: any) => (
         <KeyboardVoiceOutlinedIcon />
       </ListItemIcon>
       <Stack
+        flexGrow={1}
         direction={{ xs: "column", md: "row" }}
         justifyContent="space-between"
       >

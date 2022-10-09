@@ -59,21 +59,26 @@ const ReviewItem = ({
                   {review.firstname} {review.surname}
                 </Typography>
                 <Stack direction="row" spacing={1}>
-                  <Rating
-                    name="text-feedback"
-                    value={review.rating}
-                    readOnly
-                    precision={1}
-                    sx={{
-                      "& .MuiRating-iconFilled": {
-                        color: "primary.light",
-                      },
-                    }}
-                    emptyIcon={
-                      <StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />
-                    }
-                  />
-                  <Typography paragraph mb={0} mt="0 !important">
+                  {!reply && (
+                    <Rating
+                      name="text-feedback"
+                      value={review.rating}
+                      readOnly
+                      precision={1}
+                      sx={{
+                        "& .MuiRating-iconFilled": {
+                          color: "primary.light",
+                        },
+                      }}
+                      emptyIcon={
+                        <StarIcon
+                          style={{ opacity: 0.55 }}
+                          fontSize="inherit"
+                        />
+                      }
+                    />
+                  )}
+                  <Typography variant="body2" mb={0} mt="0 !important">
                     {timeAgo(review.createdAt)}
                   </Typography>
                 </Stack>
@@ -86,7 +91,6 @@ const ReviewItem = ({
         </Typography>
         <Stack direction="row" justifyContent="start">
           <Button
-            size="large"
             variant="text"
             color="secondary"
             onClick={() => {
@@ -100,7 +104,6 @@ const ReviewItem = ({
           </Button>
           {review.replyCount > 0 && !reply && (
             <Button
-              size="large"
               variant="text"
               color="secondary"
               className={buttonStyle.iconTextButton}
@@ -108,12 +111,13 @@ const ReviewItem = ({
                 handleToggleReply && handleToggleReply(`${review.id}`)
               }
             >
-              {openReply === `${review.id}` ? "Hide" : "View"} replies
+              {openReply === `${review.id}` ? "Hide" : "View"}{" "}
+              {review.replyCount} {review.replyCount > 1 ? "replies" : "reply"}
             </Button>
           )}
         </Stack>
         <Collapse in={showReplyForm} timeout="auto" unmountOnExit>
-          <ReviewForm id={review.id} query={reply ? "replies" : "reviews"} />
+          <ReviewForm id={review.id} query="replies" />
         </Collapse>
       </Box>
     </ListItem>

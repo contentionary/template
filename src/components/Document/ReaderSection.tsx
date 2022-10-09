@@ -20,7 +20,7 @@ import { DocumentFunc } from "./interfaceType";
 import { useDialog } from "@src/hooks";
 import usePdfReaderStyle from "@src/styles/pdfReader";
 import { cache, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
-import SocialMediaShare from "@src/components/BookDetails/share";
+import SocialMediaShare from "@src/components/shared/shareContentOnMedia/share";
 
 const options = {
   cMapUrl: "cmaps/",

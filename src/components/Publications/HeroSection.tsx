@@ -33,7 +33,6 @@ const HeroSection: PublicationsFunc = () => {
   const { user } = cachedData;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
-  // const templateData = pageData.templateData as TemplateDataInt;
 
   return (
     <Fragment>
@@ -49,9 +48,6 @@ const HeroSection: PublicationsFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-              {/* <Typography mb={2} variant="h5">
-                WELCOME TO
-              </Typography> */}
               <Typography
                 mb={3}
                 variant="h1"
