@@ -169,7 +169,7 @@ export default function Payment(): JSX.Element {
                     select
                     label="Pay with Naira"
                     value={currency}
-                    onChange={(e) => handleChange(e.target.value)}
+                    onChange={(e) => handleChange(e.target.value as Currency)}
                     variant="outlined"
                     size="small"
                     InputProps={{
@@ -207,7 +207,7 @@ export default function Payment(): JSX.Element {
                 {cards.map((item, index) => (
                   <Grid
                     key={index}
-                    onClick={() => selectedCard(index, item.currency)}
+                    onClick={() => selectedCard(index)}
                     item
                     xs={12}
                     md={4}

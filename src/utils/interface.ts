@@ -175,7 +175,7 @@ export interface CourseInt {
   isPrivate: boolean;
   allowSearch: boolean;
   type: "COURSE" | "FOLDER";
-  learnings?: string[];
+  learnings: string[];
   folderId?: string;
   status: "PUBLISHED" | "PENDING";
   createdAt: Date;

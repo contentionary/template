@@ -1,5 +1,3 @@
-// export type Currency = "NGN" | "USD";
-
 export enum Currency {
   NGN = "NGN",
   USD = "USD",
