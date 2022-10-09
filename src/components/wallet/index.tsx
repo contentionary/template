@@ -4,75 +4,25 @@ import Stack from "@mui/material/Stack";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Check from "@mui/icons-material/Check";
-import SettingsIcon from "@mui/icons-material/Settings";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import HomeOutlined from "@mui/icons-material/HomeOutlined";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 import { StepIconProps } from "@mui/material/StepIcon";
-
-const QontoConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#784af4",
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderColor:
-      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
-    borderTopWidth: 3,
-    borderRadius: 1,
-  },
-}));
-
-const QontoStepIconRoot = styled("div")<{ ownerState: { active?: boolean } }>(
-  ({ theme, ownerState }) => ({
-    color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",
-    display: "flex",
-    height: 22,
-    alignItems: "center",
-    ...(ownerState.active && {
-      color: "#784af4",
-    }),
-    "& .QontoStepIcon-completedIcon": {
-      color: "#784af4",
-      zIndex: 1,
-      fontSize: 18,
-    },
-    "& .QontoStepIcon-circle": {
-      width: 8,
-      height: 8,
-      borderRadius: "50%",
-      backgroundColor: "currentColor",
-    },
-  })
-);
-
-function QontoStepIcon(props: StepIconProps) {
-  const { active, completed, className } = props;
-
-  return (
-    <QontoStepIconRoot ownerState={{ active }} className={className}>
-      {completed ? (
-        <Check className="QontoStepIcon-completedIcon" />
-      ) : (
-        <div className="QontoStepIcon-circle" />
-      )}
-    </QontoStepIconRoot>
-  );
-}
+import { Box, Typography } from "@mui/material";
+import { handleError, queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
+import CreditWallet from "./creditWallet";
+import WalletToWalletTransfer from "./walletToWalletTransfer";
+import BankTransfer from "./walletToBankTransfer";
+import MuiTable from "@src/components/shared/table";
+import { format } from "date-fns";
+import ButtonComponent from "@src/components/shared/button";
+import { useToast } from "@src/utils/hooks";
+import dynamic from "next/dynamic";
+import { TransactionHistory } from "./interface";
 
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -80,25 +30,22 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+      backgroundImage: "#F57E27",
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)",
+      backgroundImage: "#F57E27",
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
     height: 3,
     border: 0,
-    backgroundColor:
-      theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+    backgroundColor: "#D9D9D9",
     borderRadius: 1,
   },
 }));
-
+const bg = "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)";
 const ColorlibStepIconRoot = styled("div")<{
   ownerState: { completed?: boolean; active?: boolean };
 }>(({ theme, ownerState }) => ({
@@ -113,13 +60,11 @@ const ColorlibStepIconRoot = styled("div")<{
   justifyContent: "center",
   alignItems: "center",
   ...(ownerState.active && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
+    backgroundImage: bg,
     boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
   }),
   ...(ownerState.completed && {
-    backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
+    backgroundImage: "#F57E27",
   }),
 }));
 
@@ -127,9 +72,9 @@ function ColorlibStepIcon(props: StepIconProps) {
   const { active, completed, className } = props;
 
   const icons: { [index: string]: React.ReactElement } = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <HomeOutlined />,
+    2: <AdminPanelSettingsOutlinedIcon />,
+    3: <AccountBalanceWalletOutlinedIcon />,
   };
 
   return (
@@ -142,25 +87,59 @@ function ColorlibStepIcon(props: StepIconProps) {
   );
 }
 
-const steps = [
-  "Select campaign settings",
-  "Create an ad group",
-  "Create an ad",
-];
+const steps = ["Home", "Admin", "Wallet"];
 
 export default function CustomizedSteppers() {
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const { toastMessage, toggleToast } = useToast();
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const [transactions, setTransaction] = React.useState<TransactionHistory[]>(
+    pageData.transactionHistory
+  );
+
+  const columns = [
+    "index",
+    "date",
+    "balance",
+    "amount",
+    "reference",
+    "currency",
+    "narration",
+    "type",
+  ];
+
+  const data = transactions.map((item, index) => ({
+    index: index++,
+    date: format(new Date(item.createdAt), "dd-MM-yyy"),
+    ...item,
+  }));
+
+  async function getTransactions(type: string) {
+    try {
+      if (type === "all") {
+        setTransaction([...pageData.transactionHistory]);
+      } else {
+        setTransaction(
+          pageData.transactionHistory.filter(
+            (transaction: TransactionHistory) => transaction.type === type
+          )
+        );
+      }
+      // const { data } = await request.get({
+      //   url: `/wallet/history?centreId=${cachedData.centre.id}&type=${type}`,
+      // });
+    } catch (error) {
+      toggleToast(handleError(error).message);
+    }
+  }
   return (
-    <Stack sx={{ width: "100%" }} spacing={4}>
-      <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+    <Stack spacing={4} marginTop={4}>
       <Stepper
+        sx={{ width: { xs: "100%", md: 700 } }}
         alternativeLabel
-        activeStep={1}
+        activeStep={2}
         connector={<ColorlibConnector />}
       >
         {steps.map((label) => (
@@ -169,6 +148,58 @@ export default function CustomizedSteppers() {
           </Step>
         ))}
       </Stepper>
+      <Box
+        sx={{
+          background: bg,
+          padding: 3,
+          width: { xs: "100%", md: 800 },
+          borderRadius: 3,
+        }}
+      >
+        <Typography
+          variant="h5"
+          component="p"
+          style={{ color: "#fff", marginBottom: 20 }}
+        >
+          Wallet Balance
+        </Typography>
+        <Typography
+          variant="h4"
+          component="p"
+          style={{ color: "#fff", marginBottom: 20 }}
+        >
+          NGN {pageData.walletBalance.usdBalance}
+        </Typography>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <CreditWallet userId={cachedData.user.id} />
+          <WalletToWalletTransfer toggleToast={toggleToast} />
+          <BankTransfer toggleToast={toggleToast} />
+        </Box>
+      </Box>
+      <Box>
+        <Typography variant="h4" component="p">
+          Transactions
+        </Typography>
+        <Box sx={{ background: "#FAEFE8", width: 390 }}>
+          <ButtonComponent onClick={() => getTransactions("all")}>
+            All Transactions
+          </ButtonComponent>
+          <ButtonComponent onClick={() => getTransactions("DEBIT")}>
+            Deposits
+          </ButtonComponent>
+          <ButtonComponent onClick={() => getTransactions("CREDIT")}>
+            Withdrawals
+          </ButtonComponent>
+        </Box>
+      </Box>
+      <MuiTable data={data} columns={columns} />
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          status={Boolean(toastMessage)}
+          showToast={toggleToast}
+        />
+      )}
     </Stack>
   );
 }

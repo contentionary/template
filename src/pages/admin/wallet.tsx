@@ -20,14 +20,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context, true)) as CachedCentreInt;
 
-    // const { data } = await request.get({
-    //   url: `/centre/${centre.id}/publications`,
-    //   token,
-    // });
-
+    const { data } = await request.get({
+      url: `/wallet/centre-balance?centreId=${centre.id}`,
+      token,
+    });
+    const { data: transactionHistory } = await request.get({
+      url: `/wallet/history?centreId=${centre.id}`,
+      token,
+    });
     return {
       props: {
-        pageData: { centre: centre,  },
+        pageData: { walletBalance: data, transactionHistory },
         cachedData: { user, centre, token },
       },
     };
