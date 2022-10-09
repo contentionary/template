@@ -15,26 +15,12 @@ import { useState } from "react";
 
 const BankTransfer = ({ toggleToast }: { toggleToast: Function }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
-  const Modal = dynamic(
-    () => import("@src/components/shared/confirmationModal")
-  );
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(Transfer);
   const { isOpen, openDialog, closeDialog } = useDialog();
 
   async function Transfer() {
     try {
-      setIsLoading(true);
-      openDialog();
-    } catch (error) {
-      toggleToast(handleError(error).message);
-      setIsLoading(false);
-    }
-  }
-  async function confirmTransfer() {
-    try {
-      setIsLoading(true);
-      openDialog();
       const { data } = await request.post({
         url: "/wallet/bank-transfer",
         data: {
@@ -43,7 +29,8 @@ const BankTransfer = ({ toggleToast }: { toggleToast: Function }) => {
         },
       });
       console.log(data);
-      setIsLoading(false);
+      setIsLoading(true);
+      openDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);

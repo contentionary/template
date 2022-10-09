@@ -33,7 +33,13 @@ function createData(
   return { name, code, population, size, density };
 }
 
-export default function MuiTable({ data, columns }) {
+export default function MuiTable({
+  data,
+  columns,
+}: {
+  data: any[];
+  columns: any[];
+}) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
       <TableContainer sx={{ maxHeight: 740 }}>
