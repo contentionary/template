@@ -12,7 +12,7 @@ import { handleError, request } from "@src/utils";
 import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TextField } from "@mui/material";
 
 interface CurrencyType {
@@ -42,6 +42,7 @@ const BankTransfer = ({
   const [confirm, setConfirm] = useState(false);
   const [banks, setBanks] = useState<Array<BankType>>([]);
   const [currencies, setCurrencies] = useState<Array<CurrencyType>>([]);
+  const [accountName, setAccountName] = useState("");
 
   async function Transfer() {
     setConfirm(true);
@@ -49,41 +50,45 @@ const BankTransfer = ({
   async function confirmTransfer() {
     try {
       setIsLoading(true);
+      values.amount = values.amount * 100;
       await request.post({
         url: `/wallet/centre/${centreId}/bank-transfer`,
         data: values,
       });
       toggleToast("Transaction successful");
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
     }
   }
-  async function getAccountName() {
+  const getAccountName = async () => {
     try {
       const { data } = await request.post({
-        url: `/wallet/verify-bank-account`,
+        url: "/wallet/verify-bank-account",
         data: {
           accountNumber: values.accountNumber,
-          cbnCode: values.bankCode,
+          bankCode: values.bankCode,
           currency: values.currency,
         },
       });
       values.accountName = data.accountName;
+      setAccountName(data.accountName);
     } catch (error) {
       toggleToast(handleError(error).message);
     }
-  }
-  useEffect(() => {
-    if (
-      values.accountNumber &&
-      values.bankCode &&
-      values.accountNumber.length === 10
-    ) {
-      getAccountName();
-    }
-  }, [values.accountNumber]);
+  };
+
+  // useEffect(() => {
+  //   if (
+  //     values.accountNumber &&
+  //     values.bankCode &&
+  //     values.accountNumber.length === 10
+  //   ) {
+  //     getAccountName();
+  //   }
+  // }, [values.accountNumber, values.bankCode, getAccountName]);
 
   async function getBank(value: string | null) {
     try {
@@ -198,6 +203,7 @@ const BankTransfer = ({
                   label="Account number"
                   name="accountNumber"
                   onChange={getData}
+                  onBlur={() => getAccountName()}
                   defaultValue={values.accountNumber}
                   sx={{ width: "100%", marginTop: 3 }}
                   inputProps={{ maxLength: 10 }}
@@ -208,7 +214,7 @@ const BankTransfer = ({
                   component="div"
                   style={{ textAlign: "right", marginTop: 5 }}
                 >
-                  {values.accountName}
+                  {accountName}
                 </Typography>
                 <TextFields
                   type="text"
