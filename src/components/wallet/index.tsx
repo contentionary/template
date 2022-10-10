@@ -135,7 +135,7 @@ export default function CustomizedSteppers() {
             }}
           >
             <Typography
-              variant="h4"
+              variant="h5"
               component="p"
               color=""
               style={{
