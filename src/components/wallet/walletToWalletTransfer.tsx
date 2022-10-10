@@ -12,6 +12,7 @@ import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
+import { MenuItem, Select } from "@mui/material";
 
 const WalletToWalletTransfer = ({
   toggleToast,
@@ -34,13 +35,11 @@ const WalletToWalletTransfer = ({
       setIsLoading(true);
       const { data } = await request.post({
         url: `/wallet/centre/${centreId}/wallet-transfer`,
-        data: {
-          ...values,
-          currency: "NGN",
-        },
+        data: values,
       });
-      console.log(data);
+      toggleToast(data.message);
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -79,7 +78,7 @@ const WalletToWalletTransfer = ({
         message={
           confirm
             ? "Confirm payment"
-            : "Kindly make sure you enter a correct USER ID"
+            : "Kindly make sure you enter a correct WALLET ID"
         }
         content={
           <Box mt={2}>
@@ -96,14 +95,23 @@ const WalletToWalletTransfer = ({
                 />
                 <TextFields
                   type="text"
-                  label="Receiver User Id"
-                  name="userId"
-                  defaultValue={values.userId}
+                  label="Receiver Wallet Id"
+                  name="receiverUserId"
+                  defaultValue={values.receiverUserId}
                   onChange={getData}
                   sx={{ width: "100%", marginTop: 3 }}
                   required
                 />
-
+                <Select
+                  name="currency"
+                  value={values.currency || "NGN"}
+                  onChange={(e) => getData(e)}
+                  sx={{ width: "100%", mt: 3 }}
+                  required
+                >
+                  <MenuItem value="USD">Dollar</MenuItem>
+                  <MenuItem value="NGN"> Naira</MenuItem>
+                </Select>
                 <div style={{ textAlign: "right", marginTop: 20 }}>
                   <ButtonComponent type="submit">
                     Wallet transfer
@@ -116,8 +124,8 @@ const WalletToWalletTransfer = ({
             ) : (
               <Box>
                 <Typography>
-                  You are sending <strong>{values.amount}</strong> to user with
-                  Id <strong>{values.userId}</strong>
+                  You are sending <strong>{values.amount}</strong> to{" "}
+                  <strong>{values.receiverUserId}</strong> wallet
                 </Typography>
 
                 <div style={{ textAlign: "right", marginTop: 20 }}>

@@ -187,23 +187,6 @@ const CreatePublication = () => {
                   ))}
                 </Select>
               </Stack>
-              <Box>
-                <Typography variant="caption" component="div">
-                  Add learnings by seperating it with comma (,)
-                </Typography>
-                <TextFields
-                  type="text"
-                  label="Publication learnings"
-                  defaultValue={
-                    publication?.learnings?.length > 0
-                      ? publication.learnings.toString()
-                      : null
-                  }
-                  name="learnings"
-                  onChange={getData}
-                  sx={{ width: "100%", mt: 1 }}
-                />
-              </Box>
             </>
           )}
           <TextFields
@@ -260,26 +243,9 @@ const CreatePublication = () => {
                 <Typography variant="subtitle1" component="div">
                   Table of contents
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography variant="caption" component="div">
-                    Click add more content, to add more titles and pages
-                  </Typography>
-                  <ButtonComponent
-                    onClick={() =>
-                      setTableOfContent([
-                        ...tableOfContents,
-                        { title: "", pageNo: 0 },
-                      ])
-                    }
-                  >
-                    Add more content
-                  </ButtonComponent>
-                </Box>
+                <Typography variant="caption" component="div">
+                  Click add more content, to add more titles and pages
+                </Typography>
                 {tableOfContents.map(({ title, pageNo }, index) => (
                   <Box
                     key={`${index}-content`}
@@ -325,28 +291,31 @@ const CreatePublication = () => {
                     </Box>
                   </Box>
                 ))}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                  }}
+                >
+                  <ButtonComponent
+                    onClick={() =>
+                      setTableOfContent([
+                        ...tableOfContents,
+                        { title: "", pageNo: 0 },
+                      ])
+                    }
+                  >
+                    Add more content
+                  </ButtonComponent>
+                </Box>
               </Box>
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Authors
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography variant="caption" component="div">
-                    Click add more authors, to add more authors
-                  </Typography>
-                  <ButtonComponent
-                    onClick={() =>
-                      setAuthors([...authors, { name: "", imageUrl: "" }])
-                    }
-                  >
-                    Add more authors
-                  </ButtonComponent>
-                </Box>
+                <Typography variant="caption" component="div">
+                  Click add more authors, to add more authors
+                </Typography>
                 {authors.map(({ name }, index) => (
                   <Box
                     key={`${index}-content`}
@@ -381,7 +350,24 @@ const CreatePublication = () => {
                     </Box>
                   </Box>
                 ))}
-              </Box>{" "}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Typography variant="caption" component="div">
+                    Click add more authors, to add more authors
+                  </Typography>
+                  <ButtonComponent
+                    onClick={() =>
+                      setAuthors([...authors, { name: "", imageUrl: "" }])
+                    }
+                  >
+                    Add more authors
+                  </ButtonComponent>
+                </Box>
+              </Box>
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Learnings
