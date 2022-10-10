@@ -28,15 +28,14 @@ const CreatePublication = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-
   const styles = useStyles();
-
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check } = useForm(Update);
   const { publication, publicationCategories } = pageData as {
     publication: PublicationInt;
     publicationCategories: PublicationCategoryInt[];
   };
+  console.log(publication);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
@@ -69,7 +68,6 @@ const CreatePublication = () => {
   };
   const router = useRouter();
   const { type, folderId } = router.query;
-
   async function Update() {
     try {
       setIsLoading(true);
@@ -86,7 +84,7 @@ const CreatePublication = () => {
       if (values.learnings && typeof values.learnings === "string") {
         values.learnings = values.learnings.split(",");
       }
-      if (values.authors && authors[0].name) {
+      if (authors.length && authors[0].name) {
         values.authors = authors;
       }
       if (tableOfContents && tableOfContents[0].title) {
@@ -99,14 +97,12 @@ const CreatePublication = () => {
       convertedImage && (values.imageUrl = convertedImage);
       delete values.type;
       const data = await request.patch({
-        url:
-          type === "FOLDER"
-            ? `/centre/${cachedData.centre.id}/publication-folder/${publication.id}`
-            : `/centre/${cachedData.centre.id}/publication/${publication.id}`,
+        url: `/centre/${cachedData.centre.id}/publication/${publication.id}`,
         data: values,
       });
       toggleToast(data.message);
       setIsLoading(false);
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -169,11 +165,7 @@ const CreatePublication = () => {
                 onChange={getData}
               />
               <Stack>
-                <Typography
-                  variant="body1"
-                  component="p"
-                  // defaultValue={publication.cat}
-                >
+                <Typography variant="body1" component="p">
                   Select Category
                 </Typography>
                 <Select
@@ -216,7 +208,7 @@ const CreatePublication = () => {
           )}
           <TextFields
             type="text"
-            label="Publication tags"
+            label="Publication tags (keywords)"
             name="tags"
             defaultValue={publication?.tags}
             onChange={getData}
@@ -397,9 +389,13 @@ const CreatePublication = () => {
                       Show in search result
                     </Typography>
                   }
-                  value={publication.allowSearch}
+                  checked={publication.allowSearch}
+                  value={values.allowSearch}
                   name="allowSearch"
-                  onChange={check}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowSearch = e.target.checked;
+                    check(e);
+                  }}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -408,9 +404,13 @@ const CreatePublication = () => {
                       Allow read
                     </Typography>
                   }
-                  value={publication.allowRead}
+                  checked={publication.allowRead}
+                  value={values.allowRead}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowRead = e.target.checked;
+                    check(e);
+                  }}
                   name="allowRead"
-                  onChange={check}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -419,9 +419,28 @@ const CreatePublication = () => {
                       Allow download
                     </Typography>
                   }
-                  value={publication.allowDownload}
+                  checked={publication.allowDownload}
+                  value={values.allowDownload}
                   name="allowDownload"
-                  onChange={check}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowDownload = e.target.checked;
+                    check(e);
+                  }}
+                  className={styles.checkbox}
+                />
+                <CheckBox
+                  label={
+                    <Typography variant="h6" className={styles.checkbox}>
+                      Allow review
+                    </Typography>
+                  }
+                  checked={publication.allowReview}
+                  value={values.allowReview}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowReview = e.target.checked;
+                    check(e);
+                  }}
+                  name="allowReview"
                   className={styles.checkbox}
                 />
               </Stack>
@@ -432,6 +451,8 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload centre logo"
             defaultImage={publication.imageUrl}
+            width={450}
+            height={630}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 25 }}>

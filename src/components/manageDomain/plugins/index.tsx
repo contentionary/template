@@ -18,11 +18,9 @@ import dynamic from "next/dynamic";
 const Pluggins = ({
   title,
   plugins,
-  pluginPage,
 }: {
   title: string;
   plugins: PluginsInt[];
-  pluginPage?: boolean;
 }) => {
   const styles = useStyles();
   const router = useRouter();
@@ -35,7 +33,7 @@ const Pluggins = ({
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const centre = cachedData.centre;
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const ConfirmDialog = dynamic(
+  const ConfirmDialog: any = dynamic(
     () => import("@src/components/shared/confirmationModal")
   );
   const Loading = dynamic(
@@ -97,21 +95,20 @@ const Pluggins = ({
   }
   return (
     <Box mt={3} id="plugin">
-      <Stack spacing={8}>
+      <Stack spacing={4}>
         <Box sx={{ textAlign: "center" }} mt={20}>
           <Typography
             variant="h5"
             component="div"
-            style={{ fontSize: pluginPage ? 24 : 40 }}
             className={styles.serviceHeader}
           >
             {title}
           </Typography>
         </Box>
         <Box mt={2}>
-          <Grid container spacing={{ xs: 2, md: 2, lg: 2 }}>
+          <Grid container spacing={{ xs: 5, md: 3 }}>
             {latestPlugins.map((item, index) => (
-              <Grid item xs={12} md={12} lg={4} key={index}>
+              <Grid item xs={12} md={6} lg={4} key={index} mt={3}>
                 <Card {...item} installPlugin={installPlugin} />
               </Grid>
             ))}

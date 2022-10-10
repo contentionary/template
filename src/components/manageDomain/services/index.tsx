@@ -16,7 +16,7 @@ const Services = ({ title, plugins }: Props): JSX.Element => {
   const pluginsWithLink = plugins.filter((plugin) => plugin.active);
   return (
     <Box mt={3} id="service">
-      <Stack spacing={8}>
+      <Stack spacing={4}>
         <Box sx={{ textAlign: "center" }} pt={2}>
           <Typography
             variant="h4"
@@ -27,9 +27,9 @@ const Services = ({ title, plugins }: Props): JSX.Element => {
           </Typography>
         </Box>
         <Box>
-          <Grid container spacing={{ xs: 5, md: 4, lg: 9 }}>
+          <Grid container spacing={{ xs: 5, md: 3 }}>
             {pluginsWithLink.map((item, index) => (
-              <Grid item xs={12} md={12} lg={4} key={index}>
+              <Grid item xs={12} md={6} lg={4} key={index} mt={3}>
                 <Card {...item} link={`admin/${item.name.toLowerCase()}`} />
               </Grid>
             ))}
