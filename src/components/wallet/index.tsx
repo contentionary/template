@@ -14,7 +14,6 @@ import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
-import Image from "next/image";
 
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
@@ -80,13 +79,14 @@ export default function CustomizedSteppers() {
             Wallet Balance
           </Typography>
           <Box sx={{ display: "flex" }}>
-            {pockets.map((pocket) => (
+            {pockets.map((pocket, index) => (
               <Typography
+                key={`${pocket}-${index}`}
                 variant="h4"
                 component="p"
                 style={{ color: "#fff", marginBottom: 20, marginRight: 30 }}
               >
-                {walletBalance.pockets[pocket].abbr}{" "}
+                {walletBalance.pockets[pocket].symbol}{" "}
                 {walletBalance.pockets[pocket].balance}
               </Typography>
             ))}
@@ -111,7 +111,7 @@ export default function CustomizedSteppers() {
         </Box>
         <Box
           sx={{
-            background: "#F7F7F7",
+            background: "#FAEFE8",
             mt: { xs: 4 },
             display: "flex",
             justifyContent: "center",
@@ -122,7 +122,7 @@ export default function CustomizedSteppers() {
           }}
         >
           <Typography
-            variant="h4"
+            variant="h5"
             component="p"
             color=""
             style={{
@@ -130,14 +130,14 @@ export default function CustomizedSteppers() {
               color: "#DD6E20",
             }}
           >
-            Wallet total balance
+            Wallet total balance in USD
           </Typography>
           <Typography
             variant="h4"
             component="p"
             style={{ marginBottom: 20, color: "#DD6E20" }}
           >
-            USD {walletBalance.usdBalance}
+            $ {walletBalance.usdBalance}
           </Typography>
         </Box>
       </Stack>
