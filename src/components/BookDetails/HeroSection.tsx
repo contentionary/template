@@ -160,7 +160,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                   <Button
                     size="large"
                     onClick={() => {
-                      if (!isServerSide) window.location.href = download.link;
+                      if (!isServerSide) window.location.href = read.link;
                     }}
                     disableElevation
                     variant="contained"

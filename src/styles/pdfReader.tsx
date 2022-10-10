@@ -15,6 +15,7 @@ const pdfStyle = makeStyles({
       "& .react-pdf__Page": {
         maxWidth: "calc(100% - 2em)",
         marginTop: "2rem",
+        marginBottom: "2rem",
         userSelect: "none",
         "& canvas": {
           maxWidth: "100%",

@@ -16,7 +16,7 @@ const ShareCentreLink = ({ isOpen, closeDialog }: Props) => {
   const user = cache.get("user");
   const path = isServerSide
     ? ""
-    : `${window.location.href}?referralCode=${user.id}`;
+    : `${window.location.href}?referralCode=${user?.id}`;
   return (
     <>
       <Dialog
