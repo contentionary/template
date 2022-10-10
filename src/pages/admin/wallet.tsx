@@ -1,35 +1,36 @@
-import PublicationUpdate from "@src/components/manageDomain/publication/update";
+import Wallet from "@src/components/wallet";
+import Wrapper from "@src/components/manageDomain";
 import { getAuthData } from "@src/utils/auth";
 import { getCentre, handleError, request } from "@src/utils";
 import { CachedCentreInt } from "@src/utils/interface";
 import { GetServerSideProps } from "next";
-import Container from "@mui/material/Container";
 
-const PublicationUpdatePageEntry = () => {
+const WalletPageEntry = () => {
   return (
-    <Container maxWidth="md">
-      <PublicationUpdate />
-    </Container>
+    <Wrapper>
+      <Wallet />
+    </Wrapper>
   );
 };
 
-export default PublicationUpdatePageEntry;
+export default WalletPageEntry;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
-    const centre = (await getCentre(context)) as CachedCentreInt;
+    const centre = (await getCentre(context, true)) as CachedCentreInt;
+
     const { data } = await request.get({
-      url: `/centre/${centre.id}/publication/${context.query.id}`,
+      url: `/wallet/centre/${centre.id}/balance`,
       token,
     });
-    const { data: categories } = await request.get({
-      url: "/publication-categories",
+    const { data: transactionHistory } = await request.get({
+      url: `/wallet/centre/${centre.id}/transaction-history`,
+      token,
     });
-
     return {
       props: {
-        pageData: { publication: data, publicationCategories: categories },
+        pageData: { walletBalance: data, transactionHistory },
         cachedData: { user, centre, token },
       },
     };

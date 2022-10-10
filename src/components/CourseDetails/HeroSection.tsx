@@ -31,7 +31,7 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 
 const HeroSection = () => {
   const router = useRouter();
-  const { reference } = router.query;
+  const { reference, verifyValue, price: deductedPrice } = router.query;
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
@@ -54,7 +54,7 @@ const HeroSection = () => {
   const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
+  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}&verifyValue=${price}`;
 
   let Action = {
     link: `/courses/${slug}/${id}/contents/${id}`,
@@ -76,8 +76,12 @@ const HeroSection = () => {
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
-        {reference && (
-          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        {verifyValue && (
+          <ConfirmPayment
+            price={Number(deductedPrice)}
+            reference={reference}
+            redirectUrl={redirectUrl}
+          />
         )}
         <Container maxWidth="xl">
           <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>

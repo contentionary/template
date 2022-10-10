@@ -13,7 +13,7 @@ import Button from "@src/components/shared/button";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import { useRouter } from "next/router";
 import { currencies, data } from "./data";
-import { handleError, request } from "@src/utils";
+import { handleError, isServerSide, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import Toast from "@src/components/shared/toast";
 import { v4 as uuid } from "uuid";
@@ -32,7 +32,6 @@ export default function Payment(): JSX.Element {
     purpose,
     itemId,
     currency: incomingCurrency,
-    redirectUrl,
   } = router.query;
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
@@ -44,21 +43,25 @@ export default function Payment(): JSX.Element {
 
   const makePayment = async () => {
     try {
+      const redirectUrl = `${router.query?.redirectUrl}?verifyValue=true&price=${price}`;
       const paymentData = {
         amount: amount * 100,
         paymentMethod,
         currency,
-        redirectUrl: redirectUrl,
+        redirectUrl,
         purpose,
         itemId,
       };
+
       setIsLoading(true);
       const { data } = await request.post({
         url: "/transaction",
         data: paymentData,
         headers: { transactionkey: uuid() },
       });
-      router.push(data.redirect ? data.redirectUrl : redirectUrl);
+      if (!isServerSide) {
+        window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
+      }
     } catch (err) {
       toggleToast(handleError(err).message);
       setIsLoading(false);
@@ -69,11 +72,11 @@ export default function Payment(): JSX.Element {
     amount,
     paymentMethod,
     currency,
-    redirectUrl,
     purpose,
     itemId,
-    router,
     toggleToast,
+    price,
+    router,
   ]);
 
   useEffect(() => {
