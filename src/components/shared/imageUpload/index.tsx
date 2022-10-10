@@ -32,8 +32,6 @@ const UpdateBackground = ({
   uploadText,
   actionListBtnStyle,
   defaultImage,
-  width,
-  height,
   aspect = 1,
 }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -134,10 +132,10 @@ const UpdateBackground = ({
             />
             <ImageCropper
               image={previewLogo}
-              cropSize={{
-                width: width,
-                height: height,
-              }}
+              // cropSize={{
+              //   width: width,
+              //   height: height,
+              // }}
               aspect={aspect}
               cropShape="rect"
               rotation={rotation}

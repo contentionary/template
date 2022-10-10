@@ -12,8 +12,9 @@ import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
+import { isServerSide } from "@src/utils";
 
-const CreditWallet = ({ userId }: { userId: string }) => {
+const CreditWallet = ({ centreId }: { centreId: string }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(CreditWallet);
@@ -26,11 +27,11 @@ const CreditWallet = ({ userId }: { userId: string }) => {
       pathname: "/payment",
       query: {
         amount: values.amount,
-        redirectUrl: "/admin/wallet",
+        redirectUrl: isServerSide ? "" : window.location.href,
         currency: "NGN",
-        purpose: "WALLET",
+        purpose: "FUND_WALLET",
         paymentMethod: "CARD",
-        itemId: userId,
+        itemId: centreId,
       },
     });
   }
