@@ -2,7 +2,7 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { handleError, queryClient } from "@src/utils";
+import { handleError, queryClient, request } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import CreditWallet from "./creditWallet";
 import WalletToWalletTransfer from "./walletToWalletTransfer";
@@ -14,6 +14,7 @@ import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
+import Image from "next/image";
 
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
@@ -25,7 +26,8 @@ export default function CustomizedSteppers() {
   const [transactions, setTransaction] = React.useState<TransactionHistory[]>(
     pageData.transactionHistory
   );
-
+  const { walletBalance } = pageData;
+  const pockets = Object.keys(walletBalance.pockets);
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
     { minWidth: 130, name: "Date", key: "date" },
@@ -49,62 +51,97 @@ export default function CustomizedSteppers() {
       if (type === "all") {
         setTransaction([...pageData.transactionHistory]);
       } else {
-        setTransaction(
-          pageData.transactionHistory.filter(
-            (transaction: TransactionHistory) => transaction.type === type
-          )
-        );
+        const { data } = await request.get({
+          url: `/wallet/centre/${cachedData.centre.id}/transaction-history?type=${type}`,
+        });
+        setTransaction([...(data as TransactionHistory[])]);
       }
-      // const { data } = await request.get({
-      //   url: `/wallet/history?centreId=${cachedData.centre.id}&type=${type}`,
-      // });
     } catch (error) {
       toggleToast(handleError(error).message);
     }
   }
   return (
     <Stack spacing={4} marginTop={4}>
-      <Box
-        sx={{
-          background:
-            "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
-          padding: 3,
-          width: { xs: "100%", md: 800 },
-          borderRadius: 3,
-        }}
-      >
-        <Typography
-          variant="h5"
-          component="p"
-          style={{ color: "#fff", marginBottom: 20 }}
-        >
-          Wallet Balance
-        </Typography>
-        <Typography
-          variant="h4"
-          component="p"
-          style={{ color: "#fff", marginBottom: 20 }}
-        >
-          NGN {pageData.walletBalance.usdBalance}
-        </Typography>
+      <Stack direction={{ md: "row" }} spacing={4}>
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: { xs: "column", md: "row" },
+            background:
+              "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
+            padding: 3,
+            width: { xs: "100%", md: "60%" },
+            borderRadius: 3,
           }}
         >
-          <CreditWallet userId={cachedData.user.id} />
-          <WalletToWalletTransfer
-            toggleToast={toggleToast}
-            centreId={cachedData.centre.id}
-          />
-          <BankTransfer
-            toggleToast={toggleToast}
-            centreId={cachedData.centre.id}
-          />
+          <Typography
+            variant="h5"
+            component="p"
+            style={{ color: "#fff", marginBottom: 20 }}
+          >
+            Wallet Balance
+          </Typography>
+          <Box sx={{ display: "flex" }}>
+            {pockets.map((pocket) => (
+              <Typography
+                variant="h4"
+                component="p"
+                style={{ color: "#fff", marginBottom: 20, marginRight: 30 }}
+              >
+                {walletBalance.pockets[pocket].abbr}{" "}
+                {walletBalance.pockets[pocket].balance}
+              </Typography>
+            ))}
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: { xs: "column", md: "row" },
+            }}
+          >
+            <CreditWallet userId={cachedData.user.id} />
+            <WalletToWalletTransfer
+              toggleToast={toggleToast}
+              centreId={cachedData.centre.id}
+            />
+            <BankTransfer
+              toggleToast={toggleToast}
+              centreId={cachedData.centre.id}
+            />
+          </Box>
         </Box>
-      </Box>
+        <Box
+          sx={{
+            background: "#F7F7F7",
+            mt: { xs: 4 },
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            borderRadius: 3,
+            width: { xs: "100%", md: "40%" },
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="p"
+            color=""
+            style={{
+              marginBottom: 20,
+              color: "#DD6E20",
+            }}
+          >
+            Wallet total balance
+          </Typography>
+          <Typography
+            variant="h4"
+            component="p"
+            style={{ marginBottom: 20, color: "#DD6E20" }}
+          >
+            USD {walletBalance.usdBalance}
+          </Typography>
+        </Box>
+      </Stack>
+
       <Box>
         <Typography variant="h4" component="p">
           Transactions
@@ -123,20 +160,20 @@ export default function CustomizedSteppers() {
             All Transactions
           </ButtonComponent>
           <ButtonComponent
-            variant={transactionType === "DEBIT" ? "contained" : "text"}
-            onClick={() => getTransactions("DEBIT")}
+            variant={transactionType === "CREDIT" ? "contained" : "text"}
+            onClick={() => getTransactions("CREDIT")}
           >
             Deposits
           </ButtonComponent>
           <ButtonComponent
-            variant={transactionType === "CREDIT" ? "contained" : "text"}
-            onClick={() => getTransactions("CREDIT")}
+            variant={transactionType === "DEBIT" ? "contained" : "text"}
+            onClick={() => getTransactions("DEBIT")}
           >
             Withdrawals
           </ButtonComponent>
         </ButtonGroup>
       </Box>
-      <Box sx={{ width: { xs: 420, md: "100%" } }}>
+      <Box sx={{ width: { xs: 400, md: "100%" } }}>
         <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
       </Box>
       {toastMessage && (

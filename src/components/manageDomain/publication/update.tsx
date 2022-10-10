@@ -35,7 +35,6 @@ const CreatePublication = () => {
     publication: PublicationInt;
     publicationCategories: PublicationCategoryInt[];
   };
-  console.log(publication);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
@@ -55,6 +54,9 @@ const CreatePublication = () => {
       ? publication?.authors
       : { name: "", imageUrl: "" },
   ]);
+  const [learnings, setLearnings] = useState<Array<string>>(
+    publication.learnings.length ? publication.learnings : [""]
+  );
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const ImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")
@@ -81,9 +83,7 @@ const CreatePublication = () => {
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (values.learnings && typeof values.learnings === "string") {
-        values.learnings = values.learnings.split(",");
-      }
+      if (learnings.length) values.learnings = learnings;
       if (authors.length && authors[0].name) {
         values.authors = authors;
       }
@@ -288,6 +288,7 @@ const CreatePublication = () => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       mb: 2,
+                      mt: 1,
                     }}
                   >
                     <TextFields
@@ -354,6 +355,7 @@ const CreatePublication = () => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       mb: 2,
+                      mt: 1,
                     }}
                   >
                     <TextFields
@@ -379,9 +381,62 @@ const CreatePublication = () => {
                     </Box>
                   </Box>
                 ))}
+              </Box>{" "}
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Learnings
+                </Typography>
+                <Typography variant="caption" component="div">
+                  Click add more learnings, to add more learnings
+                </Typography>
+                {learnings.map((value, index) => (
+                  <Box
+                    key={`${index}-content`}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 2,
+                      mt: 1,
+                    }}
+                  >
+                    <TextFields
+                      type="text"
+                      label="Learnings"
+                      name="learnings"
+                      defaultValue={value}
+                      onChange={(e: ChangeEvent<any>) => {
+                        learnings[index] = e.target.value;
+                        setLearnings([...learnings]);
+                      }}
+                      sx={{ width: { xs: "90%", md: "78%" } }}
+                    />
+                    <Box sx={{ width: "5%" }}>
+                      <IconButton
+                        onClick={() => {
+                          learnings.splice(index, 1);
+                          setLearnings([...learnings]);
+                        }}
+                      >
+                        <CloseOutlined htmlColor="red" />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                ))}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                  }}
+                >
+                  <ButtonComponent
+                    onClick={() => setLearnings([...learnings, ""])}
+                  >
+                    Add more learnings
+                  </ButtonComponent>
+                </Box>
               </Box>
               <TextFields type="file" name="fileUrl" onChange={getFile} />
-
               <Stack direction="row" spacing={3}>
                 <CheckBox
                   label={
@@ -451,8 +506,7 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload centre logo"
             defaultImage={publication.imageUrl}
-            width={450}
-            height={630}
+            aspect={2 / 3}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 25 }}>

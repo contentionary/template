@@ -24,7 +24,7 @@ export default function MuiTable({
             <TableRow>
               {columns.map((column, index) => (
                 <TableCell
-                  key={`${index}-${column.name}`}
+                  key={`${index}-${column.name}-col`}
                   align={column.align}
                   style={{
                     minWidth: column.minWidth,
@@ -45,12 +45,12 @@ export default function MuiTable({
                   hover
                   role="checkbox"
                   tabIndex={-1}
-                  key={`${index}-table`}
+                  key={`${index}-table-row`}
                 >
                   {columns.map((column) => {
                     const value: any = item[column.key];
                     return (
-                      <TableCell key={column} align={column.align}>
+                      <TableCell key={column.name} align={column.align}>
                         {column.format && typeof value === "number"
                           ? column.format(value)
                           : value}

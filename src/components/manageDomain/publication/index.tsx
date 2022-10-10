@@ -28,7 +28,6 @@ const PublicationAdmin = () => {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Delete = dynamic(() => import("./delete"));
 
-  console.log(publications);
   return (
     <Box>
       <Box
@@ -42,57 +41,67 @@ const PublicationAdmin = () => {
       >
         <Box sx={{ mt: { xs: 2, md: 5 } }} className={styles.switchContainer}>
           <NextLink
-            href={`/admin/publication/create?type=FOLDER&folderId=${folderId}`}
+            href={
+              folderId
+                ? `/admin/publication/create?type=FOLDER&folderId=${folderId}`
+                : "/admin/publication/create?type=FOLDER"
+            }
             disableElevation
             className={styles.createFolder}
           >
             Create Folder
           </NextLink>
           <NextLink
-            href={`/admin/publication/create?type=PUBLICATION&folderId=${folderId}`}
+            href={
+              folderId
+                ? `/admin/publication/create?type=PUBLICATION&folderId=${folderId}`
+                : "/admin/publication/create?type=PUBLICATION"
+            }
             disableElevation
             className={styles.createPublication}
           >
             Create publication
           </NextLink>
         </Box>
-        <Box
-          sx={{
-            display: { xs: "flex", md: "unset" },
-            justifyContent: { xs: "center" },
-            mt: { xs: 4, md: 0 },
-          }}
-        >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box sx={{ textAlign: "center", mr: 2 }}>
-              <Link
-                passHref
-                href={`/admin/publication/${folderId}/update?type=FOLDER`}
-                className={styles.createFolder}
-              >
-                <IconButton>
-                  <EditOutlined />
-                </IconButton>
-              </Link>
-              <Hidden lgDown>
-                <Typography variant="caption" component="div">
-                  Want to update Folder?
-                </Typography>
-              </Hidden>
-            </Box>
-            {!publications.length && (
-              <Box sx={{ textAlign: "center" }}>
-                <Delete centreId={cachedData.centre.id} id={folderId} />
-
+        {folderId && (
+          <Box
+            sx={{
+              display: { xs: "flex", md: "unset" },
+              justifyContent: { xs: "center" },
+              mt: { xs: 4, md: 0 },
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Box sx={{ textAlign: "center", mr: 2 }}>
+                <Link
+                  passHref
+                  href={`/admin/publication/${folderId}/update?type=FOLDER`}
+                  className={styles.createFolder}
+                >
+                  <IconButton>
+                    <EditOutlined />
+                  </IconButton>
+                </Link>
                 <Hidden lgDown>
                   <Typography variant="caption" component="div">
-                    Want to delete Folder?
+                    Want to update Folder?
                   </Typography>
                 </Hidden>
               </Box>
-            )}
+              {!publications.length && (
+                <Box sx={{ textAlign: "center" }}>
+                  <Delete centreId={cachedData.centre.id} id={folderId} />
+
+                  <Hidden lgDown>
+                    <Typography variant="caption" component="div">
+                      Want to delete Folder?
+                    </Typography>
+                  </Hidden>
+                </Box>
+              )}
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
 
       {publications.length ? (
