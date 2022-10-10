@@ -31,7 +31,7 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 
 const HeroSection = () => {
   const router = useRouter();
-  const { reference, verifyValue } = router.query;
+  const { reference, verifyValue, price: deductedPrice } = router.query;
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
@@ -78,7 +78,7 @@ const HeroSection = () => {
       >
         {verifyValue && (
           <ConfirmPayment
-            verifyValue={Number(verifyValue)}
+            price={Number(deductedPrice)}
             reference={reference}
             redirectUrl={redirectUrl}
           />
