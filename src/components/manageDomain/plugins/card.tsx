@@ -37,7 +37,7 @@ const Card = ({
           <Image src={imageUrl} alt="contentionary" height="100%" width={106} />
         </Box>
 
-        <Box sx={{ width: 401 }} paddingLeft={2}>
+        <Box paddingLeft={2}>
           <Typography
             className={styles.pluginName}
             variant="h5"

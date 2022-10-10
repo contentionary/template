@@ -14,7 +14,7 @@ import ImageComponent from "../image";
 // icons
 import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/PersonOutline";
 // styles and interface
 import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 import useGlobalStyle from "@src/styles";
@@ -102,7 +102,7 @@ const PublicationCard: PublicationCardFunc = ({
                   order={{ xs: 2, sm: 2 }}
                 >
                   <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                  &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
+                  &nbsp;{kCount(readCount || 0)}
                 </Typography>
                 <Typography
                   mb={0}
@@ -116,7 +116,7 @@ const PublicationCard: PublicationCardFunc = ({
                     color="primary"
                     fontSize="inherit"
                   />
-                  &nbsp;{kCount(readCount)}
+                  &nbsp;{kCount(subscriberCount || 0)}
                 </Typography>
                 <Typography
                   mb={0}
