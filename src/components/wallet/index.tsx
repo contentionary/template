@@ -15,19 +15,6 @@ import dynamic from "next/dynamic";
 import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
 
-const btnStyle = {
-  borderRadius: 2,
-  color: "#000",
-  fontSize: 14,
-  fontWeight: 500,
-  paddingY: 1.7,
-  paddingX: 3,
-};
-const active = {
-  ...btnStyle,
-  background: "#DD6E20",
-  color: "#fff",
-};
 
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
