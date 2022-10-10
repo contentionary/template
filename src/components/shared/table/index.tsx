@@ -7,38 +7,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-interface Column {
-  id: "name" | "code" | "population" | "size" | "density";
-  label: string;
-  minWidth?: number;
-  align?: "right";
-  format?: (value: number) => string;
-}
-
-interface Data {
-  name: string;
-  code: string;
-  population: number;
-  size: number;
-  density: number;
-}
-
-function createData(
-  name: string,
-  code: string,
-  population: number,
-  size: number
-): Data {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
 export default function MuiTable({
   data,
+  bgColor,
   columns,
 }: {
   data: any[];
   columns: any[];
+  bgColor: string;
 }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -48,11 +24,16 @@ export default function MuiTable({
             <TableRow>
               {columns.map((column, index) => (
                 <TableCell
-                  key={`${index}-${column}`}
+                  key={`${index}-${column.name}`}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    background: bgColor,
+                    fontSize: 14,
+                    fontWeight: 600,
+                  }}
                 >
-                  {column}
+                  {column.name}
                 </TableCell>
               ))}
             </TableRow>
@@ -67,7 +48,7 @@ export default function MuiTable({
                   key={`${index}-table`}
                 >
                   {columns.map((column) => {
-                    const value = item[column];
+                    const value: any = item[column.key];
                     return (
                       <TableCell key={column} align={column.align}>
                         {column.format && typeof value === "number"

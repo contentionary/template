@@ -13,17 +13,27 @@ import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
 
-const WalletToWalletTransfer = ({ toggleToast }: { toggleToast: Function }) => {
+const WalletToWalletTransfer = ({
+  toggleToast,
+  centreId,
+}: {
+  toggleToast: Function;
+  centreId: string;
+}) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(Transfer);
   const { isOpen, openDialog, closeDialog } = useDialog();
+  const [confirm, setConfirm] = useState(false);
 
   async function Transfer() {
+    setConfirm(true);
+  }
+  async function confirmTransfer() {
     try {
       setIsLoading(true);
       const { data } = await request.post({
-        url: "/wallet/wallet-transfer",
+        url: `/wallet/centre/${centreId}/wallet-transfer`,
         data: {
           ...values,
           currency: "NGN",
@@ -43,8 +53,9 @@ const WalletToWalletTransfer = ({ toggleToast }: { toggleToast: Function }) => {
         sx={{
           border: "solid 1px #dbdbdb ",
           color: "#fff",
-          paddingY: 1,
+          paddingY: 1.8,
           paddingX: 3,
+          mb: { xs: 3, md: 0 },
         }}
         onClick={() => {
           openDialog();
@@ -65,36 +76,66 @@ const WalletToWalletTransfer = ({ toggleToast }: { toggleToast: Function }) => {
         title="Wallet to wallet transfer"
         isOpen={isOpen}
         closeDialog={closeDialog}
-        message="Kindly make sure you enter a correct USER ID"
+        message={
+          confirm
+            ? "Confirm payment"
+            : "Kindly make sure you enter a correct USER ID"
+        }
         content={
-          <Box>
-            <form onSubmit={(e) => submit(e)}>
-              <TextFields
-                type="number"
-                label="Amount"
-                name="amount"
-                onChange={getData}
-                sx={{ width: "100%", marginTop: 3 }}
-                required
-              />
-              <TextFields
-                type="text"
-                label="Receiver User Id"
-                name="userId"
-                onChange={getData}
-                sx={{ width: "100%", marginTop: 3 }}
-                required
-              />
+          <Box mt={2}>
+            {!confirm ? (
+              <form onSubmit={(e) => submit(e)}>
+                <TextFields
+                  type="number"
+                  label="Amount"
+                  name="amount"
+                  defaultValue={values.amount}
+                  onChange={getData}
+                  sx={{ width: "100%", marginTop: 3 }}
+                  required
+                />
+                <TextFields
+                  type="text"
+                  label="Receiver User Id"
+                  name="userId"
+                  defaultValue={values.userId}
+                  onChange={getData}
+                  sx={{ width: "100%", marginTop: 3 }}
+                  required
+                />
 
-              <div style={{ textAlign: "right" }}>
-                <ButtonComponent type="submit">
-                  <>
+                <div style={{ textAlign: "right", marginTop: 20 }}>
+                  <ButtonComponent type="submit">
                     Wallet transfer
-                    {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
-                  </>
-                </ButtonComponent>
-              </div>
-            </form>
+                  </ButtonComponent>
+                  <ButtonComponent onClick={() => closeDialog()} type="submit">
+                    Cancel
+                  </ButtonComponent>
+                </div>
+              </form>
+            ) : (
+              <Box>
+                <Typography>
+                  You are sending <strong>{values.amount}</strong> to user with
+                  Id <strong>{values.userId}</strong>
+                </Typography>
+
+                <div style={{ textAlign: "right", marginTop: 20 }}>
+                  <ButtonComponent onClick={() => confirmTransfer()}>
+                    <>
+                      Confirm transaction
+                      {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
+                    </>
+                  </ButtonComponent>
+                  <ButtonComponent
+                    onClick={() => setConfirm(false)}
+                    type="submit"
+                  >
+                    Cancel
+                  </ButtonComponent>
+                </div>
+              </Box>
+            )}
           </Box>
         }
       />

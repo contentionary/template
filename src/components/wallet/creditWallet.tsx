@@ -41,8 +41,9 @@ const CreditWallet = ({ userId }: { userId: string }) => {
         sx={{
           border: "solid 1px #dbdbdb ",
           color: "#fff",
-          paddingY: 1,
+          paddingY: 1.8,
           paddingX: 3,
+          mb: { xs: 3, md: 0 },
         }}
         onClick={() => {
           openDialog();
@@ -76,12 +77,15 @@ const CreditWallet = ({ userId }: { userId: string }) => {
                 required
               />
 
-              <div style={{ textAlign: "right" }}>
+              <div style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit">
                   <>
                     Credit wallet{" "}
                     {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
                   </>
+                </ButtonComponent>
+                <ButtonComponent onClick={() => closeDialog()} type="submit">
+                  Cancel
                 </ButtonComponent>
               </div>
             </form>
