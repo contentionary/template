@@ -79,7 +79,7 @@ export default function CustomizedSteppers() {
               background:
                 "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
               padding: 3,
-              width: { xs: "100%", md: "60%" },
+              width: { xs: "100%", md: "75%" },
               borderRadius: 3,
             }}
           >
@@ -131,7 +131,7 @@ export default function CustomizedSteppers() {
               flexDirection: "column",
               borderRadius: 3,
               padding: 4,
-              width: { xs: "100%", md: "40%" },
+              width: { xs: "100%", md: "25%" },
             }}
           >
             <Typography
