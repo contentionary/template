@@ -5,14 +5,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Link from "@mui/icons-material/Link";
-
+import LanguageOutlined from "@mui/icons-material/LanguageOutlined";
+import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
 import PowerSettingsNewOutlined from "@mui/icons-material/PowerSettingsNewOutlined";
 import CallOutlined from "@mui/icons-material/CallOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-
-// import ShareCentre from "./share";
-// import Modules from "./modules";
-// import CentreContact from "./contact";
 
 import Image from "@src/components/shared/image";
 import config from "@src/utils/config";
@@ -98,6 +95,42 @@ const SideNav = (): JSX.Element => {
                   fontStyle: "normal",
                 }}
                 primary="Manage centre"
+              />
+            </ListItemButton>
+          </NextLink>
+        </ListItem>
+        <ListItem disablePadding>
+          <NextLink href="/admin/wallet" passHref>
+            <ListItemButton LinkComponent={Link}>
+              <ListItemIcon>
+                <WalletOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 16,
+                  fontStyle: "normal",
+                }}
+                primary="Centre Wallet"
+              />
+            </ListItemButton>
+          </NextLink>
+        </ListItem>
+        <ListItem disablePadding>
+          <NextLink href="/admin/template" passHref>
+            <ListItemButton LinkComponent={Link}>
+              <ListItemIcon>
+                <LanguageOutlined />
+              </ListItemIcon>
+              <ListItemText
+                primaryTypographyProps={{
+                  color: "#333333",
+                  fontWeight: 500,
+                  fontSize: 16,
+                  fontStyle: "normal",
+                }}
+                primary=" Manage Website"
               />
             </ListItemButton>
           </NextLink>
