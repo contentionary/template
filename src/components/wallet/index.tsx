@@ -15,7 +15,6 @@ import dynamic from "next/dynamic";
 import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
 
-
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
