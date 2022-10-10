@@ -15,7 +15,7 @@ import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutl
 // interface and config
 import { CourseInt } from "@src/utils/interface";
 
-const CourseStats = ({ courseContentStats, subscriberCount }: CourseInt) => {
+const CourseStats = ({ courseContentStats }: CourseInt) => {
   return (
     <Fragment>
       <Typography variant="h5">This course includes:</Typography>
