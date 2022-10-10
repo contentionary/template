@@ -1,17 +1,7 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import HomeOutlined from "@mui/icons-material/HomeOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import StepConnector, {
-  stepConnectorClasses,
-} from "@mui/material/StepConnector";
-import { StepIconProps } from "@mui/material/StepIcon";
-import { Box, Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import { handleError, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import CreditWallet from "./creditWallet";
@@ -23,75 +13,12 @@ import ButtonComponent from "@src/components/shared/button";
 import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 import { TransactionHistory } from "./interface";
-
-const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage: "#F57E27",
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      backgroundImage: "#F57E27",
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 3,
-    border: 0,
-    backgroundColor: "#D9D9D9",
-    borderRadius: 1,
-  },
-}));
-const bg = "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)";
-const ColorlibStepIconRoot = styled("div")<{
-  ownerState: { completed?: boolean; active?: boolean };
-}>(({ theme, ownerState }) => ({
-  backgroundColor:
-    theme.palette.mode === "dark" ? theme.palette.grey[700] : "#ccc",
-  zIndex: 1,
-  color: "#fff",
-  width: 50,
-  height: 50,
-  display: "flex",
-  borderRadius: "50%",
-  justifyContent: "center",
-  alignItems: "center",
-  ...(ownerState.active && {
-    backgroundImage: bg,
-    boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)",
-  }),
-  ...(ownerState.completed && {
-    backgroundImage: "#F57E27",
-  }),
-}));
-
-function ColorlibStepIcon(props: StepIconProps) {
-  const { active, completed, className } = props;
-
-  const icons: { [index: string]: React.ReactElement } = {
-    1: <HomeOutlined />,
-    2: <AdminPanelSettingsOutlinedIcon />,
-    3: <AccountBalanceWalletOutlinedIcon />,
-  };
-
-  return (
-    <ColorlibStepIconRoot
-      ownerState={{ completed, active }}
-      className={className}
-    >
-      {icons[String(props.icon)]}
-    </ColorlibStepIconRoot>
-  );
-}
-
-const steps = ["Home", "Admin", "Wallet"];
+import { ButtonGroup } from "@mui/material";
 
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
+  const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -100,24 +27,25 @@ export default function CustomizedSteppers() {
   );
 
   const columns = [
-    "index",
-    "date",
-    "balance",
-    "amount",
-    "reference",
-    "currency",
-    "narration",
-    "type",
+    { minWidth: 50, name: "No", key: "index" },
+    { minWidth: 130, name: "Date", key: "date" },
+    { minWidth: 100, name: "Amount", key: "amount" },
+    { minWidth: 130, name: "Balance", key: "balance" },
+    { minWidth: 250, name: "Naration", key: "narration" },
+    { minWidth: 70, name: "Currency", key: "currency" },
+    { minWidth: 70, name: "Type", key: "type" },
+    { minWidth: 250, name: "Reference", key: "reference" },
   ];
 
   const data = transactions.map((item, index) => ({
-    index: index++,
+    index: ++index,
     date: format(new Date(item.createdAt), "dd-MM-yyy"),
     ...item,
   }));
 
   async function getTransactions(type: string) {
     try {
+      setTransactionType(type);
       if (type === "all") {
         setTransaction([...pageData.transactionHistory]);
       } else {
@@ -136,21 +64,10 @@ export default function CustomizedSteppers() {
   }
   return (
     <Stack spacing={4} marginTop={4}>
-      <Stepper
-        sx={{ width: { xs: "100%", md: 700 } }}
-        alternativeLabel
-        activeStep={2}
-        connector={<ColorlibConnector />}
-      >
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
       <Box
         sx={{
-          background: bg,
+          background:
+            "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
           padding: 3,
           width: { xs: "100%", md: 800 },
           borderRadius: 3,
@@ -170,29 +87,58 @@ export default function CustomizedSteppers() {
         >
           NGN {pageData.walletBalance.usdBalance}
         </Typography>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: { xs: "column", md: "row" },
+          }}
+        >
           <CreditWallet userId={cachedData.user.id} />
-          <WalletToWalletTransfer toggleToast={toggleToast} />
-          <BankTransfer toggleToast={toggleToast} />
+          <WalletToWalletTransfer
+            toggleToast={toggleToast}
+            centreId={cachedData.centre.id}
+          />
+          <BankTransfer
+            toggleToast={toggleToast}
+            centreId={cachedData.centre.id}
+          />
         </Box>
       </Box>
       <Box>
         <Typography variant="h4" component="p">
           Transactions
         </Typography>
-        <Box sx={{ background: "#FAEFE8", width: 390 }}>
-          <ButtonComponent onClick={() => getTransactions("all")}>
+        <ButtonGroup
+          size="large"
+          sx={{
+            background: "#FAEFE8",
+            mt: 2,
+          }}
+        >
+          <ButtonComponent
+            variant={transactionType === "all" ? "contained" : "text"}
+            onClick={() => getTransactions("all")}
+          >
             All Transactions
           </ButtonComponent>
-          <ButtonComponent onClick={() => getTransactions("DEBIT")}>
+          <ButtonComponent
+            variant={transactionType === "DEBIT" ? "contained" : "text"}
+            onClick={() => getTransactions("DEBIT")}
+          >
             Deposits
           </ButtonComponent>
-          <ButtonComponent onClick={() => getTransactions("CREDIT")}>
+          <ButtonComponent
+            variant={transactionType === "CREDIT" ? "contained" : "text"}
+            onClick={() => getTransactions("CREDIT")}
+          >
             Withdrawals
           </ButtonComponent>
-        </Box>
+        </ButtonGroup>
       </Box>
-      <MuiTable data={data} columns={columns} />
+      <Box sx={{ width: { xs: 420, md: "100%" } }}>
+        <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
+      </Box>
       {toastMessage && (
         <Toast
           message={toastMessage}
