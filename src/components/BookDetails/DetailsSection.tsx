@@ -1,8 +1,4 @@
 import React, { Fragment } from "react";
-// next
-// import Image from "next/image";
-// import NextLink from "next/link";
-//
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -18,7 +14,6 @@ import BookReview from "./BookReview";
 import BookContent from "./BookContent";
 import BookAbstract from "./BookAbstract";
 // interface, styles and config
-// import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
 import { BookDetailsPageFunc } from "./interfaceType";
@@ -35,12 +30,7 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
 
   return (
     <Fragment>
-      <Box
-        borderTop={1}
-        component="section"
-        borderColor="divider"
-        sx={{ pb: 8 }}
-      >
+      <Box component="section" sx={{ pb: 8 }}>
         <TabContext value={value}>
           <Box>
             <Box
@@ -48,9 +38,8 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
               zIndex={2}
               bgcolor="white"
               position="sticky"
-              borderBottom={1}
-              borderColor="divider"
               sx={{ px: { md: 6 } }}
+              className={globalStyle.paperShadowSm}
             >
               <Container maxWidth="xl" sx={{ mb: -0.3 }}>
                 <TabList
@@ -97,7 +86,7 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
                     top="2rem"
                     borderRadius={3}
                     position="sticky"
-                    className={globalStyle.paperShadow}
+                    className={globalStyle.paperShadowSm}
                   >
                     <BookStats {...props} />
                   </Box>

@@ -20,7 +20,8 @@ const BookDetails = ({
 
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = auth
-    ? `/payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
+    ? `
+    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {

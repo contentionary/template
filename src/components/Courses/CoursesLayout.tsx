@@ -29,7 +29,7 @@ const CoursesLayout: CoursesPageFunc = () => {
           </Grid>
           <Grid item xs={1} sm={2} md={4} lg={6} xl={5}>
             <Typography mb={4} variant="h4" component="h2">
-              Explore Courses
+              {pageData?.courseList?.folder?.name || "Explore Courses"}
             </Typography>
             <CourseListSection pageData={pageData} />
           </Grid>

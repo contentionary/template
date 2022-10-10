@@ -15,6 +15,7 @@ const DocumentListButton = ({ pageCount, name, slug, id, courseId }: any) => (
         <AutoStoriesOutlinedIcon />
       </ListItemIcon>
       <Stack
+        flexGrow={1}
         direction={{ xs: "column", md: "row" }}
         justifyContent="space-between"
       >

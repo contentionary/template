@@ -19,6 +19,7 @@ import { BasePageProps, CourseInt } from "@src/utils/interface";
 // app components
 import VideoModal from "@src/components/shared/video";
 import ImageButton from "@src/components/shared/buttons/ImageButton";
+import { useDialog } from "@src/hooks";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -26,10 +27,12 @@ import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined
 import { queryClient } from "@src/utils";
 import { isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
+import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
 
 const HeroSection = () => {
   const router = useRouter();
-  const { reference } = router.query;
+  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { isOpen, openDialog, closeDialog } = useDialog();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
   const auth = pageData?.auth;
@@ -38,11 +41,20 @@ const HeroSection = () => {
   const globalStyle = useGlobalStyle();
 
   const handleOpenVideo = () => setOpenVideo(true);
-  const { name, id, imageUrl, price, subscriberCount, slug } = courseDetails;
+  const {
+    name,
+    id,
+    imageUrl,
+    previewVideoUrl,
+    price,
+    subscriberCount,
+    slug,
+    summary,
+  } = courseDetails;
   const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`;
+  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}&verifyValue=${price}`;
 
   let Action = {
     link: `/courses/${slug}/${id}/contents/${id}`,
@@ -50,7 +62,7 @@ const HeroSection = () => {
   };
 
   if (!isCourseSubscriber || !isCentreManager) {
-    Action.text = "ENROLL NOW";
+    Action.text = "SUBSCRIBE";
     Action.link = paymentLink;
   }
 
@@ -64,8 +76,12 @@ const HeroSection = () => {
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
-        {reference && (
-          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        {verifyValue && (
+          <ConfirmPayment
+            price={Number(deductedPrice)}
+            reference={reference}
+            redirectUrl={redirectUrl}
+          />
         )}
         <Container maxWidth="xl">
           <Grid container spacing={4} sx={{ justifyContent: "space-between" }}>
@@ -92,18 +108,22 @@ const HeroSection = () => {
                   priority
                   onClick={handleOpenVideo}
                   src={imageUrl}
-                  alt="contentionary introduction video"
+                  alt={`${name} preview video`}
                 >
-                  <Typography component="h5" variant="h5" color="inherit">
-                    <Avatar
-                      sx={{
-                        border: "2px solid white",
-                        backgroundColor: "transparent",
-                      }}
-                    >
-                      <PlayIcon className="MuiSvgFlip-root" fill="white" />
-                    </Avatar>
-                  </Typography>
+                  {previewVideoUrl ? (
+                    <Typography component="h5" variant="h5" color="inherit">
+                      <Avatar
+                        sx={{
+                          border: "2px solid white",
+                          backgroundColor: "transparent",
+                        }}
+                      >
+                        <PlayIcon className="MuiSvgFlip-root" fill="white" />
+                      </Avatar>
+                    </Typography>
+                  ) : (
+                    <span></span>
+                  )}
                 </ImageButton>
               </Box>
             </Grid>
@@ -111,14 +131,8 @@ const HeroSection = () => {
               <Typography variant="h2" component="h1">
                 {name}
               </Typography>
-              <Typography variant="h6" mb={3}>
-                Course Centre
-              </Typography>
-              <Typography mb={0} paragraph>
-                <Typography variant="h6" component="span" color="primary">
-                  Course ID
-                </Typography>{" "}
-                {id}
+              <Typography variant="subtitle1" color="GrayText" mb={3}>
+                {summary}
               </Typography>
               <Typography
                 mb={3}
@@ -145,26 +159,26 @@ const HeroSection = () => {
                     {Action.text}
                   </Button>
                 </NextLink>
-                <NextLink href={"/share"} passHref>
-                  <MuiLink
-                    gap={2}
-                    color="inherit"
-                    underline="none"
-                    alignItems="center"
-                    display={{ xs: "flex", sm: "inline-flex" }}
-                  >
-                    <Avatar variant="rounded" sx={{ bgcolor: "primary.main" }}>
-                      <ShareOutlinedIcon htmlColor="white" />
-                    </Avatar>{" "}
-                    Share this course
-                  </MuiLink>
-                </NextLink>
+                <Button onClick={() => openDialog()}>
+                  <Avatar variant="rounded" className={globalStyle.bgGradient}>
+                    <ShareOutlinedIcon htmlColor="white" />
+                  </Avatar>{" "}
+                  <span>&nbsp; Share this course</span>
+                </Button>
               </Stack>
             </Grid>
           </Grid>
         </Container>
       </Box>
-      <VideoModal isOpen={openVideo} setIsOpen={setOpenVideo} />
+      {previewVideoUrl && (
+        <VideoModal
+          src={previewVideoUrl}
+          isOpen={openVideo}
+          setIsOpen={setOpenVideo}
+        />
+      )}
+
+      <ShareContentOnMedia isOpen={isOpen} closeDialog={closeDialog} />
     </>
   );
 };

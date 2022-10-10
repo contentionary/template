@@ -26,6 +26,8 @@ const nextConfig = {
     domains: [
       "contentionary.s3.eu-west-3.amazonaws.com",
       "cttn-filemanager.herokuapp.com",
+      "localhost",
+      "https://www.sic-info.org"
     ],
   },
 };

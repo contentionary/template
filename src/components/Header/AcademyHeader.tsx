@@ -30,6 +30,8 @@ const AcademyHeader: AcademyHeaderFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
 
+  const fontSize = 18;
+
   return (
     <>
       <HideOnScroll>
@@ -49,8 +51,10 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                   <Image
                     src={centre.logo || "/images/logo.png"}
                     alt="Contentionary logo"
-                    width={210}
-                    height={40}
+                    width={60}
+                    height={60}
+                    style={{ borderRadius: 50 }}
+                    objectFit="contain"
                   />
                 </MuiLink>
               </NextLink>
@@ -71,7 +75,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                       <NextLink href="/" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize }}
                         >
                           Home
                         </Button>
@@ -79,7 +83,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                       <NextLink href="/courses" passHref>
                         <Button
                           component={MuiLink}
-                          sx={{ color: "secondary.light" }}
+                          sx={{ color: "secondary.light", fontSize }}
                         >
                           Courses
                         </Button>
@@ -88,7 +92,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                         <NextLink href="/courses/my-courses" passHref>
                           <Button
                             component={MuiLink}
-                            sx={{ color: "secondary.light" }}
+                            sx={{ color: "secondary.light", fontSize }}
                           >
                             My Courses
                           </Button>

@@ -33,6 +33,7 @@ const PublicationCard = ({
   readCount,
   type,
   id,
+  folderContentCount,
 }: PublicationInt) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -88,7 +89,7 @@ const PublicationCard = ({
                 alignItems="center"
               >
                 <FolderCopyOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp; 0
+                &nbsp; {folderContentCount ? folderContentCount : 0}
               </Typography>
             ) : (
               <Stack

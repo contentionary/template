@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-// next
-import NextLink from "next/link";
+
 import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
@@ -24,7 +23,7 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 //
 import { useDialog } from "@src/hooks";
 import { isServerSide } from "@src/utils";
-import ShareContentOnMedia from "./share";
+import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
 import useButtonStyle from "@src/styles/button";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 
@@ -34,7 +33,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
 
   const router = useRouter();
   const globalStyle = useGlobalStyle();
-  const { reference } = router.query;
+  const { reference, verifyValue, price: deductedPrice } = router.query;
 
   const {
     name,
@@ -55,8 +54,12 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
-        {reference && (
-          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        {verifyValue && (
+          <ConfirmPayment
+            price={Number(deductedPrice)}
+            reference={reference}
+            redirectUrl={redirectUrl}
+          />
         )}
         <Container maxWidth="xl">
           <Grid
@@ -96,13 +99,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
               <Typography variant="h6" mt={1} color="GrayText" component="h1">
                 {summary}
               </Typography>
-              {/* <Stack direction="row" spacing={2} mt={1}>
-                <Typography variant="h6">Indorama Centre</Typography>
-                <Typography paragraph display="flex" alignItems="center">
-                  <PeopleOutlineOutlinedIcon color="primary" />{" "}
-                  {subscriberCount}k Subscribers
-                </Typography>
-              </Stack> */}
               <Stack
                 mt={3}
                 mb={6}
@@ -143,14 +139,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
               <Stack direction="row" spacing={1}>
-                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
-                  <BookmarkAddOutlinedIcon />
-                  Subscribe
-                </Button> */}
-                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
-                  <FavoriteBorderOutlinedIcon />
-                  Like
-                </Button> */}
                 <Button
                   color="secondary"
                   onClick={() => openDialog()}
@@ -169,26 +157,30 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 alignItems="center"
               >
                 {read.show && (
-                  <NextLink href={read.link} passHref>
-                    <Button
-                      size="large"
-                      disableElevation
-                      variant="contained"
-                      component={MuiLink}
-                      className={globalStyle.bgGradient}
-                      display={{ xs: "block", sm: "inline-block" }}
-                    >
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
-                      </Stack>
-                    </Button>
-                  </NextLink>
+                  <Button
+                    size="large"
+                    onClick={() => {
+                      if (!isServerSide) window.location.href = download.link;
+                    }}
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    className={globalStyle.bgGradient}
+                    display={{ xs: "block", sm: "inline-block" }}
+                  >
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                      <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
+                    </Stack>
+                  </Button>
                 )}
                 {download.show && (
                   <Button
                     size="large"
                     disableElevation
-                    href={download.link}
+                    onClick={() => {
+                      if (!isServerSide) window.location.href = download.link;
+                    }}
+                    // href={download.link}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}
@@ -199,20 +191,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                     </Stack>
                   </Button>
                 )}
-                {/* <NextLink href={fileUrl} passHref>
-                  <MuiLink
-                    gap={2}
-                    color="inherit"
-                    underline="none"
-                    alignItems="center"
-                    display={{ xs: "flex", sm: "inline-flex" }}
-                  >
-                    <Avatar variant="rounded" sx={{ bgcolor: "primary.main" }}>
-                      <ShareOutlinedIcon htmlColor="white" />
-                    </Avatar>{" "}
-                    Share this Book
-                  </MuiLink>
-                </NextLink> */}
               </Stack>
             </Grid>
           </Grid>

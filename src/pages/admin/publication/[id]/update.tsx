@@ -19,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context)) as CachedCentreInt;
-
     const { data } = await request.get({
       url: `/centre/${centre.id}/publication/${context.query.id}`,
       token,

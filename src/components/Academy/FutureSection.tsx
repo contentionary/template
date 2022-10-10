@@ -1,15 +1,10 @@
 import React from "react";
-// next
-import NextLink from "next/link";
-
+//
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { Link as MuiLink } from "@mui/material";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -22,7 +17,6 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 // component and styles
-import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
 import { queryClient } from "@src/utils";
@@ -31,7 +25,6 @@ import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
-  const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
@@ -53,24 +46,6 @@ const FutureSection: AcademyFunc = () => {
         >
           <Grid item md={4} xs={12}>
             <Box className={cardStyle.breathCard}>
-              <Paper className="right">
-                <Avatar
-                  sx={{
-                    mx: "auto",
-                    bgcolor: "#FBEEE6",
-                  }}
-                >
-                  <BusinessCenterOutlinedIcon color="primary" />
-                </Avatar>
-                <Typography
-                  my={2}
-                  variant="h5"
-                  color="primary"
-                  className={globalStyle.underlinedCurve}
-                >
-                  Get Certified
-                </Typography>
-              </Paper>
               <Box className="breath-img-container">
                 <ImageComponent
                   layout="fill"
@@ -132,42 +107,6 @@ const FutureSection: AcademyFunc = () => {
                 <ListItemText primary="Inbuilt Test and exercises while learning" />
               </ListItem>
             </List>
-            <NextLink href="/" passHref>
-              <Button
-                size="large"
-                disableElevation
-                variant="contained"
-                component={MuiLink}
-                className={globalStyle.bgGradient}
-                sx={{
-                  textAlign: "center",
-                  width: { xs: "100%", md: "auto" },
-                  display: { xs: "block", md: "inline-block" },
-                }}
-              >
-                Try Premium Centres
-              </Button>
-            </NextLink>{" "}
-            <NextLink href="/" passHref>
-              <Button
-                size="large"
-                variant="outlined"
-                component={MuiLink}
-                sx={{
-                  textAlign: "center",
-                  mt: { xs: 2, md: 0 },
-                  textDecoration: "underline",
-                  borderWidth: { xs: 2, md: 0 },
-                  ":hover": {
-                    borderWidth: { xs: 2, md: 0 },
-                  },
-                  width: { xs: "100%", md: "auto" },
-                  display: { xs: "block", md: "inline-block" },
-                }}
-              >
-                Learn more
-              </Button>
-            </NextLink>
           </Grid>
         </Grid>
       </Container>

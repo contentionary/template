@@ -6,6 +6,7 @@ export default makeStyles({
     fontStyle: "normal",
     fontWeight: 500,
     color: "#333333",
+    fontSize: 40,
 
     [theme.breakpoints.down("sm")]: {
       fontSize: 28,

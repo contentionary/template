@@ -42,6 +42,7 @@ const CreatePublication = () => {
     { title: "", pageNo: 0 },
   ]);
   const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
+  const [learnings, setLearnings] = useState([""]);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
@@ -71,8 +72,7 @@ const CreatePublication = () => {
         setConvertedFile(fileUrl);
       }
       if (authors.length && authors[0].name) values.authors = authors;
-      if (values.learnings && typeof values.learnings === "string")
-        values.learnings = values.learnings.split(",");
+      if (learnings.length) values.learnings = learnings;
       if (tableOfContents && tableOfContents[0].title)
         values.tableOfContents = tableOfContents;
       if (folderId) values.folderId = folderId;
@@ -91,6 +91,7 @@ const CreatePublication = () => {
       toggleToast(data.message);
       resetValues(formEvent);
       setIsLoading(false);
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -164,25 +165,12 @@ const CreatePublication = () => {
                   )}
                 </Select>
               </FormControl>
-
-              <Box>
-                <Typography variant="caption" component="div">
-                  Add learnings by seperating it with comma (,)
-                </Typography>
-                <TextFields
-                  type="text"
-                  label="Publication learnings"
-                  name="learnings"
-                  onChange={getData}
-                  sx={{ width: "100%", mt: 1 }}
-                />
-              </Box>
             </>
           )}
 
           <TextFields
             type="text"
-            label="Publication tags"
+            label="Publication tags (keywords)"
             name="tags"
             onChange={getData}
           />
@@ -231,26 +219,9 @@ const CreatePublication = () => {
                 <Typography variant="subtitle1" component="div">
                   Table of contents
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography variant="caption" component="div">
-                    Click add more content, to add more titles and pages
-                  </Typography>
-                  <ButtonComponent
-                    onClick={() =>
-                      setTableOfContent([
-                        ...tableOfContents,
-                        { title: "", pageNo: 0 },
-                      ])
-                    }
-                  >
-                    Add more content
-                  </ButtonComponent>
-                </Box>
+                <Typography variant="caption" component="div">
+                  Click add more content, to add more titles and pages
+                </Typography>
                 {tableOfContents.map(({}, index) => (
                   <Box
                     key={`${index}-content`}
@@ -259,6 +230,7 @@ const CreatePublication = () => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       mb: 2,
+                      mt: 1,
                     }}
                   >
                     <TextFields
@@ -293,28 +265,32 @@ const CreatePublication = () => {
                     </Box>
                   </Box>
                 ))}
-              </Box>{" "}
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <ButtonComponent
+                    onClick={() =>
+                      setTableOfContent([
+                        ...tableOfContents,
+                        { title: "", pageNo: 0 },
+                      ])
+                    }
+                  >
+                    Add more content
+                  </ButtonComponent>
+                </Box>
+              </Box>
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Authors
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography variant="caption" component="div">
-                    Click add more authors, to add more authors
-                  </Typography>
-                  <ButtonComponent
-                    onClick={() =>
-                      setAuthors([...authors, { name: "", imageUrl: "" }])
-                    }
-                  >
-                    Add more authors
-                  </ButtonComponent>
-                </Box>
+                <Typography variant="caption" component="div">
+                  Click add more authors, to add more authors
+                </Typography>
                 {authors.map(({}, index) => (
                   <Box
                     key={`${index}-content`}
@@ -323,6 +299,7 @@ const CreatePublication = () => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       mb: 2,
+                      mt: 1,
                     }}
                   >
                     <TextFields
@@ -333,7 +310,7 @@ const CreatePublication = () => {
                         authors[index].name = e.target.value;
                         setAuthors([...authors]);
                       }}
-                      sx={{ width: "78%" }}
+                      sx={{ width: { xs: "90%", md: "78%" } }}
                     />
                     <Box sx={{ width: "5%" }}>
                       <IconButton
@@ -347,9 +324,77 @@ const CreatePublication = () => {
                     </Box>
                   </Box>
                 ))}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                  }}
+                >
+                  <ButtonComponent
+                    onClick={() =>
+                      setAuthors([...authors, { name: "", imageUrl: "" }])
+                    }
+                  >
+                    Add more authors
+                  </ButtonComponent>
+                </Box>
+              </Box>
+
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Learnings
+                </Typography>
+                <Typography variant="caption" component="div">
+                  Click add more learnings, to add more learnings
+                </Typography>
+                {learnings.map(({}, index) => (
+                  <Box
+                    key={`${index}-content`}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 2,
+                      mt: 1,
+                    }}
+                  >
+                    <TextFields
+                      type="text"
+                      label="Learnings"
+                      name="learnings"
+                      onChange={(e: ChangeEvent<any>) => {
+                        learnings[index] = e.target.value;
+                        setLearnings([...learnings]);
+                      }}
+                      sx={{ width: { xs: "90%", md: "78%" } }}
+                    />
+                    <Box sx={{ width: "5%" }}>
+                      <IconButton
+                        onClick={() => {
+                          learnings.splice(index, 1);
+                          setLearnings([...learnings]);
+                        }}
+                      >
+                        <CloseOutlined htmlColor="red" />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                ))}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                  }}
+                >
+                  <ButtonComponent
+                    onClick={() => setLearnings([...learnings, ""])}
+                  >
+                    Add more learnings
+                  </ButtonComponent>
+                </Box>
               </Box>
               <TextFields type="file" name="fileUrl" onChange={getFile} />
-              <Stack direction="row" spacing={3}>
+              <Stack direction="row" spacing={3} flexWrap="wrap">
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
@@ -380,6 +425,16 @@ const CreatePublication = () => {
                   onChange={check}
                   className={styles.checkbox}
                 />
+                <CheckBox
+                  label={
+                    <Typography variant="h6" className={styles.checkbox}>
+                      Allow review
+                    </Typography>
+                  }
+                  onChange={check}
+                  name="allowReview"
+                  className={styles.checkbox}
+                />
               </Stack>
             </>
           )}
@@ -388,8 +443,7 @@ const CreatePublication = () => {
             img={img}
             uploadText="Select and upload centre logo"
             defaultImage=""
-            height={1000}
-            width={1000}
+            aspect={2 / 3}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>

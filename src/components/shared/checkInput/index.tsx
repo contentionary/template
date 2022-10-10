@@ -8,6 +8,7 @@ interface Props {
   name?: string;
   value?: boolean;
   className?: string;
+  checked?: boolean;
 }
 export default function CheckboxLabels({
   label,
@@ -15,6 +16,7 @@ export default function CheckboxLabels({
   onChange,
   value,
   className,
+  checked,
 }: Props): JSX.Element {
   return (
     <FormControlLabel
@@ -22,6 +24,7 @@ export default function CheckboxLabels({
       name={name}
       control={<Checkbox className={className} value={value} />}
       label={label}
+      checked={checked}
     />
   );
 }
