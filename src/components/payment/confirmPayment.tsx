@@ -40,7 +40,6 @@ export default function CircularDeterminate({
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
-  const router = useRouter();
 
   async function getPaymentConfirmation() {
     try {
