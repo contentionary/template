@@ -102,7 +102,7 @@ const BankTransfer = ({
     try {
       setIsLoading(true);
       const { data } = await request.get({
-        url: `/wallet/supported-currencies`,
+        url: "/wallet/supported-currencies",
       });
       setCurrencies([...(data as CurrencyType[])]);
       setIsLoading(false);
