@@ -1,8 +1,4 @@
 import React, { Fragment } from "react";
-// next
-// import Image from "next/image";
-// import NextLink from "next/link";
-//
 // import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -18,7 +14,6 @@ import BookReview from "./BookReview";
 import BookContent from "./BookContent";
 import BookAbstract from "./BookAbstract";
 // interface, styles and config
-// import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
 import { BookDetailsPageFunc } from "./interfaceType";

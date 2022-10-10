@@ -4,7 +4,7 @@ import LinearProgress, {
   LinearProgressProps,
 } from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
-import { request } from "@src/utils";
+import { isServerSide, request } from "@src/utils";
 import Toast from "@src/components/shared/toast";
 import { useRouter } from "next/router";
 import { useToast } from "@src/utils/hooks";
@@ -13,6 +13,7 @@ interface Props {
   position?: "static" | "relative" | "absolute" | "sticky" | "fixed";
   reference: any;
   redirectUrl: string;
+  price: number;
 }
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
@@ -34,25 +35,31 @@ export default function CircularDeterminate({
   reference,
   redirectUrl,
   position,
+  price,
 }: Props) {
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
   const router = useRouter();
+
   async function getPaymentConfirmation() {
     try {
-      const { data } = await request.get({
-        url: `/transaction/${reference}/verify`,
-      });
+      const { data } =
+        price === 0
+          ? { data: { valueGiven: true } }
+          : await request.get({
+              url: `/transaction/${reference}/verify`,
+            });
       if (data.valueGiven) {
         setShow(false);
-        const [url] = redirectUrl.split("trxref");
-        router.push(url);
+        const [url] = redirectUrl.split("verifyValue");
+        if (!isServerSide) window.location.href = url;
       }
     } catch ({ message }) {
       toggleToast(message as string);
     }
   }
+
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) =>
@@ -66,6 +73,7 @@ export default function CircularDeterminate({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       {show && (

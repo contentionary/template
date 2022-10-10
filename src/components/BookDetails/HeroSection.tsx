@@ -34,7 +34,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
 
   const router = useRouter();
   const globalStyle = useGlobalStyle();
-  const { reference } = router.query;
+  const { reference, verifyValue, price: deductedPrice } = router.query;
 
   const {
     name,
@@ -55,8 +55,12 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
         className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
       >
-        {reference && (
-          <ConfirmPayment reference={reference} redirectUrl={redirectUrl} />
+        {verifyValue && (
+          <ConfirmPayment
+            price={Number(deductedPrice)}
+            reference={reference}
+            redirectUrl={redirectUrl}
+          />
         )}
         <Container maxWidth="xl">
           <Grid
@@ -96,13 +100,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
               <Typography variant="h6" mt={1} color="GrayText" component="h1">
                 {summary}
               </Typography>
-              {/* <Stack direction="row" spacing={2} mt={1}>
-                <Typography variant="h6">Indorama Centre</Typography>
-                <Typography paragraph display="flex" alignItems="center">
-                  <PeopleOutlineOutlinedIcon color="primary" />{" "}
-                  {subscriberCount}k Subscribers
-                </Typography>
-              </Stack> */}
               <Stack
                 mt={3}
                 mb={6}
@@ -169,26 +166,30 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 alignItems="center"
               >
                 {read.show && (
-                  <NextLink href={read.link} passHref>
-                    <Button
-                      size="large"
-                      disableElevation
-                      variant="contained"
-                      component={MuiLink}
-                      className={globalStyle.bgGradient}
-                      display={{ xs: "block", sm: "inline-block" }}
-                    >
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
-                      </Stack>
-                    </Button>
-                  </NextLink>
+                  <Button
+                    size="large"
+                    onClick={() => {
+                      if (!isServerSide) window.location.href = download.link;
+                    }}
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    className={globalStyle.bgGradient}
+                    display={{ xs: "block", sm: "inline-block" }}
+                  >
+                    <Stack direction="row" alignItems="center" spacing={2}>
+                      <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
+                    </Stack>
+                  </Button>
                 )}
                 {download.show && (
                   <Button
                     size="large"
                     disableElevation
-                    href={download.link}
+                    onClick={() => {
+                      if (!isServerSide) window.location.href = download.link;
+                    }}
+                    // href={download.link}
                     variant="contained"
                     component={MuiLink}
                     className={globalStyle.bgGradient}
