@@ -21,11 +21,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const centre = (await getCentre(context, true)) as CachedCentreInt;
 
     const { data } = await request.get({
-      url: `/wallet/centre-balance?centreId=${centre.id}`,
+      url: `/wallet/centre/${centre.id}/balance`,
       token,
     });
     const { data: transactionHistory } = await request.get({
-      url: `/wallet/history?centreId=${centre.id}`,
+      url: `/wallet/centre/${centre.id}/transaction-history`,
       token,
     });
     return {

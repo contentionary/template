@@ -13,7 +13,13 @@ import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
 
-const WalletToWalletTransfer = ({ toggleToast }: { toggleToast: Function }) => {
+const WalletToWalletTransfer = ({
+  toggleToast,
+  centreId,
+}: {
+  toggleToast: Function;
+  centreId: string;
+}) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(Transfer);
@@ -27,7 +33,7 @@ const WalletToWalletTransfer = ({ toggleToast }: { toggleToast: Function }) => {
     try {
       setIsLoading(true);
       const { data } = await request.post({
-        url: "/wallet/wallet-transfer",
+        url: `/wallet/centre/${centreId}/wallet-transfer`,
         data: {
           ...values,
           currency: "NGN",
@@ -47,8 +53,9 @@ const WalletToWalletTransfer = ({ toggleToast }: { toggleToast: Function }) => {
         sx={{
           border: "solid 1px #dbdbdb ",
           color: "#fff",
-          paddingY: 1,
+          paddingY: 1.8,
           paddingX: 3,
+          mb: { xs: 3, md: 0 },
         }}
         onClick={() => {
           openDialog();
