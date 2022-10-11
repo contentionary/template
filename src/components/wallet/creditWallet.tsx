@@ -5,14 +5,14 @@ import Typography from "@mui/material/Typography";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
+import { useState } from "react";
+import { isServerSide } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
-import { useState } from "react";
-import { isServerSide } from "@src/utils";
 
 const CreditWallet = ({ centreId }: { centreId: string }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));

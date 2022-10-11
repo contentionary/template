@@ -1,25 +1,25 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { IconButton, MenuItem, Select } from "@mui/material";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
+
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
-import { BasePageProps, PublicationCategoryInt } from "@src/utils/interface";
+import {
+  BasePageProps,
+  PublicationCategoryInt,
+  PublicationInt,
+  PublicationChapterInt,
+} from "@src/utils/interface";
 import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
@@ -30,23 +30,33 @@ const CreatePublication = () => {
   ) as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, check, resetValues } = useForm(create);
+  const { getData, values, submit, check } = useForm(Update);
+  const { publication, publicationCategories } = pageData as {
+    publication: PublicationInt;
+    publicationCategories: PublicationCategoryInt[];
+  };
   const [img, setImg] = useState<Record<string, any>>({});
-  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [progres, setProgress] = useState(0);
+  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
+  const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedFile, setConvertedFile] = useState<any>();
   const [file, setFile] = useState<Record<string, any>>();
-  const [tableOfContents, setTableOfContent] = useState([
-    { title: "", pageNo: 0 },
+  const [tableOfContents, setTableOfContent] = useState<
+    Array<PublicationChapterInt>
+  >(
+    publication?.tableOfContents?.length
+      ? publication?.tableOfContents
+      : [{ title: "", pageNo: 0 }]
+  );
+  const [authors, setAuthors] = useState<Array<any>>([
+    publication?.authors?.length
+      ? publication?.authors
+      : { name: "", imageUrl: "" },
   ]);
-  const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
-  const [learnings, setLearnings] = useState([""]);
-  const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
-
-  const router = useRouter();
-  const { type, folderId } = router.query;
+  const [learnings, setLearnings] = useState<Array<string>>(
+    publication.learnings.length ? publication.learnings : [""]
+  );
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const ImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")
@@ -54,15 +64,17 @@ const CreatePublication = () => {
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
+  const Delete = dynamic(() => import("./delete"));
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
-
-  async function create() {
+  const router = useRouter();
+  const { type, folderId } = router.query;
+  async function Update() {
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
-        const imageUrl = await uploadFiles(img.base64, setProgress);
+        const imageUrl = await uploadFiles(img.base64, setImageLoadingProgress);
         values.imageUrl = imageUrl;
         setConvertedImage(imageUrl);
       }
@@ -71,25 +83,24 @@ const CreatePublication = () => {
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (authors.length && authors[0].name) values.authors = authors;
-      if (learnings.length && type != "FOLDER") values.learnings = learnings;
-      if (tableOfContents && tableOfContents[0].title)
+      if (learnings.length) values.learnings = learnings;
+      if (authors.length && authors[0].name) {
+        values.authors = authors;
+      }
+      if (tableOfContents && tableOfContents[0].title) {
         values.tableOfContents = tableOfContents;
+      }
       if (folderId) values.folderId = folderId;
       values.type = type;
-      if (typeof values?.tags === "string")
-        values.tags = values.tags.split(",");
+      if (values.tags) values.tags = values.tags.split(",");
       convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
-      const data = await request.post({
-        url:
-          type === "FOLDER"
-            ? `/centre/${cachedData.centre.id}/publication-folder`
-            : `/centre/${cachedData.centre.id}/publication`,
+      delete values.type;
+      const data = await request.patch({
+        url: `/centre/${cachedData.centre.id}/publication/${publication.id}`,
         data: values,
       });
       toggleToast(data.message);
-      resetValues(formEvent);
       setIsLoading(false);
       router.back();
     } catch (error) {
@@ -100,44 +111,48 @@ const CreatePublication = () => {
 
   return (
     <Box mt={6} mb={10}>
-      <Typography
-        onClick={() => router.back()}
-        style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
-      </Typography>
+        <Typography
+          onClick={() => router.back()}
+          style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+        >
+          <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
+        </Typography>
+        <Box sx={{ textAlign: "center" }}>
+          <Delete centreId={cachedData.centre.id} id={publication.id} />
+          <Typography variant="caption" component="div">
+            Want to delete Publication?
+          </Typography>
+        </Box>
+      </Box>
+
       <Typography
         variant="h4"
-        component="p"
+        component="div"
         style={{
           textTransform: "uppercase",
           marginTop: 40,
           textAlign: "center",
         }}
       >
-        Create {type}
+        Update {type}
       </Typography>
-      <form
-        onSubmit={(e) => {
-          submit(e);
-          setFormEvent(e);
-        }}
-        style={{ marginTop: 40 }}
-      >
+      <form onSubmit={(e) => submit(e)} style={{ marginTop: 40 }}>
         <Stack spacing={3} mt={3}>
           <TextFields
             type="text"
             label="Name"
             name="name"
+            defaultValue={publication.name}
             onChange={getData}
-            inputProps={{ maxLength: 100 }}
+            inputProps={{ maxLength: 35 }}
             required
-          />
-          <TextFields
-            type="text"
-            label="Publication tags (keywords)"
-            name="tags"
-            onChange={getData}
           />
 
           {type != "FOLDER" && (
@@ -145,11 +160,14 @@ const CreatePublication = () => {
               <TextFields
                 type="number"
                 label="Publication Price"
+                defaultValue={publication.price}
                 name="price"
                 onChange={getData}
               />
-              <FormControl fullWidth>
-                <InputLabel>Publication category</InputLabel>
+              <Stack>
+                <Typography variant="body1" component="p">
+                  Select Category
+                </Typography>
                 <Select
                   name="publicationCategoryId"
                   value={
@@ -158,19 +176,69 @@ const CreatePublication = () => {
                   }
                   onChange={(e) => getData(e)}
                 >
-                  {pageData.publicationCategories?.map(
-                    (category: PublicationCategoryInt, index: number) => (
-                      <MenuItem
-                        key={`${index}-catygory`}
-                        value={category.id}
-                        id={category.id}
-                      >
-                        {category.name}
-                      </MenuItem>
-                    )
-                  )}
+                  {publicationCategories?.map((category, index) => (
+                    <MenuItem
+                      key={`${index}-catygory`}
+                      value={category.id}
+                      id={category.id}
+                    >
+                      {category.name}
+                    </MenuItem>
+                  ))}
                 </Select>
-              </FormControl>
+              </Stack>
+            </>
+          )}
+          <TextFields
+            type="text"
+            label="Publication tags (keywords)"
+            name="tags"
+            defaultValue={publication?.tags}
+            onChange={getData}
+          />
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in description here ..."
+              name="description"
+              onChange={getData}
+              defaultValue={publication.description}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              defaultValue={publication.summary}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          {type != "FOLDER" && (
+            <>
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Table of contents
@@ -178,7 +246,7 @@ const CreatePublication = () => {
                 <Typography variant="caption" component="div">
                   Click add more content, to add more titles and pages
                 </Typography>
-                {tableOfContents.map(({}, index) => (
+                {tableOfContents.map(({ title, pageNo }, index) => (
                   <Box
                     key={`${index}-content`}
                     sx={{
@@ -193,6 +261,7 @@ const CreatePublication = () => {
                       type="text"
                       label="Title"
                       name="title"
+                      defaultValue={title}
                       onChange={(e: ChangeEvent<any>) => {
                         tableOfContents[index].title = e.target.value;
                         setTableOfContent([...tableOfContents]);
@@ -203,6 +272,7 @@ const CreatePublication = () => {
                       type="number"
                       label="Page number"
                       name="pageNo"
+                      defaultValue={pageNo}
                       onChange={(e: ChangeEvent<any>) => {
                         tableOfContents[index].pageNo = e.target.value;
                         setTableOfContent([...tableOfContents]);
@@ -221,11 +291,10 @@ const CreatePublication = () => {
                     </Box>
                   </Box>
                 ))}
-
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "flex-end",
+                    justifyContent: "end",
                   }}
                 >
                   <ButtonComponent
@@ -247,7 +316,7 @@ const CreatePublication = () => {
                 <Typography variant="caption" component="div">
                   Click add more authors, to add more authors
                 </Typography>
-                {authors.map(({}, index) => (
+                {authors.map(({ name }, index) => (
                   <Box
                     key={`${index}-content`}
                     sx={{
@@ -261,12 +330,13 @@ const CreatePublication = () => {
                     <TextFields
                       type="text"
                       label="name"
+                      defaultValue={name}
                       name="title"
                       onChange={(e: ChangeEvent<any>) => {
                         authors[index].name = e.target.value;
                         setAuthors([...authors]);
                       }}
-                      sx={{ width: { xs: "90%", md: "78%" } }}
+                      sx={{ width: "78%" }}
                     />
                     <Box sx={{ width: "5%" }}>
                       <IconButton
@@ -283,9 +353,12 @@ const CreatePublication = () => {
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "end",
+                    justifyContent: "space-between",
                   }}
                 >
+                  <Typography variant="caption" component="div">
+                    Click add more authors, to add more authors
+                  </Typography>
                   <ButtonComponent
                     onClick={() =>
                       setAuthors([...authors, { name: "", imageUrl: "" }])
@@ -295,7 +368,6 @@ const CreatePublication = () => {
                   </ButtonComponent>
                 </Box>
               </Box>
-
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Learnings
@@ -303,7 +375,7 @@ const CreatePublication = () => {
                 <Typography variant="caption" component="div">
                   Click add more learnings, to add more learnings
                 </Typography>
-                {learnings.map(({}, index) => (
+                {learnings.map((value, index) => (
                   <Box
                     key={`${index}-content`}
                     sx={{
@@ -318,6 +390,7 @@ const CreatePublication = () => {
                       type="text"
                       label="Learnings"
                       name="learnings"
+                      defaultValue={value}
                       onChange={(e: ChangeEvent<any>) => {
                         learnings[index] = e.target.value;
                         setLearnings([...learnings]);
@@ -350,15 +423,20 @@ const CreatePublication = () => {
                 </Box>
               </Box>
               <TextFields type="file" name="fileUrl" onChange={getFile} />
-              <Stack direction="row" spacing={3} flexWrap="wrap">
+              <Stack direction="row" spacing={3}>
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
                       Show in search result
                     </Typography>
                   }
+                  checked={publication.allowSearch}
+                  value={values.allowSearch}
                   name="allowSearch"
-                  onChange={check}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowSearch = e.target.checked;
+                    check(e);
+                  }}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -367,8 +445,13 @@ const CreatePublication = () => {
                       Allow read
                     </Typography>
                   }
+                  checked={publication.allowRead}
+                  value={values.allowRead}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowRead = e.target.checked;
+                    check(e);
+                  }}
                   name="allowRead"
-                  onChange={check}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -377,8 +460,13 @@ const CreatePublication = () => {
                       Allow download
                     </Typography>
                   }
+                  checked={publication.allowDownload}
+                  value={values.allowDownload}
                   name="allowDownload"
-                  onChange={check}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowDownload = e.target.checked;
+                    check(e);
+                  }}
                   className={styles.checkbox}
                 />
                 <CheckBox
@@ -387,67 +475,33 @@ const CreatePublication = () => {
                       Allow review
                     </Typography>
                   }
-                  onChange={check}
+                  checked={publication.allowReview}
+                  value={values.allowReview}
+                  onChange={(e: ChangeEvent<any>) => {
+                    publication.allowReview = e.target.checked;
+                    check(e);
+                  }}
                   name="allowReview"
                   className={styles.checkbox}
                 />
               </Stack>
             </>
           )}
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Description *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
-            />
-          </Box>
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Summary *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in summary here ..."
-              name="summary"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={250}
-            />
-          </Box>
-
           <ImageUpload
             setImg={setImg}
             img={img}
             uploadText="Select and upload centre logo"
-            defaultImage=""
+            defaultImage={publication.imageUrl}
             aspect={2 / 3}
           />
         </Stack>
-        <Typography style={{ textAlign: "right", marginTop: 20 }}>
+        <Typography style={{ textAlign: "right", marginTop: 25 }}>
           <ButtonComponent
-            variant="contained"
             type="submit"
             sx={{ fontSize: 18 }}
+            variant="contained"
           >
-            {type === "FOLDER" ? "Create folder" : "Create publication"}
+            {type === "FOLDER" ? "Update folder" : "Update publication"}
           </ButtonComponent>
         </Typography>
       </form>
@@ -459,13 +513,12 @@ const CreatePublication = () => {
           showToast={toggleToast}
         />
       )}
-
       <Loading
         open={isLoading}
-        sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
         color="primary"
         size={100}
-        value={fileLoadingProgres || progres}
+        sx={{ marginLeft: 2 }}
+        value={fileLoadingProgres || imageLoadingProgres}
       />
     </Box>
   );

@@ -3,15 +3,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Autocomplete from "@mui/material/Autocomplete";
 
+import dynamic from "next/dynamic";
+
+import useForm from "@src/hooks/useForm";
+import ButtonComponent from "@src/components/shared/button";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-
-import dynamic from "next/dynamic";
-import ButtonComponent from "@src/components/shared/button";
-import useForm from "@src/hooks/useForm";
 import { useState } from "react";
 import { TextField } from "@mui/material";
 
@@ -49,6 +49,7 @@ const BankTransfer = ({
   }
   async function confirmTransfer() {
     try {
+      values.amount = values.amount * 100;
       setIsLoading(true);
       await request.post({
         url: `/wallet/centre/${centreId}/bank-transfer`,
