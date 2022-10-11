@@ -1,6 +1,5 @@
 import React from "react";
 // next
-import Image from "next/image";
 import NextLink from "next/link";
 //
 import Box from "@mui/material/Box";
@@ -11,18 +10,20 @@ import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import Link from "@mui/material/Link";
 // icons
-import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // styles and interface
 import {
-  BOOK_IMAGE_PLACEHOLDER,
-  FOLDER_IMAGE_PLACEHOLDER,
   kCount,
+  VIDEO_FOLDER_IMAGE_PLACEHOLDER,
+  dateTimeFormat,
+  timeAgo,
 } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
-import { PublicationInt } from "@src/utils/interface";
+import { CourseInt } from "@src/utils/interface";
+import ImageComponent from "@src/components/shared/image";
 
 const PublicationCard = ({
   name,
@@ -30,11 +31,11 @@ const PublicationCard = ({
   summary,
   subscriberCount,
   imageUrl,
-  readCount,
   type,
   id,
   folderContentCount,
-}: PublicationInt) => {
+  createdAt,
+}: CourseInt) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
 
@@ -52,27 +53,36 @@ const PublicationCard = ({
           LinkComponent={Link}
           className="MuiCourseCardActionBase-root"
         >
-          <Box p={1} className="card-img">
-            <Image
+          <Box className="card-img">
+            <ImageComponent
               src={
                 type === "FOLDER"
-                  ? imageUrl || FOLDER_IMAGE_PLACEHOLDER
-                  : imageUrl || BOOK_IMAGE_PLACEHOLDER
+                  ? imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl || "/images/state/failed.svg"
               }
-              width="90%"
-              height="100%"
+              width="100%"
+              height="60%"
               layout="responsive"
-              objectFit="contain"
-              alt="Folder"
-              priority
+              objectFit={type === "FOLDER" ? "contain" : "cover"}
+              alt={name}
             />
           </Box>
-          <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
-            <Typography noWrap gutterBottom variant="h6">
-              {name}
-            </Typography>
+          <CardContent>
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{
+                flexWrap: "nowrap",
+                alignItems: "start",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography noWrap gutterBottom variant="h6">
+                {name}
+              </Typography>
+            </Stack>
             <Typography
-              mb={1}
+              mb={2}
               minHeight={40}
               variant="body2"
               color="text.secondary"
@@ -89,7 +99,7 @@ const PublicationCard = ({
                 alignItems="center"
               >
                 <FolderCopyOutlinedIcon color="primary" fontSize="inherit" />
-                &nbsp; {folderContentCount ? folderContentCount : 0}
+                &nbsp; {folderContentCount || 0}
               </Typography>
             ) : (
               <Stack
@@ -98,7 +108,6 @@ const PublicationCard = ({
                 direction="row"
                 alignItems="center"
                 justifyContent="between"
-                flexWrap={{ xs: "wrap", sm: "nowrap" }}
               >
                 <Typography
                   mb={0}
@@ -106,34 +115,35 @@ const PublicationCard = ({
                   display="flex"
                   variant="body2"
                   alignItems="center"
-                  order={{ xs: 2, sm: 2 }}
+                  title={dateTimeFormat(createdAt, true)}
                 >
-                  <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                  &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
+                  <>
+                    <AccessTimeOutlinedIcon
+                      color="primary"
+                      fontSize="inherit"
+                    />
+                    &nbsp;
+                    {timeAgo(createdAt)}
+                  </>
                 </Typography>
                 <Typography
-                  mb={0}
                   noWrap
-                  display="flex"
+                  mb={0}
                   variant="body2"
+                  display="flex"
                   alignItems="center"
-                  order={{ xs: 3, sm: 2 }}
                 >
-                  <FavoriteBorderOutlinedIcon
-                    color="primary"
-                    fontSize="inherit"
-                  />
-                  &nbsp;{kCount(readCount)}
+                  <PeopleAltOutlinedIcon color="primary" fontSize="inherit" />
+                  &nbsp;
+                  {subscriberCount ? kCount(subscriberCount) : 0}
                 </Typography>
                 <Typography
                   mb={0}
+                  ml="auto"
                   flexGrow={1}
                   variant="h5"
                   color="primary"
-                  order={{ xs: 1, sm: 3 }}
-                  width={{ xs: "100%", sm: "auto" }}
-                  ml={{ xs: "0 !important", sm: "auto" }}
-                  textAlign={{ xs: "left", sm: "right" }}
+                  textAlign="right"
                 >
                   {price <= 0 ? "Free" : ` ₦${price}`}
                 </Typography>

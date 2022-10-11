@@ -55,7 +55,7 @@ const CreatePublication = () => {
       : { name: "", imageUrl: "" },
   ]);
   const [learnings, setLearnings] = useState<Array<string>>(
-    publication?.learnings?.length ? publication?.learnings : []
+    publication.learnings.length ? publication.learnings : [""]
   );
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const ImageUpload = dynamic(
