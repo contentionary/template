@@ -33,11 +33,11 @@ const WalletToWalletTransfer = ({
   async function confirmTransfer() {
     try {
       setIsLoading(true);
-      const { data } = await request.post({
+      const { message } = await request.post({
         url: `/wallet/centre/${centreId}/wallet-transfer`,
-        data: values,
+        data: { ...values, amount: values.amount * 100 },
       });
-      toggleToast(data.message);
+      toggleToast(message);
       setIsLoading(false);
       closeDialog();
     } catch (error) {
