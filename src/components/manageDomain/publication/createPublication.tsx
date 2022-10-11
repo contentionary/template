@@ -42,7 +42,7 @@ const CreatePublication = () => {
     { title: "", pageNo: 0 },
   ]);
   const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
-  const [learnings, setLearnings] = useState([]);
+  const [learnings, setLearnings] = useState<any[]>([]);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
