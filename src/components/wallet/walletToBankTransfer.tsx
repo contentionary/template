@@ -50,10 +50,9 @@ const BankTransfer = ({
   async function confirmTransfer() {
     try {
       setIsLoading(true);
-      values.amount = values.amount * 100;
       await request.post({
         url: `/wallet/centre/${centreId}/bank-transfer`,
-        data: values,
+        data: { ...values, amount: values.amount * 100 },
       });
       toggleToast("Transaction successful");
       setIsLoading(false);
@@ -79,16 +78,6 @@ const BankTransfer = ({
       toggleToast(handleError(error).message);
     }
   };
-
-  // useEffect(() => {
-  //   if (
-  //     values.accountNumber &&
-  //     values.bankCode &&
-  //     values.accountNumber.length === 10
-  //   ) {
-  //     getAccountName();
-  //   }
-  // }, [values.accountNumber, values.bankCode, getAccountName]);
 
   async function getBank(value: string | null) {
     try {
