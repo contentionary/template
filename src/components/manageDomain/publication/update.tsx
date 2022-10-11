@@ -83,7 +83,7 @@ const CreatePublication = () => {
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (learnings.length) values.learnings = learnings;
+      if (learnings.length && type != "FOLDER") values.learnings = learnings;
       if (authors.length && authors[0].name) {
         values.authors = authors;
       }
@@ -154,6 +154,13 @@ const CreatePublication = () => {
             inputProps={{ maxLength: 35 }}
             required
           />
+          <TextFields
+            type="text"
+            label="Publication tags (keywords)"
+            name="tags"
+            defaultValue={publication?.tags}
+            onChange={getData}
+          />
 
           {type != "FOLDER" && (
             <>
@@ -186,59 +193,7 @@ const CreatePublication = () => {
                     </MenuItem>
                   ))}
                 </Select>
-              </Stack>
-            </>
-          )}
-          <TextFields
-            type="text"
-            label="Publication tags (keywords)"
-            name="tags"
-            defaultValue={publication?.tags}
-            onChange={getData}
-          />
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Description *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              defaultValue={publication.description}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={200}
-            />
-          </Box>
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Summary *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in summary here ..."
-              name="summary"
-              onChange={getData}
-              defaultValue={publication.summary}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={200}
-            />
-          </Box>
-
-          {type != "FOLDER" && (
-            <>
+              </Stack>{" "}
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Table of contents
@@ -487,6 +442,47 @@ const CreatePublication = () => {
               </Stack>
             </>
           )}
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in description here ..."
+              name="description"
+              onChange={getData}
+              defaultValue={publication.description}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              defaultValue={publication.summary}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
           <ImageUpload
             setImg={setImg}
             img={img}
