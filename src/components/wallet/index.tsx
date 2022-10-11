@@ -2,25 +2,31 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+
+import format from "date-fns/format";
+
+import dynamic from "next/dynamic";
+
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
-import CreditWallet from "./creditWallet";
-import WalletToWalletTransfer from "./walletToWalletTransfer";
-import BankTransfer from "./walletToBankTransfer";
-import MuiTable from "@src/components/shared/table";
-import { format } from "date-fns";
-import ButtonComponent from "@src/components/shared/button";
-import { useToast } from "@src/utils/hooks";
-import dynamic from "next/dynamic";
 import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
 import { useRouter } from "next/router";
+import { useToast } from "@src/utils/hooks";
+
+import ButtonComponent from "@src/components/shared/button";
+import MuiTable from "@src/components/shared/table";
 
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const ConfirmPayment = dynamic(
     () => import("@src/components/payment/confirmPayment")
   );
+  const BankTransfer = dynamic(() => import("./walletToBankTransfer"));
+  const WalletToWalletTransfer = dynamic(
+    () => import("./walletToWalletTransfer")
+  );
+  const CreditWallet = dynamic(() => import("./creditWallet"));
   const { toastMessage, toggleToast } = useToast();
   const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
@@ -48,6 +54,7 @@ export default function CustomizedSteppers() {
     date: format(new Date(item.createdAt), "dd-MM-yyy"),
     ...item,
   }));
+  
   async function getTransactions(type: string) {
     try {
       setTransactionType(type);
@@ -135,7 +142,7 @@ export default function CustomizedSteppers() {
             }}
           >
             <Typography
-              variant="h4"
+              variant="h5"
               component="p"
               color=""
               style={{

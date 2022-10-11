@@ -19,15 +19,13 @@ import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
-import { BasePageProps, PublicationCategoryInt } from "@src/utils/interface";
+import { BasePageProps } from "@src/utils/interface";
 import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 const CreatePublication = () => {
-  const { pageData, cachedData } = queryClient.getQueryData(
-    "pageProps"
-  ) as BasePageProps;
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check, resetValues } = useForm(create);
@@ -72,20 +70,18 @@ const CreatePublication = () => {
         setConvertedFile(fileUrl);
       }
       if (authors.length && authors[0].name) values.authors = authors;
-      if (learnings.length && type != "FOLDER") values.learnings = learnings;
+      if (learnings.length) values.learnings = learnings;
       if (tableOfContents && tableOfContents[0].title)
         values.tableOfContents = tableOfContents;
       if (folderId) values.folderId = folderId;
       values.type = type;
-      if (typeof values?.tags === "string")
-        values.tags = values.tags.split(",");
       convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
       const data = await request.post({
         url:
           type === "FOLDER"
-            ? `/centre/${cachedData.centre.id}/publication-folder`
-            : `/centre/${cachedData.centre.id}/publication`,
+            ? `/centre/${cachedData.centre.id}/course-folder`
+            : `/centre/${cachedData.centre.id}/course`,
         data: values,
       });
       toggleToast(data.message);
@@ -133,12 +129,6 @@ const CreatePublication = () => {
             inputProps={{ maxLength: 100 }}
             required
           />
-          <TextFields
-            type="text"
-            label="Publication tags (keywords)"
-            name="tags"
-            onChange={getData}
-          />
 
           {type != "FOLDER" && (
             <>
@@ -148,29 +138,49 @@ const CreatePublication = () => {
                 name="price"
                 onChange={getData}
               />
-              <FormControl fullWidth>
-                <InputLabel>Publication category</InputLabel>
-                <Select
-                  name="publicationCategoryId"
-                  value={
-                    values.publicationCategoryId ||
-                    "42b04340-d8ff-11eb-a654-8b6d560906aa"
-                  }
-                  onChange={(e) => getData(e)}
-                >
-                  {pageData.publicationCategories?.map(
-                    (category: PublicationCategoryInt, index: number) => (
-                      <MenuItem
-                        key={`${index}-catygory`}
-                        value={category.id}
-                        id={category.id}
-                      >
-                        {category.name}
-                      </MenuItem>
-                    )
-                  )}
-                </Select>
-              </FormControl>
+            </>
+          )}
+
+          {/* <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in description here ..."
+              name="description"
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={10000}
+            />
+          </Box> */}
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={250}
+            />
+          </Box>
+
+          {type != "FOLDER" && (
+            <>
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Table of contents
@@ -394,45 +404,6 @@ const CreatePublication = () => {
               </Stack>
             </>
           )}
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Description *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
-            />
-          </Box>
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Summary *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in summary here ..."
-              name="summary"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={250}
-            />
-          </Box>
-
           <ImageUpload
             setImg={setImg}
             img={img}

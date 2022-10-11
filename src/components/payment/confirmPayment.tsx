@@ -6,7 +6,6 @@ import LinearProgress, {
 import Typography from "@mui/material/Typography";
 import { isServerSide, request } from "@src/utils";
 import Toast from "@src/components/shared/toast";
-import { useRouter } from "next/router";
 import { useToast } from "@src/utils/hooks";
 
 interface Props {
@@ -40,7 +39,6 @@ export default function CircularDeterminate({
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
-  const router = useRouter();
 
   async function getPaymentConfirmation() {
     try {

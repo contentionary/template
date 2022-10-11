@@ -2,15 +2,15 @@ import MoveUpOutlinedIcon from "@mui/icons-material/MoveUpOutlined";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import dynamic from "next/dynamic";
+
+import ButtonComponent from "@src/components/shared/button";
+import useForm from "@src/hooks/useForm";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-
-import dynamic from "next/dynamic";
-import ButtonComponent from "@src/components/shared/button";
-import useForm from "@src/hooks/useForm";
 import { useState } from "react";
 import { MenuItem, Select } from "@mui/material";
 
@@ -33,12 +33,11 @@ const WalletToWalletTransfer = ({
   async function confirmTransfer() {
     try {
       setIsLoading(true);
-      values.amount = values.amount * 100;
-      const { data } = await request.post({
+      const { message } = await request.post({
         url: `/wallet/centre/${centreId}/wallet-transfer`,
-        data: values,
+        data: { ...values, amount: values.amount * 100 },
       });
-      toggleToast(data.message);
+      toggleToast(message);
       setIsLoading(false);
       closeDialog();
     } catch (error) {

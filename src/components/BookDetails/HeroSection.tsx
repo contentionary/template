@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-// next
-import NextLink from "next/link";
+
 import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
@@ -140,14 +139,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
               <Stack direction="row" spacing={1}>
-                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
-                  <BookmarkAddOutlinedIcon />
-                  Subscribe
-                </Button> */}
-                {/* <Button color="secondary" className={buttonStyle.iconTextButton}>
-                  <FavoriteBorderOutlinedIcon />
-                  Like
-                </Button> */}
                 <Button
                   color="secondary"
                   onClick={() => openDialog()}
@@ -169,7 +160,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                   <Button
                     size="large"
                     onClick={() => {
-                      if (!isServerSide) window.location.href = download.link;
+                      if (!isServerSide) window.location.href = read.link;
                     }}
                     disableElevation
                     variant="contained"
@@ -200,20 +191,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                     </Stack>
                   </Button>
                 )}
-                {/* <NextLink href={fileUrl} passHref>
-                  <MuiLink
-                    gap={2}
-                    color="inherit"
-                    underline="none"
-                    alignItems="center"
-                    display={{ xs: "flex", sm: "inline-flex" }}
-                  >
-                    <Avatar variant="rounded" sx={{ bgcolor: "primary.main" }}>
-                      <ShareOutlinedIcon htmlColor="white" />
-                    </Avatar>{" "}
-                    Share this Book
-                  </MuiLink>
-                </NextLink> */}
               </Stack>
             </Grid>
           </Grid>

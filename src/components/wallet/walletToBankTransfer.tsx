@@ -3,16 +3,16 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Autocomplete from "@mui/material/Autocomplete";
 
+import dynamic from "next/dynamic";
+
+import useForm from "@src/hooks/useForm";
+import ButtonComponent from "@src/components/shared/button";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-
-import dynamic from "next/dynamic";
-import ButtonComponent from "@src/components/shared/button";
-import useForm from "@src/hooks/useForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TextField } from "@mui/material";
 
 interface CurrencyType {
@@ -42,6 +42,7 @@ const BankTransfer = ({
   const [confirm, setConfirm] = useState(false);
   const [banks, setBanks] = useState<Array<BankType>>([]);
   const [currencies, setCurrencies] = useState<Array<CurrencyType>>([]);
+  const [accountName, setAccountName] = useState("");
 
   async function Transfer() {
     setConfirm(true);
@@ -52,7 +53,7 @@ const BankTransfer = ({
       setIsLoading(true);
       await request.post({
         url: `/wallet/centre/${centreId}/bank-transfer`,
-        data: values,
+        data: { ...values, amount: values.amount * 100 },
       });
       toggleToast("Transaction successful");
       setIsLoading(false);
@@ -62,30 +63,22 @@ const BankTransfer = ({
       setIsLoading(false);
     }
   }
-  async function getAccountName() {
+  const getAccountName = async () => {
     try {
       const { data } = await request.post({
-        url: `/wallet/verify-bank-account`,
+        url: "/wallet/verify-bank-account",
         data: {
           accountNumber: values.accountNumber,
-          cbnCode: values.bankCode,
+          bankCode: values.bankCode,
           currency: values.currency,
         },
       });
       values.accountName = data.accountName;
+      setAccountName(data.accountName);
     } catch (error) {
       toggleToast(handleError(error).message);
     }
-  }
-  useEffect(() => {
-    if (
-      values.accountNumber &&
-      values.bankCode &&
-      values.accountNumber.length === 10
-    ) {
-      getAccountName();
-    }
-  }, [values.accountNumber]);
+  };
 
   async function getBank(value: string | null) {
     try {
@@ -200,6 +193,7 @@ const BankTransfer = ({
                   label="Account number"
                   name="accountNumber"
                   onChange={getData}
+                  onBlur={() => getAccountName()}
                   defaultValue={values.accountNumber}
                   sx={{ width: "100%", marginTop: 3 }}
                   inputProps={{ maxLength: 10 }}
@@ -210,7 +204,7 @@ const BankTransfer = ({
                   component="div"
                   style={{ textAlign: "right", marginTop: 5 }}
                 >
-                  {values.accountName}
+                  {accountName}
                 </Typography>
                 <TextFields
                   type="text"
