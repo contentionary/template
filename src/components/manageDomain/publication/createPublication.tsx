@@ -42,7 +42,7 @@ const CreatePublication = () => {
     { title: "", pageNo: 0 },
   ]);
   const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
-  const [learnings, setLearnings] = useState([""]);
+  const [learnings, setLearnings] = useState([]);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
@@ -72,7 +72,7 @@ const CreatePublication = () => {
         setConvertedFile(fileUrl);
       }
       if (authors.length && authors[0].name) values.authors = authors;
-      if (learnings.length) values.learnings = learnings;
+      if (learnings.length && type != "FOLDER") values.learnings = learnings;
       if (tableOfContents && tableOfContents[0].title)
         values.tableOfContents = tableOfContents;
       if (folderId) values.folderId = folderId;
@@ -133,6 +133,12 @@ const CreatePublication = () => {
             inputProps={{ maxLength: 100 }}
             required
           />
+          <TextFields
+            type="text"
+            label="Publication tags (keywords)"
+            name="tags"
+            onChange={getData}
+          />
 
           {type != "FOLDER" && (
             <>
@@ -165,56 +171,6 @@ const CreatePublication = () => {
                   )}
                 </Select>
               </FormControl>
-            </>
-          )}
-
-          <TextFields
-            type="text"
-            label="Publication tags (keywords)"
-            name="tags"
-            onChange={getData}
-          />
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Description *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
-            />
-          </Box>
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Summary *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in summary here ..."
-              name="summary"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={250}
-            />
-          </Box>
-
-          {type != "FOLDER" && (
-            <>
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Table of contents
@@ -438,6 +394,45 @@ const CreatePublication = () => {
               </Stack>
             </>
           )}
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in description here ..."
+              name="description"
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={10000}
+            />
+          </Box>
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={250}
+            />
+          </Box>
+
           <ImageUpload
             setImg={setImg}
             img={img}

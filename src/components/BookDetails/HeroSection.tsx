@@ -156,7 +156,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 direction="row"
                 alignItems="center"
               >
-                {read.show && (
+                {Boolean(read.show) && (
                   <Button
                     size="large"
                     onClick={() => {
@@ -173,7 +173,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                     </Stack>
                   </Button>
                 )}
-                {download.show && (
+                {Boolean(download.show) && (
                   <Button
                     size="large"
                     disableElevation
