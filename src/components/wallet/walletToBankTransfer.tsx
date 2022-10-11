@@ -48,6 +48,7 @@ const BankTransfer = ({
   }
   async function confirmTransfer() {
     try {
+      values.amount = values.amount * 100;
       setIsLoading(true);
       await request.post({
         url: `/wallet/centre/${centreId}/bank-transfer`,
@@ -55,6 +56,7 @@ const BankTransfer = ({
       });
       toggleToast("Transaction successful");
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
