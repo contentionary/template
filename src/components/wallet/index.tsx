@@ -54,7 +54,6 @@ export default function CustomizedSteppers() {
     date: format(new Date(item.createdAt), "dd-MM-yyy"),
     ...item,
   }));
-  
   async function getTransactions(type: string) {
     try {
       setTransactionType(type);
