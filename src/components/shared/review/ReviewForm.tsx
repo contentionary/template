@@ -18,6 +18,7 @@ import UserAvatar from "@src/components/shared/avatar/UserAvatar";
 import { useMutation } from "react-query";
 import { queryClient, request } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
+import { ReviewFormInt } from "./interfaceType";
 
 const labels: { [index: string]: string } = {
   1: "Awful, not what I expected at all",
@@ -31,12 +32,11 @@ const getLabelText = (value: number) => {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 };
 
-interface ReviewFormInt {
-  id: string;
-  query?: string;
-}
-
-const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
+const ReviewForm = ({
+  id,
+  query = "reviews",
+  subscribed = false,
+}: ReviewFormInt) => {
   const theme = useTheme();
   const router = useRouter();
   const { id: queryId } = router.query;
@@ -65,6 +65,8 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
         setLoading(false);
         // Invalidate and refetch
         queryClient.invalidateQueries(["reviews", { id: queryId }]);
+        if (query === "replies")
+          queryClient.invalidateQueries(["replies", { id }]);
       },
       onError: () => {
         setLoading(false);
@@ -78,7 +80,7 @@ const ReviewForm = ({ id, query = "reviews" }: ReviewFormInt) => {
     mutation.mutate();
   };
   //
-  if (!user) return <></>;
+  if (!user || !subscribed) return <></>;
   return (
     <Stack direction="row" alignItems="flex-start" spacing={2} mb={3}>
       <UserAvatar

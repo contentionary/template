@@ -15,16 +15,21 @@ import { ReviewInt } from "@src/utils/interface";
 
 interface ReviewListInterface {
   publicationId: string;
+  auth: {
+    isCentreManager: boolean;
+    isPublicationSubscriber: boolean;
+    isCentreSubscriber: boolean;
+  };
 }
 
-const ReviewList = ({ publicationId }: ReviewListInterface) => {
+const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
   const [openReply, setOpenReply] = useState<string>("");
   //
   const { isLoading, isError, data } = useQuery(
     ["reviews", { id: publicationId }],
     async () => {
       return await request.get({
-        url: `/reviews/${publicationId}`,
+        url: `/reviews/${publicationId}?orderBy=date&order=asc`,
       });
     }
   );
@@ -58,7 +63,11 @@ const ReviewList = ({ publicationId }: ReviewListInterface) => {
 
   return (
     <Fragment>
-      <ReviewForm id={publicationId} query={"reviews"} />
+      <ReviewForm
+        query={"reviews"}
+        id={publicationId}
+        subscribed={auth.isPublicationSubscriber}
+      />
       <List dense>
         {data?.data?.reviews.map((review: ReviewInt) => (
           <Fragment key={`${review.id}-review-list`}>
@@ -66,6 +75,7 @@ const ReviewList = ({ publicationId }: ReviewListInterface) => {
               reply={false}
               review={review}
               openReply={openReply}
+              subscribed={auth.isPublicationSubscriber}
               handleToggleReply={handleToggleReply}
             />
             <Collapse
@@ -75,7 +85,7 @@ const ReviewList = ({ publicationId }: ReviewListInterface) => {
             >
               {openReply === review.id && review.replyCount && (
                 <Fragment>
-                  <ReplyList reviewId={review.id} />
+                  <ReplyList auth={auth} reviewId={review.id} />
                 </Fragment>
               )}
             </Collapse>

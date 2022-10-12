@@ -9,12 +9,12 @@ import ReviewList from "./ReviewList";
 // interface, styles and utils
 import { BookDetailsPageFunc } from "./interfaceType";
 
-const BookReview: BookDetailsPageFunc = ({ publication }) => {
+const BookReview: BookDetailsPageFunc = (props) => {
   //
   return (
     <Fragment>
-      {publication.allowReview ? (
-        <ReviewList publicationId={publication.id} />
+      {props.publication.allowReview ? (
+        <ReviewList auth={props.auth} publicationId={props.publication.id} />
       ) : (
         <Box flexDirection="column" display="flex" alignItems="center">
           <ReviewClosedIcon style={{ fontSize: 100 }} />
