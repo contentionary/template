@@ -91,6 +91,30 @@ const ReviewForm = (props: ReviewFormInt) => {
       },
     }
   );
+  // edit mutation
+  const editMutation = useMutation(
+    async () => {
+      return await request.patch({
+        url: `/review/${id}`,
+        data: { comment, rating },
+      });
+    },
+    {
+      onSuccess: () => {
+        setRating(0);
+        setComment("");
+        setLoading(false);
+        cancelReplyForm && cancelReplyForm();
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["reviews", { id: queryId }]);
+        if (query === "replies")
+          queryClient.invalidateQueries(["replies", { id }]);
+      },
+      onError: () => {
+        setLoading(false);
+      },
+    }
+  );
   //
   const handleCancel = () => {
     setRating(0);
@@ -103,7 +127,7 @@ const ReviewForm = (props: ReviewFormInt) => {
     e.preventDefault();
     setLoading(true);
     if (!action || action === "create") mutation.mutate();
-    else if (action && action === "edit") return;
+    else if (action && action === "edit") editMutation.mutate();
     return;
   };
   //
