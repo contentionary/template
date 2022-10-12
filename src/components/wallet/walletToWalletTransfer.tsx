@@ -2,16 +2,17 @@ import MoveUpOutlinedIcon from "@mui/icons-material/MoveUpOutlined";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import dynamic from "next/dynamic";
+
+import ButtonComponent from "@src/components/shared/button";
+import useForm from "@src/hooks/useForm";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-
-import dynamic from "next/dynamic";
-import ButtonComponent from "@src/components/shared/button";
-import useForm from "@src/hooks/useForm";
 import { useState } from "react";
+import { MenuItem, Select } from "@mui/material";
 
 const WalletToWalletTransfer = ({
   toggleToast,
@@ -32,15 +33,13 @@ const WalletToWalletTransfer = ({
   async function confirmTransfer() {
     try {
       setIsLoading(true);
-      const { data } = await request.post({
+      const { message } = await request.post({
         url: `/wallet/centre/${centreId}/wallet-transfer`,
-        data: {
-          ...values,
-          currency: "NGN",
-        },
+        data: { ...values, amount: values.amount * 100 },
       });
-      console.log(data);
+      toggleToast(message);
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -79,7 +78,7 @@ const WalletToWalletTransfer = ({
         message={
           confirm
             ? "Confirm payment"
-            : "Kindly make sure you enter a correct USER ID"
+            : "Kindly make sure you enter a correct WALLET ID"
         }
         content={
           <Box mt={2}>
@@ -96,14 +95,23 @@ const WalletToWalletTransfer = ({
                 />
                 <TextFields
                   type="text"
-                  label="Receiver User Id"
-                  name="userId"
-                  defaultValue={values.userId}
+                  label="Receiver Wallet Id"
+                  name="receiverUserId"
+                  defaultValue={values.receiverUserId}
                   onChange={getData}
                   sx={{ width: "100%", marginTop: 3 }}
                   required
                 />
-
+                <Select
+                  name="currency"
+                  value={values.currency || "NGN"}
+                  onChange={(e) => getData(e)}
+                  sx={{ width: "100%", mt: 3 }}
+                  required
+                >
+                  <MenuItem value="USD">Dollar</MenuItem>
+                  <MenuItem value="NGN"> Naira</MenuItem>
+                </Select>
                 <div style={{ textAlign: "right", marginTop: 20 }}>
                   <ButtonComponent type="submit">
                     Wallet transfer
@@ -116,8 +124,8 @@ const WalletToWalletTransfer = ({
             ) : (
               <Box>
                 <Typography>
-                  You are sending <strong>{values.amount}</strong> to user with
-                  Id <strong>{values.userId}</strong>
+                  You are sending <strong>{values.amount}</strong> to{" "}
+                  <strong>{values.receiverUserId}</strong> wallet
                 </Typography>
 
                 <div style={{ textAlign: "right", marginTop: 20 }}>

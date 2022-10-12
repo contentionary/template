@@ -23,7 +23,7 @@ const BookContent: BookDetailsPageFunc = ({ publication, read }) => {
         <List>
           <Grid container spacing={2}>
             <Grid item md={6}>
-              {tableOfContents?.map(({ title, pageNo }) => (
+              {tableOfContents?.map(({ title, pageNo }, index) => (
                 <NextLink
                   key={`${pageNo}-overview-list`}
                   href={`${read.link}?pageNo=${pageNo}`}
@@ -32,7 +32,7 @@ const BookContent: BookDetailsPageFunc = ({ publication, read }) => {
                   <ListItemButton LinkComponent={Link}>
                     <ListItemIcon>
                       <Avatar sx={{ width: 30, height: 30, fontSize: 15 }}>
-                        {pageNo}
+                        {index + 1}
                       </Avatar>{" "}
                     </ListItemIcon>
                     <ListItemText primary={title} />

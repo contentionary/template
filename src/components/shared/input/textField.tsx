@@ -6,6 +6,7 @@ interface Props {
   sx?: object;
   inputProps?: object;
   onChange?: Function;
+  onBlur?: Function;
   name?: string;
   type?: string;
   value?: string | number;
@@ -28,6 +29,7 @@ export default function TextFields({
   required,
   hidden,
   value,
+  onBlur,
 }: Props) {
   return (
     <TextField
@@ -40,6 +42,7 @@ export default function TextFields({
       name={name}
       type={type}
       onChange={(e) => onChange && onChange(e)}
+      onBlur={(e) => onBlur && onBlur(e)}
       defaultValue={defaultValue}
       required={required}
       hidden={hidden}

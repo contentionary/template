@@ -156,11 +156,11 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                 direction="row"
                 alignItems="center"
               >
-                {read.show && (
+                {Boolean(read.show) && (
                   <Button
                     size="large"
                     onClick={() => {
-                      if (!isServerSide) window.location.href = download.link;
+                      if (!isServerSide) window.location.href = read.link;
                     }}
                     disableElevation
                     variant="contained"
@@ -173,7 +173,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                     </Stack>
                   </Button>
                 )}
-                {download.show && (
+                {Boolean(download.show) && (
                   <Button
                     size="large"
                     disableElevation
