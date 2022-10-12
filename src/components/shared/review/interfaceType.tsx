@@ -4,6 +4,9 @@ export interface ReviewFormInt {
   id: string;
   query?: string;
   subscribed: boolean;
+  action?: "create" | "edit" | undefined;
+  review?: ReviewInt | undefined;
+  cancelReplyForm?: () => void;
 }
 
 export interface ReviewItemInt {

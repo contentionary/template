@@ -10,7 +10,7 @@ import Collapse from "@mui/material/Collapse";
 import Typography from "@mui/material/Typography";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-
+// import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 // icons
 import StarIcon from "@mui/icons-material/Star";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -24,17 +24,24 @@ import DropdownMenu from "@src/components/shared/dropdown/DropdownMenu";
 // style, util and interface
 import { useMutation } from "react-query";
 import useButtonStyle from "@src/styles/button";
-import { ReviewItemInt } from "./interfaceType";
+import { ReviewFormInt, ReviewItemInt } from "./interfaceType";
 import { queryClient, timeAgo, request } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
-const ReviewItem = ({
-  reply,
-  review,
-  openReply,
-  handleToggleReply,
-  subscribed = false,
-}: ReviewItemInt) => {
+const ReviewItem = (props: ReviewItemInt) => {
+  const {
+    reply,
+    review,
+    openReply,
+    handleToggleReply,
+    subscribed = false,
+  } = props;
+  const [reviewFormProps, setReviewFormProps] = useState<ReviewFormInt>({
+    subscribed,
+    id: review.id,
+    query: "replies",
+  });
+  //
   const buttonStyle = useButtonStyle();
   const [showReplyForm, setShowReplyForm] = useState(false);
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
@@ -57,8 +64,23 @@ const ReviewItem = ({
     }
   );
 
+  const cancelReplyForm = () => {
+    setReviewFormProps((prevState) => ({
+      ...prevState,
+      action: "create",
+    }));
+    setShowReplyForm(false);
+  };
+
   const handleEdit = () => {
-    alert(review.id + " edit");
+    setReviewFormProps((prevState) => ({
+      ...prevState,
+      action: "edit",
+      cancelReplyForm,
+      review,
+    }));
+    setShowReplyForm(true);
+    // alert(review.id + " edit");
   };
 
   const handleDelete = () => {
@@ -165,7 +187,7 @@ const ReviewItem = ({
           )}
         </Stack>
         <Collapse in={showReplyForm} timeout="auto" unmountOnExit>
-          <ReviewForm id={review.id} query="replies" subscribed={subscribed} />
+          <ReviewForm {...reviewFormProps} />
         </Collapse>
       </Box>
     </ListItem>

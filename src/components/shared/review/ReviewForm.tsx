@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // next component
 import { useRouter } from "next/router";
 // mui components
@@ -32,11 +32,16 @@ const getLabelText = (value: number) => {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 };
 
-const ReviewForm = ({
-  id,
-  query = "reviews",
-  subscribed = false,
-}: ReviewFormInt) => {
+const ReviewForm = (props: ReviewFormInt) => {
+  const {
+    id,
+    query = "reviews",
+    action,
+    review,
+    subscribed = false,
+    cancelReplyForm,
+  } = props;
+  //
   const theme = useTheme();
   const router = useRouter();
   const { id: queryId } = router.query;
@@ -50,6 +55,19 @@ const ReviewForm = ({
   //
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user } = cachedData;
+  //
+  useEffect(() => {
+    //
+    if (action === "edit" && review) {
+      setComment(review.comment);
+      setRating(review.rating);
+    }
+    return () => {
+      setComment("");
+      setRating(0);
+    };
+  }, [action, review]);
+
   // Mutations
   const mutation = useMutation(
     async () => {
@@ -74,10 +92,19 @@ const ReviewForm = ({
     }
   );
   //
+  const handleCancel = () => {
+    setRating(0);
+    setComment("");
+    setReviewFormFocused(false);
+    if (action === "edit" && review) cancelReplyForm && cancelReplyForm();
+  };
+  //
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    mutation.mutate();
+    if (!action || action === "create") mutation.mutate();
+    else if (action && action === "edit") return;
+    return;
   };
   //
   if (!user || !subscribed) return <></>;
@@ -165,7 +192,7 @@ const ReviewForm = ({
                 variant="text"
                 color="secondary"
                 disableElevation
-                onClick={() => setReviewFormFocused(false)}
+                onClick={handleCancel}
               >
                 Cancel
               </Button>
