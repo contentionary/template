@@ -2,11 +2,11 @@ import { ReviewInt } from "@src/utils/interface";
 
 export interface ReviewFormInt {
   id: string;
-  query?: string;
   subscribed: boolean;
-  action?: "create" | "edit" | undefined;
-  review?: ReviewInt | undefined;
   cancelReplyForm?: () => void;
+  review?: ReviewInt | undefined;
+  action?: "create" | "edit" | undefined;
+  query?: "reviews" | "replies" | undefined;
 }
 
 export interface ReviewItemInt {

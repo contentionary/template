@@ -107,8 +107,10 @@ const ReviewForm = (props: ReviewFormInt) => {
         cancelReplyForm && cancelReplyForm();
         // Invalidate and refetch
         queryClient.invalidateQueries(["reviews", { id: queryId }]);
-        if (query === "replies")
-          queryClient.invalidateQueries(["replies", { id }]);
+        if (query === "replies") {
+          alert("yes 1");
+          queryClient.invalidateQueries(["replies"]);
+        }
       },
       onError: () => {
         setLoading(false);

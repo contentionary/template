@@ -68,6 +68,7 @@ const ReviewItem = (props: ReviewItemInt) => {
     setReviewFormProps((prevState) => ({
       ...prevState,
       action: "create",
+      query: "replies",
     }));
     setShowReplyForm(false);
   };
@@ -75,9 +76,10 @@ const ReviewItem = (props: ReviewItemInt) => {
   const handleEdit = () => {
     setReviewFormProps((prevState) => ({
       ...prevState,
+      review,
       action: "edit",
       cancelReplyForm,
-      review,
+      query: reply ? "replies" : "reviews",
     }));
     setShowReplyForm(true);
     // alert(review.id + " edit");
