@@ -10,7 +10,6 @@ import {
   RequestResponseInt,
   CentreProps,
 } from "@src/utils/interface";
-// import { NextRouter } from "next/router";
 import { QueryClient } from "react-query";
 import { v4 as uuid } from "uuid";
 
@@ -40,10 +39,6 @@ export const getFileKey = (file: any) => {
   const FILE_LOCATION = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
   return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
 };
-
-// export const cancelCourse = () => {
-//   Document.getElementById("create-course-form").reset();
-// };
 
 export const uploadFiles = async (file: any, setProgress: Function) => {
   try {

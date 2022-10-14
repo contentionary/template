@@ -44,8 +44,8 @@ const PublicationCard = ({
       <NextLink
         href={
           type === "FOLDER"
-            ? `/admin/publication?folderId=${id}`
-            : `/admin/publication/${id}/update?type=${type}`
+            ? `/admin/course?folderId=${id}`
+            : `/admin/course/${id}`
         }
         passHref
       >

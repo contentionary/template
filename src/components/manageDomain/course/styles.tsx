@@ -7,8 +7,6 @@ export default makeStyles({
       "inset 5px 5px 4px rgba(174, 174, 192, 0.2), inset -5px -5px 4px rgba(255, 255, 255, 0.3)",
     borderRadius: 50,
     height: 50,
-    width: 340,
-    marginBottom: 50,
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
