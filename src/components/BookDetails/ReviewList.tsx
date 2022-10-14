@@ -71,7 +71,7 @@ const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
         id={publicationId}
         subscribed={auth?.isPublicationSubscriber}
       />
-      {data?.data?.reviews ? (
+      {data?.data?.reviews?.length > 0 ? (
         <List dense>
           {data?.data?.reviews.map((review: ReviewInt) => (
             <Fragment key={`${review.id}-review-list`}>
