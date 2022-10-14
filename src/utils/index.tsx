@@ -28,7 +28,7 @@ export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
 export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
-  console.log(`\n\n\n\n================${title}\n===========`, value);
+  console.log(`\n\n================${title}\n===========`, value);
 };
 
 export const getFileKey = (file: any) => {
