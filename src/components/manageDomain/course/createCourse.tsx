@@ -14,6 +14,7 @@ import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
 import { BasePageProps } from "@src/utils/interface";
+// DO NOT IMPORT COMPONENT LIKE THIS!
 import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";

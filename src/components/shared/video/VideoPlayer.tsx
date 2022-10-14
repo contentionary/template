@@ -32,13 +32,15 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
         playerRef.current = this;
       });
     }
+  }, [options, videoRef, playerRef]);
 
+  useEffect(() => {
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose();
       }
     };
-  }, [options, videoRef, playerRef]);
+  }, []);
 
   return (
     <Box data-vjs-player className={videoPlayerStyle.mainContainer}>
