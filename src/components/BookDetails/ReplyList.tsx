@@ -10,17 +10,22 @@ import { useQuery } from "react-query";
 import { request, queryClient } from "@src/utils";
 import { ReviewInt } from "@src/utils/interface";
 
-interface ReviewListInterface {
+interface ReplyListInterface {
   reviewId: string;
+  auth: {
+    isCentreManager: boolean;
+    isPublicationSubscriber: boolean;
+    isCentreSubscriber: boolean;
+  };
 }
 
-const ReplyList = ({ reviewId }: ReviewListInterface) => {
+const ReplyList = ({ auth, reviewId }: ReplyListInterface) => {
   queryClient.invalidateQueries(["replies", { reviewId }]);
   const { isLoading, isError, data } = useQuery(
     ["replies", { id: reviewId }],
     async () =>
       await await request.get({
-        url: `/reviews/${reviewId}`,
+        url: `/reviews/${reviewId}?orderBy=date&order=asc`,
       })
   );
   //
@@ -45,11 +50,14 @@ const ReplyList = ({ reviewId }: ReviewListInterface) => {
 
   return (
     <Fragment>
-      {/* <ReviewForm /> */}
       <List dense>
         {data?.data?.reviews.map((review: ReviewInt) => (
           <Fragment key={`${review.id}-review-list`}>
-            <ReviewItem reply={true} review={review} />
+            <ReviewItem
+              reply={true}
+              review={review}
+              subscribed={auth.isPublicationSubscriber}
+            />
           </Fragment>
         ))}
       </List>
