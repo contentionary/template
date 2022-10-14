@@ -62,6 +62,7 @@ export interface RequestInt {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   token?: string;
   headers?: any;
+  isRelativeUrl?: boolean;
 }
 
 export interface PostRequestInt extends RequestInt {
@@ -188,8 +189,7 @@ export interface CourseInt {
   allowReview: boolean;
   folderContentCount: number;
   contents: CourseModuleInt[];
-  courseContentStats?: CourseContentStats;
-  // duration: string;
+  courseContentStats: CourseContentStats;
 }
 
 export interface ReviewInt {

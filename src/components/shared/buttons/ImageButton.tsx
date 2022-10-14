@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-// next components
-import Image from "next/image";
 // mui components
 import Box from "@mui/material/Box";
 import useButtonStyle from "@src/styles/button";
-import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 // component
+import ImageComponent from "@src/components/shared/image";
 // styles / interface
 import { ImageButtonFunc } from "./InterfaceType";
 
@@ -22,7 +20,7 @@ const ImageButton: ImageButtonFunc = (props) => {
       className={buttonStyle.imageButton}
     >
       <Box component="div" className="MuiImageBase-root">
-        <Image
+        <ImageComponent
           alt={alt}
           src={src}
           layout="fill"

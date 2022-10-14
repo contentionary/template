@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 //  mui components
 import Box from "@mui/material/Box";
 // type/interface and styles
-// import { VideoPlayerFunc } from "./interfaceType";
 import useVideoPlayerStyle from "@src/styles/videoPlayer";
 // video player
 import videojs from "video.js";
@@ -19,21 +18,27 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
   const playerRef = React.useRef<videojs.Player | null>(null);
 
   useEffect(() => {
-    const videoElement = videoRef.current;
+    const activePlayer = playerRef.current;
 
-    if (!videoElement) return;
+    if (activePlayer) {
+      activePlayer?.src(options.sources as any);
+    } else {
+      const videoElement = videoRef.current;
+      if (!videoElement) return;
 
-    playerRef.current = videojs(videoElement, {
-      ...options,
-    }).ready(function () {
-      // console.log('onPlayerReady', this);
-    });
+      playerRef.current = videojs(videoElement, {
+        ...options,
+      }).ready(function () {
+        playerRef.current = this;
+      });
+    }
+
     return () => {
       if (playerRef.current) {
         playerRef.current.dispose();
       }
     };
-  }, [options]);
+  }, [options, videoRef, playerRef]);
 
   return (
     <Box data-vjs-player className={videoPlayerStyle.mainContainer}>

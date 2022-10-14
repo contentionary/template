@@ -61,12 +61,12 @@ const CourseCard: CourseCardFunc = ({ course }) => {
               src={
                 type === "FOLDER"
                   ? imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
-                  : imageUrl || "/images/state/failed.svg"
+                  : imageUrl
               }
               width="100%"
               height="60%"
               layout="responsive"
-              objectFit={type === "FOLDER" ? "contain" : "cover"}
+              objectFit="cover"
               alt={name}
             />
           </Box>
