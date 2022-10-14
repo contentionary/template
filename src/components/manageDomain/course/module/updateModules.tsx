@@ -42,7 +42,9 @@ const AddModules = ({
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
-  const Loading = dynamic(() => import("@src/components/shared/loading"));
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
   async function create() {
     try {
       setIsLoading(true);
@@ -109,7 +111,7 @@ const AddModules = ({
               )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  <>Update {isLoading && <Loading />}</>
+                  Update
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}
@@ -129,6 +131,7 @@ const AddModules = ({
           showToast={toggleToast}
         />
       )}
+      <Loading value={fileLoadingProgres} open={isLoading} size={100} />
     </>
   );
 };

@@ -5,14 +5,12 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import  CloseOutlined from "@mui/icons-material/CloseOutlined";
-import  ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
-
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
-
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";

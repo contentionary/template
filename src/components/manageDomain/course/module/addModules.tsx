@@ -35,7 +35,9 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
-  const Loading = dynamic(() => import("@src/components/shared/loading"));
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
   async function create() {
     try {
       setIsLoading(true);
@@ -103,7 +105,7 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
               )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  <>Create {isLoading && <Loading size={15} sx={{marginLeft: 1}} />}</>
+                  Create
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}
@@ -123,6 +125,7 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
           showToast={toggleToast}
         />
       )}
+      <Loading value={fileLoadingProgres} open={isLoading} size={100} />
     </>
   );
 };
