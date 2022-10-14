@@ -65,14 +65,11 @@ const DetailsSection = () => {
                   variant="scrollable"
                   scrollButtons="auto"
                   allowScrollButtonsMobile
-                  aria-label="lab API tabs example"
-                  className={tabStyle.appTab}
+                  aria-label="Online course tabs"
+                  className={`${tabStyle.appTab} tab-justify-start`}
                 >
                   <Tab label="Overview" value="1" />
                   <Tab label="Course Content" value="2" />
-                  <Tab label="Course Settings" value="3" />
-                  <Tab label="Certificate Manager" value="4" />
-                  <Tab label="Subscribers" value="5" />
                   <Tab label="Reviews" value="6" />
                 </TabList>
               </Container>

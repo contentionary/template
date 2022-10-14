@@ -7,27 +7,27 @@ import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 interface Props {
   id?: string | any;
   centreId: string;
+  courseId: string;
 }
 
-const DeleteCentre = ({ id, centreId }: Props) => {
+const DeleteCentre = ({ id, centreId, courseId }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const router = useRouter();
 
   async function deleteCentre() {
     try {
       setIsLoading(true);
-      const data = await request.delete(`/centre/${centreId}/course/${id}`);
+      const data = await request.delete(
+        `/centre/${centreId}/course/${courseId}/content/${id}`
+      );
       toggleToast(data.message);
       closeDialog();
       setIsLoading(false);
-      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -37,7 +37,7 @@ const DeleteCentre = ({ id, centreId }: Props) => {
   return (
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
-        <DeleteOutline htmlColor="red" />
+        <DeleteOutline />
         Delete
       </MenuItem>
       <ConfirmDialog
@@ -45,7 +45,7 @@ const DeleteCentre = ({ id, centreId }: Props) => {
         isOpen={isOpen}
         closeDialog={closeDialog}
         action={deleteCentre}
-        message="This action means this course will no longer exist. Are you sure you want to delete this course?"
+        message="This action means this module will no longer exist. Are you sure you want to delete this module?"
       />
       {toastMessage && (
         <Toast

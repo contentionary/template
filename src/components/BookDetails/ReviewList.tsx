@@ -69,7 +69,7 @@ const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
       <ReviewForm
         query={"reviews"}
         id={publicationId}
-        subscribed={auth.isPublicationSubscriber}
+        subscribed={auth?.isPublicationSubscriber}
       />
       {data?.data?.reviews ? (
         <List dense>

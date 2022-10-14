@@ -138,7 +138,7 @@ const ReaderToolbar = ({
             Page {pageNumber} of {numPages}
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
-            {allowDownload && (
+            {Boolean(allowDownload) && (
               <>
                 <IconButton
                   title="Download book"

@@ -2,26 +2,25 @@ import React, { ChangeEvent, FormEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
+import FormControl from "@mui/material/FormControl";
+import IconButton from "@mui/material/IconButton";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { BasePageProps, PublicationCategoryInt } from "@src/utils/interface";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
-import { BasePageProps, PublicationCategoryInt } from "@src/utils/interface";
-import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 const CreatePublication = () => {

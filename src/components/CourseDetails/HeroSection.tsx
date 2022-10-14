@@ -3,7 +3,6 @@ import { useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 //
-// import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -58,7 +57,7 @@ const HeroSection = () => {
 
   let Action = {
     link: `/courses/${slug}/${id}/contents/${id}`,
-    text: "CONTINUE COURSE",
+    text: "OPEN COURSE",
   };
 
   if (!isCourseSubscriber || !isCentreManager) {

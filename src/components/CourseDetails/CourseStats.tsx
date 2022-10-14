@@ -6,49 +6,45 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 // icons
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
-import SettingsCellOutlinedIcon from "@mui/icons-material/SettingsCellOutlined";
-import AllInclusiveOutlinedIcon from "@mui/icons-material/AllInclusiveOutlined";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import OndemandVideoOutlinedIcon from "@mui/icons-material/OndemandVideoOutlined";
-import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import SubscriberIcon from "@mui/icons-material/PeopleAltOutlined";
+import AudionIcon from "@mui/icons-material/AudioFileOutlined";
+import DocumentIcon from "@mui/icons-material/DocumentScannerOutlined";
 // interface and config
 import { CourseInt } from "@src/utils/interface";
 
-const CourseStats = ({ courseContentStats }: CourseInt) => {
+const CourseStats = ({ courseContentStats, subscriberCount }: CourseInt) => {
   return (
     <Fragment>
       <Typography variant="h5">This course includes:</Typography>
       <List>
-        {courseContentStats?.videoCount && (
-          <ListItem sx={{ px: 0 }}>
-            <OndemandVideoOutlinedIcon />
-            <ListItemText
-              primary={`&nbsp; ${courseContentStats?.videoCount} on-demand videos`}
-            />
-          </ListItem>
-        )}
-        {courseContentStats?.documentCount && (
-          <ListItem sx={{ px: 0 }}>
-            <InsertDriveFileOutlinedIcon />
-            <ListItemText primary="&nbsp; 23 articles" />
-          </ListItem>
-        )}
         <ListItem sx={{ px: 0 }}>
-          <FileDownloadOutlinedIcon />
-          <ListItemText primary="&nbsp; 1 downloadable resource" />
+          <OndemandVideoOutlinedIcon />
+          <ListItemText
+            primary={`\u00A0 ${courseContentStats.videoCount} on-demand videos`}
+          />
         </ListItem>
         <ListItem sx={{ px: 0 }}>
-          <AllInclusiveOutlinedIcon />
-          <ListItemText primary="&nbsp; Full lifetime access" />
+          <DocumentIcon />
+          <ListItemText
+            primary={`\u00A0 ${
+              courseContentStats.documentCount || "No"
+            } documents`}
+          />
         </ListItem>
         <ListItem sx={{ px: 0 }}>
-          <SettingsCellOutlinedIcon />
-          <ListItemText primary="&nbsp; Access on mobile" />
+          <AudionIcon />
+          <ListItemText
+            primary={`\u00A0 ${courseContentStats.audioCount || "No"} audios`}
+          />
         </ListItem>
         <ListItem sx={{ px: 0 }}>
-          <EmojiEventsOutlinedIcon />
-          <ListItemText primary="&nbsp; Certificate of completion" />
+          <SubscriberIcon />
+          <ListItemText
+            primary={`\u00A0 ${
+              subscriberCount < 100 ? "Less than 100 " : subscriberCount
+            }  Subscribers`}
+          />
         </ListItem>
       </List>
     </Fragment>

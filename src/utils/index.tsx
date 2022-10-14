@@ -10,7 +10,6 @@ import {
   RequestResponseInt,
   CentreProps,
 } from "@src/utils/interface";
-// import { NextRouter } from "next/router";
 import { QueryClient } from "react-query";
 import { v4 as uuid } from "uuid";
 
@@ -40,10 +39,6 @@ export const getFileKey = (file: any) => {
   const FILE_LOCATION = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
   return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
 };
-
-// export const cancelCourse = () => {
-//   Document.getElementById("create-course-form").reset();
-// };
 
 export const uploadFiles = async (file: any, setProgress: Function) => {
   try {
@@ -226,11 +221,12 @@ export const request = {
     method = "GET",
     token,
     headers = {},
+    isRelativeUrl = true,
   }: GetRequestInt): Promise<RequestResponseInt> => {
     const authorization = token || cache.get("token");
     if (authorization) headers.authorization = authorization;
 
-    url = baseUrl + url;
+    url = isRelativeUrl ? baseUrl + url : url;
     const { data } = await axios({
       method,
       url,
@@ -367,7 +363,7 @@ export const getCentre = async (
         id: centre.id,
         slug: centre.slug,
         name: centre.name,
-        template: "publication" || centre.template,
+        template: centre.template,
         logo: centre.logo,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@contentionary.com",
