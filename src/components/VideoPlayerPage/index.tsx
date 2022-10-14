@@ -9,7 +9,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // app components
 import LessonListDrawer from "./LessonListDrawer";
 import LessonPlayer from "./LessonPlayer";
-import LessonDetailsSection from "./LessonDetailsSection";
+import LessonDiscussions from "./LessonDiscussions";
 // interface props, styles and config
 import useVideoPageStyle from "@src/styles/videoPage";
 import { VideoPlayerPagePageFunc } from "./interfaceType";
@@ -63,7 +63,9 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
       )}
       <Box className={`${videoPageStyle.mainContainer} ${open ? "open" : ""}`}>
         <LessonPlayer />
-        <LessonDetailsSection />
+        <Box padding={2}>
+          <LessonDiscussions />
+        </Box>
       </Box>
     </Box>
   );

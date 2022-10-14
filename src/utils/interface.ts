@@ -62,6 +62,7 @@ export interface RequestInt {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   token?: string;
   headers?: any;
+  isRelativeUrl?: boolean;
 }
 
 export interface PostRequestInt extends RequestInt {
@@ -102,6 +103,7 @@ export interface CourseContentInt {
   isModule: boolean;
   duration?: string;
   pageCount?: string;
+  description: string;
 }
 
 export interface CourseModuleInt {
@@ -112,6 +114,7 @@ export interface CourseModuleInt {
   type: "MODULE" | "CONTENT";
   format: string | null;
   isModule: boolean;
+  description: string;
   contents: Array<CourseContentInt>;
 }
 
@@ -188,8 +191,7 @@ export interface CourseInt {
   allowReview: boolean;
   folderContentCount: number;
   contents: CourseModuleInt[];
-  courseContentStats?: CourseContentStats;
-  // duration: string;
+  courseContentStats: CourseContentStats;
 }
 
 export interface ReviewInt {

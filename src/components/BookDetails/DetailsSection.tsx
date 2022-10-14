@@ -48,7 +48,7 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
                   variant="scrollable"
                   scrollButtons="auto"
                   allowScrollButtonsMobile
-                  aria-label="lab API tabs example"
+                  aria-label="Publication tab contents"
                   className={`${tabStyle.appTab} tab-justify-start`}
                 >
                   <Tab label="Abstract" value="1" />

@@ -2,13 +2,15 @@ import React, { ChangeEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { IconButton, MenuItem, Select } from "@mui/material";
-
+import IconButton from "@mui/material/IconButton";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
-
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
@@ -20,7 +22,6 @@ import {
   PublicationInt,
   PublicationChapterInt,
 } from "@src/utils/interface";
-import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
@@ -83,7 +84,7 @@ const CreatePublication = () => {
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (learnings.length) values.learnings = learnings;
+      if (learnings.length && type != "FOLDER") values.learnings = learnings;
       if (authors.length && authors[0].name) {
         values.authors = authors;
       }
@@ -154,6 +155,13 @@ const CreatePublication = () => {
             inputProps={{ maxLength: 35 }}
             required
           />
+          <TextFields
+            type="text"
+            label="Publication tags (keywords)"
+            name="tags"
+            defaultValue={publication?.tags}
+            onChange={getData}
+          />
 
           {type != "FOLDER" && (
             <>
@@ -186,59 +194,7 @@ const CreatePublication = () => {
                     </MenuItem>
                   ))}
                 </Select>
-              </Stack>
-            </>
-          )}
-          <TextFields
-            type="text"
-            label="Publication tags (keywords)"
-            name="tags"
-            defaultValue={publication?.tags}
-            onChange={getData}
-          />
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Description *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              defaultValue={publication.description}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={200}
-            />
-          </Box>
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Summary *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in summary here ..."
-              name="summary"
-              onChange={getData}
-              defaultValue={publication.summary}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={200}
-            />
-          </Box>
-
-          {type != "FOLDER" && (
-            <>
+              </Stack>{" "}
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Table of contents
@@ -487,6 +443,47 @@ const CreatePublication = () => {
               </Stack>
             </>
           )}
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in description here ..."
+              name="description"
+              onChange={getData}
+              defaultValue={publication.description}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              defaultValue={publication.summary}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={200}
+            />
+          </Box>
+
           <ImageUpload
             setImg={setImg}
             img={img}

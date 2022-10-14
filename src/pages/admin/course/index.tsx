@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
     return {
       props: {
-        pageData: { centre: centre, courses: data.courses },
+        pageData: { courses: data.courses },
         cachedData: { user, centre, token },
       },
     };
