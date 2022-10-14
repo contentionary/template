@@ -102,6 +102,7 @@ export interface CourseContentInt {
   isModule: boolean;
   duration?: string;
   pageCount?: string;
+  description: string;
 }
 
 export interface CourseModuleInt {
@@ -112,6 +113,7 @@ export interface CourseModuleInt {
   type: "MODULE" | "CONTENT";
   format: string | null;
   isModule: boolean;
+  description: string;
   contents: Array<CourseContentInt>;
 }
 

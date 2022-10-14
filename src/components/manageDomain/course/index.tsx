@@ -1,11 +1,7 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import EditOutlined from "@mui/icons-material/EditOutlined";
-import IconButton from "@mui/material/IconButton";
 
 import useStyles from "./styles";
 import NextLink from "@src/components/shared/link/btnLink";
-import Link from "@src/components/shared/link";
 
 import PublicationCard from "./courseCard";
 import Grid from "@mui/material/Grid";
@@ -14,7 +10,6 @@ import dynamic from "next/dynamic";
 import { BasePageProps, CourseInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
-import Hidden from "@mui/material/Hidden";
 
 const CourseAdmin = () => {
   const styles = useStyles();
@@ -27,7 +22,7 @@ const CourseAdmin = () => {
   };
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Delete = dynamic(() => import("./delete"));
+  const Menu = dynamic(() => import("./folderMenu"));
 
   return (
     <Box>
@@ -36,11 +31,11 @@ const CourseAdmin = () => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          flexWrap: "wrap",
-          flexDirection: { xs: "column-reverse", md: "row" },
+          mt: { xs: 5 },
+          mb: 5,
         }}
       >
-        <Box sx={{ mt: { xs: 2, md: 5 } }} className={styles.switchContainer}>
+        <Box className={styles.switchContainer}>
           <NextLink
             href={
               folderId
@@ -56,7 +51,7 @@ const CourseAdmin = () => {
             href={
               folderId
                 ? `/admin/course/create?type=Course&folderId=${folderId}`
-                : "/admin/course/create?type=Course"
+                : "/admin/course/create?type=COURSE"
             }
             disableElevation
             className={styles.createPublication}
@@ -65,43 +60,11 @@ const CourseAdmin = () => {
           </NextLink>
         </Box>
         {folderId && (
-          <Box
-            sx={{
-              display: { xs: "flex", md: "unset" },
-              justifyContent: { xs: "center" },
-              mt: { xs: 4, md: 0 },
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Box sx={{ textAlign: "center", mr: 2 }}>
-                <Link
-                  passHref
-                  href={`/admin/course/${folderId}/update?type=FOLDER`}
-                  className={styles.createFolder}
-                >
-                  <IconButton>
-                    <EditOutlined />
-                  </IconButton>
-                </Link>
-                <Hidden lgDown>
-                  <Typography variant="caption" component="div">
-                    Want to update Folder?
-                  </Typography>
-                </Hidden>
-              </Box>
-              {!courses.length && (
-                <Box sx={{ textAlign: "center" }}>
-                  <Delete centreId={cachedData.centre.id} id={folderId} />
-
-                  <Hidden lgDown>
-                    <Typography variant="caption" component="div">
-                      Want to delete Folder?
-                    </Typography>
-                  </Hidden>
-                </Box>
-              )}
-            </Box>
-          </Box>
+          <Menu
+            folderId={folderId as string}
+            courses={courses}
+            centreId={cachedData.centre.id}
+          />
         )}
       </Box>
 
@@ -120,7 +83,7 @@ const CourseAdmin = () => {
         </Grid>
       ) : (
         <Empty
-          href={`/admin/course/create?type=Course&folderId=${folderId}`}
+          href={`/admin/course/create?type=COURSE&folderId=${folderId}`}
           buttonText="Create course"
         />
       )}

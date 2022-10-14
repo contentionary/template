@@ -2,13 +2,7 @@ import React, { ChangeEvent, FormEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import {
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
@@ -24,7 +18,7 @@ import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-const CreatePublication = () => {
+const CreateCourse = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
@@ -36,11 +30,7 @@ const CreatePublication = () => {
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedFile, setConvertedFile] = useState<any>();
   const [file, setFile] = useState<Record<string, any>>();
-  const [tableOfContents, setTableOfContent] = useState([
-    { title: "", pageNo: 0 },
-  ]);
-  const [authors, setAuthors] = useState([{ name: "", imageUrl: "" }]);
-  const [learnings, setLearnings] = useState([""]);
+  const [learnings, setLearnings] = useState<any[]>([]);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
@@ -65,14 +55,14 @@ const CreatePublication = () => {
         setConvertedImage(imageUrl);
       }
       if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
-        values.fileUrl = fileUrl;
+        const fileUrl = await uploadFiles(
+          file.previewVideoUrl,
+          setFileLoadingProgress
+        );
+        values.previewVideoUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (authors.length && authors[0].name) values.authors = authors;
       if (learnings.length) values.learnings = learnings;
-      if (tableOfContents && tableOfContents[0].title)
-        values.tableOfContents = tableOfContents;
       if (folderId) values.folderId = folderId;
       values.type = type;
       convertedFile && (values.fileUrl = convertedFile);
@@ -134,178 +124,10 @@ const CreatePublication = () => {
             <>
               <TextFields
                 type="number"
-                label="Publication Price"
+                label="Course Price"
                 name="price"
                 onChange={getData}
               />
-            </>
-          )}
-
-          {/* <Box>
-            <Typography variant="subtitle1" component="div">
-              Description *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
-            />
-          </Box> */}
-
-          <Box>
-            <Typography variant="subtitle1" component="div">
-              Summary *
-            </Typography>
-            <TextArea
-              required
-              placeholder="Type in summary here ..."
-              name="summary"
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={250}
-            />
-          </Box>
-
-          {type != "FOLDER" && (
-            <>
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Table of contents
-                </Typography>
-                <Typography variant="caption" component="div">
-                  Click add more content, to add more titles and pages
-                </Typography>
-                {tableOfContents.map(({}, index) => (
-                  <Box
-                    key={`${index}-content`}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 2,
-                      mt: 1,
-                    }}
-                  >
-                    <TextFields
-                      type="text"
-                      label="Title"
-                      name="title"
-                      onChange={(e: ChangeEvent<any>) => {
-                        tableOfContents[index].title = e.target.value;
-                        setTableOfContent([...tableOfContents]);
-                      }}
-                      sx={{ width: "78%" }}
-                    />
-                    <TextFields
-                      type="number"
-                      label="Page number"
-                      name="pageNo"
-                      onChange={(e: ChangeEvent<any>) => {
-                        tableOfContents[index].pageNo = e.target.value;
-                        setTableOfContent([...tableOfContents]);
-                      }}
-                      sx={{ width: "16%" }}
-                    />
-                    <Box sx={{ width: "5%" }}>
-                      <IconButton
-                        onClick={() => {
-                          tableOfContents.splice(index, 1);
-                          setTableOfContent([...tableOfContents]);
-                        }}
-                      >
-                        <CloseOutlined htmlColor="red" />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                ))}
-
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
-                >
-                  <ButtonComponent
-                    onClick={() =>
-                      setTableOfContent([
-                        ...tableOfContents,
-                        { title: "", pageNo: 0 },
-                      ])
-                    }
-                  >
-                    Add more content
-                  </ButtonComponent>
-                </Box>
-              </Box>
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Authors
-                </Typography>
-                <Typography variant="caption" component="div">
-                  Click add more authors, to add more authors
-                </Typography>
-                {authors.map(({}, index) => (
-                  <Box
-                    key={`${index}-content`}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 2,
-                      mt: 1,
-                    }}
-                  >
-                    <TextFields
-                      type="text"
-                      label="name"
-                      name="title"
-                      onChange={(e: ChangeEvent<any>) => {
-                        authors[index].name = e.target.value;
-                        setAuthors([...authors]);
-                      }}
-                      sx={{ width: { xs: "90%", md: "78%" } }}
-                    />
-                    <Box sx={{ width: "5%" }}>
-                      <IconButton
-                        onClick={() => {
-                          authors.splice(index, 1);
-                          setAuthors([...authors]);
-                        }}
-                      >
-                        <CloseOutlined htmlColor="red" />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                ))}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "end",
-                  }}
-                >
-                  <ButtonComponent
-                    onClick={() =>
-                      setAuthors([...authors, { name: "", imageUrl: "" }])
-                    }
-                  >
-                    Add more authors
-                  </ButtonComponent>
-                </Box>
-              </Box>
-
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Learnings
@@ -359,7 +181,11 @@ const CreatePublication = () => {
                   </ButtonComponent>
                 </Box>
               </Box>
-              <TextFields type="file" name="fileUrl" onChange={getFile} />
+              <TextFields
+                type="file"
+                name="previewVideoUrl"
+                onChange={getFile}
+              />
               <Stack direction="row" spacing={3} flexWrap="wrap">
                 <CheckBox
                   label={
@@ -374,26 +200,6 @@ const CreatePublication = () => {
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
-                      Allow read
-                    </Typography>
-                  }
-                  name="allowRead"
-                  onChange={check}
-                  className={styles.checkbox}
-                />
-                <CheckBox
-                  label={
-                    <Typography variant="h6" className={styles.checkbox}>
-                      Allow download
-                    </Typography>
-                  }
-                  name="allowDownload"
-                  onChange={check}
-                  className={styles.checkbox}
-                />
-                <CheckBox
-                  label={
-                    <Typography variant="h6" className={styles.checkbox}>
                       Allow review
                     </Typography>
                   }
@@ -402,8 +208,44 @@ const CreatePublication = () => {
                   className={styles.checkbox}
                 />
               </Stack>
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Description *
+                </Typography>
+                <TextArea
+                  required
+                  placeholder="Type in description here ..."
+                  name="description"
+                  onChange={getData}
+                  style={{
+                    width: "100%",
+                    height: 120,
+                    borderRadius: 5,
+                    padding: 15,
+                  }}
+                  maxLength={10000}
+                />
+              </Box>
             </>
           )}
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={250}
+            />
+          </Box>
           <ImageUpload
             setImg={setImg}
             img={img}
@@ -418,7 +260,7 @@ const CreatePublication = () => {
             type="submit"
             sx={{ fontSize: 18 }}
           >
-            {type === "FOLDER" ? "Create folder" : "Create publication"}
+            {type === "FOLDER" ? "Create folder" : "Create course"}
           </ButtonComponent>
         </Typography>
       </form>
@@ -442,4 +284,4 @@ const CreatePublication = () => {
   );
 };
 
-export default CreatePublication;
+export default CreateCourse;

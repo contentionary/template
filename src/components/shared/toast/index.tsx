@@ -27,7 +27,7 @@ export default function Toast({
       open={status}
       autoHideDuration={10000}
       onClose={() => showToast(false)}
-      message={<span id="message-id">{message}</span>}
+      message={<span style={{color: '#fff'}} id="message-id">{message}</span>}
       action={[
         <IconButton
           key="close"

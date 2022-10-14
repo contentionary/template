@@ -2,7 +2,11 @@ import React, { ChangeEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { IconButton, MenuItem, Select } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import  CloseOutlined from "@mui/icons-material/CloseOutlined";
+import  ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
@@ -20,7 +24,6 @@ import {
   PublicationInt,
   PublicationChapterInt,
 } from "@src/utils/interface";
-import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
