@@ -48,6 +48,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number | null }) => {
     setNumPages(numPages);
   };
+
   const changePage = (offset: number) => {
     setPageNumber((prevPageNumber: number | null) => {
       let nextPage = (prevPageNumber as number) + offset;
@@ -56,6 +57,19 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
       //
       cache.set(resumptionKey, nextPage);
 
+      return nextPage;
+    });
+  };
+
+  const handlePageNumber = (value: number) => {
+    setPageNumber((prevPageNumber: number | null) => {
+      let nextPage = prevPageNumber as number;
+      if (value < 1) nextPage = 1;
+      else if (value > Number(numPages)) nextPage = Number(numPages);
+      else nextPage = value;
+      //
+      cache.set(resumptionKey, nextPage);
+      //
       return nextPage;
     });
   };
@@ -126,6 +140,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
               nextPage={nextPage}
               pageNumber={pageNumber}
               previousPage={previousPage}
+              setPageNumber={handlePageNumber}
               allowDownload={allowDownload}
               share={() => openDialog()}
               closeBook={closeBook}
@@ -160,6 +175,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
               nextPage={nextPage}
               pageNumber={pageNumber}
               previousPage={previousPage}
+              setPageNumber={handlePageNumber}
             />
           </Document>
         </Stack>
@@ -172,6 +188,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
         numPages={numPages}
         pageNumber={pageNumber}
         previousPage={previousPage}
+        setPageNumber={handlePageNumber}
         allowDownload={allowDownload}
         share={() => openDialog()}
         closeBook={closeBook}
