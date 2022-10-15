@@ -13,6 +13,7 @@ export interface ReaderToolbarInt {
   zoomOut: () => void;
   nextPage: () => void;
   previousPage: () => void;
+  setPageNumber: (value: number) => void;
 }
 
 export declare type ReaderToolbarFunc = (

@@ -5,6 +5,11 @@ export const appGradient = `linear-gradient(92.54deg, ${
   theme.palette.primary.main
 } -14.34%, ${"#DDA333"} 98.84%)`;
 
+export const appShadow = {
+  small: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+  main: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+};
+
 export default makeStyles({
   "@keyframes scroll-x": {
     from: {
@@ -67,10 +72,10 @@ export default makeStyles({
     background: appGradient,
   },
   paperShadow: {
-    boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+    boxShadow: appShadow.small,
   },
   paperShadowSm: {
-    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+    boxShadow: appShadow.main,
   },
   textGradient: {
     background: appGradient,
@@ -93,7 +98,7 @@ export default makeStyles({
       maxWidth: 576,
       borderRadius: "8px",
       backgroundColor: "#FFFFFF",
-      boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+      boxShadow: appShadow.small,
     },
   },
   modalStyle: {

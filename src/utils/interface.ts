@@ -197,6 +197,7 @@ export interface CourseInt {
 export interface ReviewInt {
   id: string;
   userId: string;
+  contentId: string;
   comment: string;
   rating: number;
   replyCount: number;

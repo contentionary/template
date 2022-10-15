@@ -1,4 +1,6 @@
 import { makeStyles } from "@mui/styles";
+import { appShadow } from "./index";
+import grey from "@mui/material/colors/grey";
 
 const pdfStyle = makeStyles({
   pdfPage: {
@@ -7,19 +9,28 @@ const pdfStyle = makeStyles({
       margin: 0,
       "& .react-pdf__Document": {
         display: "flex",
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
         alignItems: "center",
         position: "relative",
         flexDirection: "column",
-        background: "#525659;",
+        background: grey[200],
       },
       "& .react-pdf__Page": {
-        maxWidth: "calc(100% - 2em)",
-        marginTop: "2rem",
-        marginBottom: "2rem",
+        // maxWidth: "calc(100% - 2em)",
+        width: "100%",
+        height: "100%",
+        overflow: "auto",
+        display: "inline-grid",
+        placeItems: "center",
         userSelect: "none",
         "& canvas": {
-          maxWidth: "100%",
-          height: "auto !important",
+          width: "auto",
+          height: "auto",
+          margin: "2rem 2rem",
+          display: "inline-block",
+          boxShadow: appShadow.small,
         },
         "&.prevPage": {
           position: "absolute !important",
