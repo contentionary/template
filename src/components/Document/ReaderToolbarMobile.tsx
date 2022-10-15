@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 // icons
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
@@ -59,6 +60,7 @@ const ReaderToolbarMobile = ({
             <Stack direction="row" alignItems="center" spacing={1}>
               <ArrowBackOutlinedIcon fontSize="small" />
               <Typography
+                color="inherit"
                 variant="body1"
                 display={{ xs: "none", md: "inline" }}
               >
@@ -78,6 +80,7 @@ const ReaderToolbarMobile = ({
           >
             <Stack direction="row" alignItems="center" spacing={1}>
               <Typography
+                color="inherit"
                 variant="body1"
                 display={{ xs: "none", md: "inline" }}
               >

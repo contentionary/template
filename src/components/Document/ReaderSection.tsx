@@ -15,9 +15,9 @@ import ReaderToolbar from "./ReaderToolbar";
 import ReaderToolbarMobile from "./ReaderToolbarMobile";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 // styles, interface and config
-import { DocumentFunc } from "./interfaceType";
-//
 import { useDialog } from "@src/hooks";
+import { DocumentFunc } from "./interfaceType";
+import { useEventListener } from "@src/utils/hooks";
 import usePdfReaderStyle from "@src/styles/pdfReader";
 import { cache, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import SocialMediaShare from "@src/components/shared/shareContentOnMedia/share";
@@ -92,6 +92,17 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
 
   const isLoading =
     renderedPageNumber !== pageNumber || renderedScale !== scale;
+
+  const handler = ({ key }: KeyboardEventInit) => {
+    if (key === "ArrowLeft") {
+      previousPage();
+    } else if (key === "ArrowRight") {
+      nextPage();
+    }
+    return;
+  };
+
+  useEventListener("keydown", handler);
 
   return (
     <Box bgcolor={grey[100]} className={pdfStyle.pdfPage}>

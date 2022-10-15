@@ -5,12 +5,14 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 //
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useTheme } from "@mui/material/styles";
 // icons
 import ShareIcon from "@mui/icons-material/ShareOutlined";
 import CloseIcon from "@mui/icons-material/CloseOutlined";
@@ -41,6 +43,7 @@ const ReaderToolbar = ({
   // eslint-disable-next-line no-unused-vars
   setScale: (value: React.SetStateAction<number>) => void;
 }) => {
+  const theme = useTheme();
   const buttonStyle = useButtonStyle();
   const pdfStyle = usePdfReaderStyle();
 
@@ -135,7 +138,26 @@ const ReaderToolbar = ({
             color="secondary"
             display={{ xs: "none", md: "block" }}
           >
-            Page {pageNumber} of {numPages}
+            Page &nbsp;{" "}
+            {
+              <TextField
+                hiddenLabel
+                size="small"
+                type="number"
+                variant="standard"
+                id="select-doc-page"
+                defaultValue={pageNumber}
+                inputProps={{ max: numPages, min: 1 }}
+                sx={{
+                  pl: 1,
+                  width: "40px",
+                  "&:hover, &:before": {
+                    borderColor: theme.palette.divider + "!important",
+                  },
+                }}
+              />
+            }{" "}
+            of {numPages}
           </Typography>
           <Stack direction="row" alignItems="center" spacing={1}>
             {Boolean(allowDownload) && (
@@ -162,7 +184,9 @@ const ReaderToolbar = ({
             >
               <Stack direction="row" alignItems="center" spacing={1}>
                 <ArrowBackOutlinedIcon fontSize="small" />
-                <Typography variant="body1">Previous</Typography>
+                <Typography variant="body1" color="inherit">
+                  Previous
+                </Typography>
               </Stack>
             </Button>
             <Button
@@ -172,11 +196,16 @@ const ReaderToolbar = ({
               disabled={pageNumber === numPages}
               className={buttonStyle.iconTextButton}
               sx={{
-                display: { xs: "none !important", md: "block !important" },
+                display: {
+                  xs: "none !important",
+                  md: "flex !important",
+                },
               }}
             >
               <Stack direction="row" alignItems="center" spacing={1}>
-                <Typography variant="body1">Next</Typography>
+                <Typography variant="body1" color="inherit">
+                  Next
+                </Typography>
                 <ArrowForwardOutlinedIcon fontSize="small" />
               </Stack>
             </Button>
