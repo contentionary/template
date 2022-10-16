@@ -22,6 +22,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
 
     if (activePlayer) {
       activePlayer?.src(options.sources as any);
+      activePlayer?.audioOnlyMode(options.audioOnlyMode as boolean);
     } else {
       const videoElement = videoRef.current;
       if (!videoElement) return;

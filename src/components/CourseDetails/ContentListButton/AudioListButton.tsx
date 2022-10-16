@@ -23,7 +23,7 @@ const AudioListButton = ({ name, duration, slug, id, courseId }: any) => (
           Audio: {name || "Audio file"}
         </Typography>
         <Typography paragraph mb={0}>
-          {duration || "00:00"}
+          {duration || ""}
         </Typography>
       </Stack>
     </ListItemButton>
