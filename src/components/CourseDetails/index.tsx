@@ -19,7 +19,9 @@ const CourseDetailsPage = () => {
   const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}&verifyValue=${price}`;
 
   const [module] = contents;
-  const contentId = module?.id || module?.contents[0]?.id;
+  const contentId = module?.contents?.length
+    ? module?.contents[0].id
+    : module?.id;
 
   let Action = {
     link: `/courses/${slug}/${id}${contentId ? `/contents/${contentId}` : ""}`,

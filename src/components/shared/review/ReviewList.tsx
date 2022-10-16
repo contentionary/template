@@ -17,23 +17,23 @@ import { useQuery } from "react-query";
 import { ReviewInt } from "@src/utils/interface";
 
 interface ReviewListInterface {
-  publicationId: string;
+  contentId: string;
   isSubscriber: boolean;
   allowRating: boolean;
 }
 
 const ReviewList = ({
   isSubscriber,
-  publicationId,
+  contentId,
   allowRating = true,
 }: ReviewListInterface) => {
   const [openReply, setOpenReply] = useState<string>("");
   //
   const { isLoading, isError, data } = useQuery(
-    ["reviews", { id: publicationId }],
+    ["reviews", { id: contentId }],
     async () => {
       return await request.get({
-        url: `/reviews/${publicationId}?orderBy=date&order=desc`,
+        url: `/reviews/${contentId}?orderBy=date&order=desc`,
       });
     }
   );
@@ -69,7 +69,7 @@ const ReviewList = ({
     <Fragment>
       <ReviewForm
         query={"reviews"}
-        id={publicationId}
+        id={contentId}
         subscribed={isSubscriber}
         allowRating={allowRating}
       />

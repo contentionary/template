@@ -27,7 +27,7 @@ const BookReview = ({
         <ReviewList
           allowRating={allowRating}
           isSubscriber={isSubscriber}
-          publicationId={contentId}
+          contentId={contentId}
         />
       ) : (
         <Box flexDirection="column" display="flex" alignItems="center">
