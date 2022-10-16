@@ -7,7 +7,7 @@ import Router, { useRouter } from "next/router";
 import LinearProgress from "@mui/material/LinearProgress";
 // react query
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Hydrate, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 //
 import { useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
