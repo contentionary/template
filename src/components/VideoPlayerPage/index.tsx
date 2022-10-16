@@ -10,7 +10,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import LessonListDrawer from "./LessonListDrawer";
 import LessonDetails from "./LessonDetailsSection";
 import LessonPlayer from "./LessonPlayer";
-import Reader from "@src/components/Document/ReaderSection";
+import Reader from "@src/components/shared/DocumentReader";
 // interface props, styles and config
 import useVideoPageStyle from "@src/styles/videoPage";
 import { VideoPlayerPagePageFunc } from "./interfaceType";

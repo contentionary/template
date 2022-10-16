@@ -15,7 +15,7 @@ import PreviousPageIcons from "@mui/icons-material/ArrowBackOutlined";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 //
 import useMenuStyle from "@src/styles/menu";
-import { ReaderToolbarInt } from "./interfaceType";
+import { ReaderToolbarInt } from "../../Document/interfaceType";
 import useContextMenu from "@src/hooks/useContextMenu";
 
 const Menu = ({

@@ -16,7 +16,6 @@ import ReaderToolbarMobile from "./ReaderToolbarMobile";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 // styles, interface and config
 import { useDialog } from "@src/hooks";
-import { DocumentFunc } from "./interfaceType";
 import { useEventListener } from "@src/utils/hooks";
 import usePdfReaderStyle from "@src/styles/pdfReader";
 import { cache, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
