@@ -29,31 +29,18 @@ const BookDetails = ({
     show: allowRead,
     text: "READ",
   };
-  let Download = { link: FILE_DOWNLOAD_URL + fileUrl, show: allowDownload };
 
   if (auth?.isCentreManager) {
     Read.show = true;
-    Download.show = true;
   } else if (!auth?.isPublicationSubscriber) {
     Read.text = "SUBSCRIBE";
     Read.link = paymentLink;
-    Download.link = paymentLink;
   }
 
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
-      <HeroSection
-        read={Read}
-        download={Download}
-        publication={publication}
-        auth={auth}
-      />
-      <DetailsSection
-        read={Read}
-        download={Download}
-        publication={publication}
-        auth={auth}
-      />
+      <HeroSection read={Read} publication={publication} auth={auth} />
+      <DetailsSection read={Read} publication={publication} auth={auth} />
     </Box>
   );
 };

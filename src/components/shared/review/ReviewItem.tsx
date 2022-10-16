@@ -7,26 +7,29 @@ import Rating from "@mui/material/Rating";
 import MenuItem from "@mui/material/MenuItem";
 import ListItem from "@mui/material/ListItem";
 import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-// import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 // icons
 import StarIcon from "@mui/icons-material/Star";
+import CloseIcon from "@mui/icons-material/Close";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 // app components
 import ReviewForm from "./ReviewForm";
+import SnackbarComponent from "../snackerBar/SnackbarComponent";
 import UserAvatar from "@src/components/shared/avatar/UserAvatar";
 import DropdownMenu from "@src/components/shared/dropdown/DropdownMenu";
 // style, util and interface
 import { useMutation } from "react-query";
+import { AlertColor } from "@mui/material";
 import useButtonStyle from "@src/styles/button";
-import { ReviewFormInt, ReviewItemInt } from "./interfaceType";
-import { queryClient, timeAgo, request } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
+import { queryClient, timeAgo, request } from "@src/utils";
+import { ReviewFormInt, ReviewItemInt } from "./interfaceType";
 
 const ReviewItem = (props: ReviewItemInt) => {
   const {
@@ -38,28 +41,60 @@ const ReviewItem = (props: ReviewItemInt) => {
   } = props;
   const [reviewFormProps, setReviewFormProps] = useState<ReviewFormInt>({
     subscribed,
-    id: review.id,
+    id: reply ? review.contentId : review.id,
     query: "replies",
   });
   //
   const buttonStyle = useButtonStyle();
+  // alert
+  const [alertData, setAlertData] = useState<{
+    open: boolean;
+    message: string;
+    severity: AlertColor;
+  }>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  // delete modal
+  const [deleteModal, setDeleteModal] = useState<{
+    open: boolean;
+    message: string;
+  }>({
+    open: false,
+    message: "Delete your comment permanently",
+  });
+  // form loading
+  const [loading, setLoading] = useState(false);
   const [showReplyForm, setShowReplyForm] = useState(false);
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
-  // Mutations
+  //Delete Mutations
   const mutation = useMutation(
     async () => {
       return await request.delete(`/review/${review.id}`);
     },
     {
       onSuccess: () => {
+        setLoading(false);
+        setAlertData((prevState) => ({
+          ...prevState,
+          open: true,
+          message: "Review deleted",
+        }));
         // Invalidate and refetch
         queryClient.invalidateQueries(["reviews"]);
         if (reply)
-          queryClient.invalidateQueries(["replies", { id: review.id }]);
+          queryClient.invalidateQueries(["replies", { id: review.contentId }]);
       },
       onError: () => {
-        // setLoading(false);
+        setLoading(false);
+        setAlertData((prevState) => ({
+          ...prevState,
+          open: true,
+          severity: "error",
+          message: "Something went wrong, try again!",
+        }));
       },
     }
   );
@@ -73,6 +108,20 @@ const ReviewItem = (props: ReviewItemInt) => {
     setShowReplyForm(false);
   };
 
+  // toggle reply form
+  const handleReplyForm = () => {
+    if (reply) {
+      setReviewFormProps((prevState) => ({
+        ...prevState,
+        review,
+        cancelReplyForm,
+        query: "replies",
+      }));
+    }
+    setShowReplyForm(!showReplyForm);
+  };
+
+  // handle review edit
   const handleEdit = () => {
     setReviewFormProps((prevState) => ({
       ...prevState,
@@ -82,10 +131,39 @@ const ReviewItem = (props: ReviewItemInt) => {
       query: reply ? "replies" : "reviews",
     }));
     setShowReplyForm(true);
-    // alert(review.id + " edit");
   };
 
+  // close alert
+  const handleCloseAlert = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlertData((prevState) => ({ ...prevState, open: false }));
+  };
+
+  // close delete
+  const handleCloseDelete = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setDeleteModal((prevState) => ({ ...prevState, open: false }));
+  };
+
+  // handle open delete snackbar
+  const handleOpenDelete = () => {
+    setDeleteModal((prevState) => ({ ...prevState, open: true }));
+  };
+
+  // handle delete review
   const handleDelete = () => {
+    handleCloseDelete();
+    setLoading(true);
     mutation.mutate();
   };
 
@@ -115,12 +193,12 @@ const ReviewItem = (props: ReviewItemInt) => {
                 {review.firstname} {review.surname}
               </Typography>
               <Stack direction="row" spacing={1}>
-                {!reply && (
+                {!reply && review.rating > 0 && (
                   <Rating
-                    name="text-feedback"
-                    value={review.rating}
                     readOnly
                     precision={1}
+                    name="text-feedback"
+                    value={review.rating}
                     sx={{
                       "& .MuiRating-iconFilled": {
                         color: "primary.light",
@@ -139,13 +217,13 @@ const ReviewItem = (props: ReviewItemInt) => {
             <Box>
               {cachedData.user && review.userId === cachedData.user.id && (
                 <DropdownMenu title={<MoreVertIcon />}>
-                  <MenuItem onClick={handleEdit}>
+                  <MenuItem disabled={loading} onClick={handleEdit}>
                     <ListItemIcon>
                       <DriveFileRenameOutlineOutlinedIcon fontSize="small" />
                     </ListItemIcon>
                     Edit
                   </MenuItem>
-                  <MenuItem onClick={handleDelete}>
+                  <MenuItem disabled={loading} onClick={handleOpenDelete}>
                     <ListItemIcon>
                       <DeleteOutlinedIcon fontSize="small" />
                     </ListItemIcon>
@@ -164,9 +242,7 @@ const ReviewItem = (props: ReviewItemInt) => {
             <Button
               variant="text"
               color="secondary"
-              onClick={() => {
-                setShowReplyForm(!showReplyForm);
-              }}
+              onClick={handleReplyForm}
               className={buttonStyle.iconTextButton}
             >
               <Stack direction="row" alignItems="center" spacing={2}>
@@ -192,6 +268,34 @@ const ReviewItem = (props: ReviewItemInt) => {
           <ReviewForm {...reviewFormProps} />
         </Collapse>
       </Box>
+      <SnackbarComponent
+        open={alertData.open}
+        message={alertData.message}
+        keyStr="review-action-alert"
+        severity={alertData.severity}
+        handleClose={handleCloseAlert}
+      />
+      <SnackbarComponent
+        action={
+          <React.Fragment>
+            <Button color="error" size="small" onClick={handleDelete}>
+              DELETE
+            </Button>
+            <IconButton
+              color="inherit"
+              sx={{ p: 0.5 }}
+              aria-label="close"
+              onClick={handleCloseDelete}
+            >
+              <CloseIcon />
+            </IconButton>
+          </React.Fragment>
+        }
+        open={deleteModal.open}
+        message={deleteModal.message}
+        keyStr="review-delete-alert"
+        handleClose={handleCloseDelete}
+      />
     </ListItem>
   );
 };

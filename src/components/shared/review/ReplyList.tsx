@@ -12,14 +12,10 @@ import { ReviewInt } from "@src/utils/interface";
 
 interface ReplyListInterface {
   reviewId: string;
-  auth: {
-    isCentreManager: boolean;
-    isPublicationSubscriber: boolean;
-    isCentreSubscriber: boolean;
-  };
+  isSubscriber: boolean;
 }
 
-const ReplyList = ({ auth, reviewId }: ReplyListInterface) => {
+const ReplyList = ({ isSubscriber, reviewId }: ReplyListInterface) => {
   queryClient.invalidateQueries(["replies", { reviewId }]);
   const { isLoading, isError, data } = useQuery(
     ["replies", { id: reviewId }],
@@ -56,7 +52,7 @@ const ReplyList = ({ auth, reviewId }: ReplyListInterface) => {
             <ReviewItem
               reply={true}
               review={review}
-              subscribed={auth.isPublicationSubscriber}
+              subscribed={isSubscriber}
             />
           </Fragment>
         ))}

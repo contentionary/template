@@ -15,9 +15,8 @@ import ReaderToolbar from "./ReaderToolbar";
 import ReaderToolbarMobile from "./ReaderToolbarMobile";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 // styles, interface and config
-import { DocumentFunc } from "./interfaceType";
-//
 import { useDialog } from "@src/hooks";
+import { useEventListener } from "@src/utils/hooks";
 import usePdfReaderStyle from "@src/styles/pdfReader";
 import { cache, FILE_DOWNLOAD_URL, isServerSide } from "@src/utils";
 import SocialMediaShare from "@src/components/shared/shareContentOnMedia/share";
@@ -28,7 +27,13 @@ const options = {
   standardFontDataUrl: "standard_fonts/",
 };
 
-const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
+interface Props {
+  fileUrl: string;
+  allowDownload: boolean;
+  id: string;
+}
+
+const ReaderSection = ({ fileUrl = "#", allowDownload, id }: Props) => {
   const router = useRouter();
   const pdfStyle = usePdfReaderStyle();
   const resumptionKey = `${id}-last-page`;
@@ -48,6 +53,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number | null }) => {
     setNumPages(numPages);
   };
+
   const changePage = (offset: number) => {
     setPageNumber((prevPageNumber: number | null) => {
       let nextPage = (prevPageNumber as number) + offset;
@@ -56,6 +62,19 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
       //
       cache.set(resumptionKey, nextPage);
 
+      return nextPage;
+    });
+  };
+
+  const handlePageNumber = (value: number) => {
+    setPageNumber((prevPageNumber: number | null) => {
+      let nextPage = prevPageNumber as number;
+      if (value < 1) nextPage = 1;
+      else if (value > Number(numPages)) nextPage = Number(numPages);
+      else nextPage = value;
+      //
+      cache.set(resumptionKey, nextPage);
+      //
       return nextPage;
     });
   };
@@ -93,6 +112,17 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
   const isLoading =
     renderedPageNumber !== pageNumber || renderedScale !== scale;
 
+  const handler = ({ key }: KeyboardEventInit) => {
+    if (key === "ArrowLeft") {
+      previousPage();
+    } else if (key === "ArrowRight") {
+      nextPage();
+    }
+    return;
+  };
+
+  useEventListener("keydown", handler);
+
   return (
     <Box bgcolor={grey[100]} className={pdfStyle.pdfPage}>
       <Box
@@ -115,6 +145,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
               nextPage={nextPage}
               pageNumber={pageNumber}
               previousPage={previousPage}
+              setPageNumber={handlePageNumber}
               allowDownload={allowDownload}
               share={() => openDialog()}
               closeBook={closeBook}
@@ -149,6 +180,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
               nextPage={nextPage}
               pageNumber={pageNumber}
               previousPage={previousPage}
+              setPageNumber={handlePageNumber}
             />
           </Document>
         </Stack>
@@ -161,6 +193,7 @@ const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
         numPages={numPages}
         pageNumber={pageNumber}
         previousPage={previousPage}
+        setPageNumber={handlePageNumber}
         allowDownload={allowDownload}
         share={() => openDialog()}
         closeBook={closeBook}

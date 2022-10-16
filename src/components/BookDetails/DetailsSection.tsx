@@ -10,7 +10,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 // app component
 import BookStats from "./BookStats";
-import BookReview from "./BookReview";
+import BookReview from "@src/components/shared/review";
 import BookContent from "./BookContent";
 import BookAbstract from "./BookAbstract";
 // interface, styles and config
@@ -76,7 +76,14 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
                     value="6"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <BookReview {...props} />
+                    <BookReview
+                      isSubscriber={Boolean(
+                        props.auth.isCentreManager ||
+                          props.auth.isPublicationSubscriber
+                      )}
+                      contentId={props.publication.id}
+                      allowReview={props.publication.allowReview}
+                    />
                   </TabPanel>
                 </Grid>
                 <Grid item xs={12} md={4} xl={3}>

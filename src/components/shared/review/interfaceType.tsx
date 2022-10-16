@@ -3,6 +3,7 @@ import { ReviewInt } from "@src/utils/interface";
 export interface ReviewFormInt {
   id: string;
   subscribed: boolean;
+  allowRating?: boolean;
   cancelReplyForm?: () => void;
   review?: ReviewInt | undefined;
   action?: "create" | "edit" | undefined;

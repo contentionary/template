@@ -6,12 +6,14 @@ import Container from "@mui/material/Container";
 import useVideoPageStyle from "@src/styles/videoPage";
 // app components
 import VideoPlayer from "@src/components/shared/video/VideoPlayer";
-import { queryClient } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+import { CourseContentInt } from "@src/utils/interface";
 
-const LessonPlayer = () => {
+const LessonPlayer = ({
+  courseContent,
+}: {
+  courseContent: CourseContentInt;
+}) => {
   const videoPageStyle = useVideoPageStyle();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const videoJsOptions = {
     autoplay: true,
@@ -19,7 +21,7 @@ const LessonPlayer = () => {
     fill: true,
     sources: [
       {
-        src: pageData.courseContent.fileUrl,
+        src: courseContent.fileUrl,
       },
     ],
   };

@@ -104,6 +104,7 @@ export interface CourseContentInt {
   duration?: string;
   pageCount?: string;
   description: string;
+  fileUrl: string;
 }
 
 export interface CourseModuleInt {
@@ -168,7 +169,7 @@ interface CourseContentStats {
   documentCount: number;
 }
 export interface CourseInt {
-  id?: string;
+  id: string;
   name: string;
   price: number;
   slug: string;
@@ -197,6 +198,7 @@ export interface CourseInt {
 export interface ReviewInt {
   id: string;
   userId: string;
+  contentId: string;
   comment: string;
   rating: number;
   replyCount: number;
@@ -232,9 +234,15 @@ export interface CourseListInt {
   limit: number;
 }
 
-export declare type CourseDetailsPageFunc = (
-  courseDetails: CourseInt
-) => JSX.Element;
+export declare type CourseDetailsPageFunc = (props: {
+  courseDetails: CourseInt;
+  action: {
+    link: string;
+    text: string;
+    redirectUrl: string;
+  };
+  isSubscriber: boolean;
+}) => JSX.Element;
 
 export interface UserInt {
   id: string;
