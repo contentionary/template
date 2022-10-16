@@ -16,9 +16,10 @@ const LessonPlayer = ({
   const videoPageStyle = useVideoPageStyle();
 
   const videoJsOptions = {
-    autoplay: true,
+    autoplay: false,
     controls: true,
     fill: true,
+    audioOnlyMode: courseContent.format === "audio",
     sources: [
       {
         src: courseContent.fileUrl,

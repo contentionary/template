@@ -23,7 +23,7 @@ const DocumentListButton = ({ pageCount, name, slug, id, courseId }: any) => (
           Document: {name}
         </Typography>
         <Typography paragraph mb={0}>
-          {pageCount} pages
+          {pageCount ? `${pageCount} pages` : ""}
         </Typography>
       </Stack>
     </ListItemButton>

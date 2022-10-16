@@ -23,7 +23,7 @@ const VideoListButton = ({ name, duration, slug, id, courseId }: any) => (
           Video: {name || "Video name"}
         </Typography>
         <Typography paragraph mb={0}>
-          {duration || "00:00"}
+          {duration || ""}
         </Typography>
       </Stack>
     </ListItemButton>

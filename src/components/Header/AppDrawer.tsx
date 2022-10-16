@@ -8,14 +8,19 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
 //
-import ContentionaryLogo from "@src/assets/images/logo.png";
 import MenuBurger from "@src/assets/icons/menu-hamburger.svg";
 // interface and config
 import { AppDrawerFunc } from "./interfaceType";
+import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 const AppDrawer: AppDrawerFunc = ({ children }) => {
   const theme = useTheme();
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { centre } = cachedData;
+
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (
@@ -44,10 +49,12 @@ const AppDrawer: AppDrawerFunc = ({ children }) => {
         >
           <Box sx={{ px: 2, py: 1.5 }}>
             <Image
-              src={ContentionaryLogo}
+              src={centre.logo || DEFAULT_LOGO}
               alt="Contentionary logo"
-              width={210}
-              height={40}
+              width={60}
+              height={60}
+              style={{ borderRadius: 50 }}
+              objectFit="contain"
             />
           </Box>
           <Divider />
