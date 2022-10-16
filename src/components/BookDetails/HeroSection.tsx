@@ -27,7 +27,7 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 import useButtonStyle from "@src/styles/button";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 
-const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
+const HeroSection: BookDetailsPageFunc = ({ publication, read }) => {
   const buttonStyle = useButtonStyle();
   const { isOpen, openDialog, closeDialog } = useDialog();
 
@@ -170,24 +170,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, download }) => {
                   >
                     <Stack direction="row" alignItems="center" spacing={2}>
                       <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
-                    </Stack>
-                  </Button>
-                )}
-                {Boolean(download.show) && (
-                  <Button
-                    size="large"
-                    disableElevation
-                    onClick={() => {
-                      if (!isServerSide) window.location.href = download.link;
-                    }}
-                    // href={download.link}
-                    variant="contained"
-                    component={MuiLink}
-                    className={globalStyle.bgGradient}
-                    display={{ xs: "block", sm: "inline-block" }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                      <FileDownloadOutlinedIcon /> &nbsp; Download
                     </Stack>
                   </Button>
                 )}

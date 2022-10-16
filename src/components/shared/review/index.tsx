@@ -6,15 +6,29 @@ import Typography from "@mui/material/Typography";
 import ReviewClosedIcon from "@mui/icons-material/WarningAmberOutlined";
 // app components
 import ReviewList from "./ReviewList";
-// interface, styles and utils
-import { BookDetailsPageFunc } from "./interfaceType";
 
-const BookReview: BookDetailsPageFunc = (props) => {
+interface Props {
+  contentId: string;
+  isSubscriber: boolean;
+  allowReview: boolean;
+  allowRating?: boolean;
+}
+
+const BookReview = ({
+  contentId,
+  isSubscriber,
+  allowReview,
+  allowRating = true,
+}: Props) => {
   //
   return (
     <Fragment>
-      {props.publication.allowReview ? (
-        <ReviewList auth={props.auth} publicationId={props.publication.id} />
+      {allowReview ? (
+        <ReviewList
+          allowRating={allowRating}
+          isSubscriber={isSubscriber}
+          publicationId={contentId}
+        />
       ) : (
         <Box flexDirection="column" display="flex" alignItems="center">
           <ReviewClosedIcon style={{ fontSize: 100 }} />

@@ -18,14 +18,15 @@ import { ReviewInt } from "@src/utils/interface";
 
 interface ReviewListInterface {
   publicationId: string;
-  auth: {
-    isCentreManager: boolean;
-    isPublicationSubscriber: boolean;
-    isCentreSubscriber: boolean;
-  };
+  isSubscriber: boolean;
+  allowRating: boolean;
 }
 
-const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
+const ReviewList = ({
+  isSubscriber,
+  publicationId,
+  allowRating = true,
+}: ReviewListInterface) => {
   const [openReply, setOpenReply] = useState<string>("");
   //
   const { isLoading, isError, data } = useQuery(
@@ -69,7 +70,8 @@ const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
       <ReviewForm
         query={"reviews"}
         id={publicationId}
-        subscribed={auth?.isPublicationSubscriber}
+        subscribed={isSubscriber}
+        allowRating={allowRating}
       />
       {data?.data?.reviews?.length > 0 ? (
         <List dense>
@@ -79,7 +81,7 @@ const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
                 reply={false}
                 review={review}
                 openReply={openReply}
-                subscribed={auth.isPublicationSubscriber}
+                subscribed={isSubscriber}
                 handleToggleReply={handleToggleReply}
               />
               <Collapse
@@ -89,7 +91,10 @@ const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
               >
                 {openReply === review.id && review.replyCount && (
                   <Fragment>
-                    <ReplyList auth={auth} reviewId={review.id} />
+                    <ReplyList
+                      isSubscriber={isSubscriber}
+                      reviewId={review.id}
+                    />
                   </Fragment>
                 )}
               </Collapse>
@@ -102,7 +107,7 @@ const ReviewList = ({ auth, publicationId }: ReviewListInterface) => {
             style={{ fontSize: 100, color: "secondary.light" }}
           />
           <Typography mt={2} textAlign="center">
-            No reviews yet!
+            No reviews or discussions
           </Typography>
         </Box>
       )}

@@ -42,6 +42,7 @@ const ReviewForm = (props: ReviewFormInt) => {
     review,
     subscribed = false,
     cancelReplyForm,
+    allowRating,
   } = props;
   //
   const theme = useTheme();
@@ -224,7 +225,7 @@ const ReviewForm = (props: ReviewFormInt) => {
             alignItems={{ sx: "start", sm: "center" }}
             justifyContent={{ sx: "start", sm: "space-between" }}
           >
-            {query === "reviews" && (
+            {allowRating && query === "reviews" && (
               <Stack
                 direction="row"
                 alignItems="center"

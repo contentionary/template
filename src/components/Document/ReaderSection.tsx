@@ -28,7 +28,13 @@ const options = {
   standardFontDataUrl: "standard_fonts/",
 };
 
-const ReaderSection: DocumentFunc = ({ fileUrl = "#", allowDownload, id }) => {
+interface Props {
+  fileUrl: string;
+  allowDownload: boolean;
+  id: string;
+}
+
+const ReaderSection = ({ fileUrl = "#", allowDownload, id }: Props) => {
   const router = useRouter();
   const pdfStyle = usePdfReaderStyle();
   const resumptionKey = `${id}-last-page`;

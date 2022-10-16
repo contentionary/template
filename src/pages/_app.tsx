@@ -47,22 +47,20 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={client.current}>
-      <Hydrate state={pageProps.dehydrateState}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {pageLoading && (
-            <LinearProgress
-              sx={{
-                top: 0,
-                width: "100%",
-                position: "fixed",
-                zIndex: appTheme.zIndex.drawer + 4,
-              }}
-            />
-          )}
-          {cachedData?.centre ? <Component {...pageProps} /> : <Custom404 />}
-        </ThemeProvider>
-      </Hydrate>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {pageLoading && (
+          <LinearProgress
+            sx={{
+              top: 0,
+              width: "100%",
+              position: "fixed",
+              zIndex: appTheme.zIndex.drawer + 4,
+            }}
+          />
+        )}
+        {cachedData?.centre ? <Component {...pageProps} /> : <Custom404 />}
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
