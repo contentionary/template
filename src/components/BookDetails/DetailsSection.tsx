@@ -78,8 +78,8 @@ const DetailsSection: BookDetailsPageFunc = (props) => {
                   >
                     <BookReview
                       isSubscriber={Boolean(
-                        props.auth.isCentreManager ||
-                          props.auth.isPublicationSubscriber
+                        props.auth?.isCentreManager ||
+                          props.auth?.isPublicationSubscriber
                       )}
                       contentId={props.publication.id}
                       allowReview={props.publication.allowReview}
