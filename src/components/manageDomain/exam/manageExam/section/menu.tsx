@@ -4,12 +4,12 @@ import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import IconButton from "@mui/material/IconButton";
-import Delete from "../delete";
-import AddModules from "./addModules";
+import Delete from "../../delete";
+import AddQuestion from "./addQuestion";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
 
-export default function CustomizedMenus({
+export default function SectionMenu({
   id,
   centreId,
 }: {
@@ -33,7 +33,7 @@ export default function CustomizedMenus({
           </Link>
           <Delete id={id} centreId={centreId} />
           <Divider sx={{ my: 0.5 }} />
-          <AddModules CourseId={id} centreId={centreId} index={1} />
+          <AddQuestion examId={id} centreId={centreId} />
         </div>
       </Menus>
     </>

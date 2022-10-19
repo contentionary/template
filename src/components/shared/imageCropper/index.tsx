@@ -12,7 +12,6 @@ interface Props {
   setCroppedAreaPixels: any;
   setRotation: Function;
   rotation: number;
-  show: boolean;
   containerStyle?: object;
   controlStyle?: object;
 }
@@ -25,7 +24,6 @@ const ImageCropper = ({
   setCroppedAreaPixels,
   setRotation,
   rotation,
-  show,
   containerStyle,
   controlStyle,
 }: Props) => {
@@ -65,66 +63,64 @@ const ImageCropper = ({
           style={{ containerStyle: containerStyle }}
         />
       </div>
-      {!show && (
-        <Stack
-          sx={
-            containerStyle
-              ? controlStyle
-              : { position: "absolute", bottom: 70, left: "4%", width: "92%" }
-          }
-          direction="row"
-          spacing={2}
-        >
-          <Stack direction="row" spacing={2} sx={{ width: "45%" }}>
-            <Typography
-              style={{
-                color: "#616161",
-                fontFamily: "Poppins",
-                fontSize: 16,
-                fontWeight: 400,
-                fontStyle: "normal",
-              }}
-              variant="subtitle1"
-              component="p"
-            >
-              ZOOM
-            </Typography>
-            <Slider
-              size="small"
-              aria-label="Volume"
-              min={1}
-              max={3}
-              step={0.1}
-              value={zoom}
-              onChange={zoomImage}
-            />
-          </Stack>
-          <Stack direction="row" spacing={2} sx={{ width: "55%" }}>
-            <Typography
-              style={{
-                color: "#616161",
-                fontFamily: "Poppins",
-                fontSize: 16,
-                fontWeight: 400,
-                fontStyle: "normal",
-              }}
-              variant="subtitle1"
-              component="p"
-            >
-              ROTATION
-            </Typography>
-            <Slider
-              size="small"
-              aria-label="Volume"
-              min={0}
-              max={360}
-              step={10}
-              value={rotation}
-              onChange={rotateImage}
-            />
-          </Stack>
+      <Stack
+        sx={
+          containerStyle
+            ? controlStyle
+            : { position: "absolute", bottom: 70, left: "4%", width: "92%" }
+        }
+        direction="row"
+        spacing={2}
+      >
+        <Stack direction="row" spacing={2} sx={{ width: "45%" }}>
+          <Typography
+            style={{
+              color: "#616161",
+              fontFamily: "Poppins",
+              fontSize: 16,
+              fontWeight: 400,
+              fontStyle: "normal",
+            }}
+            variant="subtitle1"
+            component="p"
+          >
+            ZOOM
+          </Typography>
+          <Slider
+            size="small"
+            aria-label="Volume"
+            min={1}
+            max={3}
+            step={0.1}
+            value={zoom}
+            onChange={zoomImage}
+          />
         </Stack>
-      )}
+        <Stack direction="row" spacing={2} sx={{ width: "55%" }}>
+          <Typography
+            style={{
+              color: "#616161",
+              fontFamily: "Poppins",
+              fontSize: 16,
+              fontWeight: 400,
+              fontStyle: "normal",
+            }}
+            variant="subtitle1"
+            component="p"
+          >
+            ROTATION
+          </Typography>
+          <Slider
+            size="small"
+            aria-label="Volume"
+            min={0}
+            max={360}
+            step={10}
+            value={rotation}
+            onChange={rotateImage}
+          />
+        </Stack>
+      </Stack>
     </div>
   );
 };

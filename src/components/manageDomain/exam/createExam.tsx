@@ -1,8 +1,13 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
+// import IconButton from "@mui/material/IconButton";
+// import Select from "@mui/material/Select";
+// import InputLabel from "@mui/material/InputLabel";
+// import FormControl from "@mui/material/FormControl";
+// import MenuItem from "@mui/material/MenuItem";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
@@ -14,8 +19,6 @@ import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
 import { BasePageProps } from "@src/utils/interface";
-// DO NOT IMPORT COMPONENT LIKE THIS!
-import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
@@ -25,13 +28,9 @@ const CreateCourse = () => {
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check, resetValues } = useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
-  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const [progres, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
-  const [convertedFile, setConvertedFile] = useState<any>();
-  const [file, setFile] = useState<Record<string, any>>();
-  const [learnings, setLearnings] = useState<any[]>([]);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
@@ -43,9 +42,6 @@ const CreateCourse = () => {
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
-  const getFile = (e: ChangeEvent<any>) => {
-    setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
-  };
 
   async function create() {
     try {
@@ -55,24 +51,14 @@ const CreateCourse = () => {
         values.imageUrl = imageUrl;
         setConvertedImage(imageUrl);
       }
-      if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(
-          file.previewVideoUrl,
-          setFileLoadingProgress
-        );
-        values.previewVideoUrl = fileUrl;
-        setConvertedFile(fileUrl);
-      }
-      if (learnings.length) values.learnings = learnings;
       if (folderId) values.folderId = folderId;
       values.type = type;
-      convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
       const data = await request.post({
         url:
           type === "FOLDER"
-            ? `/centre/${cachedData.centre.id}/course-folder`
-            : `/centre/${cachedData.centre.id}/course`,
+            ? `/centre/${cachedData.centre.id}/exam-folder`
+            : `/centre/${cachedData.centre.id}/exam`,
         data: values,
       });
       toggleToast(data.message);
@@ -112,131 +98,109 @@ const CreateCourse = () => {
         style={{ marginTop: 40 }}
       >
         <Stack spacing={3} mt={3}>
-          <TextFields
-            type="text"
-            label="Name"
-            name="name"
-            onChange={getData}
-            inputProps={{ maxLength: 100 }}
-            required
-          />
-
+          <Box>
+            <TextFields
+              type="text"
+              label="Name"
+              name="name"
+              onChange={getData}
+              inputProps={{ maxLength: 60 }}
+              sx={{ width: "100%" }}
+              required
+            />
+            <Typography variant="body2" component="div">
+              (Not more than 60 characters)
+            </Typography>
+          </Box>
           {type != "FOLDER" && (
             <>
-              <TextFields
-                type="number"
-                label="Course Price"
-                name="price"
-                onChange={getData}
-              />
               <Box>
-                <Typography variant="subtitle1" component="div">
-                  Learnings
+                <TextFields
+                  type="number"
+                  label="Exam duration"
+                  name="duration"
+                  onChange={getData}
+                  sx={{ width: "100%" }}
+                />
+                <Typography variant="body2" component="div">
+                  Please enter number only (Duration is in Minutes).
                 </Typography>
-                <Typography variant="caption" component="div">
-                  Click add more learnings, to add more learnings
-                </Typography>
-                {learnings.map(({}, index) => (
-                  <Box
-                    key={`${index}-content`}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 2,
-                      mt: 1,
-                    }}
-                  >
-                    <TextFields
-                      type="text"
-                      label="Learnings"
-                      name="learnings"
-                      onChange={(e: ChangeEvent<any>) => {
-                        learnings[index] = e.target.value;
-                        setLearnings([...learnings]);
-                      }}
-                      sx={{ width: { xs: "90%", md: "78%" } }}
-                    />
-                    <Box sx={{ width: "5%" }}>
-                      <IconButton
-                        onClick={() => {
-                          learnings.splice(index, 1);
-                          setLearnings([...learnings]);
-                        }}
-                      >
-                        <CloseOutlined htmlColor="red" />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                ))}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "end",
-                  }}
-                >
-                  <ButtonComponent
-                    onClick={() => setLearnings([...learnings, ""])}
-                  >
-                    Add more learnings
-                  </ButtonComponent>
-                </Box>
               </Box>
-              <TextFields
-                type="file"
-                name="previewVideoUrl"
-                onChange={getFile}
-              />
+
+              {/* <FormControl fullWidth>
+                <InputLabel>Publication category</InputLabel>
+                <Select
+                  name="publicationCategoryId"
+                  value={
+                    values.publicationCategoryId ||
+                    "42b04340-d8ff-11eb-a654-8b6d560906aa"
+                  }
+                  onChange={(e) => getData(e)}
+                >
+                  {pageData.publicationCategories?.map(
+                    ({ name, id }, index: number) => (
+                      <MenuItem key={`${index}-catygory`} value={id} id={id}>
+                        {name}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+                <Typography variant="body2" component="div">Click the dropdown to select a category for your exam (None category goes to Others)</Typography>
+
+              </FormControl> */}
               <Stack direction="row" spacing={3} flexWrap="wrap">
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
-                      Show in search result
+                      Show in Search Result
                     </Typography>
                   }
-                  name="allowSearch"
+                  name="isSearchable"
                   onChange={check}
                   className={styles.checkbox}
                 />
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
-                      Allow review
+                      Private
+                    </Typography>
+                  }
+                  onChange={check}
+                  name="isPrivate"
+                  className={styles.checkbox}
+                />
+                <CheckBox
+                  label={
+                    <Typography variant="h6" className={styles.checkbox}>
+                      Allow Review
                     </Typography>
                   }
                   onChange={check}
                   name="allowReview"
                   className={styles.checkbox}
                 />
-              </Stack>
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Description *
-                </Typography>
-                <TextArea
-                  required
-                  placeholder="Type in description here ..."
-                  name="description"
-                  onChange={getData}
-                  style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
-                  maxLength={10000}
+                <CheckBox
+                  label={
+                    <Typography variant="h6" className={styles.checkbox}>
+                      Show Correction
+                    </Typography>
+                  }
+                  onChange={check}
+                  name="showCorrection"
+                  className={styles.checkbox}
                 />
-              </Box>
+              </Stack>
             </>
           )}
+
           <Box>
             <Typography variant="subtitle1" component="div">
-              Summary *
+              Description *
             </Typography>
             <TextArea
               required
-              placeholder="Type in summary here ..."
-              name="summary"
+              placeholder="Type in description here ..."
+              name="description"
               onChange={getData}
               style={{
                 width: "100%",
@@ -244,13 +208,13 @@ const CreateCourse = () => {
                 borderRadius: 5,
                 padding: 15,
               }}
-              maxLength={250}
+              maxLength={10000}
             />
           </Box>
           <ImageUpload
             setImg={setImg}
             img={img}
-            uploadText="Select and upload course logo"
+            uploadText="Select and upload exam logo"
             defaultImage=""
           />
         </Stack>
@@ -260,7 +224,7 @@ const CreateCourse = () => {
             type="submit"
             sx={{ fontSize: 18 }}
           >
-            {type === "FOLDER" ? "Create folder" : "Create course"}
+            Create
           </ButtonComponent>
         </Typography>
       </form>
@@ -278,7 +242,7 @@ const CreateCourse = () => {
         sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
         color="primary"
         size={100}
-        value={fileLoadingProgres || progres}
+        value={progress}
       />
     </Box>
   );

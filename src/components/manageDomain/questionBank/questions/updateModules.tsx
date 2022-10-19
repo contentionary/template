@@ -2,7 +2,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
+import Edit from "@mui/icons-material/Edit";
 import Dialog from "@src/components/shared/dialog";
 import Toast from "@src/components/shared/toast";
 import TextFields from "@src/components/shared/input/textField";
@@ -12,20 +12,25 @@ import TextArea from "@src/components/shared/textArea";
 
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
-import { handleError, queryClient, request, uploadFiles } from "@src/utils";
+import { handleError, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
-import { BasePageProps } from "@src/utils/interface";
+import { CourseContentInt, CourseModuleInt } from "@src/utils/interface";
 
 interface Props {
-  id?: string;
+  content?: boolean;
   centreId: string;
-  CourseId: string;
-  index: number;
+  questionBankId: string;
+  module: CourseModuleInt | CourseContentInt;
 }
 
-const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
+const AddModules = ({
+  questionBankId,
+  centreId,
+  content,
+  module,
+}: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -33,7 +38,6 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
   const [file, setFile] = useState<Record<string, any>>();
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [convertedFile, setConvertedFile] = useState<any>();
-  const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
@@ -49,21 +53,12 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
         values.fileUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
-      if (id) values.moduleId = id;
-      const data = await request.post({
-        url: id
-          ? `/centre/${centreId}/course/${CourseId}/content`
-          : `/centre/${centreId}/course/${CourseId}/module`,
+      const data = await request.patch({
+        url: `/centre/${centreId}/course/${questionBankId}/content/${module.id}`,
         data: values,
       });
-      closeDialog();
-      if (id) {
-        pageProps.pageData.modules[index].contents.push(data.data);
-      } else {
-        pageProps.pageData.modules.push(data.data);
-      }
-      queryClient.setQueryData("pageProps", { ...pageProps });
       toggleToast(data.message);
+      closeDialog();
       setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
@@ -74,11 +69,11 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
   return (
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
-        <AddCircleOutlineOutlined />
-        Add {id ? "Content" : "Modules"}
+        <Edit />
+        Update {content ? "Content" : "Modules"}
       </MenuItem>
       <Dialog
-        title={`Add course ${id ? "content" : "modules"} `}
+        title={`Update course ${content ? "content" : "modules"} `}
         isOpen={isOpen}
         closeDialog={closeDialog}
         content={
@@ -88,6 +83,7 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
                 type="text"
                 label="name"
                 name="name"
+                defaultValue={module.name}
                 onChange={getData}
                 required
               />
@@ -100,6 +96,7 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
                   placeholder="Type in description here ..."
                   name="description"
                   onChange={getData}
+                  defaultValue={module.description}
                   style={{
                     width: "100%",
                     height: 120,
@@ -109,12 +106,12 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
                   maxLength={200}
                 />
               </Box>
-              {id && (
+              {content && (
                 <TextFields type="file" name="fileUrl" onChange={getFile} />
               )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  Create here
+                  Update
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}

@@ -4,10 +4,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
-import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 
 import TextFields from "@src/components/shared/input/textField";
@@ -435,7 +435,7 @@ const CreatePublication = () => {
           <ImageUpload
             setImg={setImg}
             img={img}
-            uploadText="Select and upload centre logo"
+            uploadText="Select and upload publication logo"
             defaultImage=""
             aspect={2 / 3}
           />
