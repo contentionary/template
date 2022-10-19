@@ -4,6 +4,30 @@ export enum Gender {
   FEMALE = "Female",
 }
 
+export interface QuestionOptionInt {
+  value: JSX.Element;
+  isCorrect: boolean;
+}
+
+export interface Solution {
+ text: JSX.Element;
+ image: string;
+}
+
+export interface QuestionInt {
+  type: "objective" | "multichoice" | "boolean" | "theory";
+  question: JSX.Element;
+  options: [QuestionOptionInt];
+  answer: boolean;
+}
+
+export interface QuestionsInt {
+  question: QuestionInt;
+  solution: Solution;
+  id: string;
+  questionBankId: string;
+}
+
 export interface PluginsInt {
   name: string;
   description: string;

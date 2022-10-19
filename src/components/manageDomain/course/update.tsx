@@ -280,9 +280,8 @@ const UpdateCourse = () => {
           <ImageUpload
             setImg={setImg}
             img={img}
-            uploadText="Select and upload centre logo"
+            uploadText="Select and upload course logo"
             defaultImage={course.imageUrl}
-            aspect={2 / 3}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 25 }}>

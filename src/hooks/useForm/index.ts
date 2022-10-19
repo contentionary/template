@@ -6,7 +6,6 @@ const useForm = (submitAction: Function): UseForm => {
 
   const resetValues = (e: any) => {
     if (e) e.target.reset();
-    else alert("Operation completed successfully!");
   };
   const getData = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({

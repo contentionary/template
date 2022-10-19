@@ -1,23 +1,19 @@
 import Menus from "@src/components/shared/menu";
-import Divider from "@mui/material/Divider";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
-import AddContent from "./addModules";
 import { useMenu } from "@src/utils/hooks";
 import UpdateModules from "./updateModules";
-import { CourseModuleInt } from "@src/utils/interface";
+import { CourseContentInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({
   courseId,
   centreId,
   module,
-  index,
 }: {
   courseId: string;
   centreId: string;
-  module: CourseModuleInt;
-  index: number;
+  module: CourseContentInt;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
@@ -27,21 +23,19 @@ export default function CustomizedMenus({
         <MoreHoriz />
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
-        <div>
+        <p>
           <UpdateModules
-            courseId={courseId}
+            questionBankId={courseId}
             centreId={centreId}
             module={module}
+            content={true}
           />
-          <Delete id={module.id} centreId={centreId} courseId={courseId} />
-          <Divider sx={{ my: 0.5 }} />
-          <AddContent
+          <Delete
             id={module.id}
             centreId={centreId}
-            CourseId={courseId}
-            index={index}
+            questionBankId={courseId}
           />
-        </div>
+        </p>
       </Menus>
     </>
   );
