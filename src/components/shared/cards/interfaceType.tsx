@@ -1,4 +1,4 @@
-import { CourseInt, PublicationInt } from "@src/utils/interface";
+import { CourseInt, PublicationInt, ExamInt } from "@src/utils/interface";
 
 /* eslint-disable no-unused-vars */
 export interface CourseCardInt {
@@ -11,3 +11,5 @@ export declare type CourseCardFunc = (props: CourseCardInt) => JSX.Element;
 export declare type PublicationCardFunc = (
   props: PublicationInt
 ) => JSX.Element;
+
+export declare type ExamCardFunc = (props: { exam: ExamInt }) => JSX.Element;

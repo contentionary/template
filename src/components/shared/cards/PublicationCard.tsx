@@ -16,10 +16,10 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/PersonOutline";
 // styles and interface
-import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
+import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 
 const PublicationCard: PublicationCardFunc = ({
   slug,

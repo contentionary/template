@@ -194,6 +194,31 @@ export interface CourseInt {
   contents: CourseModuleInt[];
   courseContentStats: CourseContentStats;
 }
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
+}
 
 export interface ReviewInt {
   id: string;
@@ -228,6 +253,14 @@ export interface TemplateDataInt {
 
 export interface CourseListInt {
   courses: Array<CourseInt | CourseFolderInt>;
+  totalCount: number;
+  pageId: number;
+  pageCount: number;
+  limit: number;
+}
+
+export interface ExamListInt {
+  exams: Array<ExamInt>;
   totalCount: number;
   pageId: number;
   pageCount: number;

@@ -25,6 +25,7 @@ export const FILE_DOWNLOAD_URL =
 export const DEFAULT_LOGO = "/public/images/logo.png";
 export const BOOK_IMAGE_PLACEHOLDER = "/images/book-1.png";
 export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
+export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
@@ -363,7 +364,8 @@ export const getCentre = async (
         id: centre.id,
         slug: centre.slug,
         name: centre.name,
-        template: centre.template,
+        // template: centre.template,
+        template: "examAndCourse",
         logo: centre.logo,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@contentionary.com",
@@ -371,6 +373,7 @@ export const getCentre = async (
           centre.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
       };
 
+    console.log(centre);
     // cache.set(host, centre, context);
     if (!centre) throw new Error("Centre not found");
 
