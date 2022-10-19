@@ -9,15 +9,13 @@ import { Typography } from "@mui/material";
 
 const CourseAdmin = () => {
   const router = useRouter();
-  const { pageData, cachedData } = queryClient.getQueryData(
-    "pageProps"
-  ) as BasePageProps;
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { questionBanks } = pageData as {
     questionBanks: CourseInt[];
   };
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Menu = dynamic(() => import("./menu"));
+  // const Menu = dynamic(() => import("./menu"));
 
   return (
     <Box>
@@ -33,11 +31,11 @@ const CourseAdmin = () => {
         <Typography variant="h5" component="div">
           Question Banks
         </Typography>
-        <Menu
+        {/* <Menu
           folderId={folderId as string}
           courses={questionBanks}
           centreId={cachedData.centre.id}
-        />
+        /> */}
       </Box>
 
       {questionBanks.length ? (

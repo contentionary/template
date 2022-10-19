@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import Delete from "../delete";
-import AddQuestion from "./addQuestion";
+// import AddQuestion from "./addQuestion";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
 import ButtonComponent from "@src/components/shared/button";
@@ -32,7 +32,7 @@ export default function CustomizedMenus({
           </Link>
           <Delete id={id} centreId={centreId} />
           <Divider sx={{ my: 0.5 }} />
-          <AddQuestion CourseId={id} centreId={centreId}/>
+          {/* <AddQuestion CourseId={id} centreId={centreId}/> */}
         </div>
       </Menus>
     </>

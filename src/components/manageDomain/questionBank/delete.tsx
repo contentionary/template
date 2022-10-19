@@ -14,7 +14,7 @@ interface Props {
   centreId: string;
 }
 
-const DeleteCentre = ({ id, centreId }: Props) => {
+const DeleteCentre = ({}: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -23,7 +23,8 @@ const DeleteCentre = ({ id, centreId }: Props) => {
   async function deleteCentre() {
     try {
       setIsLoading(true);
-      const data = await request.delete(`/centre/${centreId}/question-bank/${id}`);
+      const data = await request.delete("");
+      // `/centre/${centreId}/question-bank/${id}`
       toggleToast(data.message);
       setIsLoading(false);
       closeDialog();
