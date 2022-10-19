@@ -48,7 +48,7 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
               </ListItemIcon>
             </ListItemButton>
           </NextLink>
-          <NextLink href="/courses/my-exams" passHref>
+          <NextLink href="/exams/my-exams" passHref>
             <ListItemButton>
               <ListItemIcon>
                 <ListItemText>My Exams</ListItemText>

@@ -2,16 +2,16 @@ import React from "react";
 // mui components
 import Box from "@mui/material/Box";
 // app components
-import ExamsLayout from "./ExamsLayout";
+import MyExamsLayout from "./MyExamsLayout";
 // interface
 import { ExamsPageFunc } from "../interfaceType";
 
-const ExamsPage: ExamsPageFunc = () => {
+const MyExamsPage: ExamsPageFunc = () => {
   return (
     <Box component="main" sx={{ pt: 8 }}>
-      <ExamsLayout />
+      <MyExamsLayout />
     </Box>
   );
 };
 
-export default ExamsPage;
+export default MyExamsPage;

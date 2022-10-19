@@ -106,7 +106,7 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                               My Courses
                             </Button>
                           </NextLink>
-                          <NextLink href="/courses/my-exams" passHref>
+                          <NextLink href="/exams/my-exams" passHref>
                             <Button
                               component={MuiLink}
                               sx={{ color: "secondary.light", fontSize }}

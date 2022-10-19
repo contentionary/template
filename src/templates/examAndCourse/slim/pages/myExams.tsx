@@ -1,5 +1,5 @@
 import React from "react";
-import MyCoursesPage from "@src/components/Courses/MyCourses";
+import MyExamsPage from "@src/components/Exams/MyExams";
 import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 
 const MyExams = () => {
@@ -11,7 +11,7 @@ const MyExams = () => {
       showHeader={true}
       showFooter={true}
     >
-      <MyCoursesPage />
+      <MyExamsPage />
     </ExamAndCourseWrapper>
   );
 };
