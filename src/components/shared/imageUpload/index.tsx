@@ -1,17 +1,12 @@
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import CameraAltOutlined from "@mui/icons-material/CameraAltOutlined";
+import Typography from "@mui/material/Typography";
+import UploadFileOutlined from "@mui/icons-material/UploadFileOutlined";
 import Box from "@mui/material/Box";
 import Dialog from "@src/components/shared/dialog";
 import { useDialog } from "@src/hooks";
 import TextFields from "@src/components/shared/input/textField";
 import { useState } from "react";
-import ButtonComponent from "@src/components/shared/button";
 import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
-import { CameraEnhanceOutlined } from "@mui/icons-material";
 import { ElementProps } from "@src/utils/interface";
 import Image from "@src/components/shared/image";
 
@@ -19,7 +14,6 @@ interface Props {
   img: Record<string, string>;
   setImg: Function;
   uploadText: string;
-  actionListBtnStyle?: {};
   defaultImage: string;
   height?: number;
   width?: number;
@@ -30,7 +24,6 @@ const UpdateBackground = ({
   setImg,
   img,
   uploadText,
-  actionListBtnStyle,
   defaultImage,
   aspect = 1,
 }: Props) => {
@@ -38,12 +31,10 @@ const UpdateBackground = ({
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [previewLogo, setPreviewLogo] = useState("");
   const [rotation, setRotation] = useState(0);
-  const [show, setShow] = useState(true);
-
   function preView(e: ElementProps) {
+    openDialog();
     const objectUrl = e.target.files && URL.createObjectURL(e.target.files[0]);
     objectUrl && setPreviewLogo(objectUrl);
-    setShow(false);
     return () => objectUrl && URL.revokeObjectURL(objectUrl);
   }
 
@@ -64,6 +55,13 @@ const UpdateBackground = ({
 
   return (
     <>
+      <TextFields
+        type="file"
+        id="backgroundImage"
+        name="file"
+        sx={{ display: "none" }}
+        onChange={preView}
+      />
       {img.bobImage || defaultImage ? (
         <Box
           sx={{
@@ -72,7 +70,7 @@ const UpdateBackground = ({
             justifyContent: "center",
             cursor: "pointer",
           }}
-          onClick={() => openDialog()}
+          onClick={() => selectImage()}
         >
           <Box sx={{ width: 500 }}>
             <Image
@@ -85,25 +83,38 @@ const UpdateBackground = ({
           </Box>
         </Box>
       ) : (
-        <Box sx={{ width: 300 }}>
-          <ListItem sx={{ mb: 2 }} disablePadding onClick={() => openDialog()}>
-            <ListItemButton
-              sx={actionListBtnStyle ? actionListBtnStyle : { pl: 0 }}
+        <Box>
+          <Typography variant="h6" component="div">
+            {uploadText}
+          </Typography>
+          <Box
+            onClick={() => selectImage()}
+            sx={{
+              width: 170,
+              height: 150,
+              background: "#D9D9D9",
+              borderRadius: 2,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              cursor: "pointer",
+            }}
+          >
+            <Typography
+              variant="body2"
+              component="div"
+              sx={{
+                background: "rgba(0, 0, 0, 0.6)",
+                borderRadius: 1,
+                color: "#fff",
+                padding: "5px 20px",
+              }}
             >
-              <ListItemIcon>
-                <CameraEnhanceOutlined />
-              </ListItemIcon>
-              <ListItemText
-                primaryTypographyProps={{
-                  color: "#616161",
-                  fontWeight: 400,
-                  fontSize: 14,
-                  fontStyle: "normal",
-                }}
-                primary={uploadText}
-              />
-            </ListItemButton>
-          </ListItem>
+              Choose Image
+            </Typography>
+            <UploadFileOutlined sx={{ fontSize: 100 }} htmlColor="#888888" />
+          </Box>
         </Box>
       )}
       <Dialog
@@ -112,24 +123,18 @@ const UpdateBackground = ({
         width="lg"
         closeDialog={closeDialog}
         icon={
-          <CameraAltOutlined sx={{ cursor: "pointer" }} onClick={selectImage} />
+          <UploadFileOutlined
+            sx={{ cursor: "pointer" }}
+            onClick={selectImage}
+          />
         }
         content={
           <Box
             sx={{
               width: "100%",
               height: "80vh",
-              display: show ? "flex" : "",
-              justifyContent: "center",
             }}
           >
-            <TextFields
-              type="file"
-              id="backgroundImage"
-              name="file"
-              sx={{ display: "none" }}
-              onChange={preView}
-            />
             <ImageCropper
               image={previewLogo}
               // cropSize={{
@@ -141,7 +146,6 @@ const UpdateBackground = ({
               rotation={rotation}
               setRotation={setRotation}
               setCroppedAreaPixels={setCroppedAreaPixels}
-              show={show}
               containerStyle={{
                 position: "absolute",
                 bottom: 120,
@@ -156,18 +160,6 @@ const UpdateBackground = ({
                 width: "92%",
               }}
             />
-            {show && (
-              <ButtonComponent
-                sx={{ alignSelf: "center" }}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  selectImage();
-                }}
-              >
-                Upload Logo Image
-              </ButtonComponent>
-            )}
           </Box>
         }
         btns={[
