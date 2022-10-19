@@ -5,15 +5,15 @@ import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
   BasePageProps,
-  CourseListInt,
+  ExamListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/utils";
 
-export const CentreExamContext = createContext<CourseListInt | null>(null);
+export const CentreExamContext = createContext<ExamListInt | null>(null);
 
-const ExamPage = (pageProps: BasePageProps) => {
+const ExamsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
     const ActiveTemplate =
@@ -22,7 +22,7 @@ const ExamPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate = themes[pageProps.cachedData.centre.template]("List");
+  const ActiveTemplate = themes[pageProps.cachedData.centre.template]("Exams");
 
   return <ActiveTemplate />;
 };
@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: courseList } = await request.get({
+    const { data: examList } = await request.get({
       url: `/centre/${centre.id}/exams?pageId=${pageId}${
         folderId && `&folderId=${folderId}`
       }`,
@@ -41,10 +41,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
 
     return {
-      props: { pageData: { courseList }, cachedData: { user, centre, token } },
+      props: { pageData: { examList }, cachedData: { user, centre, token } },
     };
   } catch (err) {
     return pageErrorHandler(err, user, token, centre);
   }
 };
-export default ExamPage;
+export default ExamsPage;

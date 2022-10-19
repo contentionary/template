@@ -1,7 +1,9 @@
 export type ExamAndCoursePages =
   | "Home"
-  | "List"
+  | "Exams"
+  | "Courses"
   | "Details"
+  | "MyExams"
   | "Contents"
   | "ErrorPage"
   | "MyCourses";

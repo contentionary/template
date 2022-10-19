@@ -1,5 +1,5 @@
 import CourseDetailsPage from "@src/components/CourseDetails";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
@@ -7,7 +7,7 @@ const DetailsPage = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   return (
-    <AcademyWrapper
+    <ExamAndCourseWrapper
       title={pageData.courseDetails?.name || ""}
       description={pageData.courseDetails?.description || "Online course"}
       image="/public/images/logo-icon.png"
@@ -15,7 +15,7 @@ const DetailsPage = () => {
       showFooter={true}
     >
       <CourseDetailsPage />
-    </AcademyWrapper>
+    </ExamAndCourseWrapper>
   );
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
-import CoursesPage from "@src/components/Courses/MyCourses";
+import MyCoursesPage from "@src/components/Courses/MyCourses";
 import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 
-const MyCourses = () => {
+const MyExams = () => {
   return (
     <ExamAndCourseWrapper
       title="Contentionary"
@@ -11,9 +11,9 @@ const MyCourses = () => {
       showHeader={true}
       showFooter={true}
     >
-      <CoursesPage />
+      <MyCoursesPage />
     </ExamAndCourseWrapper>
   );
 };
 
-export default MyCourses;
+export default MyExams;

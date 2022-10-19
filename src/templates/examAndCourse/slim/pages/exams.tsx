@@ -1,24 +1,24 @@
 import React from "react";
-import CoursesPage from "@src/components/Courses";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import ExamsPage from "@src/components/Exams";
+import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 
-const Courses = () => {
+const Exams = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
 
   return (
-    <AcademyWrapper
+    <ExamAndCourseWrapper
       title={`${name} Online Courses`}
       description={`${name} academy online courses and folders`}
       image={logo || DEFAULT_LOGO}
       showHeader={true}
       showFooter={true}
     >
-      <CoursesPage />
-    </AcademyWrapper>
+      <ExamsPage />
+    </ExamAndCourseWrapper>
   );
 };
 
-export default Courses;
+export default Exams;

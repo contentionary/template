@@ -93,8 +93,9 @@ const cardStyle = makeStyles({
         backgroundColor: theme.palette.primary.main,
         "&:before": {
           top: -6,
+          left: 0,
           content: "''",
-          width: "100%",
+          width: "calc(100% + 20px)",
           height: 20,
           position: "absolute",
           transformOrigin: "top",

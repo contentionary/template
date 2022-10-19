@@ -10,7 +10,7 @@ import TestimonialSection from "./TestimonialSection";
 //
 import { ExamFunc } from "./interfaceType";
 
-const Exam: ExamFunc = () => {
+const ExamsPage: ExamFunc = () => {
   return (
     <Box component="main" sx={{ pt: 8 }}>
       <HeroSection />
@@ -21,4 +21,4 @@ const Exam: ExamFunc = () => {
     </Box>
   );
 };
-export default Exam;
+export default ExamsPage;

@@ -1,9 +1,9 @@
 import PageError from "@src/components/shared/state/PageError";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 
 const ErrorPage = () => {
   return (
-    <AcademyWrapper
+    <ExamAndCourseWrapper
       title="Contentionary | Academy"
       description="Welcome to contentionary"
       image="/public/images/logo-icon.png"
@@ -11,7 +11,7 @@ const ErrorPage = () => {
       showFooter={true}
     >
       <PageError />
-    </AcademyWrapper>
+    </ExamAndCourseWrapper>
   );
 };
 
