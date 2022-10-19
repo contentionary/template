@@ -138,16 +138,6 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read }) => {
               <Typography variant="h3" component="h1">
                 {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
-              <Stack direction="row" spacing={1}>
-                <Button
-                  color="secondary"
-                  onClick={() => openDialog()}
-                  className={buttonStyle.iconTextButton}
-                >
-                  <ShareOutlinedIcon />
-                  Share
-                </Button>
-              </Stack>
               <Stack
                 mt={1}
                 spacing={2}
@@ -173,6 +163,13 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read }) => {
                     </Stack>
                   </Button>
                 )}
+
+                <Button onClick={() => openDialog()}>
+                  <Avatar variant="rounded" className={globalStyle.bgGradient}>
+                    <ShareOutlinedIcon htmlColor="white" />
+                  </Avatar>{" "}
+                  <span>&nbsp; Share publication</span>
+                </Button>
               </Stack>
             </Grid>
           </Grid>

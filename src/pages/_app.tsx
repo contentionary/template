@@ -18,7 +18,6 @@ import { theme } from "@src/styles/theme";
 import { BasePageProps } from "@src/utils/interface";
 //
 import Custom404 from "./404";
-import "@src/styles/pdfReader.css";
 
 function App({ Component, pageProps }: AppProps) {
   const route = useRouter();
