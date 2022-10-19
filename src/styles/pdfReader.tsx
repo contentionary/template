@@ -38,6 +38,9 @@ const pdfStyle = makeStyles({
         },
       },
     },
+    "@media print": {
+      display: "none",
+    },
   },
   pdfNav: {
     top: 0,
