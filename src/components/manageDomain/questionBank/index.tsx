@@ -1,10 +1,7 @@
 import Box from "@mui/material/Box";
-
-
 import PublicationCard from "./card";
 import Grid from "@mui/material/Grid";
 import dynamic from "next/dynamic";
-
 import { BasePageProps, CourseInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";

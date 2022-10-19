@@ -41,12 +41,10 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
       isCorrect: false,
     },
   ]);
-
   // const getFile = (e: ChangeEvent<any>) => {
   //   setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   // };
   const Loading = dynamic(() => import("@src/components/shared/loading"));
-
   async function create() {
     try {
       setIsLoading(true);

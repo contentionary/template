@@ -10,8 +10,8 @@ export interface QuestionOptionInt {
 }
 
 export interface Solution {
- text: JSX.Element;
- image: string;
+  text: JSX.Element;
+  image: boolean;
 }
 
 export interface QuestionInt {

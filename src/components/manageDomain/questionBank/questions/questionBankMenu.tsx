@@ -32,7 +32,7 @@ export default function CustomizedMenus({
           </Link>
           <Delete id={id} centreId={centreId} />
           <Divider sx={{ my: 0.5 }} />
-          <AddQuestion CourseId={id} centreId={centreId} index={1} />
+          <AddQuestion CourseId={id} centreId={centreId}/>
         </div>
       </Menus>
     </>

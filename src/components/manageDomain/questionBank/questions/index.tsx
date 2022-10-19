@@ -40,8 +40,10 @@ const ModulesPage = () => {
               component="div"
               key={`${index}-option`}
               sx={{ background: isCorrect ? "#000" : "" }}
-              dangerouslySetInnerHTML={{ __html: value }}
-            />
+              // dangerouslySetInnerHTML={{ __html: value }}
+            >
+              {value}
+            </Typography>
           ))}
         </>
       );
@@ -109,10 +111,12 @@ const ModulesPage = () => {
                 onClick={() => setExpanded(index)}
                 title={
                   <Typography
-                    dangerouslySetInnerHTML={{ __html: question.question }}
+                    // dangerouslySetInnerHTML={{ __html: question.question }}
                     variant="h6"
                     component="div"
-                  />
+                  >
+                    {question.question}
+                  </Typography>
                 }
                 expanded={expanded === index}
               >
@@ -130,8 +134,10 @@ const ModulesPage = () => {
                       <Typography
                         variant="body1"
                         component="div"
-                        dangerouslySetInnerHTML={{ __html: solution.text }}
-                      />
+                        // dangerouslySetInnerHTML={{ __html: solution.text }}
+                      >
+                        {solution.text}
+                      </Typography>
                     </>
                   )}
                   <Typography style={{ textAlign: "right" }}>
@@ -139,7 +145,6 @@ const ModulesPage = () => {
                       questionBankId={questionBankId as string}
                       centreId={cachedData.centre.id}
                       question={questions[index]}
-                      index={index}
                     />
                   </Typography>
                 </>
