@@ -13,85 +13,88 @@ import Link from "@mui/material/Link";
 import useCardStyle from "@src/styles/card";
 import { QuestionBankInt } from "@src/utils/interface";
 import ImageComponent from "@src/components/shared/image";
-import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import FolderCopyOutlined from "@mui/icons-material/FolderCopyOutlined";
+import dynamic from "next/dynamic";
 
 const PublicationCard = ({ name, type, id }: QuestionBankInt) => {
   const cardStyle = useCardStyle();
-
+  const Share = dynamic(() => import("./share"));
   return (
-    <Card className={cardStyle.publicationCard}>
-      <NextLink
-        href={
-          type === "FOLDER"
-            ? `/admin/question-bank?folderId=${id}&folderName=${name}`
-            : `/admin/question-bank/${id}/questions`
-        }
-        passHref
-      >
-        <CardActionArea
-          LinkComponent={Link}
-          className="MuiCourseCardActionBase-root"
+    <div style={{position: 'relative'}}>
+      <Share questionBankId={id} />
+      <Card className={cardStyle.publicationCard}>
+        <NextLink
+          href={
+            type === "FOLDER"
+              ? `/admin/question-bank?folderId=${id}&folderName=${name}`
+              : `/admin/question-bank/${id}/questions`
+          }
+          passHref
         >
-          <Box className="">
-            <ImageComponent
-              src={"/images/questionBank/questionBankImage.svg"}
-              width="100%"
-              height="60%"
-              layout="responsive"
-              objectFit={"contain"}
-              alt={name}
-            />
-          </Box>
-          <CardContent>
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                flexWrap: "nowrap",
-                alignItems: "start",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography
-                noWrap
-                gutterBottom
-                variant="h6"
-                sx={{ fontSize: 16 }}
-              >
-                {name}
-              </Typography>
-            </Stack>
-            {type === "FOLDER" ? (
-              <Typography
-                mb={0}
-                noWrap
-                display="flex"
-                variant="body2"
-                alignItems="center"
-              >
-                <FolderCopyOutlined color="primary" fontSize="inherit" /> &nbsp;
-                {/* {folderContentCount || 0} */} 0
-              </Typography>
-            ) : (
+          <CardActionArea
+            LinkComponent={Link}
+            className="MuiCourseCardActionBase-root"
+          >
+            <Box className="">
+              <ImageComponent
+                src={"/images/questionBank/questionBankImage.svg"}
+                width="100%"
+                height="60%"
+                layout="responsive"
+                objectFit={"contain"}
+                alt={name}
+              />
+            </Box>
+            <CardContent>
               <Stack
-                mt="auto"
-                spacing={1}
                 direction="row"
-                alignItems="center"
-                justifyContent="space-between"
+                spacing={1}
+                sx={{
+                  flexWrap: "nowrap",
+                  alignItems: "start",
+                  justifyContent: "space-between",
+                }}
               >
-                <Typography noWrap mb={0} variant="body2">
-                  {/* {questionCount ? kCount(questionCount) : 0} */} 0
-                  Questions
+                <Typography
+                  noWrap
+                  gutterBottom
+                  variant="h6"
+                  sx={{ fontSize: 16 }}
+                >
+                  {name}
                 </Typography>
-                <ShareOutlined fontSize="inherit" />
               </Stack>
-            )}
-          </CardContent>
-        </CardActionArea>
-      </NextLink>
-    </Card>
+              {type === "FOLDER" ? (
+                <Typography
+                  mb={0}
+                  noWrap
+                  display="flex"
+                  variant="body2"
+                  alignItems="center"
+                >
+                  <FolderCopyOutlined color="primary" fontSize="inherit" />{" "}
+                  &nbsp;
+                  {/* {folderContentCount || 0} */} 0
+                </Typography>
+              ) : (
+                <Stack
+                  mt="auto"
+                  spacing={1}
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Typography noWrap mb={0} variant="body2">
+                    {/* {questionCount ? kCount(questionCount) : 0} */} 0
+                    Questions
+                  </Typography>
+                </Stack>
+              )}
+            </CardContent>
+          </CardActionArea>
+        </NextLink>
+      </Card>
+    </div>
   );
 };
 
