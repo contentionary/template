@@ -8,6 +8,12 @@ export interface QuestionOptionInt {
   value: JSX.Element;
   isCorrect: boolean;
 }
+export interface QuestionBankInt {
+  name: string;
+  description: string;
+  id: string;
+  type: string;
+}
 
 export interface Solution {
   text: JSX.Element;
@@ -223,6 +229,32 @@ export interface CourseInt {
   folderContentCount: number;
   contents: CourseModuleInt[];
   courseContentStats: CourseContentStats;
+}
+
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
 }
 
 export interface ReviewInt {

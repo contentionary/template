@@ -8,14 +8,12 @@ import Toast from "@src/components/shared/toast";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
-// import Typography from "@mui/material";
 
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
-import dynamic from "next/dynamic";
 import { BasePageProps } from "@src/utils/interface";
 
 interface Props {
@@ -38,9 +36,6 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
-  const Loading = dynamic(
-    () => import("@src/components/shared/loading/loadingWithValue")
-  );
   async function create() {
     try {
       setIsLoading(true);
@@ -81,6 +76,8 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
         title={`Add course ${id ? "content" : "modules"} `}
         isOpen={isOpen}
         closeDialog={closeDialog}
+        value={fileLoadingProgres}
+        isLoading={isLoading}
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
@@ -114,7 +111,7 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
               )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  Create here
+                  Create
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}
@@ -134,7 +131,6 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
           showToast={toggleToast}
         />
       )}
-      <Loading value={fileLoadingProgres} open={isLoading} size={100} />
     </>
   );
 };
