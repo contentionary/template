@@ -1,4 +1,4 @@
-import { cache, isServerSide, redirect } from "@src/utils";
+import { cache, isServerSide } from "@src/utils";
 import type { GetServerSidePropsContext } from "next";
 
 const Logout = () => {
