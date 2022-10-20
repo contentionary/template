@@ -22,16 +22,8 @@ import { kCount, EXAM_FOLDER_IMAGE_PLACEHOLDER } from "@src/utils";
 import { ExamInt } from "@src/utils/interface";
 
 const ExamCard = ({ exam }: { exam: ExamInt }) => {
-  const {
-    id,
-    type,
-    slug,
-    name,
-    image,
-    description,
-    questionCount,
-    subscriberCount,
-  } = exam;
+  const { id, type, name, image, description, questionCount, subscriberCount } =
+    exam;
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
 

@@ -7,7 +7,6 @@ import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
 import { Typography } from "@mui/material";
 import Breadcrumbs from "../breadcrumbs";
-import { useEffect, useState } from "react";
 
 const CourseAdmin = () => {
   const router = useRouter();
@@ -21,10 +20,10 @@ const CourseAdmin = () => {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./menu"));
 
-  const [links, setLink] = useState([
+  const links = [
     { link: "/admin", name: "Dashboard" },
     { link: "/admin/exam", name: "Exams" },
-  ]);
+  ];
 
   return (
     <Box mt={4}>

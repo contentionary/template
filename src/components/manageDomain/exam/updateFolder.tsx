@@ -9,7 +9,7 @@ import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
 import { useState } from "react";
-import { handleError, queryClient, request, uploadFiles } from "@src/utils";
+import { handleError, queryClient, request } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";

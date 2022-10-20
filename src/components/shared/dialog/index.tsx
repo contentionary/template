@@ -5,6 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import dynamic from "next/dynamic";
 
 interface BtnsProps {
   text: string | JSX.Element;
@@ -23,6 +24,8 @@ interface Props {
   content?: JSX.Element;
   icon?: JSX.Element;
   width?: any;
+  value?: number;
+  isLoading?: boolean;
 }
 
 export default function ResponsiveDialog({
@@ -34,7 +37,12 @@ export default function ResponsiveDialog({
   content,
   icon,
   width,
+  value,
+  isLoading,
 }: Props): JSX.Element {
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/linearProgress")
+  );
   return (
     <Dialog
       fullWidth={true}
@@ -43,6 +51,7 @@ export default function ResponsiveDialog({
       onClose={() => closeDialog()}
       aria-labelledby="responsive-dialog-title"
     >
+      {isLoading && <Loading value={value} />}
       <DialogTitle
         id="responsive-dialog-title"
         sx={{ display: "flex", justifyContent: "space-between" }}
