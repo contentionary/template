@@ -20,7 +20,7 @@ const PublicationCard = ({ name, type, id }: QuestionBankInt) => {
   const cardStyle = useCardStyle();
   const Share = dynamic(() => import("./share"));
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: "relative" }}>
       <Share questionBankId={id} />
       <Card className={cardStyle.publicationCard}>
         <NextLink
