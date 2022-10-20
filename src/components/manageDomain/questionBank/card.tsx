@@ -10,20 +10,13 @@ import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import Link from "@mui/material/Link";
 // styles and interface
-import { kCount } from "@src/utils";
 import useCardStyle from "@src/styles/card";
-import { CourseInt } from "@src/utils/interface";
+import { QuestionBankInt } from "@src/utils/interface";
 import ImageComponent from "@src/components/shared/image";
 import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import FolderCopyOutlined from "@mui/icons-material/FolderCopyOutlined";
 
-const PublicationCard = ({
-  name,
-  subscriberCount,
-  type,
-  id,
-  folderContentCount,
-}: CourseInt) => {
+const PublicationCard = ({ name, type, id }: QuestionBankInt) => {
   const cardStyle = useCardStyle();
 
   return (
@@ -31,7 +24,7 @@ const PublicationCard = ({
       <NextLink
         href={
           type === "FOLDER"
-            ? `/admin/question-bank?folderId=${id}`
+            ? `/admin/question-bank?folderId=${id}&folderName=${name}`
             : `/admin/question-bank/${id}/questions`
         }
         passHref
@@ -78,7 +71,7 @@ const PublicationCard = ({
                 alignItems="center"
               >
                 <FolderCopyOutlined color="primary" fontSize="inherit" /> &nbsp;
-                {folderContentCount || 0}
+                {/* {folderContentCount || 0} */} 0
               </Typography>
             ) : (
               <Stack
@@ -89,7 +82,8 @@ const PublicationCard = ({
                 justifyContent="space-between"
               >
                 <Typography noWrap mb={0} variant="body2">
-                  {subscriberCount ? kCount(subscriberCount) : 0} Questions
+                  {/* {questionCount ? kCount(questionCount) : 0} */} 0
+                  Questions
                 </Typography>
                 <ShareOutlined fontSize="inherit" />
               </Stack>

@@ -6,7 +6,7 @@ import { BasePageProps, ExamInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
 import { Typography } from "@mui/material";
-import Breadcrumbs from "../breadcrumbs";
+import Breadcrumbs from "@src/components/shared/breadcrumbs";
 
 const CourseAdmin = () => {
   const router = useRouter();

@@ -8,6 +8,12 @@ export interface QuestionOptionInt {
   value: JSX.Element;
   isCorrect: boolean;
 }
+export interface QuestionBankInt {
+  name: string;
+  description: string;
+  id: string;
+  type: string;
+}
 
 export interface Solution {
   text: JSX.Element;
