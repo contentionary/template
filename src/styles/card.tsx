@@ -85,5 +85,25 @@ const cardStyle = makeStyles({
       ...this.defaultCard,
     };
   },
+  get examCard() {
+    return {
+      ...this.defaultCard,
+      "& .MuiCardActionArea-root .MuiCardContent-root.exam-content": {
+        position: "relative",
+        backgroundColor: theme.palette.primary.main,
+        "&:before": {
+          top: -6,
+          left: 0,
+          content: "''",
+          width: "calc(100% + 20px)",
+          height: 20,
+          position: "absolute",
+          transformOrigin: "top",
+          transform: "skew(-4deg) rotate(-2deg)",
+          backgroundColor: theme.palette.primary.main,
+        },
+      },
+    };
+  },
 });
 export default cardStyle;

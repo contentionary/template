@@ -48,12 +48,12 @@ const CreateCourse = () => {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
         const imageUrl = await uploadFiles(img.base64, setProgress);
-        values.imageUrl = imageUrl;
+        values.image = imageUrl;
         setConvertedImage(imageUrl);
       }
       if (folderId) values.folderId = folderId;
       values.type = type;
-      convertedImage && (values.imageUrl = convertedImage);
+      convertedImage && (values.image = convertedImage);
       const data = await request.post({
         url:
           type === "FOLDER"
@@ -211,12 +211,14 @@ const CreateCourse = () => {
               maxLength={10000}
             />
           </Box>
-          <ImageUpload
-            setImg={setImg}
-            img={img}
-            uploadText="Select and upload exam logo"
-            defaultImage=""
-          />
+          {type != "FOLDER" && (
+            <ImageUpload
+              setImg={setImg}
+              img={img}
+              uploadText="Select and upload exam logo"
+              defaultImage=""
+            />
+          )}
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
           <ButtonComponent

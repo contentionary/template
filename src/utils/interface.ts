@@ -218,6 +218,32 @@ export interface CourseInt {
   // duration: string;
 }
 
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
+}
+
 export interface ReviewInt {
   id: string;
   userId: string;
