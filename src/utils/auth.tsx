@@ -2,16 +2,22 @@ import { GetServerSidePropsContext } from "next";
 import { cache } from ".";
 import { UserInt } from "./interface";
 
-export const setAuth = ({
-  id,
-  firstname,
-  surname,
-  avatar,
-  status,
-  token,
-  subscribedPublications,
-  isAdmin,
-}: UserInt) => {
+export const setAuth = (
+  {
+    id,
+    firstname,
+    surname,
+    avatar,
+    status,
+    token,
+    subscribedPublications,
+    isAdmin,
+    subscribedCentres,
+    ownCentres,
+    managingCentres,
+  }: UserInt,
+  centreId: string
+) => {
   cache.set(
     "user",
     {
@@ -27,6 +33,12 @@ export const setAuth = ({
   );
 
   cache.set("token", token, true);
+  cache.set(
+    "isCentreSubscriber",
+    subscribedCentres.includes(centreId) ||
+      ownCentres.includes(centreId) ||
+      managingCentres.includes(centreId)
+  );
 };
 
 export const logout = () => {
@@ -55,7 +67,6 @@ export const Auth = {
   isCentreSubscriber: (centreId: string, user: UserInt) => {
     user = user || cache.get("user");
     const centreSubscriber = user.subscribedCentres;
-
     return centreSubscriber && centreSubscriber.includes(centreId);
   },
   isPendingSubscriber: (centreId: string, user: UserInt) => {
