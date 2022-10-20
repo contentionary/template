@@ -16,6 +16,7 @@ import { Link as MuiLink } from "@mui/material";
 // mui icons
 import Logout from "@mui/icons-material/Logout";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import CourseIcon from "@mui/icons-material/TvOutlined";
 // import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 // styles and interface
@@ -29,7 +30,7 @@ interface ProfileMenuInt {
 
 const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
   const menuStyle = useMenuStyle();
-  const { user } = cachedData;
+  const { user, centre } = cachedData;
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -112,18 +113,33 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
-                  <NextLink href="/library/my-books" passHref>
-                    <MenuItem
-                      style={{ fontSize: 18 }}
-                      component={MuiLink}
-                      onClick={handleClose}
-                    >
-                      <ListItemIcon>
-                        <BookOutlinedIcon fontSize="small" />
-                      </ListItemIcon>
-                      My Books
-                    </MenuItem>
-                  </NextLink>
+                  {centre.template === "course" ? (
+                    <NextLink href="/courses/my-courses" passHref>
+                      <MenuItem
+                        style={{ fontSize: 18 }}
+                        component={MuiLink}
+                        onClick={handleClose}
+                      >
+                        <ListItemIcon>
+                          <CourseIcon fontSize="small" />
+                        </ListItemIcon>
+                        My Courses
+                      </MenuItem>
+                    </NextLink>
+                  ) : (
+                    <NextLink href="/library/my-books" passHref>
+                      <MenuItem
+                        style={{ fontSize: 18 }}
+                        component={MuiLink}
+                        onClick={handleClose}
+                      >
+                        <ListItemIcon>
+                          <BookOutlinedIcon fontSize="small" />
+                        </ListItemIcon>
+                        My Books
+                      </MenuItem>
+                    </NextLink>
+                  )}
                   {user.isAdmin && (
                     <NextLink href={"/admin"} passHref>
                       <MenuItem component={MuiLink} onClick={handleClose}>

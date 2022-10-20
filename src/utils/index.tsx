@@ -365,6 +365,8 @@ export const getCentre = async (
         name: centre.name,
         template: centre.template,
         logo: centre.logo,
+        price: centre.price,
+        subscriptionModel: centre.subscriptionModel,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@contentionary.com",
         address:

@@ -1,12 +1,14 @@
-import { cache, redirect } from "@src/utils";
+import { cache, isServerSide, redirect } from "@src/utils";
 import type { GetServerSidePropsContext } from "next";
 
 const Logout = () => {
-  return (
-    <div>
-      <h1>....Logging you out</h1>
-    </div>
-  );
+  if (!isServerSide) {
+    cache.delete("isCentreSubscriber");
+    cache.delete("token");
+    cache.delete("user");
+
+    window.location.href = "/";
+  }
 };
 
 export const getServerSideProps = async (
@@ -15,10 +17,13 @@ export const getServerSideProps = async (
   cache.delete("user", context);
   cache.delete("token", context);
   cache.delete(context.req.headers.host as string, context);
-  return redirect("/");
 
   return {
-    props: {},
+    props: {
+      cachedData: {
+        centre: {},
+      },
+    },
   };
 };
 

@@ -4,7 +4,7 @@ import LinearProgress, {
   LinearProgressProps,
 } from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
-import { devLog, isServerSide, request } from "@src/utils";
+import { cache, isServerSide, request } from "@src/utils";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 
@@ -42,7 +42,7 @@ export default function CircularDeterminate({
 
   async function getPaymentConfirmation() {
     try {
-      const { data } =
+      const { data }: any =
         price === 0
           ? { data: { valueGiven: true } }
           : await request.get({
@@ -50,6 +50,9 @@ export default function CircularDeterminate({
             });
 
       if (data.valueGiven) {
+        if (data.purpose === "CENTRE_SUBSCRIPTION") {
+          cache.set("isCentreSubscriber", true);
+        }
         setShow(false);
         const [url] = redirectUrl.split("verifyValue");
         if (!isServerSide) window.location.href = url;

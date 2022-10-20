@@ -7,7 +7,7 @@ const BookDetailsPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { name, logo } = cachedData.centre;
+  const { name, logo, subscriptionModel } = cachedData.centre;
   const publication = pageData.publication as PublicationInt;
 
   return (
@@ -18,7 +18,11 @@ const BookDetailsPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <BookDetails publication={publication} auth={pageData.auth} />
+      <BookDetails
+        centre={cachedData.centre}
+        publication={publication}
+        auth={pageData.auth}
+      />
     </PublicationsWrapper>
   );
 };

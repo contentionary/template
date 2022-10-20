@@ -106,6 +106,8 @@ export interface CachedCentreInt {
   phoneNumber: string;
   emailAddress: string;
   address: string;
+  price: number;
+  subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
 }
 export interface BasePageProps {
   error: ErrorResponseInt;
@@ -185,6 +187,10 @@ export interface PublicationInt {
   summary: string;
   allowReview: boolean;
   publicationCategoryId: string;
+}
+
+export interface PublicationCardProps extends PublicationInt {
+  isSubscriptionCentre: boolean;
 }
 
 interface CourseContentStats {
@@ -327,6 +333,7 @@ export interface CentreProps {
   updatedAt: string;
   videoCount: number;
   websiteUrl: string;
+  subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
   template: string;
   plugins: Record<string, boolean>;
 }

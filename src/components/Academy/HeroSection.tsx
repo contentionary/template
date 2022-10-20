@@ -58,7 +58,7 @@ const HeroSection: AcademyFunc = () => {
               <Typography
                 mb={3}
                 paragraph
-                fontSize={30}
+                fontSize={25}
                 color="GrayText"
                 lineHeight={1.3}
                 maxWidth="450px"
