@@ -44,10 +44,9 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
   return (
     <>
       <Box
-        bgcolor="#FFFCF8"
         component="section"
-        className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
+        className={globalStyle.bgDustyPrimary}
       >
         {verifyValue && (
           <ConfirmPayment

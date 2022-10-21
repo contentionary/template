@@ -38,9 +38,7 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
   return (
     <Card className={cardStyle.examCard}>
       <NextLink
-        href={
-          type === "FOLDER" ? `/exams?folderId=${id}` : `/exams/${slug}/${id}`
-        }
+        href={type === "FOLDER" ? `/exams?folderId=${id}` : `/exams/${slug}`}
         passHref
       >
         <CardActionArea
