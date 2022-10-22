@@ -26,11 +26,12 @@ const Exam: ExamFunc = (props) => {
 
   return (
     <Box
+      pt={8}
       display="flex"
       component="main"
+      minHeight="100vh"
       flexDirection="column"
       justifyContent="center"
-      sx={{ pt: 8, minHeight: "100vh" }}
       className={globalStyle.bgDustyPrimary}
     >
       <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>

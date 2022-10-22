@@ -8,4 +8,5 @@ export type ExamAndCoursePages =
   | "Contents"
   | "ErrorPage"
   | "MyCourses"
+  | "StartExam"
   | "ExamDetails";
