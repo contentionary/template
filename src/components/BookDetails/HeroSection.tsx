@@ -18,21 +18,16 @@ import ImageComponent from "@src/components/shared/image";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-// import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 //
 import { useDialog } from "@src/hooks";
 import { isServerSide } from "@src/utils";
 import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
-import useButtonStyle from "@src/styles/button";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 
-const HeroSection: BookDetailsPageFunc = ({ publication, read }) => {
-  const buttonStyle = useButtonStyle();
+const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
-
-  const router = useRouter();
   const globalStyle = useGlobalStyle();
+  const router = useRouter();
   const { reference, verifyValue, price: deductedPrice } = router.query;
 
   const {
@@ -136,18 +131,12 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read }) => {
                 </Stack>
               </Stack>
               <Typography variant="h3" component="h1">
-                {price <= 0 ? "Free" : ` ₦${price}`}
+                {centre.subscriptionModel === "SUBSCRIPTION"
+                  ? ""
+                  : price <= 0
+                  ? "Free"
+                  : ` ₦${price}`}
               </Typography>
-              <Stack direction="row" spacing={1}>
-                <Button
-                  color="secondary"
-                  onClick={() => openDialog()}
-                  className={buttonStyle.iconTextButton}
-                >
-                  <ShareOutlinedIcon />
-                  Share
-                </Button>
-              </Stack>
               <Stack
                 mt={1}
                 spacing={2}
@@ -173,6 +162,13 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read }) => {
                     </Stack>
                   </Button>
                 )}
+
+                <Button onClick={() => openDialog()}>
+                  <Avatar variant="rounded" className={globalStyle.bgGradient}>
+                    <ShareOutlinedIcon htmlColor="white" />
+                  </Avatar>{" "}
+                  <span>&nbsp; Share publication</span>
+                </Button>
               </Stack>
             </Grid>
           </Grid>

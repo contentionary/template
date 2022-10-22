@@ -487,7 +487,7 @@ const CreatePublication = () => {
           <ImageUpload
             setImg={setImg}
             img={img}
-            uploadText="Select and upload centre logo"
+            uploadText="Select and upload exam logo"
             defaultImage={publication.imageUrl}
             aspect={2 / 3}
           />

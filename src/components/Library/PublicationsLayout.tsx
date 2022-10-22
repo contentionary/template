@@ -14,7 +14,9 @@ import { LibraryPageFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const PublicationsLayout: LibraryPageFunc = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
 
   return (
     <Box component="section" sx={{ pt: 2, px: { md: 6 }, pb: 8 }}>
@@ -33,7 +35,10 @@ const PublicationsLayout: LibraryPageFunc = () => {
               {pageData?.publicationData?.folder?.name ||
                 "Explore Publications"}
             </Typography>
-            <PublicationListSection pageData={pageData} />
+            <PublicationListSection
+              cachedData={cachedData}
+              pageData={pageData}
+            />
           </Grid>
         </Grid>
       </Container>

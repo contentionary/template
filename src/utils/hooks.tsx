@@ -1,4 +1,3 @@
-import { EventHandlers } from "@mui/base";
 import { useState, useEffect, useRef } from "react";
 
 // : { toastMessage: string; toggleToast: Function }

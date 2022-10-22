@@ -4,9 +4,12 @@ import { UseForm } from "./interface";
 const useForm = (submitAction: Function): UseForm => {
   const [values, setValue] = useState<any>({});
 
+  const setData = (field: string, data: string): void => {
+    values[field] = data;
+    setValue({ ...values });
+  };
   const resetValues = (e: any) => {
     if (e) e.target.reset();
-    else alert("Operation completed successfully!");
   };
   const getData = (e: ChangeEvent<HTMLInputElement>) => {
     setValue({
@@ -35,6 +38,7 @@ const useForm = (submitAction: Function): UseForm => {
     resetValues,
     getFile,
     check,
+    setData,
   };
 };
 

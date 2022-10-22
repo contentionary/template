@@ -5,23 +5,26 @@ import Box from "@mui/material/Box";
 import HeroSection from "./HeroSection";
 import DetailsSection from "./DetailsSection";
 //
-import { PublicationInt } from "@src/utils/interface";
-import { FILE_DOWNLOAD_URL, isServerSide } from "../../utils";
+import { CachedCentreInt, PublicationInt } from "@src/utils/interface";
+import { isServerSide } from "../../utils";
 
 const BookDetails = ({
   publication,
   auth,
+  centre,
 }: {
   publication: PublicationInt;
   auth: any;
+  centre: CachedCentreInt;
 }) => {
-  const { price, id, allowDownload, allowRead, fileUrl, slug } =
-    publication || {};
+  const { price, id, allowRead, slug } = publication || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = auth
     ? `
-    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
+    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${
+        centre.subscriptionModel === "SUBSCRIPTION" ? centre.price : price
+      }&currency=NGN&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {
@@ -39,8 +42,18 @@ const BookDetails = ({
 
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
-      <HeroSection read={Read} publication={publication} auth={auth} />
-      <DetailsSection read={Read} publication={publication} auth={auth} />
+      <HeroSection
+        centre={centre}
+        read={Read}
+        publication={publication}
+        auth={auth}
+      />
+      <DetailsSection
+        centre={centre}
+        read={Read}
+        publication={publication}
+        auth={auth}
+      />
     </Box>
   );
 };

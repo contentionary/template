@@ -11,7 +11,6 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
-// import { useTheme } from "@mui/material/styles";
 // app components
 import ImageComponent from "@src/components/shared/image";
 // icons and resources
@@ -22,17 +21,40 @@ import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
+import { cache, isServerSide, queryClient } from "@src/utils";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
+import { useRouter } from "next/router";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
+  const router = useRouter();
+  const { reference, verifyValue, price: deductedPrice } = router.query;
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { user } = cachedData;
+  const { user, centre } = cachedData;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
+
+  const redirectUrl = !isServerSide ? window.location.href : "";
+  const isCentreSubscriber = !isServerSide
+    ? cache.get("isCentreSubscriber")
+    : false;
+
+  const getStarted = {
+    link: "/library",
+    text: isCentreSubscriber ? "Browse Books" : "Get started",
+  };
+
+  if (!isCentreSubscriber && centre.subscriptionModel === "SUBSCRIPTION") {
+    const paymentLink = user
+      ? `
+    /payment?itemId=${centre.id}&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${centre.price}&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/login";
+    getStarted.link = paymentLink;
+    getStarted.text = `Get started for ₦${centre.price} Monthly`;
+  }
 
   return (
     <Fragment>
@@ -58,14 +80,14 @@ const HeroSection: PublicationsFunc = () => {
               <Typography
                 mb={3}
                 paragraph
-                fontSize={30}
+                fontSize={25}
                 color="GrayText"
                 lineHeight={1.3}
                 maxWidth="450px"
               >
                 {landingPageSectionOne.description}
               </Typography>
-              <NextLink href={user ? "/library" : "/login"} passHref>
+              <NextLink href={getStarted.link} passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -73,7 +95,7 @@ const HeroSection: PublicationsFunc = () => {
                   component={MuiLink}
                   className={globalStyle.bgGradient}
                 >
-                  Get Started
+                  {getStarted.text}
                 </Button>
               </NextLink>
             </Grid>
@@ -144,6 +166,13 @@ const HeroSection: PublicationsFunc = () => {
           </Grid>
         </Container>
       </Box>
+      {verifyValue && (
+        <ConfirmPayment
+          price={Number(deductedPrice)}
+          reference={reference}
+          redirectUrl={redirectUrl}
+        />
+      )}
     </Fragment>
   );
 };

@@ -75,7 +75,7 @@ const Menu = ({
             Zoom out
           </MenuItem>
           <Divider />
-          {allowDownload && (
+          {Boolean(allowDownload) && (
             <MenuItem onClick={download}>
               <ListItemIcon>
                 <FileDownloadOutlinedIcon fontSize="medium" />

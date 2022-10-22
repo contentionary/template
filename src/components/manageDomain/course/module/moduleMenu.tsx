@@ -12,10 +12,12 @@ export default function CustomizedMenus({
   courseId,
   centreId,
   module,
+  index,
 }: {
   courseId: string;
   centreId: string;
   module: CourseModuleInt;
+  index: number;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
@@ -33,7 +35,12 @@ export default function CustomizedMenus({
           />
           <Delete id={module.id} centreId={centreId} courseId={courseId} />
           <Divider sx={{ my: 0.5 }} />
-          <AddContent id={module.id} centreId={centreId} CourseId={courseId} />
+          <AddContent
+            id={module.id}
+            centreId={centreId}
+            CourseId={courseId}
+            index={index}
+          />
         </div>
       </Menus>
     </>

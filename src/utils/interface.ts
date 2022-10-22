@@ -1,7 +1,41 @@
+import { ReactNode } from "react";
 /* eslint-disable no-unused-vars */
 export enum Gender {
   MALE = "Male",
   FEMALE = "Female",
+}
+
+export interface QuestionOptionInt {
+  id: number;
+  value: ReactNode;
+  isCorrect: boolean;
+}
+export interface QuestionBankInt {
+  name: string;
+  description: string;
+  id: string;
+  type: string;
+}
+
+export interface Solution {
+  text: JSX.Element;
+  image: boolean;
+}
+
+export interface QuestionInt {
+  type: "theory" | "boolean" | "multichoice" | "objective" | "range";
+  max?: number;
+  min?: number;
+  question: ReactNode;
+  answer: ReactNode;
+  options: [QuestionOptionInt];
+}
+
+export interface QuestionsInt {
+  question: QuestionInt;
+  solution: Solution;
+  id: string;
+  questionBankId: string;
 }
 
 export interface PluginsInt {
@@ -82,6 +116,8 @@ export interface CachedCentreInt {
   phoneNumber: string;
   emailAddress: string;
   address: string;
+  price: number;
+  subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
 }
 export interface BasePageProps {
   error: ErrorResponseInt;
@@ -163,6 +199,10 @@ export interface PublicationInt {
   publicationCategoryId: string;
 }
 
+export interface PublicationCardProps extends PublicationInt {
+  isSubscriptionCentre: boolean;
+}
+
 interface CourseContentStats {
   videoCount: number;
   audioCount: number;
@@ -237,27 +277,6 @@ export interface ExamInt {
   centreSlug: string;
 }
 
-export interface QuestionInt {
-  type: "theory" | "boolean" | "multichoice" | "objective" | "range";
-  max?: number;
-  min?: number;
-  question: string;
-  answer?: string | number;
-  options?: Array<{
-    id: number;
-    value: string;
-    isCorrect: boolean;
-  }>;
-}
-
-export interface QuestionsInt {
-  id: string;
-  mark: number;
-  questionId: string;
-  question: QuestionInt;
-  duration: string;
-}
-
 export interface ExamQuestionsInt {
   cache: {
     id: string;
@@ -269,6 +288,32 @@ export interface ExamQuestionsInt {
     description: string;
     questions: Array<QuestionsInt>;
   }>;
+}
+
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
 }
 
 export interface ReviewInt {
@@ -387,6 +432,7 @@ export interface CentreProps {
   updatedAt: string;
   videoCount: number;
   websiteUrl: string;
+  subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
   template: string;
   plugins: Record<string, boolean>;
 }

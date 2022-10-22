@@ -32,6 +32,7 @@ const PublicationCard: PublicationCardFunc = ({
   type,
   id,
   folderContentCount,
+  isSubscriptionCentre,
 }) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -132,7 +133,11 @@ const PublicationCard: PublicationCardFunc = ({
                   ml={{ xs: "0 !important", sm: "auto" }}
                   textAlign={{ xs: "left", sm: "right" }}
                 >
-                  {price <= 0 ? "Free" : ` ₦${price}`}
+                  {isSubscriptionCentre
+                    ? ""
+                    : price <= 0
+                    ? "Free"
+                    : ` ₦${price}`}
                 </Typography>
               </Stack>
             )}

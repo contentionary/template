@@ -49,7 +49,6 @@ const BankTransfer = ({
   }
   async function confirmTransfer() {
     try {
-      values.amount = values.amount * 100;
       setIsLoading(true);
       await request.post({
         url: `/wallet/centre/${centreId}/bank-transfer`,

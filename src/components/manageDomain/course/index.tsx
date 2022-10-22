@@ -50,7 +50,7 @@ const CourseAdmin = () => {
           <NextLink
             href={
               folderId
-                ? `/admin/course/create?type=Course&folderId=${folderId}`
+                ? `/admin/course/create?type=COURSE&folderId=${folderId}`
                 : "/admin/course/create?type=COURSE"
             }
             disableElevation

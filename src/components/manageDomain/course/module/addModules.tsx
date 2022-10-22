@@ -8,22 +8,22 @@ import Toast from "@src/components/shared/toast";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
-// import Typography from "@mui/material";
 
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
-import { handleError, request, uploadFiles } from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
-import dynamic from "next/dynamic";
+import { BasePageProps } from "@src/utils/interface";
 
 interface Props {
   id?: string;
   centreId: string;
   CourseId: string;
+  index: number;
 }
 
-const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
+const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -31,13 +31,11 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
   const [file, setFile] = useState<Record<string, any>>();
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [convertedFile, setConvertedFile] = useState<any>();
+  const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
-  const Loading = dynamic(
-    () => import("@src/components/shared/loading/loadingWithValue")
-  );
   async function create() {
     try {
       setIsLoading(true);
@@ -53,8 +51,14 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
           : `/centre/${centreId}/course/${CourseId}/module`,
         data: values,
       });
-      toggleToast(data.message);
       closeDialog();
+      if (id) {
+        pageProps.pageData.modules[index].contents.push(data.data);
+      } else {
+        pageProps.pageData.modules.push(data.data);
+      }
+      queryClient.setQueryData("pageProps", { ...pageProps });
+      toggleToast(data.message);
       setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
@@ -72,6 +76,8 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
         title={`Add course ${id ? "content" : "modules"} `}
         isOpen={isOpen}
         closeDialog={closeDialog}
+        value={fileLoadingProgres}
+        isLoading={isLoading}
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
@@ -125,7 +131,6 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
           showToast={toggleToast}
         />
       )}
-      <Loading value={fileLoadingProgres} open={isLoading} size={100} />
     </>
   );
 };

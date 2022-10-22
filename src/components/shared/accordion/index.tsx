@@ -9,14 +9,16 @@ export default function SimpleAccordion({
   children,
   expanded,
   onClick,
+  sx,
 }: {
   title: JSX.Element;
   children: JSX.Element;
   expanded: boolean;
   onClick: Function;
+  sx?: {};
 }) {
   return (
-    <Accordion expanded={expanded} onClick={() => onClick()}>
+    <Accordion sx={sx} expanded={expanded} onClick={() => onClick()}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"

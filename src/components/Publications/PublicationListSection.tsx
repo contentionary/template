@@ -18,7 +18,9 @@ import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const PublicationListSection: PublicationsFunc = () => {
   const globalStyle = useGlobalStyle();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const publications = pageData.templateData.publications as PublicationInt[];
 
   return (
@@ -45,7 +47,12 @@ const PublicationListSection: PublicationsFunc = () => {
           >
             {publications.map((publication, index) => (
               <Grid key={`${index}-publication-card`} item xs={1}>
-                <PublicationCard {...publication} />
+                <PublicationCard
+                  isSubscriptionCentre={
+                    cachedData.centre.subscriptionModel === "SUBSCRIPTION"
+                  }
+                  {...publication}
+                />
               </Grid>
             ))}
           </Grid>

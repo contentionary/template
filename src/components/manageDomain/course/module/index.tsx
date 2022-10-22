@@ -65,6 +65,7 @@ const ModulesPage = () => {
                     courseId={id as string}
                     centreId={cachedData.centre.id}
                     module={module}
+                    index={index}
                   />
                 </Typography>
                 {module.contents.length > 0 && (
