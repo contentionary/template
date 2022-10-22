@@ -21,7 +21,7 @@ import { ExamFunc } from "./interfaceType";
 
 const StartExam: ExamFunc = (props) => {
   const theme = useTheme();
-  const { exam, auth } = props;
+  const { exam /* auth */ } = props;
   const globalStyle = useGlobalStyle();
 
   return (

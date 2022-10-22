@@ -21,10 +21,10 @@ import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined
 import { queryClient } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
-import { AcademyFunc } from "./interfaceType";
+import { ExamFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
-const HeroSection: AcademyFunc = () => {
+const HeroSection: ExamFunc = () => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(

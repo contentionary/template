@@ -17,12 +17,12 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import useGlobalStyle from "@src/styles";
 import { ExamFunc } from "./interfaceType";
 import { dateTimeFormat } from "@src/utils";
-import useButtonStyle from "@src/styles/button";
+// import useButtonStyle from "@src/styles/button";
 
 const Exam: ExamFunc = (props) => {
-  const buttonStyle = useButtonStyle();
+  // const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
-  const { exam, auth } = props;
+  const { exam /* auth */ } = props;
 
   return (
     <Box

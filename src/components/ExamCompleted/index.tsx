@@ -1,6 +1,6 @@
 import React from "react";
 // next components
-import NextLink from "next/link";
+// import NextLink from "next/link";
 //
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -8,20 +8,16 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
-import { Link as MuiLink } from "@mui/material";
+// import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
-// icons
-import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // utils, interface and styles
 import useGlobalStyle from "@src/styles";
 import { ExamCompletedFunc } from "./interfaceType";
-import { dateTimeFormat } from "@src/utils";
+// import { dateTimeFormat } from "@src/utils";
 
 const ExamCompleted: ExamCompletedFunc = (props) => {
   const globalStyle = useGlobalStyle();
-  const { exam, auth } = props;
+  const { exam /* auth */ } = props;
 
   return (
     <Box

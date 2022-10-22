@@ -5,7 +5,6 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
-import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 // app components
 import Dropdown from "@src/components/shared/dropdown";
@@ -18,8 +17,6 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 // import { ExamFunc } from "./interfaceType";
 
 const ExamNav = () => {
-  const theme = useTheme();
-
   return (
     <Fragment>
       <Box

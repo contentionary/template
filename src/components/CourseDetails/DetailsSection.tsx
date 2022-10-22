@@ -23,11 +23,8 @@ import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
 import { CourseDetailsPageFunc } from "@src/utils/interface";
 
-const DetailsSection: CourseDetailsPageFunc = ({
-  courseDetails,
-  action,
-  isSubscriber,
-}) => {
+const DetailsSection: CourseDetailsPageFunc = (props) => {
+  const { courseDetails, isSubscriber } = props;
   const [value, setValue] = React.useState("1");
   const tabStyle = useTabStyle();
   const globalStyle = useGlobalStyle();
