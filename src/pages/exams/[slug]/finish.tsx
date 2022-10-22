@@ -5,7 +5,7 @@ import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 
-const StartExamPage = (pageProps: BasePageProps) => {
+const FinishExamPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     const ActiveTemplate =
       themes[pageProps.cachedData.centre.template]("ErrorPage");
@@ -13,7 +13,7 @@ const StartExamPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("StartExam");
+    themes[pageProps.cachedData.centre.template]("ExamCompleted");
 
   return <ActiveTemplate />;
 };
@@ -29,16 +29,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       isRelativeUrl: true,
       url: `/exam/${slug?.slice(-36)}`,
     });
-    const { data: examQuestions } = await request.get({
-      token,
-      url: `/centre/${centre.id}/exam/${slug?.slice(
-        -36
-      )}/questions?showAnswer=false`,
-    });
 
     return {
       props: {
-        pageData: { exam, examQuestions, auth },
+        pageData: { exam, auth },
         cachedData: { user, centre, token },
       },
     };
@@ -46,4 +40,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return pageErrorHandler(err, user, token, centre);
   }
 };
-export default StartExamPage;
+export default FinishExamPage;

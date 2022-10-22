@@ -237,6 +237,40 @@ export interface ExamInt {
   centreSlug: string;
 }
 
+export interface QuestionInt {
+  type: "theory" | "boolean" | "multichoice" | "objective" | "range";
+  max?: number;
+  min?: number;
+  question: string;
+  answer?: string | number;
+  options?: Array<{
+    id: number;
+    value: string;
+    isCorrect: boolean;
+  }>;
+}
+
+export interface QuestionsInt {
+  id: string;
+  mark: number;
+  questionId: string;
+  question: QuestionInt;
+  duration: string;
+}
+
+export interface ExamQuestionsInt {
+  cache: {
+    id: string;
+    endAt: Date;
+  };
+  sections: Array<{
+    id: string;
+    name: string;
+    description: string;
+    questions: Array<QuestionsInt>;
+  }>;
+}
+
 export interface ReviewInt {
   id: string;
   userId: string;

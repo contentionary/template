@@ -1,9 +1,9 @@
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
-import StartExamPage from "@src/components/ExamStarted";
+import ExamCompleted from "@src/components/ExamCompleted";
 import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 
-const StartExam = () => {
+const ExamCompletedPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -15,12 +15,12 @@ const StartExam = () => {
       title={name || ""}
       description={exam?.description || "Online Exam"}
       image={logo || DEFAULT_LOGO}
-      showHeader={false}
-      showFooter={false}
+      showHeader={true}
+      showFooter={true}
     >
-      <StartExamPage exam={exam} auth={pageData.auth} />
+      <ExamCompleted exam={exam} auth={pageData.auth} />
     </ExamAndCourseWrapper>
   );
 };
 
-export default StartExam;
+export default ExamCompletedPage;

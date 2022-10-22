@@ -10,6 +10,8 @@ import StartExam from "./pages/startExam";
 import MyCourses from "./pages/myCourses";
 import ErrorPage from "./pages/errorPage";
 import ExamDetails from "./pages/examDetails";
+import ExamCompleted from "./pages/examCompleted";
+//
 import { ExamAndCoursePages } from "./interface";
 
 const ExamAndCoursePages: Record<ExamAndCoursePages, WrapperFunc> = {
@@ -24,6 +26,7 @@ const ExamAndCoursePages: Record<ExamAndCoursePages, WrapperFunc> = {
   MyCourses,
   StartExam,
   ExamDetails,
+  ExamCompleted,
 };
 
 export default ExamAndCoursePages;
