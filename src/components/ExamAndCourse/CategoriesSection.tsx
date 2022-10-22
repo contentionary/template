@@ -9,11 +9,11 @@ import Typography from "@mui/material/Typography";
 import ImageLink from "@src/components/shared/buttons/ImageLink";
 // interface and styles
 import useGlobalStyle from "@src/styles";
-import { AcademyFunc } from "./interfaceType";
+import { ExamAndCourseFunc } from "./interfaceType";
 // icons
 import BookIcon from "@src/assets/icons/book.svg";
 
-const CategoriesSection: AcademyFunc = () => {
+const CategoriesSection: ExamAndCourseFunc = () => {
   const globalStyle = useGlobalStyle();
 
   return (
@@ -63,7 +63,7 @@ const CategoriesSection: AcademyFunc = () => {
               }}
             >
               <ImageLink
-                href="/"
+                href="/exams"
                 src="/images/exam-img.jpg"
                 alt="contentionary introduction video"
               >

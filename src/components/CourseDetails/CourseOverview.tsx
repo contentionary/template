@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 // mui components
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 //
 import List from "@mui/material/List";
@@ -17,9 +18,7 @@ const CourseOverview = ({ description, learnings }: CourseInt) => {
       <Typography variant="h5" mb={2}>
         ABOUT THIS COURSE:
       </Typography>
-      <Typography paragraph>
-        <p dangerouslySetInnerHTML={{ __html: description }} />
-      </Typography>
+      <Box dangerouslySetInnerHTML={{ __html: description }} />
       <Typography variant="h5" mb={1}>
         WHAT YOU WILL LEARN
       </Typography>

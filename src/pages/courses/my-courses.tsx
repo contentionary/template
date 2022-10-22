@@ -13,7 +13,7 @@ import { queryClient } from "@src/utils";
 
 export const CentreCoursesContext = createContext<CourseListInt | null>(null);
 
-const CoursesPage = (pageProps: BasePageProps) => {
+const MyCoursesPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
     const ActiveTemplate =
@@ -46,4 +46,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return pageErrorHandler(err, user, token, centre);
   }
 };
-export default CoursesPage;
+export default MyCoursesPage;
