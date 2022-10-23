@@ -110,6 +110,7 @@ export interface GetRequestInt extends RequestInt {
 export interface CachedCentreInt {
   id: string;
   name: string;
+  description: string;
   logo: string;
   slug: string;
   template: string;

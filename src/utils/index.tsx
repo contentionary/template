@@ -364,8 +364,9 @@ export const getCentre = async (
         id: centre.id,
         slug: centre.slug,
         name: centre.name,
-        // template: centre.template,
-        template: "examAndCourse",
+        description: centre.description,
+        template: centre.template,
+        // template: "course",
         logo: centre.logo,
         price: centre.price,
         subscriptionModel: centre.subscriptionModel,
@@ -374,8 +375,6 @@ export const getCentre = async (
         address:
           centre.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
       };
-
-    console.log(centre);
     // cache.set(host, centre, context);
     if (!centre) throw new Error("Centre not found");
 

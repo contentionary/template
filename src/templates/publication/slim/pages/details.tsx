@@ -7,7 +7,7 @@ const BookDetailsPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { name, logo, subscriptionModel } = cachedData.centre;
+  const { name, logo } = cachedData.centre;
   const publication = pageData.publication as PublicationInt;
 
   return (
