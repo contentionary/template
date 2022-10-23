@@ -1,6 +1,6 @@
 export type CoursePages =
   | "Home"
-  | "List"
+  | "Courses"
   | "Details"
   | "Contents"
   | "ErrorPage"

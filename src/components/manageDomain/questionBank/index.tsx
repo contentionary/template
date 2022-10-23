@@ -1,24 +1,42 @@
 import Box from "@mui/material/Box";
-import PublicationCard from "./card";
+import Card from "./card";
 import Grid from "@mui/material/Grid";
 import dynamic from "next/dynamic";
-import { BasePageProps, CourseInt } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
+import { BasePageProps, QuestionBankInt } from "@src/utils/interface";
+import { isServerSide, queryClient } from "@src/utils";
 import { useRouter } from "next/router";
 import { Typography } from "@mui/material";
+import Breadcrumbs from "@src/components/shared/breadcrumbs";
 
 const CourseAdmin = () => {
   const router = useRouter();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const { questionBanks } = pageData as {
-    questionBanks: CourseInt[];
+    questionBanks: QuestionBankInt[];
   };
-  const { folderId } = router.query;
+  const { folderId, folderName } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  // const Menu = dynamic(() => import("./menu"));
-
+  const Menu = dynamic(() => import("./menu"));
+  const links = [
+    { link: "/admin", name: "Dashboard" },
+    { link: "/admin/exam", name: "Exams" },
+  ];
+  const allLinks = [
+    ...links,
+    { link: "/admin/question-bank", name: "Question bank" },
+  ];
   return (
-    <Box>
+    <Box mt={4}>
+      <Breadcrumbs
+        links={folderId ? allLinks : links}
+        currentPage={
+          folderId
+            ? { name: "Folder", link: isServerSide ? "" : window.location.href }
+            : { link: "/admin/question-bank", name: "Question bank" }
+        }
+      />
       <Box
         sx={{
           display: "flex",
@@ -29,13 +47,13 @@ const CourseAdmin = () => {
         }}
       >
         <Typography variant="h5" component="div">
-          Question Banks
+          {folderName ? folderName : "Question Banks"}
         </Typography>
-        {/* <Menu
+        <Menu
           folderId={folderId as string}
-          courses={questionBanks}
+          questionBanks={questionBanks}
           centreId={cachedData.centre.id}
-        /> */}
+        />
       </Box>
 
       {questionBanks.length ? (
@@ -45,15 +63,15 @@ const CourseAdmin = () => {
           spacing={{ xs: 1, md: 2, xl: 3 }}
           columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
         >
-          {questionBanks?.map((course, index) => (
-            <Grid key={`${index}-course-card`} item xs={1}>
-              <PublicationCard {...course} />
+          {questionBanks?.map((questionBank, index) => (
+            <Grid key={`${index}-question-bank-card`} item xs={1}>
+              <Card {...questionBank} />
             </Grid>
           ))}
         </Grid>
       ) : (
         <Empty
-          href={`/admin/question-bank/create?type=COURSE&folderId=${folderId}`}
+          href={`/admin/question-bank/create?type=QUESTIONBANK&folderId=${folderId}`}
           buttonText="Add Question bank"
         />
       )}

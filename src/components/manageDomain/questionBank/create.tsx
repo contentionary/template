@@ -61,6 +61,7 @@ const CreateCourse = () => {
         style={{
           marginTop: 40,
           textAlign: "center",
+          textTransform: "uppercase",
         }}
       >
         Create {type}

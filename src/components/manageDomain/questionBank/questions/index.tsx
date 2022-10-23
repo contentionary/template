@@ -1,18 +1,20 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
+import useStyles from "./styles";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 
 import dynamic from "next/dynamic";
 
 import { BasePageProps, QuestionInt, QuestionsInt } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
+import { isServerSide, queryClient } from "@src/utils";
 import { useRouter } from "next/router";
 import Accordion from "@src/components/shared/accordion";
 import { useState } from "react";
+import Breadcrumbs from "@src/components/shared/breadcrumbs";
 
-const ModulesPage = () => {
+const QuestionsPage = () => {
+  const styles = useStyles();
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -29,6 +31,11 @@ const ModulesPage = () => {
   const Menu = dynamic(() => import("./questionBankMenu"));
   const QuestionMenu = dynamic(() => import("./questionMenu"));
   const [expanded, setExpanded] = useState(0);
+  const links = [
+    { link: "/admin", name: "Dashboard" },
+    { link: "/admin/exam", name: "Exams" },
+    { link: "/admin/question-bank", name: "Question bank" },
+  ];
 
   const getQuestionTypeData = (question: QuestionInt) => {
     if (question.type === "objective" || question.type === "multichoice") {
@@ -39,7 +46,10 @@ const ModulesPage = () => {
               variant="body1"
               component="div"
               key={`${index}-option`}
-              sx={{ background: isCorrect ? "#000" : "" }}
+              sx={{ mb: 3 }}
+              className={`${styles.optionStyle} ${
+                isCorrect ? styles.selected : ""
+              }`}
               // dangerouslySetInnerHTML={{ __html: value }}
             >
               {value}
@@ -52,21 +62,18 @@ const ModulesPage = () => {
         <>
           <Typography
             variant="body1"
-            sx={{
-              border: "solid 1px #dbdbdb",
-              padding: 2,
-              background: question.answer === true ? "red" : "",
-            }}
+            className={`${styles.optionStyle} ${
+              question.answer === true ? styles.selected : ""
+            }`}
           >
             True
           </Typography>
           <Typography
+            sx={{ mt: 3 }}
             variant="body1"
-            sx={{
-              border: "solid 1px #dbdbdb",
-              padding: 2,
-              background: question.answer === false ? "red" : "",
-            }}
+            className={`${styles.optionStyle} ${
+              question.answer === false ? styles.selected : ""
+            }`}
           >
             False
           </Typography>
@@ -75,15 +82,20 @@ const ModulesPage = () => {
     }
   };
   return (
-    <Box>
-      <Typography
-        onClick={() => router.back()}
-        style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-      >
-        <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
-      </Typography>
+    <Box mt={4}>
+      <Breadcrumbs
+        links={links}
+        currentPage={{
+          name: "Questions",
+          link: isServerSide ? "" : window.location.href,
+        }}
+      />
 
-      <Typography variant="h6" component="div">
+      <Typography
+        variant="h5"
+        component="div"
+        sx={{ mt: 4, textTransform: "uppercase", mb: 1 }}
+      >
         {questionBank.name}
       </Typography>
       <Typography
@@ -159,4 +171,4 @@ const ModulesPage = () => {
   );
 };
 
-export default ModulesPage;
+export default QuestionsPage;

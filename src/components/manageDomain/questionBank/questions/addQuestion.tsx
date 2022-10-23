@@ -5,13 +5,15 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import CheckBox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
+import CheckBox from "@src/components/shared/checkInput";
 import Dialog from "@src/components/shared/dialog";
 import Toast from "@src/components/shared/toast";
 import useForm from "@src/hooks/useForm";
-import TextArea from "@src/components/shared/editor";
-
+import Editor from "@src/components/shared/editor";
+import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
@@ -20,17 +22,18 @@ import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 
 interface Props {
-  id?: string;
   centreId: string;
-  CourseId: string;
+  questionBankId: string;
 }
 
-const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
+const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
+  const styles = useStyles();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit } = useForm(create);
+  const { getData, values, submit, setData } = useForm(create);
   const [solution, setSolution] = useState(false);
+
   // const [file, setFile] = useState<Record<string, any>>();
   // const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   // const [convertedFile, setConvertedFile] = useState<any>();
@@ -58,9 +61,10 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
       };
       if (values.type === "objective" || values.type === "multichoice")
         questions.question.options = options;
+      if (values.type === "boolean") questions.question.answer = values.answer;
       if (solution) questions.solution = { text: values.solution };
       await request.post({
-        url: `/centre/${centreId}/question-bank/${CourseId}/question`,
+        url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
         data: questions,
       });
       toggleToast("Question add");
@@ -71,7 +75,7 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
       setIsLoading(false);
     }
   }
-
+  console.log(values);
   return (
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
@@ -79,9 +83,10 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
         Add Question
       </MenuItem>
       <Dialog
-        title={`Add course ${id ? "content" : "modules"} `}
+        title="Add Question"
         isOpen={isOpen}
         closeDialog={closeDialog}
+        width="xl"
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
@@ -102,7 +107,7 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
                 <Typography variant="subtitle1" component="div">
                   Question
                 </Typography>
-                <TextArea
+                <Editor
                   required
                   placeholder="Type in question here ..."
                   name="question"
@@ -113,30 +118,25 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
                     borderRadius: 5,
                     padding: 15,
                   }}
-                  maxLength={200}
                 />
               </Box>
               {values.type === "boolean" && (
                 <>
                   <Typography
                     variant="body1"
-                    onClick={() => (values.answer = true)}
-                    sx={{
-                      border: "solid 1px #dbdbdb",
-                      padding: 2,
-                      background: values.answer === true ? "red" : "",
-                    }}
+                    onClick={() => setData("answer", true)}
+                    className={`${styles.optionStyle} ${
+                      values.answer === true ? styles.selected : ""
+                    }`}
                   >
                     True
                   </Typography>
                   <Typography
                     variant="body1"
-                    onClick={() => (values.answer = false)}
-                    sx={{
-                      border: "solid 1px #dbdbdb",
-                      padding: 2,
-                      background: values.answer === false ? "red" : "",
-                    }}
+                    onClick={() => setData("answer", false)}
+                    className={`${styles.optionStyle} ${
+                      values.answer === false ? styles.selected : ""
+                    }`}
                   >
                     False
                   </Typography>
@@ -148,35 +148,46 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
                 <Box>
                   {options.map((option, index) => (
                     <>
-                      <Typography variant="subtitle1" component="div">
-                        Option &nbsp;
-                        {String.fromCharCode("A".charCodeAt(0) + index)}
-                      </Typography>
                       <Box>
                         <CheckBox
+                          label={
+                            <Typography variant="subtitle1" component="div">
+                              Option &nbsp;
+                              {String.fromCharCode("A".charCodeAt(0) + index)}
+                            </Typography>
+                          }
                           checked={options[index].isCorrect ? true : false}
-                          onChange={(e) => {
+                          onChange={(e: ChangeEvent<any>) => {
                             if (values.type === "objective") {
                               options.map((item) => (item.isCorrect = false));
                             }
                             option.isCorrect = e.target.checked;
                             setOptions([...options]);
                           }}
-                          // className={styles.checkbox}
                         />
-                        <TextArea
-                          required
-                          onChange={(e: ChangeEvent<any>) => {
-                            options[index].value = e.target.value;
-                            setOptions(options);
-                          }}
-                          style={{
-                            width: "100%",
-                            borderRadius: 5,
-                            padding: 15,
-                          }}
-                          maxLength={200}
-                        />
+                        <Box sx={{ display: "flex" }}>
+                          <Editor
+                            required
+                            onChange={(e: ChangeEvent<any>) => {
+                              options[index].value = e.target.value;
+                              setOptions(options);
+                            }}
+                            style={{
+                              width: "100%",
+                              borderRadius: 5,
+                              padding: 15,
+                            }}
+                          />
+                          <IconButton
+                            sx={{ marginLeft: 3 }}
+                            onClick={() => {
+                              options.splice(index, 1);
+                              setOptions([...options]);
+                            }}
+                          >
+                            <CloseOutlined htmlColor="red" />
+                          </IconButton>
+                        </Box>
                       </Box>
                     </>
                   ))}
@@ -195,7 +206,7 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
                   <Typography variant="subtitle1" component="div">
                     Solution
                   </Typography>
-                  <TextArea
+                  <Editor
                     required
                     placeholder="Type in solution here ..."
                     name="solution"
@@ -206,23 +217,29 @@ const AddModules = ({ CourseId, centreId, id }: Props): JSX.Element => {
                       borderRadius: 5,
                       padding: 15,
                     }}
-                    maxLength={200}
                   />
                 </Box>
               )}
-              <ButtonComponent onClick={() => setSolution(!solution)}>
-                <>{!solution ? "Add" : "Remove"} solution</>
-              </ButtonComponent>
+              <Typography sx={{ textAlign: "right" }}>
+                <ButtonComponent onClick={() => setSolution(!solution)}>
+                  <>{!solution ? "Add" : "Remove"} solution</>
+                </ButtonComponent>
+              </Typography>
 
-              <Typography style={{ textAlign: "right", marginTop: 20 }}>
+              <Typography sx={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent
                   variant="contained"
                   type="submit"
-                  sx={{ fontSize: 18 }}
+                  sx={{ fontSize: 18, mr: 2 }}
                 >
                   <>
-                    Add question &nbps;
-                    {isLoading && <Loading size={15} />}
+                    Add question
+                    {isLoading && (
+                      <Loading
+                        size={15}
+                        sx={{ color: "#fff", marginLeft: 5 }}
+                      />
+                    )}
                   </>
                 </ButtonComponent>
                 <ButtonComponent

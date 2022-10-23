@@ -83,12 +83,37 @@ const buttonStyle = makeStyles({
     [theme.breakpoints.up("sm")]: { sm: "auto" },
     "&:focus": { padding: "6px 2px" },
   },
+  examButtonGroup: {
+    display: "flex",
+    "& .MuiToggleButtonGroup-grouped": {
+      fontSize: "1rem",
+      justifyContent: "flex-start",
+      marginBottom: theme.spacing(2),
+      border: `1px solid ${theme.palette.divider} !important`,
+      "&.Mui-selected": {
+        color: "white",
+        backgroundColor: theme.palette.primary.main,
+        "&.correct": { backgroundColor: theme.palette.success.main },
+        "&.incorrect": { backgroundColor: theme.palette.error.main },
+      },
+      "&.Mui-disabled": {
+        border: 0,
+      },
+      "&:not(:first-of-type)": {
+        borderRadius: theme.shape.borderRadius,
+      },
+      "&:first-of-type": {
+        borderRadius: theme.shape.borderRadius,
+      },
+    },
+  },
   iconTextButton: {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
     borderRadius: "4px",
     color: theme.palette.secondary.light,
+    "&.row": { flexDirection: "row" },
   },
 });
 

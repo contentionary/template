@@ -4,6 +4,10 @@ import { UseForm } from "./interface";
 const useForm = (submitAction: Function): UseForm => {
   const [values, setValue] = useState<any>({});
 
+  const setData = (field: string, data: string): void => {
+    values[field] = data;
+    setValue({ ...values });
+  };
   const resetValues = (e: any) => {
     if (e) e.target.reset();
   };
@@ -34,6 +38,7 @@ const useForm = (submitAction: Function): UseForm => {
     resetValues,
     getFile,
     check,
+    setData,
   };
 };
 

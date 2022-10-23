@@ -1,7 +1,7 @@
 import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MenuOutlined from "@mui/icons-material/MenuOutlined";
 import AddOutlined from "@mui/icons-material/AddOutlined";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
 import IconButton from "@mui/material/IconButton";
@@ -9,23 +9,23 @@ import Divider from "@mui/material/Divider";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
-import { CourseInt } from "@src/utils/interface";
+import { QuestionBankInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({
   folderId,
   centreId,
-  courses,
+  questionBanks,
 }: {
   folderId: string;
   centreId: string;
-  courses: CourseInt[];
+  questionBanks: QuestionBankInt[];
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
   return (
     <>
       <IconButton onClick={openMenu}>
-        <MoreVertIcon />
+        <MenuOutlined fontSize="large" />
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
@@ -68,7 +68,9 @@ export default function CustomizedMenus({
                   Edit
                 </MenuItem>
               </Link>
-              {!courses.length && <Delete id={folderId} centreId={centreId} />}
+              {!questionBanks.length && (
+                <Delete id={folderId} centreId={centreId} />
+              )}
             </>
           )}
         </div>

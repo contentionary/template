@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 /* eslint-disable no-unused-vars */
 export enum Gender {
   MALE = "Male",
@@ -5,8 +6,15 @@ export enum Gender {
 }
 
 export interface QuestionOptionInt {
-  value: JSX.Element;
+  id: number;
+  value: ReactNode;
   isCorrect: boolean;
+}
+export interface QuestionBankInt {
+  name: string;
+  description: string;
+  id: string;
+  type: string;
 }
 
 export interface Solution {
@@ -15,10 +23,12 @@ export interface Solution {
 }
 
 export interface QuestionInt {
-  type: "objective" | "multichoice" | "boolean" | "theory";
-  question: JSX.Element;
+  type: "theory" | "boolean" | "multichoice" | "objective" | "range";
+  max?: number;
+  min?: number;
+  question: ReactNode;
+  answer: ReactNode;
   options: [QuestionOptionInt];
-  answer: boolean;
 }
 
 export interface QuestionsInt {
@@ -100,6 +110,7 @@ export interface GetRequestInt extends RequestInt {
 export interface CachedCentreInt {
   id: string;
   name: string;
+  description: string;
   logo: string;
   slug: string;
   template: string;
@@ -224,6 +235,87 @@ export interface CourseInt {
   contents: CourseModuleInt[];
   courseContentStats: CourseContentStats;
 }
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  instruction: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  maxTrialQuestions: number;
+  allowCustomDuration: boolean;
+  allowCustomQuestionLength: boolean;
+  allowReattempt: boolean;
+  allowResume: boolean;
+  showCorrection: boolean;
+  allowTimerPause: boolean;
+  randomiseQuestion: boolean;
+  randomiseOption: boolean;
+  allowReview: boolean;
+  maximumAttempt: 2;
+  completionMessage: string;
+  startDate: Date;
+  endDate: Date;
+  questionLimit: number;
+  totalMark: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
+}
+
+export interface ExamQuestionsInt {
+  cache: {
+    id: string;
+    endAt: Date;
+  };
+  sections: Array<{
+    id: string;
+    name: string;
+    description: string;
+    questions: Array<QuestionsInt>;
+  }>;
+}
+
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
+}
 
 export interface ReviewInt {
   id: string;
@@ -258,6 +350,14 @@ export interface TemplateDataInt {
 
 export interface CourseListInt {
   courses: Array<CourseInt | CourseFolderInt>;
+  totalCount: number;
+  pageId: number;
+  pageCount: number;
+  limit: number;
+}
+
+export interface ExamListInt {
+  exams: Array<ExamInt>;
   totalCount: number;
   pageId: number;
   pageCount: number;

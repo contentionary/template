@@ -61,9 +61,10 @@ const CreateCourse = () => {
         style={{
           marginTop: 40,
           textAlign: "center",
+          textTransform: "uppercase",
         }}
       >
-        Create {type}
+        Update {type}
       </Typography>
       <form
         onSubmit={(e) => {
