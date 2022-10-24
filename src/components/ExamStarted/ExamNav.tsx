@@ -5,9 +5,10 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import grey from "@mui/material/colors/grey";
+import Container from "@mui/material/Container";
+import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 // app components
 import Dropdown from "@src/components/shared/dropdown";
 import ModalComponent from "@src/components/shared/modal";
@@ -23,7 +24,7 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 // utils, interface and styles
 import { TempAnswerInt } from ".";
 import { request } from "@src/utils";
-import { useQuery, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import { ExamQuestionsInt, ExamInt } from "@src/utils/interface";
 
 interface ExamNavInt {
@@ -97,6 +98,7 @@ const SelectQuestionDropdown = (props: ExamNavInt) => {
 
 const ExamNav = (props: ExamNavInt) => {
   const router = useRouter();
+  const theme = useTheme();
   const [openEndExamModal, setOpenEndExamModal] =
     React.useState<boolean>(false);
   const [endingExam, setEndingExam] = React.useState<boolean>(false);
@@ -119,7 +121,7 @@ const ExamNav = (props: ExamNavInt) => {
       onSuccess: () => {
         setEndingExam(false);
         setOpenEndExamModal(false);
-        router.push(`/exams/${props.exam.slug}/finish`);
+        // router.push(`/exams/${props.exam.slug}/finish`);
       },
       onError: () => {
         setEndingExam(false);
@@ -139,12 +141,12 @@ const ExamNav = (props: ExamNavInt) => {
         top={0}
         py={1}
         bgcolor="white"
-        zIndex={1000}
         px={{ md: 6 }}
         component="nav"
         borderBottom={1}
         position="sticky"
         borderColor="divider"
+        zIndex={theme.zIndex.drawer + 2}
       >
         <Container maxWidth="xl">
           <Stack
@@ -247,7 +249,12 @@ const ExamNav = (props: ExamNavInt) => {
           </Stack>
         </Container>
       </Box>
-      <Box py={1} px={{ md: 6 }}>
+      <Box
+        py={1}
+        px={{ md: 6 }}
+        position="relative"
+        zIndex={theme.zIndex.drawer + 1}
+      >
         <Container maxWidth="xl">
           <Stack
             spacing={2}

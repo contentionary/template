@@ -48,10 +48,10 @@ const StartExam: ExamFunc = (props) => {
     {}
   );
 
-  // exam request
+  // subscriber exam question
   const { isLoading, isError, data } = useQuery("examQuestions", async () => {
     return await request.get({
-      url: `/centre/${props.centerId}/exam/${exam.id}/questions?showAnswer=false`,
+      url: `/exam/${exam.id}/subscriber-questions`,
     });
   });
 
@@ -226,7 +226,9 @@ const StartExam: ExamFunc = (props) => {
                   alignItems="center"
                 >
                   <Typography mb={0} paragraph>
-                    Question mark: 1
+                    {examQuestions
+                      ? `Question mark: ${examQuestions?.sections[section].questions[question].mark}`
+                      : ""}
                   </Typography>
                   <Stack direction="row" spacing={1}>
                     <Button

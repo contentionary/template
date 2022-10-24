@@ -38,6 +38,8 @@ export interface QuestionsInt {
   id: string;
   questionBankId: string;
   questionId: string;
+  mark: number;
+  duration: number;
 }
 
 export interface PluginsInt {
