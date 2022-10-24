@@ -39,7 +39,7 @@ export default function MuiTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => {
+            {data?.map((item, index) => {
               return (
                 <TableRow
                   hover

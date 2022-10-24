@@ -1,45 +1,44 @@
 import Menus from "@src/components/shared/menu";
-import MenuItem from "@mui/material/MenuItem";
-import DeleteOutline from "@mui/icons-material/DeleteOutline";
-import Divider from "@mui/material/Divider";
-import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined";
-import IconButton from "@mui/material/IconButton";
-import Delete from "./delete";
-import AddQuestion from "./addQuestion";
+// import MenuItem from "@mui/material/MenuItem";
+// import DeleteOutline from "@mui/icons-material/DeleteOutline";
+// import Divider from "@mui/material/Divider";
+// import Delete from "./delete";
+// import AddQuestion from "./addQuestion";
 import { useDialog } from "@src/hooks";
 import { useMenu } from "@src/utils/hooks";
-import { SectionInt } from "./interface";
-import UpdateSection from "./updateSection ";
+// import { SectionInt } from "./interface";
+// import UpdateSection from "./updateSection ";
+import ButtonComponent from "@src/components/shared/button";
 
-export default function SectionMenu({
-  examId,
-  centreId,
-  section,
-  toggleToast,
-}: {
-  examId: string;
-  centreId: string;
-  section: SectionInt;
-  toggleToast: Function;
-}) {
+export default function Menu() {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   const { isOpen, openDialog, closeDialog } = useDialog();
+// {
+//   examId,
+//   centreId,
+//   section,
+// }: {
+//   examId: string;
+//   centreId: string;
+//   section: SectionInt;
+// }
   return (
     <>
-      <IconButton onClick={openMenu}>
-        <MoreHorizOutlined />
-      </IconButton>
+      <ButtonComponent
+        variant="contained"
+        onClick={openMenu} 
+      >
+        Exam Result Menu
+      </ButtonComponent>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
-        <div>
-          <UpdateSection
+        <div> heelo
+          {/* <UpdateSection
             section={section}
             examId={examId}
             centreId={centreId}
-            toggleToast={toggleToast}
           />
           <Delete
             closeDialog={closeDialog}
-            toggleToast={toggleToast}
             isOpen={isOpen}
             url={`/centre/${centreId}/exam/${examId}/question-section/${section.id}`}
           >
@@ -53,10 +52,9 @@ export default function SectionMenu({
             examId={examId}
             centreId={centreId}
             sectionId={section.id}
-            toggleToast={toggleToast}
-          />
+          />  */}
         </div>
       </Menus>
     </>
-  );
+  )
 }

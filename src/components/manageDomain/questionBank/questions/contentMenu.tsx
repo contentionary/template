@@ -3,7 +3,7 @@ import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
 import { useMenu } from "@src/utils/hooks";
-import UpdateModules from "./updateModules";
+import UpdateModules from "./updateQuestion";
 import { CourseContentInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({

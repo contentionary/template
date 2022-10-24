@@ -5,33 +5,32 @@ import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlin
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
-import TextArea from "@src/components/shared/textArea";
-
 import { useDialog } from "@src/hooks";
-import { handleError, request } from "@src/utils";
+import { handleError, queryClient, request } from "@src/utils";
 import { useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
+import { BasePageProps } from "@src/utils/interface";
 
-interface Props {
-  centreId: string;
-  examId: string;
-  toggleToast: Function
-}
-
-const AddSection = ({ examId, centreId, toggleToast }: Props): JSX.Element => {
+const AddSubscriber = ({
+  toggleToast,
+}: {
+  toggleToast: Function;
+}): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { getData, values, submit } = useForm(create);
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { exam } = pageData;
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   async function create() {
     try {
       setIsLoading(true);
-      await request.post({
-        url: `/centre/${centreId}/exam/${examId}/question-section`,
+      const data = await request.post({
+        url: `/centre/${exam.centreId}/exam/${exam.id}/add-subscribers`,
         data: values,
       });
-      toggleToast("Section Created");
+      toggleToast(data.message);
       setIsLoading(false);
       closeDialog();
     } catch (error) {
@@ -42,55 +41,42 @@ const AddSection = ({ examId, centreId, toggleToast }: Props): JSX.Element => {
 
   return (
     <>
-      <Stack direction="row" spacing={2}>
-        <ButtonComponent
-          variant="outlined"
-          onClick={() => openDialog()}
-          disableRipple
-        >
-          <>
-            <AddCircleOutlineOutlined /> &nbsp; Add section
-          </>
-        </ButtonComponent>
-        <Typography>
-          Click the circled-plus button to create new exam sections that will be
-          <br />
-          added to the general section.
-        </Typography>
-      </Stack>
+      <ButtonComponent
+        variant="contained"
+        onClick={() =>
+          exam.isPrivate
+            ? openDialog()
+            : toggleToast("This is only avaible private")
+        }
+        sx={{ fontSize: 18 }}
+      >
+        <>
+          <AddCircleOutlineOutlined /> &nbsp; Add Exam Subscribers
+        </>
+      </ButtonComponent>
 
       <Dialog
-        title="Add section"
+        title="Add Exam Subscribers"
         isOpen={isOpen}
         closeDialog={closeDialog}
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
+              <Typography variant="h5" component="div">
+                Enter Subscriber’s email or username:
+              </Typography>
+              <Typography variant="subtitle1" component="div">
+                Type the emails or username of the new subscribers you want to
+                add. If you want to add multiple subscribers, then seperate the
+                email or username with a comma (,)
+              </Typography>
               <TextFields
                 type="text"
-                label="name"
-                name="name"
+                label="subscribers"
+                name="subscribers"
                 onChange={getData}
                 required
               />
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Description *
-                </Typography>
-                <TextArea
-                  required
-                  placeholder="Type in description here ..."
-                  name="description"
-                  onChange={getData}
-                  style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
-                  maxLength={200}
-                />
-              </Box>
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
                   <>
@@ -113,4 +99,4 @@ const AddSection = ({ examId, centreId, toggleToast }: Props): JSX.Element => {
   );
 };
 
-export default AddSection;
+export default AddSubscriber;

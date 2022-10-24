@@ -46,14 +46,12 @@ const QuestionsPage = () => {
               variant="body1"
               component="div"
               key={`${index}-option`}
-              sx={{ mb: 3 }}
+              sx={{ mb: 3}}
               className={`${styles.optionStyle} ${
                 isCorrect ? styles.selected : ""
               }`}
-              // dangerouslySetInnerHTML={{ __html: value }}
-            >
-              {value}
-            </Typography>
+              dangerouslySetInnerHTML={{ __html: value }}
+            />
           ))}
         </>
       );
@@ -87,7 +85,7 @@ const QuestionsPage = () => {
         links={links}
         currentPage={{
           name: "Questions",
-          link: isServerSide ? "" : window.location.href,
+          link: !isServerSide ? window.location.href : "",
         }}
       />
 
@@ -117,24 +115,24 @@ const QuestionsPage = () => {
         <Box>
           {questions?.map(({ question, solution }, index) => (
             <Stack direction="row" spacing={5} key={`${index}-module`} mb={4}>
-              <Avatar>{++index}</Avatar>
+            <Avatar>{++index}</Avatar>
               <Accordion
                 sx={{ width: "100%" }}
                 onClick={() => setExpanded(index)}
                 title={
                   <Typography
-                    // dangerouslySetInnerHTML={{ __html: question.question }}
+                    dangerouslySetInnerHTML={{
+                      __html: question.question,
+                    }}
                     variant="h6"
                     component="div"
-                  >
-                    {question.question}
-                  </Typography>
+                  />
                 }
                 expanded={expanded === index}
               >
                 <>
                   {getQuestionTypeData(question)}
-                  {solution && (
+                  {solution?.text && (
                     <>
                       <Typography
                         sx={{ textDecoration: "underline" }}
@@ -146,10 +144,8 @@ const QuestionsPage = () => {
                       <Typography
                         variant="body1"
                         component="div"
-                        // dangerouslySetInnerHTML={{ __html: solution.text }}
-                      >
-                        {solution.text}
-                      </Typography>
+                        dangerouslySetInnerHTML={{ __html: solution.text }}
+                      />
                     </>
                   )}
                   <Typography style={{ textAlign: "right" }}>

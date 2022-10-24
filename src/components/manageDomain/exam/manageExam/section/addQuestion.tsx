@@ -3,38 +3,59 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
 import Dialog from "@src/components/shared/dialog";
-import TextFields from "@src/components/shared/input/textField";
+import Accordion from "@src/components/shared/accordion";
 import useForm from "@src/hooks/useForm";
-import TextArea from "@src/components/shared/textArea";
+import CheckBox from "@src/components/shared/checkInput";
+import Avatar from "@mui/material/Avatar";
+import MenuItem from "@mui/material/MenuItem";
 
-import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
+import TextFields from "@src/components/shared/input/textField";
 
 interface Props {
   centreId: string;
   examId: string;
+  sectionId?: string;
+  toggleToast: Function;
 }
 
-const AddSection = ({ examId, centreId }: Props): JSX.Element => {
+const AddQuestion = ({
+  examId,
+  centreId,
+  sectionId,
+  toggleToast,
+}: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
-  const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit } = useForm(create);
-  //const [questionBanks, setQuestionBanks] = useState<Array<any>>();
-  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const [questionLoading, setQuestionLoading] = useState(false);
+  const { submit } = useForm(create);
+  const [expanded, setExpanded] = useState<number>();
+  const [questionBanks, setQuestionBanks] = useState<Array<any>>();
+  const [questions, setQuestions] = useState<Array<any>>();
+  const [selectedQuestions, setSelectedQuestions] = useState<
+    Array<Record<string, any>>
+  >([]);
+
+  const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
-  async function getQuestionBank() {
+
+  async function getQuestionBanks() {
     try {
       setIsLoading(true);
-      await request.get({
+      const { data } = await request.get({
         url: `/centre/${centreId}/question-banks`,
-        data: values,
       });
-      //setQuestionBanks(data.questionBanks);
+      setQuestionBanks(data.questionBanks);
+      const { data: questions } = await request.get({
+        url: `/centre/${centreId}/exam/${examId}/questions`,
+      });
+      questions.sections.map(({ questions }: any) => {
+        setSelectedQuestions([...selectedQuestions, ...questions]);
+      });
       setIsLoading(false);
       openDialog();
     } catch (error) {
@@ -42,12 +63,29 @@ const AddSection = ({ examId, centreId }: Props): JSX.Element => {
       setIsLoading(false);
     }
   }
+  async function getQuestions(id: string, index: number) {
+    try {
+      setQuestionLoading(true);
+      setExpanded(index);
+      const { data } = await request.get({
+        url: `/centre/${centreId}/question-bank/${id}/questions`,
+      });
+      setQuestions(data.questions);
+      setQuestionLoading(false);
+    } catch (error) {
+      toggleToast(handleError(error).message);
+      setQuestionLoading(false);
+    }
+  }
   async function create() {
     try {
       setIsLoading(true);
+      const questions = sectionId
+        ? { questions: selectedQuestions, examSectionId: sectionId }
+        : { questions: selectedQuestions };
       const data = await request.post({
-        url: `/centre/${centreId}/exam/${examId}/question-section`,
-        data: values,
+        url: `/centre/${centreId}/exam/${examId}/questions`,
+        data: questions,
       });
       toggleToast(data.message);
       setIsLoading(false);
@@ -60,48 +98,124 @@ const AddSection = ({ examId, centreId }: Props): JSX.Element => {
 
   return (
     <>
-      <ButtonComponent
-        variant="outlined"
-        onClick={() => getQuestionBank()}
-        disableRipple
-      >
-        <>
-          <AddCircleOutlineOutlined />
-          Add section
-        </>
-      </ButtonComponent>
+      {sectionId ? (
+        <MenuItem onClick={() => getQuestionBanks()} disableRipple>
+          <>
+            <AddCircleOutlineOutlined />
+            &nbsp; Add section
+          </>
+        </MenuItem>
+      ) : (
+        <ButtonComponent onClick={() => getQuestionBanks()} disableRipple>
+          <>
+            <AddCircleOutlineOutlined />
+            &nbsp; Add section
+          </>
+        </ButtonComponent>
+      )}
       <Dialog
         title="Add section"
         isOpen={isOpen}
         closeDialog={closeDialog}
+        width="lg"
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
-              <TextFields
-                type="text"
-                label="name"
-                name="name"
-                onChange={getData}
-                required
-              />
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Description *
-                </Typography>
-                <TextArea
-                  required
-                  placeholder="Type in description here ..."
-                  name="description"
-                  onChange={getData}
-                  style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
-                  maxLength={200}
-                />
-              </Box>
+              {questionBanks?.length ? (
+                questionBanks?.map(
+                  (questionBank, questionBankIndex: number) => (
+                    <Accordion
+                      onClick={() =>
+                        getQuestions(questionBank.id, questionBankIndex)
+                      }
+                      key={`${questionBankIndex}-questionBank`}
+                      title={
+                        <Typography variant="h6" component="div">
+                          {questionBank.name}
+                        </Typography>
+                      }
+                      expanded={expanded === questionBankIndex}
+                    >
+                      {questionLoading ? (
+                        <Typography>Loading...</Typography>
+                      ) : (
+                        <>
+                          {questions?.length ? (
+                            questions?.map(
+                              ({ question, id }, index: number) => (
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    mt: 1,
+                                  }}
+                                  key={`${index}-question`}
+                                >
+                                  <Avatar sx={{ mr: 2 }}>{++index}</Avatar>
+
+                                  <CheckBox
+                                    label={
+                                      <Typography
+                                        dangerouslySetInnerHTML={{
+                                          __html: question.question,
+                                        }}
+                                      />
+                                    }
+                                    checked={selectedQuestions.some(
+                                      (item) => item.questionId === id
+                                    )}
+                                    onChange={() => {
+                                      const hasQuestion =
+                                        selectedQuestions.some(
+                                          (item) => item.questionId === id
+                                        );
+                                      if (hasQuestion) {
+                                        const questionIndex =
+                                          selectedQuestions.findIndex(
+                                            (item) => item.questionId === id
+                                          );
+                                        selectedQuestions.splice(
+                                          questionIndex,
+                                          1
+                                        );
+                                      } else {
+                                        selectedQuestions.push({
+                                          questionId: id,
+                                        });
+                                      }
+                                      setSelectedQuestions([
+                                        ...selectedQuestions,
+                                      ]);
+                                    }}
+                                  />
+                                  <TextFields
+                                    onBlur={(e: ChangeEvent<any>) => {
+                                      selectedQuestions.map((item) =>
+                                        item.questionId === id
+                                          ? (item.mark = e.target.value)
+                                          : item
+                                      );
+                                      setSelectedQuestions([
+                                        ...selectedQuestions,
+                                      ]);
+                                    }}
+                                    label="Score"
+                                    sx={{ width: 100 }}
+                                  />
+                                </Box>
+                              )
+                            )
+                          ) : (
+                            <Empty />
+                          )}
+                        </>
+                      )}
+                    </Accordion>
+                  )
+                )
+              ) : (
+                <Empty />
+              )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
                   <>
@@ -120,15 +234,8 @@ const AddSection = ({ examId, centreId }: Props): JSX.Element => {
           </form>
         }
       />
-      {toastMessage && (
-        <Toast
-          status={Boolean(toastMessage)}
-          message={toastMessage}
-          showToast={toggleToast}
-        />
-      )}
     </>
   );
 };
 
-export default AddSection;
+export default AddQuestion;

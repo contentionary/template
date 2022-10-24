@@ -7,7 +7,6 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
 import CheckBox from "@src/components/shared/checkInput";
 import Dialog from "@src/components/shared/dialog";
 import Toast from "@src/components/shared/toast";
@@ -17,38 +16,49 @@ import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
-import TextFields from "@src/components/shared/input/textField";
+import { QuestionsInt } from "@src/utils/interface";
+import EditOutlined from "@mui/icons-material/EditOutlined";
 
 interface Props {
   centreId: string;
+  question: QuestionsInt;
   questionBankId: string;
 }
 
-const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
+const AddModules = ({
+  question,
+  questionBankId,
+  centreId,
+}: Props): JSX.Element => {
   const styles = useStyles();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, setData } = useForm(create);
-  const [solution, setSolution] = useState(false);
-
+  const { getData, values, submit, setData, setDefault } = useForm(create);
+  const [solution, setSolution] = useState(
+    question?.solution?.text ? true : false
+  );
   // const [file, setFile] = useState<Record<string, any>>();
   // const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   // const [convertedFile, setConvertedFile] = useState<any>();
   // const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
-  const [options, setOptions] = useState<Array<Record<string, any>>>([
-    {
-      value: "",
-      isCorrect: false,
-    },
-  ]);
+  const [options, setOptions] = useState<Array<Record<string, any>>>(
+    question?.question?.options
+  );
   // const getFile = (e: ChangeEvent<any>) => {
   //   setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   // };
   const Loading = dynamic(() => import("@src/components/shared/loading"));
+  useEffect(() => {
+    setDefault({
+      type: question.question.type,
+      question: question.question.question,
+    });
+  }, []);
+
   async function create() {
     try {
       setIsLoading(true);
@@ -57,19 +67,19 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
       //   values.fileUrl = fileUrl;
       //   setConvertedFile(fileUrl);
       // }
+
       let questions: any = {
         question: { question: values.question, type: values.type },
       };
       if (values.type === "objective" || values.type === "multichoice")
-        questions.question.options = options;
+        questions.question.options = options.map(({ value, isCorrect }) => ({
+          value,
+          isCorrect,
+        }));
       if (values.type === "boolean") questions.question.answer = values.answer;
-      if (values.type === "range") {
-        questions.question.max = values.max;
-        questions.question.min = values.min;
-      }
       if (solution) questions.solution = { text: values.solution };
-      await request.post({
-        url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
+      await request.patch({
+        url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question.id}`,
         data: questions,
       });
       toggleToast("Question add");
@@ -80,12 +90,11 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
       setIsLoading(false);
     }
   }
-
   return (
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
-        <AddCircleOutlineOutlined />
-        Add Question
+        <EditOutlined />
+        Update Question
       </MenuItem>
       <Dialog
         title="Add Question"
@@ -105,7 +114,6 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                   <MenuItem value="objective">OBJECTIVE</MenuItem>
                   <MenuItem value="theory">THEORY</MenuItem>
                   <MenuItem value="boolean">BOOLEAN</MenuItem>
-                  <MenuItem value="range">RANGE</MenuItem>
                   <MenuItem value="multichoice">MULTI-CHOICE</MenuItem>
                 </Select>
               </FormControl>
@@ -117,6 +125,7 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                   required
                   placeholder="Type in question here ..."
                   name="question"
+                  defaultValue={question.question.question}
                   onChange={getData}
                   style={{
                     width: "100%",
@@ -148,23 +157,13 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                   </Typography>
                 </>
               )}
-              {values.type === "range" && (
-                <Box>
-                  <TextFields
-                    onChange={getData}
-                    name="min"
-                    label="Minium"
-                    sx={{ mr: 4 }}
-                  />
-                  <TextFields onChange={getData} name="max" label="Maxium" />
-                </Box>
-              )}
+
               {(values.type === "objective" ||
                 values.type === "multichoice") && (
                 <Box>
                   {options.map((option, index) => (
                     <>
-                      <Box key={`${index}-add-option`}>
+                      <Box key={`${index}-option`}>
                         <CheckBox
                           label={
                             <Typography variant="subtitle1" component="div">
@@ -174,7 +173,10 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                           }
                           checked={options[index].isCorrect ? true : false}
                           onChange={(e: ChangeEvent<any>) => {
-                            if (values.type === "objective") {
+                            if (
+                              values.type ||
+                              question.question.type === "objective"
+                            ) {
                               options.map((item) => (item.isCorrect = false));
                             }
                             option.isCorrect = e.target.checked;
@@ -184,6 +186,7 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                         <Box sx={{ display: "flex" }}>
                           <Editor
                             required
+                            defaultValue={option.value}
                             onChange={(e: ChangeEvent<any>) => {
                               options[index].value = e.target.value;
                               setOptions(options);
@@ -224,6 +227,7 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                   </Typography>
                   <Editor
                     required
+                    defaultValue={question.solution.text}
                     placeholder="Type in solution here ..."
                     name="solution"
                     onChange={getData}
@@ -249,7 +253,7 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                   sx={{ fontSize: 18, mr: 2 }}
                 >
                   <>
-                    Add question
+                    Update question
                     {isLoading && (
                       <Loading
                         size={15}

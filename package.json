@@ -40,6 +40,7 @@
     "react-pdf": "^5.7.2",
     "react-player": "^2.10.1",
     "react-query": "^3.39.2",
+    "react-rte": "^0.16.5",
     "react-share": "^4.4.0",
     "react-swipeable-views": "^0.14.0",
     "react-swipeable-views-utils": "^0.14.0",

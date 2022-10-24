@@ -25,6 +25,7 @@ export interface QuestionInt {
   question: JSX.Element;
   options: [QuestionOptionInt];
   answer: boolean;
+  id: string | number;
 }
 
 export interface QuestionsInt {

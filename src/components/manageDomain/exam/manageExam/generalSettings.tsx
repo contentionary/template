@@ -9,7 +9,6 @@ import MenuItem from "@mui/material/MenuItem";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
-import { useToast } from "@src/utils/hooks";
 import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
@@ -19,13 +18,12 @@ import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
-const CreateCourse = () => {
+const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
   const styles = useStyles();
   const { exam, publicationCategories } = pageData;
-  const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check, resetValues } = useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +32,6 @@ const CreateCourse = () => {
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
   const router = useRouter();
   const { type, folderId } = router.query;
-  const Toast = dynamic(() => import("@src/components/shared/toast"));
   const ImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")
   );
@@ -74,7 +71,14 @@ const CreateCourse = () => {
         }}
         style={{ marginTop: 40 }}
       >
-        <Stack spacing={3} mt={3}>
+        <Stack spacing={4} mt={3}>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
+          >
+            General Exam Settings
+          </Typography>
           <Box>
             <TextFields
               type="text"
@@ -259,14 +263,7 @@ const CreateCourse = () => {
         </Typography>
       </form>
 
-      {toastMessage && (
-        <Toast
-          message={toastMessage}
-          status={Boolean(toggleToast)}
-          showToast={toggleToast}
-        />
-      )}
-
+     
       <Loading
         open={isLoading}
         sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}

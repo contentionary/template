@@ -14,7 +14,7 @@ interface Props {
   centreId: string;
 }
 
-const DeleteCentre = ({ id, centreId }: Props) => {
+const DeleteExamFolder = ({ id, centreId }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -58,4 +58,4 @@ const DeleteCentre = ({ id, centreId }: Props) => {
   );
 };
 
-export default DeleteCentre;
+export default DeleteExamFolder;

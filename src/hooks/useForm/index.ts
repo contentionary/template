@@ -4,6 +4,10 @@ import { UseForm } from "./interface";
 const useForm = (submitAction: Function): UseForm => {
   const [values, setValue] = useState<any>({});
 
+  const setDefault = (defaultValues: Record<string, unknown>): void => {
+    setValue({ ...values, ...defaultValues });
+  };
+
   const setData = (field: string, data: string): void => {
     values[field] = data;
     setValue({ ...values });
@@ -38,7 +42,8 @@ const useForm = (submitAction: Function): UseForm => {
     resetValues,
     getFile,
     check,
-    setData,
+    setData, 
+    setDefault
   };
 };
 
