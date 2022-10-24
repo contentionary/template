@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -10,6 +11,7 @@ import grey from "@mui/material/colors/grey";
 // app components
 import Dropdown from "@src/components/shared/dropdown";
 import ModalComponent from "@src/components/shared/modal";
+import CircularProgress from "@mui/material/CircularProgress";
 import SnackbarComponent from "@src/components/shared/snackerBar/SnackbarComponent";
 // icons
 import CloseIcon from "@mui/icons-material/Close";
@@ -20,9 +22,12 @@ import LiveHelpOutlinedIcon from "@mui/icons-material/LiveHelpOutlined";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 // utils, interface and styles
 import { TempAnswerInt } from ".";
+import { request } from "@src/utils";
+import { useQuery, useMutation } from "react-query";
 import { ExamQuestionsInt, ExamInt } from "@src/utils/interface";
 
 interface ExamNavInt {
+  centerId: string;
   exam: ExamInt;
   currentSection: number;
   currentQuestion: number;
@@ -91,11 +96,42 @@ const SelectQuestionDropdown = (props: ExamNavInt) => {
 };
 
 const ExamNav = (props: ExamNavInt) => {
+  const router = useRouter();
   const [openEndExamModal, setOpenEndExamModal] =
     React.useState<boolean>(false);
+  const [endingExam, setEndingExam] = React.useState<boolean>(false);
 
+  // handle close End exam modal
+  const handleCloseEndExamModal = () => {
+    if (endingExam) return;
+    setOpenEndExamModal(false);
+  };
+
+  // end exam mutant
+  const submitAnswer = useMutation(
+    async () => {
+      return await request.post({
+        url: `/centre/${props.centerId}/exam/${props.exam.id}/answer`,
+        data: { duration: 100, answers: props.answers },
+      });
+    },
+    {
+      onSuccess: () => {
+        setEndingExam(false);
+        setOpenEndExamModal(false);
+        router.push(`/exams/${props.exam.slug}/finish`);
+      },
+      onError: () => {
+        setEndingExam(false);
+        alert("something went wrong");
+      },
+    }
+  );
+
+  // end exam
   const handleEndExam = () => {
-    alert("end exam");
+    setEndingExam(true);
+    submitAnswer.mutate();
   };
   return (
     <Fragment>
@@ -267,7 +303,7 @@ const ExamNav = (props: ExamNavInt) => {
       </Box>
       <ModalComponent
         open={openEndExamModal}
-        handleClose={() => setOpenEndExamModal(false)}
+        handleClose={handleCloseEndExamModal}
       >
         <React.Fragment>
           <Stack
@@ -278,30 +314,40 @@ const ExamNav = (props: ExamNavInt) => {
             <IconButton
               color="inherit"
               aria-label="close"
+              disabled={endingExam}
               sx={{ p: 0.5, ml: "auto" }}
-              onClick={() => setOpenEndExamModal(false)}
+              onClick={handleCloseEndExamModal}
             >
               <CloseIcon />
             </IconButton>
           </Stack>
-          <Typography
-            mb={0}
-            variant="h1"
-            component="p"
-            textAlign="center"
-            sx={{ color: grey[200] }}
-          >
-            <LiveHelpOutlinedIcon fontSize="inherit" color="inherit" />
-          </Typography>
-          <Typography mb={0} variant="h4" textAlign="center">
-            {Object.keys(props.answers).length}{" "}
-            <Typography variant="caption"> out of </Typography>
-            {props.exam.questionCount}
-            <Typography variant="caption"> answered </Typography>
-          </Typography>
-          <Typography mb={3} paragraph textAlign="center">
-            Do you want to end your exam now?
-          </Typography>
+          {endingExam ? (
+            <Typography paragraph py={3} textAlign="center">
+              <CircularProgress sx={{ color: grey[300] }} size={60} />
+            </Typography>
+          ) : (
+            <React.Fragment>
+              <Typography
+                mb={0}
+                variant="h1"
+                component="p"
+                textAlign="center"
+                sx={{ color: grey[400] }}
+              >
+                <LiveHelpOutlinedIcon fontSize="inherit" color="inherit" />
+              </Typography>
+              <Typography mb={0} variant="h4" textAlign="center">
+                {Object.keys(props.answers).length}{" "}
+                <Typography variant="caption"> out of </Typography>
+                {props.exam.questionCount}
+                <Typography variant="caption"> answered </Typography>
+              </Typography>
+              <Typography mb={3} paragraph textAlign="center">
+                Do you want to end your exam now?
+              </Typography>
+            </React.Fragment>
+          )}
+
           <Stack
             spacing={2}
             direction="row"
@@ -313,7 +359,8 @@ const ExamNav = (props: ExamNavInt) => {
               color="secondary"
               disableElevation
               variant="outlined"
-              onClick={() => setOpenEndExamModal(false)}
+              disabled={endingExam}
+              onClick={handleCloseEndExamModal}
             >
               Cancel
             </Button>
@@ -322,6 +369,7 @@ const ExamNav = (props: ExamNavInt) => {
               color="error"
               disableElevation
               variant="contained"
+              disabled={endingExam}
               onClick={handleEndExam}
             >
               Continue

@@ -1,7 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
+import Fade from "@mui/material/Fade";
 import Modal from "@mui/material/Modal";
-import Button from "@mui/material/Button";
 // interface
 import { ModalComponentInt } from "./interfaceType";
 
@@ -22,7 +22,9 @@ const ModalComponent = (props: ModalComponentInt) => {
 
   return (
     <Modal open={open} onClose={handleClose} {...rest}>
-      <Box sx={style}>{children}</Box>
+      <Fade in={open}>
+        <Box sx={style}>{children}</Box>
+      </Fade>
     </Modal>
   );
 };

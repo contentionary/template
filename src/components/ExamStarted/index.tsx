@@ -165,6 +165,7 @@ const StartExam: ExamFunc = (props) => {
       <ExamNav
         exam={exam}
         answers={answers}
+        centerId={props.centerId}
         currentSection={section}
         currentQuestion={question}
         examQuestions={examQuestions}
