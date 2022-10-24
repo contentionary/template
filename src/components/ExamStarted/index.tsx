@@ -24,10 +24,19 @@ import { ExamFunc } from "./interfaceType";
 import { ExamQuestionsInt } from "@src/utils/interface";
 import useFormControlStyle from "@src/styles/formControl";
 
+export interface TempAnswerInt {
+  questionId: string;
+  optionId?: number;
+  answer?: string | boolean;
+  optionIds?: Array<number>;
+  min?: string;
+  max?: string;
+}
+
 const StartExam: ExamFunc = (props) => {
   const theme = useTheme();
   const { exam /* auth */ } = props;
-  let examQuestions: ExamQuestionsInt;
+  const [examQuestions, setExamQuestions] = React.useState<ExamQuestionsInt>();
   const globalStyle = useGlobalStyle();
   const formControlStyle = useFormControlStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
@@ -35,9 +44,9 @@ const StartExam: ExamFunc = (props) => {
   const [section, setSection] = React.useState(0);
   const [question, setQuestion] = React.useState(0);
   //
-  const [answers, setAnswers] = React.useState<
-    Record<string, Record<string, string | number | boolean>>
-  >({});
+  const [answers, setAnswers] = React.useState<Record<string, TempAnswerInt>>(
+    {}
+  );
 
   // exam request
   const { isLoading, isError, data } = useQuery("examQuestions", async () => {
@@ -50,16 +59,16 @@ const StartExam: ExamFunc = (props) => {
   const cacheAnswer = useMutation(
     async () => {
       return await request.patch({
-        url: "/centre/{{centreId}}/exam/{{examId}}/temp-answer/:id",
-        data: { answer: answers },
+        url: `/centre/${props.centerId}/exam/${props.exam.id}/temp-answer/${examQuestions?.cache.id}`,
+        data: { answers: answers },
       });
     },
     {
       onSuccess: () => {
-        console.log("yes");
+        console.log("answer cached");
       },
       onError: () => {
-        console.log("no");
+        console.log("something went wrong");
       },
     }
   );
@@ -68,9 +77,20 @@ const StartExam: ExamFunc = (props) => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       cacheAnswer.mutate();
-    }, 10000);
+    }, 120000);
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // set examQuestions and cached answers
+  React.useEffect(() => {
+    const examData = data?.data as ExamQuestionsInt;
+    if (isLoading === false && data) {
+      setExamQuestions(examData);
+      // console.log(examData, exam);
+      // setAnswers(examData.cache?.answers);
+    }
+  }, [isLoading, data]);
 
   // change section
   const handleChangeSection = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,14 +121,15 @@ const StartExam: ExamFunc = (props) => {
   // set next question event: React.MouseEvent<HTMLButtonElement>
   const nextQuestion = () => {
     if (
-      section === examQuestions.sections.length - 1 &&
-      question === examQuestions.sections[section].questions.length - 1
+      examQuestions &&
+      section === examQuestions?.sections.length - 1 &&
+      question === examQuestions?.sections[section].questions.length - 1
     ) {
       return;
     } else {
       if (
-        examQuestions.sections[section].questions &&
-        question < examQuestions.sections[section].questions.length - 1
+        examQuestions?.sections[section].questions &&
+        question < examQuestions?.sections[section].questions.length - 1
       ) {
         setQuestion(question + 1);
       } else {
@@ -138,10 +159,12 @@ const StartExam: ExamFunc = (props) => {
       </Box>
     );
   }
-  examQuestions = data?.data as ExamQuestionsInt;
+
   return (
     <Box pt={0} component="main" minHeight="100vh">
       <ExamNav
+        exam={exam}
+        answers={answers}
         currentSection={section}
         currentQuestion={question}
         examQuestions={examQuestions}
@@ -188,6 +211,8 @@ const StartExam: ExamFunc = (props) => {
                 </RadioGroup>
               </Box>
               <ExamQuestion
+                answers={answers}
+                setAnswers={setAnswers}
                 currentSection={section}
                 currentQuestion={question}
                 examQuestions={examQuestions}
@@ -214,11 +239,11 @@ const StartExam: ExamFunc = (props) => {
                     </Button>
                     <Button
                       disabled={
-                        (!examQuestions.sections.length ||
-                          section === examQuestions.sections.length - 1) &&
-                        (!examQuestions.sections[section].questions.length ||
+                        (!examQuestions?.sections.length ||
+                          section === examQuestions?.sections.length - 1) &&
+                        (!examQuestions?.sections[section].questions.length ||
                           question ===
-                            examQuestions.sections[section].questions.length -
+                            examQuestions?.sections[section].questions.length -
                               1)
                       }
                       variant="contained"

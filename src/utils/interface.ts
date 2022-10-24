@@ -26,6 +26,7 @@ export interface QuestionInt {
   type: "theory" | "boolean" | "multichoice" | "objective" | "range";
   max?: number;
   min?: number;
+  image?: string;
   question: string;
   answer: ReactNode;
   options: [QuestionOptionInt];
@@ -36,6 +37,7 @@ export interface QuestionsInt {
   solution: Solution;
   id: string;
   questionBankId: string;
+  questionId: string;
 }
 
 export interface PluginsInt {
