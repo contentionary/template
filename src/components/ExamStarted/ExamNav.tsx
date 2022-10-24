@@ -15,8 +15,75 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 // utils, interface and styles
 // import useGlobalStyle from "@src/styles";
 // import { ExamFunc } from "./interfaceType";
+import { ExamQuestionsInt } from "@src/utils/interface";
 
-const ExamNav = () => {
+interface ExamNavInt {
+  currentSection: number;
+  currentQuestion: number;
+  examQuestions: ExamQuestionsInt;
+  // eslint-disable-next-line no-unused-vars
+  setQuestionAndSection: (question: number, section: number) => void;
+}
+
+const SelectQuestionDropdown = (props: ExamNavInt) => {
+  return (
+    <Dropdown
+      title={
+        <>
+          Questions
+          <ArrowDropDownOutlinedIcon />
+        </>
+      }
+    >
+      <Typography mb={0} textAlign="center" variant="h6">
+        Go to Question Number
+      </Typography>
+      {props.examQuestions.sections.map((section, sectionIndex) => (
+        <Box key={`section-${section.id}`}>
+          <Typography variant="h6">{section.name}</Typography>
+
+          {section.questions.length ? (
+            <Box
+              mb={1}
+              gap={1}
+              display="grid"
+              maxWidth={246}
+              gridTemplateColumns="repeat(6, 1fr)"
+            >
+              {section.questions.map((question, questionIndex) => (
+                <Button
+                  onClick={() =>
+                    props.setQuestionAndSection(questionIndex, sectionIndex)
+                  }
+                  size="small"
+                  disableElevation
+                  variant={
+                    questionIndex === props.currentQuestion &&
+                    sectionIndex === props.currentSection
+                      ? "contained"
+                      : "outlined"
+                  }
+                  sx={{
+                    minWidth: 32,
+                  }}
+                  key={`question-button-${questionIndex}`}
+                >
+                  {questionIndex + 1}
+                </Button>
+              ))}
+            </Box>
+          ) : (
+            <Typography py={1} paragraph textAlign="center">
+              &middot; No questions in this section &middot;
+            </Typography>
+          )}
+        </Box>
+      ))}
+    </Dropdown>
+  );
+};
+
+const ExamNav = (props: ExamNavInt) => {
   return (
     <Fragment>
       <Box
@@ -42,39 +109,7 @@ const ExamNav = () => {
               spacing={1}
               display={{ xs: "none", md: "block" }}
             >
-              <Dropdown
-                title={
-                  <>
-                    Questions
-                    <ArrowDropDownOutlinedIcon />
-                  </>
-                }
-              >
-                <Typography mb={0} textAlign="center" paragraph>
-                  Go to Question Number
-                </Typography>
-                <Box
-                  p={1}
-                  gap={1}
-                  display="grid"
-                  maxWidth={246}
-                  gridTemplateColumns="repeat(6, 1fr)"
-                >
-                  {Array.from({ length: 30 }).map((_, index) => (
-                    <Button
-                      size="small"
-                      disableElevation
-                      variant={index === 6 ? "contained" : "outlined"}
-                      sx={{
-                        minWidth: 32,
-                      }}
-                      key={`question-button-${index + 1}`}
-                    >
-                      {index + 1}
-                    </Button>
-                  ))}
-                </Box>
-              </Dropdown>
+              <SelectQuestionDropdown {...props} />
             </Stack>
             <Box
               position="absolute"
@@ -137,7 +172,7 @@ const ExamNav = () => {
                         sx={{
                           minWidth: 32,
                         }}
-                        key={`question-button-${index + 1}`}
+                        key={`pinned-question-button-${index + 1}`}
                       >
                         {index + 1}
                       </Button>
@@ -170,39 +205,7 @@ const ExamNav = () => {
             alignItems="center"
             display={{ xs: "flex", md: "none" }}
           >
-            <Dropdown
-              title={
-                <>
-                  Questions
-                  <ArrowDropDownOutlinedIcon />
-                </>
-              }
-            >
-              <Typography mb={0} textAlign="center" paragraph>
-                Go to Question Number
-              </Typography>
-              <Box
-                p={1}
-                gap={1}
-                display="grid"
-                maxWidth={246}
-                gridTemplateColumns="repeat(6, 1fr)"
-              >
-                {Array.from({ length: 30 }).map((_, index) => (
-                  <Button
-                    size="small"
-                    disableElevation
-                    variant={index === 6 ? "contained" : "outlined"}
-                    sx={{
-                      minWidth: 32,
-                    }}
-                    key={`question-button-${index + 1}`}
-                  >
-                    {index + 1}
-                  </Button>
-                ))}
-              </Box>
-            </Dropdown>
+            <SelectQuestionDropdown {...props} />
             <Dropdown
               title={
                 <>
@@ -238,7 +241,7 @@ const ExamNav = () => {
                     sx={{
                       minWidth: 32,
                     }}
-                    key={`question-button-${index + 1}`}
+                    key={`pinned-question-button-${index + 1}`}
                   >
                     {index + 1}
                   </Button>

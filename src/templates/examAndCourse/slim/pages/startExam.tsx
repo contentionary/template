@@ -7,7 +7,7 @@ const StartExam = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { name, logo } = cachedData.centre;
+  const { name, logo, id } = cachedData.centre;
   const exam = pageData.exam as ExamInt;
 
   return (
@@ -18,7 +18,7 @@ const StartExam = () => {
       showHeader={false}
       showFooter={false}
     >
-      <StartExamPage exam={exam} auth={pageData.auth} />
+      <StartExamPage exam={exam} centerId={id} auth={pageData.auth} />
     </ExamAndCourseWrapper>
   );
 };

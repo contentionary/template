@@ -4,27 +4,49 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-//
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // icons
 import PushPinIcon from "@mui/icons-material/PushPinOutlined";
+import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
+// app components
+import {
+  RangeQuestionSelector,
+  TheoryQuestionSelector,
+  BooleanQuestionSelector,
+  ObjectiveQuestionSelector,
+  MultichoiceQuestionSelector,
+} from "./ExamQuestionForms";
+
 // utils, interface and styles
-// import { ExamFunc } from "./interfaceType";
 import useButtonStyle from "@src/styles/button";
+import { ExamQuestionsInt } from "@src/utils/interface";
 
-const ExamQuestion = () => {
+interface QuestionFormInt {
+  currentSection: number;
+  currentQuestion: number;
+  examQuestions: ExamQuestionsInt;
+}
+
+const ExamQuestion = ({
+  currentSection,
+  currentQuestion,
+  examQuestions,
+}: QuestionFormInt): JSX.Element => {
   const buttonStyle = useButtonStyle();
-  //
-  const [view, setView] = React.useState("");
+  let questionType;
 
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    nextView: string
-  ) => {
-    setView(nextView);
-  };
-
+  if (!examQuestions.sections[currentSection].questions.length) {
+    return (
+      <Box py={4} textAlign="center">
+        <Typography variant="h2">
+          <HelpCenterOutlinedIcon fontSize="inherit" />
+        </Typography>
+        <Typography paragraph>No questions in this section</Typography>
+      </Box>
+    );
+  }
+  questionType =
+    examQuestions.sections[currentSection].questions[currentQuestion].question
+      .type;
   return (
     <Box p={3}>
       <Stack
@@ -34,7 +56,8 @@ const ExamQuestion = () => {
         alignItems="center"
       >
         <Typography variant="h5" color="primary">
-          Question 6 of 50
+          Question {currentQuestion + 1} of{" "}
+          {examQuestions.sections[currentSection].questions.length}
         </Typography>
         <Button
           size="large"
@@ -45,30 +68,34 @@ const ExamQuestion = () => {
           &nbsp; Pin this question
         </Button>
       </Stack>
-      <Typography paragraph>
-        Choose the image that completes the pattern.
-      </Typography>
+      <Box
+        dangerouslySetInnerHTML={{
+          __html:
+            examQuestions.sections[currentSection].questions[currentQuestion]
+              .question.question,
+        }}
+      />
       <Box>
-        <ToggleButtonGroup
-          exclusive
-          value={view}
-          orientation="vertical"
-          onChange={handleChange}
-          className={buttonStyle.examButtonGroup}
-        >
-          <ToggleButton value="a" aria-label="option a">
-            Option 1 is the answer
-          </ToggleButton>
-          <ToggleButton value="b" aria-label="option a">
-            Option 2 serves as the answer
-          </ToggleButton>
-          <ToggleButton value="c" aria-label="option a">
-            Option 1 and 2 are the answers
-          </ToggleButton>
-          <ToggleButton value="d" aria-label="option a">
-            None of the above
-          </ToggleButton>
-        </ToggleButtonGroup>
+        {questionType === "objective" ? (
+          <ObjectiveQuestionSelector
+            question={
+              examQuestions.sections[currentSection].questions[currentQuestion]
+                .question
+            }
+          />
+        ) : questionType === "boolean" ? (
+          <BooleanQuestionSelector />
+        ) : questionType === "theory" ? (
+          <TheoryQuestionSelector />
+        ) : questionType === "multichoice" ? (
+          <MultichoiceQuestionSelector />
+        ) : questionType === "range" ? (
+          <RangeQuestionSelector />
+        ) : (
+          <Typography py={3} variant="h4" textAlign="center">
+            component not available
+          </Typography>
+        )}
       </Box>
     </Box>
   );

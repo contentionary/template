@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CircularProgress from "@mui/material/CircularProgress";
 //
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -16,30 +17,143 @@ import ExamNav from "./ExamNav";
 import ExamQuestion from "./ExamQuestion";
 // icons
 // utils, interface and styles
+import { request } from "@src/utils";
+import { useQuery, useMutation } from "react-query";
 import useGlobalStyle from "@src/styles";
 import { ExamFunc } from "./interfaceType";
+import { ExamQuestionsInt } from "@src/utils/interface";
+import useFormControlStyle from "@src/styles/formControl";
 
 const StartExam: ExamFunc = (props) => {
   const theme = useTheme();
   const { exam /* auth */ } = props;
+  let examQuestions: ExamQuestionsInt;
   const globalStyle = useGlobalStyle();
+  const formControlStyle = useFormControlStyle();
+  const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
+  //
+  const [section, setSection] = React.useState(0);
+  const [question, setQuestion] = React.useState(0);
+  //
+  const [answers, setAnswers] = React.useState<
+    Record<string, Record<string, string | number | boolean>>
+  >({});
 
+  // exam request
+  const { isLoading, isError, data } = useQuery("examQuestions", async () => {
+    return await request.get({
+      url: `/centre/${props.centerId}/exam/${exam.id}/questions?showAnswer=false`,
+    });
+  });
+
+  // cache exam answers
+  const cacheAnswer = useMutation(
+    async () => {
+      return await request.patch({
+        url: "/centre/{{centreId}}/exam/{{examId}}/temp-answer/:id",
+        data: { answer: answers },
+      });
+    },
+    {
+      onSuccess: () => {
+        console.log("yes");
+      },
+      onError: () => {
+        console.log("no");
+      },
+    }
+  );
+
+  // submit answer on interval
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      cacheAnswer.mutate();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // change section
+  const handleChangeSection = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuestion(0);
+    setSection(Number((event.target as HTMLInputElement).value));
+  };
+
+  // set question and section
+  const setQuestionAndSection = (question: number, section: number) => {
+    setQuestion(question);
+    setSection(section);
+  };
+
+  // set previous question event: React.MouseEvent<HTMLButtonElement>
+  const prevQuestion = () => {
+    if (section === 0 && question === 0) {
+      return;
+    } else {
+      if (section > 0 && question === 0) {
+        setSection(section - 1);
+        setQuestion(0);
+      } else {
+        setQuestion(question - 1);
+      }
+    }
+  };
+
+  // set next question event: React.MouseEvent<HTMLButtonElement>
+  const nextQuestion = () => {
+    if (
+      section === examQuestions.sections.length - 1 &&
+      question === examQuestions.sections[section].questions.length - 1
+    ) {
+      return;
+    } else {
+      if (
+        examQuestions.sections[section].questions &&
+        question < examQuestions.sections[section].questions.length - 1
+      ) {
+        setQuestion(question + 1);
+      } else {
+        setSection(section + 1);
+        setQuestion(0);
+      }
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <Box py={24} textAlign="center">
+        <Typography paragraph>
+          <CircularProgress color="inherit" size={80} />
+        </Typography>
+        ;<Typography paragraph>getting exams please wait</Typography>;
+      </Box>
+    );
+  }
+  if (isError) {
+    return (
+      <Box py={24} textAlign="center">
+        <Typography variant="h1">⚠</Typography>
+        <Typography paragraph>
+          Something went wrong, please get an invigilator...
+        </Typography>
+      </Box>
+    );
+  }
+  examQuestions = data?.data as ExamQuestionsInt;
   return (
     <Box pt={0} component="main" minHeight="100vh">
-      <ExamNav />
+      <ExamNav
+        currentSection={section}
+        currentQuestion={question}
+        examQuestions={examQuestions}
+        setQuestionAndSection={setQuestionAndSection}
+      />
       <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
         <Container maxWidth="xl" sx={{ display: "grid", placeItems: "center" }}>
           <Box maxWidth={620} width="100%">
             <Typography mb={3} variant="h5" component="h1" textAlign="center">
               {exam.name}
             </Typography>
-            <Box
-              className={
-                useMediaQuery(theme.breakpoints.down("sm"))
-                  ? ""
-                  : globalStyle.paperShadowSm
-              }
-            >
+            <Box className={isMatch ? "" : globalStyle.paperShadowSm}>
               <Box
                 maxWidth="86vw"
                 borderBottom={1}
@@ -56,34 +170,28 @@ const StartExam: ExamFunc = (props) => {
                     flexShrink: 0,
                     flexWrap: "nowrap",
                   }}
-                  name="exam-category-group"
+                  value={section}
+                  onChange={handleChangeSection}
+                  name="exam-questions-section"
                   defaultValue="general_section"
                   aria-labelledby="exam category group"
-                  className={globalStyle.hiddenScrollbar}
+                  className={`${globalStyle.hiddenScrollbar} ${formControlStyle.formControlGroup} nowrap`}
                 >
-                  <FormControlLabel
-                    value="general_section"
-                    control={<Radio />}
-                    label="General Section"
-                  />
-                  <FormControlLabel
-                    value="section_b"
-                    control={<Radio />}
-                    label="Section B"
-                  />
-                  <FormControlLabel
-                    value="section_c"
-                    control={<Radio />}
-                    label="Section C"
-                  />
-                  <FormControlLabel
-                    value="theory"
-                    control={<Radio />}
-                    label="Theory"
-                  />
+                  {examQuestions?.sections?.map((section, index) => (
+                    <FormControlLabel
+                      key={`${section.id}-section`}
+                      value={index}
+                      control={<Radio />}
+                      label={section.name}
+                    />
+                  ))}
                 </RadioGroup>
               </Box>
-              <ExamQuestion />
+              <ExamQuestion
+                currentSection={section}
+                currentQuestion={question}
+                examQuestions={examQuestions}
+              />
               <Box p={3}>
                 <Stack
                   mt={2}
@@ -95,10 +203,29 @@ const StartExam: ExamFunc = (props) => {
                     Question mark: 1
                   </Typography>
                   <Stack direction="row" spacing={1}>
-                    <Button disableElevation size="large" variant="contained">
+                    <Button
+                      disabled={section === 0 && question === 0}
+                      variant="contained"
+                      disableElevation
+                      size="large"
+                      onClick={prevQuestion}
+                    >
                       Previous
                     </Button>
-                    <Button disableElevation size="large" variant="contained">
+                    <Button
+                      disabled={
+                        (!examQuestions.sections.length ||
+                          section === examQuestions.sections.length - 1) &&
+                        (!examQuestions.sections[section].questions.length ||
+                          question ===
+                            examQuestions.sections[section].questions.length -
+                              1)
+                      }
+                      variant="contained"
+                      disableElevation
+                      size="large"
+                      onClick={nextQuestion}
+                    >
                       Next
                     </Button>
                   </Stack>

@@ -29,18 +29,19 @@ export const useMenu: any = () => {
 export const useEventListener = <K extends keyof HTMLElementEventMap>(
   eventName: K,
   handler: (
+    // eslint-disable-next-line no-unused-vars
     event: Event | (HTMLElementEventMap & DocumentEventMap & WindowEventMap)[K]
   ) => void | undefined
 ) => {
   // Create a ref that stores handler
-  const savedHandler =
-    useRef<
-      (
-        event:
-          | Event
-          | (HTMLElementEventMap & DocumentEventMap & WindowEventMap)[K]
-      ) => void | undefined
-    >();
+  const savedHandler = useRef<
+    (
+      // eslint-disable-next-line no-unused-vars
+      event:
+        | Event
+        | (HTMLElementEventMap & DocumentEventMap & WindowEventMap)[K]
+    ) => void | undefined
+  >();
 
   // Update ref.current value if handler changes.
   // This allows our effect below to always get latest handler ...
