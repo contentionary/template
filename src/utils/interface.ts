@@ -7,7 +7,7 @@ export enum Gender {
 
 export interface QuestionOptionInt {
   id: number;
-  value: ReactNode;
+  value: string;
   isCorrect: boolean;
 }
 export interface QuestionBankInt {
@@ -26,7 +26,8 @@ export interface QuestionInt {
   type: "theory" | "boolean" | "multichoice" | "objective" | "range";
   max?: number;
   min?: number;
-  question: ReactNode;
+  image?: string;
+  question: string;
   answer: ReactNode;
   options: [QuestionOptionInt];
 }
@@ -36,6 +37,9 @@ export interface QuestionsInt {
   solution: Solution;
   id: string;
   questionBankId: string;
+  questionId: string;
+  mark: number;
+  duration: number;
 }
 
 export interface PluginsInt {
