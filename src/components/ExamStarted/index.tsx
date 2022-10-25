@@ -227,7 +227,10 @@ const StartExam: ExamFunc = (props) => {
                 >
                   <Typography mb={0} paragraph>
                     {examQuestions
-                      ? `Question mark: ${examQuestions?.sections[section].questions[question].mark}`
+                      ? `Question mark: ${
+                          examQuestions?.sections[section]?.questions[question]
+                            ?.mark || 0
+                        }`
                       : ""}
                   </Typography>
                   <Stack direction="row" spacing={1}>

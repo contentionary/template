@@ -1,4 +1,5 @@
 import React from "react";
+import { v1 as uuid } from "uuid";
 //
 import Box from "@mui/material/Box";
 // App components
@@ -14,19 +15,18 @@ const ExamDetails = ({ exam, auth }: { exam: ExamInt; auth: any }) => {
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = auth
     ? `
-    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
+    /payment?itemId=${id}&purpose=EXAM_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {
-    link: `/library/${slug}/document/${id}`,
-    // show: allowRead,
+    link: `/exams/${slug}/exam`,
     show: true,
-    text: "READ",
+    text: "START",
   };
 
   if (auth?.isCentreManager) {
     Read.show = true;
-  } else if (!auth?.isPublicationSubscriber) {
+  } else if (!auth?.isExamSubscriber) {
     Read.text = "SUBSCRIBE";
     Read.link = paymentLink;
   }
