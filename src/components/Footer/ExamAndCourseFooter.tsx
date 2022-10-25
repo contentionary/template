@@ -19,7 +19,8 @@ import { BasePageProps } from "@src/utils/interface";
 
 const ExamAndCourseFooter: FooterFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { logo, emailAddress, phoneNumber, address, name } = cachedData.centre;
+  const { logo, emailAddress, phoneNumber, address, name, description } =
+    cachedData.centre;
 
   return (
     <Fragment>
@@ -46,8 +47,7 @@ const ExamAndCourseFooter: FooterFunc = () => {
                 </NextLink>
               </Box>
               <Typography paragraph color="white" gutterBottom>
-                We are not here to sell you products, we sell value through our
-                expertise.
+                {description}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={7} md={4} ml="auto">
