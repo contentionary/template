@@ -280,6 +280,7 @@ export interface ExamInt {
   keywords: string;
   centreName: string;
   centreSlug: string;
+  summary: string;
 }
 
 export interface ExamQuestionsInt {

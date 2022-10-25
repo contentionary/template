@@ -191,7 +191,7 @@ const ExamNav = (props: ExamNavInt) => {
                 justifyContent={{ xs: "flex-start", md: "center" }}
               >
                 <TimerOutlinedIcon color="secondary" />
-                00 : 45: 35
+                00 : 00: 00
               </Typography>
             </Box>
             <Stack ml="auto" direction="row" alignItems="center" spacing={1}>
