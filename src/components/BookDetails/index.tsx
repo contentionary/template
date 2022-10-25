@@ -1,4 +1,5 @@
 import React from "react";
+import { v1 as uuid } from "uuid";
 //
 import Box from "@mui/material/Box";
 // App components
@@ -24,7 +25,7 @@ const BookDetails = ({
     ? `
     /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${
         centre.subscriptionModel === "SUBSCRIPTION" ? centre.price : price
-      }&currency=NGN&redirectUrl=${redirectUrl}`
+      }&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {

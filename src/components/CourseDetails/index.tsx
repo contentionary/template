@@ -1,4 +1,5 @@
 import React from "react";
+import { v1 as uuid } from "uuid";
 //
 import Box from "@mui/material/Box";
 // App components
@@ -16,7 +17,7 @@ const CourseDetailsPage = () => {
   const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}&verifyValue=${price}`;
+  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}&verifyValue=${price}`;
 
   const [module] = contents;
   const contentId = module?.contents?.length

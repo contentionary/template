@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-
+// next
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
@@ -13,14 +14,17 @@ import { Link as MuiLink } from "@mui/material";
 import ImageComponent from "@src/components/shared/image";
 // icons
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // hooks, styles, interface and config
 import { useDialog } from "@src/hooks";
 import useGlobalStyle from "@src/styles";
-import { isServerSide } from "@src/utils";
 import useButtonStyle from "@src/styles/button";
 import { ExamDetailsPageFunc } from "./interfaceType";
+import { kCount, isServerSide, dateTimeFormat } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
 
@@ -32,7 +36,18 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { reference, verifyValue, price: deductedPrice } = router.query;
 
-  const { name, price, image } = exam;
+  const {
+    id,
+    name,
+    slug,
+    price,
+    image,
+    summary,
+    subscriberCount,
+    questionCount,
+    startDate,
+    endDate,
+  } = exam;
 
   const redirectUrl = !isServerSide ? window.location.href : "";
 
@@ -82,6 +97,42 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
               <Typography variant="h2" component="h1">
                 {name}
               </Typography>
+              <Typography paragraph>{summary}</Typography>
+              <Typography paragraph>
+                <Typography
+                  variant="subtitle1"
+                  component="span"
+                  color="primary"
+                >
+                  Exam ID:
+                </Typography>{" "}
+                {id}
+              </Typography>
+              <Stack
+                my={2}
+                spacing={2}
+                flexWrap="wrap"
+                direction="row"
+                alignItems="center"
+              >
+                <Typography variant="h6" display="flex" alignItems="center">
+                  <GroupAddOutlinedIcon color="primary" fontSize="small" />
+                  &nbsp; {kCount(subscriberCount)} Exam Takers
+                </Typography>
+                <Typography variant="h6" display="flex" alignItems="center">
+                  <HelpOutlineOutlinedIcon color="primary" fontSize="small" />
+                  &nbsp; No of Questions: {kCount(questionCount)}
+                </Typography>
+                <Typography variant="h6" display="flex" alignItems="center">
+                  <CalendarMonthOutlinedIcon color="primary" fontSize="small" />
+                  &nbsp; Date:{" "}
+                  {startDate && endDate
+                    ? `${dateTimeFormat(startDate)} - ${dateTimeFormat(
+                        endDate
+                      )}`
+                    : ""}
+                </Typography>
+              </Stack>
               <Typography variant="h3" component="h1">
                 {price <= 0 ? "Free" : ` ₦${price}`}
               </Typography>
@@ -103,12 +154,9 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                 direction="row"
                 alignItems="center"
               >
-                {Boolean(read.show) && (
+                <NextLink href={read.link} passHref>
                   <Button
                     size="large"
-                    onClick={() => {
-                      if (!isServerSide) window.location.href = read.link;
-                    }}
                     disableElevation
                     variant="contained"
                     component={MuiLink}
@@ -119,7 +167,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                       <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
                     </Stack>
                   </Button>
-                )}
+                </NextLink>
               </Stack>
             </Grid>
           </Grid>

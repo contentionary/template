@@ -7,7 +7,7 @@ export enum Gender {
 
 export interface QuestionOptionInt {
   id: number;
-  value: ReactNode;
+  value: string;
   isCorrect: boolean;
 }
 export interface QuestionBankInt {
@@ -24,10 +24,11 @@ export interface Solution {
 
 export interface QuestionInt {
   type: "theory" | "boolean" | "multichoice" | "objective" | "range";
-  max?: number;
-  min?: number;
-  question: ReactNode;
-  answer: ReactNode;
+  max?: string | number;
+  min?: string | number;
+  image?: string;
+  question: string;
+  answer?: string | boolean;
   options: [QuestionOptionInt];
 }
 
@@ -36,6 +37,9 @@ export interface QuestionsInt {
   solution: Solution;
   id: string;
   questionBankId: string;
+  questionId: string;
+  mark: number;
+  duration: number;
 }
 
 export interface PluginsInt {
@@ -276,6 +280,7 @@ export interface ExamInt {
   keywords: string;
   centreName: string;
   centreSlug: string;
+  summary: string;
 }
 
 export interface ExamQuestionsInt {
@@ -315,6 +320,18 @@ export interface ExamInt {
   keywords: string;
   centreName: string;
   centreSlug: string;
+}
+
+export interface SubmitAnswerInt {
+  score: number;
+  examId: string;
+  userId: string;
+  duration: number;
+  maxScore: number;
+  sectionScore: [];
+  answerId: string;
+  hasTheory: boolean;
+  theoryQuestionCount: number;
 }
 
 export interface ReviewInt {
