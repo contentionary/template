@@ -149,7 +149,7 @@ const StartExam: ExamFunc = (props) => {
         <Typography paragraph>
           <CircularProgress color="inherit" size={80} />
         </Typography>
-        ;<Typography paragraph>getting exams please wait</Typography>;
+        <Typography paragraph>getting exams please wait</Typography>
       </Box>
     );
   }

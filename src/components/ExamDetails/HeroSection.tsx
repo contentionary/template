@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-
+// next
+import NextLink from "next/link";
 import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
@@ -38,6 +39,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
   const {
     id,
     name,
+    slug,
     price,
     image,
     summary,
@@ -152,12 +154,9 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                 direction="row"
                 alignItems="center"
               >
-                {Boolean(read.show) && (
+                <NextLink href={`/exams/${slug}/start`} passHref>
                   <Button
                     size="large"
-                    onClick={() => {
-                      if (!isServerSide) window.location.href = read.link;
-                    }}
                     disableElevation
                     variant="contained"
                     component={MuiLink}
@@ -165,10 +164,10 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                     display={{ xs: "block", sm: "inline-block" }}
                   >
                     <Stack direction="row" alignItems="center" spacing={2}>
-                      <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
+                      <AutoStoriesOutlinedIcon /> &nbsp; Start Exam
                     </Stack>
                   </Button>
-                )}
+                </NextLink>
               </Stack>
             </Grid>
           </Grid>
