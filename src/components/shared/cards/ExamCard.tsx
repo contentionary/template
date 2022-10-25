@@ -28,7 +28,7 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
     slug,
     name,
     image,
-    description,
+    summary,
     questionCount,
     subscriberCount,
   } = exam;
@@ -80,7 +80,7 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
               color="text.secondary"
               className={globalStyle.text2LineTruncate}
             >
-              {description}
+              {summary}
             </Typography>
           </CardContent>
           <CardContent className="exam-content">

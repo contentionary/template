@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -13,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import Dropdown from "@src/components/shared/dropdown";
 import ModalComponent from "@src/components/shared/modal";
 import CircularProgress from "@mui/material/CircularProgress";
-import SnackbarComponent from "@src/components/shared/snackerBar/SnackbarComponent";
 // icons
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -25,7 +23,11 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 import { TempAnswerInt } from ".";
 import { request } from "@src/utils";
 import { useMutation } from "react-query";
-import { ExamQuestionsInt, ExamInt } from "@src/utils/interface";
+import {
+  ExamInt,
+  ExamQuestionsInt,
+  RequestResponseInt,
+} from "@src/utils/interface";
 
 interface ExamNavInt {
   centerId: string;
@@ -34,8 +36,22 @@ interface ExamNavInt {
   currentQuestion: number;
   answers: Record<string, TempAnswerInt>;
   examQuestions: ExamQuestionsInt | undefined;
+  setSubmitAnsResponse: React.Dispatch<
+    React.SetStateAction<RequestResponseInt | undefined>
+  >;
   // eslint-disable-next-line no-unused-vars
   setQuestionAndSection: (question: number, section: number) => void;
+}
+
+interface ExamTimerInt {
+  timeout: boolean;
+  pause: () => void;
+  isPaused: boolean;
+  resume: () => void;
+  // eslint-disable-next-line no-unused-vars
+  seconds: string;
+  minutes: string;
+  hours: string;
 }
 
 const SelectQuestionDropdown = (props: ExamNavInt) => {
@@ -96,8 +112,8 @@ const SelectQuestionDropdown = (props: ExamNavInt) => {
   );
 };
 
-const ExamNav = (props: ExamNavInt) => {
-  const router = useRouter();
+const ExamNav = (props: ExamNavInt & ExamTimerInt) => {
+  // const router = useRouter();
   const theme = useTheme();
   const [openEndExamModal, setOpenEndExamModal] =
     React.useState<boolean>(false);
@@ -118,9 +134,10 @@ const ExamNav = (props: ExamNavInt) => {
       });
     },
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         setEndingExam(false);
         setOpenEndExamModal(false);
+        props.setSubmitAnsResponse(data);
         // router.push(`/exams/${props.exam.slug}/finish`);
       },
       onError: () => {
@@ -183,7 +200,16 @@ const ExamNav = (props: ExamNavInt) => {
                 justifyContent={{ xs: "flex-start", md: "center" }}
               >
                 <TimerOutlinedIcon color="secondary" />
-                00 : 45: 35
+                &nbsp;
+                <Typography minWidth={140} variant="inherit" component="span">
+                  {!props.timeout ? (
+                    <>
+                      {props.hours} : {props.minutes} : {props.seconds}{" "}
+                    </>
+                  ) : (
+                    <>00 : 00: 00</>
+                  )}
+                </Typography>
               </Typography>
             </Box>
             <Stack ml="auto" direction="row" alignItems="center" spacing={1}>
@@ -347,7 +373,15 @@ const ExamNav = (props: ExamNavInt) => {
                 {Object.keys(props.answers).length}{" "}
                 <Typography variant="caption"> out of </Typography>
                 {props.exam.questionCount}
-                <Typography variant="caption"> answered </Typography>
+                <Typography variant="caption"> questions </Typography>
+              </Typography>
+              <Typography
+                mb={1}
+                variant="h5"
+                textAlign="center"
+                sx={{ color: grey[600] }}
+              >
+                answered
               </Typography>
               <Typography mb={3} paragraph textAlign="center">
                 Do you want to end your exam now?

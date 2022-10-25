@@ -101,7 +101,7 @@ const ExamQuestion = ({
       </Typography>
       {examQuestions.sections[currentSection].questions[currentQuestion]
         .question?.image ? (
-        <Box maxWidth="100%" maxHeight={300} position="relative">
+        <Box width="100%" maxHeight={300} position="relative" overflow="clip">
           <ImageComponent
             alt="yes we can"
             width="100%"

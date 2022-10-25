@@ -24,11 +24,11 @@ export interface Solution {
 
 export interface QuestionInt {
   type: "theory" | "boolean" | "multichoice" | "objective" | "range";
-  max?: number;
-  min?: number;
+  max?: string | number;
+  min?: string | number;
   image?: string;
   question: string;
-  answer: ReactNode;
+  answer?: string | boolean;
   options: [QuestionOptionInt];
 }
 
@@ -280,6 +280,7 @@ export interface ExamInt {
   keywords: string;
   centreName: string;
   centreSlug: string;
+  summary: string;
 }
 
 export interface ExamQuestionsInt {
@@ -319,6 +320,18 @@ export interface ExamInt {
   keywords: string;
   centreName: string;
   centreSlug: string;
+}
+
+export interface SubmitAnswerInt {
+  score: number;
+  examId: string;
+  userId: string;
+  duration: number;
+  maxScore: number;
+  sectionScore: [];
+  answerId: string;
+  hasTheory: boolean;
+  theoryQuestionCount: number;
 }
 
 export interface ReviewInt {

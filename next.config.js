@@ -19,6 +19,7 @@ const nextConfig = {
       issuer: /\.[jt]sx?$/,
       use: ["@svgr/webpack"],
     });
+    // config.infrastructureLogging = { debug: /PackFileCache/ };
 
     return config;
   },
