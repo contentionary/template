@@ -29,16 +29,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       isRelativeUrl: true,
       url: `/exam/${slug?.slice(-36)}`,
     });
-    const { data: examQuestions } = await request.get({
-      token,
-      url: `/centre/${centre.id}/exam/${slug?.slice(
-        -36
-      )}/questions?showAnswer=false`,
-    });
 
     return {
       props: {
-        pageData: { exam, examQuestions, auth },
+        pageData: { exam, auth },
         cachedData: { user, centre, token },
       },
     };

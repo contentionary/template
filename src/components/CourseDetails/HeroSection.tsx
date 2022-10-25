@@ -9,9 +9,9 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 // styles, interface and config
 import useGlobalStyle from "@src/styles";
 // app components
