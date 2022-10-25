@@ -33,13 +33,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
+
     const { data: examList } = await request.get({
       url: `/centre/${centre.id}/exams?pageId=${pageId}${
         folderId && `&folderId=${folderId}`
       }`,
       token,
     });
-    console.log(examList);
+
     return {
       props: { pageData: { examList }, cachedData: { user, centre, token } },
     };

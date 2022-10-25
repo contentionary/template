@@ -19,14 +19,12 @@ const ExamDetails = ({ exam, auth }: { exam: ExamInt; auth: any }) => {
     : "/login";
 
   let Read = {
-    link: `/exams/${slug}/exam`,
+    link: `/exams/${slug}/start`,
     show: true,
-    text: "START",
+    text: "START EXAM",
   };
 
-  if (auth?.isCentreManager) {
-    Read.show = true;
-  } else if (!auth?.isExamSubscriber) {
+  if (!auth?.isExamSubscriber && !auth?.isCentreManager) {
     Read.text = "SUBSCRIBE";
     Read.link = paymentLink;
   }
