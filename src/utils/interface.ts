@@ -24,11 +24,11 @@ export interface Solution {
 
 export interface QuestionInt {
   type: "theory" | "boolean" | "multichoice" | "objective" | "range";
-  max?: number;
-  min?: number;
+  max?: string | number;
+  min?: string | number;
   image?: string;
   question: string;
-  answer: ReactNode;
+  answer?: string | boolean;
   options: [QuestionOptionInt];
 }
 

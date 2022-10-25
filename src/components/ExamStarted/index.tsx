@@ -17,30 +17,40 @@ import ExamNav from "./ExamNav";
 import ExamQuestion from "./ExamQuestion";
 import FinishedExamCard from "../ExamFinished";
 // icons
-// utils, interface and styles
+//  hooks, utils, interface and styles
 import { request } from "@src/utils";
-import { useQuery, useMutation } from "react-query";
 import useGlobalStyle from "@src/styles";
 import { ExamFunc } from "./interfaceType";
-import { ExamQuestionsInt, RequestResponseInt } from "@src/utils/interface";
+import { useTimer } from "@src/utils/hooks";
+import { useQuery, useMutation } from "react-query";
 import useFormControlStyle from "@src/styles/formControl";
+import {
+  ExamQuestionsInt,
+  // QuestionInt,
+  RequestResponseInt,
+} from "@src/utils/interface";
 
 export interface TempAnswerInt {
   questionId: string;
   optionId?: number;
   answer?: string | boolean;
   optionIds?: Array<number>;
-  min?: string;
-  max?: string;
+  min?: string | number;
+  max?: string | number;
 }
 
 const StartExam: ExamFunc = (props) => {
   const theme = useTheme();
   const { exam /* auth */ } = props;
-  const [examQuestions, setExamQuestions] = React.useState<ExamQuestionsInt>();
   const globalStyle = useGlobalStyle();
   const formControlStyle = useFormControlStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
+  const [examQuestions, setExamQuestions] = React.useState<ExamQuestionsInt>();
+  //exam timer
+  const [timeout, setTimeOut] = React.useState(false);
+  const { pause, start, resume, isPaused, formatTime, timer } =
+    useTimer(setTimeOut);
+  const { seconds, minutes, hours } = formatTime(Number(timer));
   //
   const [section, setSection] = React.useState(0);
   const [question, setQuestion] = React.useState(0);
@@ -88,12 +98,18 @@ const StartExam: ExamFunc = (props) => {
 
   // set examQuestions and cached answers
   React.useEffect(() => {
-    const examData = data?.data as ExamQuestionsInt;
+    const examQuestionData = data?.data as ExamQuestionsInt;
     if (isLoading === false && data) {
-      setExamQuestions(examData);
-      // console.log(examData, exam);
+      const timeLeft =
+        (new Date(examQuestionData?.cache?.endAt).getTime() - Date.now()) /
+        1000 /
+        60;
+      const time = timeLeft > 0 ? timeLeft : props.exam.duration;
+      start(time);
+      setExamQuestions(examQuestionData);
       // setAnswers(examData.cache?.answers);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, data]);
 
   // change section
@@ -174,6 +190,13 @@ const StartExam: ExamFunc = (props) => {
       ) : (
         <Box pt={0} component="main" minHeight="100vh">
           <ExamNav
+            seconds={seconds}
+            minutes={minutes}
+            hours={hours}
+            isPaused={isPaused}
+            resume={resume}
+            pause={pause}
+            timeout={timeout}
             exam={exam}
             answers={answers}
             centerId={props.centerId}

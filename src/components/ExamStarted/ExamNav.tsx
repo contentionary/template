@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { useRouter } from "next/router";
 // mui components
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -13,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import Dropdown from "@src/components/shared/dropdown";
 import ModalComponent from "@src/components/shared/modal";
 import CircularProgress from "@mui/material/CircularProgress";
-import SnackbarComponent from "@src/components/shared/snackerBar/SnackbarComponent";
 // icons
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
@@ -43,6 +41,17 @@ interface ExamNavInt {
   >;
   // eslint-disable-next-line no-unused-vars
   setQuestionAndSection: (question: number, section: number) => void;
+}
+
+interface ExamTimerInt {
+  timeout: boolean;
+  pause: () => void;
+  isPaused: boolean;
+  resume: () => void;
+  // eslint-disable-next-line no-unused-vars
+  seconds: string;
+  minutes: string;
+  hours: string;
 }
 
 const SelectQuestionDropdown = (props: ExamNavInt) => {
@@ -103,7 +112,7 @@ const SelectQuestionDropdown = (props: ExamNavInt) => {
   );
 };
 
-const ExamNav = (props: ExamNavInt) => {
+const ExamNav = (props: ExamNavInt & ExamTimerInt) => {
   // const router = useRouter();
   const theme = useTheme();
   const [openEndExamModal, setOpenEndExamModal] =
@@ -191,7 +200,16 @@ const ExamNav = (props: ExamNavInt) => {
                 justifyContent={{ xs: "flex-start", md: "center" }}
               >
                 <TimerOutlinedIcon color="secondary" />
-                00 : 00: 00
+                &nbsp;
+                <Typography minWidth={140} variant="inherit" component="span">
+                  {!props.timeout ? (
+                    <>
+                      {props.hours} : {props.minutes} : {props.seconds}{" "}
+                    </>
+                  ) : (
+                    <>00 : 00: 00</>
+                  )}
+                </Typography>
               </Typography>
             </Box>
             <Stack ml="auto" direction="row" alignItems="center" spacing={1}>
