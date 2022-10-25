@@ -25,7 +25,11 @@ import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined
 import { TempAnswerInt } from ".";
 import { request } from "@src/utils";
 import { useMutation } from "react-query";
-import { ExamQuestionsInt, ExamInt } from "@src/utils/interface";
+import {
+  ExamInt,
+  ExamQuestionsInt,
+  RequestResponseInt,
+} from "@src/utils/interface";
 
 interface ExamNavInt {
   centerId: string;
@@ -34,6 +38,9 @@ interface ExamNavInt {
   currentQuestion: number;
   answers: Record<string, TempAnswerInt>;
   examQuestions: ExamQuestionsInt | undefined;
+  setSubmitAnsResponse: React.Dispatch<
+    React.SetStateAction<RequestResponseInt | undefined>
+  >;
   // eslint-disable-next-line no-unused-vars
   setQuestionAndSection: (question: number, section: number) => void;
 }
@@ -97,7 +104,7 @@ const SelectQuestionDropdown = (props: ExamNavInt) => {
 };
 
 const ExamNav = (props: ExamNavInt) => {
-  const router = useRouter();
+  // const router = useRouter();
   const theme = useTheme();
   const [openEndExamModal, setOpenEndExamModal] =
     React.useState<boolean>(false);
@@ -118,9 +125,10 @@ const ExamNav = (props: ExamNavInt) => {
       });
     },
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         setEndingExam(false);
         setOpenEndExamModal(false);
+        props.setSubmitAnsResponse(data);
         // router.push(`/exams/${props.exam.slug}/finish`);
       },
       onError: () => {
@@ -347,7 +355,15 @@ const ExamNav = (props: ExamNavInt) => {
                 {Object.keys(props.answers).length}{" "}
                 <Typography variant="caption"> out of </Typography>
                 {props.exam.questionCount}
-                <Typography variant="caption"> answered </Typography>
+                <Typography variant="caption"> questions </Typography>
+              </Typography>
+              <Typography
+                mb={1}
+                variant="h5"
+                textAlign="center"
+                sx={{ color: grey[600] }}
+              >
+                answered
               </Typography>
               <Typography mb={3} paragraph textAlign="center">
                 Do you want to end your exam now?

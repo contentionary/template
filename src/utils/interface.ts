@@ -320,6 +320,18 @@ export interface ExamInt {
   centreSlug: string;
 }
 
+export interface SubmitAnswerInt {
+  score: number;
+  examId: string;
+  userId: string;
+  duration: number;
+  maxScore: number;
+  sectionScore: [];
+  answerId: string;
+  hasTheory: boolean;
+  theoryQuestionCount: number;
+}
+
 export interface ReviewInt {
   id: string;
   userId: string;

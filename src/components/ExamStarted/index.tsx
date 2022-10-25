@@ -15,13 +15,14 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 // app components
 import ExamNav from "./ExamNav";
 import ExamQuestion from "./ExamQuestion";
+import FinishedExamCard from "../ExamFinished";
 // icons
 // utils, interface and styles
 import { request } from "@src/utils";
 import { useQuery, useMutation } from "react-query";
 import useGlobalStyle from "@src/styles";
 import { ExamFunc } from "./interfaceType";
-import { ExamQuestionsInt } from "@src/utils/interface";
+import { ExamQuestionsInt, RequestResponseInt } from "@src/utils/interface";
 import useFormControlStyle from "@src/styles/formControl";
 
 export interface TempAnswerInt {
@@ -47,6 +48,9 @@ const StartExam: ExamFunc = (props) => {
   const [answers, setAnswers] = React.useState<Record<string, TempAnswerInt>>(
     {}
   );
+  //
+  const [submitAnsResponse, setSubmitAnsResponse] =
+    React.useState<RequestResponseInt>();
 
   // subscriber exam question
   const { isLoading, isError, data } = useQuery("examQuestions", async () => {
@@ -161,109 +165,129 @@ const StartExam: ExamFunc = (props) => {
   }
 
   return (
-    <Box pt={0} component="main" minHeight="100vh">
-      <ExamNav
-        exam={exam}
-        answers={answers}
-        centerId={props.centerId}
-        currentSection={section}
-        currentQuestion={question}
-        examQuestions={examQuestions}
-        setQuestionAndSection={setQuestionAndSection}
-      />
-      <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
-        <Container maxWidth="xl" sx={{ display: "grid", placeItems: "center" }}>
-          <Box maxWidth={620} width="100%">
-            <Typography mb={3} variant="h5" component="h1" textAlign="center">
-              {exam.name}
-            </Typography>
-            <Box className={isMatch ? "" : globalStyle.paperShadowSm}>
-              <Box
-                maxWidth="86vw"
-                borderBottom={1}
-                borderColor="divider"
-                sx={{ overflowX: "scroll" }}
-                className={globalStyle.hiddenScrollbar}
-              >
-                <RadioGroup
-                  row
-                  sx={{
-                    px: 3,
-                    py: 1,
-                    minWidth: 560,
-                    flexShrink: 0,
-                    flexWrap: "nowrap",
-                  }}
-                  value={section}
-                  onChange={handleChangeSection}
-                  name="exam-questions-section"
-                  defaultValue="general_section"
-                  aria-labelledby="exam category group"
-                  className={`${globalStyle.hiddenScrollbar} ${formControlStyle.formControlGroup} nowrap`}
+    <React.Fragment>
+      {submitAnsResponse?.success ? (
+        <FinishedExamCard
+          exam={props.exam}
+          submitAnsResponse={submitAnsResponse}
+        />
+      ) : (
+        <Box pt={0} component="main" minHeight="100vh">
+          <ExamNav
+            exam={exam}
+            answers={answers}
+            centerId={props.centerId}
+            currentSection={section}
+            currentQuestion={question}
+            examQuestions={examQuestions}
+            setSubmitAnsResponse={setSubmitAnsResponse}
+            setQuestionAndSection={setQuestionAndSection}
+          />
+          <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
+            <Container
+              maxWidth="xl"
+              sx={{ display: "grid", placeItems: "center" }}
+            >
+              <Box maxWidth={620} width="100%">
+                <Typography
+                  mb={3}
+                  variant="h5"
+                  component="h1"
+                  textAlign="center"
                 >
-                  {examQuestions?.sections?.map((section, index) => (
-                    <FormControlLabel
-                      key={`${section.id}-section`}
-                      value={index}
-                      control={<Radio />}
-                      label={section.name}
-                    />
-                  ))}
-                </RadioGroup>
-              </Box>
-              <ExamQuestion
-                answers={answers}
-                setAnswers={setAnswers}
-                currentSection={section}
-                currentQuestion={question}
-                examQuestions={examQuestions}
-              />
-              <Box p={3}>
-                <Stack
-                  mt={2}
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography mb={0} paragraph>
-                    {examQuestions
-                      ? `Question mark: ${examQuestions?.sections[section].questions[question].mark}`
-                      : ""}
-                  </Typography>
-                  <Stack direction="row" spacing={1}>
-                    <Button
-                      disabled={section === 0 && question === 0}
-                      variant="contained"
-                      disableElevation
-                      size="large"
-                      onClick={prevQuestion}
+                  {exam.name}
+                </Typography>
+                <Box className={isMatch ? "" : globalStyle.paperShadowSm}>
+                  <Box
+                    maxWidth="86vw"
+                    borderBottom={1}
+                    borderColor="divider"
+                    sx={{ overflowX: "scroll" }}
+                    className={globalStyle.hiddenScrollbar}
+                  >
+                    <RadioGroup
+                      row
+                      sx={{
+                        px: 3,
+                        py: 1,
+                        minWidth: 560,
+                        flexShrink: 0,
+                        flexWrap: "nowrap",
+                      }}
+                      value={section}
+                      onChange={handleChangeSection}
+                      name="exam-questions-section"
+                      defaultValue="general_section"
+                      aria-labelledby="exam category group"
+                      className={`${globalStyle.hiddenScrollbar} ${formControlStyle.formControlGroup} nowrap`}
                     >
-                      Previous
-                    </Button>
-                    <Button
-                      disabled={
-                        (!examQuestions?.sections.length ||
-                          section === examQuestions?.sections.length - 1) &&
-                        (!examQuestions?.sections[section].questions.length ||
-                          question ===
-                            examQuestions?.sections[section].questions.length -
-                              1)
-                      }
-                      variant="contained"
-                      disableElevation
-                      size="large"
-                      onClick={nextQuestion}
+                      {examQuestions?.sections?.map((section, index) => (
+                        <FormControlLabel
+                          key={`${section.id}-section`}
+                          value={index}
+                          control={<Radio />}
+                          label={section.name}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </Box>
+                  <ExamQuestion
+                    answers={answers}
+                    setAnswers={setAnswers}
+                    currentSection={section}
+                    currentQuestion={question}
+                    examQuestions={examQuestions}
+                  />
+                  <Box p={3}>
+                    <Stack
+                      mt={2}
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
                     >
-                      Next
-                    </Button>
-                  </Stack>
-                </Stack>
+                      <Typography mb={0} paragraph>
+                        {examQuestions
+                          ? `Question mark: ${examQuestions?.sections[section].questions[question].mark}`
+                          : ""}
+                      </Typography>
+                      <Stack direction="row" spacing={1}>
+                        <Button
+                          disabled={section === 0 && question === 0}
+                          variant="contained"
+                          disableElevation
+                          size="large"
+                          onClick={prevQuestion}
+                        >
+                          Previous
+                        </Button>
+                        <Button
+                          disabled={
+                            (!examQuestions?.sections.length ||
+                              section === examQuestions?.sections.length - 1) &&
+                            (!examQuestions?.sections[section].questions
+                              .length ||
+                              question ===
+                                examQuestions?.sections[section].questions
+                                  .length -
+                                  1)
+                          }
+                          variant="contained"
+                          disableElevation
+                          size="large"
+                          onClick={nextQuestion}
+                        >
+                          Next
+                        </Button>
+                      </Stack>
+                    </Stack>
+                  </Box>
+                </Box>
               </Box>
-            </Box>
+            </Container>
           </Box>
-        </Container>
-      </Box>
-    </Box>
+        </Box>
+      )}
+    </React.Fragment>
   );
 };
 export default StartExam;
