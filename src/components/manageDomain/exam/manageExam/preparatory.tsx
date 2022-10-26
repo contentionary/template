@@ -152,9 +152,12 @@ const PreparatoryExamSettings = ({
           <ButtonComponent
             variant="contained"
             type="submit"
-            sx={{ padding: 2, fontSize: 20 }}
+            sx={{ padding: 1, fontSize: 20 }}
           >
-            <>Update {isLoading && <Loading />}</>
+            <>
+              Update
+              {isLoading && <Loading size={15} sx={{ color: "#fff", ml: 2 }} />}
+            </>
           </ButtonComponent>
         </Stack>
       </form>

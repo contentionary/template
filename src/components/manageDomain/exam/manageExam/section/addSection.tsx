@@ -16,7 +16,7 @@ import dynamic from "next/dynamic";
 interface Props {
   centreId: string;
   examId: string;
-  toggleToast: Function
+  toggleToast: Function;
 }
 
 const AddSection = ({ examId, centreId, toggleToast }: Props): JSX.Element => {

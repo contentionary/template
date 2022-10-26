@@ -9,7 +9,7 @@ import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
 import { useState } from "react";
-import { handleError, queryClient, request } from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
@@ -21,31 +21,32 @@ const CreateCourse = () => {
   ) as BasePageProps;
   const exam = pageData.exam;
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, resetValues } = useForm(create);
-  // const [img, setImg] = useState<Record<string, any>>({});
+  const { getData, values, submit, resetValues } = useForm(update);
+  const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
-  // const [progress, setProgress] = useState(0);
-  // const [convertedImage, setConvertedImage] = useState<any>();
+  const [progress, setProgress] = useState(0);
+  const [convertedImage, setConvertedImage] = useState<any>();
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
-
   const router = useRouter();
   const { type, folderId } = router.query;
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-  // const ImageUpload = dynamic(
-  //   () => import("@src/components/shared/imageUpload")
-  // );
-  const Loading = dynamic(() => import("@src/components/shared/loading"));
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
 
-  async function create() {
+  async function update() {
     try {
       setIsLoading(true);
-      // if (img.base64 && !convertedImage) {
-      //   const imageUrl = await uploadFiles(img.base64, setProgress);
-      //   values.image = imageUrl;
-      //   setConvertedImage(imageUrl);
-      // }
+      if (img.base64 && !convertedImage) {
+        const imageUrl = await uploadFiles(img.base64, setProgress);
+        values.image = imageUrl;
+        setConvertedImage(imageUrl);
+      }
       if (folderId) values.folderId = folderId;
-      // convertedImage && (values.image = convertedImage);
+      convertedImage && (values.image = convertedImage);
       const data = await request.patch({
         url: `/centre/${cachedData.centre.id}/exam/${exam.id}`,
         data: values,
@@ -105,13 +106,13 @@ const CreateCourse = () => {
 
           <Box>
             <Typography variant="subtitle1" component="div">
-              Description *
+              Summary *
             </Typography>
             <TextArea
               required
               placeholder="Type in description here ..."
-              name="description"
-              defaultValue={exam.description}
+              name="summary"
+              defaultValue={exam.summary}
               onChange={getData}
               style={{
                 width: "100%",
@@ -122,12 +123,12 @@ const CreateCourse = () => {
               maxLength={10000}
             />
           </Box>
-          {/* <ImageUpload
+          <ImageUpload
             setImg={setImg}
             img={img}
             uploadText="Select and upload exam logo"
-            defaultImage=""
-          /> */}
+            defaultImage={exam.image}
+          />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
           <ButtonComponent
@@ -135,17 +136,7 @@ const CreateCourse = () => {
             type="submit"
             sx={{ fontSize: 18 }}
           >
-            <>
-              Update Folder
-              {isLoading && (
-                <Loading
-                  sx={{
-                    color: "#fff",
-                  }}
-                  size={15}
-                />
-              )}
-            </>
+            Update Folder
           </ButtonComponent>
         </Typography>
       </form>
@@ -157,6 +148,13 @@ const CreateCourse = () => {
           showToast={toggleToast}
         />
       )}
+      <Loading
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
+        color="primary"
+        size={100}
+        value={progress}
+      />
     </Box>
   );
 };

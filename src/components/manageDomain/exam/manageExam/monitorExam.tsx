@@ -88,7 +88,7 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
       <Typography
         variant="h4"
         component="div"
-        sx={{ textAlign: "center", mb: 3 }}
+        sx={{ textAlign: "center", mb: 3, mt: 5 }}
       >
         Activate Proctoring Technology
       </Typography>

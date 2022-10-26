@@ -102,19 +102,19 @@ const AddQuestion = ({
         <MenuItem onClick={() => getQuestionBanks()} disableRipple>
           <>
             <AddCircleOutlineOutlined />
-            &nbsp; Add section
+            &nbsp; Add Questions
           </>
         </MenuItem>
       ) : (
         <ButtonComponent onClick={() => getQuestionBanks()} disableRipple>
           <>
             <AddCircleOutlineOutlined />
-            &nbsp; Add section
+            &nbsp; Add Questions
           </>
         </ButtonComponent>
       )}
       <Dialog
-        title="Add section"
+        title="Add Questions"
         isOpen={isOpen}
         closeDialog={closeDialog}
         width="lg"

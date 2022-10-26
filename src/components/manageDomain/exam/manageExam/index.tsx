@@ -30,25 +30,40 @@ const ModulesPage = () => {
     "Delete Exam",
   ];
   const tabPanel = [
-    <GeneralSettings toggleToast={toggleToast} />,
+    <GeneralSettings toggleToast={toggleToast} key={0} />,
     <AddQuestion
       centreId={cachedData.centre.id}
       examId={id as string}
       toggleToast={toggleToast}
+      key={1}
     />,
-    <MonitorExam toggleToast={toggleToast} />,
-    <PreparatoryExamSettings toggleToast={toggleToast} />,
-    <Result centreId={cachedData.centre.id} examId={id as string} />,
+    <MonitorExam toggleToast={toggleToast} key={2} />,
+    <PreparatoryExamSettings toggleToast={toggleToast} key={3} />,
+    <Result
+      centreId={cachedData.centre.id}
+      examId={id as string}
+      key={4}
+      toggleToast={toggleToast}
+    />,
     <Subscribers
       centreId={cachedData.centre.id}
       examId={id as string}
       toggleToast={toggleToast}
+      key={5}
     />,
-    <DeleteExam toggleToast={toggleToast} />,
+    <DeleteExam toggleToast={toggleToast} key={6} />,
   ];
   return (
-    <Box>
-      <Tabs tab={tab} tabPanel={tabPanel} />
+    <Box sx={{ mt: 4 }}>
+      <Tabs
+        tab={tab}
+        tabPanel={tabPanel}
+        sx={{
+          background: "rgba(247, 126, 35, 0.1)",
+        }}
+        tabSx={{ width: 200, fontSize: 16 }}
+        indicatorColor="primary"
+      />
 
       {toastMessage && (
         <Toast

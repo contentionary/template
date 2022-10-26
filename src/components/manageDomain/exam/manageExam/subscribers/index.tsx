@@ -88,7 +88,7 @@ export default function Subscribers({
             a Contact group into this exam.
           </Typography>
           <Typography>
-            <AddSubscriber toggleToast={toggleToast}/>
+            <AddSubscriber toggleToast={toggleToast} />
           </Typography>
 
           {result.length ? (
@@ -101,5 +101,5 @@ export default function Subscribers({
         </Stack>
       </div>
     );
-  } else if (error) return <div>{handleError(error).message}</div>;
+  } else return <div>{handleError(error).message}</div>;
 }

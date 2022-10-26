@@ -6,24 +6,26 @@ import MoreVert from "@mui/icons-material/MoreVert";
 // import Divider from "@mui/material/Divider";
 // import Delete from "./delete";
 // import AddQuestion from "./addQuestion";
-import { useDialog } from "@src/hooks";
+// import { useDialog } from "@src/hooks";
 import { useMenu } from "@src/utils/hooks";
 // import { SectionInt } from "./interface";
 // import UpdateSection from "./updateSection ";
-import ButtonComponent from "@src/components/shared/button";
+// import ButtonComponent from "@src/components/shared/button";
 import ParticipantScript from "./participantScript";
 
 export default function TableMenu({
   examId,
   centreId,
   result,
+  toggleToast,
 }: {
   examId: string;
   centreId: string;
   result: any;
+  toggleToast: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
-  const { isOpen, openDialog, closeDialog } = useDialog();
+  // const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
     <>
@@ -36,6 +38,7 @@ export default function TableMenu({
             result={result}
             examId={examId}
             centreId={centreId}
+            toggleToast={toggleToast}
           />
           {/*     <Delete
             closeDialog={closeDialog}

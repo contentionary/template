@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 
 import { useDialog } from "@src/hooks";
-import { request } from "@src/utils";
+import { handleError, request } from "@src/utils";
 import { useState } from "react";
 import { QuestionInt } from "@src/utils/interface";
 import Accordion from "@src/components/shared/accordion";
@@ -18,10 +18,12 @@ const ParticipantScript = ({
   examId,
   centreId,
   result,
+  toggleToast,
 }: {
   examId: string;
   centreId: string;
   result: any;
+  toggleToast: Function;
 }): JSX.Element => {
   const styles = useStyles();
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -30,15 +32,13 @@ const ParticipantScript = ({
 
   async function getQuestions() {
     try {
-      // setIsLoading(true)
       const { data } = await request.get({
         url: `/centre/${centreId}/exam/${examId}/questions?showAnswer=true`,
       });
-      console.log(data.sections);
       SetSections(data.sections);
       openDialog();
     } catch (error) {
-      // toggleToast(handleError(error).message);
+      toggleToast(handleError(error).message);
     }
   }
   const getQuestionTypeData = (question: QuestionInt, questionId: string) => {
@@ -47,7 +47,7 @@ const ParticipantScript = ({
     if (question.type === "objective") {
       return (
         <>
-          {question.options.map(({ value, isCorrect, id }, index) => (
+          {question?.options?.map(({ value, isCorrect, id }, index) => (
             <Box
               key={`${index}-option`}
               sx={{
@@ -75,7 +75,7 @@ const ParticipantScript = ({
     } else if (question.type === "multichoice") {
       return (
         <>
-          {question.options.map(({ value, isCorrect, id }, index) => (
+          {question?.options?.map(({ value, isCorrect, id }, index) => (
             <Box
               key={`${index}-options`}
               sx={{
@@ -139,10 +139,10 @@ const ParticipantScript = ({
         <Stack spacing={2}>
           <Typography variant="h6">Expected Answer</Typography>
           <Typography variant="body1">
-            <strong>Min</strong>: {answer.min}
+            <strong>Min</strong>: {question.min}
           </Typography>
           <Typography variant="body1">
-            <strong>Max</strong>:{answer.max}
+            <strong>Max</strong>:{question.max}
           </Typography>
           <Divider sx={{ my: 0.5 }} />
           <Typography variant="h6">Participant Answer</Typography>
@@ -171,50 +171,62 @@ const ParticipantScript = ({
         width="xl"
         content={
           <div>
-            {sections?.map(({ questions, name }, index) => (
-              <div key={`${index}-sections`}>
-                <Accordion
-                  sx={{ mt: 4 }}
-                  onClick={() => setExpanded(index)}
-                  title={
-                    <Typography variant="h5" component="div">
-                      {name}
-                    </Typography>
-                  }
-                  expanded={expanded === index}
-                >
-                  <Box sx={{ width: "100%" }}>
-                    {questions.map(
-                      ({ question, questionId }, questionIndex) => (
-                        <>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              width: "100%",
-                              alignItems: "center",
-                              mb: 5,
-                              mt: 5,
-                            }}
-                            key={`${questionIndex}-question`}
-                          >
-                            <Avatar>{++questionIndex}</Avatar>
-                            <Box sx={{ width: "100%", ml: 2 }}>
-                              <Typography
-                                dangerouslySetInnerHTML={{
-                                  __html: question.question,
-                                }}
-                              />
-                              {getQuestionTypeData(question, questionId)}
+            {sections?.map(
+              ({ questions, name }: { name: string; questions: [] }, index) => (
+                <div key={`${index}-sections`}>
+                  <Accordion
+                    sx={{ mt: 4 }}
+                    onClick={() => setExpanded(index)}
+                    title={
+                      <Typography variant="h5" component="div">
+                        {name}
+                      </Typography>
+                    }
+                    expanded={expanded === index}
+                  >
+                    <Box sx={{ width: "100%" }}>
+                      {questions.map(
+                        (
+                          {
+                            question,
+                            questionId,
+                          }: {
+                            questionId: string;
+                            question: QuestionInt;
+                          },
+                          questionIndex: number
+                        ) => (
+                          <>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                width: "100%",
+                                alignItems: "center",
+                                mb: 5,
+                                mt: 5,
+                              }}
+                              key={`${questionIndex}-question`}
+                            >
+                              <Avatar>{++questionIndex}</Avatar>
+                              <Box sx={{ width: "100%", ml: 2 }}>
+                                <Typography
+                                  variant="h5"
+                                  dangerouslySetInnerHTML={{
+                                    __html: question.question,
+                                  }}
+                                />
+                                {getQuestionTypeData(question, questionId)}
+                              </Box>
                             </Box>
-                          </Box>
-                          <Divider />
-                        </>
-                      )
-                    )}
-                  </Box>
-                </Accordion>
-              </div>
-            ))}
+                            <Divider />
+                          </>
+                        )
+                      )}
+                    </Box>
+                  </Accordion>
+                </div>
+              )
+            )}
           </div>
         }
       />

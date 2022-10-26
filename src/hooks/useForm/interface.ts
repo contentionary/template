@@ -8,6 +8,6 @@ export interface UseForm {
   setData: Function;
   setDefault: Function;
   // formData: Function;
-  // getEditor: Function;
+  getEditor: Function;
   // filter: Function;
 }

@@ -17,8 +17,9 @@ import useStyles from "../styles";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { format } from "date-fns";
 
-const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
+const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -38,6 +39,14 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
+
+  // function dateConverter(data) {
+  //   const time = format(new Date(data), "p", "dd-MM-yyy").split(" ")[0];
+  //   const date = format(new Date(data), "dd-MM-yyy");
+  //   return { time, date };
+  // }
+  // console.log(dateConverter(exam.startDate));
+
   async function create() {
     try {
       setIsLoading(true);
@@ -47,8 +56,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
         setConvertedImage(imageUrl);
       }
       if (folderId) values.folderId = folderId;
-      values.type = type;
-      convertedImage && (values.imageUrl = convertedImage);
+      convertedImage && (values.image = convertedImage);
       await request.patch({
         url: `/centre/${cachedData.centre.id}/exam/${exam.id}`,
         data: values,
@@ -63,7 +71,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
   }
 
   return (
-    <Box mt={6} mb={10}>
+    <Box mb={10}>
       <form
         onSubmit={(e) => {
           submit(e);
@@ -94,8 +102,8 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
               (Not more than 60 characters)
             </Typography>
           </Box>
-          <Stack direction="row" spacing={3}>
-            <Box sx={{ width: "33%" }}>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
+            <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="number"
                 label="Exam duration"
@@ -108,11 +116,12 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
                 Duration is in Minutes
               </Typography>
             </Box>
-            <Box sx={{ width: "32%" }}>
+            <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
                 label="Exam start date"
                 name="startDate"
+                // defaultValue="2022-10-26T5:10"
                 onChange={getData}
                 sx={{ width: "100%" }}
               />
@@ -120,7 +129,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
                 Exam start date and time
               </Typography>
             </Box>
-            <Box sx={{ width: "32%" }}>
+            <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
                 label="Exam end date"
@@ -134,10 +143,12 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
             </Box>
           </Stack>
           <FormControl fullWidth>
-            <InputLabel>Publication category</InputLabel>
+            <InputLabel id="publicCategoryId">Publication category</InputLabel>
             <Select
-              name="publicationCategoryId"
-              value={values.publicationCategoryId || exam.publicationCategoryId}
+              labelId="publicCategoryId"
+              name="publicCategoryId"
+              label="Publication category"
+              value={values.publicCategoryId || exam.publicCategoryId || ""}
               onChange={(e) => getData(e)}
             >
               {publicationCategories?.map(
@@ -154,6 +165,25 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
             </Typography>
           </FormControl>
 
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Summary *
+            </Typography>
+            <TextArea
+              required
+              placeholder="Type in summary here ..."
+              name="summary"
+              defaultValue={exam.summary}
+              onChange={getData}
+              style={{
+                width: "100%",
+                height: 120,
+                borderRadius: 5,
+                padding: 15,
+              }}
+              maxLength={300}
+            />
+          </Box>
           <Box>
             <Typography variant="subtitle1" component="div">
               Description *
@@ -175,10 +205,9 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
           </Box>
           <Box>
             <Typography variant="subtitle1" component="div">
-              Instructions *
+              Instructions
             </Typography>
             <TextArea
-              required
               placeholder="Type in instructions here ..."
               name="instruction"
               defaultValue={exam.instruction}
@@ -194,10 +223,9 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
           </Box>
           <Box>
             <Typography variant="subtitle1" component="div">
-              Completion message *
+              Completion message
             </Typography>
             <TextArea
-              required
               placeholder="Type in completion message here ..."
               name="completionMessage"
               defaultValue={exam.completionMessage}
@@ -218,8 +246,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
                   Show in Search Result
                 </Typography>
               }
-              checked={exam.allowSearch}
-              value={values.allowSearch}
+              checked={values.isSearchable || exam.isSearchable}
               name="isSearchable"
               onChange={check}
               className={styles.checkbox}
@@ -232,6 +259,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
               }
               onChange={check}
               name="allowReview"
+              checked={values.allowReview || exam.allowReview}
               className={styles.checkbox}
             />
             <CheckBox
@@ -241,6 +269,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
                 </Typography>
               }
               onChange={check}
+              checked={values.showCorrection || exam.showCorrection}
               name="showCorrection"
               className={styles.checkbox}
             />
@@ -249,7 +278,7 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
             setImg={setImg}
             img={img}
             uploadText="Select and upload exam logo"
-            defaultImage={exam.imageUrl}
+            defaultImage={exam.image}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
@@ -262,8 +291,6 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
           </ButtonComponent>
         </Typography>
       </form>
-
-     
       <Loading
         open={isLoading}
         sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
@@ -275,4 +302,4 @@ const CreateCourse = ({ toggleToast }: { toggleToast: Function }) => {
   );
 };
 
-export default CreateCourse;
+export default GeneralSettings;

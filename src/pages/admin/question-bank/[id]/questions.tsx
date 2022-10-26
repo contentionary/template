@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: `/centre/${centre.id}/question-bank/${context.query.id}/questions`,
       token,
     });
-    console.log(data, "=======questions");
     return {
       props: {
         pageData: { questions: data.questions, questionBank },

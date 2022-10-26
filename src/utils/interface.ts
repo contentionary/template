@@ -5,8 +5,10 @@ export enum Gender {
 }
 
 export interface QuestionOptionInt {
-  value: JSX.Element;
+  value: string;
   isCorrect: boolean;
+  image?: any;
+  id?: number;
 }
 export interface QuestionBankInt {
   name: string;
@@ -16,16 +18,19 @@ export interface QuestionBankInt {
 }
 
 export interface Solution {
-  text: JSX.Element;
-  image: boolean;
+  text: string;
+  imageUrl: string;
 }
 
 export interface QuestionInt {
-  type: "objective" | "multichoice" | "boolean" | "theory";
-  question: JSX.Element;
-  options: [QuestionOptionInt];
-  answer: boolean;
+  type: "objective" | "multichoice" | "boolean" | "theory" | "range";
+  question: string;
+  options?: QuestionOptionInt[];
+  answer?: boolean;
   id: string | number;
+  image?: string;
+  max?: string | number;
+  min?: string | number;
 }
 
 export interface QuestionsInt {
