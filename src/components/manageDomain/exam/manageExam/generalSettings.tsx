@@ -17,7 +17,6 @@ import useStyles from "../styles";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { format } from "date-fns";
 
 const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -32,20 +31,13 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
   const [convertedImage, setConvertedImage] = useState<any>();
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
   const router = useRouter();
-  const { type, folderId } = router.query;
+  const { folderId } = router.query;
   const ImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")
   );
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
-
-  // function dateConverter(data) {
-  //   const time = format(new Date(data), "p", "dd-MM-yyy").split(" ")[0];
-  //   const date = format(new Date(data), "dd-MM-yyy");
-  //   return { time, date };
-  // }
-  // console.log(dateConverter(exam.startDate));
 
   async function create() {
     try {

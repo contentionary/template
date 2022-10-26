@@ -62,13 +62,14 @@ const AddQuestion = ({
   if (update) {
     useEffect(() => {
       setData("type", question?.question.type);
-    }, [update]);
+    }, [update, question, setData]);
   }
   function getImage() {
     options.forEach(async (option) => {
       if ("image" in option && option.image.length) {
         option.image = await uploadFiles(option.image[0], setProgress);
       }
+      setResolvedOption([...resolvedOption, option]);
     });
   }
 
@@ -80,7 +81,7 @@ const AddQuestion = ({
       };
       if (values.type === "objective" || values.type === "multichoice") {
         await getImage();
-        questions.question.options = options;
+        questions.question.options = resolvedOption;
       }
 
       if (img.rawImg && !convertedImage) {

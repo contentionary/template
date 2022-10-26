@@ -19,7 +19,8 @@ export default function SimpleAccordion({
 }) {
   return (
     <Accordion sx={sx} expanded={expanded}>
-      <AccordionSummary onClick={() => onClick()}
+      <AccordionSummary
+        onClick={() => onClick()}
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
