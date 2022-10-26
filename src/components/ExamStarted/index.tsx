@@ -3,6 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import grey from "@mui/material/colors/grey";
 import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -16,7 +17,11 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import ExamNav from "./ExamNav";
 import ExamQuestion from "./ExamQuestion";
 import FinishedExamCard from "../ExamFinished";
+import ModalComponent from "@src/components/shared/modal";
 // icons
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
+import LiveHelpOutlinedIcon from "@mui/icons-material/LiveHelpOutlined";
 //  hooks, utils, interface and styles
 import { request } from "@src/utils";
 import useGlobalStyle from "@src/styles";
@@ -45,29 +50,59 @@ const StartExam: ExamFunc = (props) => {
   const globalStyle = useGlobalStyle();
   const formControlStyle = useFormControlStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
+  // exam questions
   const [examQuestions, setExamQuestions] = React.useState<ExamQuestionsInt>();
   //exam timer
-  const [timeout, setTimeOut] = React.useState(false);
+  const [timeOut, setTimeOut] = React.useState(false);
   const { pause, start, resume, isPaused, formatTime, timer } =
     useTimer(setTimeOut);
   const { seconds, minutes, hours } = formatTime(Number(timer));
-  //
+  // current question and section
   const [section, setSection] = React.useState(0);
   const [question, setQuestion] = React.useState(0);
-  //
+  // pinned questions
+  const [pinnedQuestions, setPinnedQuestions] = React.useState<{
+    [index: string]: number;
+  }>({});
+
+  // answered questions
   const [answers, setAnswers] = React.useState<Record<string, TempAnswerInt>>(
     {}
   );
-  //
+  // submit exam
   const [submitAnsResponse, setSubmitAnsResponse] =
     React.useState<RequestResponseInt>();
-
+  const [openEndExamModal, setOpenEndExamModal] =
+    React.useState<boolean>(false);
+  const [endingExam, setEndingExam] = React.useState<boolean>(false);
   // subscriber exam question
   const { isLoading, isError, data } = useQuery("examQuestions", async () => {
     return await request.get({
       url: `/exam/${exam.id}/subscriber-questions`,
     });
   });
+
+  // end exam mutant
+  const submitAnswer = useMutation(
+    async () => {
+      return await request.post({
+        url: `/centre/${props.centerId}/exam/${props.exam.id}/answer`,
+        data: { duration: exam.duration, answers: answers },
+      });
+    },
+    {
+      onSuccess: (data) => {
+        setEndingExam(false);
+        setOpenEndExamModal(false);
+        setSubmitAnsResponse(data);
+        // router.push(`/exams/${props.exam.slug}/finish`);
+      },
+      onError: () => {
+        setEndingExam(false);
+        alert("something went wrong");
+      },
+    }
+  );
 
   // cache exam answers
   const cacheAnswer = useMutation(
@@ -112,6 +147,46 @@ const StartExam: ExamFunc = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, data]);
 
+  // end exam on timeOut
+
+  React.useEffect(() => {
+    if (timeOut) {
+      setEndingExam(true);
+      submitAnswer.mutate();
+    }
+    return () => {
+      // second;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeOut]);
+
+  // toggle pin question
+  const togglePinQuestion = () => {
+    if (pinnedQuestions[`sq-${section}-${question}`] === undefined) {
+      setPinnedQuestions((prevState) => ({
+        ...prevState,
+        [`sq-${section}-${question}`]: question,
+      }));
+    } else {
+      setPinnedQuestions((prevState) => {
+        const copy = { ...prevState };
+        delete copy[`sq-${section}-${question}`];
+        return copy;
+      });
+    }
+  };
+
+  // handle close End exam modal
+  const handleCloseEndExamModal = () => {
+    if (endingExam) return;
+    setOpenEndExamModal(false);
+  };
+
+  // end exam
+  const handleEndExam = () => {
+    setEndingExam(true);
+    submitAnswer.mutate();
+  };
   // change section
   const handleChangeSection = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuestion(0);
@@ -187,31 +262,44 @@ const StartExam: ExamFunc = (props) => {
           exam={props.exam}
           submitAnsResponse={submitAnsResponse}
         />
-      ) : (
-        <Box pt={0} component="main" minHeight="100vh">
+      ) : !timeOut ? (
+        <Box
+          pt={0}
+          display="flex"
+          component="main"
+          minHeight="100vh"
+          flexDirection="column"
+        >
           <ExamNav
-            seconds={seconds}
-            minutes={minutes}
-            hours={hours}
-            isPaused={isPaused}
-            resume={resume}
-            pause={pause}
-            timeout={timeout}
             exam={exam}
+            hours={hours}
+            pause={pause}
+            resume={resume}
+            seconds={seconds}
+            timeOut={timeOut}
             answers={answers}
+            minutes={minutes}
+            isPaused={isPaused}
             centerId={props.centerId}
             currentSection={section}
             currentQuestion={question}
             examQuestions={examQuestions}
+            pinnedQuestions={pinnedQuestions}
+            togglePinQuestion={togglePinQuestion}
+            setOpenEndExamModal={setOpenEndExamModal}
             setSubmitAnsResponse={setSubmitAnsResponse}
             setQuestionAndSection={setQuestionAndSection}
           />
-          <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
+          <Box
+            flexGrow={1}
+            component="section"
+            sx={{ pt: 4, pb: 8, px: { md: 6 } }}
+          >
             <Container
               maxWidth="xl"
               sx={{ display: "grid", placeItems: "center" }}
             >
-              <Box maxWidth={620} width="100%">
+              <Box maxWidth={820} width="100%">
                 <Typography
                   mb={3}
                   variant="h5"
@@ -255,11 +343,14 @@ const StartExam: ExamFunc = (props) => {
                     </RadioGroup>
                   </Box>
                   <ExamQuestion
+                    hasPin={exam.hasPin}
                     answers={answers}
                     setAnswers={setAnswers}
                     currentSection={section}
                     currentQuestion={question}
                     examQuestions={examQuestions}
+                    pinnedQuestions={pinnedQuestions}
+                    togglePinQuestion={togglePinQuestion}
                   />
                   <Box p={3}>
                     <Stack
@@ -283,24 +374,31 @@ const StartExam: ExamFunc = (props) => {
                         >
                           Previous
                         </Button>
-                        <Button
-                          disabled={
-                            (!examQuestions?.sections.length ||
-                              section === examQuestions?.sections.length - 1) &&
-                            (!examQuestions?.sections[section].questions
-                              .length ||
-                              question ===
-                                examQuestions?.sections[section].questions
-                                  .length -
-                                  1)
-                          }
-                          variant="contained"
-                          disableElevation
-                          size="large"
-                          onClick={nextQuestion}
-                        >
-                          Next
-                        </Button>
+                        {(!examQuestions?.sections.length ||
+                          section === examQuestions?.sections.length - 1) &&
+                        (!examQuestions?.sections[section].questions.length ||
+                          question ===
+                            examQuestions?.sections[section].questions.length -
+                              1) ? (
+                          <Button
+                            size="large"
+                            color="error"
+                            disableElevation
+                            variant="contained"
+                            onClick={() => setOpenEndExamModal(true)}
+                          >
+                            End Exam
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            disableElevation
+                            size="large"
+                            onClick={nextQuestion}
+                          >
+                            Next
+                          </Button>
+                        )}
                       </Stack>
                     </Stack>
                   </Box>
@@ -309,7 +407,121 @@ const StartExam: ExamFunc = (props) => {
             </Container>
           </Box>
         </Box>
+      ) : (
+        <Box
+          pt={0}
+          display="flex"
+          component="main"
+          minHeight="100vh"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <Box flexShrink={0}>
+            <Typography paragraph py={3} textAlign="center">
+              <CircularProgress sx={{ color: grey[300] }} size={60} />
+            </Typography>
+            <Typography mb={0} variant="h4" textAlign="center">
+              {Object.keys(answers).length}{" "}
+              <Typography variant="caption"> out of </Typography>
+              {props.exam.questionCount}
+              <Typography variant="caption"> questions </Typography>
+            </Typography>
+            <Typography
+              mb={1}
+              variant="h5"
+              textAlign="center"
+              sx={{ color: grey[600] }}
+            >
+              answered
+            </Typography>
+          </Box>
+        </Box>
       )}
+      <ModalComponent
+        open={openEndExamModal}
+        handleClose={handleCloseEndExamModal}
+      >
+        <React.Fragment>
+          <Stack
+            direction="row"
+            alignItems="flex-start"
+            justifyContent="space-between"
+          >
+            <IconButton
+              color="inherit"
+              aria-label="close"
+              disabled={endingExam}
+              sx={{ p: 0.5, ml: "auto" }}
+              onClick={handleCloseEndExamModal}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+          {endingExam ? (
+            <Typography paragraph py={3} textAlign="center">
+              <CircularProgress sx={{ color: grey[300] }} size={60} />
+            </Typography>
+          ) : (
+            <React.Fragment>
+              <Typography
+                mb={0}
+                variant="h1"
+                component="p"
+                textAlign="center"
+                sx={{ color: grey[400] }}
+              >
+                <LiveHelpOutlinedIcon fontSize="inherit" color="inherit" />
+              </Typography>
+              <Typography mb={0} variant="h4" textAlign="center">
+                {Object.keys(answers).length}{" "}
+                <Typography variant="caption"> out of </Typography>
+                {props.exam.questionCount}
+                <Typography variant="caption"> questions </Typography>
+              </Typography>
+              <Typography
+                mb={1}
+                variant="h5"
+                textAlign="center"
+                sx={{ color: grey[600] }}
+              >
+                answered
+              </Typography>
+              <Typography mb={3} paragraph textAlign="center">
+                Do you want to end your exam now?
+              </Typography>
+            </React.Fragment>
+          )}
+
+          <Stack
+            spacing={2}
+            direction="row"
+            alignItems="flex-start"
+            justifyContent="center"
+          >
+            <Button
+              size="large"
+              color="secondary"
+              disableElevation
+              variant="outlined"
+              disabled={endingExam}
+              onClick={handleCloseEndExamModal}
+            >
+              Cancel
+            </Button>
+            <Button
+              size="large"
+              color="error"
+              disableElevation
+              variant="contained"
+              disabled={endingExam}
+              onClick={handleEndExam}
+            >
+              Continue
+            </Button>
+          </Stack>
+        </React.Fragment>
+      </ModalComponent>
     </React.Fragment>
   );
 };

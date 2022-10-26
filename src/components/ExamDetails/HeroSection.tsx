@@ -154,7 +154,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`/exams/${slug}/start`} passHref>
+                <NextLink href={`/exams/${slug}/instructions`} passHref>
                   <Button
                     size="large"
                     disableElevation

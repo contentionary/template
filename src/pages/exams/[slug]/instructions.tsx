@@ -12,7 +12,8 @@ const ExamPage = (pageProps: BasePageProps) => {
 
     return <ActiveTemplate />;
   }
-  const ActiveTemplate = themes[pageProps.cachedData.centre.template]("Exam");
+  const ActiveTemplate =
+    themes[pageProps.cachedData.centre.template]("ExamInstructions");
 
   return <ActiveTemplate />;
 };
