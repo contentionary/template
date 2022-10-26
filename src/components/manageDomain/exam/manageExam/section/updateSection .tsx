@@ -1,65 +1,48 @@
-import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Edit from "@mui/icons-material/Edit";
+import MenuItem from "@mui/material/MenuItem";
+import EditIcon from "@mui/icons-material/Edit";
 import Dialog from "@src/components/shared/dialog";
-import Toast from "@src/components/shared/toast";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
-// import Typography from "@mui/material";
 
-import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
-import { handleError, request, uploadFiles } from "@src/utils";
-import { ChangeEvent, useState } from "react";
+import { handleError, request } from "@src/utils";
+import { useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
-import { CourseContentInt, CourseModuleInt } from "@src/utils/interface";
+import { SectionInt } from "./interface";
 
 interface Props {
-  content?: boolean;
   centreId: string;
-  questionBankId: string;
-  module: CourseModuleInt | CourseContentInt;
+  examId: string;
+  section: SectionInt;
+  toggleToast: Function;
 }
 
-const AddModules = ({
-  questionBankId,
+const UpdateSection = ({
+  examId,
   centreId,
-  content,
-  module,
+  section,
+  toggleToast,
 }: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
-  const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit } = useForm(create);
-  const [file, setFile] = useState<Record<string, any>>();
-  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
-  const [convertedFile, setConvertedFile] = useState<any>();
 
-  const getFile = (e: ChangeEvent<any>) => {
-    setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
-  };
-  const Loading = dynamic(
-    () => import("@src/components/shared/loading/loadingWithValue")
-  );
+  const Loading = dynamic(() => import("@src/components/shared/loading"));
   async function create() {
     try {
       setIsLoading(true);
-      if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
-        values.fileUrl = fileUrl;
-        setConvertedFile(fileUrl);
-      }
-      const data = await request.patch({
-        url: `/centre/${centreId}/course/${questionBankId}/content/${module.id}`,
+      await request.patch({
+        url: `/centre/${centreId}/exam/${examId}/question-section/${section.id}`,
         data: values,
       });
-      toggleToast(data.message);
-      closeDialog();
+      toggleToast("Update Successful");
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -69,11 +52,12 @@ const AddModules = ({
   return (
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
-        <Edit />
-        Update {content ? "Content" : "Modules"}
+        <EditIcon />
+        Edit
       </MenuItem>
+
       <Dialog
-        title={`Update course ${content ? "content" : "modules"} `}
+        title="Update section"
         isOpen={isOpen}
         closeDialog={closeDialog}
         content={
@@ -83,7 +67,7 @@ const AddModules = ({
                 type="text"
                 label="name"
                 name="name"
-                defaultValue={module.name}
+                defaultValue={section.name}
                 onChange={getData}
                 required
               />
@@ -95,8 +79,8 @@ const AddModules = ({
                   required
                   placeholder="Type in description here ..."
                   name="description"
+                  defaultValue={section.description}
                   onChange={getData}
-                  defaultValue={module.description}
                   style={{
                     width: "100%",
                     height: 120,
@@ -106,12 +90,12 @@ const AddModules = ({
                   maxLength={200}
                 />
               </Box>
-              {content && (
-                <TextFields type="file" name="fileUrl" onChange={getFile} />
-              )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  Update
+                  <>
+                    Update &nbsp;
+                    {isLoading && <Loading size={15} />}
+                  </>
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}
@@ -124,16 +108,8 @@ const AddModules = ({
           </form>
         }
       />
-      {toastMessage && (
-        <Toast
-          status={Boolean(toastMessage)}
-          message={toastMessage}
-          showToast={toggleToast}
-        />
-      )}
-      <Loading value={fileLoadingProgres} open={isLoading} size={100} />
     </>
   );
 };
 
-export default AddModules;
+export default UpdateSection;

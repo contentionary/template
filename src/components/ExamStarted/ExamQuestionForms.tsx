@@ -60,10 +60,10 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
       onChange={handleChange}
       className={buttonStyle.examButtonGroup}
     >
-      {props.question.options.map((option, index) => (
+      {props?.question?.options?.map((option, index) => (
         <ToggleButton
           key={`objective-option-${option.id}`}
-          value={option.id}
+          value={option?.id}
           aria-label={`option ${index + 1}`}
         >
           <Stack direction="row" spacing={2}>
@@ -188,7 +188,7 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
 
   return (
     <FormGroup>
-      {props.question.options.map((option) => (
+      {props?.question?.options?.map((option) => (
         <FormControlLabel
           key={`multichoice-option-${option.id}`}
           control={

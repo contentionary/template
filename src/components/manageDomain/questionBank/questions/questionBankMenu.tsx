@@ -16,7 +16,6 @@ export default function CustomizedMenus({
   centreId: string;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
-
   return (
     <>
       <ButtonComponent onClick={openMenu} variant="contained">
