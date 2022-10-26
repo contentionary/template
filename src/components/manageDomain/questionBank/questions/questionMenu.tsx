@@ -16,6 +16,7 @@ export default function CustomizedMenus({
   question: QuestionsInt;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
+  console.log(question)
   return (
     <>
       <IconButton onClick={openMenu}>

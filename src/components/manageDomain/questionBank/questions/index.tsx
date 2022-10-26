@@ -44,6 +44,7 @@ const QuestionsPage = () => {
           {question?.options?.map(({ value, isCorrect, image }, index) => (
             <Box
               key={`${index}-option`}
+              sx={{ mb: 3 }}
               className={`${styles.optionStyle} ${
                 isCorrect ? styles.selected : ""
               }`}
@@ -53,18 +54,18 @@ const QuestionsPage = () => {
                 component="div"
                 sx={{ mb: 3, color: isCorrect ? "#fff" : "" }}
                 dangerouslySetInnerHTML={{ __html: value }}
-                {...(image && (
-                  <Box sx={{ width: 500 }}>
-                    <Image
-                      src={image}
-                      alt="question image"
-                      height="100%"
-                      width="100%"
-                      layout="responsive"
-                    />
-                  </Box>
-                ))}
               />
+              {image && (
+                <Box sx={{ width: 500 }}>
+                  <Image
+                    src={image}
+                    alt="question image"
+                    height="100%"
+                    width="100%"
+                    layout="responsive"
+                  />
+                </Box>
+              )}
             </Box>
           ))}
         </>
@@ -139,19 +140,24 @@ const QuestionsPage = () => {
       </Box>
       {questions.length ? (
         <Box>
-          {questions?.map(({ question, solution }, index) => (
-            <Stack direction="row" spacing={5} key={`${index}-module`} mb={4}>
-              <Avatar>{++index}</Avatar>
+          {questions?.map(({ question, solution }, questionIndex) => (
+            <Stack
+              direction="row"
+              spacing={5}
+              key={`${questionIndex}-module`}
+              mb={4}
+            >
+              <Avatar>{questionIndex + 1}</Avatar>
               <Accordion
                 sx={{ width: "100%" }}
-                onClick={() => setExpanded(index)}
+                onClick={() => setExpanded(questionIndex)}
                 title={
                   <div>
                     <Typography
                       dangerouslySetInnerHTML={{
                         __html: question.question,
                       }}
-                      variant="h6"
+                      variant="h5"
                       component="div"
                     />
                     {question.image && (
@@ -167,7 +173,7 @@ const QuestionsPage = () => {
                     )}
                   </div>
                 }
-                expanded={expanded === index}
+                expanded={expanded === questionIndex}
               >
                 <>
                   {getQuestionTypeData(question)}
@@ -205,7 +211,7 @@ const QuestionsPage = () => {
                     <QuestionMenu
                       questionBankId={questionBankId as string}
                       centreId={cachedData.centre.id}
-                      question={questions[index]}
+                      question={questions[questionIndex]}
                     />
                   </Typography>
                 </>

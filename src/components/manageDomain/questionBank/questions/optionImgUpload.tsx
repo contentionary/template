@@ -29,6 +29,14 @@ const UpdateBackground = ({
     const image = document.getElementById(`optionIamge${index}`);
     image && image.click();
   }
+  function getImage() {
+    if (typeof options[index].image === "string") {
+      if (options[index].image.includes("http")) {
+        return options[index].image;
+      } else
+        return `https://contentionary.s3.eu-west-3.amazonaws.com/${options[index].image}`;
+    } else return options[index].image[1];
+  }
   return (
     <>
       <TextFields
@@ -49,17 +57,25 @@ const UpdateBackground = ({
           onClick={() => selectImage()}
         >
           <Box sx={{ width: 500 }}>
+            {" "}
             <Image
-              src={
-                options[index].image.length
-                  ? options[index].image[1]
-                  : options[index].image
-              }
+              src={getImage()}
               alt="question image"
               height="100%"
               width="100%"
               layout="responsive"
             />
+            {/* {options[index].image.length ? (
+             
+            ) : (
+              <Image
+                src={options[index].image}
+                alt="question image"
+                height="100%"
+                width="100%"
+                layout="responsive"
+              />
+            )} */}
           </Box>
         </Box>
       ) : (

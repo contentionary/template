@@ -16,7 +16,7 @@ import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request, uploadFiles } from "@src/utils";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextFields from "@src/components/shared/input/textField";
@@ -52,13 +52,25 @@ const AddQuestion = ({
       ? question?.question?.options
       : [{ value: "", isCorrect: false }]
   );
-  const [resolvedOption, setResolvedOption] = useState<QuestionOptionInt[]>();
+  const [resolvedOption, setResolvedOption] = useState<QuestionOptionInt[]>([]);
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const ImageUpload = dynamic(() => import("./imageUpload"));
   const OptionImageUpload = dynamic(() => import("./optionImgUpload"));
   // const Editor = dynamic(() => import("@src/components/shared/editor"), {
   //   ssr: false,
   // });
+  if (update) {
+    useEffect(() => {
+      setData("type", question?.question.type);
+    }, [update]);
+  }
+  function getImage() {
+    options.forEach(async (option) => {
+      if ("image" in option && option.image.length) {
+        option.image = await uploadFiles(option.image[0], setProgress);
+      }
+    });
+  }
 
   async function create() {
     try {
@@ -66,6 +78,11 @@ const AddQuestion = ({
       let questions: any = {
         question: { question: values.question, type: values.type },
       };
+      if (values.type === "objective" || values.type === "multichoice") {
+        await getImage();
+        questions.question.options = options;
+      }
+
       if (img.rawImg && !convertedImage) {
         const imageUrl = await uploadFiles(img.rawImg, setProgress);
         questions.question.image = imageUrl;
@@ -75,15 +92,6 @@ const AddQuestion = ({
         const imageUrl = await uploadFiles(solutionImg.rawImg, setProgress);
         questions.solution.imageUrl = imageUrl;
         setConvertedSolutionImage(imageUrl);
-      }
-      if (values.type === "objective" || values.type === "multichoice") {
-        options.forEach(async (option) => {
-          if ("image" in option && option.image.length) {
-            option.image = await uploadFiles(option.image[0], setProgress);
-          }
-          setResolvedOption([...resolvedOption, option]);
-        });
-        questions.question.options = resolvedOption;
       }
       if (values.type === "boolean") questions.question.answer = values.answer;
       if (values.type === "range") {
@@ -113,7 +121,7 @@ const AddQuestion = ({
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
         <AddCircleOutlineOutlined />
-        Add Question
+        {update ? "Update" : "Add"} Question
       </MenuItem>
       <Dialog
         title="Add Question"
