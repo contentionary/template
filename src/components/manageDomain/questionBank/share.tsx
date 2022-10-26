@@ -36,8 +36,11 @@ const ShareCentreLink = ({ questionBankId }: Props) => {
         url: `/centre/${cachedData.centre.id}/question-bank/${questionBankId}/share`,
         data: values,
       });
+      toggleToast("Share successful");
+      setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
+      setIsLoading(false);
     }
   }
   return (

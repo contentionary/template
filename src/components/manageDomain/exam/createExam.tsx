@@ -3,11 +3,10 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
-// import IconButton from "@mui/material/IconButton";
-// import Select from "@mui/material/Select";
-// import InputLabel from "@mui/material/InputLabel";
-// import FormControl from "@mui/material/FormControl";
-// import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
@@ -23,7 +22,9 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 const CreateCourse = () => {
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { cachedData, pageData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, check, resetValues } = useForm(create);
@@ -127,27 +128,31 @@ const CreateCourse = () => {
                 </Typography>
               </Box>
 
-              {/* <FormControl fullWidth>
-                <InputLabel>Publication category</InputLabel>
+              <FormControl fullWidth>
+                <InputLabel id="publicCategoryId">Public category</InputLabel>
                 <Select
-                  name="publicationCategoryId"
-                  value={
-                    values.publicationCategoryId ||
-                    "42b04340-d8ff-11eb-a654-8b6d560906aa"
-                  }
+                  labelId="publicCategoryId"
+                  label="Public category"
+                  name="publicCategoryId"
+                  value={values.publicCategoryId ? values.publicCategoryId : ""}
                   onChange={(e) => getData(e)}
                 >
-                  {pageData.publicationCategories?.map(
-                    ({ name, id }, index: number) => (
+                  {pageData.publicCategories?.map(
+                    (
+                      { name, id }: { name: string; id: string },
+                      index: number
+                    ) => (
                       <MenuItem key={`${index}-catygory`} value={id} id={id}>
                         {name}
                       </MenuItem>
                     )
                   )}
                 </Select>
-                <Typography variant="body2" component="div">Click the dropdown to select a category for your exam (None category goes to Others)</Typography>
-
-              </FormControl> */}
+                <Typography variant="body2" component="div">
+                  Click the dropdown to select a category for your exam (None
+                  category goes to Others)
+                </Typography>
+              </FormControl>
               <Stack direction="row" spacing={3} flexWrap="wrap">
                 <CheckBox
                   label={
@@ -159,16 +164,7 @@ const CreateCourse = () => {
                   onChange={check}
                   className={styles.checkbox}
                 />
-                <CheckBox
-                  label={
-                    <Typography variant="h6" className={styles.checkbox}>
-                      Private
-                    </Typography>
-                  }
-                  onChange={check}
-                  name="isPrivate"
-                  className={styles.checkbox}
-                />
+
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
@@ -190,17 +186,35 @@ const CreateCourse = () => {
                   className={styles.checkbox}
                 />
               </Stack>
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Description *
+                </Typography>
+                <TextArea
+                  required
+                  placeholder="Type in description here ..."
+                  name="description"
+                  onChange={getData}
+                  style={{
+                    width: "100%",
+                    height: 120,
+                    borderRadius: 5,
+                    padding: 15,
+                  }}
+                  maxLength={10000}
+                />
+              </Box>
             </>
           )}
 
           <Box>
             <Typography variant="subtitle1" component="div">
-              Description *
+              Summary *
             </Typography>
             <TextArea
               required
-              placeholder="Type in description here ..."
-              name="description"
+              placeholder="Type in summary here ..."
+              name="summary"
               onChange={getData}
               style={{
                 width: "100%",
@@ -211,14 +225,12 @@ const CreateCourse = () => {
               maxLength={10000}
             />
           </Box>
-          {type != "FOLDER" && (
-            <ImageUpload
-              setImg={setImg}
-              img={img}
-              uploadText="Select and upload exam logo"
-              defaultImage=""
-            />
-          )}
+          <ImageUpload
+            setImg={setImg}
+            img={img}
+            uploadText="Select and upload exam logo"
+            defaultImage=""
+          />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
           <ButtonComponent

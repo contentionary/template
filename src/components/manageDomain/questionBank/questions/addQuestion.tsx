@@ -12,61 +12,103 @@ import CheckBox from "@src/components/shared/checkInput";
 import Dialog from "@src/components/shared/dialog";
 import Toast from "@src/components/shared/toast";
 import useForm from "@src/hooks/useForm";
-import Editor from "@src/components/shared/editor";
 import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
-import { handleError, request } from "@src/utils";
-import { ChangeEvent, useState } from "react";
+import { handleError, request, uploadFiles } from "@src/utils";
+import { ChangeEvent, useEffect, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
+import TextFields from "@src/components/shared/input/textField";
+import { QuestionOptionInt, QuestionsInt } from "@src/utils/interface";
+import Editor from "@src/components/shared/editor";
 
 interface Props {
   centreId: string;
   questionBankId: string;
+  update?: boolean;
+  question?: QuestionsInt;
 }
 
-const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
+const AddQuestion = ({
+  questionBankId,
+  centreId,
+  update,
+  question,
+}: Props): JSX.Element => {
   const styles = useStyles();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, setData } = useForm(create);
+  const { getData, values, submit, setData, getEditor } = useForm(create);
   const [solution, setSolution] = useState(false);
-
-  // const [file, setFile] = useState<Record<string, any>>();
-  // const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
-  // const [convertedFile, setConvertedFile] = useState<any>();
-  // const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
-  const [options, setOptions] = useState<Array<Record<string, any>>>([
-    {
-      value: "",
-      isCorrect: false,
-    },
-  ]);
-  // const getFile = (e: ChangeEvent<any>) => {
-  //   setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
-  // };
+  const [img, setImg] = useState<Record<string, any>>({});
+  const [solutionImg, setSolutionImg] = useState<Record<string, any>>({});
+  const [progres, setProgress] = useState(0);
+  const [convertedImage, setConvertedImage] = useState<any>();
+  const [convertedSolutionImage, setConvertedSolutionImage] = useState<any>();
+  const [options, setOptions] = useState<QuestionOptionInt[]>(
+    update && question?.question.options
+      ? question?.question?.options
+      : [{ value: "", isCorrect: false, id: 0 }]
+  );
+  const [resolvedOption, setResolvedOption] = useState<QuestionOptionInt[]>([]);
   const Loading = dynamic(() => import("@src/components/shared/loading"));
+  const ImageUpload = dynamic(() => import("./imageUpload"));
+  const OptionImageUpload = dynamic(() => import("./optionImgUpload"));
+  // const Editor = dynamic(() => import("@src/components/shared/editor"), {
+  //   ssr: false,
+  // });
+
+  useEffect(() => {
+    if (update) setData("type", question?.question.type);
+  }, [update, question, setData]);
+
+  function getImage() {
+    options.forEach(async (option) => {
+      if ("image" in option && option.image.length) {
+        option.image = await uploadFiles(option.image[0], setProgress);
+      }
+      setResolvedOption([...resolvedOption, option]);
+    });
+  }
+
   async function create() {
     try {
       setIsLoading(true);
-      // if (file && !convertedFile) {
-      //   const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
-      //   values.fileUrl = fileUrl;
-      //   setConvertedFile(fileUrl);
-      // }
       let questions: any = {
         question: { question: values.question, type: values.type },
       };
-      if (values.type === "objective" || values.type === "multichoice")
-        questions.question.options = options;
+      if (values.type === "objective" || values.type === "multichoice") {
+        await getImage();
+        questions.question.options = resolvedOption;
+      }
+
+      if (img.rawImg && !convertedImage) {
+        const imageUrl = await uploadFiles(img.rawImg, setProgress);
+        questions.question.image = imageUrl;
+        setConvertedImage(imageUrl);
+      }
+      if (solutionImg.rawImg && !convertedSolutionImage) {
+        const imageUrl = await uploadFiles(solutionImg.rawImg, setProgress);
+        questions.solution.imageUrl = imageUrl;
+        setConvertedSolutionImage(imageUrl);
+      }
       if (values.type === "boolean") questions.question.answer = values.answer;
-      if (solution) questions.solution = { text: values.solution };
-      await request.post({
-        url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
-        data: questions,
-      });
+      if (values.type === "range") {
+        questions.question.max = values.max;
+        questions.question.min = values.min;
+      }
+      if (solution) questions.solution.text = values.solution;
+      update
+        ? await request.patch({
+            url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
+            data: questions,
+          })
+        : await request.post({
+            url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
+            data: questions,
+          });
       toggleToast("Question add");
       setIsLoading(false);
       closeDialog();
@@ -75,12 +117,12 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
       setIsLoading(false);
     }
   }
-  console.log(values);
+
   return (
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
         <AddCircleOutlineOutlined />
-        Add Question
+        {update ? "Update" : "Add"} Question
       </MenuItem>
       <Dialog
         title="Add Question"
@@ -93,32 +135,39 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
               <FormControl fullWidth>
                 <InputLabel>Question Type</InputLabel>
                 <Select
+                  label="Question Type"
                   name="type"
-                  value={values.type}
+                  value={values.type || question?.question?.type || ""}
                   onChange={(e) => getData(e)}
                 >
                   <MenuItem value="objective">OBJECTIVE</MenuItem>
                   <MenuItem value="theory">THEORY</MenuItem>
                   <MenuItem value="boolean">BOOLEAN</MenuItem>
+                  <MenuItem value="range">RANGE</MenuItem>
                   <MenuItem value="multichoice">MULTI-CHOICE</MenuItem>
                 </Select>
               </FormControl>
               <Box>
-                <Typography variant="subtitle1" component="div">
+                <Typography variant="h6" component="div">
                   Question
                 </Typography>
                 <Editor
-                  required
-                  placeholder="Type in question here ..."
-                  name="question"
-                  onChange={getData}
-                  style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
+                  data={
+                    update
+                      ? question?.question.question
+                      : "<p>Type in question here ...</p>"
+                  }
+                  onChange={(event: any, editor: any) =>
+                    getEditor(event, editor, "question")
+                  }
                 />
+                <Box sx={{ mt: 4 }}>
+                  <ImageUpload
+                    setImg={setImg}
+                    img={img}
+                    uploadText=" Add image to question"
+                  />
+                </Box>
               </Box>
               {values.type === "boolean" && (
                 <>
@@ -142,12 +191,22 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                   </Typography>
                 </>
               )}
-
+              {values.type === "range" && (
+                <Box>
+                  <TextFields
+                    onChange={getData}
+                    name="min"
+                    label="Minium"
+                    sx={{ mr: 4 }}
+                  />
+                  <TextFields onChange={getData} name="max" label="Maxium" />
+                </Box>
+              )}
               {(values.type === "objective" ||
                 values.type === "multichoice") && (
                 <Box>
                   {options.map((option, index) => (
-                    <>
+                    <Box key={`${index}-add-option`}>
                       <Box>
                         <CheckBox
                           label={
@@ -166,18 +225,23 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                           }}
                         />
                         <Box sx={{ display: "flex" }}>
-                          <Editor
-                            required
-                            onChange={(e: ChangeEvent<any>) => {
-                              options[index].value = e.target.value;
-                              setOptions(options);
-                            }}
-                            style={{
-                              width: "100%",
-                              borderRadius: 5,
-                              padding: 15,
-                            }}
-                          />
+                          <Box sx={{ width: "100%" }}>
+                            <Editor
+                              data="<p>Type in option here ...</p>"
+                              onChange={(event: any, editor: any) => {
+                                options[index].value = editor.getData();
+                                setOptions(options);
+                              }}
+                            />
+                            <Box sx={{ mt: 4 }}>
+                              <OptionImageUpload
+                                setOptions={setOptions}
+                                options={options}
+                                index={index}
+                                uploadText=" Add image to option"
+                              />
+                            </Box>
+                          </Box>
                           <IconButton
                             sx={{ marginLeft: 3 }}
                             onClick={() => {
@@ -189,11 +253,15 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                           </IconButton>
                         </Box>
                       </Box>
-                    </>
+                    </Box>
                   ))}
                   <ButtonComponent
                     onClick={() => {
-                      options.push({ value: "", isCorrect: false });
+                      options.push({
+                        value: "",
+                        isCorrect: false,
+                        id: options.length,
+                      });
                       setOptions([...options]);
                     }}
                   >
@@ -207,17 +275,22 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                     Solution
                   </Typography>
                   <Editor
-                    required
-                    placeholder="Type in solution here ..."
-                    name="solution"
-                    onChange={getData}
-                    style={{
-                      width: "100%",
-                      height: 120,
-                      borderRadius: 5,
-                      padding: 15,
-                    }}
+                    data={
+                      update
+                        ? question?.solution.text
+                        : "<p>Type in solution here ...</p>"
+                    }
+                    onChange={(event: any, editor: any) =>
+                      getEditor(event, editor, "solution")
+                    }
                   />
+                  <Box sx={{ mt: 4 }}>
+                    <ImageUpload
+                      setImg={setSolutionImg}
+                      img={solutionImg}
+                      uploadText=" Add image to solution"
+                    />
+                  </Box>
                 </Box>
               )}
               <Typography sx={{ textAlign: "right" }}>
@@ -237,7 +310,7 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
                     {isLoading && (
                       <Loading
                         size={15}
-                        sx={{ color: "#fff", marginLeft: 5 }}
+                        sx={{ color: "#fff", marginLeft: 1 }}
                       />
                     )}
                   </>
@@ -264,4 +337,4 @@ const AddModules = ({ questionBankId, centreId }: Props): JSX.Element => {
   );
 };
 
-export default AddModules;
+export default AddQuestion;
