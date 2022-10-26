@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { PublicationInt } from "@src/utils/interface";
+import { CachedCentreInt, PublicationInt } from "@src/utils/interface";
 
 export declare type BookDetailsPageFunc = (props: {
   publication: PublicationInt;
+  centre: CachedCentreInt;
   auth: {
     isCentreManager: boolean;
     isPublicationSubscriber: boolean;
     isCentreSubscriber: boolean;
   };
   read: Record<string, any>;
-  download: Record<string, any>;
 }) => JSX.Element;

@@ -19,6 +19,7 @@ const nextConfig = {
       issuer: /\.[jt]sx?$/,
       use: ["@svgr/webpack"],
     });
+    // config.infrastructureLogging = { debug: /PackFileCache/ };
 
     return config;
   },
@@ -27,7 +28,7 @@ const nextConfig = {
       "contentionary.s3.eu-west-3.amazonaws.com",
       "cttn-filemanager.herokuapp.com",
       "localhost",
-      "https://www.sic-info.org"
+      "https://www.sic-info.org",
     ],
   },
 };

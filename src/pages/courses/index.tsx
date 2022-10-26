@@ -22,7 +22,8 @@ const CoursesPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate = themes[pageProps.cachedData.centre.template]("List");
+  const ActiveTemplate =
+    themes[pageProps.cachedData.centre.template]("Courses");
 
   return <ActiveTemplate />;
 };

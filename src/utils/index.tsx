@@ -25,8 +25,8 @@ export const FILE_DOWNLOAD_URL =
 export const DEFAULT_LOGO = "/public/images/logo.png";
 export const BOOK_IMAGE_PLACEHOLDER = "/images/book-1.png";
 export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
-export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
+export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n\n\n================${title}\n===========`, value);
@@ -222,11 +222,12 @@ export const request = {
     method = "GET",
     token,
     headers = {},
+    isRelativeUrl = true,
   }: GetRequestInt): Promise<RequestResponseInt> => {
     const authorization = token || cache.get("token");
     if (authorization) headers.authorization = authorization;
 
-    url = baseUrl + url;
+    url = isRelativeUrl ? baseUrl + url : url;
     const { data } = await axios({
       method,
       url,
@@ -363,14 +364,17 @@ export const getCentre = async (
         id: centre.id,
         slug: centre.slug,
         name: centre.name,
-        template: "publication" || centre.template,
+        description: centre.description,
+        // template: centre.template,
+        template: "examAndCourse",
         logo: centre.logo,
+        price: centre.price,
+        subscriptionModel: centre.subscriptionModel,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@contentionary.com",
         address:
           centre.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
       };
-
     // cache.set(host, centre, context);
     if (!centre) throw new Error("Centre not found");
 

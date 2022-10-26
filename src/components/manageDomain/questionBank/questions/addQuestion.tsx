@@ -50,7 +50,7 @@ const AddQuestion = ({
   const [options, setOptions] = useState<QuestionOptionInt[]>(
     update && question?.question.options
       ? question?.question?.options
-      : [{ value: "", isCorrect: false }]
+      : [{ value: "", isCorrect: false, id: 0 }]
   );
   const [resolvedOption, setResolvedOption] = useState<QuestionOptionInt[]>([]);
   const Loading = dynamic(() => import("@src/components/shared/loading"));
@@ -59,11 +59,11 @@ const AddQuestion = ({
   // const Editor = dynamic(() => import("@src/components/shared/editor"), {
   //   ssr: false,
   // });
-  if (update) {
-    useEffect(() => {
-      setData("type", question?.question.type);
-    }, [update, question, setData]);
-  }
+
+  useEffect(() => {
+    if (update) setData("type", question?.question.type);
+  }, [update, question, setData]);
+
   function getImage() {
     options.forEach(async (option) => {
       if ("image" in option && option.image.length) {
@@ -257,7 +257,11 @@ const AddQuestion = ({
                   ))}
                   <ButtonComponent
                     onClick={() => {
-                      options.push({ value: "", isCorrect: false });
+                      options.push({
+                        value: "",
+                        isCorrect: false,
+                        id: options.length,
+                      });
                       setOptions([...options]);
                     }}
                   >

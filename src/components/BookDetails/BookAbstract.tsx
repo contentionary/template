@@ -10,11 +10,12 @@ import ListItemText from "@mui/material/ListItemText";
 import TickAvatar from "@src/components/shared/avatar/TickAvatar";
 // interface and config
 import { BookDetailsPageFunc } from "./interfaceType";
+import Box from "@mui/material/Box";
 
 const BookAbstract: BookDetailsPageFunc = ({ publication }) => {
   const { description, learnings = [] } = publication;
   return (
-    <Fragment>
+    <Box padding={1}>
       <Typography variant="h5" mb={2}>
         ABOUT THIS BOOK:
       </Typography>
@@ -42,7 +43,7 @@ const BookAbstract: BookDetailsPageFunc = ({ publication }) => {
           </List>
         </>
       )}
-    </Fragment>
+    </Box>
   );
 };
 

@@ -62,12 +62,12 @@ const CourseContent = ({
                       justifyContent="space-between"
                     >
                       <Typography variant="h6">{name}</Typography>
-                      <Typography
+                      {/* <Typography
                         color="text.secondary"
                         display={{ xs: "none", md: "block" }}
                       >
                         7 Lectures &middot; 34min
-                      </Typography>
+                      </Typography> */}
                     </Stack>
                   </Stack>
                 </AccordionSummary>

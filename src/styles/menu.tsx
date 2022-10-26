@@ -6,8 +6,10 @@ const menuStyle = makeStyles({
     paddingRight: "0.5rem",
     paddingLeft: "0.5rem",
     overflow: "visible",
-    filter: "drop-shadow(0px 0px 24px rgba(0, 0, 0, 0.06))",
     marginTop: "0.8rem",
+    zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: theme.palette.background.paper,
+    filter: "drop-shadow(0px 0px 24px rgba(0, 0, 0, 0.06))",
     "& .MuiAvatar-root": {
       width: 32,
       height: 32,

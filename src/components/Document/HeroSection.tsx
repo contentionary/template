@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
 import useGlobalStyle from "@src/styles";
-import { DocumentFunc } from "./interfaceType";
+import { DocumentFunc } from "../shared/DocumentReader/interfaceType";
 import useButtonStyle from "@src/styles/button";
 // app components
 // icons

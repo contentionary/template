@@ -68,7 +68,7 @@ const ModulesPage = () => {
                     index={index}
                   />
                 </Typography>
-                {module.contents.length > 0 && (
+                {module?.contents?.length > 0 && (
                   <Box>
                     <Typography variant="subtitle1" component="div">
                       Contents

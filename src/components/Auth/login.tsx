@@ -33,7 +33,7 @@ const CreateAccount = (): JSX.Element => {
         url: `/auth/login?centreId=${cachedData.centre.id}`,
         data: values,
       });
-      setAuth(data as UserInt);
+      setAuth(data as UserInt, cachedData.centre.id);
       const redirectUrl = pageData?.refererUrl || "/";
       router.push(redirectUrl);
       setIsLoading(false);

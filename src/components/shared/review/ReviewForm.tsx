@@ -14,11 +14,13 @@ import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 // app components
 import UserAvatar from "@src/components/shared/avatar/UserAvatar";
+import SnackbarComponent from "../snackerBar/SnackbarComponent";
 // interface, utils and styles
 import { useMutation } from "react-query";
+import { AlertColor } from "@mui/material";
+import { ReviewFormInt } from "./interfaceType";
 import { queryClient, request } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
-import { ReviewFormInt } from "./interfaceType";
 
 const labels: { [index: string]: string } = {
   1: "Awful, not what I expected at all",
@@ -40,11 +42,23 @@ const ReviewForm = (props: ReviewFormInt) => {
     review,
     subscribed = false,
     cancelReplyForm,
+    allowRating,
   } = props;
   //
   const theme = useTheme();
   const router = useRouter();
   const { id: queryId } = router.query;
+  // alert
+  const [alertData, setAlertData] = useState<{
+    open: boolean;
+    message: string;
+    severity: AlertColor;
+  }>({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+  // form loading
   const [loading, setLoading] = useState(false);
   // comment
   const [comment, setComment] = useState("");
@@ -52,10 +66,10 @@ const ReviewForm = (props: ReviewFormInt) => {
   // rating
   const [hover, setHover] = useState(-1);
   const [rating, setRating] = useState<number | null>(0);
-  //
+  // logged in user
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user } = cachedData;
-  //
+  // edit form effect
   useEffect(() => {
     //
     if (action === "edit" && review) {
@@ -67,8 +81,34 @@ const ReviewForm = (props: ReviewFormInt) => {
       setRating(0);
     };
   }, [action, review]);
+  // reply to reply form effect
+  useEffect(() => {
+    //
+    if (
+      query === "replies" &&
+      review &&
+      review.contentId != queryId &&
+      action != "edit"
+    ) {
+      setComment((prevState) => `@${review.firstname} ${prevState}`);
+    }
+    return () => {
+      setComment("");
+    };
+  }, [review, queryId, query, action]);
 
-  // Mutations
+  // close alert
+  const handleCloseAlert = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlertData((prevState) => ({ ...prevState, open: false }));
+  };
+
+  // create Mutations
   const mutation = useMutation(
     async () => {
       return await request.post({
@@ -81,6 +121,11 @@ const ReviewForm = (props: ReviewFormInt) => {
         setRating(0);
         setComment("");
         setLoading(false);
+        setAlertData((prevState) => ({
+          ...prevState,
+          open: true,
+          message: "Comment posted",
+        }));
         // Invalidate and refetch
         queryClient.invalidateQueries(["reviews", { id: queryId }]);
         if (query === "replies")
@@ -88,10 +133,16 @@ const ReviewForm = (props: ReviewFormInt) => {
       },
       onError: () => {
         setLoading(false);
+        setAlertData((prevState) => ({
+          ...prevState,
+          open: true,
+          severity: "error",
+          message: "Something went wrong",
+        }));
       },
     }
   );
-  // edit mutation
+  // edit mutations
   const editMutation = useMutation(
     async () => {
       return await request.patch({
@@ -104,27 +155,36 @@ const ReviewForm = (props: ReviewFormInt) => {
         setRating(0);
         setComment("");
         setLoading(false);
+        setAlertData((prevState) => ({
+          ...prevState,
+          open: true,
+          message: "Comment edited",
+        }));
         cancelReplyForm && cancelReplyForm();
         // Invalidate and refetch
         queryClient.invalidateQueries(["reviews", { id: queryId }]);
         if (query === "replies") {
-          alert("yes 1");
           queryClient.invalidateQueries(["replies"]);
         }
       },
       onError: () => {
         setLoading(false);
+        setAlertData((prevState) => ({
+          ...prevState,
+          open: true,
+          message: "something went wrong",
+        }));
       },
     }
   );
-  //
+  // cancel form action
   const handleCancel = () => {
     setRating(0);
     setComment("");
     setReviewFormFocused(false);
     if (action === "edit" && review) cancelReplyForm && cancelReplyForm();
   };
-  //
+  // submit form data
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -132,7 +192,7 @@ const ReviewForm = (props: ReviewFormInt) => {
     else if (action && action === "edit") editMutation.mutate();
     return;
   };
-  //
+  // if user isn't subscribed
   if (!user || !subscribed) return <></>;
   return (
     <Stack direction="row" alignItems="flex-start" spacing={2} mb={3}>
@@ -165,7 +225,7 @@ const ReviewForm = (props: ReviewFormInt) => {
             alignItems={{ sx: "start", sm: "center" }}
             justifyContent={{ sx: "start", sm: "space-between" }}
           >
-            {query === "reviews" && (
+            {allowRating && query === "reviews" && (
               <Stack
                 direction="row"
                 alignItems="center"
@@ -190,8 +250,8 @@ const ReviewForm = (props: ReviewFormInt) => {
                   {/* <input name="rating" value={Number(rating)} hidden readOnly /> */}
                   <Rating
                     size="large"
-                    value={rating}
                     precision={1}
+                    value={rating}
                     getLabelText={getLabelText}
                     sx={{
                       "& .MuiRating-iconFilled": {
@@ -236,6 +296,13 @@ const ReviewForm = (props: ReviewFormInt) => {
           </Stack>
         </Collapse>
       </form>
+      <SnackbarComponent
+        open={alertData.open}
+        keyStr="review-form-alert"
+        message={alertData.message}
+        severity={alertData.severity}
+        handleClose={handleCloseAlert}
+      />
     </Stack>
   );
 };

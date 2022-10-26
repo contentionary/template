@@ -7,7 +7,6 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 //
 import Tab from "@mui/material/Tab";
 import TabList from "@mui/lab/TabList";
@@ -15,24 +14,20 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 // app component
 import CourseStats from "./CourseStats";
-import CourseReview from "./CourseReview";
+import CourseReview from "@src/components/shared/review";
 import CourseContent from "./CourseContent";
 import CourseOverview from "./CourseOverview";
-import UnderConstruction from "@src/components/shared/UnderConstruction";
 // interface, styles and config
 // import config from "@src/utils/config";
 import useTabStyle from "@src/styles/tab";
 import useGlobalStyle from "@src/styles/index";
-import { BasePageProps, CourseInt } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
+import { CourseDetailsPageFunc } from "@src/utils/interface";
 
-const DetailsSection = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+const DetailsSection: CourseDetailsPageFunc = (props) => {
+  const { courseDetails, isSubscriber } = props;
   const [value, setValue] = React.useState("1");
   const tabStyle = useTabStyle();
   const globalStyle = useGlobalStyle();
-
-  const course = pageData?.courseDetails as CourseInt;
 
   //
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -65,14 +60,11 @@ const DetailsSection = () => {
                   variant="scrollable"
                   scrollButtons="auto"
                   allowScrollButtonsMobile
-                  aria-label="lab API tabs example"
-                  className={tabStyle.appTab}
+                  aria-label="Online course tabs"
+                  className={`${tabStyle.appTab} tab-justify-start`}
                 >
                   <Tab label="Overview" value="1" />
                   <Tab label="Course Content" value="2" />
-                  <Tab label="Course Settings" value="3" />
-                  <Tab label="Certificate Manager" value="4" />
-                  <Tab label="Subscribers" value="5" />
                   <Tab label="Reviews" value="6" />
                 </TabList>
               </Container>
@@ -84,46 +76,26 @@ const DetailsSection = () => {
                     value="1"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseOverview {...pageData.courseDetails} />
+                    <CourseOverview {...courseDetails} />
                   </TabPanel>
                   <TabPanel
                     value="2"
                     sx={{ px: { xs: 0, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseContent courseContents={course.contents || []} />
+                    <CourseContent
+                      courseContents={courseDetails.contents || []}
+                    />
                   </TabPanel>
-                  <TabPanel
-                    value="3"
-                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
-                  >
-                    <Typography variant="h4" textAlign="center">
-                      Course Settings
-                    </Typography>
-                    <UnderConstruction />
-                  </TabPanel>
-                  <TabPanel
-                    value="4"
-                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
-                  >
-                    <Typography variant="h4" textAlign="center">
-                      Certificate Manager
-                    </Typography>
-                    <UnderConstruction />
-                  </TabPanel>
-                  <TabPanel
-                    value="5"
-                    sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
-                  >
-                    <Typography variant="h4" textAlign="center">
-                      Subscribers
-                    </Typography>
-                    <UnderConstruction />
-                  </TabPanel>
+
                   <TabPanel
                     value="6"
                     sx={{ px: { xs: 1, md: 4, lg: 3, xl: 0 } }}
                   >
-                    <CourseReview />
+                    <CourseReview
+                      contentId={courseDetails.id}
+                      allowReview={courseDetails.allowReview}
+                      isSubscriber={isSubscriber}
+                    />
                   </TabPanel>
                 </Grid>
                 <Grid item xs={12} md={4} xl={3}>
@@ -135,7 +107,7 @@ const DetailsSection = () => {
                     position="sticky"
                     className={globalStyle.paperShadow}
                   >
-                    <CourseStats {...course} />
+                    <CourseStats {...courseDetails} />
                   </Box>
                 </Grid>
               </Grid>

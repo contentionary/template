@@ -7,7 +7,7 @@ import Router, { useRouter } from "next/router";
 import LinearProgress from "@mui/material/LinearProgress";
 // react query
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Hydrate, QueryClientProvider } from "react-query";
+import { QueryClientProvider } from "react-query";
 //
 import { useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,7 +18,6 @@ import { theme } from "@src/styles/theme";
 import { BasePageProps } from "@src/utils/interface";
 //
 import Custom404 from "./404";
-import "@src/styles/pdfReader.css";
 
 function App({ Component, pageProps }: AppProps) {
   const route = useRouter();
@@ -47,22 +46,20 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={client.current}>
-      <Hydrate state={pageProps.dehydrateState}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {pageLoading && (
-            <LinearProgress
-              sx={{
-                top: 0,
-                width: "100%",
-                position: "fixed",
-                zIndex: appTheme.zIndex.drawer + 4,
-              }}
-            />
-          )}
-          {cachedData?.centre ? <Component {...pageProps} /> : <Custom404 />}
-        </ThemeProvider>
-      </Hydrate>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {pageLoading && (
+          <LinearProgress
+            sx={{
+              top: 0,
+              width: "100%",
+              position: "fixed",
+              zIndex: appTheme.zIndex.drawer + 4,
+            }}
+          />
+        )}
+        {cachedData?.centre ? <Component {...pageProps} /> : <Custom404 />}
+      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

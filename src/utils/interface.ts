@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 /* eslint-disable no-unused-vars */
 export enum Gender {
   MALE = "Male",
@@ -5,10 +6,10 @@ export enum Gender {
 }
 
 export interface QuestionOptionInt {
+  id: number;
   value: string;
   isCorrect: boolean;
   image?: any;
-  id?: number;
 }
 export interface QuestionBankInt {
   name: string;
@@ -23,14 +24,13 @@ export interface Solution {
 }
 
 export interface QuestionInt {
-  type: "objective" | "multichoice" | "boolean" | "theory" | "range";
-  question: string;
-  options?: QuestionOptionInt[];
-  answer?: boolean;
-  id: string | number;
-  image?: string;
+  type: "theory" | "boolean" | "multichoice" | "objective" | "range";
   max?: string | number;
   min?: string | number;
+  image?: string;
+  question: string;
+  answer?: string | boolean;
+  options: [QuestionOptionInt];
 }
 
 export interface QuestionsInt {
@@ -38,6 +38,9 @@ export interface QuestionsInt {
   solution: Solution;
   id: string;
   questionBankId: string;
+  questionId: string;
+  mark: number;
+  duration: number;
 }
 
 export interface PluginsInt {
@@ -98,6 +101,7 @@ export interface RequestInt {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   token?: string;
   headers?: any;
+  isRelativeUrl?: boolean;
 }
 
 export interface PostRequestInt extends RequestInt {
@@ -111,12 +115,15 @@ export interface GetRequestInt extends RequestInt {
 export interface CachedCentreInt {
   id: string;
   name: string;
+  description: string;
   logo: string;
   slug: string;
   template: string;
   phoneNumber: string;
   emailAddress: string;
   address: string;
+  price: number;
+  subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
 }
 export interface BasePageProps {
   error: ErrorResponseInt;
@@ -139,6 +146,7 @@ export interface CourseContentInt {
   duration?: string;
   pageCount?: string;
   description: string;
+  fileUrl: string;
 }
 
 export interface CourseModuleInt {
@@ -197,13 +205,17 @@ export interface PublicationInt {
   publicationCategoryId: string;
 }
 
+export interface PublicationCardProps extends PublicationInt {
+  isSubscriptionCentre: boolean;
+}
+
 interface CourseContentStats {
   videoCount: number;
   audioCount: number;
   documentCount: number;
 }
 export interface CourseInt {
-  id?: string;
+  id: string;
   name: string;
   price: number;
   slug: string;
@@ -226,8 +238,63 @@ export interface CourseInt {
   allowReview: boolean;
   folderContentCount: number;
   contents: CourseModuleInt[];
-  courseContentStats?: CourseContentStats;
-  // duration: string;
+  courseContentStats: CourseContentStats;
+}
+export interface ExamInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  instruction: string;
+  price: number;
+  duration: number;
+  rating: number;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  questionCount: number;
+  isPrivate: boolean;
+  subscriberCount: number;
+  reviewCount: number;
+  maxTrialQuestions: number;
+  allowCustomDuration: boolean;
+  allowCustomQuestionLength: boolean;
+  allowReattempt: boolean;
+  allowResume: boolean;
+  showCorrection: boolean;
+  allowTimerPause: boolean;
+  randomiseQuestion: boolean;
+  randomiseOption: boolean;
+  allowReview: boolean;
+  maximumAttempt: 2;
+  completionMessage: string;
+  startDate: Date;
+  endDate: Date;
+  questionLimit: number;
+  totalMark: number;
+  createdAt: Date;
+  updatedAt: Date;
+  type: null | "EXAM" | "FOLDER";
+  folderId: string | null;
+  centreId: string;
+  publicCategoryId: string | null;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
+  summary: string;
+}
+
+export interface ExamQuestionsInt {
+  cache: {
+    id: string;
+    endAt: Date;
+  };
+  sections: Array<{
+    id: string;
+    name: string;
+    description: string;
+    questions: Array<QuestionsInt>;
+  }>;
 }
 
 export interface ExamInt {
@@ -256,9 +323,22 @@ export interface ExamInt {
   centreSlug: string;
 }
 
+export interface SubmitAnswerInt {
+  score: number;
+  examId: string;
+  userId: string;
+  duration: number;
+  maxScore: number;
+  sectionScore: [];
+  answerId: string;
+  hasTheory: boolean;
+  theoryQuestionCount: number;
+}
+
 export interface ReviewInt {
   id: string;
   userId: string;
+  contentId: string;
   comment: string;
   rating: number;
   replyCount: number;
@@ -294,9 +374,23 @@ export interface CourseListInt {
   limit: number;
 }
 
-export declare type CourseDetailsPageFunc = (
-  courseDetails: CourseInt
-) => JSX.Element;
+export interface ExamListInt {
+  exams: Array<ExamInt>;
+  totalCount: number;
+  pageId: number;
+  pageCount: number;
+  limit: number;
+}
+
+export declare type CourseDetailsPageFunc = (props: {
+  courseDetails: CourseInt;
+  action: {
+    link: string;
+    text: string;
+    redirectUrl: string;
+  };
+  isSubscriber: boolean;
+}) => JSX.Element;
 
 export interface UserInt {
   id: string;
@@ -357,6 +451,7 @@ export interface CentreProps {
   updatedAt: string;
   videoCount: number;
   websiteUrl: string;
+  subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
   template: string;
   plugins: Record<string, boolean>;
 }

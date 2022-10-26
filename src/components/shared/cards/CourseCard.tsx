@@ -59,9 +59,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
           <Box className="card-img">
             <ImageComponent
               src={
-                type === "FOLDER"
-                  ? imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
-                  : imageUrl || "/images/state/failed.svg"
+                type === "FOLDER" ? VIDEO_FOLDER_IMAGE_PLACEHOLDER : imageUrl
               }
               width="100%"
               height="60%"

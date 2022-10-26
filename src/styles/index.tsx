@@ -1,9 +1,15 @@
-import { makeStyles } from "@mui/styles";
 import { theme } from "./theme";
+import { makeStyles } from "@mui/styles";
+import { alpha } from "@mui/material/styles";
 
 export const appGradient = `linear-gradient(92.54deg, ${
   theme.palette.primary.main
 } -14.34%, ${"#DDA333"} 98.84%)`;
+
+export const appShadow = {
+  small: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+  main: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+};
 
 export default makeStyles({
   "@keyframes scroll-x": {
@@ -66,11 +72,76 @@ export default makeStyles({
   bgGradient: {
     background: appGradient,
   },
+  bgDustyPrimary: {
+    backdropFilter: "blur(10px)",
+    background: `radial-gradient(
+      circle at top left,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at top right,
+      ${alpha(theme.palette.primary.main, 0.3)}, 
+      transparent 100px
+    ),
+    radial-gradient(
+      at bottom left,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 400px
+    ),
+    radial-gradient(
+      at 200px center,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 400px
+    ),
+    radial-gradient(
+      at 100% center,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 400px
+    ),
+    radial-gradient(
+      at bottom right,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 400px
+    ),
+    radial-gradient(
+      at center center,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 300px
+    ),
+    radial-gradient(
+      at center top,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 400px
+    ),
+    radial-gradient(
+      circle at top right,
+      ${alpha(theme.palette.primary.main, 0.2)}, 
+      transparent 100px
+    );`,
+    "&:before": {
+      left: 80,
+      top: 100,
+      zIndex: -1,
+      content: "''",
+      width: "40px",
+      height: "40px",
+      borderRadius: "50%",
+      position: "absolute",
+      boxShadow: `220px 0px 0 15px ${alpha(theme.palette.primary.main, 0.1)},
+        80vw 0px 0 15px ${alpha(theme.palette.primary.main, 0.1)},
+				100vw 104px 0 0px ${alpha(theme.palette.primary.main, 0.1)},
+				50vw 204px 0 0px ${alpha(theme.palette.primary.main, 0.1)},
+				80vw 204px 0 0px ${alpha(theme.palette.primary.main, 0.1)},
+				100px 204px 0 -15px ${alpha(theme.palette.primary.main, 0.1)}`,
+      backgroundColor: alpha(theme.palette.primary.main, 0.1),
+    },
+  },
   paperShadow: {
-    boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+    boxShadow: appShadow.small,
   },
   paperShadowSm: {
-    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+    boxShadow: appShadow.main,
   },
   textGradient: {
     background: appGradient,
@@ -93,7 +164,7 @@ export default makeStyles({
       maxWidth: 576,
       borderRadius: "8px",
       backgroundColor: "#FFFFFF",
-      boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+      boxShadow: appShadow.small,
     },
   },
   modalStyle: {

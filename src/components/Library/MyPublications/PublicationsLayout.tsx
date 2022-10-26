@@ -12,7 +12,9 @@ import { LibraryPageFunc } from "../interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const MyPublicationsLayout: LibraryPageFunc = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
 
   return (
     <Box component="section" sx={{ pt: 4, px: { md: 6 }, pb: 8 }}>
@@ -21,7 +23,7 @@ const MyPublicationsLayout: LibraryPageFunc = () => {
         <Typography mb={4} variant="h4" component="h2">
           My Books
         </Typography>
-        <PublicationListSection pageData={pageData} />
+        <PublicationListSection pageData={pageData} cachedData={cachedData} />
       </Container>
     </Box>
   );

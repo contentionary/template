@@ -1,27 +1,31 @@
 import React from "react";
+import { v1 as uuid } from "uuid";
 //
 import Box from "@mui/material/Box";
 // App components
 import HeroSection from "./HeroSection";
 import DetailsSection from "./DetailsSection";
 //
-import { PublicationInt } from "@src/utils/interface";
-import { FILE_DOWNLOAD_URL, isServerSide } from "../../utils";
+import { CachedCentreInt, PublicationInt } from "@src/utils/interface";
+import { isServerSide } from "../../utils";
 
 const BookDetails = ({
   publication,
   auth,
+  centre,
 }: {
   publication: PublicationInt;
   auth: any;
+  centre: CachedCentreInt;
 }) => {
-  const { price, id, allowDownload, allowRead, fileUrl, slug } =
-    publication || {};
+  const { price, id, allowRead, slug } = publication || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = auth
     ? `
-    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}`
+    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${
+        centre.subscriptionModel === "SUBSCRIPTION" ? centre.price : price
+      }&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {
@@ -29,28 +33,25 @@ const BookDetails = ({
     show: allowRead,
     text: "READ",
   };
-  let Download = { link: FILE_DOWNLOAD_URL + fileUrl, show: allowDownload };
 
   if (auth?.isCentreManager) {
     Read.show = true;
-    Download.show = true;
   } else if (!auth?.isPublicationSubscriber) {
     Read.text = "SUBSCRIBE";
     Read.link = paymentLink;
-    Download.link = paymentLink;
   }
 
   return (
     <Box component="main" position="relative" sx={{ pt: 8 }}>
       <HeroSection
+        centre={centre}
         read={Read}
-        download={Download}
         publication={publication}
         auth={auth}
       />
       <DetailsSection
+        centre={centre}
         read={Read}
-        download={Download}
         publication={publication}
         auth={auth}
       />

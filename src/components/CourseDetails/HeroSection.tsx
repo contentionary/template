@@ -3,19 +3,17 @@ import { useState } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 //
-// import AspectRatio from "@mui/joy/AspectRatio";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
 // styles, interface and config
 import useGlobalStyle from "@src/styles";
-import { BasePageProps, CourseInt } from "@src/utils/interface";
 // app components
 import VideoModal from "@src/components/shared/video";
 import ImageButton from "@src/components/shared/buttons/ImageButton";
@@ -24,63 +22,37 @@ import { useDialog } from "@src/hooks";
 import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
-import { queryClient } from "@src/utils";
-import { isServerSide } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
+import { CourseDetailsPageFunc } from "../../utils/interface";
 
-const HeroSection = () => {
+const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
   const router = useRouter();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, price: deductedPrice } = router.query;
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const courseDetails = pageData.courseDetails as CourseInt;
-  const auth = pageData?.auth;
   const theme = useTheme();
   const [openVideo, setOpenVideo] = useState(false);
   const globalStyle = useGlobalStyle();
 
   const handleOpenVideo = () => setOpenVideo(true);
-  const {
-    name,
-    id,
-    imageUrl,
-    previewVideoUrl,
-    price,
-    subscriberCount,
-    slug,
-    summary,
-  } = courseDetails;
-  const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
-  const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&redirectUrl=${redirectUrl}&verifyValue=${price}`;
+  const verifyValue = router.query.verifyValue === "true";
 
-  let Action = {
-    link: `/courses/${slug}/${id}/contents/${id}`,
-    text: "CONTINUE COURSE",
-  };
-
-  if (!isCourseSubscriber || !isCentreManager) {
-    Action.text = "SUBSCRIBE";
-    Action.link = paymentLink;
-  }
-
-  if (!auth) Action.link = "/login";
+  const { name, imageUrl, previewVideoUrl, price, subscriberCount, summary } =
+    courseDetails;
 
   return (
     <>
       <Box
-        bgcolor="#FFFCF8"
         component="section"
-        className="hero-section"
         sx={{ pt: 4, pb: 8, px: { md: 6 } }}
+        className={globalStyle.bgDustyPrimary}
       >
         {verifyValue && (
           <ConfirmPayment
             price={Number(deductedPrice)}
             reference={reference}
-            redirectUrl={redirectUrl}
+            redirectUrl={action.redirectUrl}
           />
         )}
         <Container maxWidth="xl">
@@ -147,7 +119,7 @@ const HeroSection = () => {
                 ₦{price}
               </Typography>
               <Stack mt={1} spacing={2} direction="row" alignItems="center">
-                <NextLink href={Action.link} passHref>
+                <NextLink href={action.link} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -156,7 +128,7 @@ const HeroSection = () => {
                     className={globalStyle.bgGradient}
                     display={{ xs: "block", sm: "inline-block" }}
                   >
-                    {Action.text}
+                    {action.text}
                   </Button>
                 </NextLink>
                 <Button onClick={() => openDialog()}>

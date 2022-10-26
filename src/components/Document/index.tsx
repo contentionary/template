@@ -1,6 +1,6 @@
 // mui components
 import Box from "@mui/material/Box";
-import ReaderSection from "./ReaderSection";
+import ReaderSection from "@src/components/shared/DocumentReader";
 //
 import { PublicationInt } from "@src/utils/interface";
 

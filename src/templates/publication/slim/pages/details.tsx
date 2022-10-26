@@ -18,7 +18,11 @@ const BookDetailsPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <BookDetails publication={publication} auth={pageData.auth} />
+      <BookDetails
+        centre={cachedData.centre}
+        publication={publication}
+        auth={pageData.auth}
+      />
     </PublicationsWrapper>
   );
 };

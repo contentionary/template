@@ -8,11 +8,15 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // app components
 import LessonListDrawer from "./LessonListDrawer";
+import LessonDetails from "./LessonDetailsSection";
 import LessonPlayer from "./LessonPlayer";
-import LessonDetailsSection from "./LessonDetailsSection";
+import Reader from "@src/components/shared/DocumentReader";
 // interface props, styles and config
 import useVideoPageStyle from "@src/styles/videoPage";
 import { VideoPlayerPagePageFunc } from "./interfaceType";
+//
+import { queryClient } from "@src/utils";
+import { BasePageProps, CourseContentInt } from "@src/utils/interface";
 
 const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
   const theme = useTheme();
@@ -20,6 +24,8 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
   const [open, setOpen] = React.useState(true);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const courseContent = pageData.courseContent as CourseContentInt;
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -28,6 +34,8 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
   const handleMobileDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const { id, fileUrl, format } = courseContent;
 
   return (
     <Box
@@ -62,8 +70,12 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
         </IconButton>
       )}
       <Box className={`${videoPageStyle.mainContainer} ${open ? "open" : ""}`}>
-        <LessonPlayer />
-        <LessonDetailsSection />
+        {format === "document" ? (
+          <Reader fileUrl={fileUrl} allowDownload={false} id={id} />
+        ) : (
+          <LessonPlayer courseContent={courseContent} />
+        )}
+        <LessonDetails courseContent={courseContent} />
       </Box>
     </Box>
   );

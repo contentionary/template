@@ -16,10 +16,10 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/PersonOutline";
 // styles and interface
-import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
+import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 
 const PublicationCard: PublicationCardFunc = ({
   slug,
@@ -32,6 +32,7 @@ const PublicationCard: PublicationCardFunc = ({
   type,
   id,
   folderContentCount,
+  isSubscriptionCentre,
 }) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -132,7 +133,11 @@ const PublicationCard: PublicationCardFunc = ({
                   ml={{ xs: "0 !important", sm: "auto" }}
                   textAlign={{ xs: "left", sm: "right" }}
                 >
-                  {price <= 0 ? "Free" : ` ₦${price}`}
+                  {isSubscriptionCentre
+                    ? ""
+                    : price <= 0
+                    ? "Free"
+                    : ` ₦${price}`}
                 </Typography>
               </Stack>
             )}

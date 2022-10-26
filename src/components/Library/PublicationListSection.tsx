@@ -12,7 +12,10 @@ import PublicationCard from "@src/components/shared/cards/PublicationCard";
 // interface
 import { PublicationInt } from "@src/utils/interface";
 
-const PublicationListSection = ({ pageData }: Record<string, any>) => {
+const PublicationListSection = ({
+  pageData,
+  cachedData,
+}: Record<string, any>) => {
   const router = useRouter();
   const publications = pageData.publicationData
     .publications as PublicationInt[];
@@ -37,7 +40,12 @@ const PublicationListSection = ({ pageData }: Record<string, any>) => {
         >
           {publications.map((publication, index) => (
             <Grid key={`${index}-publication-card`} item xs={1}>
-              <PublicationCard {...publication} />
+              <PublicationCard
+                isSubscriptionCentre={
+                  cachedData.centre.subscriptionModel === "SUBSCRIPTION"
+                }
+                {...publication}
+              />
             </Grid>
           ))}
         </Grid>
