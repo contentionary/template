@@ -1,9 +1,9 @@
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import ExamInstructionsPage from "@src/components/ExamInstructions";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
-import ExamPage from "@src/components/Exam";
 import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
 
-const DetailsPage = () => {
+const ExamInstructions = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -18,9 +18,9 @@ const DetailsPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <ExamPage exam={exam} auth={pageData.auth} />
+      <ExamInstructionsPage exam={exam} auth={pageData.auth} />
     </ExamAndCourseWrapper>
   );
 };
 
-export default DetailsPage;
+export default ExamInstructions;

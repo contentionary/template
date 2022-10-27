@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 /* eslint-disable no-unused-vars */
 export enum Gender {
   MALE = "Male",
@@ -245,19 +244,20 @@ export interface ExamInt {
   slug: string;
   name: string;
   image: string;
+  price: number;
+  rating: number;
+  hasPin: boolean;
+  duration: number;
   description: string;
   instruction: string;
-  price: number;
-  duration: number;
-  rating: number;
-  status: "ACTIVE" | "DEACTIVATED";
+  isPrivate: boolean;
   isSearchable: boolean;
   questionCount: number;
-  isPrivate: boolean;
   subscriberCount: number;
   reviewCount: number;
   maxTrialQuestions: number;
   allowCustomDuration: boolean;
+  status: "ACTIVE" | "DEACTIVATED";
   allowCustomQuestionLength: boolean;
   allowReattempt: boolean;
   allowResume: boolean;

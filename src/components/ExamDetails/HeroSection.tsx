@@ -39,7 +39,6 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
   const {
     id,
     name,
-    slug,
     price,
     image,
     summary,

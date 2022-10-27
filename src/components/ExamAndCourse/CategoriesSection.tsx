@@ -69,7 +69,7 @@ const CategoriesSection: ExamAndCourseFunc = () => {
               >
                 <Typography component="h5" variant="h5" color="inherit">
                   <BookIcon className="MuiSvgFlip-root" fill="white" />
-                  Practice Test
+                  Exams
                 </Typography>
               </ImageLink>
             </Grid>
