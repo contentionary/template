@@ -15,11 +15,11 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // utils, interface and styles
 import useGlobalStyle from "@src/styles";
-import { ExamFunc } from "./interfaceType";
+import { ExamInstructionsFunc } from "./interfaceType";
 import { dateTimeFormat } from "@src/utils";
 // import useButtonStyle from "@src/styles/button";
 
-const Exam: ExamFunc = (props) => {
+const ExamInstructions: ExamInstructionsFunc = (props) => {
   // const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
   const { exam /* auth */ } = props;
@@ -163,4 +163,4 @@ const Exam: ExamFunc = (props) => {
     </Box>
   );
 };
-export default Exam;
+export default ExamInstructions;

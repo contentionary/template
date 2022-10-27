@@ -1,37 +1,30 @@
-import TextareaAutosize from "@mui/material/TextareaAutosize";
-interface Props {
-  style?: object;
-  placeholder?: string;
-  maxRows?: number;
-  defaultValue?: string;
-  onChange: Function;
-  required?: boolean;
-  name?: string;
-  maxLength?: number;
-}
-const TextArea = ({
-  style,
-  placeholder,
-  maxRows,
-  defaultValue,
+// import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+const { CKEditor } = require("@ckeditor/ckeditor5-react");
+
+const Editor = ({
+  onBlur,
+  onFocus,
+  onReady,
+  data,
   onChange,
-  required,
-  name,
-  maxLength,
-}: Props): JSX.Element => {
+}: {
+  onBlur?: Function;
+  onFocus?: Function;
+  onReady?: Function;
+  data?: string;
+  onChange: Function;
+}) => {
   return (
-    <TextareaAutosize
-      aria-label="empty textarea"
-      maxRows={maxRows}
-      placeholder={placeholder}
-      style={style}
-      defaultValue={defaultValue}
-      onChange={(e) => onChange(e)}
-      required={required}
-      name={name}
-      maxLength={maxLength}
+    <CKEditor
+      editor={ClassicEditor}
+      data={data}
+      onReady={onReady}
+      onChange={onChange}
+      onBlur={onBlur}
+      onFocus={onFocus}
     />
   );
 };
 
-export default TextArea;
+export default Editor;

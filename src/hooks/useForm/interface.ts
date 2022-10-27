@@ -6,8 +6,8 @@ export interface UseForm {
   getFile: Function;
   check: Function;
   setData: Function;
-  // setDefault: Function;
+  setDefault: Function;
   // formData: Function;
-  // getEditor: Function;
+  getEditor: Function;
   // filter: Function;
 }

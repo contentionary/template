@@ -1,6 +1,5 @@
 export type ExamAndCoursePages =
   | "Home"
-  | "Exam"
   | "Exams"
   | "Courses"
   | "Details"
@@ -10,4 +9,5 @@ export type ExamAndCoursePages =
   | "MyCourses"
   | "StartExam"
   | "ExamDetails"
-  | "ExamCompleted";
+  | "ExamCompleted"
+  | "ExamInstructions";

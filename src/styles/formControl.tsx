@@ -1,5 +1,4 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "./theme";
 
 const formControlStyle = makeStyles({
   formControlGroup: {

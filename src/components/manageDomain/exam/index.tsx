@@ -1,25 +1,27 @@
 import Box from "@mui/material/Box";
 import Card from "./card";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import dynamic from "next/dynamic";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
-import { Typography } from "@mui/material";
-import Breadcrumbs from "@src/components/shared/breadcrumbs";
 
 const CourseAdmin = () => {
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { exams } = pageData as {
+  const { exams, folder } = pageData as {
     exams: ExamInt[];
+    folder: { name: string; id: string };
   };
-  const { folderId, folderName } = router.query;
+  const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./menu"));
-
+  const Breadcrumbs = dynamic(
+    () => import("@src/components/shared/breadcrumbs")
+  );
   const links = [
     { link: "/admin", name: "Dashboard" },
     { link: "/admin/exam", name: "Exams" },
@@ -45,7 +47,7 @@ const CourseAdmin = () => {
         }}
       >
         <Typography variant="h5" component="div" color="primary">
-          {folderName ? folderName : "Exams"}
+          {folder?.name ? folder.name : "Exams"}
         </Typography>
         <Menu
           folderId={folderId as string}
