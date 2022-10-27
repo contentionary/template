@@ -154,7 +154,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={`/exams/${slug}/instructions`} passHref>
+                <NextLink href={read.link} passHref>
                   <Button
                     size="large"
                     disableElevation
@@ -164,7 +164,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                     display={{ xs: "block", sm: "inline-block" }}
                   >
                     <Stack direction="row" alignItems="center" spacing={2}>
-                      <AutoStoriesOutlinedIcon /> &nbsp; Start Exam
+                      <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
                     </Stack>
                   </Button>
                 </NextLink>

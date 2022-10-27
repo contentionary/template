@@ -38,9 +38,15 @@ function a11yProps(index: number) {
 export default function FullWidthTabs({
   tab,
   tabPanel,
+  sx,
+  tabSx,
+  indicatorColor,
 }: {
-  tab: Array<JSX.Element | string>;
-  tabPanel: Array<JSX.Element | string>;
+  tab: Array<any>;
+  tabPanel: Array<any>;
+  sx?: {};
+  tabSx?: {};
+  indicatorColor?: "primary" | "secondary" | undefined;
 }) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -56,15 +62,21 @@ export default function FullWidthTabs({
   return (
     <Box sx={{ width: { xs: 400, md: "100%" } }}>
       <Tabs
+        sx={sx}
         value={value}
         onChange={handleChange}
-        indicatorColor="secondary"
+        indicatorColor={indicatorColor}
         textColor="inherit"
         variant="scrollable"
         aria-label="full width tabs example"
       >
         {tab.map((item, index) => (
-          <Tab key={`${index}-tab`} label={item} {...a11yProps(index)} />
+          <Tab
+            sx={tabSx}
+            key={`${index}-tab`}
+            label={item}
+            {...a11yProps(index)}
+          />
         ))}
       </Tabs>
       <SwipeableViews

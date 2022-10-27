@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import dynamic from "next/dynamic";
 
 import { BasePageProps, QuestionInt, QuestionsInt } from "@src/utils/interface";
-import { isServerSide, queryClient } from "@src/utils";
+import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
 import Accordion from "@src/components/shared/accordion";
 import { useState } from "react";
@@ -30,30 +30,43 @@ const QuestionsPage = () => {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./questionBankMenu"));
   const QuestionMenu = dynamic(() => import("./questionMenu"));
+  const Image = dynamic(() => import("@src/components/shared/image"));
   const [expanded, setExpanded] = useState(0);
   const links = [
     { link: "/admin", name: "Dashboard" },
     { link: "/admin/exam", name: "Exams" },
     { link: "/admin/question-bank", name: "Question bank" },
   ];
-
   const getQuestionTypeData = (question: QuestionInt) => {
     if (question.type === "objective" || question.type === "multichoice") {
       return (
         <>
-          {question.options.map(({ value, isCorrect }, index) => (
-            <Typography
-              variant="body1"
-              component="div"
+          {question?.options?.map(({ value, isCorrect, image }, index) => (
+            <Box
               key={`${index}-option`}
               sx={{ mb: 3 }}
               className={`${styles.optionStyle} ${
                 isCorrect ? styles.selected : ""
               }`}
-              // dangerouslySetInnerHTML={{ __html: value }}
             >
-              {value}
-            </Typography>
+              <Typography
+                variant="body1"
+                component="div"
+                sx={{ mb: 3, color: isCorrect ? "#fff" : "" }}
+                dangerouslySetInnerHTML={{ __html: value }}
+              />
+              {image && (
+                <Box sx={{ width: 500 }}>
+                  <Image
+                    src={image}
+                    alt="question image"
+                    height="100%"
+                    width="100%"
+                    layout="responsive"
+                  />
+                </Box>
+              )}
+            </Box>
           ))}
         </>
       );
@@ -79,6 +92,18 @@ const QuestionsPage = () => {
           </Typography>
         </>
       );
+    } else if (question.type === "range") {
+      return (
+        <Stack spacing={2}>
+          <Typography variant="h6">Expected Answer</Typography>
+          <Typography variant="body1">
+            <strong>Min</strong>: {question.min}
+          </Typography>
+          <Typography variant="body1">
+            <strong>Max</strong>:{question.max}
+          </Typography>
+        </Stack>
+      );
     }
   };
   return (
@@ -87,7 +112,7 @@ const QuestionsPage = () => {
         links={links}
         currentPage={{
           name: "Questions",
-          link: isServerSide ? "" : window.location.href,
+          link: `/admin/question-bank/${questionBankId}/questions`,
         }}
       />
 
@@ -115,48 +140,78 @@ const QuestionsPage = () => {
       </Box>
       {questions.length ? (
         <Box>
-          {questions?.map(({ question, solution }, index) => (
-            <Stack direction="row" spacing={5} key={`${index}-module`} mb={4}>
-              <Avatar>{++index}</Avatar>
+          {questions?.map(({ question, solution }, questionIndex) => (
+            <Stack
+              direction="row"
+              spacing={5}
+              key={`${questionIndex}-module`}
+              mb={4}
+            >
+              <Avatar>{questionIndex + 1}</Avatar>
               <Accordion
                 sx={{ width: "100%" }}
-                onClick={() => setExpanded(index)}
+                onClick={() => setExpanded(questionIndex)}
                 title={
-                  <Typography
-                    // dangerouslySetInnerHTML={{ __html: question.question }}
-                    variant="h6"
-                    component="div"
-                  >
-                    {question.question}
-                  </Typography>
+                  <div>
+                    <Typography
+                      dangerouslySetInnerHTML={{
+                        __html: question.question,
+                      }}
+                      variant="h5"
+                      component="div"
+                    />
+                    {question.image && (
+                      <Box sx={{ width: 500 }}>
+                        <Image
+                          src={question.image}
+                          alt="question image"
+                          height="100%"
+                          width="100%"
+                          layout="responsive"
+                        />
+                      </Box>
+                    )}
+                  </div>
                 }
-                expanded={expanded === index}
+                expanded={expanded === questionIndex}
               >
                 <>
                   {getQuestionTypeData(question)}
-                  {solution && (
-                    <>
-                      <Typography
-                        sx={{ textDecoration: "underline" }}
-                        variant="h6"
-                        component="div"
-                      >
-                        Solution
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        component="div"
-                        // dangerouslySetInnerHTML={{ __html: solution.text }}
-                      >
-                        {solution.text}
-                      </Typography>
-                    </>
-                  )}
+                  {solution?.text ||
+                    (solution?.imageUrl && (
+                      <>
+                        <Typography
+                          sx={{ textDecoration: "underline" }}
+                          variant="h6"
+                          component="div"
+                        >
+                          Solution
+                        </Typography>
+                        {solution.text && (
+                          <Typography
+                            variant="body1"
+                            component="div"
+                            dangerouslySetInnerHTML={{ __html: solution.text }}
+                          />
+                        )}
+                        {solution.imageUrl && (
+                          <Box sx={{ width: 500 }}>
+                            <Image
+                              src={solution.imageUrl}
+                              alt="question image"
+                              height="100%"
+                              width="100%"
+                              layout="responsive"
+                            />
+                          </Box>
+                        )}
+                      </>
+                    ))}
                   <Typography style={{ textAlign: "right" }}>
                     <QuestionMenu
                       questionBankId={questionBankId as string}
                       centreId={cachedData.centre.id}
-                      question={questions[index]}
+                      question={questions[questionIndex]}
                     />
                   </Typography>
                 </>

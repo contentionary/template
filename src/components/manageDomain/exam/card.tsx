@@ -32,7 +32,7 @@ const ExamCard = ({ exam }: { exam: ExamInt }) => {
       <NextLink
         href={
           type === "FOLDER"
-            ? `/admin/exam?folderId=${id}&folderName=${name}`
+            ? `/admin/exam?folderId=${id}`
             : `/admin/exam/${id}/manage-exam`
         }
         passHref

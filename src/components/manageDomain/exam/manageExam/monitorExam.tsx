@@ -2,7 +2,6 @@ import React, { ChangeEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useToast } from "@src/utils/hooks";
 import { useState } from "react";
 import { handleError, queryClient, request } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
@@ -10,24 +9,24 @@ import CheckBox from "@src/components/shared/checkInput";
 import { BasePageProps } from "@src/utils/interface";
 import dynamic from "next/dynamic";
 
-const MonitorExam = () => {
+const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
   const { exam } = pageData;
-  const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-
-  const Toast = dynamic(() => import("@src/components/shared/toast"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
 
-  async function update(value: {}) {
+  async function update(key: any, value: any) {
     try {
       setIsLoading(true);
+      let data: Record<string, any> = {};
+      data[key] = value;
       await request.patch({
         url: `/centre/${cachedData.centre.id}/exam/${exam.id}`,
-        data: value,
+        data,
       });
+      exam[key] = value;
       toggleToast("Update successfull");
       setIsLoading(false);
     } catch (error) {
@@ -54,15 +53,16 @@ const MonitorExam = () => {
         <Box>
           <CheckBox
             label={<Typography variant="h6">Randomize Questions</Typography>}
-            checked={exam.allowSearch}
+            checked={exam.randomiseQuestion}
             onChange={(e: ChangeEvent<any>) =>
-              update({ randomiseQuestion: e.target.checked })
+              update("randomiseQuestion", e.target.checked)
             }
           />
           <CheckBox
             label={<Typography variant="h6">Randomize Options</Typography>}
+            checked={exam.randomiseOptions}
             onChange={(e: ChangeEvent<any>) =>
-              update({ randomiseOptions: e.target.checked })
+              update("randomiseOptions", e.target.checked)
             }
           />
         </Box>
@@ -78,8 +78,9 @@ const MonitorExam = () => {
               Activate resumption of exams if candidates put off their device
             </Typography>
           }
+          checked={exam.allowResume}
           onChange={(e: ChangeEvent<any>) =>
-            update({ allowResume: e.target.checked })
+            update("allowResume", e.target.checked)
           }
         />
       </Stack>
@@ -87,7 +88,7 @@ const MonitorExam = () => {
       <Typography
         variant="h4"
         component="div"
-        sx={{ textAlign: "center", mb: 3 }}
+        sx={{ textAlign: "center", mb: 3, mt: 5 }}
       >
         Activate Proctoring Technology
       </Typography>
@@ -102,10 +103,12 @@ const MonitorExam = () => {
             onClick={() =>
               exam.hasProctor
                 ? toggleToast("Proctoring has been activated")
-                : update({ hasProctor: true })
+                : update("hasProctor", true)
             }
           >
-            <>Activate Proctored Supervision {isLoading && <Loading />}</>
+            {!exam.hasProctor
+              ? "Activate Proctored Supervision"
+              : "Proctored Supervision Activated"}
           </ButtonComponent>
         </Box>
 
@@ -114,14 +117,9 @@ const MonitorExam = () => {
           candidate charge.
         </Typography>
       </Stack>
-
-      {toastMessage && (
-        <Toast
-          message={toastMessage}
-          status={Boolean(toggleToast)}
-          showToast={toggleToast}
-        />
-      )}
+      <Typography sx={{ textAlign: "center", mt: 4 }}>
+        {isLoading && <Loading />}
+      </Typography>
     </Box>
   );
 };

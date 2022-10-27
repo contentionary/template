@@ -16,7 +16,6 @@ import { currencies, data } from "./data";
 import { handleError, isServerSide, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import Toast from "@src/components/shared/toast";
-import { v4 as uuid } from "uuid";
 import { useToast } from "@src/utils/hooks";
 import { Currency, PaymentMethod } from "./interface";
 import Loader from "@src/components/shared/loading/loadingWithValue";
@@ -32,6 +31,8 @@ export default function Payment(): JSX.Element {
     purpose,
     itemId,
     currency: incomingCurrency,
+    redirectUrl: resourceRedirectUrl,
+    transactionkey,
   } = router.query;
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
@@ -43,7 +44,7 @@ export default function Payment(): JSX.Element {
 
   const makePayment = async () => {
     try {
-      const redirectUrl = `${router.query?.redirectUrl}?verifyValue=true&price=${price}`;
+      const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${price}`;
       const paymentData = {
         amount: amount * 100,
         paymentMethod,
@@ -57,7 +58,7 @@ export default function Payment(): JSX.Element {
       const { data } = await request.post({
         url: "/transaction",
         data: paymentData,
-        headers: { transactionkey: uuid() },
+        headers: { transactionkey },
       });
       if (!isServerSide) {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
@@ -76,7 +77,8 @@ export default function Payment(): JSX.Element {
     itemId,
     toggleToast,
     price,
-    router,
+    resourceRedirectUrl,
+    transactionkey,
   ]);
 
   useEffect(() => {

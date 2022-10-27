@@ -19,7 +19,6 @@ export default function Toast({
 }: Props) {
   return (
     <Snackbar
-      sx={{ zIndex: 30000 }}
       anchorOrigin={{
         vertical: vertical,
         horizontal: horizontal,

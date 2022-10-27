@@ -3,12 +3,13 @@ import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
 import { useMenu } from "@src/utils/hooks";
-// import UpdateModules from "./updateModules";
+import UpdateQuestion from "./addQuestion";
 import { QuestionsInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({
   centreId,
   question,
+  questionBankId,
 }: {
   questionBankId: string;
   centreId: string;
@@ -22,11 +23,12 @@ export default function CustomizedMenus({
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          {/* <UpdateModules
+          <UpdateQuestion
             questionBankId={questionBankId}
             centreId={centreId}
             question={question}
-          /> */}
+            update={true}
+          />
           <Delete
             id={question?.id}
             centreId={centreId}

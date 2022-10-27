@@ -8,6 +8,7 @@ export interface QuestionOptionInt {
   id: number;
   value: string;
   isCorrect: boolean;
+  image?: any;
 }
 export interface QuestionBankInt {
   name: string;
@@ -17,8 +18,8 @@ export interface QuestionBankInt {
 }
 
 export interface Solution {
-  text: JSX.Element;
-  image: boolean;
+  text: string;
+  imageUrl: string;
 }
 
 export interface QuestionInt {
