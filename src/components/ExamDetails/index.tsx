@@ -19,7 +19,7 @@ const ExamDetails = ({ exam, auth }: { exam: ExamInt; auth: any }) => {
     : "/login";
 
   let Read = {
-    link: `/exams/${slug}/start`,
+    link: `/exams/${slug}/instructions`,
     show: true,
     text: "START EXAM",
   };

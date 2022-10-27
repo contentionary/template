@@ -20,6 +20,7 @@ import ImageComponent from "@src/components/shared/image";
 // utils, interface and styles
 import { TempAnswerInt } from ".";
 import useButtonStyle from "@src/styles/button";
+import { PinnedQuestionsInt } from "./interfaceType";
 import { ExamQuestionsInt } from "@src/utils/interface";
 
 interface QuestionFormInt {
@@ -27,18 +28,22 @@ interface QuestionFormInt {
   setAnswers: React.Dispatch<
     React.SetStateAction<Record<string, TempAnswerInt>>
   >;
+  hasPin: boolean;
   currentSection: number;
   currentQuestion: number;
   examQuestions: ExamQuestionsInt | undefined;
 }
 
 const ExamQuestion = ({
+  hasPin,
   answers,
   setAnswers,
   examQuestions,
   currentSection,
   currentQuestion,
-}: QuestionFormInt): JSX.Element => {
+  pinnedQuestions,
+  togglePinQuestion,
+}: QuestionFormInt & PinnedQuestionsInt): JSX.Element => {
   const buttonStyle = useButtonStyle();
   let questionType;
 
@@ -82,14 +87,40 @@ const ExamQuestion = ({
           Question {currentQuestion + 1} of{" "}
           {examQuestions.sections[currentSection].questions.length}
         </Typography>
-        <Button
-          size="large"
-          color="secondary"
-          className={`${buttonStyle.iconTextButton} row`}
-        >
-          <PushPinIcon fontSize="small" color="primary" />
-          &nbsp; Pin this question
-        </Button>
+        {hasPin && (
+          <Button
+            size="large"
+            disableElevation
+            color={
+              pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+              currentQuestion
+                ? "primary"
+                : "secondary"
+            }
+            variant={
+              pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+              currentQuestion
+                ? "contained"
+                : "text"
+            }
+            onClick={togglePinQuestion}
+            className={`${buttonStyle.iconTextButton} row`}
+            sx={{
+              color:
+                pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+                currentQuestion
+                  ? "white !important"
+                  : "secondary.main",
+            }}
+          >
+            <PushPinIcon fontSize="small" />
+            &nbsp;
+            {pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+            currentQuestion
+              ? "Question pinned"
+              : "Pin this question"}
+          </Button>
+        )}
       </Stack>
       <Typography
         display="flex"
