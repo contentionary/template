@@ -127,9 +127,8 @@ const ReviewForm = (props: ReviewFormInt) => {
           message: "Comment posted",
         }));
         // Invalidate and refetch
-        queryClient.invalidateQueries(["reviews", { id: queryId }]);
-        if (query === "replies")
-          queryClient.invalidateQueries(["replies", { id }]);
+        queryClient.invalidateQueries(["reviews"]);
+        if (query === "replies") queryClient.invalidateQueries(["replies"]);
       },
       onError: () => {
         setLoading(false);
@@ -162,10 +161,8 @@ const ReviewForm = (props: ReviewFormInt) => {
         }));
         cancelReplyForm && cancelReplyForm();
         // Invalidate and refetch
-        queryClient.invalidateQueries(["reviews", { id: queryId }]);
-        if (query === "replies") {
-          queryClient.invalidateQueries(["replies"]);
-        }
+        queryClient.invalidateQueries(["reviews"]);
+        if (query === "replies") queryClient.invalidateQueries(["replies"]);
       },
       onError: () => {
         setLoading(false);

@@ -14,6 +14,13 @@ const videoPageStyle = makeStyles({
     }),
     marginLeft: `-${drawerWidth}px`,
     "&.open": {
+      // maxWidth: "calc(100vw - 280px)",
+      "& .pdfPage.MuiBox-root, & .pdfPage.MuiBox-root .react-pdf__Document": {
+        maxWidth: "calc(100vw - 280px)",
+        [theme.breakpoints.down("md")]: {
+          maxWidth: "calc(100vw)",
+        },
+      },
       marginLeft: 0,
       transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
@@ -86,8 +93,9 @@ const videoPageStyle = makeStyles({
   },
 
   lessonListToggler: {
+    top: "4.7rem",
     left: drawerWidth - 20,
-    top: "5rem",
+    border: `1px solid ${theme.palette.divider}`,
     zIndex: theme.zIndex.drawer + 1,
     [theme.breakpoints.down("md")]: {
       position: "fixed",
