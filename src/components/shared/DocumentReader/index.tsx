@@ -31,9 +31,15 @@ interface Props {
   fileUrl: string;
   allowDownload: boolean;
   id: string;
+  fullWidth?: boolean;
 }
 
-const ReaderSection = ({ fileUrl = "#", allowDownload, id }: Props) => {
+const ReaderSection = ({
+  fileUrl = "#",
+  allowDownload,
+  id,
+  fullWidth = true,
+}: Props) => {
   const router = useRouter();
   const pdfStyle = usePdfReaderStyle();
   const resumptionKey = `${id}-last-page`;
@@ -124,7 +130,10 @@ const ReaderSection = ({ fileUrl = "#", allowDownload, id }: Props) => {
   useEventListener("keydown", handler);
 
   return (
-    <Box bgcolor={grey[100]} className={pdfStyle.pdfPage}>
+    <Box
+      bgcolor={grey[100]}
+      className={`${pdfStyle.pdfPage} ${fullWidth ? "" : ""} pdfPage`}
+    >
       <Box
         bgcolor={grey[100]}
         className="react-pdf__innerWrapper"

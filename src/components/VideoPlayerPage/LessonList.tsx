@@ -41,7 +41,7 @@ const LessonList: LessonListFunc = () => {
 
   return (
     <Box component={SimpleBar} className="list-content">
-      <List disablePadding>
+      <List disablePadding className={accordionStyle.appAccordionList}>
         {courseContents.map((courseContent, index) => {
           const { name, contents, isModule } = courseContent;
 
@@ -54,7 +54,7 @@ const LessonList: LessonListFunc = () => {
                   disableGutters
                   expanded={expanded === `${index + 1}`}
                   onChange={handleChange(`${index + 1}`)}
-                  className={accordionStyle.appAccordion}
+                  className={`${accordionStyle.appAccordion} flush`}
                   style={{ width: "100%" }}
                 >
                   <AccordionSummary

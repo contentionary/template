@@ -65,7 +65,7 @@ const ReaderToolbar = ({
       display="block"
       className={pdfStyle.pdfNav}
       bgcolor="white !important"
-      sx={{ py: 1, px: { md: 6 } }}
+      sx={{ py: 1.5, px: { md: 6 } }}
     >
       <Container maxWidth="xl">
         <Stack
