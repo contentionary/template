@@ -82,7 +82,7 @@ const StartExam: ExamFunc = (props) => {
     });
   });
 
-  // end exam mutant
+  // Submit Exam mutant
   const submitAnswer = useMutation(
     async () => {
       return await request.post({
@@ -147,7 +147,7 @@ const StartExam: ExamFunc = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, data]);
 
-  // end exam on timeOut
+  // Submit Exam on timeOut
 
   React.useEffect(() => {
     if (timeOut) {
@@ -176,13 +176,13 @@ const StartExam: ExamFunc = (props) => {
     }
   };
 
-  // handle close End exam modal
+  // handle close Submit Exam modal
   const handleCloseEndExamModal = () => {
     if (endingExam) return;
     setOpenEndExamModal(false);
   };
 
-  // end exam
+  // Submit Exam
   const handleEndExam = () => {
     setEndingExam(true);
     submitAnswer.mutate();
@@ -387,7 +387,7 @@ const StartExam: ExamFunc = (props) => {
                             variant="contained"
                             onClick={() => setOpenEndExamModal(true)}
                           >
-                            End Exam
+                            Submit Exam
                           </Button>
                         ) : (
                           <Button
