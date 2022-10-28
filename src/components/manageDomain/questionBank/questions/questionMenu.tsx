@@ -10,10 +10,12 @@ export default function CustomizedMenus({
   centreId,
   question,
   questionBankId,
+  refetch,
 }: {
   questionBankId: string;
   centreId: string;
   question: QuestionsInt;
+  refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   return (
@@ -28,6 +30,7 @@ export default function CustomizedMenus({
             centreId={centreId}
             question={question}
             update={true}
+            refetch={refetch}
           />
           <Delete
             id={question?.id}
