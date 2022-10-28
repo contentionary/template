@@ -10,7 +10,7 @@ import MyCourses from "./pages/myCourses";
 import ErrorPage from "./pages/errorPage";
 import ExamDetails from "./pages/examDetails";
 import ExamCompleted from "./pages/examCompleted";
-import ExamInstructions from "./pages/exam";
+import ExamInstructions from "./pages/examInstructions";
 //
 import { ExamAndCoursePages } from "./interface";
 
