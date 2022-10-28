@@ -246,7 +246,7 @@ const ExamNav = (props: ExamNavInt & ExamTimerInt & PinnedQuestionsInt) => {
                 variant="contained"
                 onClick={() => props.setOpenEndExamModal(true)}
               >
-                End Exam
+                Submit Exam
               </Button>
             </Stack>
           </Stack>

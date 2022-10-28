@@ -2,11 +2,20 @@ import { makeStyles } from "@mui/styles";
 import { theme } from "./theme";
 
 const accordionStyle = makeStyles({
+  appAccordionList: {
+    "&.MuiList-root": {
+      "& .MuiListItem-root:not(:last-child) .MuiAccordion-root": {
+        borderBottom: 0,
+      },
+    },
+  },
   appAccordion: {
     "&.MuiAccordion-root": {
       border: `1px solid ${theme.palette.divider}`,
-      "&:not(:last-child)": {
-        borderBottom: 0,
+      "&.flush": {
+        borderLeft: 0,
+        borderRight: 0,
+        borderRadius: 0,
       },
       "&:before": {
         display: "none",
@@ -25,10 +34,6 @@ const accordionStyle = makeStyles({
       "& .MuiAccordionDetails-root": {
         padding: theme.spacing(0),
         borderTop: `1px solid ${theme.palette.divider}`,
-      },
-      "&.flush": {
-        borderLeft: 0,
-        borderRight: 0,
       },
     },
   },

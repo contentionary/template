@@ -19,7 +19,7 @@ import { ExamInstructionsFunc } from "./interfaceType";
 import { dateTimeFormat } from "@src/utils";
 // import useButtonStyle from "@src/styles/button";
 
-const ExamInstructions: ExamInstructionsFunc = (props) => {
+const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
   // const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
   const { exam /* auth */ } = props;
@@ -163,4 +163,4 @@ const ExamInstructions: ExamInstructionsFunc = (props) => {
     </Box>
   );
 };
-export default ExamInstructions;
+export default ExamInstructionsPage;

@@ -149,7 +149,9 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
 
   return (
     <OutlinedInput
+      rows={4}
       fullWidth
+      multiline
       value={value}
       className={textField}
       onChange={handleChange}
