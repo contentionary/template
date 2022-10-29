@@ -59,7 +59,7 @@ const PublicationCard = ({ name, type, id }: QuestionBankInt) => {
                   noWrap
                   gutterBottom
                   variant="h6"
-                  sx={{ fontSize: 16 }}
+                  sx={{ fontSize: 16, mb: 2 }}
                 >
                   {name}
                 </Typography>

@@ -36,7 +36,7 @@ export default function CustomizedMenus({
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [expanded, setExpanded] = useState(0);
 
-  const { isLoading, data, error } = useQuery(
+  const { isLoading, data, error, refetch } = useQuery(
     ["questions", centreId, examId],
     fetchQuestion
   );
@@ -63,6 +63,7 @@ export default function CustomizedMenus({
             centreId={centreId}
             examId={examId}
             toggleToast={toggleToast}
+            refetch={refetch}
           />
         </Box>
         <Box>
@@ -87,6 +88,7 @@ export default function CustomizedMenus({
                         centreId={centreId}
                         examId={examId}
                         toggleToast={toggleToast}
+                        refetch={refetch}
                       />
                     ) : (
                       <SectionMenu
@@ -94,6 +96,7 @@ export default function CustomizedMenus({
                         examId={examId}
                         section={section}
                         toggleToast={toggleToast}
+                        refetch={refetch}
                       />
                     )}
                   </Typography>
