@@ -15,8 +15,9 @@ import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { Link as MuiLink } from "@mui/material";
 // mui icons
 import Logout from "@mui/icons-material/Logout";
-import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import CourseIcon from "@mui/icons-material/TvOutlined";
+import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
+import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 // import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 // styles and interface
@@ -126,7 +127,7 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                         My Courses
                       </MenuItem>
                     </NextLink>
-                  ) : (
+                  ) : centre.template === "publication" ? (
                     <NextLink href="/library/my-books" passHref>
                       <MenuItem
                         style={{ fontSize: 18 }}
@@ -139,6 +140,35 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                         My Books
                       </MenuItem>
                     </NextLink>
+                  ) : (
+                    centre.template === "examAndCourse" && (
+                      <>
+                        <NextLink href="/courses/my-courses" passHref>
+                          <MenuItem
+                            style={{ fontSize: 18 }}
+                            component={MuiLink}
+                            onClick={handleClose}
+                          >
+                            <ListItemIcon>
+                              <CourseIcon fontSize="small" />
+                            </ListItemIcon>
+                            My Courses
+                          </MenuItem>
+                        </NextLink>
+                        <NextLink href="/exams/my-exams" passHref>
+                          <MenuItem
+                            style={{ fontSize: 18 }}
+                            component={MuiLink}
+                            onClick={handleClose}
+                          >
+                            <ListItemIcon>
+                              <AutoStoriesOutlinedIcon fontSize="small" />
+                            </ListItemIcon>
+                            My Exams
+                          </MenuItem>
+                        </NextLink>
+                      </>
+                    )
                   )}
                   {user.isAdmin && (
                     <NextLink href={"/admin"} passHref>
