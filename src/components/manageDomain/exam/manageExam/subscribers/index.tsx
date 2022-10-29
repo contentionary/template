@@ -40,7 +40,7 @@ export default function Subscribers({
   toggleToast: Function;
 }) {
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const { isLoading, data, error } = useQuery(
+  const { isLoading, data, error, refetch } = useQuery(
     ["sections", centreId, examId],
     fetchSections
   );
@@ -88,7 +88,7 @@ export default function Subscribers({
             a Contact group into this exam.
           </Typography>
           <Typography>
-            <AddSubscriber toggleToast={toggleToast} />
+            <AddSubscriber toggleToast={toggleToast} refetch={refetch}/>
           </Typography>
 
           {result.length ? (

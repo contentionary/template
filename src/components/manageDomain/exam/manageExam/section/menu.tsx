@@ -16,11 +16,13 @@ export default function SectionMenu({
   centreId,
   section,
   toggleToast,
+  refetch,
 }: {
   examId: string;
   centreId: string;
   section: SectionInt;
   toggleToast: Function;
+  refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -36,6 +38,7 @@ export default function SectionMenu({
             examId={examId}
             centreId={centreId}
             toggleToast={toggleToast}
+            refetch={refetch}
           />
           <Delete
             closeDialog={closeDialog}
@@ -54,6 +57,7 @@ export default function SectionMenu({
             centreId={centreId}
             sectionId={section.id}
             toggleToast={toggleToast}
+            refetch={refetch}
           />
         </div>
       </Menus>

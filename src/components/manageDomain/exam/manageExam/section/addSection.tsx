@@ -17,9 +17,15 @@ interface Props {
   centreId: string;
   examId: string;
   toggleToast: Function;
+  refetch: Function;
 }
 
-const AddSection = ({ examId, centreId, toggleToast }: Props): JSX.Element => {
+const AddSection = ({
+  examId,
+  centreId,
+  toggleToast,
+  refetch,
+}: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { getData, values, submit } = useForm(create);
@@ -31,6 +37,7 @@ const AddSection = ({ examId, centreId, toggleToast }: Props): JSX.Element => {
         url: `/centre/${centreId}/exam/${examId}/question-section`,
         data: values,
       });
+      refetch();
       toggleToast("Section Created");
       setIsLoading(false);
       closeDialog();

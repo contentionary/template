@@ -7,27 +7,26 @@ import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 interface Props {
   id?: string | any;
   centreId: string;
+  refetch: Function;
 }
 
-const DeleteCentre = ({ id, centreId }: Props) => {
+const DeleteCentre = ({ id, centreId, refetch }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const router = useRouter();
 
   async function deleteCentre() {
     try {
       setIsLoading(true);
       const data = await request.delete(`/centre/${centreId}/course/${id}`);
       toggleToast(data.message);
-      closeDialog();
+      refetch();
       setIsLoading(false);
-      router.back();
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
