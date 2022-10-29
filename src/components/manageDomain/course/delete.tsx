@@ -11,10 +11,10 @@ import { useState } from "react";
 interface Props {
   id?: string | any;
   centreId: string;
-  refetch: Function;
+  // refetch: Function;
 }
 
-const DeleteCentre = ({ id, centreId, refetch }: Props) => {
+const DeleteCentre = ({ id, centreId /* refetch */ }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -24,7 +24,7 @@ const DeleteCentre = ({ id, centreId, refetch }: Props) => {
       setIsLoading(true);
       const data = await request.delete(`/centre/${centreId}/course/${id}`);
       toggleToast(data.message);
-      refetch();
+      // refetch();
       setIsLoading(false);
       closeDialog();
     } catch (error) {
