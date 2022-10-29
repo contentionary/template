@@ -144,7 +144,8 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
       </Box>
       {previewVideoUrl && (
         <VideoModal
-          src={previewVideoUrl}
+          // src={previewVideoUrl}
+          src={"https://www.youtube.com/watch?v=TVkV2oGPM2k"}
           isOpen={openVideo}
           setIsOpen={setOpenVideo}
         />
