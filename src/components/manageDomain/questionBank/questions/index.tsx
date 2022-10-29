@@ -7,26 +7,42 @@ import Avatar from "@mui/material/Avatar";
 import dynamic from "next/dynamic";
 
 import { BasePageProps, QuestionInt, QuestionsInt } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
+import { queryClient, request } from "@src/utils";
 import { useRouter } from "next/router";
 import Accordion from "@src/components/shared/accordion";
 import { useState } from "react";
 import Breadcrumbs from "@src/components/shared/breadcrumbs";
+import { useQuery } from "react-query";
 
+const fetchQuestions = async ({ queryKey }: { queryKey: Array<any> }) => {
+  const [, centreId, questionBankId] = queryKey;
+  const { data } = await request.get({
+    url: `/centre/${centreId}/question-bank/${questionBankId}/questions`,
+  });
+  return data.questions;
+};
 const QuestionsPage = () => {
   const styles = useStyles();
   const router = useRouter();
+  const { id: questionBankId } = router.query;
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { questions, questionBank } = pageData as {
-    questions: QuestionsInt[];
+  const { questionBank } = pageData as {
     questionBank: {
       name: string;
       description: string;
     };
   };
-  const { id: questionBankId } = router.query;
+
+  const { isLoading, data, error, refetch } = useQuery(
+    ["questions", cachedData.centre.id, questionBankId],
+    fetchQuestions,
+    {
+      initialData: pageData.questions,
+    }
+  );
+  const questions = data as QuestionsInt[];
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./questionBankMenu"));
   const QuestionMenu = dynamic(() => import("./questionMenu"));
@@ -37,6 +53,7 @@ const QuestionsPage = () => {
     { link: "/admin/exam", name: "Exams" },
     { link: "/admin/question-bank", name: "Question bank" },
   ];
+
   const getQuestionTypeData = (question: QuestionInt) => {
     if (question.type === "objective" || question.type === "multichoice") {
       return (
@@ -45,18 +62,16 @@ const QuestionsPage = () => {
             <Box
               key={`${index}-option`}
               sx={{ mb: 3 }}
-              className={`${styles.optionStyle} ${
-                isCorrect ? styles.selected : ""
-              }`}
+              className={`${isCorrect ? styles.selected : styles.optionStyle}`}
             >
               <Typography
                 variant="body1"
                 component="div"
-                sx={{ mb: 3, color: isCorrect ? "#fff" : "" }}
+                sx={{ color: isCorrect ? "#fff" : "" }}
                 dangerouslySetInnerHTML={{ __html: value }}
               />
               {image && (
-                <Box sx={{ width: 500 }}>
+                <Box sx={{ width: 500, mt: 3 }}>
                   <Image
                     src={image}
                     alt="question image"
@@ -106,6 +121,7 @@ const QuestionsPage = () => {
       );
     }
   };
+
   return (
     <Box mt={4}>
       <Breadcrumbs
@@ -136,7 +152,11 @@ const QuestionsPage = () => {
           mb: 5,
         }}
       >
-        <Menu id={questionBankId as string} centreId={cachedData.centre.id} />
+        <Menu
+          id={questionBankId as string}
+          centreId={cachedData.centre.id}
+          refetch={refetch}
+        />
       </Box>
       {questions.length ? (
         <Box>
@@ -177,41 +197,41 @@ const QuestionsPage = () => {
               >
                 <>
                   {getQuestionTypeData(question)}
-                  {solution?.text ||
-                    (solution?.imageUrl && (
-                      <>
+                  {(solution?.text || solution?.imageUrl) && (
+                    <>
+                      <Typography
+                        sx={{ textDecoration: "underline" }}
+                        variant="h6"
+                        component="div"
+                      >
+                        Solution
+                      </Typography>
+                      {solution.text && (
                         <Typography
-                          sx={{ textDecoration: "underline" }}
-                          variant="h6"
+                          variant="body1"
                           component="div"
-                        >
-                          Solution
-                        </Typography>
-                        {solution.text && (
-                          <Typography
-                            variant="body1"
-                            component="div"
-                            dangerouslySetInnerHTML={{ __html: solution.text }}
+                          dangerouslySetInnerHTML={{ __html: solution.text }}
+                        />
+                      )}
+                      {solution.imageUrl && (
+                        <Box sx={{ width: 500 }}>
+                          <Image
+                            src={solution.imageUrl}
+                            alt="question image"
+                            height="100%"
+                            width="100%"
+                            layout="responsive"
                           />
-                        )}
-                        {solution.imageUrl && (
-                          <Box sx={{ width: 500 }}>
-                            <Image
-                              src={solution.imageUrl}
-                              alt="question image"
-                              height="100%"
-                              width="100%"
-                              layout="responsive"
-                            />
-                          </Box>
-                        )}
-                      </>
-                    ))}
+                        </Box>
+                      )}
+                    </>
+                  )}
                   <Typography style={{ textAlign: "right" }}>
                     <QuestionMenu
                       questionBankId={questionBankId as string}
                       centreId={cachedData.centre.id}
                       question={questions[questionIndex]}
+                      refetch={refetch}
                     />
                   </Typography>
                 </>

@@ -13,8 +13,10 @@ import { BasePageProps } from "@src/utils/interface";
 
 const AddSubscriber = ({
   toggleToast,
+  refetch,
 }: {
   toggleToast: Function;
+  refetch: Function;
 }): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +31,7 @@ const AddSubscriber = ({
         url: `/centre/${exam.centreId}/exam/${exam.id}/add-subscribers`,
         data: values,
       });
+      refetch();
       toggleToast(data.message);
       setIsLoading(false);
       closeDialog();

@@ -12,9 +12,10 @@ interface Props {
   id?: string | any;
   centreId: string;
   courseId: string;
+  refetch: Function;
 }
 
-const DeleteCentre = ({ id, centreId, courseId }: Props) => {
+const DeleteCentre = ({ id, centreId, courseId, refetch }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -26,8 +27,9 @@ const DeleteCentre = ({ id, centreId, courseId }: Props) => {
         `/centre/${centreId}/course/${courseId}/content/${id}`
       );
       toggleToast(data.message);
-      closeDialog();
+      refetch();
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);

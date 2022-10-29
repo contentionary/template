@@ -11,9 +11,11 @@ import ButtonComponent from "@src/components/shared/button";
 export default function CustomizedMenus({
   id,
   centreId,
+  refetch,
 }: {
   id: string;
   centreId: string;
+  refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   return (
@@ -31,7 +33,11 @@ export default function CustomizedMenus({
           </Link>
           <Delete id={id} centreId={centreId} />
           <Divider sx={{ my: 0.5 }} />
-          <AddQuestion questionBankId={id} centreId={centreId} />
+          <AddQuestion
+            questionBankId={id}
+            centreId={centreId}
+            refetch={refetch}
+          />
         </div>
       </Menus>
     </>

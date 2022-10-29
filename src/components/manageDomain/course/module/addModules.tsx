@@ -21,9 +21,16 @@ interface Props {
   centreId: string;
   CourseId: string;
   index: number;
+  refetch: Function;
 }
 
-const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
+const AddModules = ({
+  CourseId,
+  centreId,
+  id,
+  index,
+  refetch,
+}: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -51,15 +58,10 @@ const AddModules = ({ CourseId, centreId, id, index }: Props): JSX.Element => {
           : `/centre/${centreId}/course/${CourseId}/module`,
         data: values,
       });
-      closeDialog();
-      if (id) {
-        pageProps.pageData.modules[index].contents.push(data.data);
-      } else {
-        pageProps.pageData.modules.push(data.data);
-      }
-      queryClient.setQueryData("pageProps", { ...pageProps });
       toggleToast(data.message);
+      refetch();
       setIsLoading(false);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);

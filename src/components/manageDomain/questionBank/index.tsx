@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { Typography } from "@mui/material";
 import Breadcrumbs from "@src/components/shared/breadcrumbs";
 
-const CourseAdmin = () => {
+const QuestionBank = () => {
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -79,4 +79,4 @@ const CourseAdmin = () => {
   );
 };
 
-export default CourseAdmin;
+export default QuestionBank;
