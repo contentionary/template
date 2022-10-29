@@ -33,7 +33,12 @@ export default function CustomizedMenus({
             content={true}
             refetch={refetch}
           />
-          <Delete id={module.id} centreId={centreId} courseId={courseId} refetch={refetch}/>
+          <Delete
+            id={module.id}
+            centreId={centreId}
+            courseId={courseId}
+            refetch={refetch}
+          />
         </p>
       </Menus>
     </>

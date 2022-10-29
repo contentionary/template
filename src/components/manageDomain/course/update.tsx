@@ -102,7 +102,11 @@ const UpdateCourse = () => {
           <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
         </Typography>
         <Box sx={{ textAlign: "center" }}>
-          <Delete centreId={cachedData.centre.id} id={course.id} />
+          <Delete
+            refetch={() => {}}
+            centreId={cachedData.centre.id}
+            id={course.id}
+          />
           <Typography variant="caption" component="div">
             Want to delete Course?
           </Typography>
