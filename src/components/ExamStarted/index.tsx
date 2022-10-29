@@ -32,8 +32,10 @@ import useFormControlStyle from "@src/styles/formControl";
 import {
   ExamQuestionsInt,
   // QuestionInt,
+  ErrorResponseInt,
   RequestResponseInt,
 } from "@src/utils/interface";
+import { AxiosError } from "axios";
 
 export interface TempAnswerInt {
   questionId: string;
@@ -76,11 +78,19 @@ const StartExam: ExamFunc = (props) => {
     React.useState<boolean>(false);
   const [endingExam, setEndingExam] = React.useState<boolean>(false);
   // subscriber exam question
-  const { isLoading, isError, data } = useQuery("examQuestions", async () => {
-    return await request.get({
-      url: `/exam/${exam.id}/subscriber-questions`,
-    });
-  });
+  const { isLoading, isError, data, error } = useQuery(
+    ["examQuestions", { id: exam.id }],
+    async () => {
+      return await request.get({
+        url: `/exam/${exam.id}/subscriber-questions`,
+      });
+    }
+  ) as {
+    isLoading: boolean;
+    isError: boolean;
+    data: RequestResponseInt;
+    error: AxiosError;
+  };
 
   // Submit Exam mutant
   const submitAnswer = useMutation(
@@ -245,11 +255,14 @@ const StartExam: ExamFunc = (props) => {
     );
   }
   if (isError) {
+    const { message } = error?.response?.data as ErrorResponseInt;
     return (
       <Box py={24} textAlign="center">
-        <Typography variant="h1">⚠</Typography>
-        <Typography paragraph>
-          Something went wrong, please get an invigilator...
+        <Typography variant="h1" mb={2}>
+          ⚠ Error
+        </Typography>
+        <Typography paragraph fontSize={24}>
+          {message}
         </Typography>
       </Box>
     );
@@ -343,7 +356,6 @@ const StartExam: ExamFunc = (props) => {
                     </RadioGroup>
                   </Box>
                   <ExamQuestion
-                    hasPin={exam.hasPin}
                     answers={answers}
                     setAnswers={setAnswers}
                     currentSection={section}

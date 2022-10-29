@@ -133,6 +133,8 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
   React.useEffect(() => {
     if (props.answers[props.questionId]) {
       setValue(String(props.answers[props.questionId]?.answer));
+    } else {
+      setValue("");
     }
   }, [props.questionId, props.answers]);
   //
