@@ -88,7 +88,7 @@ export default function Subscribers({
             a Contact group into this exam.
           </Typography>
           <Typography>
-            <AddSubscriber toggleToast={toggleToast} refetch={refetch}/>
+            <AddSubscriber toggleToast={toggleToast} refetch={refetch} />
           </Typography>
 
           {result.length ? (
