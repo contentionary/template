@@ -232,7 +232,7 @@ const ExamNav = (props: ExamNavInt & ExamTimerInt & PinnedQuestionsInt) => {
             </Box>
             <Stack ml="auto" direction="row" alignItems="center" spacing={1}>
               <Box display={{ xs: "none", md: "block" }}>
-                {props.exam.hasPin && <PinnedQuestionsDropdown {...props} />}
+                <PinnedQuestionsDropdown {...props} />
               </Box>
               <Divider
                 flexItem
@@ -266,7 +266,7 @@ const ExamNav = (props: ExamNavInt & ExamTimerInt & PinnedQuestionsInt) => {
             display={{ xs: "flex", md: "none" }}
           >
             <SelectQuestionDropdown {...props} />
-            {props.exam.hasPin && <PinnedQuestionsDropdown {...props} />}
+            <PinnedQuestionsDropdown {...props} />
           </Stack>
         </Container>
       </Box>
