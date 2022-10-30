@@ -21,6 +21,7 @@ interface Props {
   examId: string;
   sectionId?: string;
   toggleToast: Function;
+  refetch: Function;
 }
 
 const AddQuestion = ({
@@ -28,6 +29,7 @@ const AddQuestion = ({
   centreId,
   sectionId,
   toggleToast,
+  refetch,
 }: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
@@ -87,6 +89,7 @@ const AddQuestion = ({
         url: `/centre/${centreId}/exam/${examId}/questions`,
         data: questions,
       });
+      refetch();
       toggleToast(data.message);
       setIsLoading(false);
       closeDialog();

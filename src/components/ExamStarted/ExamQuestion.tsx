@@ -28,14 +28,12 @@ interface QuestionFormInt {
   setAnswers: React.Dispatch<
     React.SetStateAction<Record<string, TempAnswerInt>>
   >;
-  hasPin: boolean;
   currentSection: number;
   currentQuestion: number;
   examQuestions: ExamQuestionsInt | undefined;
 }
 
 const ExamQuestion = ({
-  hasPin,
   answers,
   setAnswers,
   examQuestions,
@@ -87,40 +85,38 @@ const ExamQuestion = ({
           Question {currentQuestion + 1} of{" "}
           {examQuestions.sections[currentSection].questions.length}
         </Typography>
-        {hasPin && (
-          <Button
-            size="large"
-            disableElevation
-            color={
-              pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
-              currentQuestion
-                ? "primary"
-                : "secondary"
-            }
-            variant={
-              pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
-              currentQuestion
-                ? "contained"
-                : "text"
-            }
-            onClick={togglePinQuestion}
-            className={`${buttonStyle.iconTextButton} row`}
-            sx={{
-              color:
-                pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
-                currentQuestion
-                  ? "white !important"
-                  : "secondary.main",
-            }}
-          >
-            <PushPinIcon fontSize="small" />
-            &nbsp;
-            {pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+        <Button
+          size="large"
+          disableElevation
+          color={
+            pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
             currentQuestion
-              ? "Question pinned"
-              : "Pin this question"}
-          </Button>
-        )}
+              ? "primary"
+              : "secondary"
+          }
+          variant={
+            pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+            currentQuestion
+              ? "contained"
+              : "text"
+          }
+          onClick={togglePinQuestion}
+          className={`${buttonStyle.iconTextButton} row`}
+          sx={{
+            color:
+              pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+              currentQuestion
+                ? "white !important"
+                : "secondary.main",
+          }}
+        >
+          <PushPinIcon fontSize="small" />
+          &nbsp;
+          {pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+          currentQuestion
+            ? "Question pinned"
+            : "Pin this question"}
+        </Button>
       </Stack>
       <Typography
         display="flex"

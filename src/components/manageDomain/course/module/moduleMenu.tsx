@@ -13,11 +13,13 @@ export default function CustomizedMenus({
   centreId,
   module,
   index,
+  refetch,
 }: {
   courseId: string;
   centreId: string;
   module: CourseModuleInt;
   index: number;
+  refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
@@ -32,14 +34,21 @@ export default function CustomizedMenus({
             courseId={courseId}
             centreId={centreId}
             module={module}
+            refetch={refetch}
           />
-          <Delete id={module.id} centreId={centreId} courseId={courseId} />
+          <Delete
+            id={module.id}
+            centreId={centreId}
+            courseId={courseId}
+            refetch={refetch}
+          />
           <Divider sx={{ my: 0.5 }} />
           <AddContent
             id={module.id}
             centreId={centreId}
             CourseId={courseId}
             index={index}
+            refetch={refetch}
           />
         </div>
       </Menus>

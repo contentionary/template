@@ -6,20 +6,34 @@ import Avatar from "@mui/material/Avatar";
 import dynamic from "next/dynamic";
 
 import { BasePageProps, CourseModuleInt } from "@src/utils/interface";
-import { queryClient } from "@src/utils";
+import { queryClient, request } from "@src/utils";
 import { useRouter } from "next/router";
 import Accordion from "@src/components/shared/accordion";
 import { useState } from "react";
+import { useQuery } from "react-query";
+
+const fetchContents = async ({ queryKey }: { queryKey: Array<any> }) => {
+  const [, centreId, id] = queryKey;
+  const { data } = await request.get({
+    url: `/centre/${centreId}/course/${id}/contents`,
+  });
+  return data;
+};
 
 const ModulesPage = () => {
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { modules } = pageData as {
-    modules: CourseModuleInt[];
-  };
   const { id } = router.query;
+  const { data, refetch } = useQuery(
+    ["questions", cachedData.centre.id, id],
+    fetchContents,
+    {
+      initialData: pageData.modules,
+    }
+  );
+  const modules = data as CourseModuleInt[];
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./courseMenu"));
   const ModuleMenu = dynamic(() => import("./moduleMenu"));
@@ -41,7 +55,11 @@ const ModulesPage = () => {
         >
           <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
         </Typography>
-        <Menu id={id as string} centreId={cachedData.centre.id} />
+        <Menu
+          id={id as string}
+          centreId={cachedData.centre.id}
+          refetch={refetch}
+        />
       </Box>
       {modules.length ? (
         <Box>
@@ -66,6 +84,7 @@ const ModulesPage = () => {
                     centreId={cachedData.centre.id}
                     module={module}
                     index={index}
+                    refetch={refetch}
                   />
                 </Typography>
                 {module?.contents?.length > 0 && (
@@ -114,6 +133,7 @@ const ModulesPage = () => {
                           courseId={id as string}
                           centreId={cachedData.centre.id}
                           module={content}
+                          refetch={refetch}
                         />
                       </Box>
                     ))}

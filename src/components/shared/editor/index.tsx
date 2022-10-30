@@ -1,6 +1,4 @@
-// import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-const { CKEditor } = require("@ckeditor/ckeditor5-react");
+import React, { useEffect, useRef, useState } from "react";
 
 const Editor = ({
   onBlur,
@@ -15,7 +13,18 @@ const Editor = ({
   data?: string;
   onChange: Function;
 }) => {
-  return (
+  const [editorLoaded, setEditorLoaded] = useState(false);
+  const editorRef: any = useRef();
+  const { CKEditor, ClassicEditor } = editorRef.current || {};
+
+  useEffect(() => {
+    setEditorLoaded(true);
+    editorRef.current = {
+      CKEditor: require("@ckeditor/ckeditor5-react").CKEditor, // v3+
+      ClassicEditor: require("@ckeditor/ckeditor5-build-classic"),
+    };
+  }, []);
+  return editorLoaded ? (
     <CKEditor
       editor={ClassicEditor}
       data={data}
@@ -24,6 +33,8 @@ const Editor = ({
       onBlur={onBlur}
       onFocus={onFocus}
     />
+  ) : (
+    <div>Editor loading</div>
   );
 };
 

@@ -12,9 +12,11 @@ import { useMenu } from "@src/utils/hooks";
 export default function CustomizedMenus({
   id,
   centreId,
+  refetch,
 }: {
   id: string;
   centreId: string;
+  refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
@@ -31,9 +33,14 @@ export default function CustomizedMenus({
               Edit
             </MenuItem>
           </Link>
-          <Delete id={id} centreId={centreId} />
+          <Delete id={id} centreId={centreId} refetch={refetch} />
           <Divider sx={{ my: 0.5 }} />
-          <AddModules CourseId={id} centreId={centreId} index={1} />
+          <AddModules
+            CourseId={id}
+            centreId={centreId}
+            index={1}
+            refetch={refetch}
+          />
         </div>
       </Menus>
     </>

@@ -10,10 +10,12 @@ export default function CustomizedMenus({
   courseId,
   centreId,
   module,
+  refetch,
 }: {
   courseId: string;
   centreId: string;
   module: CourseContentInt;
+  refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
@@ -29,8 +31,14 @@ export default function CustomizedMenus({
             centreId={centreId}
             module={module}
             content={true}
+            refetch={refetch}
           />
-          <Delete id={module.id} centreId={centreId} courseId={courseId} />
+          <Delete
+            id={module.id}
+            centreId={centreId}
+            courseId={courseId}
+            refetch={refetch}
+          />
         </p>
       </Menus>
     </>

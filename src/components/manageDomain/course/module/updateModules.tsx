@@ -23,13 +23,15 @@ interface Props {
   centreId: string;
   courseId: string;
   module: CourseModuleInt | CourseContentInt;
+  refetch: Function;
 }
 
-const AddModules = ({
+const UpdateModules = ({
   courseId,
   centreId,
   content,
   module,
+  refetch,
 }: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +59,7 @@ const AddModules = ({
         url: `/centre/${centreId}/course/${courseId}/content/${module.id}`,
         data: values,
       });
+      refetch();
       toggleToast(data.message);
       closeDialog();
       setIsLoading(false);
@@ -136,4 +139,4 @@ const AddModules = ({
   );
 };
 
-export default AddModules;
+export default UpdateModules;

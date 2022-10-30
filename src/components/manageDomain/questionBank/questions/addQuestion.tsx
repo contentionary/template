@@ -28,6 +28,7 @@ interface Props {
   questionBankId: string;
   update?: boolean;
   question?: QuestionsInt;
+  refetch: Function;
 }
 
 const AddQuestion = ({
@@ -35,6 +36,7 @@ const AddQuestion = ({
   centreId,
   update,
   question,
+  refetch,
 }: Props): JSX.Element => {
   const styles = useStyles();
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -52,27 +54,27 @@ const AddQuestion = ({
       ? question?.question?.options
       : [{ value: "", isCorrect: false, id: 0 }]
   );
-  const [resolvedOption, setResolvedOption] = useState<QuestionOptionInt[]>([]);
+
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const ImageUpload = dynamic(() => import("./imageUpload"));
   const OptionImageUpload = dynamic(() => import("./optionImgUpload"));
-  // const Editor = dynamic(() => import("@src/components/shared/editor"), {
-  //   ssr: false,
-  // });
 
   useEffect(() => {
     if (update) setData("type", question?.question.type);
   }, [update, question, setData]);
 
-  function getImage() {
-    options.forEach(async (option) => {
+  async function getImage() {
+    let resolvedOption = [];
+
+    for (let option of options) {
       if ("image" in option && option.image.length) {
         option.image = await uploadFiles(option.image[0], setProgress);
       }
-      setResolvedOption([...resolvedOption, option]);
-    });
-  }
+      resolvedOption.push(option);
+    }
 
+    return resolvedOption;
+  }
   async function create() {
     try {
       setIsLoading(true);
@@ -80,8 +82,7 @@ const AddQuestion = ({
         question: { question: values.question, type: values.type },
       };
       if (values.type === "objective" || values.type === "multichoice") {
-        await getImage();
-        questions.question.options = resolvedOption;
+        questions.question.options = await getImage();
       }
 
       if (img.rawImg && !convertedImage) {
@@ -109,6 +110,7 @@ const AddQuestion = ({
             url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
             data: questions,
           });
+      refetch();
       toggleToast("Question add");
       setIsLoading(false);
       closeDialog();
