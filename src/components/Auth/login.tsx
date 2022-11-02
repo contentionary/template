@@ -1,3 +1,5 @@
+import Link from "next/link";
+//
 import { Grid, Stack, Typography, Hidden } from "@mui/material";
 import useForm from "@src/hooks/useForm";
 import ButtonComponent from "@src/components/shared/button";
@@ -57,14 +59,16 @@ const CreateAccount = (): JSX.Element => {
               height: "100vh",
             }}
           >
-            <Image
-              src="/images/auth/createAccount.svg"
-              alt="contentionary create account"
-              width="100%"
-              height="100%"
-              layout="fill"
-              objectFit="cover"
-            />
+            <Link href="/">
+              <Image
+                src="/images/auth/createAccount.svg"
+                alt="contentionary create account"
+                width="100%"
+                height="100%"
+                layout="fill"
+                objectFit="cover"
+              />
+            </Link>
           </Grid>
         </Hidden>
         <Grid
