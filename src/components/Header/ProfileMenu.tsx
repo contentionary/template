@@ -141,34 +141,40 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                       </MenuItem>
                     </NextLink>
                   ) : (
-                    centre.template === "examAndCourse" && (
-                      <>
-                        <NextLink href="/courses/my-courses" passHref>
-                          <MenuItem
-                            style={{ fontSize: 18 }}
-                            component={MuiLink}
-                            onClick={handleClose}
-                          >
-                            <ListItemIcon>
-                              <CourseIcon fontSize="small" />
-                            </ListItemIcon>
-                            My Courses
-                          </MenuItem>
-                        </NextLink>
-                        <NextLink href="/exams/my-exams" passHref>
-                          <MenuItem
-                            style={{ fontSize: 18 }}
-                            component={MuiLink}
-                            onClick={handleClose}
-                          >
-                            <ListItemIcon>
-                              <AutoStoriesOutlinedIcon fontSize="small" />
-                            </ListItemIcon>
-                            My Exams
-                          </MenuItem>
-                        </NextLink>
-                      </>
-                    )
+                    centre.template === "examAndCourse" && [
+                      <NextLink
+                        key="my-courses-exam-and-course"
+                        href="/courses/my-courses"
+                        passHref
+                      >
+                        <MenuItem
+                          style={{ fontSize: 18 }}
+                          component={MuiLink}
+                          onClick={handleClose}
+                        >
+                          <ListItemIcon>
+                            <CourseIcon fontSize="small" />
+                          </ListItemIcon>
+                          My Courses
+                        </MenuItem>
+                      </NextLink>,
+                      <NextLink
+                        key="my-exams-exam-and-course"
+                        href="/exams/my-exams"
+                        passHref
+                      >
+                        <MenuItem
+                          style={{ fontSize: 18 }}
+                          component={MuiLink}
+                          onClick={handleClose}
+                        >
+                          <ListItemIcon>
+                            <AutoStoriesOutlinedIcon fontSize="small" />
+                          </ListItemIcon>
+                          My Exams
+                        </MenuItem>
+                      </NextLink>,
+                    ]
                   )}
                   {user.isAdmin && (
                     <NextLink href={"/admin"} passHref>
