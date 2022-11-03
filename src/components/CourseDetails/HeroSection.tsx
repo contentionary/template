@@ -72,7 +72,7 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
                 sx={{
                   width: "100%",
                   borderRadius: 2,
-                  padding: { xs: 2, sm: 3 },
+                  padding: 0.5,
                   border: `1px solid ${theme.palette.divider}`,
                 }}
               >

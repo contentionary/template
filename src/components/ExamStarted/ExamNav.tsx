@@ -128,13 +128,19 @@ const PinnedQuestionsDropdown = (props: ExamNavInt & PinnedQuestionsInt) => {
           justifyContent: "center",
         }}
       >
-        <PushPinIcon fontSize="small" /> Go to Pinned Question
+        <PushPinIcon fontSize="small" />
+        {Object.keys(props.pinnedQuestions).length
+          ? Object.keys(props.pinnedQuestions).length
+          : ""}{" "}
+        Pinned Questions
       </Typography>
       <Box
         p={1}
         gap={1}
         display="grid"
         maxWidth={246}
+        maxHeight={"80vh"}
+        sx={{ overflowY: "auto" }}
         gridTemplateColumns="repeat(1fr, 1fr)"
       >
         {Object.keys(props.pinnedQuestions).map((key, index) => (

@@ -70,7 +70,7 @@ const FinishedExamCard: ExamFinishedFunc = (props) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <NextLink href="/exams" passHref>
+                <NextLink href={`/exams/${exam.slug}`} passHref>
                   <Button
                     size="large"
                     disableElevation
