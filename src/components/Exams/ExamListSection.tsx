@@ -29,7 +29,7 @@ const ExamListSection = ({ pageData }: Record<string, any>) => {
     <Box>
       <Grid
         container
-        spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
+        spacing={{ xs: 2, md: 3, lg: 3, xl: 4 }}
         columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 4 }}
       >
         {exams.exams.map((exam, index) => (

@@ -34,6 +34,8 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
   React.useEffect(() => {
     if (props.answers[props.questionId]) {
       setValue(Number(props.answers[props.questionId]?.optionId));
+    } else {
+      setValue(undefined);
     }
   }, [props.questionId, props.answers]);
 
@@ -92,6 +94,8 @@ export const BooleanQuestionSelector = (props: QuestionSelectorInt) => {
   React.useEffect(() => {
     if (props.answers[props.questionId]) {
       setOption(String(props.answers[props.questionId]?.answer));
+    } else {
+      setOption(undefined);
     }
   }, [props.questionId, props.answers]);
   // set answer
@@ -133,6 +137,8 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
   React.useEffect(() => {
     if (props.answers[props.questionId]) {
       setValue(String(props.answers[props.questionId]?.answer));
+    } else {
+      setValue("");
     }
   }, [props.questionId, props.answers]);
   //
@@ -149,7 +155,9 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
 
   return (
     <OutlinedInput
+      rows={4}
       fullWidth
+      multiline
       value={value}
       className={textField}
       onChange={handleChange}
@@ -165,6 +173,8 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
   React.useEffect(() => {
     if (props.answers[props.questionId]) {
       setChoice([...(props.answers[props.questionId]?.optionIds ?? [])]);
+    } else {
+      setChoice([]);
     }
   }, [props.questionId, props.answers]);
 
@@ -219,6 +229,9 @@ export const RangeQuestionSelector = (props: QuestionSelectorInt) => {
     if (props.answers[props.questionId]) {
       setMinValue(String(props.answers[props.questionId]?.min ?? ""));
       setMaxValue(String(props.answers[props.questionId]?.max ?? ""));
+    } else {
+      setMinValue("");
+      setMaxValue("");
     }
   }, [props.questionId, props.answers]);
   //

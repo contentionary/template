@@ -20,6 +20,7 @@ import ImageComponent from "@src/components/shared/image";
 // utils, interface and styles
 import { TempAnswerInt } from ".";
 import useButtonStyle from "@src/styles/button";
+import { PinnedQuestionsInt } from "./interfaceType";
 import { ExamQuestionsInt } from "@src/utils/interface";
 
 interface QuestionFormInt {
@@ -38,7 +39,9 @@ const ExamQuestion = ({
   examQuestions,
   currentSection,
   currentQuestion,
-}: QuestionFormInt): JSX.Element => {
+  pinnedQuestions,
+  togglePinQuestion,
+}: QuestionFormInt & PinnedQuestionsInt): JSX.Element => {
   const buttonStyle = useButtonStyle();
   let questionType;
 
@@ -84,11 +87,35 @@ const ExamQuestion = ({
         </Typography>
         <Button
           size="large"
-          color="secondary"
+          disableElevation
+          color={
+            pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+            currentQuestion
+              ? "primary"
+              : "secondary"
+          }
+          variant={
+            pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+            currentQuestion
+              ? "contained"
+              : "text"
+          }
+          onClick={togglePinQuestion}
           className={`${buttonStyle.iconTextButton} row`}
+          sx={{
+            color:
+              pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+              currentQuestion
+                ? "white !important"
+                : "secondary.main",
+          }}
         >
-          <PushPinIcon fontSize="small" color="primary" />
-          &nbsp; Pin this question
+          <PushPinIcon fontSize="small" />
+          &nbsp;
+          {pinnedQuestions[`sq-${currentSection}-${currentQuestion}`] ===
+          currentQuestion
+            ? "Question pinned"
+            : "Pin this question"}
         </Button>
       </Stack>
       <Typography

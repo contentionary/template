@@ -38,8 +38,8 @@ const ExamListSection: ExamFunc = () => {
           </Typography>
           <Grid
             container
-            mb={{ xs: 2, md: 3, lg: 2, xl: 4 }}
-            spacing={{ xs: 2, md: 3, lg: 2, xl: 4 }}
+            mb={{ xs: 2, md: 3, lg: 3, xl: 4 }}
+            spacing={{ xs: 2, md: 3, lg: 3, xl: 4 }}
           >
             {exams.map((exam, index) => (
               <Grid

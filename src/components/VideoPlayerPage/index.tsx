@@ -1,15 +1,16 @@
 import React from "react";
 // Mui components
 import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 // app components
+import LessonPlayer from "./LessonPlayer";
 import LessonListDrawer from "./LessonListDrawer";
 import LessonDetails from "./LessonDetailsSection";
-import LessonPlayer from "./LessonPlayer";
 import Reader from "@src/components/shared/DocumentReader";
 // interface props, styles and config
 import useVideoPageStyle from "@src/styles/videoPage";
@@ -39,12 +40,22 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
 
   return (
     <Box
+      borderTop={1}
       component="main"
-      position="relative"
       borderBottom={1}
+      overflow="hidden"
+      position="relative"
       borderColor="divider"
-      sx={{ pt: 8, display: "flex", borderTop: 1 }}
+      sx={{ pt: 8, display: "flex" }}
     >
+      <Divider
+        sx={{
+          top: 64,
+          width: "100%",
+          position: "absolute",
+          zIndex: theme.zIndex.drawer + 1,
+        }}
+      />
       <LessonListDrawer
         open={open}
         mobileOpen={mobileOpen}

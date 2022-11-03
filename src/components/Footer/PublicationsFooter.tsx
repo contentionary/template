@@ -87,7 +87,7 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
                     Library
                   </MuiLink>
                 </NextLink>
-                <NextLink href="/academy" passHref>
+                <NextLink href="/" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     Home
                   </MuiLink>

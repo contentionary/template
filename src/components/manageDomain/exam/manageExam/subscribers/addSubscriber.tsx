@@ -48,7 +48,7 @@ const AddSubscriber = ({
         onClick={() =>
           exam.isPrivate
             ? openDialog()
-            : toggleToast("This is only avaible private")
+            : toggleToast("This is only available for private centres")
         }
         sx={{ fontSize: 18 }}
       >

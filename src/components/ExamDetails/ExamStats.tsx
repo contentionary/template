@@ -25,7 +25,7 @@ const ExamStats: ExamDetailsPageFunc = ({ exam }) => {
           <ListItemText
             primary={`\u00A0 ${
               subscriberCount < 100 ? "Less than 100 " : subscriberCount
-            }  Readers`}
+            }  Exam takers`}
           />
         </ListItem>
         <ListItem sx={{ px: 0 }}>
