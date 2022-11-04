@@ -22,7 +22,7 @@ const CreatePublication = () => {
   ) as BasePageProps;
 
   const { toastMessage, toggleToast } = useToast();
-  const { values, submit, resetValues } = useForm(Update);
+  const { submit, resetValues } = useForm(Update);
   const { template } = pageData as {
     template: TemplateInt;
   };
