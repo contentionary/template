@@ -27,13 +27,13 @@ export default function CustomizedMenus({
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <Link passHref href={`/admin/course/${id}/update?type=FOLDER`}>
+          <Link passHref href={`/admin/course/${id}/update?type=COURSE`}>
             <MenuItem disableRipple>
               <EditIcon />
               Edit
             </MenuItem>
           </Link>
-          <Delete id={id} centreId={centreId} /* refetch={refetch} */ />
+          <Delete id={id} centreId={centreId} refetch={refetch} />
           <Divider sx={{ my: 0.5 }} />
           <AddModules
             CourseId={id}

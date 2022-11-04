@@ -28,9 +28,6 @@ const CreatePublication = () => {
   };
 
   const [img, setImg] = useState<Record<string, any>>({});
-  const [img3, setImg3] = useState<Record<string, any>>({});
-  const [img2, setImg2] = useState<Record<string, any>>({});
-  const [img1, setImg1] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
@@ -44,12 +41,28 @@ const CreatePublication = () => {
 
   const router = useRouter();
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const ImageUpload = dynamic(
+  const HeroImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")
   );
+  const ImageUpload = dynamic(() => import("./imageUpload"));
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
+
+  async function getImage() {
+    let resolvedOption = [];
+
+    for (let content of contents) {
+      if (typeof content.imageUrl === "object") {
+        content.imageUrl = await uploadFiles(
+          content.imageUrl.base64,
+          setImageLoadingProgress
+        );
+      }
+      resolvedOption.push(content);
+    }
+    return resolvedOption;
+  }
 
   async function Update() {
     try {
@@ -59,38 +72,13 @@ const CreatePublication = () => {
         landingPageSectionOne.imageUrl = imageUrl;
         setConvertedImage(imageUrl);
       }
-
-      if (img1.base64) {
-        const imageUrl = await uploadFiles(
-          img1.base64,
-          setImageLoadingProgress
-        );
-        contents[0].imageUrl = imageUrl;
-      }
-
-      if (img2.base64) {
-        const imageUrl = await uploadFiles(
-          img2.base64,
-          setImageLoadingProgress
-        );
-        contents[1].imageUrl = imageUrl;
-      }
-
-      if (img3.base64) {
-        const imageUrl = await uploadFiles(
-          img3.base64,
-          setImageLoadingProgress
-        );
-        contents[2].imageUrl = imageUrl;
-      }
-
+      convertedImage && (landingPageSectionOne.imageUrl = convertedImage);
       const template = {
-        landingPageSectionOne: landingPageSectionOne,
+        landingPageSectionOne,
         landingPageSectionTwo: {
-          contents,
+          contents: await getImage(),
         },
       };
-      convertedImage && (values.imageUrl = convertedImage);
       const data = await request.patch({
         url: `/centre/${cachedData.centre.id}/centre-template`,
         data: template,
@@ -129,7 +117,7 @@ const CreatePublication = () => {
       <form onSubmit={(e) => submit(e)} style={{ marginTop: 40 }}>
         <Stack spacing={3} mt={3}>
           <Typography variant="h4" component="div">
-            Landing Page Section One
+            Landing Page Section 1
           </Typography>
           <TextFields
             type="text"
@@ -143,10 +131,10 @@ const CreatePublication = () => {
             inputProps={{ maxLength: 35 }}
             required
           />
-          <ImageUpload
+          <HeroImageUpload
             setImg={setImg}
             img={img}
-            uploadText="Select and upload logo"
+            uploadText="Select and upload image"
             defaultImage={landingPageSectionOne.imageUrl}
           />
           <Box>
@@ -171,156 +159,57 @@ const CreatePublication = () => {
               maxLength={200}
             />
           </Box>
-
-          <Box>
-            <Typography variant="h4" component="div">
-              Landing Page Section Two
-            </Typography>
-            <TextFields
-              type="text"
-              label="Title"
-              name="title"
-              defaultValue={contents[0].title}
-              onChange={(e: ChangeEvent<any>) => {
-                contents[0].title = e.target.value;
-                setContents([...contents]);
-              }}
-              inputProps={{ maxLength: 35 }}
-              sx={{
-                width: "100%",
-                mb: 2,
-              }}
-              required
-            />
-            <ImageUpload
-              setImg={setImg1}
-              img={img1}
-              defaultImage={contents[0].imageUrl}
-              uploadText="Select and upload logo"
-            />
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" component="div">
-                Description *
+          {contents.map((content, index) => (
+            <Box key={`${index}-content`}>
+              <Typography variant="h4" component="div">
+                Landing Page Section {index + 2}
               </Typography>
-              <TextArea
-                required
-                placeholder="Type in description here ..."
-                name="description"
+              <TextFields
+                type="text"
+                label="Title"
+                name="title"
+                defaultValue={content.title}
                 onChange={(e: ChangeEvent<any>) => {
-                  contents[0].description = e.target.value;
+                  contents[index].title = e.target.value;
                   setContents([...contents]);
                 }}
-                defaultValue={contents[0].description}
-                style={{
+                inputProps={{ maxLength: 35 }}
+                sx={{
                   width: "100%",
-                  height: 120,
-                  borderRadius: 5,
-                  padding: 15,
+                  mb: 2,
                 }}
-                maxLength={200}
-              />
-            </Box>
-          </Box>
-
-          <Box>
-            <Typography variant="h4" component="div">
-              Landing Page Section Three
-            </Typography>
-            <TextFields
-              type="text"
-              label="Title"
-              name="title"
-              defaultValue={contents[1].title}
-              onChange={(e: ChangeEvent<any>) => {
-                contents[1].title = e.target.value;
-                setContents([...contents]);
-              }}
-              inputProps={{ maxLength: 35 }}
-              sx={{
-                width: "100%",
-                mb: 2,
-              }}
-              required
-            />
-            <ImageUpload
-              setImg={setImg2}
-              img={img2}
-              defaultImage={contents[1].imageUrl}
-              uploadText="Select and upload logo"
-            />
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" component="div">
-                Description *
-              </Typography>
-              <TextArea
                 required
-                placeholder="Type in description here ..."
-                name="description"
-                onChange={(e: ChangeEvent<any>) => {
-                  contents[1].description = e.target.value;
-                  setContents([...contents]);
-                }}
-                defaultValue={contents[1].description}
-                style={{
-                  width: "100%",
-                  height: 120,
-                  borderRadius: 5,
-                  padding: 15,
-                }}
-                maxLength={200}
               />
-            </Box>
-          </Box>
-
-          <Box>
-            <Typography variant="h4" component="div">
-              Landing Page Section Four
-            </Typography>
-            <TextFields
-              type="text"
-              label="Title"
-              name="title"
-              defaultValue={contents[2].title}
-              onChange={(e: ChangeEvent<any>) => {
-                contents[2].title = e.target.value;
-                setContents([...contents]);
-              }}
-              inputProps={{ maxLength: 35 }}
-              sx={{
-                width: "100%",
-                mb: 2,
-              }}
-              required
-            />
-            <ImageUpload
-              setImg={setImg3}
-              img={img3}
-              defaultImage={contents[2].imageUrl}
-              uploadText="Select and upload logo"
-            />
-            <Box sx={{ mt: 2 }}>
-              <Typography variant="subtitle1" component="div">
-                Description *
-              </Typography>
-              <TextArea
-                required
-                placeholder="Type in description here ..."
-                name="description"
-                onChange={(e: ChangeEvent<any>) => {
-                  contents[2].description = e.target.value;
-                  setContents([...contents]);
-                }}
-                defaultValue={contents[2].description}
-                style={{
-                  width: "100%",
-                  height: 120,
-                  borderRadius: 5,
-                  padding: 15,
-                }}
-                maxLength={200}
+              <ImageUpload
+                setImg={setContents}
+                img={contents}
+                uploadText="Select and upload image"
+                index={index}
               />
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="subtitle1" component="div">
+                  Description *
+                </Typography>
+                <TextArea
+                  required
+                  placeholder="Type in description here ..."
+                  name="description"
+                  onChange={(e: ChangeEvent<any>) => {
+                    contents[index].description = e.target.value;
+                    setContents([...contents]);
+                  }}
+                  defaultValue={content.description}
+                  style={{
+                    width: "100%",
+                    height: 120,
+                    borderRadius: 5,
+                    padding: 15,
+                  }}
+                  maxLength={200}
+                />
+              </Box>
             </Box>
-          </Box>
+          ))}
           <Typography style={{ textAlign: "right" }}>
             <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
               Mange website

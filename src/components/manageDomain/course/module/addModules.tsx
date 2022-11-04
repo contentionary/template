@@ -11,10 +11,9 @@ import TextArea from "@src/components/shared/textArea";
 
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
-import { handleError, queryClient, request, uploadFiles } from "@src/utils";
+import { handleError, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
-import { BasePageProps } from "@src/utils/interface";
 
 interface Props {
   id?: string;
@@ -28,7 +27,6 @@ const AddModules = ({
   CourseId,
   centreId,
   id,
-  index,
   refetch,
 }: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -38,7 +36,6 @@ const AddModules = ({
   const [file, setFile] = useState<Record<string, any>>();
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [convertedFile, setConvertedFile] = useState<any>();
-  const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
 
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
