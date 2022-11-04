@@ -26,7 +26,7 @@ const ModulesPage = () => {
     "pageProps"
   ) as BasePageProps;
   const { id } = router.query;
-  const { isLoading, data, error, refetch } = useQuery(
+  const { data, refetch } = useQuery(
     ["questions", cachedData.centre.id, id],
     fetchContents,
     {
