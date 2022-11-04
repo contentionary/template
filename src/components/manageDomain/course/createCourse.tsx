@@ -182,11 +182,7 @@ const CreateCourse = () => {
                   </ButtonComponent>
                 </Box>
               </Box>
-              <TextFields
-                type="file"
-                name="previewVideoUrl"
-                onChange={getFile}
-              />
+
               <Stack direction="row" spacing={3} flexWrap="wrap">
                 <CheckBox
                   label={
@@ -247,6 +243,16 @@ const CreateCourse = () => {
               maxLength={250}
             />
           </Box>
+          {type != "FOLDER" && (
+            <Box>
+              <Typography variant="h6">Preview Video</Typography>
+              <TextFields
+                type="file"
+                name="previewVideoUrl"
+                onChange={getFile}
+              />
+            </Box>
+          )}
           <ImageUpload
             setImg={setImg}
             img={img}

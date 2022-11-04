@@ -27,7 +27,7 @@ export default function CustomizedMenus({
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <Link passHref href={`/admin/course/${id}/update?type=FOLDER`}>
+          <Link passHref href={`/admin/course/${id}/update?type=COURSE`}>
             <MenuItem disableRipple>
               <EditIcon />
               Edit

@@ -93,11 +93,6 @@ export const uploadFiles = async (file: any, setProgress: Function) => {
     });
 
     const res: any = await parallelUploads3.done();
-    devLog("Result", {
-      url: res.Location,
-      uri: res.Location.split(".com/").pop(),
-      res,
-    });
     return res.Location.split(".com/").pop();
   } catch (err) {
     throw err;
@@ -118,6 +113,28 @@ export const queryClient = new QueryClient({
 });
 
 export const copy = (id: string) => navigator.clipboard.writeText(id);
+
+export const kCount = (count: number) => {
+  function parseNumberFloat(divider: number, quantity: string) {
+    let kView = String(count / divider);
+    let view = kView.split(".");
+    let remainder = view[1]?.split("");
+    let remainderToNumber = parseInt(remainder && remainder[0]);
+    return (
+      view[0] +
+      (remainderToNumber > 0 ? `.${remainderToNumber}` : "") +
+      quantity
+    );
+  }
+
+  if (count >= 1000000000) {
+    return parseNumberFloat(1000000000, "B");
+  } else if (count >= 1000000) {
+    return parseNumberFloat(1000000, "M");
+  } else if (count >= 1000) {
+    return parseNumberFloat(1000, "K");
+  } else return count;
+};
 
 export const redirect = (
   destination: string,
@@ -261,28 +278,6 @@ export const request = {
   delete: async (url: string) => await request.get({ url, method: "DELETE" }),
   patch: async (params: PostRequestInt) =>
     await request.post({ ...params, method: "PATCH" }),
-};
-
-export const kCount = (count: number) => {
-  function parseNumberFloat(divider: number, quantity: string) {
-    let kView = String(count / divider);
-    let view = kView.split(".");
-    let remainder = view[1]?.split("");
-    let remainderToNumber = parseInt(remainder && remainder[0]);
-    return (
-      view[0] +
-      (remainderToNumber > 0 ? `.${remainderToNumber}` : "") +
-      quantity
-    );
-  }
-
-  if (count >= 1000000000) {
-    return parseNumberFloat(1000000000, "B");
-  } else if (count >= 1000000) {
-    return parseNumberFloat(1000000, "M");
-  } else if (count >= 1000) {
-    return parseNumberFloat(1000, "K");
-  } else return count;
 };
 
 export const dateTimeFormat = (dateTimeStamp: Date, timeStyle?: boolean) => {
