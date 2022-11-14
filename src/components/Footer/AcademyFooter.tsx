@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 // next components
-import Image from "next/image";
 import NextLink from "next/link";
 // mui
 import Box from "@mui/material/Box";
@@ -13,9 +12,10 @@ import { Link as MuiLink } from "@mui/material";
 import { grey } from "@mui/material/colors";
 // styles, interface ans config
 import config from "@src/utils/config";
-import { queryClient } from "@src/utils";
+import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { AcademyFooterFunc } from "./interfaceType";
+import ImageComponent from "../shared/image";
 
 const AcademyFooter: AcademyFooterFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
@@ -36,11 +36,11 @@ const AcademyFooter: AcademyFooterFunc = () => {
               <Box mb={3}>
                 <NextLink href="/" passHref>
                   <MuiLink sx={{ display: "flex", alignItems: "center" }}>
-                    <Image
+                    <ImageComponent
                       alt={name}
                       width={64}
                       height={64}
-                      src={logo}
+                      src={logo || DEFAULT_LOGO}
                       objectFit="contain"
                     />
                   </MuiLink>

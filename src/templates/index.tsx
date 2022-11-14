@@ -9,6 +9,7 @@ const themes: Record<string, Function> = {
   course: (pages: CoursePages) => CourseSlim[pages],
   publication: (pages: PublicationPages) => PublicationSlim[pages],
   examAndCourse: (pages: ExamAndCoursePages) => ExamAndCourseSlim[pages],
+  general: (pages: ExamAndCoursePages) => ExamAndCourseSlim[pages],
 };
 
 export default themes;
