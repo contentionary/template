@@ -19,7 +19,7 @@ interface ResultInt {
 const fetchResult = async ({ queryKey }: { queryKey: Array<any> }) => {
   const [, centreId, examId] = queryKey;
   const { data } = await request.get({
-    url: `/centre/${centreId}/exam/${examId}/answers`,
+    url: `/centre/${centreId}/exam/${examId}/answers?limit=10000`,
   });
   return data.result;
 };

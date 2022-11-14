@@ -35,7 +35,7 @@ const QuestionsPage = () => {
     };
   };
 
-  const { isLoading, data, error, refetch } = useQuery(
+  const { data, refetch } = useQuery(
     ["questions", cachedData.centre.id, questionBankId],
     fetchQuestions,
     {
