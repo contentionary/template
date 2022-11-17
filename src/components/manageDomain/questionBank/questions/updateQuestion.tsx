@@ -25,15 +25,13 @@ import Editor from "@src/components/shared/editor";
 interface Props {
   centreId: string;
   questionBankId: string;
-  update?: boolean;
-  question?: QuestionsInt;
+  question: QuestionsInt;
   refetch: Function;
 }
 
 const AddQuestion = ({
   questionBankId,
   centreId,
-  update,
   question,
   refetch,
 }: Props): JSX.Element => {
@@ -53,15 +51,12 @@ const AddQuestion = ({
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedSolutionImage, setConvertedSolutionImage] = useState<any>();
   const [options, setOptions] = useState<QuestionOptionInt[]>(
-    update && question?.question.options
-      ? question?.question?.options
-      : [{ value: "", isCorrect: false }]
+    question.question.options
   );
 
   useEffect(() => {
-    if (update) setDefault({ ...question?.question });
-    console.log(question)
-  }, [update, question]);
+    setDefault({ ...question?.question });
+  }, [question]);
 
   async function getImage() {
     let resolvedOption = [];
@@ -101,17 +96,13 @@ const AddQuestion = ({
         questions.question.min = values.min;
       }
       if (solution) questions.solution.text = values.solution;
-      update
-        ? await request.patch({
-            url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
-            data: questions,
-          })
-        : await request.post({
-            url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
-            data: questions,
-          });
+      await request.patch({
+        url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
+        data: questions,
+      });
+
       refetch();
-      toggleToast("Question add");
+      toggleToast("Question updated");
       setIsLoading(false);
       closeDialog();
     } catch (error) {
@@ -124,7 +115,7 @@ const AddQuestion = ({
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
         <AddCircleOutlineOutlined />
-        {update ? "Update" : "Add"} Question
+        Update Question
       </MenuItem>
       <Dialog
         title="Add Question"
@@ -154,7 +145,7 @@ const AddQuestion = ({
                   Question
                 </Typography>
                 <Editor
-                  data={update ? question?.question.question : ""}
+                  data={question?.question?.question}
                   onChange={(event: any, editor: any) =>
                     getEditor(event, editor, "question")
                   }
@@ -182,7 +173,9 @@ const AddQuestion = ({
                     variant="body1"
                     onClick={() => setDefault({ answer: false })}
                     className={`${styles.booleanOptionStyle} ${
-                      values.answer === false ? styles.booleanOptionSelected : ""
+                      values.answer === false
+                        ? styles.booleanOptionSelected
+                        : ""
                     }`}
                   >
                     False
@@ -225,7 +218,7 @@ const AddQuestion = ({
                         <Box sx={{ display: "flex" }}>
                           <Box sx={{ width: "100%" }}>
                             <Editor
-                              data=""
+                              data={option.value}
                               onChange={(event: any, editor: any) => {
                                 options[index].value = editor.getData();
                                 setOptions(options);
@@ -272,7 +265,7 @@ const AddQuestion = ({
                     Solution
                   </Typography>
                   <Editor
-                    data={update ? question?.solution.text : ""}
+                    data={question?.solution.text}
                     onChange={(event: any, editor: any) =>
                       getEditor(event, editor, "solution")
                     }

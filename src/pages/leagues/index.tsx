@@ -5,15 +5,15 @@ import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
   BasePageProps,
-  CourseListInt,
+  ExamListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/utils";
 
-export const CentreCoursesContext = createContext<CourseListInt | null>(null);
+export const CentreExamContext = createContext<ExamListInt | null>(null);
 
-const CoursesPage = (pageProps: BasePageProps) => {
+const LeaguesPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
     const ActiveTemplate =
@@ -22,8 +22,7 @@ const CoursesPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("Courses");
+  const ActiveTemplate = themes[pageProps.cachedData.centre.template]("Leagues");
 
   return <ActiveTemplate />;
 };
@@ -34,17 +33,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { token, user } = getAuthData(context);
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const { data: courseList } = await request.get({
-      url: `/centre/${centre.id}/courses?pageId=${pageId}${
+
+    const { data: examList } = await request.get({
+      url: `/centre/${centre.id}/leagues?pageId=${pageId}${
         folderId && `&folderId=${folderId}`
       }`,
       token,
     });
+
     return {
-      props: { pageData: { courseList }, cachedData: { user, centre, token } },
+      props: { pageData: { examList }, cachedData: { user, centre, token } },
     };
   } catch (err) {
     return pageErrorHandler(err, user, token, centre);
   }
 };
-export default CoursesPage;
+export default LeaguesPage;

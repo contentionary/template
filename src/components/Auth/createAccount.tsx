@@ -7,43 +7,43 @@ import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
 import { Box } from "@mui/system";
 import useStyles from "./styles";
-import { handleError, request, cache, queryClient } from "@src/utils";
+import { handleError, request, queryClient } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
-import Snackbar from "@src/components/shared/snackerBar";
 import { useRouter } from "next/router";
 import { BasePageProps } from "@src/utils/interface";
+import { useToast } from "@src/utils/hooks";
+import dynamic from "next/dynamic";
+import { useDialog } from "@src/hooks";
+import Dialog from "@src/components/shared/dialog";
 
 const CreateAccount = (): JSX.Element => {
-  const { getData, values, resetValues } = useForm(submit);
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const { isOpen, closeDialog, openDialog } = useDialog();
+  const { getData, values, resetValues, submit } = useForm(createAccount);
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const { toastMessage, toggleToast } = useToast();
   const styles = useStyles();
   const router = useRouter();
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
-  async function submit() {
+  async function createAccount() {
     try {
       setIsLoading(true);
 
       if (values.password !== values.confirmPassword) {
         throw "password mis-matched";
       }
-      const { data } = await request.post({
+      await request.post({
         url: "/auth/register",
         data: values,
       });
       resetValues();
-      cache.set("user", data);
-      cache.set("token", data.token);
       setIsLoading(false);
-      router.push("/landing-page");
+      openDialog();
     } catch (error) {
-      setMessage(handleError(error).message);
+      toggleToast(handleError(error).message);
       setIsLoading(false);
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
     }
   }
 
@@ -102,7 +102,7 @@ const CreateAccount = (): JSX.Element => {
             >
               Register with us
             </Typography>
-            <form onSubmit={submit}>
+            <form onSubmit={(e) => submit(e)}>
               <Stack spacing={2}>
                 <Stack direction="row" spacing={1}>
                   <TextFields
@@ -204,8 +204,23 @@ const CreateAccount = (): JSX.Element => {
           </Stack>
         </Grid>
       </Grid>
-
-      <Snackbar message={message} />
+      {toastMessage && (
+        <Toast
+          status={Boolean(toastMessage)}
+          message={toastMessage}
+          showToast={toggleToast}
+        />
+      )}
+      <Dialog
+        title="Account created!!!"
+        isOpen={isOpen}
+        closeDialog={closeDialog}
+        message="Account created successfully! Don't forget to verify your account via your email to get the best of the system."
+        btns={[
+          { text: "Procced to login", action: () => router.push("/login") },
+          { text: "Cancel", action: closeDialog },
+        ]}
+      />
     </>
   );
 };

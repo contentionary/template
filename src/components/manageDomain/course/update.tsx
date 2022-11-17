@@ -255,7 +255,7 @@ const UpdateCourse = () => {
                     borderRadius: 5,
                     padding: 15,
                   }}
-                  maxLength={200}
+                  maxLength={500}
                 />
               </Box>
             </>
@@ -277,7 +277,7 @@ const UpdateCourse = () => {
                 borderRadius: 5,
                 padding: 15,
               }}
-              maxLength={200}
+              maxLength={250}
             />
           </Box>
 

@@ -5,7 +5,7 @@ export enum Gender {
 }
 
 export interface QuestionOptionInt {
-  id: number;
+  id?: number;
   value: string;
   isCorrect: boolean;
   image?: any;

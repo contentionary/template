@@ -83,7 +83,7 @@ const CourseAdmin = () => {
         </Grid>
       ) : (
         <Empty
-          href={`/admin/course/create?type=COURSE&folderId=${folderId}`}
+          href={folderId ? `/admin/course/create?type=COURSE&folderId=${folderId}` : `/admin/course/create?type=COURSE`}
           buttonText="Create course"
         />
       )}
