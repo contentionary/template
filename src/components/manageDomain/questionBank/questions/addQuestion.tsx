@@ -19,26 +19,21 @@ import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextFields from "@src/components/shared/input/textField";
-import { QuestionOptionInt, QuestionsInt } from "@src/utils/interface";
+import { QuestionOptionInt } from "@src/utils/interface";
 import Editor from "@src/components/shared/editor";
 
 interface Props {
   centreId: string;
   questionBankId: string;
-  update?: boolean;
-  question?: QuestionsInt;
   refetch: Function;
 }
 
 const AddQuestion = ({
   questionBankId,
   centreId,
-  update,
-  question,
   refetch,
 }: Props): JSX.Element => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const Loading = dynamic(() => import("@src/components/shared/loading"));
   const ImageUpload = dynamic(() => import("./imageUpload"));
   const OptionImageUpload = dynamic(() => import("./optionImgUpload"));
   const styles = useStyles();
@@ -52,11 +47,9 @@ const AddQuestion = ({
   const [progres, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedSolutionImage, setConvertedSolutionImage] = useState<any>();
-  const [options, setOptions] = useState<QuestionOptionInt[]>(
-    update && question?.question.options
-      ? question?.question?.options
-      : [{ value: "", isCorrect: false }]
-  );
+  const [options, setOptions] = useState<QuestionOptionInt[]>([
+    { value: "", isCorrect: false },
+  ]);
 
   async function getImage() {
     let resolvedOption = [];
@@ -96,22 +89,19 @@ const AddQuestion = ({
         questions.question.min = values.min;
       }
       if (solution) questions.solution.text = values.solution;
-      update
-        ? await request.patch({
-            url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
-            data: questions,
-          })
-        : await request.post({
-            url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
-            data: questions,
-          });
+      await request.post({
+        url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
+        data: questions,
+      });
       refetch();
       toggleToast("Question add");
       setIsLoading(false);
       closeDialog();
+      setProgress(0);
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
+      setProgress(0);
     }
   }
 
@@ -119,13 +109,15 @@ const AddQuestion = ({
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
         <AddCircleOutlineOutlined />
-        {update ? "Update" : "Add"} Question
+        Add Question
       </MenuItem>
       <Dialog
         title="Add Question"
         isOpen={isOpen}
         closeDialog={closeDialog}
-        width="xl"
+        width="lg"
+        isLoading={isLoading}
+        value={progres}
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
@@ -134,7 +126,7 @@ const AddQuestion = ({
                 <Select
                   label="Question Type"
                   name="type"
-                  value={values.type || question?.question?.type || ""}
+                  value={values.type || ""}
                   onChange={(e) => getData(e)}
                 >
                   <MenuItem value="objective">OBJECTIVE</MenuItem>
@@ -149,7 +141,7 @@ const AddQuestion = ({
                   Question
                 </Typography>
                 <Editor
-                  data={update ? question?.question.question : ""}
+                  data=""
                   onChange={(event: any, editor: any) =>
                     getEditor(event, editor, "question")
                   }
@@ -177,7 +169,9 @@ const AddQuestion = ({
                     variant="body1"
                     onClick={() => setDefault({ answer: false })}
                     className={`${styles.booleanOptionStyle} ${
-                      values.answer === false ? styles.booleanOptionSelected : ""
+                      values.answer === false
+                        ? styles.booleanOptionSelected
+                        : ""
                     }`}
                   >
                     False
@@ -267,7 +261,7 @@ const AddQuestion = ({
                     Solution
                   </Typography>
                   <Editor
-                    data={update ? question?.solution.text : ""}
+                    data=""
                     onChange={(event: any, editor: any) =>
                       getEditor(event, editor, "solution")
                     }
@@ -293,15 +287,7 @@ const AddQuestion = ({
                   type="submit"
                   sx={{ fontSize: 18, mr: 2 }}
                 >
-                  <>
-                    Add question
-                    {isLoading && (
-                      <Loading
-                        size={15}
-                        sx={{ color: "#fff", marginLeft: 1 }}
-                      />
-                    )}
-                  </>
+                  <>Add question</>
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}

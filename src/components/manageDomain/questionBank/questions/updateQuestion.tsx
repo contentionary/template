@@ -15,7 +15,7 @@ import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request, uploadFiles } from "@src/utils";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextFields from "@src/components/shared/input/textField";
@@ -36,7 +36,6 @@ const AddQuestion = ({
   refetch,
 }: Props): JSX.Element => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const Loading = dynamic(() => import("@src/components/shared/loading"));
   const ImageUpload = dynamic(() => import("./imageUpload"));
   const OptionImageUpload = dynamic(() => import("./optionImgUpload"));
   const styles = useStyles();
@@ -54,9 +53,9 @@ const AddQuestion = ({
     question.question.options
   );
 
-  useEffect(() => {
-    setDefault({ ...question?.question });
-  }, [question]);
+  //   useEffect(() => {
+  //     setDefault({ ...question?.question });
+  //   }, [question]);
 
   async function getImage() {
     let resolvedOption = [];
@@ -100,20 +99,27 @@ const AddQuestion = ({
         url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
         data: questions,
       });
-
       refetch();
       toggleToast("Question updated");
       setIsLoading(false);
+      setProgress(0);
       closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
+      setProgress(0);
     }
   }
 
   return (
     <>
-      <MenuItem onClick={() => openDialog()} disableRipple>
+      <MenuItem
+        onClick={() => {
+          setDefault({ ...question?.question });
+          openDialog();
+        }}
+        disableRipple
+      >
         <AddCircleOutlineOutlined />
         Update Question
       </MenuItem>
@@ -121,7 +127,9 @@ const AddQuestion = ({
         title="Add Question"
         isOpen={isOpen}
         closeDialog={closeDialog}
-        width="xl"
+        width="lg"
+        isLoading={isLoading}
+        value={progres}
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
@@ -291,15 +299,7 @@ const AddQuestion = ({
                   type="submit"
                   sx={{ fontSize: 18, mr: 2 }}
                 >
-                  <>
-                    Add question
-                    {isLoading && (
-                      <Loading
-                        size={15}
-                        sx={{ color: "#fff", marginLeft: 1 }}
-                      />
-                    )}
-                  </>
+                  <>Update question</>
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}

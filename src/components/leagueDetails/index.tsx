@@ -37,8 +37,7 @@
 //   );
 // };
 
-// export default ExamDetails;
-
-export default function League() {
-  return <div></div>;
-}
+const ExamDetails = () => {
+  return <div>about</div>;
+};
+export default ExamDetails;

@@ -11,7 +11,7 @@ import { ExamDetailsPageFunc } from "./interfaceType";
 // import ImageComponent from "@src/components/shared/image";
 // import ExamCard from "@src/components/shared/cards/ExamCard";
 
-const AboutExam: ExamDetailsPageFunc = ({ exam }) => {
+const AboutExam: ExamDetailsPageFunc = () => {
   // const { description } = exam;
 
   return (
