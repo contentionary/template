@@ -15,7 +15,7 @@ import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { useDialog } from "@src/hooks";
 import { handleError, request, uploadFiles } from "@src/utils";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextFields from "@src/components/shared/input/textField";
@@ -57,11 +57,6 @@ const AddQuestion = ({
       ? question?.question?.options
       : [{ value: "", isCorrect: false }]
   );
-
-  useEffect(() => {
-    if (update) setDefault({ ...question?.question });
-    console.log(question)
-  }, [update, question]);
 
   async function getImage() {
     let resolvedOption = [];

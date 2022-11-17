@@ -1,6 +1,6 @@
 import CreateAccount from "@src/components/Auth/createAccount";
 import { GetServerSidePropsContext } from "next";
-import { getCentre, handleError, redirect } from "@src/utils";
+import { getCentre, handleError } from "@src/utils";
 import { getAuthData } from "../utils/auth";
 
 const CreateAccountEntry = () => {

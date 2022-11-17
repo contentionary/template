@@ -22,8 +22,8 @@ const ExamsPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate = template[pageProps.cachedData.centre.template]("Exams");
-
+  const ActiveTemplate =
+    template[pageProps.cachedData.centre.template]("Exams");
   return <ActiveTemplate />;
 };
 
