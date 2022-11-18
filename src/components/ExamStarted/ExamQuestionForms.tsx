@@ -205,7 +205,7 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
             <Checkbox
               onChange={handleChange}
               name={String(option.id)}
-              checked={choice.includes(option.id)}
+              checked={choice.includes(option.id as number)}
             />
           }
           label={
