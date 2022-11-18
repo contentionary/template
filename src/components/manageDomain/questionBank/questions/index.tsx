@@ -35,7 +35,7 @@ const QuestionsPage = () => {
     };
   };
 
-  const { isLoading, data, error, refetch } = useQuery(
+  const { data, refetch } = useQuery(
     ["questions", cachedData.centre.id, questionBankId],
     fetchQuestions,
     {
@@ -90,8 +90,8 @@ const QuestionsPage = () => {
         <>
           <Typography
             variant="body1"
-            className={`${styles.optionStyle} ${
-              question.answer === true ? styles.selected : ""
+            className={`${styles.booleanOptionStyle} ${
+              question.answer === true ? styles.booleanOptionSelected : ""
             }`}
           >
             True
@@ -99,8 +99,8 @@ const QuestionsPage = () => {
           <Typography
             sx={{ mt: 3 }}
             variant="body1"
-            className={`${styles.optionStyle} ${
-              question.answer === false ? styles.selected : ""
+            className={`${styles.booleanOptionStyle} ${
+              question.answer === false ? styles.booleanOptionSelected : ""
             }`}
           >
             False
@@ -167,12 +167,17 @@ const QuestionsPage = () => {
               key={`${questionIndex}-module`}
               mb={4}
             >
-              <Avatar>{questionIndex + 1}</Avatar>
               <Accordion
                 sx={{ width: "100%" }}
                 onClick={() => setExpanded(questionIndex)}
                 title={
-                  <div>
+                  <div style={{ width: "100%" }}>
+                    <Typography
+                      component="div"
+                      sx={{ display: "flex", justifyContent: "center" }}
+                    >
+                      <Avatar>{questionIndex + 1}</Avatar>
+                    </Typography>
                     <Typography
                       dangerouslySetInnerHTML={{
                         __html: question.question,

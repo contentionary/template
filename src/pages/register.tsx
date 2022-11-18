@@ -1,6 +1,6 @@
 import CreateAccount from "@src/components/Auth/createAccount";
 import { GetServerSidePropsContext } from "next";
-import { getCentre, handleError, redirect } from "@src/utils";
+import { getCentre, handleError } from "@src/utils";
 import { getAuthData } from "../utils/auth";
 
 const CreateAccountEntry = () => {
@@ -13,7 +13,7 @@ export const getServerSideProps = async (
   try {
     const centre = await getCentre(context);
     const { user, token } = getAuthData(context);
-    if (token) return redirect("/");
+    // if (token) return redirect("/");
     return {
       props: {
         pageData: {},

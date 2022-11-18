@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import { useQuery } from "react-query";
 import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
-import TableMenu from "./tableMenu";
 
 interface ResultInt {
   surname: string;
@@ -24,10 +23,9 @@ const fetchResult = async ({ queryKey }: { queryKey: Array<any> }) => {
   return data.result;
 };
 
-export default function Result({
+export default function Table({
   centreId,
   examId,
-  toggleToast,
 }: {
   centreId: string;
   examId: string;
@@ -44,20 +42,11 @@ export default function Result({
     { minWidth: 50, name: "Exam Score", key: "score" },
     { minWidth: 50, name: "Duration (In minutes)", key: "duration" },
     { minWidth: 70, name: "Gender", key: "gender" },
-    { minWidth: 70, name: "Max Score", key: "maxScore" },
-    { minWidth: 250, name: "Action", key: "action" },
+    { minWidth: 70, name: "Points", key: "points" },
   ];
   const results = data?.map((result: ResultInt, index: number) => ({
     index: ++index,
     ...result,
-    action: (
-      <TableMenu
-        result={result}
-        centreId={centreId}
-        examId={examId}
-        toggleToast={toggleToast}
-      />
-    ),
   }));
   if (isLoading) {
     return <div>Loading....</div>;

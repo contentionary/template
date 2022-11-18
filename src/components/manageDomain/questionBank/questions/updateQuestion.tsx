@@ -19,18 +19,20 @@ import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextFields from "@src/components/shared/input/textField";
-import { QuestionOptionInt } from "@src/utils/interface";
+import { QuestionOptionInt, QuestionsInt } from "@src/utils/interface";
 import Editor from "@src/components/shared/editor";
 
 interface Props {
   centreId: string;
   questionBankId: string;
+  question: QuestionsInt;
   refetch: Function;
 }
 
 const AddQuestion = ({
   questionBankId,
   centreId,
+  question,
   refetch,
 }: Props): JSX.Element => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
@@ -47,9 +49,13 @@ const AddQuestion = ({
   const [progres, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedSolutionImage, setConvertedSolutionImage] = useState<any>();
-  const [options, setOptions] = useState<QuestionOptionInt[]>([
-    { value: "", isCorrect: false },
-  ]);
+  const [options, setOptions] = useState<QuestionOptionInt[]>(
+    question.question.options
+  );
+
+  //   useEffect(() => {
+  //     setDefault({ ...question?.question });
+  //   }, [question]);
 
   async function getImage() {
     let resolvedOption = [];
@@ -89,15 +95,15 @@ const AddQuestion = ({
         questions.question.min = values.min;
       }
       if (solution) questions.solution.text = values.solution;
-      await request.post({
-        url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
+      await request.patch({
+        url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
         data: questions,
       });
       refetch();
-      toggleToast("Question add");
+      toggleToast("Question updated");
       setIsLoading(false);
-      closeDialog();
       setProgress(0);
+      closeDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -107,9 +113,15 @@ const AddQuestion = ({
 
   return (
     <>
-      <MenuItem onClick={() => openDialog()} disableRipple>
+      <MenuItem
+        onClick={() => {
+          setDefault({ ...question?.question });
+          openDialog();
+        }}
+        disableRipple
+      >
         <AddCircleOutlineOutlined />
-        Add Question
+        Update Question
       </MenuItem>
       <Dialog
         title="Add Question"
@@ -126,7 +138,7 @@ const AddQuestion = ({
                 <Select
                   label="Question Type"
                   name="type"
-                  value={values.type || ""}
+                  value={values.type || question?.question?.type || ""}
                   onChange={(e) => getData(e)}
                 >
                   <MenuItem value="objective">OBJECTIVE</MenuItem>
@@ -141,7 +153,7 @@ const AddQuestion = ({
                   Question
                 </Typography>
                 <Editor
-                  data=""
+                  data={question?.question?.question}
                   onChange={(event: any, editor: any) =>
                     getEditor(event, editor, "question")
                   }
@@ -214,7 +226,7 @@ const AddQuestion = ({
                         <Box sx={{ display: "flex" }}>
                           <Box sx={{ width: "100%" }}>
                             <Editor
-                              data=""
+                              data={option.value}
                               onChange={(event: any, editor: any) => {
                                 options[index].value = editor.getData();
                                 setOptions(options);
@@ -261,7 +273,7 @@ const AddQuestion = ({
                     Solution
                   </Typography>
                   <Editor
-                    data=""
+                    data={question?.solution.text}
                     onChange={(event: any, editor: any) =>
                       getEditor(event, editor, "solution")
                     }
@@ -287,7 +299,7 @@ const AddQuestion = ({
                   type="submit"
                   sx={{ fontSize: 18, mr: 2 }}
                 >
-                  <>Add question</>
+                  <>Update question</>
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}

@@ -3,7 +3,7 @@ import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
 import { useMenu } from "@src/utils/hooks";
-import UpdateQuestion from "./addQuestion";
+import UpdateQuestion from "./updateQuestion";
 import { QuestionsInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({
@@ -29,7 +29,6 @@ export default function CustomizedMenus({
             questionBankId={questionBankId}
             centreId={centreId}
             question={question}
-            update={true}
             refetch={refetch}
           />
           <Delete
