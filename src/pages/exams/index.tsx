@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { GetServerSideProps } from "next";
-import themes from "@src/templates";
+import template from "@src/templates";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
@@ -17,13 +17,13 @@ const ExamsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
     const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
+      template[pageProps.cachedData.centre.template]("ErrorPage");
 
     return <ActiveTemplate />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate = themes[pageProps.cachedData.centre.template]("Exams");
-
+  const ActiveTemplate =
+    template[pageProps.cachedData.centre.template]("Exams");
   return <ActiveTemplate />;
 };
 

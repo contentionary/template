@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import { useDialog } from "@src/hooks";
 import useForm from "@src/hooks/useForm";
 import { handleError, request } from "@src/utils";
-import Dialog from "../shared/dialog";
+import Dialog from "@src/components/shared/dialog";
 import TextFields from "../shared/input/textField";
 import useStyles from "./styles";
 import Loading from "../shared/loading";

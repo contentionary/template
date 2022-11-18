@@ -26,6 +26,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         : `/centre/${centre.id}/courses`,
       token,
     });
+
     return {
       props: {
         pageData: { courses: data.courses },

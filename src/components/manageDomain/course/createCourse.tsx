@@ -220,7 +220,7 @@ const CreateCourse = () => {
                     borderRadius: 5,
                     padding: 15,
                   }}
-                  maxLength={10000}
+                  maxLength={500}
                 />
               </Box>
             </>
