@@ -2,6 +2,7 @@ export interface HeadInt {
   description: string;
   title: string;
   image?: string;
+  googleCode?: string;
 }
 
 // eslint-disable-next-line no-unused-vars

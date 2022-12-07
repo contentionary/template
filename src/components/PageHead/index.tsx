@@ -1,7 +1,8 @@
 import Head from "next/head";
+import Script from "next/script";
 import { HeadFunc } from "./interfaceType";
 
-const HeadPage: HeadFunc = ({ description, title, image }) => {
+const HeadPage: HeadFunc = ({ description, title, image, googleCode }) => {
   return (
     <Head>
       <title>{title}</title>
@@ -41,6 +42,25 @@ const HeadPage: HeadFunc = ({ description, title, image }) => {
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image}></meta>
+
+      {/* <!-- Google tag (gtag.js) --> */}
+      {googleCode && (
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleCode}`}
+        />
+      )}
+
+      {googleCode && (
+        <Script id="google-analytics">
+          {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '${googleCode}');
+        `}
+        </Script>
+      )}
     </Head>
   );
 };
