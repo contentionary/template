@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { data: exam, auth = null } = await request.get({
       token,
       isRelativeUrl: true,
-      url: `/exam/${slug?.slice(-36)}`,
+      url: `/centre/${centre.id}/exam/${slug?.slice(-36)}`,
     });
 
     return {
