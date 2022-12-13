@@ -82,7 +82,7 @@ const StartExam: ExamFunc = (props) => {
     ["examQuestions", { id: exam.id }],
     async () => {
       return await request.get({
-        url: `/exam/${exam.id}/subscriber-questions`,
+        url: `/centre/${exam.centreId}/exam/${exam.id}/subscriber-questions`,
       });
     }
   ) as {
