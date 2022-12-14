@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import dynamic from "next/dynamic";
 import { BasePageProps } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
@@ -11,10 +12,13 @@ import Subscribers from "./subscribers";
 import DeleteExam from "./deleteExam";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
+import NextLink from "next/link";
 
 const ModulesPage = () => {
   const router = useRouter();
-  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { cachedData, pageData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const { id } = router.query;
   const { toastMessage, toggleToast } = useToast();
   const GeneralSettings = dynamic(() => import("./generalSettings"));
@@ -55,11 +59,17 @@ const ModulesPage = () => {
   ];
   return (
     <Box sx={{ mt: 4 }}>
+      <NextLink
+        style={{ textDecoration: "none", color: "#dbdbdb" }}
+        href={`/exams/${pageData.exam.slug}`}
+      >
+        <Button sx={{ fontSize: 17 }}>Vew Exam</Button>
+      </NextLink>
       <Tabs
         tab={tab}
         tabPanel={tabPanel}
         sx={{
-          background: "rgba(247, 126, 35, 0.1)",
+          background: "rgba(247, 126, 35, 0.1)", mt: 2
         }}
         tabSx={{ width: 200, fontSize: 16 }}
         indicatorColor="primary"

@@ -18,7 +18,6 @@ import useStyles from "./styles";
 import { handleError, queryClient, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
-import Snackbar from "@src/components/shared/snackerBar";
 import { useRouter } from "next/router";
 import ForgottenPassword from "./forgottenPassword";
 import { setAuth } from "@src/utils/auth";
@@ -126,7 +125,7 @@ const CreateAccount = (): JSX.Element => {
                   helperTextClass={styles.helperTextClass}
                 />
                 <TextFields
-                  type={!showPassword ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   label="Password"
                   name="password"
                   onChange={getData}

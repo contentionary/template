@@ -22,7 +22,6 @@ export default makeStyles({
     marginLeft: 0,
   },
   btn: {
-    background: "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
     width: "100%",
     marginTop: 15,
     fontFamily: "Matter",

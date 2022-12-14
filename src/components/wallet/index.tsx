@@ -20,6 +20,7 @@ import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
 import { useRouter } from "next/router";
 import { useToast } from "@src/utils/hooks";
+import useGloabalStyle from "@src/styles";
 
 import ButtonComponent from "@src/components/shared/button";
 import MuiTable from "@src/components/shared/table";
@@ -35,6 +36,7 @@ export default function CustomizedSteppers() {
     () => import("./walletToWalletTransfer")
   );
   const CreditWallet = dynamic(() => import("./creditWallet"));
+  const globalStyles = useGloabalStyle();
   const { toastMessage, toggleToast } = useToast();
   const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
@@ -92,9 +94,8 @@ export default function CustomizedSteppers() {
         <Stack spacing={4} marginTop={4}>
           <Stack direction={{ md: "row" }} spacing={4}>
             <Box
+              className={globalStyles.bgGradient}
               sx={{
-                background:
-                  "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
                 padding: 3,
                 width: { xs: "100%", md: "75%" },
                 borderRadius: 3,
@@ -176,10 +177,9 @@ export default function CustomizedSteppers() {
               <Typography
                 variant="h5"
                 component="p"
-                color=""
-                style={{
-                  marginBottom: 20,
-                  color: "#DD6E20",
+                color="primary"
+                sx={{
+                  marginBottom: 2,
                 }}
               >
                 Total balance in USD
@@ -187,7 +187,8 @@ export default function CustomizedSteppers() {
               <Typography
                 variant="h4"
                 component="p"
-                style={{ marginBottom: 20, color: "#DD6E20" }}
+                color="primary"
+                sx={{ marginBottom: 2}}
               >
                 ${walletBalance.usdBalance}
               </Typography>

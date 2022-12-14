@@ -1,4 +1,4 @@
-import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import ConfirmDialog from "@src/components/shared/confirmationModal";
 import Toast from "@src/components/shared/toast";
@@ -38,9 +38,10 @@ const DeleteCentre = ({ id, centreId }: Props) => {
 
   return (
     <>
-      <IconButton onClick={() => openDialog()}>
-        <DeleteOutline htmlColor="red" />
-      </IconButton>
+      <MenuItem disableRipple onClick={() => openDialog()}>
+        <DeleteOutline />
+        Delete
+      </MenuItem>
       <ConfirmDialog
         isLoading={isLoading}
         isOpen={isOpen}

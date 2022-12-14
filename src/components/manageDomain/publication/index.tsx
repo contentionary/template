@@ -27,6 +27,7 @@ const PublicationAdmin = () => {
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Delete = dynamic(() => import("./delete"));
+  const Menu = dynamic(() => import("./menu"));
   const Breadcrumbs = dynamic(
     () => import("@src/components/shared/breadcrumbs")
   );
@@ -79,43 +80,7 @@ const PublicationAdmin = () => {
           </NextLink>
         </Box>
         {folderId && (
-          <Box
-            sx={{
-              display: { xs: "flex", md: "unset" },
-              justifyContent: { xs: "center" },
-              mt: { xs: 4, md: 0 },
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Box sx={{ textAlign: "center", mr: 2 }}>
-                <Link
-                  passHref
-                  href={`/admin/publication/${folderId}/update?type=FOLDER`}
-                  className={styles.createFolder}
-                >
-                  <IconButton>
-                    <EditOutlined />
-                  </IconButton>
-                </Link>
-                <Hidden lgDown>
-                  <Typography variant="caption" component="div">
-                    Want to update Folder?
-                  </Typography>
-                </Hidden>
-              </Box>
-              {!publications.length && (
-                <Box sx={{ textAlign: "center" }}>
-                  <Delete centreId={cachedData.centre.id} id={folderId} />
-
-                  <Hidden lgDown>
-                    <Typography variant="caption" component="div">
-                      Want to delete Folder?
-                    </Typography>
-                  </Hidden>
-                </Box>
-              )}
-            </Box>
-          </Box>
+          <Menu folderId={folderId as string} centreId={cachedData.centre.id} />
         )}
       </Box>
       {publications.length ? (

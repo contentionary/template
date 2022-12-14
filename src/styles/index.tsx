@@ -2,9 +2,7 @@ import { theme } from "./theme";
 import { makeStyles } from "@mui/styles";
 import { alpha } from "@mui/material/styles";
 
-export const appGradient = `linear-gradient(92.54deg, ${
-  theme().palette.primary.main
-} -14.34%, ${"#DDA333"} 98.84%)`;
+export const appGradient = theme().palette.primary.main;
 
 export const appShadow = {
   small: "0px 0px 24px rgba(0, 0, 0, 0.06)",

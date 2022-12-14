@@ -152,7 +152,7 @@ const PasswordReset = ({ toggleToast }: { toggleToast: Function }) => {
             }
           />
         </Stack>
-        <Typography style={{ textAlign: "right", marginTop: 20 }}>
+        <Typography sx={{ textAlign: "center", marginTop: 4 }}>
           <ButtonComponent
             variant="contained"
             type="submit"

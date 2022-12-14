@@ -1,24 +1,26 @@
 import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
+// import Visibility from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
-import { CourseInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({
-  folderId,
+  id,
   centreId,
-  courses,
+  slug,
+  folderId,
 }: {
-  folderId: string;
+  id: string;
   centreId: string;
-  courses: CourseInt[];
+  refetch: Function;
+  slug: string;
+  folderId: string;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
-
   return (
     <>
       <IconButton onClick={openMenu}>
@@ -26,15 +28,22 @@ export default function CustomizedMenus({
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <Link passHref href={`/admin/course/${folderId}/update?type=FOLDER`}>
+          <Link
+            passHref
+            href={`/admin/publication/${folderId}/update?type=FOLDER`}
+          >
             <MenuItem disableRipple>
               <EditIcon />
               Edit
             </MenuItem>
           </Link>
-          {!courses.length && (
-            <Delete refetch={() => {}} id={folderId} centreId={centreId} />
-          )}
+          {/* <Link passHref href={`/courses/${slug}/${id}`}>
+            <MenuItem disableRipple>
+              <Visibility />
+              View course
+            </MenuItem>
+          </Link> */}
+          <Delete id={folderId} centreId={centreId} />
         </div>
       </Menus>
     </>

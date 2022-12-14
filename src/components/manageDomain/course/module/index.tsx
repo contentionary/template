@@ -59,6 +59,7 @@ const ModulesPage = () => {
           id={id as string}
           centreId={cachedData.centre.id}
           refetch={refetch}
+          slug=""
         />
       </Box>
       {modules.length ? (
