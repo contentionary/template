@@ -21,7 +21,7 @@ const PublicationAdmin = () => {
   };
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-   const Menu = dynamic(() => import("./menu"));
+  const Menu = dynamic(() => import("./menu"));
   const Breadcrumbs = dynamic(
     () => import("@src/components/shared/breadcrumbs")
   );

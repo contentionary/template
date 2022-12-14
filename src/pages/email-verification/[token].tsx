@@ -36,7 +36,7 @@ const EmailVerification = () => {
     try {
       setIsLoading(true);
       const { message } = await request.post({
-        url: `/auth/verification/email`,
+        url: "/auth/verification/email",
         data: values,
       });
       toggleToast(message);
