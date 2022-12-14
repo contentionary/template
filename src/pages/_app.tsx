@@ -46,7 +46,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={client.current}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme()}>
         <CssBaseline />
         {pageLoading && (
           <LinearProgress

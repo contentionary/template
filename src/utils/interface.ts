@@ -119,6 +119,8 @@ export interface CachedCentreInt {
   slug: string;
   template: string;
   phoneNumber: string;
+  googleAnalyticsCode: string;
+  primaryColor: string;
   emailAddress: string;
   address: string;
   price: number;
