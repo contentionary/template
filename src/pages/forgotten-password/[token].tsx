@@ -26,7 +26,7 @@ const PasswordReset = () => {
       if (!tokenExpired) {
         values.token = router.query.token;
         const { data } = await request.post({
-          url: `/auth/security/reset-password`,
+          url: "/auth/security/reset-password",
           data: values,
         });
         toggleToast(data.message);
@@ -34,7 +34,7 @@ const PasswordReset = () => {
         router.replace(`${url.split("forgotten")[0]}`);
       } else {
         const { message } = await request.post({
-          url: `/auth/security/send-reset-password-link`,
+          url: "/auth/security/send-reset-password-link",
           data: {
             email: values.email,
             redirectUrl: `${url.split("password")[0]}password`,

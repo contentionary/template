@@ -47,7 +47,7 @@ const Bios = ({
       if (folderId) values.folderId = folderId;
       convertedImage && (values.avatar = convertedImage);
       await request.post({
-        url: `/auth/update`,
+        url: "/auth/update",
         data: values,
         method: "PATCH",
       });

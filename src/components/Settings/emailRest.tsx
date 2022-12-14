@@ -20,7 +20,7 @@ const EmailReset = ({ toggleToast }: { toggleToast: Function }) => {
     try {
       setIsLoading(true);
       await request.patch({
-        url: `/auth/update/email`,
+        url: "/auth/update/email",
         data: values,
       });
       AuthUpdate();

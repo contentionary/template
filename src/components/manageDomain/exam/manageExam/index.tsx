@@ -69,7 +69,8 @@ const ModulesPage = () => {
         tab={tab}
         tabPanel={tabPanel}
         sx={{
-          background: "rgba(247, 126, 35, 0.1)", mt: 2
+          background: "rgba(247, 126, 35, 0.1)",
+          mt: 2,
         }}
         tabSx={{ width: 200, fontSize: 16 }}
         indicatorColor="primary"

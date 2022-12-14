@@ -188,7 +188,7 @@ export default function CustomizedSteppers() {
                 variant="h4"
                 component="p"
                 color="primary"
-                sx={{ marginBottom: 2}}
+                sx={{ marginBottom: 2 }}
               >
                 ${walletBalance.usdBalance}
               </Typography>

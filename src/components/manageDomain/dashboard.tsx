@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
+// import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
 import SubscriptionsOutlined from "@mui/icons-material/SubscriptionsOutlined";
 import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";

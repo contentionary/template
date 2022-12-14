@@ -51,7 +51,7 @@ const DeleteExam = ({ toggleToast }: { toggleToast: Function }) => {
             This action means this exam will no longer exist. Are you sure you
             want to delete this?
           </Typography>
-          <Typography variant="h6" component="div" sx={{ mb: 3,  }}>
+          <Typography variant="h6" component="div" sx={{ mb: 3 }}>
             <strong>Exam name: </strong> {exam.name}{" "}
             <CopyAllOutlined
               sx={{ cursor: "pointer" }}

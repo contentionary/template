@@ -9,15 +9,10 @@ import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
 
 export default function CustomizedMenus({
-  id,
   centreId,
-  slug,
   folderId,
 }: {
-  id: string;
   centreId: string;
-  refetch: Function;
-  slug: string;
   folderId: string;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();

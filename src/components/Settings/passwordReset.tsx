@@ -26,7 +26,7 @@ const PasswordReset = ({ toggleToast }: { toggleToast: Function }) => {
     try {
       setIsLoading(true);
       await request.patch({
-        url: `/auth/update/password`,
+        url: "/auth/update/password",
         data: values,
       });
       AuthUpdate();

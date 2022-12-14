@@ -186,7 +186,9 @@ const CreateAccount = (): JSX.Element => {
                     }
                   />
                   <TextFields
-                    type={showPassword === "confirmPassword" ? "text" : "password"}
+                    type={
+                      showPassword === "confirmPassword" ? "text" : "password"
+                    }
                     label="Confirm Password *"
                     name="confirmPassword"
                     onChange={getData}

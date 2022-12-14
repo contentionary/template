@@ -1,11 +1,7 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import EditOutlined from "@mui/icons-material/EditOutlined";
-import IconButton from "@mui/material/IconButton";
 
 import useStyles from "./styles";
 import NextLink from "@src/components/shared/link/btnLink";
-import Link from "@src/components/shared/link";
 
 import PublicationCard from "./PublicationCard";
 import Grid from "@mui/material/Grid";
@@ -13,7 +9,6 @@ import { BasePageProps, PublicationInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import Hidden from "@mui/material/Hidden";
 
 const PublicationAdmin = () => {
   const styles = useStyles();
@@ -26,8 +21,7 @@ const PublicationAdmin = () => {
   };
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Delete = dynamic(() => import("./delete"));
-  const Menu = dynamic(() => import("./menu"));
+   const Menu = dynamic(() => import("./menu"));
   const Breadcrumbs = dynamic(
     () => import("@src/components/shared/breadcrumbs")
   );

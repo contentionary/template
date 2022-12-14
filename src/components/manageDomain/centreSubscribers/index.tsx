@@ -49,7 +49,7 @@ export default function Subscribers({
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Action", key: "action" },
   ];
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handleChange = () => {
     router.replace({
       query: { ...router.query },
     });

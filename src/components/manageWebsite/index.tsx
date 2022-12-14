@@ -223,7 +223,7 @@ const CreatePublication = () => {
             }}
             required
           />
-          <TextFields
+          {/* <TextFields
             type="color"
             label="Secondary Color"
             name="secondaryColor"
@@ -234,7 +234,7 @@ const CreatePublication = () => {
               mb: 2,
             }}
             required
-          />
+          /> */}
           <TextFields
             type="text"
             label="Google Analytics Code"
