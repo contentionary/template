@@ -35,7 +35,7 @@ const Empty = ({ error, href, buttonText, title, message }: EmptyPageInt) => {
             height="100%"
             layout="responsive"
             objectFit="contain"
-            alt={error?.message}
+            alt={error?.message || "No content"}
             src="/images/state/empty-cart.svg"
           />
           <Typography variant="h4">
