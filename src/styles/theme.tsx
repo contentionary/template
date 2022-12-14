@@ -1,12 +1,12 @@
 import { createTheme } from "@mui/material/styles";
-import { queryClient } from "@src/utils";
+import { devLog, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
 export const theme = () => {
   const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
   let primaryColor: any = null;
   if (pageProps?.cachedData?.centre) {
-    primaryColor = pageProps.cachedData.centre.primaryColor;
+    primaryColor = pageProps.cachedData.centre?.primaryColor;
   }
 
   return createTheme({
