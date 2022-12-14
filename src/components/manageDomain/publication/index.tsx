@@ -27,9 +27,24 @@ const PublicationAdmin = () => {
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Delete = dynamic(() => import("./delete"));
+  const Breadcrumbs = dynamic(
+    () => import("@src/components/shared/breadcrumbs")
+  );
+  const links = [
+    { link: "/admin", name: "Dashboard" },
+    { link: "/admin/publication", name: "Publications" },
+  ];
 
   return (
-    <Box>
+    <Box mt={2}>
+      <Breadcrumbs
+        links={folderId ? links : [{ link: "/admin", name: "Dashboard" }]}
+        currentPage={
+          folderId
+            ? { name: "Folder", link: "/" }
+            : { link: "/admin/publication", name: "Publications" }
+        }
+      />
       <Box
         sx={{
           display: "flex",
@@ -103,7 +118,6 @@ const PublicationAdmin = () => {
           </Box>
         )}
       </Box>
-
       {publications.length ? (
         <Grid
           container

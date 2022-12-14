@@ -68,6 +68,9 @@ export interface landingPageSectionTwo {
 export interface TemplateInt {
   landingPageSectionTwo: Record<string, Array<ContentInt>>;
   landingPageSectionOne: {};
+  primaryColor: string;
+  secondaryColor: string;
+  googleAnalyticsCode: string;
 }
 
 export interface UserBaseInt {

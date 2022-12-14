@@ -12,6 +12,7 @@ interface Props {
   type: string;
   dummyText?: string;
   helperTextClass?: string;
+  endAdornment?: JSX.Element | string;
   required?: boolean;
   error?: boolean;
 }
@@ -44,6 +45,7 @@ export default function CustomizedInputs({
   type,
   dummyText,
   error,
+  endAdornment,
 }: Props): JSX.Element {
   return (
     <>
@@ -56,6 +58,7 @@ export default function CustomizedInputs({
           name={name}
           onChange={(e) => onChange && onChange(e)}
           error={error}
+          endAdornment={endAdornment}
           required
         />
       </FormControl>

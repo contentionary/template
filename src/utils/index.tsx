@@ -340,6 +340,14 @@ export const pageErrorHandler = (
     cachedData: { user, centre, token },
   },
 });
+export const AuthUpdate = async () => {
+  try {
+    const { data }: any = await request.get({ url: "/auth/verify-token" });
+    cache.set("user", data);
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const getCentre = async (
   context: GetServerSidePropsContext,

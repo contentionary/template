@@ -39,6 +39,7 @@ const Dashboard = (): JSX.Element => {
             icon={<SubscriptionsOutlined htmlColor="#0047ab" />}
             title="Subscribers"
             bgColor="#add8e6"
+            link="/admin/subscribers"
           />
         </Grid>
         <Grid item xs={6} md={3}>
@@ -46,6 +47,7 @@ const Dashboard = (): JSX.Element => {
             icon={<ManageAccountsOutlinedIcon htmlColor="#ff9f00" />}
             title="Managers"
             bgColor="#ffe5b4"
+            link="/admin/managers"
           />
         </Grid>
         <Grid item xs={6} md={3}>
@@ -53,15 +55,16 @@ const Dashboard = (): JSX.Element => {
             icon={<WalletOutlinedIcon htmlColor="#9400d3" />}
             title="Centre Wallet"
             bgColor="#cea2fd"
+            link="/admin/wallet"
           />
         </Grid>
-        <Grid item xs={6} md={3}>
+        {/* <Grid item xs={6} md={3}>
           <Card
             icon={<Diversity2OutlinedIcon htmlColor="#fff017" />}
             title="Group"
             bgColor="#ffffe0"
           />
-        </Grid>
+        </Grid> */}
       </Grid>
       <Box sx={{ marginTop: 10 }}>
         {plugins.length && (

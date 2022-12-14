@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import { useDialog } from "@src/hooks";
 import useForm from "@src/hooks/useForm";
-import { handleError, request } from "@src/utils";
+import { handleError, isServerSide, request } from "@src/utils";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "../shared/input/textField";
 import useStyles from "./styles";
@@ -9,10 +9,10 @@ import Loading from "../shared/loading";
 import { useState } from "react";
 
 interface Props {
-  setMessage: Function;
+  toggleToast: Function;
 }
 
-const ForgottenPassword = ({ setMessage }: Props): JSX.Element => {
+const ForgottenPassword = ({ toggleToast }: Props): JSX.Element => {
   const styles = useStyles();
   const { isOpen, closeDialog, openDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
@@ -24,17 +24,21 @@ const ForgottenPassword = ({ setMessage }: Props): JSX.Element => {
       if (Object.keys(values).length === 0 || values.email === "") {
         throw "kindly enter your email";
       }
+      const url = isServerSide ? "" : window.location.href;
       const { message } = await request.post({
         url: "/auth/security/send-reset-password-link",
-        data: { ...values, redirectUrl: "forgotten-password" },
+        data: {
+          ...values,
+          redirectUrl: `${url.split("login")[0]}/forgotten-password`,
+        },
       });
-      setMessage(message);
-      setTimeout(() => setMessage(""), 3000);
+      toggleToast(message);
+      setIsLoading(false);
       setIsLoading(false);
       closeDialog();
     } catch (error) {
-      setMessage(handleError(error).message);
-      setTimeout(() => setMessage(""), 3000);
+      toggleToast(handleError(error).message);
+      setIsLoading(false);
     }
   }
 

@@ -8,9 +8,17 @@ interface Props {
   isOpen: boolean;
   closeDialog: Function;
   toggleToast: Function;
+  updateData?: Function;
 }
 
-const Delete = ({ url, children, closeDialog, isOpen, toggleToast }: Props) => {
+const Delete = ({
+  url,
+  children,
+  closeDialog,
+  isOpen,
+  toggleToast,
+  updateData,
+}: Props) => {
   const [isLoading, setIsLoading] = useState(false);
 
   async function deleteCentre() {
@@ -18,6 +26,7 @@ const Delete = ({ url, children, closeDialog, isOpen, toggleToast }: Props) => {
       setIsLoading(true);
       const data = await request.delete(url);
       toggleToast(data.message);
+      updateData && updateData();
       setIsLoading(false);
       closeDialog();
     } catch (error) {

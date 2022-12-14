@@ -51,7 +51,9 @@ const BankTransfer = ({
     try {
       setIsLoading(true);
       await request.post({
-        url: `/wallet/centre/${centreId}/bank-transfer`,
+        url: centreId
+          ? `/wallet/centre/${centreId}/bank-transfer`
+          : "/wallet/bank-transfer",
         data: { ...values, amount: values.amount * 100 },
       });
       toggleToast("Transaction successful");
