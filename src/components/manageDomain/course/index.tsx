@@ -23,9 +23,24 @@ const CourseAdmin = () => {
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./folderMenu"));
+  const Breadcrumbs = dynamic(
+    () => import("@src/components/shared/breadcrumbs")
+  );
+  const links = [
+    { link: "/admin", name: "Dashboard" },
+    { link: "/admin/course", name: "Courses" },
+  ];
 
   return (
-    <Box>
+    <Box mt={2}>
+      <Breadcrumbs
+        links={folderId ? links : [{ link: "/admin", name: "Dashboard" }]}
+        currentPage={
+          folderId
+            ? { name: "Folder", link: "/" }
+            : { link: "/admin/course", name: "Courses" }
+        }
+      />
       <Box
         sx={{
           display: "flex",

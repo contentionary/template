@@ -34,7 +34,9 @@ const WalletToWalletTransfer = ({
     try {
       setIsLoading(true);
       const { message } = await request.post({
-        url: `/wallet/centre/${centreId}/wallet-transfer`,
+        url: centreId
+          ? `/wallet/centre/${centreId}/wallet-transfer`
+          : "/wallet/wallet-transfer",
         data: { ...values, amount: values.amount * 100 },
       });
       toggleToast(message);

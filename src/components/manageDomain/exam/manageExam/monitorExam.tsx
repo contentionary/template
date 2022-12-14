@@ -60,9 +60,9 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
           />
           <CheckBox
             label={<Typography variant="h6">Randomize Options</Typography>}
-            checked={exam.randomiseOptions}
+            checked={exam.randomiseOption}
             onChange={(e: ChangeEvent<any>) =>
-              update("randomiseOptions", e.target.checked)
+              update("randomiseOption", e.target.checked)
             }
           />
         </Box>

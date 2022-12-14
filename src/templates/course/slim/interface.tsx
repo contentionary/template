@@ -4,4 +4,6 @@ export type CoursePages =
   | "Details"
   | "Contents"
   | "ErrorPage"
-  | "MyCourses";
+  | "MyCourses"
+  | "Wallet"
+  | "Settings";

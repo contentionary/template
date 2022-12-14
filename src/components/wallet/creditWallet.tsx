@@ -6,9 +6,10 @@ import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useState } from "react";
-import { isServerSide } from "@src/utils";
+import { cache, isServerSide } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { useRouter } from "next/router";
+import { v4 as uuid } from "uuid";
 
 import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
@@ -31,7 +32,8 @@ const CreditWallet = ({ centreId }: { centreId: string }) => {
         currency: "NGN",
         purpose: "FUND_WALLET",
         paymentMethod: "CARD",
-        itemId: centreId,
+        itemId: centreId ? centreId : cache.get("user").id,
+        transactionkey: uuid(),
       },
     });
   }

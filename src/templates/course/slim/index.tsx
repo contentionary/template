@@ -6,6 +6,8 @@ import Contents from "./pages/content";
 import MyCourses from "./pages/myCourses";
 import ErrorPage from "./pages/errorPage";
 import { CoursePages } from "./interface";
+import Wallet from "./pages/wallet";
+import Settings from "./pages/settings";
 
 const coursePages: Record<CoursePages, WrapperFunc> = {
   Home,
@@ -14,6 +16,8 @@ const coursePages: Record<CoursePages, WrapperFunc> = {
   Contents,
   ErrorPage,
   MyCourses,
+  Wallet,
+  Settings,
 };
 
 export default coursePages;

@@ -11,7 +11,7 @@ const tabStyle = makeStyles({
         maxWidth: "1100px",
       },
       "&.border-bottom": {
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        borderBottom: `1px solid ${theme().palette.divider}`,
       },
     },
     "& .MuiTabs-flexContainer": {

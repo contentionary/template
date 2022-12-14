@@ -1,11 +1,19 @@
 import Link from "next/link";
 //
-import { Grid, Stack, Typography, Hidden } from "@mui/material";
+import Hidden from "@mui/material/Hidden";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 import useForm from "@src/hooks/useForm";
 import ButtonComponent from "@src/components/shared/button";
 import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
-import { Box } from "@mui/system";
 import useStyles from "./styles";
 import { handleError, request, queryClient } from "@src/utils";
 import Loading from "@src/components/shared/loading";
@@ -19,6 +27,7 @@ import Dialog from "@src/components/shared/dialog";
 
 const CreateAccount = (): JSX.Element => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const [showPassword, setShowPassword] = useState("");
   const { isOpen, closeDialog, openDialog } = useDialog();
   const { getData, values, resetValues, submit } = useForm(createAccount);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +57,7 @@ const CreateAccount = (): JSX.Element => {
   }
 
   return (
-    <>
+    <Container>
       <Grid container>
         <Hidden smDown={true}>
           <Grid
@@ -82,7 +91,7 @@ const CreateAccount = (): JSX.Element => {
           <Stack
             spacing={{ xs: 2 }}
             sx={{
-              width: { lg: "70%", xs: "90%" },
+              width: { lg: "85%", xs: "90%" },
               marginTop: { xs: 7, md: 0 },
             }}
           >
@@ -146,7 +155,7 @@ const CreateAccount = (): JSX.Element => {
                 />
                 <Stack direction="row" spacing={1}>
                   <TextFields
-                    type="password"
+                    type={showPassword === "Password" ? "text" : "password"}
                     label="Password *"
                     name="password"
                     onChange={getData}
@@ -154,9 +163,32 @@ const CreateAccount = (): JSX.Element => {
                     helperTextClass={styles.helperTextClass}
                     sx={{ width: "100%" }}
                     required={true}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        {showPassword === "Password" ? (
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword("")}
+                            edge="end"
+                          >
+                            <VisibilityOff />
+                          </IconButton>
+                        ) : (
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword("Password")}
+                            edge="end"
+                          >
+                            <Visibility />
+                          </IconButton>
+                        )}
+                      </InputAdornment>
+                    }
                   />
                   <TextFields
-                    type="password"
+                    type={
+                      showPassword === "confirmPassword" ? "text" : "password"
+                    }
                     label="Confirm Password *"
                     name="confirmPassword"
                     onChange={getData}
@@ -164,6 +196,27 @@ const CreateAccount = (): JSX.Element => {
                     helperTextClass={styles.helperTextClass}
                     sx={{ width: "100%" }}
                     required={true}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        {showPassword === "confirmPassword" ? (
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword("")}
+                            edge="end"
+                          >
+                            <VisibilityOff />
+                          </IconButton>
+                        ) : (
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={() => setShowPassword("confirmPassword")}
+                            edge="end"
+                          >
+                            <Visibility />
+                          </IconButton>
+                        )}
+                      </InputAdornment>
+                    }
                   />
                 </Stack>
 
@@ -221,7 +274,7 @@ const CreateAccount = (): JSX.Element => {
           { text: "Cancel", action: closeDialog },
         ]}
       />
-    </>
+    </Container>
   );
 };
 export default CreateAccount;

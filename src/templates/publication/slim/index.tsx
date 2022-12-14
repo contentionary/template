@@ -6,6 +6,8 @@ import Document from "./pages/document";
 import ErrorPage from "./pages/errorPage";
 import MyPublications from "./pages/myPublication";
 import { PublicationPages } from "./interface";
+import Wallet from "./pages/wallet";
+import Settings from "./pages/settings";
 
 const PublicationPages: Record<PublicationPages, PublicationsWrapperFunc> = {
   Home,
@@ -14,6 +16,8 @@ const PublicationPages: Record<PublicationPages, PublicationsWrapperFunc> = {
   Document,
   ErrorPage,
   MyPublications,
+  Wallet,
+  Settings,
 };
 
 export default PublicationPages;

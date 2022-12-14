@@ -55,6 +55,7 @@ const PublicationCard = ({
             <Typography
               variant="subtitle1"
               component="div"
+              color="primary"
               className={styles.poweredBy}
             >
               By Contentionary (Free)

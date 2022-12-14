@@ -23,6 +23,8 @@ import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 // styles and interface
 import useMenuStyle from "@src/styles/menu";
 import { UserInt, CachedCentreInt } from "@src/utils/interface";
+import WalletOutlined from "@mui/icons-material/WalletOutlined";
+import Settings from "@mui/icons-material/Settings";
 // import { fontSize } from "@mui/joy/styles/styleFunctionSx";
 
 interface ProfileMenuInt {
@@ -186,23 +188,23 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                       </MenuItem>
                     </NextLink>
                   )}
-                  {/* <NextLink href="/courses/my-courses" passHref>
+                  <NextLink href="/wallet" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
-                        <PlayLessonOutlinedIcon fontSize="small" />
+                        <WalletOutlined fontSize="small" />
                       </ListItemIcon>
-                      My Courses
+                      My Wallet
                     </MenuItem>
                   </NextLink>
-                  <NextLink href="#" passHref>
+                  <NextLink href="/settings" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
-                        <MenuBookOutlinedIcon fontSize="small" />
+                        <Settings fontSize="small" />
                       </ListItemIcon>
-                      My Exams
+                      Profile Settings
                     </MenuItem>
                   </NextLink>
-                  <Divider />
+                  {/*     <Divider />
                   <NextLink href="#" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>
