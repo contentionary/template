@@ -359,7 +359,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}&proxy=acetel-c-academy.nou.edu.ng`,
+      url: `/centre/domain-centre?domain=${host}&proxy=moses.cttn.ac`,
     });
 
     if (!returnFullData && centre)
@@ -367,6 +367,8 @@ export const getCentre = async (
         id: centre.id,
         slug: centre.slug,
         name: centre.name,
+        primaryColor: centre.primaryColor,
+        googleAnalyticsCode: centre.googleAnalyticsCode,
         description: centre.description,
         template: centre.template,
         // template: "publication",

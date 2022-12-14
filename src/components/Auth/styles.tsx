@@ -3,7 +3,7 @@ import { theme } from "@src/styles/theme";
 
 export default makeStyles({
   createFormConatiner: {
-    [theme.breakpoints.up("lg")]: {
+    [theme().breakpoints.up("lg")]: {
       padding: "70px 0px 40px 70px",
     },
   },

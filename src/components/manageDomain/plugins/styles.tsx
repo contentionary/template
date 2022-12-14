@@ -8,7 +8,7 @@ export default makeStyles({
     color: "#333333",
     fontSize: 40,
 
-    [theme.breakpoints.down("sm")]: {
+    [theme().breakpoints.down("sm")]: {
       fontSize: 28,
     },
   },
@@ -17,7 +17,7 @@ export default makeStyles({
     fontWeight: 700,
     fontSize: 26,
     color: "#333333",
-    [theme.breakpoints.down("sm")]: {
+    [theme().breakpoints.down("sm")]: {
       fontSize: 22,
     },
   },
@@ -26,7 +26,7 @@ export default makeStyles({
     fontWeight: 400,
     fontSize: 14,
     color: "#DD6E20",
-    [theme.breakpoints.down("sm")]: {
+    [theme().breakpoints.down("sm")]: {
       fontSize: 12,
     },
   },
@@ -38,7 +38,7 @@ export default makeStyles({
     color: "#616161",
     marginBottom: 5,
     height: 140,
-    [theme.breakpoints.down("sm")]: {
+    [theme().breakpoints.down("sm")]: {
       fontSize: 14,
       height: 90,
     },
