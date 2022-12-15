@@ -1,4 +1,4 @@
-import { theme } from "./theme";
+import theme from "./theme";
 import { makeStyles } from "@mui/styles";
 // import { alpha } from "@mui/material/styles";
 

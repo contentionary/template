@@ -13,7 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 // styles and interface
-import useGlobalStyle from "@src/styles";
+import useGlobalStyle, { bg } from "@src/styles";
 import { PublicationsFunc } from "./interfaceType";
 //
 
@@ -42,7 +42,7 @@ const TestimonialSection: PublicationsFunc = () => {
                       component="span"
                       color="primary.main"
                       fontWeight={"inherit"}
-                      className={globalStyle.underlinedCurve}
+                      sx={{ ...bg().underlinedCurve }}
                     >
                       Reader
                     </Typography>{" "}

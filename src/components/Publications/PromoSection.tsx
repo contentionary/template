@@ -11,13 +11,11 @@ import { Link as MuiLink } from "@mui/material";
 // app components
 import ImageComponent from "@src/components/shared/image";
 // styles, interface and cosmic query
-import useGlobalStyle from "@src/styles";
 import { queryClient } from "@src/utils";
 import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const PromoSection: PublicationsFunc = () => {
-  const globalStyle = useGlobalStyle();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -67,7 +65,7 @@ const PromoSection: PublicationsFunc = () => {
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                className={globalStyle.bgGradient}
+                color="primary"
                 sx={{
                   textAlign: "center",
                   width: { xs: "100%", md: "auto" },

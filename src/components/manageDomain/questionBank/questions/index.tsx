@@ -131,7 +131,6 @@ const QuestionsPage = () => {
           link: `/admin/question-bank/${questionBankId}/questions`,
         }}
       />
-
       <Typography
         variant="h5"
         component="div"
@@ -246,7 +245,27 @@ const QuestionsPage = () => {
         </Box>
       ) : (
         <Empty />
-      )}
+      )}{" "}
+      {/* 
+      const pageCount = pageData.examList.pageCount as number;
+const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+router.replace({
+  query: { ...router.query, pageId: value },
+});
+};
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+
+<Stack py={4} direction="row" justifyContent="center" spacing={2}>
+{pageCount > 1 && (
+<Pagination
+  count={pageCount}
+  onChange={handleChange}
+  shape="rounded"
+  size="large"
+/>
+)}
+</Stack> */}
     </Box>
   );
 };

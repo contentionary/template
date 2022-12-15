@@ -14,7 +14,7 @@ interface ProfileMenuInt {
 }
 
 const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
-  const { user } = cachedData;
+  const { user, centre } = cachedData;
 
   return (
     <List>
@@ -41,6 +41,15 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
       </NextLink>
       {user ? (
         <>
+          {user.managingCentres.includes(centre.id) && (
+            <NextLink href="/courses/my-courses" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Addmin</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+          )}
           <NextLink href="/courses/my-courses" passHref>
             <ListItemButton>
               <ListItemIcon>
@@ -52,6 +61,20 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
             <ListItemButton>
               <ListItemIcon>
                 <ListItemText>My Exams</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>{" "}
+          <NextLink href="/settings" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText> Profile Settings</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/wallet" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>My Wallet</ListItemText>
               </ListItemIcon>
             </ListItemButton>
           </NextLink>

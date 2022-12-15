@@ -17,7 +17,6 @@ import ImageComponent from "@src/components/shared/image";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // styles, interface and config
-import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
@@ -27,7 +26,6 @@ import { useRouter } from "next/router";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
-  const globalStyle = useGlobalStyle();
   const router = useRouter();
   const { reference, verifyValue, price: deductedPrice } = router.query;
   const { pageData = null, cachedData } = queryClient.getQueryData(
@@ -70,11 +68,7 @@ const HeroSection: PublicationsFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-              <Typography
-                mb={3}
-                variant="h1"
-                className={globalStyle.textGradient}
-              >
+              <Typography mb={3} variant="h1" color="primary">
                 {landingPageSectionOne.title}
               </Typography>
               <Typography
@@ -93,7 +87,7 @@ const HeroSection: PublicationsFunc = () => {
                   disableElevation
                   variant="contained"
                   component={MuiLink}
-                  className={globalStyle.bgGradient}
+                  color="primary"
                 >
                   {getStarted.text}
                 </Button>

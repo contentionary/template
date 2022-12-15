@@ -1,78 +1,10 @@
-import { theme } from "./theme";
+import theme from "./theme";
 import { makeStyles } from "@mui/styles";
 import { alpha } from "@mui/material/styles";
 
 export const appGradient = theme().palette.primary.main;
-
-export const appShadow = {
-  small: "0px 0px 24px rgba(0, 0, 0, 0.06)",
-  main: "0px 0px 20px rgba(203, 203, 203, 0.25)",
-};
-
-export default makeStyles({
-  "@keyframes scroll-x": {
-    from: {
-      transform: "translateX(var(--scroll-start))",
-    },
-    to: {
-      transform: "translateX(var(--scroll-end))",
-    },
-  },
-  hiddenScrollbar: {
-    "-ms-overflow-style": "none",
-    "scrollbar-color": "transparent transparent",
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
-    "& ::-moz-scrollbar": {
-      display: "none",
-    },
-  },
-  underlinedCurve: {
-    position: "relative",
-    "&:after": {
-      left: 0,
-      content: "''",
-      height: "10px",
-      width: "100%",
-      bottom: "-10px",
-      borderRadius: "50%",
-      position: "absolute",
-      clipPath: "inset(0 0 50% 0)",
-      border: `solid 2px ${theme().palette.primary.main}`,
-      borderColor: `${
-        theme().palette.primary.main
-      } transparent transparent transparent`,
-    },
-  },
-  bgPrimary: {
-    backgroundColor: theme().palette.primary.main,
-  },
-  bgWhiteGlossy: {
-    border: "none",
-    backdropFilter: "blur(20px)",
-    boxShadow: "rgba(255, 255, 255, 0.8) 0px -1px 1px inset",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-  },
-  bgArtifact: {
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "top left, bottom right",
-    backgroundImage:
-      "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
-  },
-  get bgArtifactFlipped() {
-    return {
-      ...this.bgArtifact,
-      transform: "scaleX(-1)",
-      "& > *": {
-        transform: "scaleX(-1)",
-      },
-    };
-  },
-  bgGradient: {
-    background: appGradient,
-  },
-  bgDustyPrimary: {
+export const bg = () => {
+  const bgDustyPrimary = {
     backdropFilter: "blur(10px)",
     background: `radial-gradient(
       circle at top left,
@@ -136,6 +68,80 @@ export default makeStyles({
 				100px 204px 0 -15px ${alpha(theme().palette.primary.main, 0.1)}`,
       backgroundColor: alpha(theme().palette.primary.main, 0.1),
     },
+  };
+  const underlinedCurve = {
+    position: "relative",
+    "&:after": {
+      left: 0,
+      content: "''",
+      height: "10px",
+      width: "100%",
+      bottom: "-10px",
+      borderRadius: "50%",
+      position: "absolute",
+      clipPath: "inset(0 0 50% 0)",
+      border: `solid 2px ${theme().palette.primary.main}`,
+      borderColor: `${
+        theme().palette.primary.main
+      } transparent transparent transparent`,
+    },
+  };
+  // const appIconButton = {
+  //   borderRadius: 4,
+  //   color: "white",
+  //   backgroundColor: theme().palette.primary.main,
+  //   "&:hover, &.Mui-focusVisible": {
+  //     color: "white",
+  //     backgroundColor: theme().palette.primary.main,
+  //   },
+  // };
+  return { bgDustyPrimary, underlinedCurve };
+};
+export const appShadow = {
+  small: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+  main: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+};
+
+export default makeStyles({
+  "@keyframes scroll-x": {
+    from: {
+      transform: "translateX(var(--scroll-start))",
+    },
+    to: {
+      transform: "translateX(var(--scroll-end))",
+    },
+  },
+  hiddenScrollbar: {
+    "-ms-overflow-style": "none",
+    "scrollbar-color": "transparent transparent",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    "& ::-moz-scrollbar": {
+      display: "none",
+    },
+  },
+
+  bgWhiteGlossy: {
+    border: "none",
+    backdropFilter: "blur(20px)",
+    boxShadow: "rgba(255, 255, 255, 0.8) 0px -1px 1px inset",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+  },
+  bgArtifact: {
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "top left, bottom right",
+    backgroundImage:
+      "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
+  },
+  get bgArtifactFlipped() {
+    return {
+      ...this.bgArtifact,
+      transform: "scaleX(-1)",
+      "& > *": {
+        transform: "scaleX(-1)",
+      },
+    };
   },
   paperShadow: {
     boxShadow: appShadow.small,
@@ -178,15 +184,6 @@ export default makeStyles({
     position: "absolute" as "absolute",
     "& .react-player": {
       [theme().breakpoints.down("sm")]: { width: "100vw !important" },
-    },
-  },
-  appIconButton: {
-    borderRadius: 4,
-    color: "white",
-    backgroundColor: theme().palette.primary.main,
-    "&:hover, &.Mui-focusVisible": {
-      color: "white",
-      backgroundColor: theme().palette.primary.main,
     },
   },
   stepsTimeline: {

@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { alpha } from "@mui/material/styles";
-import { theme } from "./theme";
+import theme from "./theme";
 
 const cardStyle = makeStyles({
   breathCard: {

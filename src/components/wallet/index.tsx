@@ -20,7 +20,6 @@ import { TransactionHistory } from "./interface";
 import { ButtonGroup } from "@mui/material";
 import { useRouter } from "next/router";
 import { useToast } from "@src/utils/hooks";
-import useGloabalStyle from "@src/styles";
 
 import ButtonComponent from "@src/components/shared/button";
 import MuiTable from "@src/components/shared/table";
@@ -36,8 +35,9 @@ export default function CustomizedSteppers() {
     () => import("./walletToWalletTransfer")
   );
   const CreditWallet = dynamic(() => import("./creditWallet"));
-  const globalStyles = useGloabalStyle();
+
   const { toastMessage, toggleToast } = useToast();
+  const [isLoading, setIsLoading] = React.useState(false);
   const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -46,6 +46,7 @@ export default function CustomizedSteppers() {
     pageData.transactionHistory.histories
   );
   const router = useRouter();
+  const locationUrl = isServerSide ? "" : window.location.href;
   const { walletBalance } = pageData;
   const pockets = Object.keys(walletBalance.pockets);
   const columns = [
@@ -66,19 +67,23 @@ export default function CustomizedSteppers() {
   }));
   async function getTransactions(type: string) {
     try {
+      const centreWallet = locationUrl.includes("admin");
       setTransactionType(type);
       if (type === "all") {
         setTransaction([...pageData.transactionHistory.histories]);
       } else {
+        setIsLoading(true);
         const { data } = await request.get({
-          url: cachedData?.centre?.id
+          url: centreWallet
             ? `/wallet/centre/${cachedData.centre.id}/transaction-history?type=${type}`
             : `/wallet/transaction-history?type=${type}`,
         });
         setTransaction([...(data.histories as TransactionHistory[])]);
+        setIsLoading(false);
       }
     } catch (error) {
       toggleToast(handleError(error).message);
+      setIsLoading(false);
     }
   }
   return (
@@ -88,17 +93,17 @@ export default function CustomizedSteppers() {
           <ConfirmPayment
             reference={router.query.reference}
             price={Number(router.query.price)}
-            redirectUrl={isServerSide ? "" : window.location.href}
+            redirectUrl={locationUrl}
           />
         )}
         <Stack spacing={4} marginTop={4}>
           <Stack direction={{ md: "row" }} spacing={4}>
             <Box
-              className={globalStyles.bgGradient}
               sx={{
                 padding: 3,
                 width: { xs: "100%", md: "75%" },
                 borderRadius: 3,
+                background: cachedData.centre.primaryColor || "#DD6E20",
               }}
             >
               {" "}
@@ -228,7 +233,11 @@ export default function CustomizedSteppers() {
           </Box>
           {data.length > 0 ? (
             <Box sx={{ width: { xs: 400, md: "100%" } }}>
-              <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
+              {isLoading ? (
+                <div>Loading...</div>
+              ) : (
+                <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
+              )}
             </Box>
           ) : (
             <Empty />

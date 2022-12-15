@@ -13,7 +13,7 @@ import { Link as MuiLink } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 // styles, interface and config
-import useGlobalStyle from "@src/styles";
+import { bg } from "@src/styles";
 // app components
 import VideoModal from "@src/components/shared/video";
 import ImageButton from "@src/components/shared/buttons/ImageButton";
@@ -32,8 +32,6 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const theme = useTheme();
   const [openVideo, setOpenVideo] = useState(false);
-  const globalStyle = useGlobalStyle();
-
   const handleOpenVideo = () => setOpenVideo(true);
 
   const verifyValue = router.query.verifyValue === "true";
@@ -45,8 +43,7 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
     <>
       <Box
         component="section"
-        sx={{ pt: 4, pb: 8, px: { md: 6 } }}
-        className={globalStyle.bgDustyPrimary}
+        sx={{ pt: 4, pb: 8, px: { md: 6 }, ...bg().bgDustyPrimary }}
       >
         {verifyValue && (
           <ConfirmPayment
@@ -125,14 +122,14 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
                     disableElevation
                     variant="contained"
                     component={MuiLink}
-                    className={globalStyle.bgGradient}
+                    color="primary"
                     display={{ xs: "block", sm: "inline-block" }}
                   >
                     {action.text}
                   </Button>
                 </NextLink>
                 <Button onClick={() => openDialog()}>
-                  <Avatar variant="rounded" className={globalStyle.bgGradient}>
+                  <Avatar variant="rounded" sx={{ ...bg().underlinedCurve }}>
                     <ShareOutlinedIcon htmlColor="white" />
                   </Avatar>{" "}
                   <span>&nbsp; Share this course</span>

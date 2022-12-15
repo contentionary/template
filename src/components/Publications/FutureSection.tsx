@@ -19,7 +19,7 @@ import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 // component and styles
-import useGlobalStyle from "@src/styles";
+import { bg } from "@src/styles";
 import useCardStyle from "@src/styles/card";
 //
 import { queryClient } from "@src/utils";
@@ -28,7 +28,6 @@ import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
-  const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
@@ -59,7 +58,7 @@ const FutureSection: PublicationsFunc = () => {
                   my={1}
                   pb={1}
                   variant="h6"
-                  className={globalStyle.underlinedCurve}
+                  sx={{ ...bg().underlinedCurve }}
                 >
                   Stay <br /> Knowledgeable
                 </Typography>
