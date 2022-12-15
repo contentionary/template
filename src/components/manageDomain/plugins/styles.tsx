@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 export default makeStyles({
   serviceHeader: {

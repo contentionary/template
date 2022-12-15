@@ -19,12 +19,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context)) as CachedCentreInt;
+    const { pageId = 1 } = context.query;
     const { data: questionBank } = await request.get({
       url: `/centre/${centre.id}/question-banks/${context.query.id}`,
       token,
     });
     const { data } = await request.get({
-      url: `/centre/${centre.id}/question-bank/${context.query.id}/questions`,
+      url: `/centre/${centre.id}/question-bank/${context.query.id}/questions?pageId=${pageId}`,
       token,
     });
     return {

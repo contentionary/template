@@ -11,13 +11,11 @@ import Typography from "@mui/material/Typography";
 // app components
 import PublicationCard from "@src/components/shared/cards/PublicationCard";
 // styles and interface
-import useGlobalStyle from "@src/styles";
 import { PublicationsFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
 const PublicationListSection: PublicationsFunc = () => {
-  const globalStyle = useGlobalStyle();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -63,7 +61,7 @@ const PublicationListSection: PublicationsFunc = () => {
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                className={globalStyle.bgGradient}
+                color="primary"
                 sx={{
                   px: 8,
                   textAlign: "center",

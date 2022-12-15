@@ -10,13 +10,11 @@ import { Link as MuiLink } from "@mui/material";
 // app components
 import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
-import useGlobalStyle from "@src/styles";
 import { AcademyFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
 import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
 
 const CourseListSection: AcademyFunc = () => {
-  const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const templateData = pageData.templateData as TemplateDataInt;
 
@@ -61,7 +59,7 @@ const CourseListSection: AcademyFunc = () => {
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                className={globalStyle.bgGradient}
+                color="primary"
                 sx={{
                   px: 8,
                   textAlign: "center",

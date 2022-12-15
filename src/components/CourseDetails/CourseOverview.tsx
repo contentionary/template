@@ -40,5 +40,4 @@ const CourseOverview = ({ description, learnings }: CourseInt) => {
     </Fragment>
   );
 };
-
 export default CourseOverview;

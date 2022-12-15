@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import ButtonComponent from "@src/components/shared/button";
 import Toast from "@src/components/shared/toast";
 import Loading from "@src/components/shared/loading";
-import { handleError, request } from "@src/utils";
+import { handleError, isServerSide, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import TextFields from "@src/components/shared/input/textField";
@@ -24,7 +24,9 @@ const EmailVerification = () => {
       });
       toggleToast(data.message);
       setIsLoading(false);
-      router.replace("https://contentionary.com/");
+      router.replace(
+        !isServerSide ? window.location.href.split("email-verification")[0] : ""
+      );
     } catch (error) {
       if (handleError(error).message === "jwt expired") setTokenExpired(true);
       toggleToast(handleError(error).message);

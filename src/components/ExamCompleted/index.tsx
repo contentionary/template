@@ -11,12 +11,11 @@ import Container from "@mui/material/Container";
 // import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 // utils, interface and styles
-import useGlobalStyle from "@src/styles";
+import { bg } from "@src/styles";
 import { ExamCompletedFunc } from "./interfaceType";
 // import { dateTimeFormat } from "@src/utils";
 
 const ExamCompleted: ExamCompletedFunc = (props) => {
-  const globalStyle = useGlobalStyle();
   const { exam /* auth */ } = props;
 
   return (
@@ -27,7 +26,7 @@ const ExamCompleted: ExamCompletedFunc = (props) => {
       minHeight="100vh"
       flexDirection="column"
       justifyContent="center"
-      className={globalStyle.bgDustyPrimary}
+      sx={{ ...bg().bgDustyPrimary }}
     >
       <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
         <Container maxWidth="xl">

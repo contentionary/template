@@ -2,13 +2,12 @@ import { createTheme } from "@mui/material/styles";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
-export const theme = () => {
+export default function theme() {
   const pageProps = queryClient.getQueryData("pageProps") as BasePageProps;
   let primaryColor: any = null;
   if (pageProps?.cachedData?.centre) {
     primaryColor = pageProps.cachedData.centre?.primaryColor;
   }
-
   return createTheme({
     palette: {
       primary: {
@@ -184,4 +183,4 @@ export const theme = () => {
       },
     },
   });
-};
+}

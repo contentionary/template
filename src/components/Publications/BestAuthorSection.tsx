@@ -53,7 +53,7 @@ const BestAuthorSection: PublicationsFunc = () => {
                   disableElevation
                   variant="contained"
                   component={MuiLink}
-                  className={globalStyle.bgGradient}
+                  color="primary"
                   sx={{
                     textAlign: "center",
                     width: { xs: "100%", sm: "auto" },
