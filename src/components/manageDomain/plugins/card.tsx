@@ -69,7 +69,8 @@ const PublicationCard = ({
             <Button
               size="large"
               disableElevation
-              variant="contained"color="primary"
+              variant="contained"
+              color="primary"
               onClick={() =>
                 !installPlugin
                   ? router.push(`/${link}`)

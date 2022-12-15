@@ -46,11 +46,7 @@ const HeroSection: AcademyFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-              <Typography
-                mb={3}
-                variant="h1"
-                color="primary"
-              >
+              <Typography mb={3} variant="h1" color="primary">
                 {landingPageSectionOne?.title}
               </Typography>
               <Typography

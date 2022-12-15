@@ -61,7 +61,7 @@ const PromoSection: AcademyFunc = () => {
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                c
+                color="primary"
                 sx={{
                   textAlign: "center",
                   width: { xs: "100%", md: "auto" },

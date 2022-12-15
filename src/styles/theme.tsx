@@ -8,7 +8,6 @@ export default function theme() {
   if (pageProps?.cachedData?.centre) {
     primaryColor = pageProps.cachedData.centre.primaryColor;
   }
-  
   return createTheme({
     palette: {
       primary: {

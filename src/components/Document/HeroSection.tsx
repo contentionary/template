@@ -11,7 +11,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
-import useGlobalStyle from "@src/styles";
 import { DocumentFunc } from "../shared/DocumentReader/interfaceType";
 import useButtonStyle from "@src/styles/button";
 // app components
@@ -122,7 +121,7 @@ const HeroSection: DocumentFunc = ({
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-               c
+                color="primary"
                 display={{ xs: "block", sm: "inline-block" }}
               >
                 <Stack direction="row" alignItems="center" spacing={2}>

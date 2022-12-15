@@ -60,7 +60,8 @@ const PublicationListSection: PublicationsFunc = () => {
                 size="large"
                 disableElevation
                 variant="contained"
-                component={MuiLink}color="primary"
+                component={MuiLink}
+                color="primary"
                 sx={{
                   px: 8,
                   textAlign: "center",

@@ -21,7 +21,7 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // hooks, styles, interface and config
 import { useDialog } from "@src/hooks";
-import  { bg } from "@src/styles";
+import { bg } from "@src/styles";
 import useButtonStyle from "@src/styles/button";
 import { ExamDetailsPageFunc } from "./interfaceType";
 import { kCount, isServerSide, dateTimeFormat } from "@src/utils";
@@ -31,10 +31,8 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
   const router = useRouter();
   const buttonStyle = useButtonStyle();
-
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { reference, verifyValue, price: deductedPrice } = router.query;
-
   const {
     id,
     name,
