@@ -11,7 +11,7 @@ import Document, {
   DocumentContext,
 } from "next/document";
 //
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 export default class MyDocument extends Document {
   render(): ReactElement {

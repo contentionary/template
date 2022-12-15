@@ -21,13 +21,11 @@ import PublicationsMenu from "./PublicationsMenu";
 // styles, interface and config
 import ProfileMenu from "./ProfileMenu";
 import { queryClient } from "@src/utils";
-import useGlobalStyle from "@src/styles/index";
 import { BasePageProps } from "@src/utils/interface";
 import { PublicationsHeaderFunc } from "./interfaceType";
 
 const PublicationsHeader: PublicationsHeaderFunc = () => {
   const theme = useTheme();
-  const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
@@ -122,7 +120,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                             disableElevation
                             variant="contained"
                             component={MuiLink}
-                            className={globalStyle.bgGradient}
+                            color="primary"
                           >
                             Register
                           </Button>

@@ -30,7 +30,6 @@ const HeroSection: DocumentFunc = ({
   description,
   fileUrl = "#",
 }) => {
-  const globalStyle = useGlobalStyle();
   const buttonStyle = useButtonStyle();
 
   return (
@@ -123,7 +122,7 @@ const HeroSection: DocumentFunc = ({
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                className={globalStyle.bgGradient}
+               c
                 display={{ xs: "block", sm: "inline-block" }}
               >
                 <Stack direction="row" alignItems="center" spacing={2}>

@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
-import useGlobalStyle from "@src/styles";
+import { bg } from "@src/styles";
 import { BookDetailsPageFunc } from "./interfaceType";
 // app components
 import ImageComponent from "@src/components/shared/image";
@@ -26,7 +26,6 @@ import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const globalStyle = useGlobalStyle();
   const router = useRouter();
   const { reference, verifyValue, price: deductedPrice } = router.query;
 
@@ -47,7 +46,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
         bgcolor="#FFFCF8"
         component="section"
         className="hero-section"
-        sx={{ pt: 4, pb: 8, px: { md: 6 } }}
+        sx={{ pt: 4, pb: 8, px: { md: 6 }, ...bg().bgDustyPrimary }}
       >
         {verifyValue && (
           <ConfirmPayment
@@ -154,7 +153,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
                     disableElevation
                     variant="contained"
                     component={MuiLink}
-                    className={globalStyle.bgGradient}
+                    color="primary"
                     display={{ xs: "block", sm: "inline-block" }}
                   >
                     <Stack direction="row" alignItems="center" spacing={2}>
@@ -164,7 +163,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
                 )}
 
                 <Button onClick={() => openDialog()}>
-                  <Avatar variant="rounded" className={globalStyle.bgGradient}>
+                  <Avatar variant="rounded" sx={{ ...bg().underlinedCurve }}>
                     <ShareOutlinedIcon htmlColor="white" />
                   </Avatar>{" "}
                   <span>&nbsp; Share publication</span>

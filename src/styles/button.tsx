@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "./theme";
+import theme from "./theme";
 // import { grey } from "@mui/material/colors";
 
 const buttonStyle = makeStyles({

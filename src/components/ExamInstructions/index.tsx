@@ -14,7 +14,7 @@ import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // utils, interface and styles
-import useGlobalStyle from "@src/styles";
+import useGlobalStyle, { bg } from "@src/styles";
 import { ExamInstructionsFunc } from "./interfaceType";
 import { dateTimeFormat } from "@src/utils";
 // import useButtonStyle from "@src/styles/button";
@@ -32,7 +32,7 @@ const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
       minHeight="100vh"
       flexDirection="column"
       justifyContent="center"
-      className={globalStyle.bgDustyPrimary}
+      sx={{ ...bg().bgDustyPrimary }}
     >
       <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
         <Container maxWidth="xl">

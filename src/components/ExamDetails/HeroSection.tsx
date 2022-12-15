@@ -21,7 +21,7 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // hooks, styles, interface and config
 import { useDialog } from "@src/hooks";
-import useGlobalStyle from "@src/styles";
+import  { bg } from "@src/styles";
 import useButtonStyle from "@src/styles/button";
 import { ExamDetailsPageFunc } from "./interfaceType";
 import { kCount, isServerSide, dateTimeFormat } from "@src/utils";
@@ -31,7 +31,6 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
   const router = useRouter();
   const buttonStyle = useButtonStyle();
-  const globalStyle = useGlobalStyle();
 
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { reference, verifyValue, price: deductedPrice } = router.query;
@@ -54,8 +53,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
     <Fragment>
       <Box
         component="section"
-        className={globalStyle.bgDustyPrimary}
-        sx={{ pt: 4, pb: 8, px: { md: 6 } }}
+        sx={{ pt: 4, pb: 8, px: { md: 6 }, ...bg().bgDustyPrimary }}
       >
         {verifyValue && (
           <ConfirmPayment
@@ -159,7 +157,6 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                     disableElevation
                     variant="contained"
                     component={MuiLink}
-                    className={globalStyle.bgGradient}
                     display={{ xs: "block", sm: "inline-block" }}
                   >
                     <Stack direction="row" alignItems="center" spacing={2}>

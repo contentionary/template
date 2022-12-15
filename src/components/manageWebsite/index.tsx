@@ -245,7 +245,6 @@ const CreatePublication = () => {
               width: "100%",
               mb: 2,
             }}
-            required
           />
           <Typography style={{ textAlign: "right" }}>
             <ButtonComponent type="submit" sx={{ fontSize: 18 }}>

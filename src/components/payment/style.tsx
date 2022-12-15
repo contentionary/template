@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 export const useStyles = makeStyles({
   container: {
@@ -93,7 +93,7 @@ export const useStyles = makeStyles({
   },
   activeCard: {
     background: "#FFFBF4",
-    border: "3px solid #F57E27",
+    border: `solid 2px ${theme().palette.primary.main}`,
   },
   inActive: {
     background: "#F9F9F9",

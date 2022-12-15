@@ -15,7 +15,6 @@ import { Link as MuiLink } from "@mui/material";
 import AppDrawer from "./AppDrawer";
 import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
-import useGlobalStyle from "@src/styles/index";
 import ExamAndCourseMenu from "./ExamAndCourseMenu";
 // icons
 import { queryClient } from "@src/utils";
@@ -25,7 +24,6 @@ import { BasePageProps } from "../../utils/interface";
 
 const ExamAndCourseHeader: HeaderFunc = () => {
   const theme = useTheme();
-  const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
@@ -130,7 +128,7 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                             disableElevation
                             variant="contained"
                             component={MuiLink}
-                            className={globalStyle.bgGradient}
+                            color="primary"
                           >
                             Register
                           </Button>

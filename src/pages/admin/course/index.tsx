@@ -19,17 +19,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context, true)) as CachedCentreInt;
-
+    const { pageId = 1 } = context.query;
     const { data } = await request.get({
       url: context.query.folderId
-        ? `/centre/${centre.id}/courses?folderId=${context.query.folderId}`
-        : `/centre/${centre.id}/courses`,
+        ? `/centre/${centre.id}/courses?folderId=${context.query.folderId}&pageId=${pageId}`
+        : `/centre/${centre.id}/courses?pageId=${pageId}`,
       token,
     });
 
     return {
       props: {
-        pageData: { courses: data.courses },
+        pageData: { courseList: data },
         cachedData: { user, centre, token },
       },
     };

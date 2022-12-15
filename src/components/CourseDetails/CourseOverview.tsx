@@ -30,7 +30,7 @@ const CourseOverview = ({ description, learnings }: CourseInt) => {
                 key={`${index}-overview-list`}
                 sx={{ px: 0, borderBottom: 1, borderColor: "divider" }}
               >
-                <TickAvatar />
+                <TickAvatar /> 
                 <ListItemText primary={learning} />
               </ListItem>
             ))}

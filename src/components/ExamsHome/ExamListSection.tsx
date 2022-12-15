@@ -10,13 +10,11 @@ import { Link as MuiLink } from "@mui/material";
 // app components
 import ExamCard from "@src/components/shared/cards/ExamCard";
 // styles and interface
-import useGlobalStyle from "@src/styles";
 import { ExamFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
 
 const ExamListSection: ExamFunc = () => {
-  const globalStyle = useGlobalStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const exams = pageData.templateData.exams as ExamInt[];
 
@@ -61,7 +59,7 @@ const ExamListSection: ExamFunc = () => {
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                className={globalStyle.bgGradient}
+                color="primary"
                 sx={{
                   px: 8,
                   textAlign: "center",

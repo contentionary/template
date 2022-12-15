@@ -19,14 +19,12 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
 import { queryClient } from "@src/utils";
-import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { AcademyFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
-  const globalStyle = useGlobalStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -51,7 +49,7 @@ const HeroSection: AcademyFunc = () => {
               <Typography
                 mb={3}
                 variant="h1"
-                className={globalStyle.textGradient}
+                color="primary"
               >
                 {landingPageSectionOne?.title}
               </Typography>
@@ -71,7 +69,7 @@ const HeroSection: AcademyFunc = () => {
                   disableElevation
                   variant="contained"
                   component={MuiLink}
-                  className={globalStyle.bgGradient}
+                  color="primary"
                 >
                   Get Started
                 </Button>

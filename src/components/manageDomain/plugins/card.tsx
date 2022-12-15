@@ -3,7 +3,6 @@ import Box from "@mui/system/Box";
 import Stack from "@mui/material/Stack";
 import Image from "@src/components/shared/image";
 import Button from "@src/components/shared/button";
-import useGlobalStyle from "@src/styles";
 import useStyles from "./styles";
 import { useRouter } from "next/router";
 import Paper from "@mui/material/Paper";
@@ -27,7 +26,6 @@ const PublicationCard = ({
   price,
   imageUrl,
 }: Props): JSX.Element => {
-  const globalStyle = useGlobalStyle();
   const router = useRouter();
   const styles = useStyles();
 
@@ -71,8 +69,7 @@ const PublicationCard = ({
             <Button
               size="large"
               disableElevation
-              variant="contained"
-              className={globalStyle.bgGradient}
+              variant="contained"color="primary"
               onClick={() =>
                 !installPlugin
                   ? router.push(`/${link}`)
