@@ -39,6 +39,8 @@ export default function CircularDeterminate({
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
+  const [retries, setRetries] = useState(0);
+  const [timer, setTimer] = useState<any>(null);
 
   async function getPaymentConfirmation() {
     try {
@@ -63,16 +65,27 @@ export default function CircularDeterminate({
   }
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const retry = setInterval(() => {
       setProgress((prevProgress) =>
         prevProgress >= 100 ? 0 : prevProgress + 10
       );
       getPaymentConfirmation();
-    }, 3000);
 
-    return () => {
-      clearInterval(timer);
-    };
+      setRetries((prevRetries) => {
+        if (prevRetries === 2) {
+          clearInterval(retry);
+          setShow(false);
+          toggleToast(
+            "Automatic transaction verification failed, kindly refresh this page to try again"
+          );
+        }
+        return prevRetries + 1;
+      });
+    }, 10000);
+
+    setTimer(retry);
+
+    return () => clearInterval(retry);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

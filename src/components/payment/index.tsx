@@ -82,15 +82,17 @@ export default function Payment(): JSX.Element {
   ]);
 
   useEffect(() => {
-    if (amount === 0) {
-      freePayment();
-    } else {
-      const paymentGateways = data.filter(
-        (item) => item.currency === currency || item.currency === "*"
-      );
-      setCards([...paymentGateways]);
+    if (router.isReady) {
+      if (amount === 0) {
+        freePayment();
+      } else {
+        const paymentGateways = data.filter(
+          (item) => item.currency === currency || item.currency === "*"
+        );
+        setCards([...paymentGateways]);
+      }
     }
-  }, [currency, amount, freePayment]);
+  }, [currency, amount, freePayment, router]);
 
   const currencyConverter = async (newCurrency: Currency) => {
     try {
