@@ -44,7 +44,7 @@ const CreateAccount = (): JSX.Element => {
         throw "password mis-matched";
       }
       await request.post({
-        url: "/auth/register",
+        url: `/auth/register?centreId=${cachedData.centre.id}`,
         data: values,
       });
       resetValues();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Paper from "@mui/material/Paper";
 import LinearProgress, {
   LinearProgressProps,
@@ -39,10 +39,8 @@ export default function CircularDeterminate({
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
-  const [retries, setRetries] = useState(0);
-  const [timer, setTimer] = useState<any>(null);
 
-  async function getPaymentConfirmation() {
+  const getPaymentConfirmation = useCallback(async () => {
     try {
       const { data }: any =
         price === 0
@@ -56,38 +54,26 @@ export default function CircularDeterminate({
           cache.set("isCentreSubscriber", true);
         }
         setShow(false);
-        const [url] = redirectUrl.split("verifyValue");
+        const [url] = redirectUrl.split("?verifyValue");
         if (!isServerSide) window.location.href = url;
+      } else {
+        setProgress((prevProgress) =>
+          prevProgress >= 100 ? 0 : prevProgress + 10
+        );
       }
     } catch ({ message }) {
-      toggleToast(message as string);
+      alert(message);
     }
-  }
+  }, [reference, redirectUrl, price]);
 
   useEffect(() => {
-    const retry = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? 0 : prevProgress + 10
-      );
+    if (progress < 100) {
       getPaymentConfirmation();
-
-      setRetries((prevRetries) => {
-        if (prevRetries === 2) {
-          clearInterval(retry);
-          setShow(false);
-          toggleToast(
-            "Automatic transaction verification failed, kindly refresh this page to try again"
-          );
-        }
-        return prevRetries + 1;
-      });
-    }, 10000);
-
-    setTimer(retry);
-
-    return () => clearInterval(retry);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    } else {
+      setShow(false);
+      alert("Transaction Verification Timed Out, kindly refresh the page");
+    }
+  }, [progress, getPaymentConfirmation]);
 
   return (
     <>

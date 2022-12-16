@@ -1,12 +1,14 @@
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
+
 import { useDialog } from "@src/hooks";
 import useForm from "@src/hooks/useForm";
-import { handleError, isServerSide, request } from "@src/utils";
+import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "../shared/input/textField";
 import useStyles from "./styles";
 import Loading from "../shared/loading";
-import { useState } from "react";
+import { BasePageProps } from "@src/utils/interface";
 
 interface Props {
   toggleToast: Function;
@@ -17,6 +19,7 @@ const ForgottenPassword = ({ toggleToast }: Props): JSX.Element => {
   const { isOpen, closeDialog, openDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { getData, values } = useForm(submit);
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   async function submit() {
     try {
@@ -26,7 +29,7 @@ const ForgottenPassword = ({ toggleToast }: Props): JSX.Element => {
       }
       const url = isServerSide ? "" : window.location.href;
       const { message } = await request.post({
-        url: "/auth/security/send-reset-password-link",
+        url: `/auth/security/send-reset-password-link?centreId=${cachedData.centre.id}`,
         data: {
           ...values,
           redirectUrl: `${url.split("login")[0]}/forgotten-password`,
