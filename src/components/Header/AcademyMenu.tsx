@@ -10,7 +10,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { UserInt } from "@src/utils/interface";
 
 interface ProfileMenuInt {
-  cachedData: { user: UserInt; token: string; };
+  cachedData: { user: UserInt; token: string };
 }
 
 const AcademyMenu = ({ cachedData }: ProfileMenuInt) => {

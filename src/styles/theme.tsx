@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { devLog, queryClient } from "@src/utils";
+import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
 export default function theme() {
