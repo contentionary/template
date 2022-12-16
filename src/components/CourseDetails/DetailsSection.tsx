@@ -1,6 +1,6 @@
 import React from "react";
 // next
-// import Image from "next/image";
+// import Image from "@src/components/shared/image";
 // import NextLink from "next/link";
 //
 // import AspectRatio from "@mui/joy/AspectRatio";

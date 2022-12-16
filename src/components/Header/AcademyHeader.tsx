@@ -1,6 +1,6 @@
 import React from "react";
 // next components
-import Image from "next/image";
+import Image from "@src/components/shared/image";
 import NextLink from "next/link";
 // mui
 import Stack from "@mui/material/Stack";

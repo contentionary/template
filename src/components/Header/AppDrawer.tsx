@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 //
-import Image from "next/image";
+import Image from "@src/components/shared/image";
 //
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";

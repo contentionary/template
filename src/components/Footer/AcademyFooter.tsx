@@ -15,7 +15,7 @@ import config from "@src/utils/config";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { AcademyFooterFunc } from "./interfaceType";
-import ImageComponent from "../shared/image";
+import ImageComponent from "@src/components/shared/image";
 
 const AcademyFooter: AcademyFooterFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
