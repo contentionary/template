@@ -1,5 +1,4 @@
 import { makeStyles } from "@mui/styles";
-import { appShadow } from "./index";
 import grey from "@mui/material/colors/grey";
 
 const pdfStyle = makeStyles({
@@ -30,7 +29,7 @@ const pdfStyle = makeStyles({
           height: "auto",
           margin: "2rem 2rem",
           display: "inline-block",
-          boxShadow: appShadow.small,
+          boxShadow: "0px 0px 24px rgba(0, 0, 0, 0.06)",
         },
         "&.prevPage": {
           position: "absolute !important",
