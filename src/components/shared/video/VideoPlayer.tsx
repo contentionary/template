@@ -42,7 +42,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
   }, []);
 
   return (
-    <Box data-vjs-player >
+    <Box data-vjs-player>
       <video
         ref={videoRef}
         className="video-js vjs-big-play-centered vjs-16-9 vjs-theme-city"
