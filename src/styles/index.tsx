@@ -3,6 +3,12 @@ import { makeStyles } from "@mui/styles";
 import { alpha } from "@mui/material/styles";
 
 export const appGradient = theme().palette.primary.main;
+
+export const appShadow = {
+  small: "0px 0px 24px rgba(0, 0, 0, 0.06)",
+  main: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+};
+
 export const bg = () => {
   const bgDustyPrimary = {
     backdropFilter: "blur(10px)",
@@ -97,11 +103,6 @@ export const bg = () => {
   // };
   return { bgDustyPrimary, underlinedCurve };
 };
-export const appShadow = {
-  small: "0px 0px 24px rgba(0, 0, 0, 0.06)",
-  main: "0px 0px 20px rgba(203, 203, 203, 0.25)",
-};
-
 export default makeStyles({
   "@keyframes scroll-x": {
     from: {
