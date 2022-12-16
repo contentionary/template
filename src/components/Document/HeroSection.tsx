@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
+import Image from "@src/components/shared/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -11,7 +11,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
 // styles, interface and config
-import useGlobalStyle from "@src/styles";
 import { DocumentFunc } from "../shared/DocumentReader/interfaceType";
 import useButtonStyle from "@src/styles/button";
 // app components
@@ -30,7 +29,6 @@ const HeroSection: DocumentFunc = ({
   description,
   fileUrl = "#",
 }) => {
-  const globalStyle = useGlobalStyle();
   const buttonStyle = useButtonStyle();
 
   return (
@@ -123,7 +121,7 @@ const HeroSection: DocumentFunc = ({
                 disableElevation
                 variant="contained"
                 component={MuiLink}
-                className={globalStyle.bgGradient}
+                color="primary"
                 display={{ xs: "block", sm: "inline-block" }}
               >
                 <Stack direction="row" alignItems="center" spacing={2}>

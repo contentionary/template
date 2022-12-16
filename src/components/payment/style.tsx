@@ -1,14 +1,14 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 export const useStyles = makeStyles({
   container: {
-    [theme.breakpoints.up("lg")]: {
+    [theme().breakpoints.up("lg")]: {
       maxWidth: 955,
       width: "70%",
       marginTop: 30,
     },
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       marginTop: 30,
     },
     marginBottom: 40,
@@ -19,18 +19,18 @@ export const useStyles = makeStyles({
     border: "1px solid #BDBDBD",
     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
     borderRadius: "10px",
-    [theme.breakpoints.up("lg")]: {
+    [theme().breakpoints.up("lg")]: {
       // height: 916,
       height: 650,
     },
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       paddingBottom: 30,
     },
   },
   contentContainer: {
     paddingLeft: 30,
     paddingRight: 30,
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       marginTop: 20,
       paddingLeft: 20,
       paddingRight: 20,
@@ -52,7 +52,7 @@ export const useStyles = makeStyles({
     fontWeight: 600,
     fontSize: 25,
 
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       fontSize: 18,
     },
   },
@@ -62,7 +62,7 @@ export const useStyles = makeStyles({
     fontWeight: 600,
     fontSize: 20,
     color: "#000000",
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       fontSize: 16,
     },
   },
@@ -71,7 +71,7 @@ export const useStyles = makeStyles({
     fontWeight: 400,
     fontFamily: "Open Sans",
     fontSize: 14,
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       fontSize: 12,
     },
   },
@@ -93,7 +93,7 @@ export const useStyles = makeStyles({
   },
   activeCard: {
     background: "#FFFBF4",
-    border: "3px solid #F57E27",
+    border: `solid 2px ${theme().palette.primary.main}`,
   },
   inActive: {
     background: "#F9F9F9",
@@ -106,23 +106,23 @@ export const useStyles = makeStyles({
   },
   cardHeight: {
     // height: 150,
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       height: 200,
     },
   },
   transferCardHeight: {
     height: 97,
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       height: 129,
     },
   },
   contentClass: {
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       height: 120,
     },
   },
   tansferContentClass: {
-    [theme.breakpoints.down("md")]: {
+    [theme().breakpoints.down("md")]: {
       height: 95,
     },
   },

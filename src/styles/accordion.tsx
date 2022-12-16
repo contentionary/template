@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "./theme";
+import theme from "./theme";
 
 const accordionStyle = makeStyles({
   appAccordionList: {
@@ -11,7 +11,7 @@ const accordionStyle = makeStyles({
   },
   appAccordion: {
     "&.MuiAccordion-root": {
-      border: `1px solid ${theme.palette.divider}`,
+      border: `1px solid ${theme().palette.divider}`,
       "&.flush": {
         borderLeft: 0,
         borderRight: 0,
@@ -28,12 +28,12 @@ const accordionStyle = makeStyles({
           transform: "rotate(90deg)",
         },
         "& .MuiAccordionSummary-content": {
-          marginLeft: theme.spacing(1),
+          marginLeft: theme().spacing(1),
         },
       },
       "& .MuiAccordionDetails-root": {
-        padding: theme.spacing(0),
-        borderTop: `1px solid ${theme.palette.divider}`,
+        padding: theme().spacing(0),
+        borderTop: `1px solid ${theme().palette.divider}`,
       },
     },
   },

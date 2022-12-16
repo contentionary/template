@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { alpha } from "@mui/material/styles";
-import { theme } from "./theme";
+import theme from "./theme";
 
 const cardStyle = makeStyles({
   breathCard: {
@@ -72,7 +72,7 @@ const cardStyle = makeStyles({
       opacity: 0,
     },
     "&	.MuiCardActionArea-root .MuiBox-root.card-img": {
-      backgroundColor: alpha(theme.palette.text.primary, 0.05),
+      backgroundColor: alpha(theme().palette.text.primary, 0.05),
     },
   },
   get courseCard() {
@@ -90,7 +90,7 @@ const cardStyle = makeStyles({
       ...this.defaultCard,
       "& .MuiCardActionArea-root .MuiCardContent-root.exam-content": {
         position: "relative",
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme().palette.primary.main,
         "&:before": {
           top: -6,
           left: 0,
@@ -100,7 +100,7 @@ const cardStyle = makeStyles({
           position: "absolute",
           transformOrigin: "top",
           transform: "skew(-4deg) rotate(-2deg)",
-          backgroundColor: theme.palette.primary.main,
+          backgroundColor: theme().palette.primary.main,
         },
       },
     };

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 //  mui components
 import Box from "@mui/material/Box";
 // type/interface and styles
-import useVideoPlayerStyle from "@src/styles/videoPlayer";
 // video player
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -13,7 +12,6 @@ interface IVideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
-  const videoPlayerStyle = useVideoPlayerStyle();
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const playerRef = React.useRef<videojs.Player | null>(null);
 
@@ -44,7 +42,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ options }) => {
   }, []);
 
   return (
-    <Box data-vjs-player className={videoPlayerStyle.mainContainer}>
+    <Box data-vjs-player>
       <video
         ref={videoRef}
         className="video-js vjs-big-play-centered vjs-16-9 vjs-theme-city"

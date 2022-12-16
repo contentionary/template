@@ -7,10 +7,10 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 //
-import { UserInt, CachedCentreInt } from "@src/utils/interface";
+import { UserInt } from "@src/utils/interface";
 
 interface ProfileMenuInt {
-  cachedData: { user: UserInt; token: string; centre: CachedCentreInt };
+  cachedData: { user: UserInt; token: string };
 }
 
 const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
@@ -41,6 +41,15 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
       </NextLink>
       {user ? (
         <>
+          {user.isAdmin && (
+            <NextLink href="/courses/my-courses" passHref>
+              <ListItemButton>
+                <ListItemIcon>
+                  <ListItemText>Admin</ListItemText>
+                </ListItemIcon>
+              </ListItemButton>
+            </NextLink>
+          )}
           <NextLink href="/courses/my-courses" passHref>
             <ListItemButton>
               <ListItemIcon>
@@ -52,6 +61,20 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
             <ListItemButton>
               <ListItemIcon>
                 <ListItemText>My Exams</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>{" "}
+          <NextLink href="/settings" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText> Profile Settings</ListItemText>
+              </ListItemIcon>
+            </ListItemButton>
+          </NextLink>
+          <NextLink href="/wallet" passHref>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListItemText>My Wallet</ListItemText>
               </ListItemIcon>
             </ListItemButton>
           </NextLink>

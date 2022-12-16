@@ -68,6 +68,9 @@ export interface landingPageSectionTwo {
 export interface TemplateInt {
   landingPageSectionTwo: Record<string, Array<ContentInt>>;
   landingPageSectionOne: {};
+  primaryColor: string;
+  secondaryColor: string;
+  googleAnalyticsCode: string;
 }
 
 export interface UserBaseInt {
@@ -119,6 +122,8 @@ export interface CachedCentreInt {
   slug: string;
   template: string;
   phoneNumber: string;
+  googleAnalyticsCode: string;
+  primaryColor: string;
   emailAddress: string;
   address: string;
   price: number;

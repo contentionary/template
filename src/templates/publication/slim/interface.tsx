@@ -4,4 +4,6 @@ export type PublicationPages =
   | "Details"
   | "Document"
   | "ErrorPage"
-  | "MyPublications";
+  | "MyPublications"
+  | "Wallet"
+  | "Settings";

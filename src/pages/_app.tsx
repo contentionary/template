@@ -14,7 +14,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 // interface, styles and util
 import { queryClient } from "@src/utils";
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 import { BasePageProps } from "@src/utils/interface";
 //
 import Custom404 from "./404";
@@ -46,7 +46,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={client.current}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme()}>
         <CssBaseline />
         {pageLoading && (
           <LinearProgress

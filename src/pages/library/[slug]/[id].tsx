@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import themes from "@src/templates";
+import templates from "@src/templates";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
@@ -8,12 +8,12 @@ import { getAuthData } from "@src/utils/auth";
 const PublicationDetailsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
+      templates[pageProps.cachedData.centre.template]("ErrorPage");
 
     return <ActiveTemplate />;
   }
   const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("Details");
+    templates[pageProps.cachedData.centre.template]("Details");
 
   return <ActiveTemplate />;
 };

@@ -1,21 +1,20 @@
 import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
-import { CourseInt } from "@src/utils/interface";
 
 export default function CustomizedMenus({
   folderId,
   centreId,
-  courses,
+  coursesLength,
 }: {
   folderId: string;
   centreId: string;
-  courses: CourseInt[];
+  coursesLength: boolean;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
 
@@ -32,7 +31,7 @@ export default function CustomizedMenus({
               Edit
             </MenuItem>
           </Link>
-          {!courses.length && (
+          {!coursesLength && (
             <Delete refetch={() => {}} id={folderId} centreId={centreId} />
           )}
         </div>

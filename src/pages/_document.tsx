@@ -11,14 +11,14 @@ import Document, {
   DocumentContext,
 } from "next/document";
 //
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 export default class MyDocument extends Document {
   render(): ReactElement {
     return (
       <Html lang="en">
         <Head>
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={theme().palette.primary.main} />
         </Head>
         <body>
           <Main />

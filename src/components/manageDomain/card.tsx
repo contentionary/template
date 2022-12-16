@@ -3,17 +3,20 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import NextLink from "next/link";
 
 interface Props {
   bgColor: string;
   title: string;
   icon?: JSX.Element;
+  link: string;
 }
 
 export default function BasicCard({
   bgColor,
   icon,
   title,
+  link,
 }: Props): JSX.Element {
   return (
     <Card
@@ -27,46 +30,48 @@ export default function BasicCard({
         textDecoration: "none !important",
       }}
     >
-      <CardContent
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          height: 149,
-        }}
-      >
-        <Box
+      <NextLink href={link} passHref>
+        <CardContent
           sx={{
-            width: 40,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: 149,
           }}
         >
           <Box
             sx={{
-              background: bgColor,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: 40,
-              borderRadius: 1,
+              width: 40,
             }}
           >
-            {icon}
+            <Box
+              sx={{
+                background: bgColor,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: 40,
+                borderRadius: 1,
+              }}
+            >
+              {icon}
+            </Box>
           </Box>
-        </Box>
 
-        <Typography
-          variant="h5"
-          component="p"
-          style={{
-            fontWeight: 400,
-            fontSize: 14,
-            color: "#616161",
-            fontStyle: "normal",
-          }}
-        >
-          {title}
-        </Typography>
-      </CardContent>
+          <Typography
+            variant="h5"
+            component="p"
+            style={{
+              fontWeight: 400,
+              fontSize: 14,
+              color: "#616161",
+              fontStyle: "normal",
+            }}
+          >
+            {title}
+          </Typography>
+        </CardContent>
+      </NextLink>
     </Card>
   );
 }

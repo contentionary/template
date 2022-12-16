@@ -1,9 +1,9 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "@src/styles/theme";
+import theme from "@src/styles/theme";
 
 export default makeStyles({
   createFormConatiner: {
-    [theme.breakpoints.up("lg")]: {
+    [theme().breakpoints.up("lg")]: {
       padding: "70px 0px 40px 70px",
     },
   },
@@ -22,7 +22,6 @@ export default makeStyles({
     marginLeft: 0,
   },
   btn: {
-    background: "linear-gradient(92.54deg, #DD6E20 -14.34%, #DDA333 98.84%)",
     width: "100%",
     marginTop: 15,
     fontFamily: "Matter",

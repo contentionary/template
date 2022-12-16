@@ -10,4 +10,6 @@ export type ExamAndCoursePages =
   | "StartExam"
   | "ExamDetails"
   | "ExamCompleted"
-  | "ExamInstructions";
+  | "ExamInstructions"
+  | "Wallet"
+  | "Settings";

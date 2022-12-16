@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "@src/components/shared/image";
 // mui component
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

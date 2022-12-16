@@ -1,6 +1,6 @@
 import React from "react";
 // next components
-import Image from "next/image";
+import Image from "@src/components/shared/image";
 import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
@@ -35,7 +35,7 @@ const Empty = ({ error, href, buttonText, title, message }: EmptyPageInt) => {
             height="100%"
             layout="responsive"
             objectFit="contain"
-            alt={error?.message}
+            alt={error?.message || "No content"}
             src="/images/state/empty-cart.svg"
           />
           <Typography variant="h4">

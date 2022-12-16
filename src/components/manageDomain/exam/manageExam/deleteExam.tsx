@@ -1,13 +1,14 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextFields from "@src/components/shared/input/textField";
-import { handleError, queryClient, request } from "@src/utils";
+import { copy, handleError, queryClient, request } from "@src/utils";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ButtonComponent from "@src/components/shared/button";
 import Loading from "@src/components/shared/loading";
 import useForm from "@src/hooks/useForm";
 import { BasePageProps } from "@src/utils/interface";
+import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
 
 const DeleteExam = ({ toggleToast }: { toggleToast: Function }) => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
@@ -49,6 +50,13 @@ const DeleteExam = ({ toggleToast }: { toggleToast: Function }) => {
           <Typography variant="h6" component="div" sx={{ mb: 3 }}>
             This action means this exam will no longer exist. Are you sure you
             want to delete this?
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ mb: 3 }}>
+            <strong>Exam name: </strong> {exam.name}{" "}
+            <CopyAllOutlined
+              sx={{ cursor: "pointer" }}
+              onClick={() => copy(exam.name)}
+            />
           </Typography>
           <TextFields
             fullWidth

@@ -19,14 +19,12 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
 import { queryClient } from "@src/utils";
-import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { ExamFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection: ExamFunc = () => {
   const cardStyle = useCardStyle();
-  const globalStyle = useGlobalStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -48,11 +46,7 @@ const HeroSection: ExamFunc = () => {
             sx={{ justifyContent: "space-between", alignItems: "center" }}
           >
             <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
-              <Typography
-                mb={3}
-                variant="h1"
-                className={globalStyle.textGradient}
-              >
+              <Typography mb={3} variant="h1" color="primary">
                 {landingPageSectionOne?.title}
               </Typography>
               <Typography
@@ -71,7 +65,7 @@ const HeroSection: ExamFunc = () => {
                   disableElevation
                   variant="contained"
                   component={MuiLink}
-                  className={globalStyle.bgGradient}
+                  color="primary"
                 >
                   Get Started
                 </Button>

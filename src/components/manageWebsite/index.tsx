@@ -22,7 +22,7 @@ const CreatePublication = () => {
   ) as BasePageProps;
 
   const { toastMessage, toggleToast } = useToast();
-  const { submit, resetValues } = useForm(Update);
+  const { getData, values, submit, resetValues } = useForm(Update);
   const { template } = pageData as {
     template: TemplateInt;
   };
@@ -78,6 +78,7 @@ const CreatePublication = () => {
         landingPageSectionTwo: {
           contents: await getImage(),
         },
+        ...values,
       };
       const data = await request.patch({
         url: `/centre/${cachedData.centre.id}/centre-template`,
@@ -210,6 +211,41 @@ const CreatePublication = () => {
               </Box>
             </Box>
           ))}
+          <TextFields
+            type="color"
+            label="Primary Color"
+            name="primaryColor"
+            defaultValue={template.primaryColor}
+            onChange={getData}
+            sx={{
+              width: "100%",
+              mb: 2,
+            }}
+            required
+          />
+          {/* <TextFields
+            type="color"
+            label="Secondary Color"
+            name="secondaryColor"
+            defaultValue={template.secondaryColor}
+            onChange={getData}
+            sx={{
+              width: "100%",
+              mb: 2,
+            }}
+            required
+          /> */}
+          <TextFields
+            type="text"
+            label="Google Analytics Code"
+            name="googleAnalyticsCode"
+            defaultValue={template.googleAnalyticsCode}
+            onChange={getData}
+            sx={{
+              width: "100%",
+              mb: 2,
+            }}
+          />
           <Typography style={{ textAlign: "right" }}>
             <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
               Mange website

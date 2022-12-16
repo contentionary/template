@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import { theme } from "./theme";
+import theme from "./theme";
 
 const tabStyle = makeStyles({
   appTab: {
@@ -11,7 +11,7 @@ const tabStyle = makeStyles({
         maxWidth: "1100px",
       },
       "&.border-bottom": {
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        borderBottom: `1px solid ${theme().palette.divider}`,
       },
     },
     "& .MuiTabs-flexContainer": {

@@ -1,11 +1,8 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import EditOutlined from "@mui/icons-material/EditOutlined";
-import IconButton from "@mui/material/IconButton";
-
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
 import useStyles from "./styles";
 import NextLink from "@src/components/shared/link/btnLink";
-import Link from "@src/components/shared/link";
 
 import PublicationCard from "./PublicationCard";
 import Grid from "@mui/material/Grid";
@@ -13,7 +10,6 @@ import { BasePageProps, PublicationInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import Hidden from "@mui/material/Hidden";
 
 const PublicationAdmin = () => {
   const styles = useStyles();
@@ -21,15 +17,36 @@ const PublicationAdmin = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { publications } = pageData as {
+  const { publications } = pageData.publicationLists as {
     publications: PublicationInt[];
   };
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Delete = dynamic(() => import("./delete"));
+  const Menu = dynamic(() => import("./menu"));
+  const Breadcrumbs = dynamic(
+    () => import("@src/components/shared/breadcrumbs")
+  );
+  const pageCount = pageData.publicationLists.pageCount as number;
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    router.replace({
+      query: { ...router.query, pageId: value },
+    });
+  };
+  const links = [
+    { link: "/admin", name: "Dashboard" },
+    { link: "/admin/publication", name: "Publications" },
+  ];
 
   return (
-    <Box>
+    <Box mt={2}>
+      <Breadcrumbs
+        links={folderId ? links : [{ link: "/admin", name: "Dashboard" }]}
+        currentPage={
+          folderId
+            ? { name: "Folder", link: "/" }
+            : { link: "/admin/publication", name: "Publications" }
+        }
+      />
       <Box
         sx={{
           display: "flex",
@@ -64,59 +81,34 @@ const PublicationAdmin = () => {
           </NextLink>
         </Box>
         {folderId && (
-          <Box
-            sx={{
-              display: { xs: "flex", md: "unset" },
-              justifyContent: { xs: "center" },
-              mt: { xs: 4, md: 0 },
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Box sx={{ textAlign: "center", mr: 2 }}>
-                <Link
-                  passHref
-                  href={`/admin/publication/${folderId}/update?type=FOLDER`}
-                  className={styles.createFolder}
-                >
-                  <IconButton>
-                    <EditOutlined />
-                  </IconButton>
-                </Link>
-                <Hidden lgDown>
-                  <Typography variant="caption" component="div">
-                    Want to update Folder?
-                  </Typography>
-                </Hidden>
-              </Box>
-              {!publications.length && (
-                <Box sx={{ textAlign: "center" }}>
-                  <Delete centreId={cachedData.centre.id} id={folderId} />
-
-                  <Hidden lgDown>
-                    <Typography variant="caption" component="div">
-                      Want to delete Folder?
-                    </Typography>
-                  </Hidden>
-                </Box>
-              )}
-            </Box>
-          </Box>
+          <Menu folderId={folderId as string} centreId={cachedData.centre.id} />
         )}
       </Box>
-
       {publications.length ? (
-        <Grid
-          container
-          mb={{ xs: 1, md: 2, xl: 3 }}
-          spacing={{ xs: 1, md: 2, xl: 3 }}
-          columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
-        >
-          {publications?.map((publication, index) => (
-            <Grid key={`${index}-publication-card`} item xs={1}>
-              <PublicationCard {...publication} />
-            </Grid>
-          ))}
-        </Grid>
+        <>
+          <Grid
+            container
+            mb={{ xs: 1, md: 2, xl: 3 }}
+            spacing={{ xs: 1, md: 2, xl: 3 }}
+            columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
+          >
+            {publications?.map((publication, index) => (
+              <Grid key={`${index}-publication-card`} item xs={1}>
+                <PublicationCard {...publication} />
+              </Grid>
+            ))}
+          </Grid>{" "}
+          <Stack py={4} direction="row" justifyContent="center" spacing={2}>
+            {pageCount > 1 && (
+              <Pagination
+                count={pageCount}
+                onChange={handleChange}
+                shape="rounded"
+                size="large"
+              />
+            )}
+          </Stack>
+        </>
       ) : (
         <Empty
           href={`/admin/publication/create?type=PUBLICATION&folderId=${folderId}`}

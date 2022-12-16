@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 // next
-import Image from "next/image";
+import Image from "@src/components/shared/image";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -9,7 +9,7 @@ import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 // styles and interface
-import useGlobalStyle from "@src/styles";
+import useGlobalStyle, { bg } from "@src/styles";
 import { ExamFunc } from "./interfaceType";
 //
 
@@ -38,7 +38,7 @@ const TestimonialSection: ExamFunc = () => {
                       component="span"
                       color="primary.main"
                       fontWeight={"inherit"}
-                      className={globalStyle.underlinedCurve}
+                      sx={{ ...bg().underlinedCurve }}
                     >
                       Students
                     </Typography>{" "}
