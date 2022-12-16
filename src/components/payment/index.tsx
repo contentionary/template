@@ -25,9 +25,9 @@ export default function Payment(): JSX.Element {
   const styles = useStyles();
   const [cards, setCards] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isConvertingCurrency, setIsConvertingCurrency] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const {
-    amount: price,
     purpose,
     itemId,
     currency: incomingCurrency,
@@ -37,16 +37,29 @@ export default function Payment(): JSX.Element {
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
   );
-  const [amount, setAmount] = useState<number>(Number(price));
+  const [amount, setAmount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
     PaymentMethod.CARD
   );
+  const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
+
+  const preTransactionDetails = useCallback(async () => {
+    try {
+      const { data } = await request.post({
+        url: "/transaction/pre-details",
+        data: { itemId, purpose },
+      });
+      const standardAmount = data.amount / 100;
+      setAmount(standardAmount);
+      setConfirmedPrice(standardAmount);
+    } catch ({ message }) {}
+  }, [itemId, purpose]);
 
   const makePayment = async () => {
     try {
-      const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${price}`;
+      const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${amount}`;
       const paymentData = {
-        amount: amount * 100,
+        amount: parseInt((amount * 100).toFixed(0)),
         paymentMethod,
         currency,
         redirectUrl,
@@ -64,7 +77,7 @@ export default function Payment(): JSX.Element {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
       }
     } catch (err) {
-      toggleToast(handleError(err).message);
+      alert(handleError(err).message);
       setIsLoading(false);
     }
   };
@@ -75,31 +88,46 @@ export default function Payment(): JSX.Element {
     currency,
     purpose,
     itemId,
-    toggleToast,
-    price,
+    // toggleToast,
     resourceRedirectUrl,
     transactionkey,
   ]);
 
   useEffect(() => {
-    if (amount === 0) {
-      freePayment();
-    } else {
-      const paymentGateways = data.filter(
-        (item) => item.currency === currency || item.currency === "*"
-      );
-      setCards([...paymentGateways]);
+    if (router.isReady) {
+      if (typeof confirmedPrice === "number") {
+        if (amount === 0) {
+          freePayment();
+        } else {
+          const paymentGateways = data.filter(
+            (item) => item.currency === currency || item.currency === "*"
+          );
+          setCards([...paymentGateways]);
+        }
+      } else {
+        preTransactionDetails();
+      }
     }
-  }, [currency, amount, freePayment]);
+  }, [
+    currency,
+    amount,
+    router.isReady,
+    freePayment,
+    preTransactionDetails,
+    confirmedPrice,
+  ]);
 
   const currencyConverter = async (newCurrency: Currency) => {
     try {
+      setIsConvertingCurrency(true);
       const { data } = await request.get({
-        url: `/wallet/convert-currency?fromCurrency=${incomingCurrency}&toCurrency=${newCurrency}&amount=${price}`,
+        url: `/wallet/convert-currency?fromCurrency=${incomingCurrency}&toCurrency=${newCurrency}&amount=${confirmedPrice}`,
       });
 
       setAmount(data.amount);
+      setIsConvertingCurrency(false);
     } catch (err) {
+      setIsConvertingCurrency(false);
       toggleToast(handleError(err).message);
     }
   };
@@ -134,7 +162,8 @@ export default function Payment(): JSX.Element {
               component="p"
               className={styles.price}
             >
-              Complete transaction of {currency + " " + amount}
+              Complete transaction of {currency}{" "}
+              {isConvertingCurrency ? <Loading size={10} /> : amount}
             </Typography>
           </div>
           <Divider style={{ borderTop: "2px solid #CCCCCC" }} />

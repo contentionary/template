@@ -18,14 +18,12 @@ const BookDetails = ({
   auth: any;
   centre: CachedCentreInt;
 }) => {
-  const { price, id, allowRead, slug } = publication || {};
+  const { id, allowRead, slug } = publication || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = auth
     ? `
-    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&amount=${
-        centre.subscriptionModel === "SUBSCRIPTION" ? centre.price : price
-      }&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
+    /payment?itemId=${id}&purpose=PUBLICATION_SUBSCRIPTION&paymentMethod=CARD&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {

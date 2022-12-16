@@ -13,11 +13,11 @@ const CourseDetailsPage = () => {
   const courseDetails = pageData.courseDetails as CourseInt;
   const auth = pageData?.auth;
 
-  const { id, price, slug, contents } = courseDetails;
+  const { id, slug, contents } = courseDetails;
   const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}&verifyValue=${price}`;
+  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`;
 
   const [module] = contents;
   const contentId = module?.contents?.length
