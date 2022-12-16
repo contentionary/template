@@ -7,14 +7,14 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 //
-import { UserInt, CachedCentreInt } from "@src/utils/interface";
+import { UserInt } from "@src/utils/interface";
 
 interface ProfileMenuInt {
-  cachedData: { user: UserInt; token: string; centre: CachedCentreInt };
+  cachedData: { user: UserInt; token: string; };
 }
 
 const AcademyMenu = ({ cachedData }: ProfileMenuInt) => {
-  const { user, centre } = cachedData;
+  const { user } = cachedData;
 
   return (
     <List>
@@ -34,11 +34,11 @@ const AcademyMenu = ({ cachedData }: ProfileMenuInt) => {
       </NextLink>
       {user ? (
         <>
-          {user.managingCentres.includes(centre.id) && (
+          {user?.isAdmin && (
             <NextLink href="/courses/my-courses" passHref>
               <ListItemButton>
                 <ListItemIcon>
-                  <ListItemText>Addmin</ListItemText>
+                  <ListItemText>Admin</ListItemText>
                 </ListItemIcon>
               </ListItemButton>
             </NextLink>
