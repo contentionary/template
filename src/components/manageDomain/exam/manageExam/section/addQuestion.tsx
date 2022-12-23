@@ -1,5 +1,6 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
 import Dialog from "@src/components/shared/dialog";
@@ -41,7 +42,7 @@ const AddQuestion = ({
   const [selectedQuestions, setSelectedQuestions] = useState<
     Array<Record<string, any>>
   >([]);
-
+  const [pageCount, setPageCount] = useState(0);
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
 
@@ -65,12 +66,12 @@ const AddQuestion = ({
       setIsLoading(false);
     }
   }
-  async function getQuestions(id: string, index: number) {
+  async function getQuestions(id: string, index: number, pageId: number) {
     try {
       setQuestionLoading(true);
       setExpanded(index);
       const { data } = await request.get({
-        url: `/centre/${centreId}/question-bank/${id}/questions`,
+        url: `/centre/${centreId}/question-bank/${id}/questions?pageId=${pageId}`,
       });
       setQuestions(data.questions);
       setQuestionLoading(false);
@@ -129,7 +130,7 @@ const AddQuestion = ({
                   (questionBank, questionBankIndex: number) => (
                     <Accordion
                       onClick={() =>
-                        getQuestions(questionBank.id, questionBankIndex)
+                        getQuestions(questionBank.id, questionBankIndex, 1)
                       }
                       key={`${questionBankIndex}-questionBank`}
                       title={
@@ -144,70 +145,93 @@ const AddQuestion = ({
                       ) : (
                         <>
                           {questions?.length ? (
-                            questions?.map(
-                              ({ question, id }, index: number) => (
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    mt: 1,
-                                  }}
-                                  key={`${index}-question`}
-                                >
-                                  <Avatar sx={{ mr: 2 }}>{++index}</Avatar>
+                            <>
+                              {questions?.map(
+                                ({ question, id }, index: number) => (
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      mt: 1,
+                                    }}
+                                    key={`${index}-question`}
+                                  >
+                                    <Avatar sx={{ mr: 2 }}>{++index}</Avatar>
 
-                                  <CheckBox
-                                    label={
-                                      <Typography
-                                        dangerouslySetInnerHTML={{
-                                          __html: question.question,
-                                        }}
-                                      />
-                                    }
-                                    checked={selectedQuestions.some(
-                                      (item) => item.questionId === id
-                                    )}
-                                    onChange={() => {
-                                      const hasQuestion =
-                                        selectedQuestions.some(
-                                          (item) => item.questionId === id
-                                        );
-                                      if (hasQuestion) {
-                                        const questionIndex =
-                                          selectedQuestions.findIndex(
+                                    <CheckBox
+                                      label={
+                                        <Typography
+                                          dangerouslySetInnerHTML={{
+                                            __html: question.question,
+                                          }}
+                                        />
+                                      }
+                                      checked={selectedQuestions.some(
+                                        (item) => item.questionId === id
+                                      )}
+                                      onChange={() => {
+                                        const hasQuestion =
+                                          selectedQuestions.some(
                                             (item) => item.questionId === id
                                           );
-                                        selectedQuestions.splice(
-                                          questionIndex,
-                                          1
+                                        if (hasQuestion) {
+                                          const questionIndex =
+                                            selectedQuestions.findIndex(
+                                              (item) => item.questionId === id
+                                            );
+                                          selectedQuestions.splice(
+                                            questionIndex,
+                                            1
+                                          );
+                                        } else {
+                                          selectedQuestions.push({
+                                            questionId: id,
+                                          });
+                                        }
+                                        setSelectedQuestions([
+                                          ...selectedQuestions,
+                                        ]);
+                                      }}
+                                    />
+                                    <TextFields
+                                      onBlur={(e: ChangeEvent<any>) => {
+                                        selectedQuestions.map((item) =>
+                                          item.questionId === id
+                                            ? (item.mark = e.target.value)
+                                            : item
                                         );
-                                      } else {
-                                        selectedQuestions.push({
-                                          questionId: id,
-                                        });
-                                      }
-                                      setSelectedQuestions([
-                                        ...selectedQuestions,
-                                      ]);
-                                    }}
+                                        setSelectedQuestions([
+                                          ...selectedQuestions,
+                                        ]);
+                                      }}
+                                      label="Score"
+                                      sx={{ width: 100 }}
+                                    />
+                                  </Box>
+                                )
+                              )}
+                              <Stack
+                                py={4}
+                                direction="row"
+                                justifyContent="center"
+                                spacing={2}
+                              >
+                                {pageCount > 1 && (
+                                  <Pagination
+                                    count={pageCount}
+                                    onChange={(e, value) =>
+                                      getQuestions(
+                                        questionBank.id,
+                                        questionBankIndex,
+                                        value as number
+                                      )
+                                    }
+                                    shape="rounded"
+                                    size="large"
                                   />
-                                  <TextFields
-                                    onBlur={(e: ChangeEvent<any>) => {
-                                      selectedQuestions.map((item) =>
-                                        item.questionId === id
-                                          ? (item.mark = e.target.value)
-                                          : item
-                                      );
-                                      setSelectedQuestions([
-                                        ...selectedQuestions,
-                                      ]);
-                                    }}
-                                    label="Score"
-                                    sx={{ width: 100 }}
-                                  />
-                                </Box>
-                              )
-                            )
+                                )}
+                              </Stack>
+                            </>
                           ) : (
                             <Empty />
                           )}
