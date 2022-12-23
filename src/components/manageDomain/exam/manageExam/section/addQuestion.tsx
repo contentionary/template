@@ -73,7 +73,7 @@ const AddQuestion = ({
       const { data } = await request.get({
         url: `/centre/${centreId}/question-bank/${id}/questions?pageId=${pageId}`,
       });
-      setPageCount(data.pageCount)
+      setPageCount(data.pageCount);
       setQuestions(data.questions);
       setQuestionLoading(false);
     } catch (error) {
