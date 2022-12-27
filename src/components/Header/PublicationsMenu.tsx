@@ -35,7 +35,7 @@ const PublicationsMenu = ({ cachedData }: ProfileMenuInt) => {
       {user ? (
         <>
           {user.isAdmin && (
-            <NextLink href="/courses/my-courses" passHref>
+            <NextLink href="/admin" passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Admin</ListItemText>

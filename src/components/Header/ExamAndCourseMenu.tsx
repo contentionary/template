@@ -18,7 +18,7 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
 
   return (
     <List>
-      <NextLink href="/academy" passHref>
+      <NextLink href="/" passHref>
         <ListItemButton>
           <ListItemIcon>
             <ListItemText>Home</ListItemText>
@@ -42,7 +42,7 @@ const ExamAndCourseMenu = ({ cachedData }: ProfileMenuInt) => {
       {user ? (
         <>
           {user.isAdmin && (
-            <NextLink href="/courses/my-courses" passHref>
+            <NextLink href="/admin" passHref>
               <ListItemButton>
                 <ListItemIcon>
                   <ListItemText>Admin</ListItemText>
