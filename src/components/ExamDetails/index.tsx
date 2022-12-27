@@ -10,12 +10,12 @@ import { isServerSide } from "@src/utils";
 import { ExamInt } from "@src/utils/interface";
 
 const ExamDetails = ({ exam, auth }: { exam: ExamInt; auth: any }) => {
-  const { price, id, slug } = exam || {};
+  const { id, slug } = exam || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
   const paymentLink = auth
     ? `
-    /payment?itemId=${id}&purpose=EXAM_SUBSCRIPTION&paymentMethod=CARD&amount=${price}&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
+    /payment?itemId=${id}&purpose=EXAM_SUBSCRIPTION&paymentMethod=CARD&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`
     : "/login";
 
   let Read = {
