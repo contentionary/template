@@ -10,7 +10,7 @@ const VideoPlayer: React.FC<IVideoPlayerProps> = ({ src }) => {
   return (
     <Box data-vjs-player>
       <iframe
-        src={`${src}?autoplay=true`}
+        src={`${src}?autoplay=false`}
         loading="lazy"
         style={{
           border: "none",

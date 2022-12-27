@@ -2,6 +2,7 @@ import React from "react";
 //  mui components
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 // type/interface
 import useVideoPageStyle from "@src/styles/videoPage";
 // app components
@@ -18,7 +19,11 @@ const LessonPlayer = ({
   return (
     <Box className={videoPageStyle.playerContainer}>
       <Container className="player-box">
-        <VideoPlayer src={courseContent.fileUrl} />
+        {courseContent.fileUrl ? (
+          <VideoPlayer src={courseContent.fileUrl} />
+        ) : (
+          <Typography>Video not available yet</Typography>
+        )}
       </Container>
     </Box>
   );
