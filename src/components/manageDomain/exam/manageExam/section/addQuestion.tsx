@@ -48,6 +48,7 @@ const AddQuestion = ({
 
   async function getQuestionBanks() {
     try {
+      openDialog();
       setIsLoading(true);
       const { data } = await request.get({
         url: `/centre/${centreId}/question-banks`,
@@ -60,7 +61,7 @@ const AddQuestion = ({
         setSelectedQuestions([...selectedQuestions, ...questions]);
       });
       setIsLoading(false);
-      openDialog();
+      // openDialog();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -126,56 +127,72 @@ const AddQuestion = ({
         content={
           <form onSubmit={(e) => submit(e)}>
             <Stack spacing={3} mt={3}>
-              {questionBanks?.length ? (
-                questionBanks?.map(
-                  (questionBank, questionBankIndex: number) => (
-                    <Accordion
-                      onClick={() =>
-                        getQuestions(questionBank.id, questionBankIndex, 1)
-                      }
-                      key={`${questionBankIndex}-questionBank`}
-                      title={
-                        <Typography variant="h6" component="div">
-                          {questionBank.name}
-                        </Typography>
-                      }
-                      expanded={expanded === questionBankIndex}
-                    >
-                      {questionLoading ? (
-                        <Typography>Loading...</Typography>
-                      ) : (
-                        <>
-                          {questions?.length ? (
-                            <>
-                              {questions?.map(
-                                ({ question, id }, index: number) => (
-                                  <Box
-                                    sx={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      mt: 1,
-                                    }}
-                                    key={`${index}-question`}
-                                  >
-                                    <Avatar sx={{ mr: 2 }}>{++index}</Avatar>
-
-                                    <CheckBox
-                                      label={
-                                        <Typography
-                                          dangerouslySetInnerHTML={{
-                                            __html: question.question,
-                                          }}
-                                        />
-                                      }
-                                      checked={selectedQuestions.some(
-                                        (item) => item.questionId === id
-                                      )}
-                                      onChange={() => {
-                                        const hasQuestion =
-                                          selectedQuestions.some(
-                                            (item) => item.questionId === id
-                                          );
-                                        if (hasQuestion) {
+              {isLoading ? (
+                <Typography
+                  component="div"
+                  sx={{
+                    height: 100,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItem: "center",
+                  }}
+                >
+                  <Typography component="div">
+                    <Loading />
+                  </Typography>
+                </Typography>
+              ) : questionBanks?.length ? (
+                <>
+                  {questionBanks?.map(
+                    (questionBank, questionBankIndex: number) => (
+                      <Accordion
+                        onClick={() =>
+                          getQuestions(questionBank.id, questionBankIndex, 1)
+                        }
+                        key={`${questionBankIndex}-questionBank`}
+                        title={
+                          <Typography variant="h6" component="div">
+                            {questionBank.name}
+                          </Typography>
+                        }
+                        expanded={expanded === questionBankIndex}
+                      >
+                        {questionLoading ? (
+                          <Typography
+                            component="div"
+                            sx={{
+                              height: 100,
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItem: "center",
+                            }}
+                          >
+                            <Typography>
+                              <Loading />
+                            </Typography>
+                          </Typography>
+                        ) : (
+                          <>
+                            {questions?.length ? (
+                              <>
+                                <Typography
+                                  sx={{ textAlign: "right" }}
+                                  component="div"
+                                >
+                                  <CheckBox
+                                    label={<Typography>Check all</Typography>}
+                                    onChange={(e: any) => {
+                                      if (e.target.checked) {
+                                        questions?.map(({ id }) => {
+                                          selectedQuestions.push({
+                                            questionId: id,
+                                          });
+                                        });
+                                        setSelectedQuestions([
+                                          ...selectedQuestions,
+                                        ]);
+                                      } else {
+                                        questions?.map(({ id }) => {
                                           const questionIndex =
                                             selectedQuestions.findIndex(
                                               (item) => item.questionId === id
@@ -184,80 +201,126 @@ const AddQuestion = ({
                                             questionIndex,
                                             1
                                           );
-                                        } else {
-                                          selectedQuestions.push({
-                                            questionId: id,
-                                          });
-                                        }
+                                        });
                                         setSelectedQuestions([
                                           ...selectedQuestions,
                                         ]);
-                                      }}
-                                    />
-                                    <TextFields
-                                      onBlur={(e: ChangeEvent<any>) => {
-                                        selectedQuestions.map((item) =>
-                                          item.questionId === id
-                                            ? (item.mark = e.target.value)
-                                            : item
-                                        );
-                                        setSelectedQuestions([
-                                          ...selectedQuestions,
-                                        ]);
-                                      }}
-                                      label="Score"
-                                      sx={{ width: 100 }}
-                                    />
-                                  </Box>
-                                )
-                              )}
-                              <Stack
-                                py={4}
-                                direction="row"
-                                justifyContent="center"
-                                spacing={2}
-                              >
-                                {pageCount > 1 && (
-                                  <Pagination
-                                    count={pageCount}
-                                    onChange={(e, value) =>
-                                      getQuestions(
-                                        questionBank.id,
-                                        questionBankIndex,
-                                        value as number
-                                      )
-                                    }
-                                    shape="rounded"
-                                    size="large"
+                                      }
+                                    }}
                                   />
+                                </Typography>
+                                {questions?.map(
+                                  ({ question, id }, index: number) => (
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        mt: 1,
+                                      }}
+                                      key={`${index}-question`}
+                                    >
+                                      <Avatar sx={{ mr: 2 }}>{++index}</Avatar>
+
+                                      <CheckBox
+                                        label={
+                                          <Typography
+                                            dangerouslySetInnerHTML={{
+                                              __html: question.question,
+                                            }}
+                                          />
+                                        }
+                                        checked={selectedQuestions.some(
+                                          (item) => item.questionId === id
+                                        )}
+                                        onChange={() => {
+                                          const hasQuestion =
+                                            selectedQuestions.some(
+                                              (item) => item.questionId === id
+                                            );
+                                          if (hasQuestion) {
+                                            const questionIndex =
+                                              selectedQuestions.findIndex(
+                                                (item) => item.questionId === id
+                                              );
+                                            selectedQuestions.splice(
+                                              questionIndex,
+                                              1
+                                            );
+                                          } else {
+                                            selectedQuestions.push({
+                                              questionId: id,
+                                            });
+                                          }
+                                          setSelectedQuestions([
+                                            ...selectedQuestions,
+                                          ]);
+                                        }}
+                                      />
+                                      <TextFields
+                                        onBlur={(e: ChangeEvent<any>) => {
+                                          selectedQuestions.map((item) =>
+                                            item.questionId === id
+                                              ? (item.mark = e.target.value)
+                                              : item
+                                          );
+                                          setSelectedQuestions([
+                                            ...selectedQuestions,
+                                          ]);
+                                        }}
+                                        label="Score"
+                                        sx={{ width: 100 }}
+                                      />
+                                    </Box>
+                                  )
                                 )}
-                              </Stack>
-                            </>
-                          ) : (
-                            <Empty />
-                          )}
-                        </>
-                      )}
-                    </Accordion>
-                  )
-                )
+                                <Stack
+                                  py={4}
+                                  direction="row"
+                                  justifyContent="center"
+                                  spacing={2}
+                                >
+                                  {pageCount > 1 && (
+                                    <Pagination
+                                      count={pageCount}
+                                      onChange={(e, value) =>
+                                        getQuestions(
+                                          questionBank.id,
+                                          questionBankIndex,
+                                          value as number
+                                        )
+                                      }
+                                      shape="rounded"
+                                      size="large"
+                                    />
+                                  )}
+                                </Stack>
+                              </>
+                            ) : (
+                              <Empty />
+                            )}
+                          </>
+                        )}
+                      </Accordion>
+                    )
+                  )}
+                  <Typography style={{ textAlign: "right", marginTop: 20 }}>
+                    <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
+                      <>
+                        Add Questions
+                        {isLoading && <Loading size={15} />}
+                      </>
+                    </ButtonComponent>
+                    <ButtonComponent
+                      onClick={() => closeDialog()}
+                      sx={{ fontSize: 18, color: "red" }}
+                    >
+                      Cancel
+                    </ButtonComponent>
+                  </Typography>
+                </>
               ) : (
                 <Empty />
               )}
-              <Typography style={{ textAlign: "right", marginTop: 20 }}>
-                <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  <>
-                    Create
-                    {isLoading && <Loading size={15} />}
-                  </>
-                </ButtonComponent>
-                <ButtonComponent
-                  onClick={() => closeDialog()}
-                  sx={{ fontSize: 18 }}
-                >
-                  Cancel
-                </ButtonComponent>
-              </Typography>
             </Stack>
           </form>
         }
