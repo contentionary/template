@@ -31,6 +31,7 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
     summary,
     questionCount,
     subscriberCount,
+    folderContentCount,
   } = exam;
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -94,7 +95,7 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
                 alignItems="center"
               >
                 <FolderCopyOutlinedIcon color="inherit" fontSize="inherit" />
-                &nbsp; {0}
+                &nbsp; {folderContentCount}
               </Typography>
             ) : (
               <Stack

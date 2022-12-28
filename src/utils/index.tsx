@@ -13,8 +13,7 @@ import {
 import { QueryClient } from "react-query";
 import { v4 as uuid } from "uuid";
 
-import { Upload } from "@aws-sdk/lib-storage";
-import { S3Client } from "@aws-sdk/client-s3";
+import S3 from "aws-sdk/clients/s3";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -41,63 +40,51 @@ export const getFileKey = (file: any) => {
   return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
 };
 
-export const uploadFiles = async (file: any, setProgress: Function) => {
-  try {
+export const uploadFiles = (file: any, setProgress: Function) =>
+  new Promise((ful, rej) => {
     const date = new Date();
-
-    let params: any = {
-      Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET,
-      Key: `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}`,
-      ACL: "public-read",
-    };
-
+    let Key = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}`;
+    let Body;
     if (typeof file === "string") {
       file = file.replace(/^data:image\/\w+;base64,/, "");
-
       let format = file.charAt(0);
       if (format === "/") format = "jpg";
       else if (format === "i") format = "png";
       else if (format === "R") format = "gif";
-
-      const Body = Buffer.from(file, "base64");
-
-      params = {
-        ...params,
-        Key: `${params.Key}.${format}`,
-        Body,
-        ContentType: `image/${format}`,
-      };
+      Body = Buffer.from(file, "base64");
+      Key = `${Key}.${format}`;
     } else {
-      params.Body = file;
-      params.Key = `${params.Key}.${file.name.split(".").pop()}`;
+      Body = file;
+      Key = `${Key}.${file.name.split(".").pop()}`;
     }
-
-    const parallelUploads3 = new Upload({
-      client: new S3Client({
-        region: "eu-west-3",
-        credentials: {
-          accessKeyId: process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID as string,
-          secretAccessKey: process.env
-            .NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID as string,
-        },
-      }),
-      params,
-      leavePartsOnError: false, // optional manually handle dropped parts
+    const s3 = new S3({
+      correctClockSkew: true,
+      endpoint: process.env.NEXT_PUBLIC_AWS_S3_BASE_URL, //Specify the correct endpoint based on where your bucket is
+      accessKeyId: process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID,
+      secretAccessKey: process.env.NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID,
+      region: process.env.NEXT_PUBLIC_AWS_S3_REGION, //Specify the correct region name based on where your bucket is
+      logger: console,
     });
 
-    parallelUploads3.on("httpUploadProgress", (progress) => {
-      let progressValue =
-        (Number(progress.loaded) / Number(progress.total)) * 100;
-
-      setProgress(Math.ceil(progressValue));
+    const uploadRequest = new S3.ManagedUpload({
+      params: {
+        Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET as string,
+        Key,
+        Body,
+      },
+      service: s3,
     });
 
-    const res: any = await parallelUploads3.done();
-    return res.Location.split(".com/").pop();
-  } catch (err) {
-    throw err;
-  }
-};
+    uploadRequest.on("httpUploadProgress", function (event) {
+      const progressPercentage = Math.floor((event.loaded * 100) / event.total);
+      setProgress(progressPercentage);
+    });
+    uploadRequest.send((err, res) => {
+      if (err) return rej(err);
+      ful(res.Key);
+    });
+  });
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

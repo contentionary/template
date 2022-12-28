@@ -22,8 +22,16 @@ import { kCount, EXAM_FOLDER_IMAGE_PLACEHOLDER } from "@src/utils";
 import { ExamInt } from "@src/utils/interface";
 
 const ExamCard = ({ exam }: { exam: ExamInt }) => {
-  const { id, type, name, image, description, questionCount, subscriberCount } =
-    exam;
+  const {
+    id,
+    type,
+    name,
+    image,
+    description,
+    questionCount,
+    subscriberCount,
+    folderContentCount,
+  } = exam;
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
 
@@ -90,7 +98,7 @@ const ExamCard = ({ exam }: { exam: ExamInt }) => {
                 alignItems="center"
               >
                 <FolderCopyOutlinedIcon color="inherit" fontSize="inherit" />
-                &nbsp; {0}
+                &nbsp; {folderContentCount}
               </Typography>
             ) : (
               <Stack

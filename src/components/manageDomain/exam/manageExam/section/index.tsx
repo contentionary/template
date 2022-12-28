@@ -33,6 +33,7 @@ export default function CustomizedMenus({
   toggleToast: Function;
 }) {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
+  const Loading = dynamic(() => import("@src/components/shared/loading"));
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [expanded, setExpanded] = useState(0);
 
@@ -41,7 +42,21 @@ export default function CustomizedMenus({
     fetchQuestion
   );
   if (isLoading) {
-    return <div>loading.....</div>;
+    return (
+      <Typography
+        component="div"
+        sx={{
+          height: 300,
+          display: "flex",
+          justifyContent: "center",
+          alignItem: "center",
+        }}
+      >
+        <Typography>
+          <Loading />
+        </Typography>
+      </Typography>
+    );
   } else if (data) {
     return (
       <Stack spacing={4}>

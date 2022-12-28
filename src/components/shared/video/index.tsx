@@ -15,14 +15,6 @@ import { VideoModalFunc } from "./interfaceType";
 const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen, src }) => {
   const globalStyle = useGlobalStyle();
   const handleClose = () => setIsOpen(false);
-
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    fill: true,
-    sources: [{ src }],
-  };
-
   return (
     <Modal
       open={isOpen}
@@ -37,7 +29,7 @@ const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen, src }) => {
     >
       <Fade in={isOpen}>
         <Box className={globalStyle.modalStyle}>
-          <VideoPlayer options={videoJsOptions} />
+          <VideoPlayer src={src} />
         </Box>
       </Fade>
     </Modal>

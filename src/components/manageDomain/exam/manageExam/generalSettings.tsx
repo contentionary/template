@@ -111,7 +111,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
             <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
-                label="Exam start date"
+                // label="Exam start date"
                 name="startDate"
                 // defaultValue="2022-10-26T5:10"
                 onChange={getData}
@@ -124,7 +124,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
             <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
-                label="Exam end date"
+                // label="Exam end date"
                 name="endDate"
                 onChange={getData}
                 sx={{ width: "100%" }}

@@ -287,6 +287,7 @@ export interface ExamInt {
   centreName: string;
   centreSlug: string;
   summary: string;
+  folderContentCount: number;
 }
 
 export interface ExamQuestionsInt {
