@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 export enum Gender {
   MALE = "Male",
   FEMALE = "Female",
@@ -151,6 +152,7 @@ export interface CourseContentInt {
   pageCount?: string;
   description: string;
   fileUrl: string;
+  status: "PENDING" | "PUBLISHED";
 }
 
 export interface CourseModuleInt {

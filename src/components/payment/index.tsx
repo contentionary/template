@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { useStyles } from "./style";
@@ -13,21 +13,21 @@ import Button from "@src/components/shared/button";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import { useRouter } from "next/router";
 import { currencies, data } from "./data";
-import { handleError, isServerSide, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 import { Currency, PaymentMethod } from "./interface";
 import Loader from "@src/components/shared/loading/loadingWithValue";
+import { handleError, request, isServerSide } from "@src/utils";
 
 export default function Payment(): JSX.Element {
   const router = useRouter();
   const styles = useStyles();
   const [cards, setCards] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isConvertingCurrency, setIsConvertingCurrency] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const {
+    amount: price,
     purpose,
     itemId,
     currency: incomingCurrency,
@@ -37,29 +37,16 @@ export default function Payment(): JSX.Element {
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
   );
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(Number(price));
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
     PaymentMethod.CARD
   );
-  const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
-
-  const preTransactionDetails = useCallback(async () => {
-    try {
-      const { data } = await request.post({
-        url: "/transaction/pre-details",
-        data: { itemId, purpose },
-      });
-      const standardAmount = data.amount / 100;
-      setAmount(standardAmount);
-      setConfirmedPrice(standardAmount);
-    } catch ({ message }) {}
-  }, [itemId, purpose]);
 
   const makePayment = async () => {
     try {
-      const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${amount}`;
+      const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${price}`;
       const paymentData = {
-        amount: parseInt((amount * 100).toFixed(0)),
+        amount: amount * 100,
         paymentMethod,
         currency,
         redirectUrl,
@@ -77,57 +64,39 @@ export default function Payment(): JSX.Element {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
       }
     } catch (err) {
-      alert(handleError(err).message);
+      toggleToast(handleError(err).message);
       setIsLoading(false);
     }
   };
 
-  const freePayment = useCallback(makePayment, [
-    amount,
-    paymentMethod,
-    currency,
-    purpose,
-    itemId,
-    // toggleToast,
-    resourceRedirectUrl,
-    transactionkey,
-  ]);
+  useEffect(() => {
+    if (router.isReady) {
+      setAmount(Number(router.query.amount));
+      setCurrency(router.query.currency as Currency);
+    }
+  }, [router]);
 
   useEffect(() => {
     if (router.isReady) {
-      if (typeof confirmedPrice === "number") {
-        if (amount === 0) {
-          freePayment();
-        } else {
-          const paymentGateways = data.filter(
-            (item) => item.currency === currency || item.currency === "*"
-          );
-          setCards([...paymentGateways]);
-        }
+      if (amount === 0) {
+        makePayment();
       } else {
-        preTransactionDetails();
+        const paymentGateways = data.filter(
+          (item) => item.currency === currency || item.currency === "*"
+        );
+        setCards([...paymentGateways]);
       }
     }
-  }, [
-    currency,
-    amount,
-    router.isReady,
-    freePayment,
-    preTransactionDetails,
-    confirmedPrice,
-  ]);
+  }, [currency, amount]);
 
   const currencyConverter = async (newCurrency: Currency) => {
     try {
-      setIsConvertingCurrency(true);
       const { data } = await request.get({
-        url: `/wallet/convert-currency?fromCurrency=${incomingCurrency}&toCurrency=${newCurrency}&amount=${confirmedPrice}`,
+        url: `/wallet/convert-currency?fromCurrency=${incomingCurrency}&toCurrency=${newCurrency}&amount=${price}`,
       });
 
-      setAmount(data.amount);
-      setIsConvertingCurrency(false);
+      setAmount(data.data.amount);
     } catch (err) {
-      setIsConvertingCurrency(false);
       toggleToast(handleError(err).message);
     }
   };
@@ -162,8 +131,7 @@ export default function Payment(): JSX.Element {
               component="p"
               className={styles.price}
             >
-              Complete transaction of {currency}{" "}
-              {isConvertingCurrency ? <Loading size={10} /> : amount}
+              Complete transaction of {currency + " " + amount}
             </Typography>
           </div>
           <Divider style={{ borderTop: "2px solid #CCCCCC" }} />

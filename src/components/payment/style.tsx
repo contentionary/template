@@ -93,7 +93,7 @@ export const useStyles = makeStyles({
   },
   activeCard: {
     background: "#FFFBF4",
-    border: `solid 2px ${theme().palette.primary.main}`,
+    border: "3px solid #F57E27",
   },
   inActive: {
     background: "#F9F9F9",

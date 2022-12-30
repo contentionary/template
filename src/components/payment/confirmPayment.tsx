@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import LinearProgress, {
   LinearProgressProps,
 } from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
-import { cache, isServerSide, request } from "@src/utils";
+import { request, isServerSide } from "@src/utils";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 
@@ -40,7 +40,7 @@ export default function CircularDeterminate({
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
 
-  const getPaymentConfirmation = useCallback(async () => {
+  async function getPaymentConfirmation() {
     try {
       const { data }: any =
         price === 0
@@ -49,31 +49,29 @@ export default function CircularDeterminate({
               url: `/transaction/${reference}/verify`,
             });
 
-      if (data.valueGiven) {
-        if (data.purpose === "CENTRE_SUBSCRIPTION") {
-          cache.set("isCentreSubscriber", true);
-        }
+      if (data?.valueGiven || data?.data?.valueGiven) {
         setShow(false);
-        const [url] = redirectUrl.split("?verifyValue");
+        const [url] = redirectUrl.split("verifyValue");
         if (!isServerSide) window.location.href = url;
-      } else {
-        setProgress((prevProgress) =>
-          prevProgress >= 100 ? 0 : prevProgress + 10
-        );
       }
     } catch ({ message }) {
-      alert(message);
+      toggleToast(message as string);
     }
-  }, [reference, redirectUrl, price]);
+  }
 
   useEffect(() => {
-    if (progress < 100) {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 0 : prevProgress + 10
+      );
       getPaymentConfirmation();
-    } else {
-      setShow(false);
-      alert("Transaction Verification Timed Out, kindly refresh the page");
-    }
-  }, [progress, getPaymentConfirmation]);
+    }, 3000);
+
+    return () => {
+      clearInterval(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
