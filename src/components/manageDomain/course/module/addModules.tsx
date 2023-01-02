@@ -72,10 +72,10 @@ const AddModules = ({
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
         <AddCircleOutlineOutlined />
-        Add {(id || content) ? "Content" : "Modules"}
+        Add {id || content ? "Content" : "Modules"}
       </MenuItem>
       <Dialog
-        title={`Add course ${(id || content) ? "content" : "modules"} `}
+        title={`Add course ${id || content ? "content" : "modules"} `}
         isOpen={isOpen}
         closeDialog={closeDialog}
         value={fileLoadingProgres}
