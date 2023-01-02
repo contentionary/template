@@ -26,7 +26,11 @@ import ConfirmPayment from "@src/components/payment/confirmPayment";
 import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
 import { CourseDetailsPageFunc } from "../../utils/interface";
 
-const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
+const HeroSection: CourseDetailsPageFunc = ({
+  courseDetails,
+  action,
+  subscriptionModel,
+}) => {
   const router = useRouter();
   const { reference, price: deductedPrice } = router.query;
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -112,9 +116,12 @@ const HeroSection: CourseDetailsPageFunc = ({ courseDetails, action }) => {
                 <PeopleOutlineOutlinedIcon color="primary" /> {subscriberCount}{" "}
                 Students
               </Typography>
-              <Typography variant="h2" component="h1">
-                ₦{price}
-              </Typography>
+              {subscriptionModel === "SUBSCRIPTION" && <br />}
+              {subscriptionModel != "SUBSCRIPTION" && (
+                <Typography variant="h2" component="h1">
+                  ₦{price}
+                </Typography>
+              )}
               <Stack mt={1} spacing={2} direction="row" alignItems="center">
                 <NextLink href={action.link} passHref>
                   <Button

@@ -9,15 +9,17 @@ import { queryClient, isServerSide } from "@src/utils";
 import { BasePageProps, CourseInt } from "@src/utils/interface";
 
 const CourseDetailsPage = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
   const auth = pageData?.auth;
-
-  const { id, slug, contents, price } = courseDetails;
+  const subscriptionModel = cachedData?.centre?.subscriptionModel;
+  const { id, slug, contents } = courseDetails;
   const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
   const redirectUrl = !isServerSide ? window.location.href : "";
-  const paymentLink = `/payment?amount=${price}&itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`;
+  const paymentLink = `/payment?itemId=${id}&purpose=COURSE_SUBSCRIPTION&paymentMethod=CARD&currency=NGN&transactionkey=${uuid()}&redirectUrl=${redirectUrl}`;
 
   const [module] = contents;
   const contentId = module?.contents?.length
@@ -29,7 +31,6 @@ const CourseDetailsPage = () => {
     text: "OPEN COURSE",
     redirectUrl,
   };
-
   if (!isCourseSubscriber && !isCentreManager) {
     Action.text = "SUBSCRIBE";
     Action.link = paymentLink;
@@ -41,6 +42,7 @@ const CourseDetailsPage = () => {
     <Box component="main" position="relative" sx={{ pt: 8 }}>
       <HeroSection
         courseDetails={courseDetails}
+        subscriptionModel={subscriptionModel}
         action={Action}
         isSubscriber={Boolean(
           auth?.isCentreManager || auth?.isCourseSubscriber

@@ -398,6 +398,7 @@ export declare type CourseDetailsPageFunc = (props: {
     redirectUrl: string;
   };
   isSubscriber: boolean;
+  subscriptionModel?: string;
 }) => JSX.Element;
 
 export interface UserInt {

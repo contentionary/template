@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Paper from "@mui/material/Paper";
 import LinearProgress, {
   LinearProgressProps,
 } from "@mui/material/LinearProgress";
 import Typography from "@mui/material/Typography";
-import { request, isServerSide } from "@src/utils";
+import { cache, isServerSide, request } from "@src/utils";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 
@@ -40,7 +40,7 @@ export default function CircularDeterminate({
   const [show, setShow] = useState(true);
   const { toastMessage, toggleToast } = useToast();
 
-  async function getPaymentConfirmation() {
+  const getPaymentConfirmation = useCallback(async () => {
     try {
       const { data }: any =
         price === 0
@@ -49,29 +49,31 @@ export default function CircularDeterminate({
               url: `/transaction/${reference}/verify`,
             });
 
-      if (data?.valueGiven || data?.data?.valueGiven) {
+      if (data.valueGiven) {
+        if (data.purpose === "CENTRE_SUBSCRIPTION") {
+          cache.set("isCentreSubscriber", true);
+        }
         setShow(false);
-        const [url] = redirectUrl.split("verifyValue");
+        const [url] = redirectUrl.split("?verifyValue");
         if (!isServerSide) window.location.href = url;
+      } else {
+        setProgress((prevProgress) =>
+          prevProgress >= 100 ? 0 : prevProgress + 10
+        );
       }
     } catch ({ message }) {
-      toggleToast(message as string);
+      alert(message);
     }
-  }
+  }, [reference, redirectUrl, price]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) =>
-        prevProgress >= 100 ? 0 : prevProgress + 10
-      );
+    if (progress < 100) {
       getPaymentConfirmation();
-    }, 3000);
-
-    return () => {
-      clearInterval(timer);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    } else {
+      setShow(false);
+      alert("Transaction Verification Timed Out, kindly refresh the page");
+    }
+  }, [progress, getPaymentConfirmation]);
 
   return (
     <>
