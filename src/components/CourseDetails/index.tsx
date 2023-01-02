@@ -9,10 +9,12 @@ import { queryClient, isServerSide } from "@src/utils";
 import { BasePageProps, CourseInt } from "@src/utils/interface";
 
 const CourseDetailsPage = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const courseDetails = pageData.courseDetails as CourseInt;
   const auth = pageData?.auth;
-
+  const subscriptionModel = cachedData?.centre?.subscriptionModel;
   const { id, slug, contents } = courseDetails;
   const { isCentreManager = false, isCourseSubscriber = false } = auth || {};
 
@@ -29,7 +31,6 @@ const CourseDetailsPage = () => {
     text: "OPEN COURSE",
     redirectUrl,
   };
-
   if (!isCourseSubscriber && !isCentreManager) {
     Action.text = "SUBSCRIBE";
     Action.link = paymentLink;
@@ -41,6 +42,7 @@ const CourseDetailsPage = () => {
     <Box component="main" position="relative" sx={{ pt: 8 }}>
       <HeroSection
         courseDetails={courseDetails}
+        subscriptionModel={subscriptionModel}
         action={Action}
         isSubscriber={Boolean(
           auth?.isCentreManager || auth?.isCourseSubscriber
