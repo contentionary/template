@@ -21,6 +21,7 @@ interface Props {
   CourseId: string;
   index: number;
   refetch: Function;
+  content?: boolean;
 }
 
 const AddModules = ({
@@ -28,6 +29,7 @@ const AddModules = ({
   centreId,
   id,
   refetch,
+  content,
 }: Props): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
@@ -50,9 +52,10 @@ const AddModules = ({
       }
       if (id) values.moduleId = id;
       const data = await request.post({
-        url: id
-          ? `/centre/${centreId}/course/${CourseId}/content`
-          : `/centre/${centreId}/course/${CourseId}/module`,
+        url:
+          id || content
+            ? `/centre/${centreId}/course/${CourseId}/content`
+            : `/centre/${centreId}/course/${CourseId}/module`,
         data: values,
       });
       toggleToast(data.message);
@@ -69,10 +72,10 @@ const AddModules = ({
     <>
       <MenuItem onClick={() => openDialog()} disableRipple>
         <AddCircleOutlineOutlined />
-        Add {id ? "Content" : "Modules"}
+        Add {(id || content) ? "Content" : "Modules"}
       </MenuItem>
       <Dialog
-        title={`Add course ${id ? "content" : "modules"} `}
+        title={`Add course ${(id || content) ? "content" : "modules"} `}
         isOpen={isOpen}
         closeDialog={closeDialog}
         value={fileLoadingProgres}
@@ -105,12 +108,12 @@ const AddModules = ({
                   maxLength={200}
                 />
               </Box>
-              {id && (
+              {(id || content) && (
                 <TextFields type="file" name="fileUrl" onChange={getFile} />
               )}
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-                  Create
+                  Add
                 </ButtonComponent>
                 <ButtonComponent
                   onClick={() => closeDialog()}

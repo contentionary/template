@@ -33,7 +33,7 @@ const ModulesPage = () => {
       initialData: pageData.modules,
     }
   );
-  const modules = data as CourseModuleInt[];
+  const modules = data as Array<CourseModuleInt>;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Menu = dynamic(() => import("./courseMenu"));
   const ModuleMenu = dynamic(() => import("./moduleMenu"));
@@ -80,20 +80,29 @@ const ModulesPage = () => {
                   {module.description}
                 </Typography>
                 <Typography style={{ textAlign: "right" }}>
-                  <ModuleMenu
-                    courseId={id as string}
-                    centreId={cachedData.centre.id}
-                    module={module}
-                    index={index}
-                    refetch={refetch}
-                  />
+                  {module?.isModule ? (
+                    <ModuleMenu
+                      courseId={id as string}
+                      centreId={cachedData.centre.id}
+                      module={module as CourseModuleInt}
+                      index={index}
+                      refetch={refetch}
+                    />
+                  ) : (
+                    <ContentMenu
+                      courseId={id as string}
+                      centreId={cachedData.centre.id}
+                      module={module as any}
+                      refetch={refetch}
+                    />
+                  )}
                 </Typography>
                 {module?.contents?.length > 0 && (
                   <Box>
                     <Typography variant="subtitle1" component="div">
                       Contents
                     </Typography>
-                    {module.contents.map((content, contentIndex) => (
+                    {module.contents.map((content, contentIndex: number) => (
                       <Box
                         key={`${contentIndex}-content`}
                         sx={{

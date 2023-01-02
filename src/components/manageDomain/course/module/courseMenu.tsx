@@ -34,10 +34,24 @@ export default function CustomizedMenus({
   return (
     <>
       <IconButton onClick={openMenu}>
-        <MoreVertIcon />
+        <MoreVertIcon fontSize="large"/>
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
+          <AddModules
+            CourseId={id}
+            centreId={centreId}
+            index={1}
+            refetch={refetch}
+          />
+          <AddModules
+            CourseId={id}
+            centreId={centreId}
+            index={1}
+            refetch={refetch}
+            content={true}
+          />
+          <Divider sx={{ my: 0.5 }} />
           <Link passHref href={`/admin/course/${id}/update?type=COURSE`}>
             <MenuItem disableRipple>
               <EditIcon />
@@ -51,13 +65,6 @@ export default function CustomizedMenus({
             </MenuItem>
           </Link>
           <Delete id={id} centreId={centreId} refetch={refetch} />
-          <Divider sx={{ my: 0.5 }} />
-          <AddModules
-            CourseId={id}
-            centreId={centreId}
-            index={1}
-            refetch={refetch}
-          />
         </div>
       </Menus>
     </>
