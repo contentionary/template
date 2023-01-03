@@ -106,18 +106,17 @@ const WalletToWalletTransfer = ({
                 />
                 <Select
                   name="currency"
-                  value={values.currency || "NGN"}
+                  value={values.currency || "none"}
                   onChange={(e) => getData(e)}
                   sx={{ width: "100%", mt: 3 }}
                   required
                 >
+                  <MenuItem value="none">Select currency</MenuItem>
                   <MenuItem value="USD">Dollar</MenuItem>
                   <MenuItem value="NGN"> Naira</MenuItem>
                 </Select>
                 <div style={{ textAlign: "right", marginTop: 20 }}>
-                  <ButtonComponent type="submit">
-                    Wallet transfer
-                  </ButtonComponent>
+                  <ButtonComponent type="submit">Transfer Fund</ButtonComponent>
                   <ButtonComponent onClick={() => closeDialog()} type="submit">
                     Cancel
                   </ButtonComponent>

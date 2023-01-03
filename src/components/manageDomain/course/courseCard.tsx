@@ -35,6 +35,7 @@ const PublicationCard = ({
   id,
   folderContentCount,
   createdAt,
+  slug,
 }: CourseInt) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -45,7 +46,7 @@ const PublicationCard = ({
         href={
           type === "FOLDER"
             ? `/admin/course?folderId=${id}`
-            : `/admin/course/${id}`
+            : `/admin/course/${slug}/${id}`
         }
         passHref
       >

@@ -3,9 +3,12 @@ import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import AddOutlined from "@mui/icons-material/AddOutlined";
 
 export default function CustomizedMenus({
   folderId,
@@ -21,18 +24,52 @@ export default function CustomizedMenus({
   return (
     <>
       <IconButton onClick={openMenu}>
-        <MoreVertIcon />
+        <MoreVertIcon fontSize="large" />
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <Link passHref href={`/admin/course/${folderId}/update?type=FOLDER`}>
+          <Link
+            passHref
+            href={
+              folderId
+                ? `/admin/course/create?type=FOLDER&folderId=${folderId}`
+                : "/admin/course/create?type=FOLDER"
+            }
+          >
             <MenuItem disableRipple>
-              <EditIcon />
-              Edit
+              <AddCircleOutline />
+              Create Folder
             </MenuItem>
           </Link>
-          {!coursesLength && (
-            <Delete refetch={() => {}} id={folderId} centreId={centreId} />
+          <Link
+            passHref
+            href={
+              folderId
+                ? `/admin/course/create?type=COURSE&folderId=${folderId}`
+                : "/admin/course/create?type=COURSE"
+            }
+          >
+            <MenuItem disableRipple>
+              <AddOutlined />
+              Create course
+            </MenuItem>
+          </Link>
+          {folderId && (
+            <>
+              <Divider sx={{ my: 0.5 }} />
+              <Link
+                passHref
+                href={`/admin/course/update/${folderId}?type=FOLDER`}
+              >
+                <MenuItem disableRipple>
+                  <EditIcon />
+                  Edit
+                </MenuItem>
+              </Link>
+              {!coursesLength && (
+                <Delete refetch={() => {}} id={folderId} centreId={centreId} />
+              )}
+            </>
           )}
         </div>
       </Menus>
