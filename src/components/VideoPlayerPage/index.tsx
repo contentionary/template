@@ -19,7 +19,7 @@ import Reader from "@src/components/shared/DocumentReader";
 import useVideoPageStyle from "@src/styles/videoPage";
 import { VideoPlayerPagePageFunc } from "./interfaceType";
 //
-import { queryClient } from "@src/utils";
+import { queryClient, isServerSide } from "@src/utils";
 import { BasePageProps, CourseContentInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 
@@ -42,7 +42,6 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
   };
 
   const { id, fileUrl, format, status } = courseContent;
-
   return (
     <Box
       borderTop={1}
@@ -111,7 +110,12 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
             <Typography variant="h6" sx={{ mb: 2, mt: 1 }}>
               Note: This might take a while
             </Typography>
-            <Button variant="contained" color="primary" size="large">
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => !isServerSide && window.location.reload()}
+            >
               Check status
             </Button>
           </Typography>
