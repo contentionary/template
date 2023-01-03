@@ -1,7 +1,5 @@
 import Box from "@mui/material/Box";
 
-import useStyles from "./styles";
-import NextLink from "@src/components/shared/link/btnLink";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
@@ -14,7 +12,6 @@ import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
 
 const CourseAdmin = () => {
-  const styles = useStyles();
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -49,44 +46,16 @@ const CourseAdmin = () => {
       />
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          textAlign: "right",
           mt: { xs: 5 },
           mb: 5,
         }}
       >
-        <Box className={styles.switchContainer}>
-          <NextLink
-            href={
-              folderId
-                ? `/admin/course/create?type=FOLDER&folderId=${folderId}`
-                : "/admin/course/create?type=FOLDER"
-            }
-            disableElevation
-            className={styles.createFolder}
-          >
-            Create Folder
-          </NextLink>
-          <NextLink
-            href={
-              folderId
-                ? `/admin/course/create?type=COURSE&folderId=${folderId}`
-                : "/admin/course/create?type=COURSE"
-            }
-            disableElevation
-            className={styles.createPublication}
-          >
-            Create course
-          </NextLink>
-        </Box>
-        {folderId && (
-          <Menu
-            folderId={folderId as string}
-            coursesLength={courses?.length ? true : false}
-            centreId={cachedData.centre.id}
-          />
-        )}
+        <Menu
+          folderId={folderId as string}
+          coursesLength={courses?.length ? true : false}
+          centreId={cachedData.centre.id}
+        />
       </Box>
 
       {courses.length ? (

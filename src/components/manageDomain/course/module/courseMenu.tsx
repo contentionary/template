@@ -52,7 +52,7 @@ export default function CustomizedMenus({
             content={true}
           />
           <Divider sx={{ my: 0.5 }} />
-          <Link passHref href={`/admin/course/${id}/update?type=COURSE`}>
+          <Link passHref href={`/admin/course/update/${id}?type=COURSE`}>
             <MenuItem disableRipple>
               <EditIcon />
               Edit

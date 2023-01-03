@@ -25,7 +25,7 @@ const ModulesPage = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { id } = router.query;
+  const { id, slug } = router.query;
   const { data, refetch } = useQuery(
     ["questions", cachedData.centre.id, id],
     fetchContents,
@@ -59,28 +59,28 @@ const ModulesPage = () => {
           id={id as string}
           centreId={cachedData.centre.id}
           refetch={refetch}
-          slug=""
+          slug={slug as string}
         />
       </Box>
       {modules.length ? (
         <Box>
-          {modules?.map((module, index) => (
-            <Accordion
-              onClick={() => setExpanded(index)}
-              key={`${index}-module`}
-              title={
-                <Typography variant="h6" component="div">
-                  {module.name}
-                </Typography>
-              }
-              expanded={expanded === index}
-            >
-              <>
-                <Typography variant="body2" component="div">
-                  {module.description}
-                </Typography>
-                <Typography style={{ textAlign: "right" }}>
-                  {module?.isModule ? (
+          {modules?.map((module, index) =>
+            module.isModule ? (
+              <Accordion
+                onClick={() => setExpanded(index)}
+                key={`${index}-module`}
+                title={
+                  <Typography variant="h6" component="div">
+                    {module.name}
+                  </Typography>
+                }
+                expanded={expanded === index}
+              >
+                <>
+                  <Typography variant="body2" component="div">
+                    {module.description}
+                  </Typography>
+                  <Typography style={{ textAlign: "right" }}>
                     <ModuleMenu
                       courseId={id as string}
                       centreId={cachedData.centre.id}
@@ -88,70 +88,107 @@ const ModulesPage = () => {
                       index={index}
                       refetch={refetch}
                     />
-                  ) : (
-                    <ContentMenu
-                      courseId={id as string}
-                      centreId={cachedData.centre.id}
-                      module={module as any}
-                      refetch={refetch}
-                    />
-                  )}
-                </Typography>
-                {module?.contents?.length > 0 && (
-                  <Box>
-                    <Typography variant="subtitle1" component="div">
-                      Contents
-                    </Typography>
-                    {module.contents.map((content, contentIndex: number) => (
-                      <Box
-                        key={`${contentIndex}-content`}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          borderBottom: "solid 1px #dbdbdb",
-                          mt: 2,
-                          pb: 2,
-                        }}
-                      >
+                  </Typography>
+                  {module?.contents?.length > 0 && (
+                    <Box>
+                      <Typography variant="subtitle1" component="div">
+                        Contents
+                      </Typography>
+                      {module.contents.map((content, contentIndex: number) => (
                         <Box
+                          key={`${contentIndex}-content`}
                           sx={{
                             display: "flex",
                             alignItems: "center",
+                            justifyContent: "space-between",
+                            borderBottom: "solid 1px #dbdbdb",
+                            mt: 2,
+                            pb: 2,
                           }}
                         >
-                          <Avatar
+                          <Box
                             sx={{
-                              bgcolor: "#DD782468",
-                              width: 24,
-                              height: 24,
-                              size: 2,
+                              display: "flex",
+                              alignItems: "center",
                             }}
                           >
-                            {++contentIndex}
-                          </Avatar>
+                            <Avatar
+                              sx={{
+                                bgcolor: "#DD782468",
+                                width: 24,
+                                height: 24,
+                                size: 2,
+                              }}
+                            >
+                              {++contentIndex}
+                            </Avatar>
 
-                          <Typography
-                            variant="body2"
-                            component="div"
-                            sx={{ marginLeft: 2 }}
-                          >
-                            {content.name}
-                          </Typography>
+                            <Typography
+                              variant="body2"
+                              component="div"
+                              sx={{ marginLeft: 2 }}
+                            >
+                              {content.name}
+                            </Typography>
+                          </Box>
+                          <ContentMenu
+                            courseId={id as string}
+                            centreId={cachedData.centre.id}
+                            module={content}
+                            refetch={refetch}
+                          />
                         </Box>
-                        <ContentMenu
-                          courseId={id as string}
-                          centreId={cachedData.centre.id}
-                          module={content}
-                          refetch={refetch}
-                        />
-                      </Box>
-                    ))}
-                  </Box>
-                )}
-              </>
-            </Accordion>
-          ))}
+                      ))}
+                    </Box>
+                  )}
+                </>
+              </Accordion>
+            ) : (
+              <Box
+                key={`${index}-content`}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  borderBottom: "solid 1px #dbdbdb",
+                  mt: 2,
+                  pb: 2,
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar
+                    sx={{
+                      bgcolor: "#DD782468",
+                      width: 24,
+                      height: 24,
+                      size: 2,
+                    }}
+                  >
+                    C
+                  </Avatar>
+
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    sx={{ marginLeft: 2 }}
+                  >
+                    {module.name}
+                  </Typography>
+                </Box>
+                <ContentMenu
+                  courseId={id as string}
+                  centreId={cachedData.centre.id}
+                  module={module as any}
+                  refetch={refetch}
+                />
+              </Box>
+            )
+          )}
         </Box>
       ) : (
         <Empty />

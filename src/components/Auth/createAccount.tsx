@@ -102,6 +102,8 @@ const CreateAccount = (): JSX.Element => {
                 width={80}
                 height={80}
                 objectFit="contain"
+                style={{ cursor: "pointer" }}
+                onClick={() => router.push("/")}
               />
             </Box>
             <Typography
