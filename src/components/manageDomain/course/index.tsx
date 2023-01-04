@@ -64,7 +64,7 @@ const CourseAdmin = () => {
             container
             mb={{ xs: 1, md: 2, xl: 3 }}
             spacing={{ xs: 1, md: 2, xl: 3 }}
-            columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
+            columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
           >
             {courses?.map((course, index) => (
               <Grid key={`${index}-course-card`} item xs={1}>

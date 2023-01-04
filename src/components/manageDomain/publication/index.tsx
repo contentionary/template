@@ -49,40 +49,10 @@ const PublicationAdmin = () => {
       />
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          flexDirection: { xs: "column-reverse", md: "row" },
+          textAlign: "right",
         }}
       >
-        <Box sx={{ mt: { xs: 2, md: 5 } }} className={styles.switchContainer}>
-          <NextLink
-            href={
-              folderId
-                ? `/admin/publication/create?type=FOLDER&folderId=${folderId}`
-                : "/admin/publication/create?type=FOLDER"
-            }
-            disableElevation
-            className={styles.createFolder}
-          >
-            Create Folder
-          </NextLink>
-          <NextLink
-            href={
-              folderId
-                ? `/admin/publication/create?type=PUBLICATION&folderId=${folderId}`
-                : "/admin/publication/create?type=PUBLICATION"
-            }
-            disableElevation
-            className={styles.createPublication}
-          >
-            Create publication
-          </NextLink>
-        </Box>
-        {folderId && (
-          <Menu folderId={folderId as string} centreId={cachedData.centre.id} />
-        )}
+        <Menu folderId={folderId as string} centreId={cachedData.centre.id} />
       </Box>
       {publications.length ? (
         <>
@@ -90,7 +60,7 @@ const PublicationAdmin = () => {
             container
             mb={{ xs: 1, md: 2, xl: 3 }}
             spacing={{ xs: 1, md: 2, xl: 3 }}
-            columns={{ xs: 1, sm: 2, md: 3, lg: 5, xl: 6 }}
+            columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
           >
             {publications?.map((publication, index) => (
               <Grid key={`${index}-publication-card`} item xs={1}>

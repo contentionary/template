@@ -33,10 +33,10 @@ export default makeStyles({
   pluginDescription: {
     fontStyle: "normal",
     fontWeight: 400,
-    fontSize: 17,
+    fontSize: 15,
     color: "#616161",
     marginBottom: 5,
-    height: 140,
+    height: 150,
     [theme().breakpoints.down("sm")]: {
       fontSize: 14,
       height: 90,

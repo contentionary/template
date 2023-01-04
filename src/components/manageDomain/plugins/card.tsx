@@ -30,7 +30,7 @@ const PublicationCard = ({
   const styles = useStyles();
 
   return (
-    <Paper sx={{ padding: 3 }}>
+    <Paper sx={{ padding: 2 }}>
       <Stack>
         <Box sx={{ display: "flex" }}>
           <Box sx={{ width: 106 }}>
@@ -42,7 +42,7 @@ const PublicationCard = ({
             />
           </Box>
 
-          <Box paddingLeft={2}>
+          <Box paddingLeft={1}>
             <Typography
               className={styles.pluginName}
               variant="h5"
