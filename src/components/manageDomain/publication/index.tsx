@@ -1,8 +1,6 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
-import useStyles from "./styles";
-import NextLink from "@src/components/shared/link/btnLink";
 
 import PublicationCard from "./PublicationCard";
 import Grid from "@mui/material/Grid";
@@ -12,7 +10,6 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 const PublicationAdmin = () => {
-  const styles = useStyles();
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
