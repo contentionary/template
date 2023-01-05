@@ -23,6 +23,7 @@ import { BasePageProps } from "@src/utils/interface";
 import { cache, isServerSide, queryClient } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 import { useRouter } from "next/router";
+import { v4 as uuid } from "uuid";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
@@ -48,7 +49,11 @@ const HeroSection: PublicationsFunc = () => {
   if (!isCentreSubscriber && centre.subscriptionModel === "SUBSCRIPTION") {
     const paymentLink = user
       ? `
-    /payment?itemId=${centre.id}&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${centre.price}&currency=NGN&redirectUrl=${redirectUrl}`
+    /payment?transactionkey=${uuid()}&itemId=${
+          centre.id
+        }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
+          centre.price
+        }&currency=NGN&redirectUrl=${redirectUrl}`
       : "/login";
     getStarted.link = paymentLink;
     getStarted.text = `Get started for ₦${centre.price} Monthly`;

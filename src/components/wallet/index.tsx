@@ -47,6 +47,7 @@ export default function CustomizedSteppers() {
   );
   const router = useRouter();
   const locationUrl = isServerSide ? "" : window.location.href;
+  const centreWallet = locationUrl.includes("admin");
   const { walletBalance } = pageData;
   const pockets = Object.keys(walletBalance.pockets);
   const columns = [
@@ -67,7 +68,6 @@ export default function CustomizedSteppers() {
   }));
   async function getTransactions(type: string) {
     try {
-      const centreWallet = locationUrl.includes("admin");
       setTransactionType(type);
       if (type === "all") {
         setTransaction([...pageData.transactionHistory.histories]);
@@ -155,14 +155,19 @@ export default function CustomizedSteppers() {
                   flexDirection: { xs: "column", md: "row" },
                 }}
               >
-                <CreditWallet centreId={cachedData.centre.id} />
+                <CreditWallet
+                  centreId={cachedData.centre.id}
+                  centreWallet={centreWallet}
+                />
                 <WalletToWalletTransfer
                   toggleToast={toggleToast}
                   centreId={cachedData.centre.id}
+                  centreWallet={centreWallet}
                 />
                 <BankTransfer
                   toggleToast={toggleToast}
                   centreId={cachedData.centre.id}
+                  centreWallet={centreWallet}
                 />
               </Box>
             </Box>
