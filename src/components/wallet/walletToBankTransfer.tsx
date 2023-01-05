@@ -31,9 +31,11 @@ interface BankType {
 const BankTransfer = ({
   toggleToast,
   centreId,
+  centreWallet,
 }: {
   toggleToast: Function;
   centreId: string;
+  centreWallet: boolean;
 }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
@@ -51,7 +53,7 @@ const BankTransfer = ({
     try {
       setIsLoading(true);
       await request.post({
-        url: centreId
+        url: centreWallet
           ? `/wallet/centre/${centreId}/bank-transfer`
           : "/wallet/bank-transfer",
         data: { ...values, amount: values.amount * 100 },

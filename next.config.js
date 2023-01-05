@@ -29,6 +29,7 @@ const nextConfig = {
       "cttn-filemanager.herokuapp.com",
       "localhost",
       "https://www.sic-info.org",
+      "dev-cdn.contentionary.com",
     ],
   },
 };
