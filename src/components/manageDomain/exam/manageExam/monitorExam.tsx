@@ -27,7 +27,7 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
         data,
       });
       exam[key] = value;
-      toggleToast("Update successfull");
+      toggleToast("Update successful");
       setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
