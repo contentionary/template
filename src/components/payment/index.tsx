@@ -45,15 +45,20 @@ export default function Payment(): JSX.Element {
 
   const preTransactionDetails = useCallback(async () => {
     try {
-      const { data } = await request.post({
-        url: "/transaction/pre-details",
-        data: { itemId, purpose },
-      });
-      const standardAmount = data.amount / 100;
+      let standardAmount = 0;
+      if (purpose === "FUND_WALLET") {
+        standardAmount = parseInt(router.query.amount as string);
+      } else {
+        const { data } = await request.post({
+          url: "/transaction/pre-details",
+          data: { itemId, purpose },
+        });
+        standardAmount = data.amount / 100;
+      }
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
     } catch ({ message }) {}
-  }, [itemId, purpose]);
+  }, [itemId, purpose, router.query]);
 
   const makePayment = async () => {
     try {
