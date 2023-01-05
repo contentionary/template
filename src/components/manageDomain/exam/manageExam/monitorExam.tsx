@@ -53,14 +53,14 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
         <Box>
           <CheckBox
             label={<Typography variant="h6">Randomize Questions</Typography>}
-            checked={exam.randomiseQuestion}
+            defaultChecked={exam.randomiseQuestion}
             onChange={(e: ChangeEvent<any>) =>
               update("randomiseQuestion", e.target.checked)
             }
           />
           <CheckBox
             label={<Typography variant="h6">Randomize Options</Typography>}
-            checked={exam.randomiseOption}
+            defaultChecked={exam.randomiseOption}
             onChange={(e: ChangeEvent<any>) =>
               update("randomiseOption", e.target.checked)
             }
@@ -78,7 +78,7 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
               Activate resumption of exams if candidates put off their device
             </Typography>
           }
-          checked={exam.allowResume}
+          defaultChecked={exam.allowResume}
           onChange={(e: ChangeEvent<any>) =>
             update("allowResume", e.target.checked)
           }

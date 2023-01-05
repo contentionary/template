@@ -17,9 +17,11 @@ import { MenuItem, Select } from "@mui/material";
 const WalletToWalletTransfer = ({
   toggleToast,
   centreId,
+  centreWallet,
 }: {
   toggleToast: Function;
   centreId: string;
+  centreWallet: boolean;
 }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +36,7 @@ const WalletToWalletTransfer = ({
     try {
       setIsLoading(true);
       const { message } = await request.post({
-        url: centreId
+        url: centreWallet
           ? `/wallet/centre/${centreId}/wallet-transfer`
           : "/wallet/wallet-transfer",
         data: { ...values, amount: values.amount * 100 },
