@@ -28,8 +28,8 @@ const DeleteCentre = ({ id, centreId }: Props) => {
       );
       toggleToast(data.message);
       closeDialog();
-      setIsLoading(false);
       router.back();
+      setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -38,7 +38,11 @@ const DeleteCentre = ({ id, centreId }: Props) => {
 
   return (
     <>
-      <MenuItem disableRipple onClick={() => openDialog()}>
+      <MenuItem
+        disableRipple
+        onClick={() => openDialog()}
+        style={{ color: "red" }}
+      >
         <DeleteOutline />
         Delete
       </MenuItem>

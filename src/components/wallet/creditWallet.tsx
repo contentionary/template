@@ -15,7 +15,13 @@ import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
 
-const CreditWallet = ({ centreId }: { centreId: string }) => {
+const CreditWallet = ({
+  centreId,
+  centreWallet,
+}: {
+  centreId: string;
+  centreWallet: boolean;
+}) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(CreditWallet);
@@ -32,7 +38,7 @@ const CreditWallet = ({ centreId }: { centreId: string }) => {
         currency: "NGN",
         purpose: "FUND_WALLET",
         paymentMethod: "CARD",
-        itemId: centreId ? centreId : cache.get("user").id,
+        itemId: centreWallet ? centreId : cache.get("user").id,
         transactionkey: uuid(),
       },
     });

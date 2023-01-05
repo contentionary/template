@@ -32,8 +32,8 @@ const PublicationCard = ({
   return (
     <Paper sx={{ padding: 2 }}>
       <Stack>
-        <Box sx={{ display: "flex" }}>
-          <Box sx={{ width: 106 }}>
+        <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
+          <Box sx={{ textAlign: "center", mb: 2 }}>
             <Image
               src={imageUrl}
               alt="contentionary"
@@ -65,22 +65,21 @@ const PublicationCard = ({
             >
               {description}
             </Typography>
-
-            <Button
-              size="large"
-              disableElevation
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                !installPlugin
-                  ? router.push(`/${link}`)
-                  : installPlugin(name, active, price)
-              }
-            >
-              {installPlugin ? (active ? "Uninstall" : "Install") : "Open"}
-            </Button>
           </Box>
         </Box>
+        <Button
+          size="large"
+          disableElevation
+          variant="contained"
+          color="primary"
+          onClick={() =>
+            !installPlugin
+              ? router.push(`/${link}`)
+              : installPlugin(name, active, price)
+          }
+        >
+          {installPlugin ? (active ? "Uninstall" : "Install") : "Open"}
+        </Button>
       </Stack>
     </Paper>
   );

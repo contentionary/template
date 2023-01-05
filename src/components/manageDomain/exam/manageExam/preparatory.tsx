@@ -62,7 +62,7 @@ const PreparatoryExamSettings = ({
                 </Typography>
               }
               name="allowReattempt"
-              checked={values.allowReattempt || exam.allowReattempt}
+              defaultChecked={exam.allowReattempt}
               onChange={check}
             />
             <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
@@ -85,7 +85,7 @@ const PreparatoryExamSettings = ({
                 </Typography>
               }
               name="allowTimerPause"
-              checked={values.allowTimerPause || exam.allowTimerPause}
+              defaultChecked={exam.allowTimerPause}
               onChange={check}
             />
           </Box>
@@ -97,7 +97,7 @@ const PreparatoryExamSettings = ({
                 </Typography>
               }
               name="allowCustomDuration"
-              checked={values.allowCustomDuration || exam.allowCustomDuration}
+              defaultChecked={exam.allowCustomDuration}
               onChange={check}
             />
           </Box>
@@ -110,10 +110,7 @@ const PreparatoryExamSettings = ({
                 </Typography>
               }
               name="allowCustomQuestionLength"
-              checked={
-                values.allowCustomQuestionLength ||
-                exam.allowCustomQuestionLength
-              }
+              defaultChecked={exam.allowCustomQuestionLength}
               onChange={check}
             />
           </Box>
@@ -126,7 +123,7 @@ const PreparatoryExamSettings = ({
                 </Typography>
               }
               name="showCorrection"
-              checked={values.showCorrection || exam.showCorrection}
+              defaultChecked={exam.showCorrection}
               onChange={check}
             />
           </Box>

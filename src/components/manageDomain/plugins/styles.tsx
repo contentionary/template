@@ -36,7 +36,7 @@ export default makeStyles({
     fontSize: 15,
     color: "#616161",
     marginBottom: 5,
-    height: 150,
+    height: 120,
     [theme().breakpoints.down("sm")]: {
       fontSize: 14,
       height: 90,

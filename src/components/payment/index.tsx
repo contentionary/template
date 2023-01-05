@@ -33,11 +33,12 @@ export default function Payment(): JSX.Element {
     currency: incomingCurrency,
     redirectUrl: resourceRedirectUrl,
     transactionkey,
+    amount: price,
   } = router.query;
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
   );
-  const [amount, setAmount] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(Number(price));
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
     PaymentMethod.CARD
   );

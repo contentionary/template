@@ -116,7 +116,7 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
               size="large"
               onClick={() => !isServerSide && window.location.reload()}
             >
-              Check status
+              Refresh to Check status
             </Button>
           </Typography>
         )}
