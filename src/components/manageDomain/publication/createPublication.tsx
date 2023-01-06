@@ -151,10 +151,9 @@ const CreatePublication = () => {
                 <InputLabel>Publication category</InputLabel>
                 <Select
                   name="publicationCategoryId"
-                  value={
-                    values.publicationCategoryId ||
-                    "42b04340-d8ff-11eb-a654-8b6d560906aa"
-                  }
+                  labelId="publicationCategoryId"
+                  label="Publication category"
+                  value={values.publicationCategoryId}
                   onChange={(e) => getData(e)}
                 >
                   {pageData.publicationCategories?.map(

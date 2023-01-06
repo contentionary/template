@@ -65,7 +65,7 @@ const CreatePublication = () => {
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
-  const Delete = dynamic(() => import("./delete"));
+  const PublicationMenu = dynamic(() => import("./publicationMenu"));
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
@@ -125,12 +125,17 @@ const CreatePublication = () => {
         >
           <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
         </Typography>
-        <Box sx={{ textAlign: "center" }}>
-          <Delete centreId={cachedData.centre.id} id={publication.id} />
+        <PublicationMenu
+          centreId={cachedData.centre.id}
+          id={publication.id}
+          slug={publication.slug as string}
+        />
+        {/* <Box sx={{ textAlign: "center" }}>
+          <Delete />
           <Typography variant="caption" component="div">
             Want to delete Publication?
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
 
       <Typography

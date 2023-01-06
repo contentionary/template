@@ -19,7 +19,11 @@ const SettingsPage = () => {
     <Bios toggleToast={toggleToast} key={0} user={user} />,
     <PasswordRest toggleToast={toggleToast} key={1} />,
     <EmailReset toggleToast={toggleToast} key={2} />,
-    <ResendEmailVerification toggleToast={toggleToast} key={3} />,
+    <ResendEmailVerification
+      toggleToast={toggleToast}
+      key={3}
+      centreId={cachedData.centre.id as string}
+    />,
   ];
   return (
     <Box sx={{ pt: 7, pb: 8, px: { md: 6 } }}>

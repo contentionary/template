@@ -47,6 +47,7 @@ const PublicationAdmin = () => {
       <Box
         sx={{
           textAlign: "right",
+          mb: 2,
         }}
       >
         <Menu folderId={folderId as string} centreId={cachedData.centre.id} />

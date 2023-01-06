@@ -19,7 +19,7 @@ export default function CustomizedMenus({
   return (
     <>
       <IconButton onClick={openMenu}>
-        <MoreVertIcon />
+        <MoreVertIcon fontSize="large" />
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>

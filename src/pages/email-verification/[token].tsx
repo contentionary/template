@@ -2,14 +2,17 @@ import Typography from "@mui/material/Typography";
 import ButtonComponent from "@src/components/shared/button";
 import Toast from "@src/components/shared/toast";
 import Loading from "@src/components/shared/loading";
-import { handleError, isServerSide, request } from "@src/utils";
+import { getCentre, handleError, isServerSide, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import { useToast } from "@src/utils/hooks";
+import { getAuthData } from "@src/utils/auth";
+import { CachedCentreInt } from "@src/utils/interface";
+import { GetServerSideProps } from "next";
 
-const EmailVerification = () => {
+const EmailVerification = (props: any) => {
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const { getData, values, submit } = useForm(resendVerificationToken);
@@ -20,7 +23,7 @@ const EmailVerification = () => {
     try {
       setIsLoading(true);
       const { data } = await request.get({
-        url: `/auth/verification/email/${router.query.token}`,
+        url: `/auth/verification/email/${router.query.token}?centreId=${props?.cachedData?.centre?.id}`,
       });
       toggleToast(data.message);
       setIsLoading(false);
@@ -38,7 +41,7 @@ const EmailVerification = () => {
     try {
       setIsLoading(true);
       const { message } = await request.post({
-        url: "/auth/verification/email",
+        url: `/auth/verification/email?centreId=${props?.cachedData?.centre?.id}`,
         data: values,
       });
       toggleToast(message);
@@ -114,6 +117,23 @@ const EmailVerification = () => {
       )}
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let centre: any = {};
+  const { token, user } = getAuthData(context);
+
+  try {
+    centre = (await getCentre(context)) as CachedCentreInt;
+
+    return {
+      props: {
+        cachedData: { user, centre, token },
+      },
+    };
+  } catch (err) {
+    return { props: { err, user, token, centre } };
+  }
 };
 
 export default EmailVerification;
