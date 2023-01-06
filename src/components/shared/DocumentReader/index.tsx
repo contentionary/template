@@ -131,7 +131,7 @@ const ReaderSection = ({
 
   return (
     <Box
-      bgcolor={grey[100]}
+      bgcolor={grey[200]}
       className={`${pdfStyle.pdfPage} ${fullWidth ? "" : ""} pdfPage`}
     >
       <Box

@@ -32,7 +32,7 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseContent = pageData.courseContent as CourseContentInt;
-
+  const { slug, courseId } = router.query;
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -123,7 +123,11 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
         <LessonDetails courseContent={courseContent} />
       </Box>
       <div style={{ position: "fixed", bottom: 20, right: 20 }}>
-        <Fab color="primary" aria-label="back" onClick={() => router.back()}>
+        <Fab
+          color="primary"
+          aria-label="back"
+          onClick={() => router.push(`/courses/${slug}/${courseId}`)}
+        >
           Back
         </Fab>
       </div>

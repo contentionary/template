@@ -358,7 +358,7 @@ export const getCentre = async (
         googleAnalyticsCode: centre.googleAnalyticsCode,
         description: centre.description,
         template: centre.template,
-        // template: "publication",
+        // template: "course",
         logo: centre.logo,
         price: centre.price,
         subscriptionModel: centre.subscriptionModel,

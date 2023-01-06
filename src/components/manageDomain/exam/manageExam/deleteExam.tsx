@@ -55,7 +55,10 @@ const DeleteExam = ({ toggleToast }: { toggleToast: Function }) => {
             <strong>Exam name: </strong> {exam.name}{" "}
             <CopyAllOutlined
               sx={{ cursor: "pointer" }}
-              onClick={() => copy(exam.name)}
+              onClick={() => {
+                copy(exam.name);
+                toggleToast("copied");
+              }}
             />
           </Typography>
           <TextFields

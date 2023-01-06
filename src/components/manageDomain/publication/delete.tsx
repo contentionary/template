@@ -43,7 +43,7 @@ const DeleteCentre = ({ id, centreId }: Props) => {
         onClick={() => openDialog()}
         style={{ color: "red" }}
       >
-        <DeleteOutline />
+        <DeleteOutline style={{ color: "red" }} />
         Delete
       </MenuItem>
       <ConfirmDialog
