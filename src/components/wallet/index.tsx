@@ -51,6 +51,7 @@ export default function CustomizedSteppers() {
   );
   const router = useRouter();
   const locationUrl = isServerSide ? "" : window.location.href;
+  const centreWallet = locationUrl.includes("admin");
   const { walletBalance } = pageData;
   const pockets = Object.keys(walletBalance.pockets);
   const columns = [
@@ -63,7 +64,6 @@ export default function CustomizedSteppers() {
     { minWidth: 70, name: "Type", key: "type" },
     { minWidth: 250, name: "Reference", key: "reference" },
   ];
-  const centreWallet = locationUrl.includes("admin");
 
   const data = transactions?.map((item, index) => ({
     index: ++index,

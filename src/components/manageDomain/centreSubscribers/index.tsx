@@ -2,15 +2,15 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import DeleteOutline from "@mui/icons-material/DeleteOutline";
+// import IconButton from "@mui/material/IconButton";
+// import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import Container from "@mui/material/Container";
 import Pagination from "@mui/material/Pagination";
 import MuiTable from "@src/components/shared/table";
 import AddSubscriber from "./addSubscriber";
 import Empty from "@src/components/shared/state/Empty";
-import Delete from "../exam/manageExam/section/delete";
-import { useDialog } from "@src/hooks";
+// import Delete from "../exam/manageExam/section/delete";
+// import { useDialog } from "@src/hooks";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useToast } from "@src/utils/hooks";
@@ -37,7 +37,7 @@ export default function Subscribers({
 }) {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
-  const { isOpen, openDialog, closeDialog } = useDialog();
+  // const { isOpen, openDialog, closeDialog } = useDialog();
   const pageCount = subscribers.pageCount as number;
   const router = useRouter();
   const columns = [
@@ -47,7 +47,7 @@ export default function Subscribers({
     { minWidth: 50, name: "Username", key: "username" },
     { minWidth: 100, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
-    { minWidth: 50, name: "Action", key: "action" },
+    // { minWidth: 50, name: "Action", key: "action" },
   ];
   const handleChange = () => {
     router.replace({
@@ -57,19 +57,19 @@ export default function Subscribers({
   const result = subscribers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
-    action: (
-      <Delete
-        closeDialog={closeDialog}
-        isOpen={isOpen}
-        toggleToast={toggleToast}
-        url={`/centre/${centreId}/user/${user.userId}/remove`}
-        updateData={handleChange}
-      >
-        <IconButton onClick={() => openDialog()}>
-          <DeleteOutline htmlColor="red" />
-        </IconButton>
-      </Delete>
-    ),
+    // action: (
+    //   <Delete
+    //     closeDialog={closeDialog}
+    //     isOpen={isOpen}
+    //     toggleToast={toggleToast}
+    //     url={`/centre/${centreId}/user/${user.userId}/remove`}
+    //     updateData={handleChange}
+    //   >
+    //     <IconButton onClick={() => openDialog()}>
+    //       <DeleteOutline htmlColor="red" />
+    //     </IconButton>
+    //   </Delete>
+    // ),
   }));
   if (!subscribers) return <h1>....Loading</h1>;
   return (

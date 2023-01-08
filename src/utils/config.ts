@@ -10,6 +10,7 @@ const config = {
     FACEBOOK: "https://web.facebook.com/contentionary/",
     web: "",
   },
+  WEB: "",
 };
 
 export default config;
