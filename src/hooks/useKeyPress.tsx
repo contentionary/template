@@ -15,7 +15,7 @@ function useKeyPress(targetKey: string) {
   );
   // If released key is our target key then set to false
   const upHandler = useCallback(
-    ({ key }: { key: string }) => {
+    ({ key }: { key: any }) => {
       if (key === targetKey) {
         setKeyPressed(false);
       }

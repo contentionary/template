@@ -28,7 +28,7 @@ export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
-  console.log(`\n\n\n\n================${title}\n===========`, value);
+  console.log(`\n\n================${title}\n===========`, value);
 };
 
 export const getFileKey = (file: any) => {
@@ -358,7 +358,7 @@ export const getCentre = async (
         googleAnalyticsCode: centre.googleAnalyticsCode,
         description: centre.description,
         template: centre.template,
-        // template: "course",
+        // template: "publication",
         logo: centre.logo,
         price: centre.price,
         subscriptionModel: centre.subscriptionModel,

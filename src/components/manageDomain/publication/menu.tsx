@@ -1,7 +1,8 @@
 import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
-import EditIcon from "@mui/icons-material/Edit";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import AddOutlined from "@mui/icons-material/AddOutlined";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
@@ -32,7 +33,7 @@ export default function CustomizedMenus({
             }
           >
             <MenuItem disableRipple>
-              <EditIcon />
+              <AddCircleOutline />
               Create Folder
             </MenuItem>
           </Link>
@@ -45,7 +46,7 @@ export default function CustomizedMenus({
             }
           >
             <MenuItem disableRipple>
-              <EditIcon />
+              <AddOutlined />
               Create publication
             </MenuItem>
           </Link>
@@ -57,7 +58,7 @@ export default function CustomizedMenus({
                 href={`/admin/publication/${folderId}/update?type=FOLDER`}
               >
                 <MenuItem disableRipple>
-                  <EditIcon />
+                  <AddCircleOutline />
                   Edit
                 </MenuItem>
               </Link>
