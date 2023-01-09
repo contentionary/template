@@ -8,8 +8,8 @@ const config = {
     YOUTUBE: "https://www.youtube.com/channel/UCTjpCZ29ZTeG6HuwHLRURFw",
     LINKEDIN: "https://www.linkedin.com/company/contentionary/",
     FACEBOOK: "https://web.facebook.com/contentionary/",
+    web: "",
   },
-  web: "",
 };
 
 export default config;
