@@ -15,6 +15,7 @@ interface Props {
   active?: boolean;
   price?: number;
   imageUrl: string;
+  id: string;
 }
 
 const PublicationCard = ({
@@ -25,6 +26,7 @@ const PublicationCard = ({
   active,
   price,
   imageUrl,
+  id,
 }: Props): JSX.Element => {
   const router = useRouter();
   const styles = useStyles();
@@ -75,7 +77,7 @@ const PublicationCard = ({
           onClick={() =>
             !installPlugin
               ? router.push(`/${link}`)
-              : installPlugin(name, active, price)
+              : installPlugin(name, active, price, id)
           }
         >
           {installPlugin ? (active ? "Uninstall" : "Install") : "Open"}

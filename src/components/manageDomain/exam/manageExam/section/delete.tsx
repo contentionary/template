@@ -18,9 +18,10 @@ const Delete = ({
   isOpen,
   toggleToast,
   updateData,
-}: Props) => {
+}: // userId
+Props) => {
   const [isLoading, setIsLoading] = useState(false);
-
+  // console.log(userId)
   async function deleteCentre() {
     try {
       setIsLoading(true);
