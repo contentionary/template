@@ -45,12 +45,14 @@ export default function Managers({
     { minWidth: 100, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Action", key: "action" },
+    { minWidth: 50, name: "userId", key: "userId" },
   ];
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
-      query: { ...router.query, pageId: value },
+      query: { ...router.query, pageId: value ? value : 1 },
     });
   };
+  console.log(managers);
   const result = managers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
@@ -61,6 +63,7 @@ export default function Managers({
         toggleToast={toggleToast}
         url={`/centre/${centreId}/centre-manager/${user.userId}`}
         updateData={handleChange}
+        // userId={user.userId}
       >
         <IconButton onClick={() => openDialog()}>
           <DeleteOutline htmlColor="red" />

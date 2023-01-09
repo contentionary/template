@@ -49,6 +49,7 @@ export interface PluginsInt {
   imageUrl: string;
   active: boolean;
   price: number;
+  id: string;
 }
 
 export interface ElementProps {
