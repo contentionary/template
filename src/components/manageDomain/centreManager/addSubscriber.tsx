@@ -39,7 +39,7 @@ const AddSubscriber = ({
       setIsLoading(false);
       closeDialog();
     } catch (error) {
-      toggleToast(handleError(error));
+      toggleToast(handleError(error).message);
       setIsLoading(false);
     }
   }

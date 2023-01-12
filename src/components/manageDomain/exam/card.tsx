@@ -18,7 +18,11 @@ import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
-import { kCount, EXAM_FOLDER_IMAGE_PLACEHOLDER } from "@src/utils";
+import {
+  kCount,
+  EXAM_FOLDER_IMAGE_PLACEHOLDER,
+  FOLDER_IMAGE_PLACEHOLDER,
+} from "@src/utils";
 import { ExamInt } from "@src/utils/interface";
 
 const ExamCard = ({ exam }: { exam: ExamInt }) => {
@@ -53,8 +57,8 @@ const ExamCard = ({ exam }: { exam: ExamInt }) => {
             <ImageComponent
               src={
                 type === "FOLDER"
-                  ? image || EXAM_FOLDER_IMAGE_PLACEHOLDER
-                  : image
+                  ? image || FOLDER_IMAGE_PLACEHOLDER
+                  : image || EXAM_FOLDER_IMAGE_PLACEHOLDER
               }
               width="100%"
               height="60%"
