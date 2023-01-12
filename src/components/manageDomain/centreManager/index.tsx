@@ -52,7 +52,6 @@ export default function Managers({
       query: { ...router.query, pageId: value ? value : 1 },
     });
   };
-  console.log(managers);
   const result = managers.users.map((user, index: number) => ({
     index: ++index,
     ...user,

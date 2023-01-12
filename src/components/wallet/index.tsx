@@ -124,10 +124,7 @@ export default function CustomizedSteppers() {
                 component="p"
                 style={{ color: "#fff", marginBottom: 20 }}
               >
-                ID:{" "}
-                {cachedData?.centre?.id
-                  ? cachedData.centre.id
-                  : cachedData.user.id}{" "}
+                ID: {centreWallet ? cachedData.centre.id : cachedData.user.id}{" "}
                 <CopyAllOutlined
                   sx={{ cursor: "pointer" }}
                   onClick={() => {

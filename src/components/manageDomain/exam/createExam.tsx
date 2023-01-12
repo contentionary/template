@@ -20,6 +20,7 @@ import useStyles from "./styles";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Editor from "@src/components/shared/editor";
 
 const CreateCourse = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -27,7 +28,8 @@ const CreateCourse = () => {
   ) as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, check, resetValues } = useForm(create);
+  const { getData, values, submit, check, resetValues, getEditor } =
+    useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -190,18 +192,11 @@ const CreateCourse = () => {
                 <Typography variant="subtitle1" component="div">
                   Description *
                 </Typography>
-                <TextArea
-                  required
-                  placeholder="Type in description here ..."
-                  name="description"
-                  onChange={getData}
-                  style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
-                  maxLength={10000}
+                <Editor
+                  data=""
+                  onChange={(event: any, editor: any) =>
+                    getEditor(event, editor, "description")
+                  }
                 />
               </Box>
             </>

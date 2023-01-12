@@ -19,6 +19,7 @@ import useStyles from "./styles";
 import { BasePageProps, CourseInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Editor from "@src/components/shared/editor";
 
 const UpdateCourse = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
@@ -26,7 +27,7 @@ const UpdateCourse = () => {
   ) as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, check } = useForm(Update);
+  const { getData, values, submit, check, getEditor } = useForm(Update);
   const { course } = pageData as {
     course: CourseInt;
   };
@@ -243,19 +244,11 @@ const UpdateCourse = () => {
                 <Typography variant="subtitle1" component="div">
                   Description *
                 </Typography>
-                <TextArea
-                  required
-                  placeholder="Type in description here ..."
-                  name="description"
-                  onChange={getData}
-                  defaultValue={course.description}
-                  style={{
-                    width: "100%",
-                    height: 120,
-                    borderRadius: 5,
-                    padding: 15,
-                  }}
-                  maxLength={500}
+                <Editor
+                  data={course.description}
+                  onChange={(event: any, editor: any) =>
+                    getEditor(event, editor, "description")
+                  }
                 />
               </Box>
             </>

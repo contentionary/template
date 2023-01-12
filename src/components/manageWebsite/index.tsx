@@ -248,7 +248,7 @@ const CreatePublication = () => {
           />
           <Typography style={{ textAlign: "right" }}>
             <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
-              Mange website
+              Manage website
             </ButtonComponent>
           </Typography>
         </Stack>
