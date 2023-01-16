@@ -33,12 +33,11 @@ export default function Payment(): JSX.Element {
     currency: incomingCurrency,
     redirectUrl: resourceRedirectUrl,
     transactionkey,
-    amount: price,
   } = router.query;
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
   );
-  const [amount, setAmount] = useState<number>(Number(price));
+  const [amount, setAmount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
     PaymentMethod.CARD
   );
@@ -46,20 +45,15 @@ export default function Payment(): JSX.Element {
 
   const preTransactionDetails = useCallback(async () => {
     try {
-      let standardAmount = 0;
-      if (purpose === "FUND_WALLET") {
-        standardAmount = parseInt(router.query.amount as string);
-      } else {
-        const { data } = await request.post({
-          url: "/transaction/pre-details",
-          data: { itemId, purpose, currency },
-        });
-        standardAmount = data.amount / 100;
-      }
+      const { data } = await request.post({
+        url: "/transaction/pre-details",
+        data: { itemId, purpose },
+      });
+      const standardAmount = data.amount / 100;
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
     } catch ({ message }) {}
-  }, [itemId, purpose, currency, router.query]);
+  }, [itemId, purpose]);
 
   const makePayment = async () => {
     try {
