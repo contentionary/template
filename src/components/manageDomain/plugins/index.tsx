@@ -55,7 +55,6 @@ const Pluggins = ({
     toggleToast("Successful");
     setInstalling(false);
   }
-
   async function installPlugin(
     plugin: string,
     active: boolean,
@@ -100,6 +99,7 @@ const Pluggins = ({
       setInstalling(false);
     }
   }
+
   return (
     <Box mt={3} id="plugin">
       {verifyValue && (

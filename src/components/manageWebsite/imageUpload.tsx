@@ -9,7 +9,6 @@ import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import Image from "@src/components/shared/image";
 import { useState } from "react";
-import { getImage } from "@src/utils";
 
 interface Props {
   img: Array<Record<any, any>>;
@@ -22,7 +21,6 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [previewLogo, setPreviewLogo] = useState("");
   const [rotation, setRotation] = useState(0);
-
   function preview(e: ElementProps) {
     openDialog();
     const objectUrl = e.target.files && URL.createObjectURL(e.target.files[0]);
@@ -34,7 +32,6 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
     const image = document.getElementById(`optionIamge${index}`);
     image && image.click();
   }
-
   async function croppedImage() {
     const croppedImage: any = await getCroppedImg(
       previewLogo,
@@ -44,6 +41,15 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
     img[index].imageUrl = croppedImage;
     setImg([...img]);
     closeDialog();
+  }
+
+  function getImage() {
+    if (typeof img[index].imageUrl === "string") {
+      if (img[index].imageUrl.includes("http")) {
+        return img[index].imageUrl;
+      } else
+        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${img[index].imageUrl}`;
+    } else return img[index]?.image[1];
   }
 
   return (
@@ -67,7 +73,7 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
         >
           <Box sx={{ width: 500 }}>
             <Image
-              src={getImage(img, index)}
+              src={getImage()}
               alt="question image"
               height="100%"
               width="100%"

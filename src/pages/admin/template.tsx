@@ -23,7 +23,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: `/centre/${centre.id}/centre-template`,
       token,
     });
-
     return {
       props: {
         pageData: { template: data.templateDetails },
