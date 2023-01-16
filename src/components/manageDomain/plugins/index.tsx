@@ -46,7 +46,7 @@ const Pluggins = ({
   const ConfirmPayment = dynamic(
     () => import("@src/components/payment/confirmPayment")
   );
-  
+
   async function updatePlugins() {
     const { data } = await request.get({
       url: `/plugins?centreId=${centre.id}`,
