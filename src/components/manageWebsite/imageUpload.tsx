@@ -21,7 +21,6 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [previewLogo, setPreviewLogo] = useState("");
   const [rotation, setRotation] = useState(0);
-
   function preview(e: ElementProps) {
     openDialog();
     const objectUrl = e.target.files && URL.createObjectURL(e.target.files[0]);
@@ -33,7 +32,6 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
     const image = document.getElementById(`optionIamge${index}`);
     image && image.click();
   }
-
   async function croppedImage() {
     const croppedImage: any = await getCroppedImg(
       previewLogo,

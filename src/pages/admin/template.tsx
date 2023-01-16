@@ -23,8 +23,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: `/centre/${centre.id}/centre-template`,
       token,
     });
-console.log(data, "data");
-
     return {
       props: {
         pageData: { template: data.templateDetails },
@@ -32,7 +30,6 @@ console.log(data, "data");
       },
     };
   } catch (error) {
-    console.log(error, "error")
     return { props: { error: handleError(error) } };
   }
 };

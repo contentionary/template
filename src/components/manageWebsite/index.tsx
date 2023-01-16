@@ -51,7 +51,6 @@ const CreatePublication = () => {
 
   async function getImage() {
     let resolvedOption = [];
-
     for (let content of contents) {
       if (typeof content.imageUrl === "object") {
         content.imageUrl = await uploadFiles(

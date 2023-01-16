@@ -336,7 +336,6 @@ export const AuthUpdate = async () => {
   }
 };
 
-
 export const getCentre = async (
   context: GetServerSidePropsContext,
   returnFullData: boolean = false
