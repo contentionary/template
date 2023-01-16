@@ -341,7 +341,7 @@ export function getImage(values: Array<any>, index: number) {
     if (values[index].image.includes("http")) {
       return values[index].image;
     } else
-      return `${process.env.NEXT_PUBLIC_AWS_S3_BASE_URL}/${values[index].image}`;
+      return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${values[index].image}`;
   } else return values[index].image[1];
 }
 
