@@ -31,6 +31,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let centre: any = {};
   const { token, user } = getAuthData(context);
   try {
+    const { pageId = 1 } = context.query;
     centre = (await getCentre(context)) as CachedCentreInt;
 
     const { data } = await request.get({
@@ -38,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       token,
     });
     const { data: transactionHistory } = await request.get({
-      url: "/wallet/transaction-history",
+      url: `/wallet/transaction-history?pageId=${pageId}`,
       token,
     });
     return {

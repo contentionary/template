@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+
 export enum Gender {
   MALE = "Male",
   FEMALE = "Female",
@@ -48,6 +49,7 @@ export interface PluginsInt {
   imageUrl: string;
   active: boolean;
   price: number;
+  id: string;
 }
 
 export interface ElementProps {
@@ -151,6 +153,7 @@ export interface CourseContentInt {
   pageCount?: string;
   description: string;
   fileUrl: string;
+  status: "PENDING" | "PUBLISHED";
 }
 
 export interface CourseModuleInt {
@@ -287,6 +290,7 @@ export interface ExamInt {
   centreName: string;
   centreSlug: string;
   summary: string;
+  folderContentCount: number;
 }
 
 export interface ExamQuestionsInt {
@@ -395,6 +399,7 @@ export declare type CourseDetailsPageFunc = (props: {
     redirectUrl: string;
   };
   isSubscriber: boolean;
+  subscriptionModel?: string;
 }) => JSX.Element;
 
 export interface UserInt {

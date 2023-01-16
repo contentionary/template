@@ -17,6 +17,7 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import {
   kCount,
   VIDEO_FOLDER_IMAGE_PLACEHOLDER,
+  FOLDER_IMAGE_PLACEHOLDER,
   dateTimeFormat,
   timeAgo,
 } from "@src/utils";
@@ -35,6 +36,7 @@ const PublicationCard = ({
   id,
   folderContentCount,
   createdAt,
+  slug,
 }: CourseInt) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
@@ -45,7 +47,7 @@ const PublicationCard = ({
         href={
           type === "FOLDER"
             ? `/admin/course?folderId=${id}`
-            : `/admin/course/${id}`
+            : `/admin/course/${slug}/${id}`
         }
         passHref
       >
@@ -57,8 +59,8 @@ const PublicationCard = ({
             <ImageComponent
               src={
                 type === "FOLDER"
-                  ? imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
-                  : imageUrl || "/images/state/failed.svg"
+                  ? imageUrl || FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
               }
               width="100%"
               height="60%"

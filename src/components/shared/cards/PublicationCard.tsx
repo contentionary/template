@@ -19,7 +19,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/PersonOutline";
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { PublicationCardFunc } from "./interfaceType";
-import { FOLDER_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
+import { BOOK_IMAGE_PLACEHOLDER, kCount } from "@src/utils";
 
 const PublicationCard: PublicationCardFunc = ({
   slug,
@@ -55,7 +55,7 @@ const PublicationCard: PublicationCardFunc = ({
             <ImageComponent
               src={
                 type === "FOLDER"
-                  ? imageUrl || FOLDER_IMAGE_PLACEHOLDER
+                  ? imageUrl || BOOK_IMAGE_PLACEHOLDER
                   : imageUrl
               }
               width="90%"

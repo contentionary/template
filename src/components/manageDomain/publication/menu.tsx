@@ -1,7 +1,8 @@
 import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
-// import Visibility from "@mui/icons-material/Visibility";
-import EditIcon from "@mui/icons-material/Edit";
+import Divider from "@mui/material/Divider";
+import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
+import AddOutlined from "@mui/icons-material/AddOutlined";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
@@ -19,26 +20,51 @@ export default function CustomizedMenus({
   return (
     <>
       <IconButton onClick={openMenu}>
-        <MoreVertIcon />
+        <MoreVertIcon fontSize="large" />
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
           <Link
             passHref
-            href={`/admin/publication/${folderId}/update?type=FOLDER`}
+            href={
+              folderId
+                ? `/admin/publication/create?type=FOLDER&folderId=${folderId}`
+                : "/admin/publication/create?type=FOLDER"
+            }
           >
             <MenuItem disableRipple>
-              <EditIcon />
-              Edit
+              <AddCircleOutline />
+              Create Folder
             </MenuItem>
           </Link>
-          {/* <Link passHref href={`/courses/${slug}/${id}`}>
+          <Link
+            passHref
+            href={
+              folderId
+                ? `/admin/publication/create?type=PUBLICATION&folderId=${folderId}`
+                : "/admin/publication/create?type=PUBLICATION"
+            }
+          >
             <MenuItem disableRipple>
-              <Visibility />
-              View course
+              <AddOutlined />
+              Create publication
             </MenuItem>
-          </Link> */}
-          <Delete id={folderId} centreId={centreId} />
+          </Link>
+          {folderId && (
+            <>
+              <Divider sx={{ my: 0.5 }} />
+              <Link
+                passHref
+                href={`/admin/publication/${folderId}/update?type=FOLDER`}
+              >
+                <MenuItem disableRipple>
+                  <AddCircleOutline />
+                  Edit
+                </MenuItem>
+              </Link>
+              <Delete id={folderId} centreId={centreId} />
+            </>
+          )}
         </div>
       </Menus>
     </>

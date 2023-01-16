@@ -2,7 +2,7 @@ import Box from "@mui/system/Box";
 import {
   FacebookShareButton,
   LinkedinShareButton,
-  PinterestShareButton,
+  // PinterestShareButton,
   TelegramShareButton,
   TwitterShareButton,
   WhatsappShareButton,
@@ -10,7 +10,7 @@ import {
 import {
   FacebookIcon,
   LinkedinIcon,
-  PinterestIcon,
+  // PinterestIcon,
   TelegramIcon,
   TwitterIcon,
   WhatsappIcon,
@@ -48,9 +48,9 @@ const ShareContent = ({
         <WhatsappIcon round={round} size={size} />
       </WhatsappShareButton>
 
-      <PinterestShareButton media="" url={shareUrl}>
+      {/* <PinterestShareButton media="" url={shareUrl}>
         <PinterestIcon round={round} size={size} />
-      </PinterestShareButton>
+      </PinterestShareButton> */}
 
       <TelegramShareButton url={shareUrl} style={{ background: "white" }}>
         <TelegramIcon round={round} size={size} />

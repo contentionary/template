@@ -61,14 +61,22 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
                 <Typography variant="h6" color="white" gutterBottom>
                   TelePhone:
                 </Typography>
-                <NextLink href={`tel:${phoneNumber}`} passHref>
-                  <MuiLink>{phoneNumber}</MuiLink>
+                <NextLink
+                  href={`tel:${phoneNumber}`}
+                  style={{ color: "white" }}
+                  passHref
+                >
+                  <MuiLink style={{ color: grey["400"] }}>
+                    {phoneNumber}
+                  </MuiLink>
                 </NextLink>
                 <Typography mt={4} variant="h6" color="white" gutterBottom>
                   Contact Email
                 </Typography>
                 <NextLink href={`mailto:${emailAddress}`} passHref>
-                  <MuiLink>{emailAddress}</MuiLink>
+                  <MuiLink style={{ color: grey["400"] }}>
+                    {emailAddress}
+                  </MuiLink>
                 </NextLink>
               </Box>
             </Grid>

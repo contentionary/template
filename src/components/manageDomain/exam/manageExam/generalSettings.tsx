@@ -17,6 +17,7 @@ import useStyles from "../styles";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Editor from "@src/components/shared/editor";
 
 const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -24,7 +25,8 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
   ) as BasePageProps;
   const styles = useStyles();
   const { exam, publicationCategories } = pageData;
-  const { getData, values, submit, check, resetValues } = useForm(create);
+  const { getData, values, submit, check, resetValues, getEditor } =
+    useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -111,7 +113,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
             <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
-                label="Exam start date"
+                // label="Exam start date"
                 name="startDate"
                 // defaultValue="2022-10-26T5:10"
                 onChange={getData}
@@ -124,7 +126,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
             <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
-                label="Exam end date"
+                // label="Exam end date"
                 name="endDate"
                 onChange={getData}
                 sx={{ width: "100%" }}
@@ -180,55 +182,34 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
             <Typography variant="subtitle1" component="div">
               Description *
             </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              defaultValue={exam.description}
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
+
+            <Editor
+              data={exam.description}
+              onChange={(event: any, editor: any) =>
+                getEditor(event, editor, "description")
+              }
             />
           </Box>
           <Box>
             <Typography variant="subtitle1" component="div">
               Instructions
             </Typography>
-            <TextArea
-              placeholder="Type in instructions here ..."
-              name="instruction"
-              defaultValue={exam.instruction}
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
+            <Editor
+              data={exam.instruction}
+              onChange={(event: any, editor: any) =>
+                getEditor(event, editor, "instruction")
+              }
             />
           </Box>
           <Box>
             <Typography variant="subtitle1" component="div">
               Completion message
             </Typography>
-            <TextArea
-              placeholder="Type in completion message here ..."
-              name="completionMessage"
-              defaultValue={exam.completionMessage}
-              onChange={getData}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={10000}
+            <Editor
+              data={exam.completionMessage}
+              onChange={(event: any, editor: any) =>
+                getEditor(event, editor, "completionMessage")
+              }
             />
           </Box>
           <Stack direction="row" spacing={3} flexWrap="wrap">
@@ -238,7 +219,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
                   Show in Search Result
                 </Typography>
               }
-              checked={values.isSearchable || exam.isSearchable}
+              defaultChecked={exam.isSearchable}
               name="isSearchable"
               onChange={check}
               className={styles.checkbox}
@@ -251,7 +232,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
               }
               onChange={check}
               name="allowReview"
-              checked={values.allowReview || exam.allowReview}
+              defaultChecked={exam.allowReview}
               className={styles.checkbox}
             />
             <CheckBox
@@ -261,7 +242,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
                 </Typography>
               }
               onChange={check}
-              checked={values.showCorrection || exam.showCorrection}
+              defaultChecked={exam.showCorrection}
               name="showCorrection"
               className={styles.checkbox}
             />

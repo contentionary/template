@@ -24,6 +24,7 @@ import {
 } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Editor from "@src/components/shared/editor";
 
 const CreatePublication = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
@@ -31,7 +32,7 @@ const CreatePublication = () => {
   ) as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { getData, values, submit, check } = useForm(Update);
+  const { getData, values, submit, check, getEditor } = useForm(Update);
   const { publication, publicationCategories } = pageData as {
     publication: PublicationInt;
     publicationCategories: PublicationCategoryInt[];
@@ -65,7 +66,7 @@ const CreatePublication = () => {
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
-  const Delete = dynamic(() => import("./delete"));
+  const PublicationMenu = dynamic(() => import("./publicationMenu"));
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };
@@ -125,12 +126,17 @@ const CreatePublication = () => {
         >
           <ArrowBackIosNewOutlined style={{ marginRight: 10 }} /> Back
         </Typography>
-        <Box sx={{ textAlign: "center" }}>
-          <Delete centreId={cachedData.centre.id} id={publication.id} />
+        <PublicationMenu
+          centreId={cachedData.centre.id}
+          id={publication.id}
+          slug={publication.slug as string}
+        />
+        {/* <Box sx={{ textAlign: "center" }}>
+          <Delete />
           <Typography variant="caption" component="div">
             Want to delete Publication?
           </Typography>
-        </Box>
+        </Box> */}
       </Box>
 
       <Typography
@@ -448,19 +454,11 @@ const CreatePublication = () => {
             <Typography variant="subtitle1" component="div">
               Description *
             </Typography>
-            <TextArea
-              required
-              placeholder="Type in description here ..."
-              name="description"
-              onChange={getData}
-              defaultValue={publication.description}
-              style={{
-                width: "100%",
-                height: 120,
-                borderRadius: 5,
-                padding: 15,
-              }}
-              maxLength={200}
+            <Editor
+              data={publication.description}
+              onChange={(event: any, editor: any) =>
+                getEditor(event, editor, "description")
+              }
             />
           </Box>
 

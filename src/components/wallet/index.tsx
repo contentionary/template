@@ -1,5 +1,6 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
@@ -45,6 +46,9 @@ export default function CustomizedSteppers() {
   const [transactions, setTransaction] = React.useState<TransactionHistory[]>(
     pageData.transactionHistory.histories
   );
+  const [pageCount, setPageCount] = React.useState(
+    pageData.transactionHistory.pageCount
+  );
   const router = useRouter();
   const locationUrl = isServerSide ? "" : window.location.href;
   const centreWallet = locationUrl.includes("admin");
@@ -66,18 +70,23 @@ export default function CustomizedSteppers() {
     date: format(new Date(item.createdAt), "dd-MM-yyy"),
     ...item,
   }));
-  async function getTransactions(type: string) {
+  async function getTransactions(type: string, pageId: number) {
     try {
       setTransactionType(type);
       if (type === "all") {
-        setTransaction([...pageData.transactionHistory.histories]);
+        const { data } = await request.get({
+          url: `/wallet/transaction-history?pageId=${pageId}`,
+        });
+        setPageCount(data.pageCount);
+        setTransaction([...(data.histories as TransactionHistory[])]);
       } else {
         setIsLoading(true);
         const { data } = await request.get({
           url: centreWallet
-            ? `/wallet/centre/${cachedData.centre.id}/transaction-history?type=${type}`
-            : `/wallet/transaction-history?type=${type}`,
+            ? `/wallet/centre/${cachedData.centre.id}/transaction-history?type=${type}&pageId=${pageId}`
+            : `/wallet/transaction-history?type=${type}&pageId=${pageId}`,
         });
+        setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
         setIsLoading(false);
       }
@@ -86,6 +95,9 @@ export default function CustomizedSteppers() {
       setIsLoading(false);
     }
   }
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    getTransactions(transactionType, value);
+  };
   return (
     <Box sx={{ pt: 7, pb: 8, px: { md: 6 } }}>
       <Container maxWidth="xl">
@@ -112,10 +124,7 @@ export default function CustomizedSteppers() {
                 component="p"
                 style={{ color: "#fff", marginBottom: 20 }}
               >
-                ID:{" "}
-                {cachedData?.centre?.id
-                  ? cachedData.centre.id
-                  : cachedData.user.id}{" "}
+                ID: {centreWallet ? cachedData.centre.id : cachedData.user.id}{" "}
                 <CopyAllOutlined
                   sx={{ cursor: "pointer" }}
                   onClick={() => {
@@ -218,30 +227,47 @@ export default function CustomizedSteppers() {
             >
               <ButtonComponent
                 variant={transactionType === "all" ? "contained" : "text"}
-                onClick={() => getTransactions("all")}
+                onClick={() => getTransactions("all", 1)}
               >
                 All Transactions
               </ButtonComponent>
               <ButtonComponent
                 variant={transactionType === "CREDIT" ? "contained" : "text"}
-                onClick={() => getTransactions("CREDIT")}
+                onClick={() => getTransactions("CREDIT", 1)}
               >
                 Deposits
               </ButtonComponent>
               <ButtonComponent
                 variant={transactionType === "DEBIT" ? "contained" : "text"}
-                onClick={() => getTransactions("DEBIT")}
+                onClick={() => getTransactions("DEBIT", 1)}
               >
                 Withdrawals
               </ButtonComponent>
             </ButtonGroup>
           </Box>
           {data.length > 0 ? (
-            <Box sx={{ width: { xs: 400, md: "100%" } }}>
+            <Box sx={{ width: { xs: "100%" } }}>
               {isLoading ? (
                 <div>Loading...</div>
               ) : (
-                <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
+                <>
+                  <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
+                  <Stack
+                    py={4}
+                    direction="row"
+                    justifyContent="center"
+                    spacing={2}
+                  >
+                    {pageCount > 1 && (
+                      <Pagination
+                        count={pageCount}
+                        onChange={handleChange}
+                        shape="rounded"
+                        size="large"
+                      />
+                    )}
+                  </Stack>
+                </>
               )}
             </Box>
           ) : (

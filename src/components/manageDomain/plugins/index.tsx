@@ -6,10 +6,11 @@ import Stack from "@mui/system/Stack";
 import useStyles from "./styles";
 import Card from "../plugins/card";
 
-import { handleError, queryClient, request } from "@src/utils";
+import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useDialog } from "@src/hooks";
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 import { useToast } from "@src/utils/hooks";
 import { BasePageProps, PluginsInt } from "@src/utils/interface";
@@ -24,6 +25,9 @@ const Pluggins = ({
 }) => {
   const styles = useStyles();
   const router = useRouter();
+  const verifyValue = router.query.verifyValue === "true";
+  const { reference, price: deductedPrice } = router.query;
+  const redirectUrl = !isServerSide ? window.location.href : "";
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [removePlugin, setRemovePlugin] = useState("");
   const { toastMessage, toggleToast } = useToast();
@@ -39,41 +43,45 @@ const Pluggins = ({
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
+  const ConfirmPayment = dynamic(
+    () => import("@src/components/payment/confirmPayment")
+  );
 
   async function updatePlugins() {
     const { data } = await request.get({
-      url: `/centre/${centre.id}/plugins`,
+      url: `/plugins?centreId=${centre.id}`,
     });
     setLatestPlugins([...(data as any)]);
     toggleToast("Successful");
     setInstalling(false);
   }
 
-  async function installPlugin(plugin: string, active: boolean, price: number) {
+  async function installPlugin(
+    plugin: string,
+    active: boolean,
+    price: number,
+    id: string
+  ) {
     try {
       setInstalling(true);
       if (active) {
         setRemovePlugin(plugin);
         openDialog();
-      } else {
-        if (price > 0) {
-          router.push({
-            pathname: "/payment",
-            query: {
-              currency: "NGN",
-              purpose: "RESULT_PLUGIN",
-              redirectUrl: "/admin",
-              amount: price,
-              itemId: centre.id,
-            },
-          });
-        } else {
-          await request.post({
-            url: `/centre/${centre.id}/plugin`,
-            data: { plugin },
-          });
-          updatePlugins();
-        }
+      }
+      {
+        router.push({
+          pathname: "/payment",
+          query: {
+            currency: "NGN",
+            purpose: "CENTRE_PLUGIN",
+            redirectUrl: !isServerSide ? window.location.href : "",
+            amount: price,
+            metaData: `{ "centreId": "${centre.id}" }`,
+            itemId: id,
+            paymentMethod: "CARD",
+            transactionkey: uuid(),
+          },
+        });
       }
     } catch (error) {
       const message = handleError(error).message;
@@ -95,6 +103,13 @@ const Pluggins = ({
   }
   return (
     <Box mt={3} id="plugin">
+      {verifyValue && (
+        <ConfirmPayment
+          price={Number(deductedPrice)}
+          reference={reference}
+          redirectUrl={redirectUrl}
+        />
+      )}
       <Stack spacing={4}>
         <Box sx={{ textAlign: "center" }} mt={20}>
           <Typography
@@ -106,7 +121,7 @@ const Pluggins = ({
           </Typography>
         </Box>
         <Box mt={2}>
-          <Grid container spacing={{ xs: 5, md: 3 }}>
+          <Grid container spacing={{ xs: 5, md: 2 }}>
             {latestPlugins.map((item, index) => (
               <Grid item xs={12} md={6} lg={4} key={index} mt={3}>
                 <Card {...item} installPlugin={installPlugin} />

@@ -38,8 +38,12 @@ const DeleteCentre = ({ id, centreId, courseId, refetch }: Props) => {
 
   return (
     <>
-      <MenuItem onClick={() => openDialog()} disableRipple>
-        <DeleteOutline />
+      <MenuItem
+        onClick={() => openDialog()}
+        disableRipple
+        sx={{ color: "red" }}
+      >
+        <DeleteOutline style={{ color: "red" }} />
         Delete
       </MenuItem>
       <ConfirmDialog

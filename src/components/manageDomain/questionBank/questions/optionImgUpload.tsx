@@ -5,6 +5,7 @@ import TextFields from "@src/components/shared/input/textField";
 import { ElementProps } from "@src/utils/interface";
 import Image from "@src/components/shared/image";
 import { optionInt } from "./interface";
+import { getImage } from "@src/utils";
 
 interface Props {
   options: Array<optionInt>;
@@ -29,14 +30,7 @@ const UpdateBackground = ({
     const image = document.getElementById(`optionIamge${index}`);
     image && image.click();
   }
-  function getImage() {
-    if (typeof options[index].image === "string") {
-      if (options[index].image.includes("http")) {
-        return options[index].image;
-      } else
-        return `https://contentionary.s3.eu-west-3.amazonaws.com/${options[index].image}`;
-    } else return options[index].image[1];
-  }
+
   return (
     <>
       <TextFields
@@ -57,9 +51,8 @@ const UpdateBackground = ({
           onClick={() => selectImage()}
         >
           <Box sx={{ width: 500 }}>
-            {" "}
             <Image
-              src={getImage()}
+              src={getImage(options, index)}
               alt="question image"
               height="100%"
               width="100%"

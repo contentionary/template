@@ -9,7 +9,13 @@ import { handleError, request } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 
-const EmailVerification = ({ toggleToast }: { toggleToast: Function }) => {
+const EmailVerification = ({
+  toggleToast,
+  centreId,
+}: {
+  toggleToast: Function;
+  centreId: string;
+}) => {
   const { getData, values, submit, resetValues } = useForm(create);
   const [isLoading, setIsLoading] = useState(false);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
@@ -20,7 +26,7 @@ const EmailVerification = ({ toggleToast }: { toggleToast: Function }) => {
     try {
       setIsLoading(true);
       const { message } = await request.post({
-        url: "/auth/verification/email",
+        url: `/auth/verification/email?centreId=${centreId}`,
         data: values,
       });
       toggleToast(message);

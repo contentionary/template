@@ -9,7 +9,7 @@ import { useQuery } from "react-query";
 import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
 import AddSubscriber from "./addSubscriber";
-import Empty from "@src/components/shared/state/Empty";
+import dynamic from "next/dynamic";
 import Delete from "../section/delete";
 import { useDialog } from "@src/hooks";
 
@@ -39,6 +39,8 @@ export default function Subscribers({
   examId: string;
   toggleToast: Function;
 }) {
+  const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
+  const Loading = dynamic(() => import("@src/components/shared/loading"));
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { isLoading, data, error, refetch } = useQuery(
     ["sections", centreId, examId],
@@ -70,7 +72,21 @@ export default function Subscribers({
     ),
   }));
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Typography
+        component="div"
+        sx={{
+          height: 300,
+          display: "flex",
+          justifyContent: "center",
+          alignItem: "center",
+        }}
+      >
+        <Typography>
+          <Loading />
+        </Typography>
+      </Typography>
+    );
   } else if (data) {
     return (
       <div>

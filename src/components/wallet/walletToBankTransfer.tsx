@@ -220,7 +220,7 @@ const BankTransfer = ({
                 <div style={{ textAlign: "right" }}>
                   <ButtonComponent type="submit">
                     <>
-                      Bank transfer
+                      Transfer Fund
                       {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
                     </>
                   </ButtonComponent>

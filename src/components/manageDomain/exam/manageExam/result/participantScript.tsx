@@ -95,7 +95,7 @@ const ParticipantScript = ({
                 key={`${index}-option`}
                 dangerouslySetInnerHTML={{ __html: value }}
               />
-              {answer.optionIds.includes(id) && <strong>Selected</strong>}
+              {answer?.optionIds.includes(id) && <strong>Selected</strong>}
             </Box>
           ))}
         </>
@@ -112,7 +112,7 @@ const ParticipantScript = ({
             }`}
           >
             <span>True</span>
-            <strong>{answer.answer === true && "Selected"}</strong>
+            <strong>{answer?.answer === true && "Selected"}</strong>
           </Typography>
           <Typography
             sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}
@@ -123,7 +123,7 @@ const ParticipantScript = ({
             }`}
           >
             <Typography>False</Typography>
-            <Typography>{answer.answer === false && "Selected"}</Typography>
+            <Typography>{answer?.answer === false && "Selected"}</Typography>
           </Typography>
         </>
       );
@@ -131,7 +131,7 @@ const ParticipantScript = ({
       return (
         <Stack spacing={2}>
           <Typography variant="h6">Participant Answer</Typography>
-          <Typography variant="body1">{answer.answer}</Typography>
+          <Typography variant="body1">{answer?.answer}</Typography>
         </Stack>
       );
     } else if (question.type === "range") {

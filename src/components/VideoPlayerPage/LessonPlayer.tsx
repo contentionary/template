@@ -14,23 +14,10 @@ const LessonPlayer = ({
   courseContent: CourseContentInt;
 }) => {
   const videoPageStyle = useVideoPageStyle();
-
-  const videoJsOptions = {
-    autoplay: false,
-    controls: true,
-    fill: true,
-    audioOnlyMode: courseContent.format === "audio",
-    sources: [
-      {
-        src: courseContent.fileUrl,
-      },
-    ],
-  };
-
   return (
     <Box className={videoPageStyle.playerContainer}>
       <Container className="player-box">
-        <VideoPlayer options={videoJsOptions} />
+        <VideoPlayer src={courseContent.fileUrl} />
       </Container>
     </Box>
   );

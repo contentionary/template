@@ -2,6 +2,9 @@ import React from "react";
 // Mui components
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Fab from "@mui/material/Fab";
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -16,10 +19,12 @@ import Reader from "@src/components/shared/DocumentReader";
 import useVideoPageStyle from "@src/styles/videoPage";
 import { VideoPlayerPagePageFunc } from "./interfaceType";
 //
-import { queryClient } from "@src/utils";
+import { queryClient, isServerSide } from "@src/utils";
 import { BasePageProps, CourseContentInt } from "@src/utils/interface";
+import { useRouter } from "next/router";
 
 const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
+  const router = useRouter();
   const theme = useTheme();
   const videoPageStyle = useVideoPageStyle();
   const [open, setOpen] = React.useState(true);
@@ -27,7 +32,7 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const courseContent = pageData.courseContent as CourseContentInt;
-
+  const { slug, courseId } = router.query;
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -36,8 +41,7 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const { id, fileUrl, format } = courseContent;
-
+  const { id, fileUrl, format, status } = courseContent;
   return (
     <Box
       borderTop={1}
@@ -81,13 +85,52 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
         </IconButton>
       )}
       <Box className={`${videoPageStyle.mainContainer} ${open ? "open" : ""}`}>
-        {format === "document" ? (
-          <Reader fileUrl={fileUrl} allowDownload={false} id={id} />
+        {status === "PUBLISHED" ? (
+          <>
+            {format === "document" ? (
+              <Reader fileUrl={fileUrl} allowDownload={false} id={id} />
+            ) : (
+              <LessonPlayer courseContent={courseContent} />
+            )}
+          </>
         ) : (
-          <LessonPlayer courseContent={courseContent} />
+          <Typography
+            component="div"
+            sx={{
+              height: 400,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h5">
+              Optimizing video for different device screen sizes
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 2, mt: 1 }}>
+              Note: This might take a while
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              onClick={() => !isServerSide && window.location.reload()}
+            >
+              Refresh to Check status
+            </Button>
+          </Typography>
         )}
         <LessonDetails courseContent={courseContent} />
       </Box>
+      <div style={{ position: "fixed", bottom: 20, right: 20 }}>
+        <Fab
+          color="primary"
+          aria-label="back"
+          onClick={() => router.push(`/courses/${slug}/${courseId}`)}
+        >
+          Back
+        </Fab>
+      </div>
     </Box>
   );
 };

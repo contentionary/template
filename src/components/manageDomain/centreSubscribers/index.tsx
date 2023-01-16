@@ -54,6 +54,7 @@ export default function Subscribers({
       query: { ...router.query },
     });
   };
+
   const result = subscribers.users.map((user, index: number) => ({
     index: ++index,
     ...user,

@@ -62,7 +62,7 @@ export default function CircularDeterminate({
         );
       }
     } catch ({ message }) {
-      alert(message);
+      toggleToast(message);
     }
   }, [reference, redirectUrl, price]);
 
@@ -71,7 +71,9 @@ export default function CircularDeterminate({
       getPaymentConfirmation();
     } else {
       setShow(false);
-      alert("Transaction Verification Timed Out, kindly refresh the page");
+      toggleToast(
+        "Transaction Verification Timed Out, kindly refresh the page"
+      );
     }
   }, [progress, getPaymentConfirmation]);
 
