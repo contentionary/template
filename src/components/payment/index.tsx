@@ -52,14 +52,14 @@ export default function Payment(): JSX.Element {
       } else {
         const { data } = await request.post({
           url: "/transaction/pre-details",
-          data: { itemId, purpose },
+          data: { itemId, purpose, currency },
         });
         standardAmount = data.amount / 100;
       }
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
     } catch ({ message }) {}
-  }, [itemId, purpose, router.query]);
+  }, [itemId, purpose, currency, router.query]);
 
   const makePayment = async () => {
     try {
