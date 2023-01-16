@@ -5,7 +5,7 @@ import TextFields from "@src/components/shared/input/textField";
 import { ElementProps } from "@src/utils/interface";
 import Image from "@src/components/shared/image";
 import { optionInt } from "./interface";
-import { getImage } from "@src/utils";
+// import { getImage } from "@src/utils";
 
 interface Props {
   options: Array<optionInt>;
@@ -31,6 +31,15 @@ const UpdateBackground = ({
     image && image.click();
   }
 
+  function getImage() {
+    if (typeof options[index].image === "string") {
+      if (options[index].image.includes("http")) {
+        return options[index].image;
+      } else
+        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${options[index].image}`;
+    } else return options[index]?.image[1];
+  }
+
   return (
     <>
       <TextFields
@@ -52,7 +61,7 @@ const UpdateBackground = ({
         >
           <Box sx={{ width: 500 }}>
             <Image
-              src={getImage(options, index)}
+              src={getImage()}
               alt="question image"
               height="100%"
               width="100%"

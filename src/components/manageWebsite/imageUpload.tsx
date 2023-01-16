@@ -9,7 +9,6 @@ import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import Image from "@src/components/shared/image";
 import { useState } from "react";
-import { getImage } from "@src/utils";
 
 interface Props {
   img: Array<Record<any, any>>;
@@ -46,6 +45,15 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
     closeDialog();
   }
 
+  function getImage() {
+    if (typeof img[index].imageUrl === "string") {
+      if (img[index].imageUrl.includes("http")) {
+        return img[index].imageUrl;
+      } else
+        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${img[index].imageUrl}`;
+    } else return img[index]?.image[1];
+  }
+
   return (
     <>
       <TextFields
@@ -67,7 +75,7 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
         >
           <Box sx={{ width: 500 }}>
             <Image
-              src={getImage(img, index)}
+              src={getImage()}
               alt="question image"
               height="100%"
               width="100%"

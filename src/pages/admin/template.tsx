@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: `/centre/${centre.id}/centre-template`,
       token,
     });
+console.log(data, "data");
 
     return {
       props: {
@@ -31,6 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   } catch (error) {
+    console.log(error, "error")
     return { props: { error: handleError(error) } };
   }
 };

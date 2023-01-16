@@ -336,14 +336,6 @@ export const AuthUpdate = async () => {
   }
 };
 
-export function getImage(values: Array<any>, index: number) {
-  if (typeof values[index].image === "string") {
-    if (values[index].image.includes("http")) {
-      return values[index].image;
-    } else
-      return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${values[index].image}`;
-  } else return values[index].image[1];
-}
 
 export const getCentre = async (
   context: GetServerSidePropsContext,
