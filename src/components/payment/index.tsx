@@ -34,6 +34,7 @@ export default function Payment(): JSX.Element {
     redirectUrl: resourceRedirectUrl,
     transactionkey,
     amount: price,
+    metaData,
   } = router.query;
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
@@ -43,7 +44,6 @@ export default function Payment(): JSX.Element {
     PaymentMethod.CARD
   );
   const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
-
   const preTransactionDetails = useCallback(async () => {
     try {
       let standardAmount = 0;
@@ -64,7 +64,7 @@ export default function Payment(): JSX.Element {
   const makePayment = async () => {
     try {
       const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${amount}`;
-      const paymentData = {
+      const paymentData: any = {
         amount: parseInt((amount * 100).toFixed(0)),
         paymentMethod,
         currency,
@@ -72,6 +72,9 @@ export default function Payment(): JSX.Element {
         purpose,
         itemId,
       };
+      if (metaData) {
+        paymentData.metaData = JSON.parse(metaData as string);
+      }
 
       setIsLoading(true);
       const { data } = await request.post({
@@ -83,7 +86,7 @@ export default function Payment(): JSX.Element {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
       }
     } catch (err) {
-      alert(handleError(err).message);
+      toggleToast(handleError(err).message);
       setIsLoading(false);
     }
   };
@@ -97,6 +100,7 @@ export default function Payment(): JSX.Element {
     // toggleToast,
     resourceRedirectUrl,
     transactionkey,
+    metaData,
   ]);
 
   useEffect(() => {
