@@ -33,7 +33,8 @@ const nextConfig = {
       "prod-cdn.contentionary.com",
       "s3.eu-west-1.wasabisys.com",
       "dev-cdn.b-cdn.net",
-      "video.bunnycdn.com"
+      "video.bunnycdn.com",
+      "cdn.edtify.com",
     ],
   },
 };

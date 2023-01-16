@@ -83,7 +83,7 @@ export default function Payment(): JSX.Element {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
       }
     } catch (err) {
-      alert(handleError(err).message);
+      toggleToast(handleError(err).message);
       setIsLoading(false);
     }
   };
