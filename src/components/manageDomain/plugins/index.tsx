@@ -55,7 +55,6 @@ const Pluggins = ({
     toggleToast("Successful");
     setInstalling(false);
   }
-
   async function installPlugin(
     plugin: string,
     active: boolean,
@@ -67,8 +66,7 @@ const Pluggins = ({
       if (active) {
         setRemovePlugin(plugin);
         openDialog();
-      }
-      {
+      } else {
         router.push({
           pathname: "/payment",
           query: {
@@ -101,6 +99,7 @@ const Pluggins = ({
       setInstalling(false);
     }
   }
+
   return (
     <Box mt={3} id="plugin">
       {verifyValue && (
@@ -123,7 +122,7 @@ const Pluggins = ({
         <Box mt={2}>
           <Grid container spacing={{ xs: 5, md: 2 }}>
             {latestPlugins.map((item, index) => (
-              <Grid item xs={12} md={6} lg={4} key={index} mt={3}>
+              <Grid item xs={12} md={6} lg={4} xl={3} key={index} mt={3}>
                 <Card {...item} installPlugin={installPlugin} />
               </Grid>
             ))}
