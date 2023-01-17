@@ -17,6 +17,7 @@ interface SubscriberInt {
   email: string;
   phoneNumber: string;
   id: string;
+  userId: string;
 }
 
 const fetchSections = async ({ queryKey }: { queryKey: Array<any> }) => {
@@ -51,13 +52,14 @@ export default function Subscribers({
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 250, name: "Action", key: "action" },
   ];
+
   const result = data?.map((item: SubscriberInt, index: number) => ({
     index: ++index,
     ...item,
     action: (
       <Delete
         toggleToast={toggleToast}
-        url={`/centre/${centreId}/exam/${examId}/subscriber/${item.id}`}
+        url={`/centre/${centreId}/exam/${examId}/subscriber/${item.userId}`}
         updateData={refetch}
       />
     ),
