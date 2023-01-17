@@ -39,28 +39,22 @@ export default function Payment(): JSX.Element {
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
   );
-  const [amount, setAmount] = useState<number>(Number(price));
+  const [amount, setAmount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
     PaymentMethod.CARD
   );
   const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
-
   const preTransactionDetails = useCallback(async () => {
     try {
-      let standardAmount = 0;
-      if (purpose === "FUND_WALLET") {
-        standardAmount = parseInt(router.query.amount as string);
-      } else {
-        const { data } = await request.post({
-          url: "/transaction/pre-details",
-          data: { itemId, purpose, currency },
-        });
-        standardAmount = data.amount / 100;
-      }
+      const { data } = await request.post({
+        url: "/transaction/pre-details",
+        data: { itemId, purpose, currency },
+      });
+      const standardAmount = data.amount / 100;
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
     } catch ({ message }) {}
-  }, [itemId, purpose, currency, router.query]);
+  }, [itemId, purpose]);
 
   const makePayment = async () => {
     try {
@@ -76,6 +70,7 @@ export default function Payment(): JSX.Element {
       if (metaData) {
         paymentData.metaData = JSON.parse(metaData as string);
       }
+
       setIsLoading(true);
       const { data } = await request.post({
         url: "/transaction",
@@ -86,7 +81,7 @@ export default function Payment(): JSX.Element {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
       }
     } catch (err) {
-      alert(handleError(err).message);
+      toggleToast(handleError(err).message);
       setIsLoading(false);
     }
   };
@@ -100,6 +95,7 @@ export default function Payment(): JSX.Element {
     // toggleToast,
     resourceRedirectUrl,
     transactionkey,
+    metaData,
   ]);
 
   useEffect(() => {
