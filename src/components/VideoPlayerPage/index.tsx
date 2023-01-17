@@ -105,7 +105,7 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
             }}
           >
             <Typography variant="h5">
-              Video has been uploaded successfully, we're optimizing the video
+              Video has been uploaded successfully, we are optimizing the video
               for different device screen sizes
             </Typography>
             <Typography variant="h6" sx={{ mb: 2, mt: 1 }}>
