@@ -48,7 +48,7 @@ export default function Payment(): JSX.Element {
     try {
       const { data } = await request.post({
         url: "/transaction/pre-details",
-        data: { itemId, purpose },
+        data: { itemId, purpose, currency },
       });
       const standardAmount = data.amount / 100;
       setAmount(standardAmount);
