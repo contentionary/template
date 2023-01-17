@@ -2,14 +2,11 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import Container from "@mui/material/Container";
 import MuiTable from "@src/components/shared/table";
 import AddSubscriber from "./addSubscriber";
 import Empty from "@src/components/shared/state/Empty";
-import Delete from "../exam/manageExam/section/delete";
-import { useDialog } from "@src/hooks";
+import Delete from "src/components/shared/delete";
 import { useRouter } from "next/router";
 import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
@@ -35,7 +32,6 @@ export default function Managers({
 }) {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
-  const { isOpen, openDialog, closeDialog } = useDialog();
   const router = useRouter();
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
@@ -57,17 +53,10 @@ export default function Managers({
     ...user,
     action: (
       <Delete
-        closeDialog={closeDialog}
-        isOpen={isOpen}
         toggleToast={toggleToast}
         url={`/centre/${centreId}/centre-manager/${user.userId}`}
         updateData={handleChange}
-        // userId={user.userId}
-      >
-        <IconButton onClick={() => openDialog()}>
-          <DeleteOutline htmlColor="red" />
-        </IconButton>
-      </Delete>
+      />
     ),
   }));
   if (!managers) return <h1>....Loading</h1>;

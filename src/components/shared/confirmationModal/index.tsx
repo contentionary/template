@@ -25,6 +25,16 @@ const ConfirmationModal = ({
     </>
   );
 
+  <Modal
+    isOpen={isOpen}
+    closeDialog={closeDialog}
+    message={message}
+    title="Confirm you want to continue this action"
+    btns={[
+      { text: value, action: action, sx: { color: "red" } },
+      { text: "No, cancel", action: closeDialog },
+    ]}
+  />;
   return (
     <Modal
       isOpen={isOpen}

@@ -1,28 +1,23 @@
 import ConfirmDialog from "@src/components/shared/confirmationModal";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import DeleteOutline from "@mui/icons-material/DeleteOutline";
+import { useDialog } from "@src/hooks";
 
 interface Props {
   url: string;
-  children: JSX.Element;
-  isOpen: boolean;
-  closeDialog: Function;
   toggleToast: Function;
   updateData?: Function;
 }
 
-const Delete = ({
-  url,
-  children,
-  closeDialog,
-  isOpen,
-  toggleToast,
-  updateData,
-}: Props) => {
+const Delete = ({ url, toggleToast, updateData }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, openDialog, closeDialog } = useDialog();
   async function deleteCentre() {
     try {
       setIsLoading(true);
+      console.log(url, "hello");
       const data = await request.delete(url);
       toggleToast(data.message);
       updateData && updateData();
@@ -36,7 +31,9 @@ const Delete = ({
 
   return (
     <>
-      {children}
+      <IconButton onClick={() => openDialog()}>
+        <DeleteOutline htmlColor="red" />
+      </IconButton>
       <ConfirmDialog
         isLoading={isLoading}
         isOpen={isOpen}
