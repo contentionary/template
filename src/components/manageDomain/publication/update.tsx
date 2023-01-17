@@ -384,7 +384,17 @@ const CreatePublication = () => {
                   </ButtonComponent>
                 </Box>
               </Box>
-              <TextFields type="file" name="fileUrl" onChange={getFile} />
+              <Box>
+                <Typography variant="subtitle1" component="div">
+                  Upload publication (PDF only)
+                </Typography>
+                <TextFields
+                  type="file"
+                  name="fileUrl"
+                  onChange={getFile}
+                  fullWidth
+                />
+              </Box>
               <Stack direction="row" spacing={3}>
                 <CheckBox
                   label={
