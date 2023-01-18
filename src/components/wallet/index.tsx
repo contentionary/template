@@ -24,7 +24,6 @@ import { useToast } from "@src/utils/hooks";
 
 import ButtonComponent from "@src/components/shared/button";
 import MuiTable from "@src/components/shared/table";
-import Empty from "../shared/state/Empty";
 
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
@@ -245,34 +244,32 @@ export default function CustomizedSteppers() {
               </ButtonComponent>
             </ButtonGroup>
           </Box>
-          {data.length > 0 ? (
-            <Box sx={{ width: { xs: "100%" } }}>
-              {isLoading ? (
-                <div>Loading...</div>
-              ) : (
-                <>
-                  <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
-                  <Stack
-                    py={4}
-                    direction="row"
-                    justifyContent="center"
-                    spacing={2}
-                  >
-                    {pageCount > 1 && (
-                      <Pagination
-                        count={pageCount}
-                        onChange={handleChange}
-                        shape="rounded"
-                        size="large"
-                      />
-                    )}
-                  </Stack>
-                </>
-              )}
-            </Box>
-          ) : (
-            <Empty />
-          )}
+
+          <Box sx={{ width: { xs: "100%" } }}>
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <>
+                <MuiTable data={data} columns={columns} bgColor="#F7F7F7" />
+                <Stack
+                  py={4}
+                  direction="row"
+                  justifyContent="center"
+                  spacing={2}
+                >
+                  {pageCount > 1 && (
+                    <Pagination
+                      count={pageCount}
+                      onChange={handleChange}
+                      shape="rounded"
+                      size="large"
+                    />
+                  )}
+                </Stack>
+              </>
+            )}
+          </Box>
+
           {toastMessage && (
             <Toast
               message={toastMessage}

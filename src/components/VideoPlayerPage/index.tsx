@@ -102,6 +102,7 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              padding: 1.5,
             }}
           >
             <Typography variant="h5">
