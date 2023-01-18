@@ -1,8 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
-import DeleteForever from "@mui/icons-material/DeleteOutlined";
-import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import AddSection from "./addSection";
 import { useQuery } from "react-query";
@@ -12,9 +10,8 @@ import Accordion from "@src/components/shared/accordion";
 import { useState } from "react";
 import SectionMenu from "./menu";
 import { SectionInt } from "./interface";
-import { useDialog } from "@src/hooks";
 import AddQuestion from "./addQuestion";
-import Delete from "./delete";
+import Delete from "@src/components/shared/delete";
 
 const fetchQuestion = async ({ queryKey }: { queryKey: Array<any> }) => {
   const [, centreId, examId] = queryKey;
@@ -34,7 +31,6 @@ export default function CustomizedMenus({
 }) {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
-  const { isOpen, openDialog, closeDialog } = useDialog();
   const [expanded, setExpanded] = useState(0);
 
   const { isLoading, data, error, refetch } = useQuery(
@@ -145,15 +141,10 @@ export default function CustomizedMenus({
                               </Box>
 
                               <Delete
-                                closeDialog={closeDialog}
+                                updateData={refetch}
                                 toggleToast={toggleToast}
-                                isOpen={isOpen}
                                 url={`/centre/${centreId}/exam/${examId}/exam-question/${id}`}
-                              >
-                                <IconButton onClick={() => openDialog()}>
-                                  <DeleteForever htmlColor="red" />
-                                </IconButton>
-                              </Delete>
+                              />
                             </Box>
                           )
                         )}

@@ -105,7 +105,8 @@ const VideoPlayerPage: VideoPlayerPagePageFunc = () => {
             }}
           >
             <Typography variant="h5">
-              Optimizing video for different device screen sizes
+              Video has been uploaded successfully, we are optimizing the video
+              for different device screen sizes
             </Typography>
             <Typography variant="h6" sx={{ mb: 2, mt: 1 }}>
               Note: This might take a while

@@ -85,9 +85,12 @@ const AddQuestion = ({
   async function create() {
     try {
       setIsLoading(true);
+      const editedQuestions = selectedQuestions.filter(
+        (selectedQuestion) => !Object.keys(selectedQuestion).includes("id")
+      );
       const questions = sectionId
-        ? { questions: selectedQuestions, examSectionId: sectionId }
-        : { questions: selectedQuestions };
+        ? { questions: editedQuestions, examSectionId: sectionId }
+        : { questions: editedQuestions };
       const data = await request.post({
         url: `/centre/${centreId}/exam/${examId}/questions`,
         data: questions,

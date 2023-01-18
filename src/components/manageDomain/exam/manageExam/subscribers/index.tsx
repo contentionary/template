@@ -2,16 +2,13 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import { useQuery } from "react-query";
 
 import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
 import AddSubscriber from "./addSubscriber";
 import dynamic from "next/dynamic";
-import Delete from "../section/delete";
-import { useDialog } from "@src/hooks";
+import Delete from "@src/components/shared/delete";
 
 interface SubscriberInt {
   surname: string;
@@ -20,6 +17,7 @@ interface SubscriberInt {
   email: string;
   phoneNumber: string;
   id: string;
+  userId: string;
 }
 
 const fetchSections = async ({ queryKey }: { queryKey: Array<any> }) => {
@@ -41,7 +39,6 @@ export default function Subscribers({
 }) {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
-  const { isOpen, openDialog, closeDialog } = useDialog();
   const { isLoading, data, error, refetch } = useQuery(
     ["sections", centreId, examId],
     fetchSections
@@ -55,20 +52,16 @@ export default function Subscribers({
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 250, name: "Action", key: "action" },
   ];
+
   const result = data?.map((item: SubscriberInt, index: number) => ({
     index: ++index,
     ...item,
     action: (
       <Delete
-        closeDialog={closeDialog}
-        isOpen={isOpen}
         toggleToast={toggleToast}
-        url={`/centre/${centreId}/exam/${examId}/subscriber/${item.id}`}
-      >
-        <IconButton onClick={() => openDialog()}>
-          <DeleteOutline htmlColor="red" />
-        </IconButton>
-      </Delete>
+        url={`/centre/${centreId}/exam/${examId}/subscriber/${item.userId}`}
+        updateData={refetch}
+      />
     ),
   }));
   if (isLoading) {
