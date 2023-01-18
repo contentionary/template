@@ -59,7 +59,7 @@ export default function Subscribers({
     action: (
       <Delete
         toggleToast={toggleToast}
-        url={`/centre/${centreId}/exam/${examId}/subscriber/${item.userId}`}
+        url={`/centre/${centreId}/exam/${examId}/user/${item.userId}`}
         updateData={refetch}
       />
     ),
