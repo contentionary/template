@@ -17,7 +17,6 @@ const Delete = ({ url, toggleToast, updateData }: Props) => {
   async function deleteCentre() {
     try {
       setIsLoading(true);
-      console.log(url, "hello");
       const data = await request.delete(url);
       toggleToast(data.message);
       updateData && updateData();
