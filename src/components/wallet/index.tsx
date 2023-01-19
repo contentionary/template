@@ -164,8 +164,9 @@ export default function CustomizedSteppers() {
                 }}
               >
                 <CreditWallet
-                  centreId={cachedData.centre.id}
-                  centreWallet={centreWallet}
+                  itemId={
+                    centreWallet ? cachedData.centre.id : cachedData.user.id
+                  }
                 />
                 <WalletToWalletTransfer
                   toggleToast={toggleToast}
