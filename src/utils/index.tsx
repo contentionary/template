@@ -329,7 +329,7 @@ export const pageErrorHandler = (
 });
 export const AuthUpdate = async () => {
   try {
-    const { data }: any = await request.get({ url: "/auth/verify-token" });
+    const data = await request.get({ url: "/auth/verify-token" });
     cache.set("user", data);
   } catch (error) {
     throw error;

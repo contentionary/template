@@ -6,7 +6,7 @@ import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useState } from "react";
-import { cache, isServerSide } from "@src/utils";
+import { isServerSide } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
@@ -15,13 +15,7 @@ import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
 
-const CreditWallet = ({
-  centreId,
-  centreWallet,
-}: {
-  centreId: string;
-  centreWallet: boolean;
-}) => {
+const CreditWallet = ({ itemId }: { itemId: string }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(CreditWallet);
@@ -38,7 +32,7 @@ const CreditWallet = ({
         currency: "NGN",
         purpose: "FUND_WALLET",
         paymentMethod: "CARD",
-        itemId: centreWallet ? centreId : cache.get("user").id,
+        itemId,
         transactionkey: uuid(),
       },
     });
