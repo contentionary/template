@@ -24,6 +24,7 @@ import {
   dateTimeFormat,
   timeAgo,
   VIDEO_FOLDER_IMAGE_PLACEHOLDER,
+  FOLDER_IMAGE_PLACEHOLDER,
 } from "@src/utils";
 
 const CourseCard: CourseCardFunc = ({ course }) => {
@@ -60,8 +61,8 @@ const CourseCard: CourseCardFunc = ({ course }) => {
             <ImageComponent
               src={
                 type === "FOLDER"
-                  ? imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
-                  : imageUrl
+                  ? imageUrl || FOLDER_IMAGE_PLACEHOLDER
+                  : imageUrl || VIDEO_FOLDER_IMAGE_PLACEHOLDER
               }
               width="100%"
               height="60%"
