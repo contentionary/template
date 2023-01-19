@@ -22,10 +22,10 @@ export const FILE_DOWNLOAD_URL =
   "https://storage.contentionary.com/v1/download?fileUrl=";
 
 export const DEFAULT_LOGO = "/public/images/logo.png";
-export const BOOK_IMAGE_PLACEHOLDER = "/images/book-default.png";
+export const BOOK_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
-export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/exam-default.png";
-export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/video-player.png";
+export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
+export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
   console.log(`\n\n================${title}\n===========`, value);
