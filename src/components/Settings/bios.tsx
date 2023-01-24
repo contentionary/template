@@ -9,7 +9,13 @@ import MenuItem from "@mui/material/MenuItem";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
-import { AuthUpdate, handleError, request, uploadFiles } from "@src/utils";
+import {
+  AuthUpdate,
+  cache,
+  handleError,
+  request,
+  uploadFiles,
+} from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import { UserInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
@@ -28,6 +34,7 @@ const Bios = ({
   const [progress, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
   const router = useRouter();
+  user = user || cache.get("user");
   const { folderId } = router.query;
   const ImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")

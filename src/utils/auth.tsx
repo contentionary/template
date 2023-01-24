@@ -15,6 +15,7 @@ export const setAuth = (
     subscribedCentres,
     ownCentres,
     managingCentres,
+    gender,
   }: UserInt,
   centreId: string
 ) => {
@@ -28,6 +29,7 @@ export const setAuth = (
       surname,
       subscribedPublications,
       isAdmin,
+      gender,
     },
     true
   );
