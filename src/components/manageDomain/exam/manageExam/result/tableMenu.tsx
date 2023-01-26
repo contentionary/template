@@ -12,6 +12,7 @@ import { useMenu } from "@src/utils/hooks";
 // import UpdateSection from "./updateSection ";
 // import ButtonComponent from "@src/components/shared/button";
 import ParticipantScript from "./participantScript";
+import SectionScores from "./sectionScore";
 
 export default function TableMenu({
   examId,
@@ -40,6 +41,7 @@ export default function TableMenu({
             centreId={centreId}
             toggleToast={toggleToast}
           />
+          <SectionScores result={result} />
           {/*     <Delete
             closeDialog={closeDialog}
             isOpen={isOpen}
