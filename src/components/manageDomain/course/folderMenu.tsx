@@ -54,6 +54,7 @@ export default function CustomizedMenus({
               Create course
             </MenuItem>
           </Link>
+
           {folderId && (
             <>
               <Divider sx={{ my: 0.5 }} />

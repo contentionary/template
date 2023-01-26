@@ -2,6 +2,7 @@ import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
 import Visibility from "@mui/icons-material/Visibility";
 import Divider from "@mui/material/Divider";
+import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
@@ -52,16 +53,23 @@ export default function CustomizedMenus({
             content={true}
           />
           <Divider sx={{ my: 0.5 }} />
-          <Link passHref href={`/admin/course/update/${id}?type=COURSE`}>
+          <Link passHref href={`/admin/course/${slug}/${id}/subscribers`}>
             <MenuItem disableRipple>
-              <EditIcon />
-              Edit
+              <PeopleAltOutlined />
+              Subscribers
             </MenuItem>
           </Link>
           <Link passHref href={`/courses/${slug}/${id}`}>
             <MenuItem disableRipple>
               <Visibility />
               View course
+            </MenuItem>
+          </Link>
+          <Divider sx={{ my: 0.5 }} />
+          <Link passHref href={`/admin/course/update/${id}?type=COURSE`}>
+            <MenuItem disableRipple>
+              <EditIcon />
+              Edit
             </MenuItem>
           </Link>
           <Delete id={id} centreId={centreId} refetch={refetch} />
