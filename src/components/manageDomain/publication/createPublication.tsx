@@ -25,6 +25,13 @@ import dynamic from "next/dynamic";
 import Editor from "@src/components/shared/editor";
 
 const CreatePublication = () => {
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -48,13 +55,6 @@ const CreatePublication = () => {
 
   const router = useRouter();
   const { type, folderId } = router.query;
-  const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const ImageUpload = dynamic(
-    () => import("@src/components/shared/imageUpload")
-  );
-  const Loading = dynamic(
-    () => import("@src/components/shared/loading/loadingWithValue")
-  );
   const getFile = (e: ChangeEvent<any>) => {
     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
   };

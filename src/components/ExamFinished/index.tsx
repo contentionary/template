@@ -79,6 +79,21 @@ const FinishedExamCard: ExamFinishedFunc = (props) => {
                     Exit Exam
                   </Button>
                 </NextLink>
+                {exam.showCorrection && (
+                  <NextLink
+                    href={`/exams/${exam.slug}/${exam.id}/${data.answerId}/correction`}
+                    passHref
+                  >
+                    <Button
+                      size="large"
+                      disableElevation
+                      variant="contained"
+                      component={MuiLink}
+                    >
+                      Show Corrections
+                    </Button>
+                  </NextLink>
+                )}
                 {/* <Button disableElevation size="large" variant="outlined">
                   Show Corrections
                 </Button> */}
