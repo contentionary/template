@@ -4,20 +4,17 @@ import MoreVert from "@mui/icons-material/MoreVert";
 import { useMenu } from "@src/utils/hooks";
 import ParticipantScript from "./participantScript";
 import SectionScores from "./sectionScore";
-
-export default function TableMenu({
-  examId,
-  centreId,
-  result,
-  toggleToast,
-}: {
+import ProctoredLog from "./proctoringLog";
+interface Props {
   examId: string;
   centreId: string;
+  examAnswerId: string;
   result: any;
   toggleToast: Function;
-}) {
+}
+export default function TableMenu(props: Props) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
-
+  console.log(props.examAnswerId);
   return (
     <>
       <IconButton onClick={openMenu}>
@@ -25,13 +22,9 @@ export default function TableMenu({
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <ParticipantScript
-            result={result}
-            examId={examId}
-            centreId={centreId}
-            toggleToast={toggleToast}
-          />
-          <SectionScores result={result} />
+          <ParticipantScript {...props} />
+          <SectionScores {...props} />
+          <ProctoredLog {...props} />
         </div>
       </Menus>
     </>

@@ -40,7 +40,7 @@ export const getFileKey = (file: any) => {
   return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
 };
 
-export const uploadFiles = (file: any, setProgress: Function) =>
+export const uploadFiles = (file: any, setProgress?: Function) =>
   new Promise((ful, rej) => {
     const date = new Date();
     let Key = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}`;
@@ -77,7 +77,7 @@ export const uploadFiles = (file: any, setProgress: Function) =>
 
     uploadRequest.on("httpUploadProgress", function (event) {
       const progressPercentage = Math.floor((event.loaded * 100) / event.total);
-      setProgress(progressPercentage);
+      setProgress && setProgress(progressPercentage);
     });
     uploadRequest.send((err, res) => {
       if (err) return rej(err);

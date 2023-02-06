@@ -9,7 +9,6 @@ import HelpCenterOutlinedIcon from "@mui/icons-material/HelpCenterOutlined";
 // app components
 import {
   RangeQuestionSelector,
-  TheoryQuestionSelector,
   BooleanQuestionSelector,
   ObjectiveQuestionSelector,
   MultichoiceQuestionSelector,
@@ -74,7 +73,7 @@ const ExamQuestion = ({
             layout="fixed"
             objectFit="contain"
             objectPosition="left"
-            src={examQuestions[currentQuestion].question.image ?? ""}
+            src={examQuestions[currentQuestion]?.question?.image as string}
           />
         </Box>
       ) : (
@@ -86,26 +85,28 @@ const ExamQuestion = ({
           __html: examQuestions[currentQuestion].question.question,
         }}
       />
-      <Box mt={3}>
-        <Typography fontWeight="light" variant="subtitle2">
-          Expected Answer:
-        </Typography>
-        {questionType === "objective" ? (
-          <ObjectiveQuestionSelector {...examQuestionFormProps} />
-        ) : questionType === "boolean" ? (
-          <BooleanQuestionSelector {...examQuestionFormProps} />
-        ) : questionType === "theory" ? (
-          <TheoryQuestionSelector {...examQuestionFormProps} />
-        ) : questionType === "multichoice" ? (
-          <MultichoiceQuestionSelector {...examQuestionFormProps} />
-        ) : questionType === "range" ? (
-          <RangeQuestionSelector {...examQuestionFormProps} />
-        ) : (
-          <Typography py={3} variant="h4" textAlign="center">
-            component not available
+      {questionType === "theory" ? (
+        <Typography></Typography>
+      ) : (
+        <Box mt={3}>
+          <Typography fontWeight="light" variant="subtitle2">
+            Expected Answer:
           </Typography>
-        )}
-      </Box>
+          {questionType === "objective" ? (
+            <ObjectiveQuestionSelector {...examQuestionFormProps} />
+          ) : questionType === "boolean" ? (
+            <BooleanQuestionSelector {...examQuestionFormProps} />
+          ) : questionType === "multichoice" ? (
+            <MultichoiceQuestionSelector {...examQuestionFormProps} />
+          ) : questionType === "range" ? (
+            <RangeQuestionSelector {...examQuestionFormProps} />
+          ) : (
+            <Typography py={3} variant="h4" textAlign="center">
+              component not available
+            </Typography>
+          )}
+        </Box>
+      )}
     </Box>
   );
 };

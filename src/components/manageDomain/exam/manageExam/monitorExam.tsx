@@ -34,6 +34,20 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
       setIsLoading(false);
     }
   }
+  async function activateProctoring() {
+    try {
+      setIsLoading(true);
+      await request.post({
+        url: `/centre/${cachedData.centre.id}/exam/${exam.id}/activate-proctoring`,
+      });
+      exam.hasProctor = true;
+      toggleToast("Update successful");
+      setIsLoading(false);
+    } catch (error) {
+      toggleToast(handleError(error).message);
+      setIsLoading(false);
+    }
+  }
 
   return (
     <Box mt={6} mb={10}>
@@ -103,7 +117,7 @@ const MonitorExam = ({ toggleToast }: { toggleToast: Function }) => {
             onClick={() =>
               exam.hasProctor
                 ? toggleToast("Proctoring has been activated")
-                : update("hasProctor", true)
+                : activateProctoring()
             }
           >
             {!exam.hasProctor

@@ -5,7 +5,6 @@ import Stack from "@mui/material/Stack";
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import Typography from "@mui/material/Typography";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import FormControlLabel from "@mui/material/FormControlLabel";
 //
 import ToggleButton from "@mui/material/ToggleButton";
@@ -93,30 +92,6 @@ export const BooleanQuestionSelector = (props: QuestionSelectorInt) => {
         B). False
       </ToggleButton>
     </ToggleButtonGroup>
-  );
-};
-
-export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
-  const { textField } = useTextFieldStyle();
-  const [value, setValue] = React.useState("");
-  // set answer if in cache
-  React.useEffect(() => {
-    if (props.question) {
-      setValue(String(props.question?.answer));
-    } else {
-      setValue("");
-    }
-  }, [props.question]);
-
-  return (
-    <OutlinedInput
-      rows={4}
-      fullWidth
-      multiline
-      value={value}
-      className={textField}
-      id={`theory-question-input-${props.questionId}`}
-    />
   );
 };
 
