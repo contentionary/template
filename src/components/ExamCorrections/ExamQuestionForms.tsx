@@ -11,7 +11,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // interface styles and configs
-import { TempAnswerInt } from ".";
 import useButtonStyle from "@src/styles/button";
 import { QuestionInt } from "@src/utils/interface";
 import useTextFieldStyle from "@src/styles/textField";
@@ -19,10 +18,6 @@ import useTextFieldStyle from "@src/styles/textField";
 interface QuestionSelectorInt {
   questionId: string;
   question: QuestionInt;
-  answers: Record<string, TempAnswerInt>;
-  setAnswers: React.Dispatch<
-    React.SetStateAction<Record<string, TempAnswerInt>>
-  >;
 }
 
 export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
@@ -32,34 +27,20 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
 
   // set option if in cache
   React.useEffect(() => {
-    if (props.answers[props.questionId]) {
-      setValue(Number(props.answers[props.questionId]?.optionId));
+    if (props.question && props.question.options) {
+      props.question.options.map(({ id, isCorrect }) => {
+        if (isCorrect) setValue(Number(id));
+      });
     } else {
       setValue(undefined);
     }
-  }, [props.questionId, props.answers]);
-
-  // set answer
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    value: number
-  ) => {
-    setValue(value);
-    props.setAnswers((prevState) => ({
-      ...prevState,
-      [`${props.questionId}`]: {
-        questionId: props.questionId,
-        optionId: Number(value),
-      },
-    }));
-  };
+  }, [props.question]);
 
   return (
     <ToggleButtonGroup
       exclusive
       value={value}
       orientation="vertical"
-      onChange={handleChange}
       className={buttonStyle.examButtonGroup}
     >
       {props?.question?.options?.map((option, index) => (
@@ -92,32 +73,17 @@ export const BooleanQuestionSelector = (props: QuestionSelectorInt) => {
   const [option, setOption] = React.useState<string>();
   // set option if in cache
   React.useEffect(() => {
-    if (props.answers[props.questionId]) {
-      setOption(String(props.answers[props.questionId]?.answer));
+    if (props.question.answer) {
+      setOption(String(props.question.answer));
     } else {
       setOption(undefined);
     }
-  }, [props.questionId, props.answers]);
-  // set answer
-  const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    value: string
-  ) => {
-    setOption(value);
-    props.setAnswers((prevState) => ({
-      ...prevState,
-      [`${props.questionId}`]: {
-        questionId: props.questionId,
-        answer: value === "true",
-      },
-    }));
-  };
+  }, [props.question]);
   return (
     <ToggleButtonGroup
       exclusive
       value={option}
       orientation="vertical"
-      onChange={handleChange}
       className={buttonStyle.examButtonGroup}
     >
       <ToggleButton value={"true"} aria-label="option true">
@@ -135,23 +101,12 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
   const [value, setValue] = React.useState("");
   // set answer if in cache
   React.useEffect(() => {
-    if (props.answers[props.questionId]) {
-      setValue(String(props.answers[props.questionId]?.answer));
+    if (props.question) {
+      setValue(String(props.question?.answer));
     } else {
       setValue("");
     }
-  }, [props.questionId, props.answers]);
-  //
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    props.setAnswers((prevState) => ({
-      ...prevState,
-      [`${props.questionId}`]: {
-        questionId: props.questionId,
-        answer: String(event.target.value),
-      },
-    }));
-  };
+  }, [props.question]);
 
   return (
     <OutlinedInput
@@ -160,7 +115,6 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
       multiline
       value={value}
       className={textField}
-      onChange={handleChange}
       id={`theory-question-input-${props.questionId}`}
     />
   );
@@ -168,33 +122,17 @@ export const TheoryQuestionSelector = (props: QuestionSelectorInt) => {
 
 export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
   const [choice, setChoice] = React.useState<Array<number>>([]);
-
   // set option if in cache
   React.useEffect(() => {
-    if (props.answers[props.questionId]) {
-      setChoice([...(props.answers[props.questionId]?.optionIds ?? [])]);
-    } else {
-      setChoice([]);
+    if (props.question && props.question.options) {
+      props.question.options.map(({ isCorrect, id }) => {
+        if (isCorrect) {
+          choice.push(Number(id));
+          setChoice([...choice]);
+        }
+      });
     }
-  }, [props.questionId, props.answers]);
-
-  // set choice
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newChoice: Array<number> = [];
-    if (event.target.checked) {
-      newChoice = [...choice, Number(event.target.name)];
-    } else {
-      newChoice = [...choice.filter((x) => x !== Number(event.target.name))];
-    }
-    setChoice([...newChoice]);
-    props.setAnswers((prevState) => ({
-      ...prevState,
-      [`${props.questionId}`]: {
-        questionId: props.questionId,
-        optionIds: newChoice,
-      },
-    }));
-  };
+  }, [props.question]);
 
   return (
     <FormGroup>
@@ -203,7 +141,6 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
           key={`multichoice-option-${option.id}`}
           control={
             <Checkbox
-              onChange={handleChange}
               name={String(option.id)}
               checked={choice.includes(option.id as number)}
             />
@@ -221,57 +158,30 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
 };
 
 export const RangeQuestionSelector = (props: QuestionSelectorInt) => {
-  const { textField } = useTextFieldStyle();
   const [minValue, setMinValue] = React.useState<string>("");
   const [maxValue, setMaxValue] = React.useState<string>("");
   //
   React.useEffect(() => {
-    if (props.answers[props.questionId]) {
-      setMinValue(String(props.answers[props.questionId]?.min ?? ""));
-      setMaxValue(String(props.answers[props.questionId]?.max ?? ""));
+    if (props.question) {
+      setMinValue(String(props.question?.min ?? ""));
+      setMaxValue(String(props.question?.max ?? ""));
     } else {
       setMinValue("");
       setMaxValue("");
     }
-  }, [props.questionId, props.answers]);
-  //
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === "min") setMinValue(event.target.value);
-    else setMaxValue(event.target.value);
-    props.setAnswers((prevState) => ({
-      ...prevState,
-      [`${props.questionId}`]: {
-        ...prevState[props.questionId],
-        questionId: props.questionId,
-        [event.target.name]: String(event.target.value),
-      },
-    }));
-  };
+  }, [props.question]);
 
   return (
     <>
       <Typography mt={1} fontWeight="light" variant="subtitle2">
         Minimum value:
       </Typography>
-      <OutlinedInput
-        name="min"
-        fullWidth
-        value={minValue}
-        className={textField}
-        onChange={handleChange}
-        id={`min-range-question-input-${props.questionId}`}
-      />
+      <Typography>{minValue}</Typography>
+
       <Typography mt={1} fontWeight="light" variant="subtitle2">
         Maximum Value:
       </Typography>
-      <OutlinedInput
-        name="max"
-        fullWidth
-        value={maxValue}
-        className={textField}
-        onChange={handleChange}
-        id={`max-range-question-input-${props.questionId}`}
-      />
+      <Typography>{maxValue}</Typography>
     </>
   );
 };

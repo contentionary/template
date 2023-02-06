@@ -293,17 +293,19 @@ export interface ExamInt {
   folderContentCount: number;
 }
 
+export interface SectionsInt {
+  id: string;
+  name: string;
+  description: string;
+  questions: Array<QuestionsInt>;
+}
+
 export interface ExamQuestionsInt {
   cache: {
     id: string;
     endAt: Date;
   };
-  sections: Array<{
-    id: string;
-    name: string;
-    description: string;
-    questions: Array<QuestionsInt>;
-  }>;
+  sections: Array<SectionsInt>;
 }
 
 export interface ExamInt {
