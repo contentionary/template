@@ -4,13 +4,13 @@ export default makeStyles({
   optionStyle: {
     border: "solid 1px #dbdbdb",
     cursor: "pointer",
-    padding: "10px 20px",
+    padding: "0px 20px",
   },
   selected: {
     background: "#F57E27",
     border: "none",
     color: "#fff",
-    padding: "10px 20px",
+    padding: "0px 20px",
   },
   booleanOptionStyle: {
     border: "solid 1px #dbdbdb",

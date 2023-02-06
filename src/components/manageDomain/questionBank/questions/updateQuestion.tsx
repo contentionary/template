@@ -273,7 +273,7 @@ const AddQuestion = ({
                     Solution
                   </Typography>
                   <Editor
-                    data={question?.solution.text}
+                    data={question?.solution?.text}
                     onChange={(event: any, editor: any) =>
                       getEditor(event, editor, "solution")
                     }

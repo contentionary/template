@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import MuiTable from "@src/components/shared/table";
 import Empty from "@src/components/shared/state/Empty";
+import ExportMenu from "@src/components/shared/export";
 
 interface SubscriberInt {
   surname: string;
@@ -38,13 +39,16 @@ export default function Subscribers({
     <Container maxWidth="xl">
       <Box component="section" sx={{ pt: 7, pb: 8, px: { md: 6 } }}>
         <Stack spacing={4} marginTop={4}>
-          <Typography
-            variant="h5"
-            component="p"
-            sx={{ fontSize: { xs: 25, md: 32 } }}
-          >
-            My Results
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography
+              variant="h5"
+              component="p"
+              sx={{ fontSize: { xs: 25, md: 32 } }}
+            >
+              My Results
+            </Typography>
+            <ExportMenu url="my-exam-results" />
+          </Box>
 
           {result.length ? (
             <Box sx={{ width: { xs: 400, md: "100%" } }}>

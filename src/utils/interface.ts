@@ -109,7 +109,7 @@ export interface RequestInt {
 }
 
 export interface PostRequestInt extends RequestInt {
-  data: Record<string, any>;
+  data?: Record<string, any>;
 }
 
 export interface GetRequestInt extends RequestInt {
@@ -274,6 +274,7 @@ export interface ExamInt {
   randomiseQuestion: boolean;
   randomiseOption: boolean;
   allowReview: boolean;
+  hasProctor: boolean;
   maximumAttempt: 2;
   completionMessage: string;
   startDate: Date;

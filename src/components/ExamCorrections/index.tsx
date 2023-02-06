@@ -44,7 +44,6 @@ const StartExam = ({
       setQuestion(question - 1);
     }
   };
-
   // set next question event: React.MouseEvent<HTMLButtonElement>
   const nextQuestion = () => {
     if (examQuestions && question === examQuestions.length - 1) {

@@ -1,13 +1,10 @@
 import React from "react";
-// next components
-import NextLink from "next/link";
 //
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import { Link as MuiLink } from "@mui/material";
 import Typography from "@mui/material/Typography";
 // icons
 import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
@@ -16,14 +13,25 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 // utils, interface and styles
 import useGlobalStyle, { bg } from "@src/styles";
 import { ExamInstructionsFunc } from "./interfaceType";
-import { dateTimeFormat } from "@src/utils";
-// import useButtonStyle from "@src/styles/button";
+import { request } from "@src/utils";
+import { useRouter } from "next/router";
+import format from "date-fns/format";
 
 const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
-  // const buttonStyle = useButtonStyle();
   const globalStyle = useGlobalStyle();
   const { exam /* auth */ } = props;
-
+  const router = useRouter();
+  async function getProctoredId() {
+    try {
+      const { data } = await request.post({
+        url: `/centre/${exam.id}/protor-content`,
+      });
+      if (data.id)
+        router.push(`/exams/${exam.slug}/start?proctoredId=${data.id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <Box
       pt={8}
@@ -95,66 +103,72 @@ const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
                     {exam.duration} Minutes
                   </Typography>
                 </Stack>
-                <Stack
-                  mb={2}
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography
-                    mb={0}
-                    variant="h6"
-                    display="flex"
+                {exam.startDate && (
+                  <Stack
+                    mb={2}
+                    direction="row"
                     alignItems="center"
+                    justifyContent="space-between"
                   >
-                    <CalendarMonthOutlinedIcon
-                      fontSize="small"
-                      color="primary"
-                    />
-                    &nbsp; Exam Starts:
-                  </Typography>
-                  <Typography paragraph mb={0}>
-                    <>{dateTimeFormat(exam.startDate)}</>
-                  </Typography>
-                </Stack>
-                <Stack
-                  mb={2}
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography
-                    mb={0}
-                    variant="h6"
-                    display="flex"
+                    <Typography
+                      mb={0}
+                      variant="h6"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <CalendarMonthOutlinedIcon
+                        fontSize="small"
+                        color="primary"
+                      />
+                      &nbsp; Exam Starts:
+                    </Typography>
+                    <Typography paragraph mb={0}>
+                      <> {format(new Date(exam.startDate), "dd-MM-yyy")}</>
+                    </Typography>
+                  </Stack>
+                )}
+                {exam.endDate && (
+                  <Stack
+                    mb={2}
+                    direction="row"
                     alignItems="center"
+                    justifyContent="space-between"
                   >
-                    <CalendarMonthOutlinedIcon
-                      fontSize="small"
-                      color="primary"
-                    />
-                    &nbsp; Exam Ends:
-                  </Typography>
-                  <Typography paragraph mb={0}>
-                    <>{dateTimeFormat(exam.endDate)}</>
-                  </Typography>
-                </Stack>
-                <NextLink href={`/exams/${exam.slug}/start`} passHref>
-                  <Button
-                    size="large"
-                    disableElevation
-                    variant="contained"
-                    component={MuiLink}
-                    sx={{
-                      mt: 4,
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    Start Exam
-                  </Button>
-                </NextLink>
+                    <Typography
+                      mb={0}
+                      variant="h6"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <CalendarMonthOutlinedIcon
+                        fontSize="small"
+                        color="primary"
+                      />
+                      &nbsp; Exam Ends:
+                    </Typography>
+                    <Typography paragraph mb={0}>
+                      <>{format(new Date(exam.endDate), "dd-MM-yyy")}</>
+                    </Typography>
+                  </Stack>
+                )}
+                <Button
+                  onClick={() => {
+                    exam.hasProctor
+                      ? getProctoredId()
+                      : router.push(`/exams/${exam.slug}/start`);
+                  }}
+                  size="large"
+                  disableElevation
+                  variant="contained"
+                  sx={{
+                    mt: 4,
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  Start Exam
+                </Button>
               </Box>
             </Grid>
           </Grid>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
+// import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useQuery } from "react-query";
@@ -58,6 +59,7 @@ export default function Result({
         result={result}
         centreId={centreId}
         examId={examId}
+        examAnswerId={result.id}
         toggleToast={toggleToast}
       />
     ),
@@ -90,6 +92,10 @@ export default function Result({
             >
               Exam Result
             </Typography>
+            {/* <Box>
+              <Button variant="contained">Export Result(csv)</Button>
+            </Box> */}
+
             <Box sx={{ width: { xs: 400, md: "100%" } }}>
               <MuiTable data={results} columns={columns} bgColor="#F7F7F7" />
             </Box>

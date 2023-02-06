@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
+import Pages from "@mui/icons-material/Pages";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { Link as MuiLink } from "@mui/material";
@@ -188,6 +189,14 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                       </MenuItem>
                     </NextLink>
                   )}
+                  <NextLink href="/exams/my-results" passHref>
+                    <MenuItem component={MuiLink} onClick={handleClose}>
+                      <ListItemIcon>
+                        <Pages fontSize="small" />
+                      </ListItemIcon>
+                      My Result
+                    </MenuItem>
+                  </NextLink>
                   <NextLink href="/wallet" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>

@@ -75,6 +75,7 @@ const CategoriesSection: ExamAndCourseFunc = () => {
             </Grid>
           </Grid>
         </Container>
+        CategoriesSection
       </Box>
     </Fragment>
   );

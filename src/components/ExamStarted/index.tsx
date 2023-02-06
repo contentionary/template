@@ -35,7 +35,9 @@ import {
   ErrorResponseInt,
   RequestResponseInt,
 } from "@src/utils/interface";
+import Proctoring from "./proctoring";
 import { AxiosError } from "axios";
+import { useRouter } from "next/router";
 
 export interface TempAnswerInt {
   questionId: string;
@@ -66,11 +68,12 @@ const StartExam: ExamFunc = (props) => {
   const [pinnedQuestions, setPinnedQuestions] = React.useState<{
     [index: string]: number;
   }>({});
-
   // answered questions
   const [answers, setAnswers] = React.useState<Record<string, TempAnswerInt>>(
     {}
   );
+
+  const router = useRouter();
   // submit exam
   const [submitAnsResponse, setSubmitAnsResponse] =
     React.useState<RequestResponseInt>();
@@ -101,7 +104,15 @@ const StartExam: ExamFunc = (props) => {
       });
     },
     {
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
+        if (data.data.answerId && exam.hasProctor) {
+          await request.patch({
+            url: `/centre/${exam.centreId}/protor-content/${router.query.proctoredId}`,
+            data: {
+              examAnswerId: data.data.answerId,
+            },
+          });
+        }
         setEndingExam(false);
         setOpenEndExamModal(false);
         setSubmitAnsResponse(data);
@@ -312,107 +323,122 @@ const StartExam: ExamFunc = (props) => {
               maxWidth="xl"
               sx={{ display: "grid", placeItems: "center" }}
             >
-              <Box maxWidth={820} width="100%">
-                <Typography
-                  mb={3}
-                  variant="h5"
-                  component="h1"
-                  textAlign="center"
-                >
-                  {exam.name}
-                </Typography>
-                <Box className={isMatch ? "" : globalStyle.paperShadowSm}>
-                  <Box
-                    maxWidth="86vw"
-                    borderBottom={1}
-                    borderColor="divider"
-                    sx={{ overflowX: "scroll" }}
-                    className={globalStyle.hiddenScrollbar}
-                  >
-                    <RadioGroup
-                      row
-                      sx={{
-                        px: 3,
-                        py: 1,
-                        minWidth: 560,
-                        flexShrink: 0,
-                        flexWrap: "nowrap",
-                      }}
-                      value={section}
-                      onChange={handleChangeSection}
-                      name="exam-questions-section"
-                      defaultValue="general_section"
-                      aria-labelledby="exam category group"
-                      className={`${globalStyle.hiddenScrollbar} ${formControlStyle.formControlGroup} nowrap`}
-                    >
-                      {examQuestions?.sections?.map((section, index) => (
-                        <FormControlLabel
-                          key={`${section.id}-section`}
-                          value={index}
-                          control={<Radio />}
-                          label={section.name}
-                        />
-                      ))}
-                    </RadioGroup>
+              <Box
+                maxWidth={exam.hasProctor ? 1020 : 820}
+                width="100%"
+                sx={{ display: "flex", justifyContent: "space-between" }}
+              >
+                {exam.hasProctor && (
+                  <Box sx={{ mr: 3 }}>
+                    <Proctoring
+                      centreId={exam.centreId}
+                      proctoredId={router.query.proctoredId as string}
+                    />
                   </Box>
-                  <ExamQuestion
-                    answers={answers}
-                    setAnswers={setAnswers}
-                    currentSection={section}
-                    currentQuestion={question}
-                    examQuestions={examQuestions}
-                    pinnedQuestions={pinnedQuestions}
-                    togglePinQuestion={togglePinQuestion}
-                  />
-                  <Box p={3}>
-                    <Stack
-                      mt={2}
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
+                )}
+                <Box maxWidth={820} width="100%">
+                  <Typography
+                    mb={3}
+                    variant="h5"
+                    component="h1"
+                    textAlign="center"
+                  >
+                    {exam.name}
+                  </Typography>
+                  <Box className={isMatch ? "" : globalStyle.paperShadowSm}>
+                    <Box
+                      maxWidth="86vw"
+                      borderBottom={1}
+                      borderColor="divider"
+                      sx={{ overflowX: "scroll" }}
+                      className={globalStyle.hiddenScrollbar}
                     >
-                      <Typography mb={0} paragraph>
-                        {examQuestions
-                          ? `Question mark: ${examQuestions?.sections[section].questions[question]?.mark}`
-                          : ""}
-                      </Typography>
-                      <Stack direction="row" spacing={1}>
-                        <Button
-                          disabled={section === 0 && question === 0}
-                          variant="contained"
-                          disableElevation
-                          size="large"
-                          onClick={prevQuestion}
-                        >
-                          Previous
-                        </Button>
-                        {(!examQuestions?.sections.length ||
-                          section === examQuestions?.sections.length - 1) &&
-                        (!examQuestions?.sections[section].questions.length ||
-                          question ===
-                            examQuestions?.sections[section].questions.length -
-                              1) ? (
+                      <RadioGroup
+                        row
+                        sx={{
+                          px: 3,
+                          py: 1,
+                          minWidth: 560,
+                          flexShrink: 0,
+                          flexWrap: "nowrap",
+                        }}
+                        value={section}
+                        onChange={handleChangeSection}
+                        name="exam-questions-section"
+                        defaultValue="general_section"
+                        aria-labelledby="exam category group"
+                        className={`${globalStyle.hiddenScrollbar} ${formControlStyle.formControlGroup} nowrap`}
+                      >
+                        {examQuestions?.sections?.map((section, index) => (
+                          <FormControlLabel
+                            key={`${section.id}-section`}
+                            value={index}
+                            control={<Radio />}
+                            label={section.name}
+                          />
+                        ))}
+                      </RadioGroup>
+                    </Box>
+                    <ExamQuestion
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      currentSection={section}
+                      currentQuestion={question}
+                      examQuestions={examQuestions}
+                      pinnedQuestions={pinnedQuestions}
+                      togglePinQuestion={togglePinQuestion}
+                    />
+                    <Box p={3}>
+                      <Stack
+                        mt={2}
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <Typography mb={0} paragraph>
+                          {examQuestions
+                            ? `Question mark: ${examQuestions?.sections[section].questions[question]?.mark}`
+                            : ""}
+                        </Typography>
+                        <Stack direction="row" spacing={1}>
                           <Button
-                            size="large"
-                            color="error"
-                            disableElevation
-                            variant="contained"
-                            onClick={() => setOpenEndExamModal(true)}
-                          >
-                            Submit Exam
-                          </Button>
-                        ) : (
-                          <Button
+                            disabled={section === 0 && question === 0}
                             variant="contained"
                             disableElevation
                             size="large"
-                            onClick={nextQuestion}
+                            onClick={prevQuestion}
                           >
-                            Next
+                            Previous
                           </Button>
-                        )}
+                          {(!examQuestions?.sections.length ||
+                            section === examQuestions?.sections.length - 1) &&
+                          (!examQuestions?.sections[section].questions.length ||
+                            question ===
+                              examQuestions?.sections[section].questions
+                                .length -
+                                1) ? (
+                            <Button
+                              size="large"
+                              color="error"
+                              disableElevation
+                              variant="contained"
+                              onClick={() => setOpenEndExamModal(true)}
+                            >
+                              Submit Exam
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="contained"
+                              disableElevation
+                              size="large"
+                              onClick={nextQuestion}
+                            >
+                              Next
+                            </Button>
+                          )}
+                        </Stack>
                       </Stack>
-                    </Stack>
+                    </Box>
                   </Box>
                 </Box>
               </Box>

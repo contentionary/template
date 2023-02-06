@@ -6,9 +6,9 @@ import { useQuery } from "react-query";
 
 import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
-import AddSubscriber from "./addSubscriber";
 import dynamic from "next/dynamic";
 import Delete from "@src/components/shared/delete";
+import SubscriberMenu from "./menu";
 
 interface SubscriberInt {
   surname: string;
@@ -97,7 +97,7 @@ export default function Subscribers({
             a Contact group into this exam.
           </Typography>
           <Typography>
-            <AddSubscriber toggleToast={toggleToast} refetch={refetch} />
+            <SubscriberMenu toggleToast={toggleToast} refetch={refetch} />
           </Typography>
 
           {result.length ? (
