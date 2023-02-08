@@ -2,17 +2,18 @@ import Typography from "@mui/material/Typography";
 import UploadFileOutlined from "@mui/icons-material/UploadFileOutlined";
 import Box from "@mui/material/Box";
 import TextFields from "@src/components/shared/input/textField";
-import { ElementProps } from "@src/utils/interface";
 import Image from "@src/components/shared/image";
+import { ChangeEvent } from "react";
 
 interface Props {
   img: Record<string, any>;
   setImg: Function;
   uploadText: string;
+  id?: string
 }
 
-const UpdateBackground = ({ setImg, img, uploadText }: Props) => {
-  function preView(e: ElementProps) {
+const QuestionImageUpload = ({ setImg, img, uploadText, id }: Props) => {
+  function preView(e: ChangeEvent<any>) {
     const objectUrl = e.target.files && URL.createObjectURL(e.target.files[0]);
     setImg({
       preview: objectUrl,
@@ -21,20 +22,17 @@ const UpdateBackground = ({ setImg, img, uploadText }: Props) => {
     return () => objectUrl && URL.revokeObjectURL(objectUrl);
   }
   function selectImage() {
-    const image = document.getElementById("backgroundImage");
+    const image = document.getElementById(id || "backgroundImage");
     image && image.click();
   }
   return (
     <>
       <TextFields
         type="file"
-        id="backgroundImage"
+        id={id || "backgroundImage"}
         name="file"
         sx={{ display: "none" }}
-        onChange={(e: ElementProps) => {
-          preView(e);
-          //   e.target.files && setImg(e.target.files[0]);
-        }}
+        onChange={(e) => preView(e)}
       />
       {img?.preview ? (
         <Box
@@ -95,4 +93,4 @@ const UpdateBackground = ({ setImg, img, uploadText }: Props) => {
   );
 };
 
-export default UpdateBackground;
+export default QuestionImageUpload;

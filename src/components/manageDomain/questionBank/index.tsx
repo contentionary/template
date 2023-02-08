@@ -77,7 +77,7 @@ const QuestionBank = () => {
                 <Card {...questionBank} />
               </Grid>
             ))}
-          </Grid>{" "}
+          </Grid>
           <Stack py={4} direction="row" justifyContent="center" spacing={2}>
             {pageCount > 1 && (
               <Pagination
@@ -87,7 +87,7 @@ const QuestionBank = () => {
                 size="large"
               />
             )}
-          </Stack>{" "}
+          </Stack>
         </>
       ) : (
         <Empty

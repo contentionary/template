@@ -2,6 +2,9 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
+import { Link as MuiLink } from "@mui/material";
+import NextLink from "next/link";
 import AddSection from "./addSection";
 import { useQuery } from "react-query";
 import { handleError, request } from "@src/utils";
@@ -10,7 +13,6 @@ import Accordion from "@src/components/shared/accordion";
 import { useState } from "react";
 import SectionMenu from "./menu";
 import { SectionInt } from "./interface";
-import AddQuestion from "./addQuestion";
 import Delete from "@src/components/shared/delete";
 
 const fetchQuestion = async ({ queryKey }: { queryKey: Array<any> }) => {
@@ -93,14 +95,26 @@ export default function CustomizedMenus({
                 <>
                   <Typography>{section.description}</Typography>
 
-                  <Typography component="div" sx={{ textAlign: "right" }}>
+                  <Typography
+                    component="div"
+                    sx={{ display: "flex", justifyContent: "end" }}
+                  >
                     {section.name === "general" ? (
-                      <AddQuestion
-                        centreId={centreId}
-                        examId={examId}
-                        toggleToast={toggleToast}
-                        refetch={refetch}
-                      />
+                      <NextLink
+                        href={`/admin/question-bank/${examId}/addQuestions`}
+                        passHref
+                      >
+                        <MuiLink
+                          sx={{
+                            textDecoration: "none",
+                            alignItems: "center",
+                            display: "flex",
+                          }}
+                        >
+                          <AddCircleOutlineOutlined />
+                          &nbsp; Add Questions
+                        </MuiLink>
+                      </NextLink>
                     ) : (
                       <SectionMenu
                         centreId={centreId}

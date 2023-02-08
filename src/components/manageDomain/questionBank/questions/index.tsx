@@ -1,31 +1,32 @@
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import useStyles from "./styles";
-import Stack from "@mui/material/Stack";
-import Avatar from "@mui/material/Avatar";
-
 import dynamic from "next/dynamic";
-
-import { BasePageProps, QuestionInt, QuestionsInt } from "@src/utils/interface";
-import { queryClient, request } from "@src/utils";
+import { BasePageProps, QuestionsInt } from "@src/utils/interface";
+import { queryClient } from "@src/utils";
 import { useRouter } from "next/router";
-import Accordion from "@src/components/shared/accordion";
+import Tabs from "@src/components/shared/tab";
+import Toast from "@src/components/shared/toast";
 import { useState } from "react";
-import Breadcrumbs from "@src/components/shared/breadcrumbs";
-import { useQuery } from "react-query";
+import { useToast } from "@src/utils/hooks";
 
-const fetchQuestions = async ({ queryKey }: { queryKey: Array<any> }) => {
-  const [, centreId, questionBankId] = queryKey;
-  const { data } = await request.get({
-    url: `/centre/${centreId}/question-bank/${questionBankId}/questions`,
-  });
-  return data.questions;
-};
-const QuestionsPage = () => {
-  const styles = useStyles();
+const QuestionPage = () => {
+  const Breadcrumbs = dynamic(
+    () => import("@src/components/shared/breadcrumbs")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
+  const Menu = dynamic(() => import("./questionBankMenu"));
+  const GeneralSettings = dynamic(() => import("./listQuestion"));
+  const AddQuestion = dynamic(() => import("./addQuestion"));
   const router = useRouter();
-  const { id: questionBankId } = router.query;
-  const { pageData, cachedData } = queryClient.getQueryData(
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const { id: questionBankId, centreSlug } = router.query;
+  const { toastMessage, toggleToast } = useToast();
+
+  const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
   const { questionBank } = pageData as {
@@ -35,102 +36,48 @@ const QuestionsPage = () => {
     };
   };
 
-  const { data, refetch } = useQuery(
-    ["questions", cachedData.centre.id, questionBankId],
-    fetchQuestions,
-    {
-      initialData: pageData.questions,
-    }
-  );
-  const questions = data as QuestionsInt[];
-  const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Menu = dynamic(() => import("./questionBankMenu"));
-  const QuestionMenu = dynamic(() => import("./questionMenu"));
-  const Image = dynamic(() => import("@src/components/shared/image"));
-  const [expanded, setExpanded] = useState(0);
-  const links = [
-    { link: "/admin", name: "Dashboard" },
-    { link: "/admin/exam", name: "Exams" },
-    { link: "/admin/question-bank", name: "Question bank" },
-  ];
-
-  const getQuestionTypeData = (question: QuestionInt) => {
-    if (question.type === "objective" || question.type === "multichoice") {
-      return (
-        <>
-          {question?.options?.map(({ value, isCorrect, image }, index) => (
-            <Box
-              key={`${index}-option`}
-              sx={{ mb: 3 }}
-              className={`${isCorrect ? styles.selected : styles.optionStyle}`}
-            >
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{ color: isCorrect ? "#fff" : "" }}
-                dangerouslySetInnerHTML={{ __html: value }}
-              />
-              {image && (
-                <Box sx={{ width: 500, mt: 3 }}>
-                  <Image
-                    src={image}
-                    alt="question image"
-                    height="100%"
-                    width="100%"
-                    layout="responsive"
-                  />
-                </Box>
-              )}
-            </Box>
-          ))}
-        </>
-      );
-    } else if (question.type === "boolean") {
-      return (
-        <>
-          <Typography
-            variant="body1"
-            className={`${styles.booleanOptionStyle} ${
-              question.answer === true ? styles.booleanOptionSelected : ""
-            }`}
-          >
-            True
-          </Typography>
-          <Typography
-            sx={{ mt: 3 }}
-            variant="body1"
-            className={`${styles.booleanOptionStyle} ${
-              question.answer === false ? styles.booleanOptionSelected : ""
-            }`}
-          >
-            False
-          </Typography>
-        </>
-      );
-    } else if (question.type === "range") {
-      return (
-        <Stack spacing={2}>
-          <Typography variant="h6">Expected Answer</Typography>
-          <Typography variant="body1">
-            <strong>Min</strong>: {question.min}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Max</strong>:{question.max}
-          </Typography>
-        </Stack>
-      );
-    }
+  const questions = pageData.questions as QuestionsInt[];
+  // console.log(questions, "wasabi check questions");
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    value
+      ? router.replace({
+          query: { ...router.query, pageId: value },
+        })
+      : router.replace({
+          query: { ...router.query },
+        });
   };
 
+  const links = [
+    { link: `/${centreSlug}`, name: "Dashboard" },
+    { link: `/${centreSlug}/admin/exam`, name: "Exams" },
+    { link: `/${centreSlug}/admin/question-bank`, name: "Question bank" },
+  ];
+  const tab = ["Questions", "Add Questions"];
+  const tabPanel = [
+    <GeneralSettings
+      key={0}
+      questions={questions}
+      handleChange={handleChange}
+    />,
+    <AddQuestion
+      centreId={cachedData.centre.id}
+      setProgress={setProgress}
+      setIsLoading={setIsLoading}
+      refetch={handleChange}
+      key={1}
+    />,
+  ];
   return (
-    <Box mt={4}>
+    <Container maxWidth="xl" sx={{ mt: 4 }}>
       <Breadcrumbs
         links={links}
         currentPage={{
           name: "Questions",
-          link: `/admin/question-bank/${questionBankId}/questions`,
+          link: `/${centreSlug}/admin/question-bank/${questionBankId}/questions`,
         }}
       />
+
       <Typography
         variant="h5"
         component="div"
@@ -154,120 +101,36 @@ const QuestionsPage = () => {
         <Menu
           id={questionBankId as string}
           centreId={cachedData.centre.id}
-          refetch={refetch}
+          centreSlug={centreSlug as string}
         />
       </Box>
-      {questions.length ? (
-        <Box>
-          {questions?.map(({ question, solution }, questionIndex) => (
-            <Stack
-              direction="row"
-              spacing={5}
-              key={`${questionIndex}-module`}
-              mb={4}
-            >
-              <Accordion
-                sx={{ width: "100%" }}
-                onClick={() => setExpanded(questionIndex)}
-                title={
-                  <div style={{ width: "100%" }}>
-                    <Typography
-                      component="div"
-                      sx={{ display: "flex", justifyContent: "center" }}
-                    >
-                      <Avatar>{questionIndex + 1}</Avatar>
-                    </Typography>
-                    <Typography
-                      dangerouslySetInnerHTML={{
-                        __html: question.question,
-                      }}
-                      variant="h5"
-                      component="div"
-                    />
-                    {question.image && (
-                      <Box sx={{ width: 500 }}>
-                        <Image
-                          src={question.image}
-                          alt="question image"
-                          height="100%"
-                          width="100%"
-                          layout="responsive"
-                        />
-                      </Box>
-                    )}
-                  </div>
-                }
-                expanded={expanded === questionIndex}
-              >
-                <>
-                  {getQuestionTypeData(question)}
-                  {(solution?.text || solution?.imageUrl) && (
-                    <>
-                      <Typography
-                        sx={{ textDecoration: "underline" }}
-                        variant="h6"
-                        component="div"
-                      >
-                        Solution
-                      </Typography>
-                      {solution.text && (
-                        <Typography
-                          variant="body1"
-                          component="div"
-                          dangerouslySetInnerHTML={{ __html: solution.text }}
-                        />
-                      )}
-                      {solution.imageUrl && (
-                        <Box sx={{ width: 500 }}>
-                          <Image
-                            src={solution.imageUrl}
-                            alt="question image"
-                            height="100%"
-                            width="100%"
-                            layout="responsive"
-                          />
-                        </Box>
-                      )}
-                    </>
-                  )}
-                  <Typography style={{ textAlign: "right" }}>
-                    <QuestionMenu
-                      questionBankId={questionBankId as string}
-                      centreId={cachedData.centre.id}
-                      question={questions[questionIndex]}
-                      refetch={refetch}
-                    />
-                  </Typography>
-                </>
-              </Accordion>
-            </Stack>
-          ))}
-        </Box>
-      ) : (
-        <Empty />
-      )}{" "}
-      {/* 
-      const pageCount = pageData.examList.pageCount as number;
-const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-router.replace({
-  query: { ...router.query, pageId: value },
-});
-};
-import Stack from "@mui/material/Stack";
-import Pagination from "@mui/material/Pagination";
+      <Tabs
+        tab={tab}
+        tabPanel={tabPanel}
+        sx={{
+          background: "rgba(247, 126, 35, 0.1)",
+          mt: 4,
+        }}
+        tabSx={{ width: { md: "100%" }, fontSize: 20 }}
+        indicatorColor="primary"
+      />
 
-<Stack py={4} direction="row" justifyContent="center" spacing={2}>
-{pageCount > 1 && (
-<Pagination
-  count={pageCount}
-  onChange={handleChange}
-  shape="rounded"
-  size="large"
-/>
-)}
-</Stack> */}
-    </Box>
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          status={Boolean(toggleToast)}
+          showToast={toggleToast}
+        />
+      )}
+      <Loading
+        open={isLoading}
+        sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
+        color="primary"
+        size={100}
+        value={progress}
+      />
+    </Container>
   );
 };
 
-export default QuestionsPage;
+export default QuestionPage;

@@ -2,9 +2,9 @@ import Typography from "@mui/material/Typography";
 import UploadFileOutlined from "@mui/icons-material/UploadFileOutlined";
 import Box from "@mui/material/Box";
 import TextFields from "@src/components/shared/input/textField";
-import { ElementProps } from "@src/utils/interface";
 import Image from "@src/components/shared/image";
 import { optionInt } from "./interface";
+import { ChangeEvent } from "react";
 // import { getImage } from "@src/utils";
 
 interface Props {
@@ -20,7 +20,7 @@ const UpdateBackground = ({
   uploadText,
   index,
 }: Props) => {
-  function preview(e: ElementProps) {
+  function preview(e: ChangeEvent<any>) {
     const objectUrl = e.target.files && URL.createObjectURL(e.target.files[0]);
     e.target.files && (options[index].image = [e.target.files[0], objectUrl]);
     setOptions([...options]);
@@ -31,15 +31,6 @@ const UpdateBackground = ({
     image && image.click();
   }
 
-  function getImage() {
-    if (typeof options[index].image === "string") {
-      if (options[index].image.includes("http")) {
-        return options[index].image;
-      } else
-        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${options[index].image}`;
-    } else return options[index]?.image[1];
-  }
-
   return (
     <>
       <TextFields
@@ -47,7 +38,7 @@ const UpdateBackground = ({
         id={`optionIamge${index}`}
         name="file"
         sx={{ display: "none" }}
-        onChange={preview}
+        onChange={(e) => preview(e)}
       />
       {options[index].image ? (
         <Box
@@ -59,25 +50,15 @@ const UpdateBackground = ({
           }}
           onClick={() => selectImage()}
         >
-          <Box sx={{ width: 500 }}>
+          <Box sx={{ width: 500 }}> you commted me
+            {/* {" "}
             <Image
-              src={getImage()}
+              src={getImage(options, index)}
               alt="question image"
               height="100%"
               width="100%"
               layout="responsive"
-            />
-            {/* {options[index].image.length ? (
-             
-            ) : (
-              <Image
-                src={options[index].image}
-                alt="question image"
-                height="100%"
-                width="100%"
-                layout="responsive"
-              />
-            )} */}
+            /> */}
           </Box>
         </Box>
       ) : (

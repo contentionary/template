@@ -2,10 +2,12 @@ import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import Divider from "@mui/material/Divider";
+import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
+
+import NextLink from "next/link";
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
-import AddQuestion from "./addQuestion";
 import { useDialog } from "@src/hooks";
 import { useMenu } from "@src/utils/hooks";
 import { SectionInt } from "./interface";
@@ -52,13 +54,16 @@ export default function SectionMenu({
             </MenuItem>
           </Delete>
           <Divider sx={{ my: 0.5 }} />
-          <AddQuestion
-            examId={examId}
-            centreId={centreId}
-            sectionId={section.id}
-            toggleToast={toggleToast}
-            refetch={refetch}
-          />
+
+          <NextLink
+            href={`/admin/question-bank/${examId}/addQuestions?sectionId=${section.id}`}
+            passHref
+          >
+            <MenuItem disableRipple>
+              <AddCircleOutlineOutlined />
+              &nbsp; Add Questions
+            </MenuItem>
+          </NextLink>
         </div>
       </Menus>
     </>
