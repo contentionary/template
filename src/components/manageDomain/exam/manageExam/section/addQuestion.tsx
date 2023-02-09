@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Accordion from "@src/components/shared/accordion";
 import useForm from "@src/hooks/useForm";
 import CheckBox from "@src/components/shared/checkInput";
-import {  queryClient, request } from "@src/utils";
+import { queryClient, request } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
@@ -27,6 +27,9 @@ const AddQuestion = (): JSX.Element => {
   const { submit } = useForm(create);
   const [expanded, setExpanded] = useState<number>();
   const questionBanks = pageData.questionBankList.questionBanks;
+  const [checkedQuestions, setCheckedQuestions] = useState<
+    Record<string, boolean>
+  >({});
 
   const [questions, setQuestions] = useState<Array<any>>();
   const [selectedQuestions, setSelectedQuestions] = useState<
@@ -36,28 +39,6 @@ const AddQuestion = (): JSX.Element => {
   const pageCount = pageData.questionBankList.pageCount as number;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
-
-  // async function getQuestionBanks() {
-  //   try {
-  //     openDialog();
-  //     setIsLoading(true);
-  //     const { data } = await request.get({
-  //       url: `/centre/${centreId}/question-banks`,
-  //     });
-  //     setQuestionBanks(data.questionBanks);
-  //     const { data: questions } = await request.get({
-  //       url: `/centre/${centreId}/exam/${examId}/questions`,
-  //     });
-  //     questions.sections.map(({ questions }: any) => {
-  //       setSelectedQuestions([...selectedQuestions, ...questions]);
-  //     });
-  //     setIsLoading(false);
-  //     // openDialog();
-  //   } catch (error) {
-  //     toggleToast(handleError(error).message);
-  //     setIsLoading(false);
-  //   }
-  // }
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
@@ -69,11 +50,33 @@ const AddQuestion = (): JSX.Element => {
     try {
       setQuestionLoading(true);
       setExpanded(index);
-      const { data } = await request.get({
+      const selectedQuestionReq = request.get({
+        url: `/centre/${cachedData.centre.id}/exam/${examId}/questions`,
+      });
+
+      const allQuestionReq = request.get({
         url: `/centre/${cachedData.centre.id}/question-bank/${id}/questions?pageId=${pageId}`,
       });
-      setquestionPageCount(data.pageCount);
-      setQuestions(data.questions);
+
+      const [selectedQuestionRes, allQuestionRes] = await Promise.all([
+        selectedQuestionReq,
+        allQuestionReq,
+      ]);
+
+      const temp: any = {};
+      selectedQuestionRes.data.sections.forEach(({ questions }: any) => {
+        setSelectedQuestions([...selectedQuestions, ...questions]);
+        questions.forEach((question: any) => {
+          temp[question.questionId] = true;
+        });
+      });
+
+      setCheckedQuestions({ ...checkedQuestions, ...temp });
+
+      console.log({ temp, checkedQuestions });
+
+      setquestionPageCount(allQuestionRes.data.pageCount);
+      setQuestions(allQuestionRes.data.questions);
       setQuestionLoading(false);
     } catch (error) {
       console.log(error);
@@ -200,14 +203,9 @@ const AddQuestion = (): JSX.Element => {
                                     }}
                                   />
                                 }
-                                checked={selectedQuestions.some(
-                                  (item) => item.questionId === id
-                                )}
+                                checked={checkedQuestions[id]}
                                 onChange={() => {
-                                  const hasQuestion = selectedQuestions.some(
-                                    (item) => item.questionId === id
-                                  );
-                                  if (hasQuestion) {
+                                  if (checkedQuestions[id]) {
                                     const questionIndex =
                                       selectedQuestions.findIndex(
                                         (item) => item.questionId === id
@@ -218,10 +216,16 @@ const AddQuestion = (): JSX.Element => {
                                       questionId: id,
                                     });
                                   }
+
+                                  setCheckedQuestions({
+                                    ...checkedQuestions,
+                                    [id]: !checkedQuestions[id],
+                                  });
+
                                   setSelectedQuestions([...selectedQuestions]);
                                 }}
                               />
-                              <TextFields
+                              <input
                                 onBlur={(e: ChangeEvent<any>) => {
                                   selectedQuestions.map((item) =>
                                     item.questionId === id
@@ -230,8 +234,8 @@ const AddQuestion = (): JSX.Element => {
                                   );
                                   setSelectedQuestions([...selectedQuestions]);
                                 }}
-                                label="Score"
-                                sx={{ width: 100 }}
+                                placeholder="Score"
+                                style={{ width: 100 }}
                               />
                             </Box>
                           ))}
