@@ -1,11 +1,16 @@
-import Questions from "@src/components/manageDomain/exam/manageExam/section/addQuestion";
+import Questions from "@src/components/manageDomain/exam/manageExam/section/questionBank";
 import { getAuthData } from "@src/utils/auth";
 import { getCentre, handleError, request } from "@src/utils";
 import { CachedCentreInt } from "@src/utils/interface";
 import { GetServerSideProps } from "next";
+import Wrapper from "@src/components/manageDomain";
 
 const QuestionUpdatePageEntry = () => {
-  return <Questions />;
+  return (
+    <Wrapper>
+      <Questions />
+    </Wrapper>
+  );
 };
 
 export default QuestionUpdatePageEntry;
@@ -14,15 +19,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context)) as CachedCentreInt;
-    const { pageId = 1 } = context.query;
+    const { pageId = 1, folderId } = context.query;
     const { data: questionBankList } = await request.get({
-      url: `/centre/${centre.id}/question-banks?pageId=${pageId}`,
+      url: folderId
+        ? `/centre/${centre.id}/question-banks?pageId=${pageId}&folderId=${folderId}`
+        : `/centre/${centre.id}/question-banks?pageId=${pageId}`,
       token,
     });
-    // const { data } = await request.get({
-    //   url: `/centre/${centre.id}/question-bank/${context.query.id}/questions?pageId=${pageId}`,
-    //   token,
-    // });questions: data.questions,
     return {
       props: {
         pageData: { questionBankList },

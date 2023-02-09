@@ -16,21 +16,19 @@ import ImageComponent from "@src/components/shared/image";
 import FolderCopyOutlined from "@mui/icons-material/FolderCopyOutlined";
 import dynamic from "next/dynamic";
 
-const PublicationCard = ({ name, type, id }: QuestionBankInt) => {
+const QuestionBankCard = ({ name, type, id, link }: QuestionBankInt) => {
   const cardStyle = useCardStyle();
   const Share = dynamic(() => import("./share"));
+  link = link
+    ? link
+    : type === "FOLDER"
+    ? `/admin/question-bank?folderId=${id}&folderName=${name}`
+    : `/admin/question-bank/${id}/questions`;
   return (
     <div style={{ position: "relative" }}>
       <Share questionBankId={id} />
       <Card className={cardStyle.publicationCard}>
-        <NextLink
-          href={
-            type === "FOLDER"
-              ? `/admin/question-bank?folderId=${id}&folderName=${name}`
-              : `/admin/question-bank/${id}/questions`
-          }
-          passHref
-        >
+        <NextLink href={link} passHref>
           <CardActionArea
             LinkComponent={Link}
             className="MuiCourseCardActionBase-root"
@@ -98,4 +96,4 @@ const PublicationCard = ({ name, type, id }: QuestionBankInt) => {
   );
 };
 
-export default PublicationCard;
+export default QuestionBankCard;

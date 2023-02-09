@@ -56,7 +56,7 @@ export default function SectionMenu({
           <Divider sx={{ my: 0.5 }} />
 
           <NextLink
-            href={`/admin/question-bank/${examId}/addQuestions?sectionId=${section.id}`}
+            href={`/admin/exam/${examId}/question-bank?sectionId=${section.id}`}
             passHref
           >
             <MenuItem disableRipple>

@@ -101,7 +101,7 @@ export default function CustomizedMenus({
                   >
                     {section.name === "general" ? (
                       <NextLink
-                        href={`/admin/question-bank/${examId}/addQuestions`}
+                        href={`/admin/exam/${examId}/question-bank`}
                         passHref
                       >
                         <MuiLink
