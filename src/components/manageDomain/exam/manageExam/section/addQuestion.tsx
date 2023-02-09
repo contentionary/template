@@ -12,6 +12,7 @@ import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
+import { String } from "aws-sdk/clients/cloudsearchdomain";
 
 const AddQuestion = (): JSX.Element => {
   const router = useRouter();
@@ -49,20 +50,33 @@ const AddQuestion = (): JSX.Element => {
         temp[question.questionId] = true;
       });
     });
-
-    setCheckedQuestions((prevState) => {
-      console.log({ prevState });
-      return { ...prevState, ...temp };
-    });
-
-    console.log({ temp, checkedQuestions });
-
-    setTimeout(() => setQuestionLoading(false), 5000);
+    setCheckedQuestions({ ...checkedQuestions, ...temp });
+    setQuestionLoading(false);
   }
 
   useEffect(() => {
-    getQuestions();
+    router.isReady && getQuestions();
   }, []);
+
+  function handleCheck(id: String) {
+    if (checkedQuestions[id]) {
+      const questionIndex = selectedQuestions.findIndex(
+        (item) => item.questionId === id
+      );
+      selectedQuestions.splice(questionIndex, 1);
+    } else {
+      selectedQuestions.push({
+        questionId: id,
+      });
+    }
+
+    setCheckedQuestions({
+      ...checkedQuestions,
+      [id]: !checkedQuestions[id],
+    });
+
+    setSelectedQuestions([...selectedQuestions]);
+  }
 
   async function create() {
     try {
@@ -137,26 +151,8 @@ const AddQuestion = (): JSX.Element => {
                             }}
                           />
                         }
-                        checked={checkedQuestions[id]}
-                        onChange={() => {
-                          if (checkedQuestions[id]) {
-                            const questionIndex = selectedQuestions.findIndex(
-                              (item) => item.questionId === id
-                            );
-                            selectedQuestions.splice(questionIndex, 1);
-                          } else {
-                            selectedQuestions.push({
-                              questionId: id,
-                            });
-                          }
-
-                          setCheckedQuestions({
-                            ...checkedQuestions,
-                            [id]: !checkedQuestions[id],
-                          });
-
-                          setSelectedQuestions([...selectedQuestions]);
-                        }}
+                        checked={Boolean(checkedQuestions[id])}
+                        onChange={() => handleCheck(id)}
                       />
                       <input
                         onBlur={(e: ChangeEvent<any>) => {
