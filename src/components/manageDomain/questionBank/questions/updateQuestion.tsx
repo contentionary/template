@@ -13,33 +13,32 @@ import Toast from "@src/components/shared/toast";
 import useForm from "@src/hooks/useForm";
 import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
-import { handleError, request, uploadFiles } from "@src/utils";
+import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useEffect, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextFields from "@src/components/shared/input/textField";
-import { QuestionOptionInt, QuestionsInt } from "@src/utils/interface";
+import {
+  BasePageProps,
+  QuestionOptionInt,
+  QuestionsInt,
+} from "@src/utils/interface";
 import Editor from "@src/components/shared/editor";
 import { useRouter } from "next/router";
 
-interface Props {
-  centreId: string;
-  questionBankId: string;
-  question: QuestionsInt;
-}
-
-const UpdateQuestion = ({
-  questionBankId,
-  centreId,
-  question,
-}: Props): JSX.Element => {
+const UpdateQuestion = (): JSX.Element => {
   const ImageUpload = dynamic(() => import("./imageUpload"));
   const OptionImageUpload = dynamic(() => import("./optionImgUpload"));
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const question = pageData.question as QuestionsInt;
   const styles = useStyles();
   const router = useRouter();
+  const { id: questionBankId } = router.query;
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit, setData, setDefault, getEditor } =
@@ -98,11 +97,11 @@ const UpdateQuestion = ({
       }
       if (solution) questions.solution.text = values.solution;
       await request.post({
-        url: `/centre/${centreId}/question-bank/${questionBankId}/question/${question?.id}`,
+        url: `/centre/${cachedData.centre.id}/question-bank/${questionBankId}/question/${question?.id}`,
         data: questions,
         method: "PATCH",
       });
-      toggleToast("Question add");
+      toggleToast("Question Updated");
       setIsLoading(false);
       router.back();
     } catch (error) {
@@ -185,16 +184,12 @@ const UpdateQuestion = ({
             {values.type === "range" && (
               <Box>
                 <TextFields
-                  onChange={(e) => getData(e)}
+                  onChange={getData}
                   name="min"
                   label="Minium"
                   sx={{ mr: 4 }}
                 />
-                <TextFields
-                  onChange={(e) => getData(e)}
-                  name="max"
-                  label="Maxium"
-                />
+                <TextFields onChange={getData} name="max" label="Maxium" />
               </Box>
             )}
             {(values.type === "objective" || values.type === "multichoice") && (

@@ -5,7 +5,6 @@ import TextFields from "@src/components/shared/input/textField";
 import Image from "@src/components/shared/image";
 import { optionInt } from "./interface";
 import { ChangeEvent } from "react";
-// import { getImage } from "@src/utils";
 
 interface Props {
   options: Array<optionInt>;
@@ -30,6 +29,14 @@ const UpdateBackground = ({
     const image = document.getElementById(`optionIamge${index}`);
     image && image.click();
   }
+  function getImage() {
+    if (typeof options[index].image === "string") {
+      if (options[index].image.includes("http")) {
+        return options[index].image;
+      } else
+        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${options[index].image}`;
+    } else return options[index]?.image[1];
+  }
 
   return (
     <>
@@ -38,7 +45,7 @@ const UpdateBackground = ({
         id={`optionIamge${index}`}
         name="file"
         sx={{ display: "none" }}
-        onChange={(e) => preview(e)}
+        onChange={preview}
       />
       {options[index].image ? (
         <Box
@@ -50,15 +57,14 @@ const UpdateBackground = ({
           }}
           onClick={() => selectImage()}
         >
-          <Box sx={{ width: 500 }}> you commted me
-            {/* {" "}
+          <Box sx={{ width: 500 }}>
             <Image
-              src={getImage(options, index)}
+              src={getImage()}
               alt="question image"
               height="100%"
               width="100%"
               layout="responsive"
-            /> */}
+            />
           </Box>
         </Box>
       ) : (

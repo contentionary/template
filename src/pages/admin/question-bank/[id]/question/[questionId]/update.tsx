@@ -1,9 +1,9 @@
-import Questions from "@src/components/manageDomain/exam/manageExam/section/addQuestion";
+import Questions from "@src/components/manageDomain/questionBank/questions/updateQuestion";
+import Wrapper from "@src/components/manageDomain";
 import { getAuthData } from "@src/utils/auth";
 import { getCentre, handleError, request } from "@src/utils";
 import { CachedCentreInt } from "@src/utils/interface";
 import { GetServerSideProps } from "next";
-import Wrapper from "@src/components/manageDomain";
 
 const QuestionUpdatePageEntry = () => {
   return (
@@ -19,22 +19,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context)) as CachedCentreInt;
-    const { pageId = 1, questionBankId, id } = context.query;
-    const { data: allQuestionList } = await request.get({
-      url: `/centre/${centre.id}/question-bank/${questionBankId}/questions?pageId=${pageId}`,
+    const { questionId } = context.query;
+    const { data } = await request.get({
+      url: `/centre/${centre.id}/question-bank/${context.query.id}/question/${questionId}`,
       token,
     });
-
-    const { data: selectedQuestionList } = await request.get({
-      url: `/centre/${centre.id}/exam/${id}/questions`,
-      token,
-    });
+    console.log(data);
     return {
       props: {
-        pageData: {
-          selectedQuestionList,
-          allQuestionList,
-        },
+        pageData: { question: data },
         cachedData: { user, centre, token },
       },
     };

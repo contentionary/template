@@ -76,6 +76,7 @@ const AddQuestion = ({
         questions.question.image = imageUrl;
         setConvertedImage(imageUrl);
       }
+      if (solution) questions.solution = { text: values.solution };
       if (solutionImg.rawImg && !convertedSolutionImage) {
         const imageUrl = await uploadFiles(solutionImg.rawImg, setProgress);
 
@@ -87,7 +88,7 @@ const AddQuestion = ({
         questions.question.max = values.max;
         questions.question.min = values.min;
       }
-      if (solution) questions.solution.text = values.solution;
+
       await request.post({
         url: `/centre/${centreId}/question-bank/${questionBankId}/question`,
         data: questions,

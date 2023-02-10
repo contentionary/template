@@ -61,7 +61,7 @@ export default function SectionMenu({
           >
             <MenuItem disableRipple>
               <AddCircleOutlineOutlined />
-              &nbsp; Add Questions
+              Add Questions
             </MenuItem>
           </NextLink>
         </div>

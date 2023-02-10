@@ -32,7 +32,7 @@ const QuestionImageUpload = ({ setImg, img, uploadText, id }: Props) => {
         id={id || "backgroundImage"}
         name="file"
         sx={{ display: "none" }}
-        onChange={(e) => preView(e)}
+        onChange={preView}
       />
       {img?.preview ? (
         <Box

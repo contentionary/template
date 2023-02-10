@@ -12,13 +12,11 @@ export default function CustomizedMenus({
   id,
   questionBankId,
   refetch,
-  centreSlug,
 }: {
   questionBankId: string;
   centreId: string;
   id: string;
   refetch: Function;
-  centreSlug: string;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   return (
@@ -30,7 +28,7 @@ export default function CustomizedMenus({
         <div>
           <Link
             passHref
-            href={`/${centreSlug}/admin/question-bank/${questionBankId}/question/${id}`}
+            href={`/admin/question-bank/${questionBankId}/question/${id}/update`}
           >
             <MenuItem disableRipple>
               <EditIcon />

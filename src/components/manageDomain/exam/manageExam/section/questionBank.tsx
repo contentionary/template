@@ -1,17 +1,21 @@
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { queryClient } from "@src/utils";
 import dynamic from "next/dynamic";
-import { BasePageProps } from "@src/utils/interface";
+import { BasePageProps, QuestionBankInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import QuestionBankCard from "@src/components/manageDomain/questionBank/card";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 
-const AddQuestion = (): JSX.Element => {
+const ExamQuestionBank = (): JSX.Element => {
   const router = useRouter();
-  const { id: examId, sectionId } = router.query;
+  const { id: examId } = router.query;
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const questionBanks = pageData.questionBankList.questionBanks;
+  const questionBanks = pageData.questionBankList
+    .questionBanks as Array<QuestionBankInt>;
 
   const pageCount = pageData.questionBankList.pageCount as number;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
@@ -23,9 +27,19 @@ const AddQuestion = (): JSX.Element => {
   };
 
   return (
-    <Stack spacing={3} mt={3}>
+    <>
       {questionBanks?.length ? (
         <>
+          <Button sx={{ mt: 3 }} onClick={() => router.back()}>
+            <>
+              <ArrowBackIosNewOutlined />
+              back
+            </>
+          </Button>
+
+          <Typography variant="h5" mt={2} mb={4} textAlign="center">
+            Question banks
+          </Typography>
           <Grid
             container
             mb={{ xs: 1, md: 2, xl: 3 }}
@@ -39,7 +53,7 @@ const AddQuestion = (): JSX.Element => {
                   link={
                     questionBank.type === "FOLDER"
                       ? `/admin/exam/${examId}/question-bank/?folderId=${questionBank.id}`
-                      : `/admin/exam/${examId}/question-bank/${questionBank.id}/addQuestions`
+                      : `/admin/exam/${examId}/question-bank/${questionBank.id}/ExamQuestionBanks`
                   }
                 />
               </Grid>
@@ -59,8 +73,8 @@ const AddQuestion = (): JSX.Element => {
       ) : (
         <Empty />
       )}
-    </Stack>
+    </>
   );
 };
 
-export default AddQuestion;
+export default ExamQuestionBank;
