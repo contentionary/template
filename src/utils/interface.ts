@@ -16,6 +16,7 @@ export interface QuestionBankInt {
   description: string;
   id: string;
   type: string;
+  link?: string;
 }
 
 export interface Solution {

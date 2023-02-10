@@ -2,10 +2,9 @@ import Typography from "@mui/material/Typography";
 import UploadFileOutlined from "@mui/icons-material/UploadFileOutlined";
 import Box from "@mui/material/Box";
 import TextFields from "@src/components/shared/input/textField";
-import { ElementProps } from "@src/utils/interface";
 import Image from "@src/components/shared/image";
 import { optionInt } from "./interface";
-// import { getImage } from "@src/utils";
+import { ChangeEvent } from "react";
 
 interface Props {
   options: Array<optionInt>;
@@ -20,7 +19,7 @@ const UpdateBackground = ({
   uploadText,
   index,
 }: Props) => {
-  function preview(e: ElementProps) {
+  function preview(e: ChangeEvent<any>) {
     const objectUrl = e.target.files && URL.createObjectURL(e.target.files[0]);
     e.target.files && (options[index].image = [e.target.files[0], objectUrl]);
     setOptions([...options]);
@@ -30,7 +29,6 @@ const UpdateBackground = ({
     const image = document.getElementById(`optionIamge${index}`);
     image && image.click();
   }
-
   function getImage() {
     if (typeof options[index].image === "string") {
       if (options[index].image.includes("http")) {
@@ -67,17 +65,6 @@ const UpdateBackground = ({
               width="100%"
               layout="responsive"
             />
-            {/* {options[index].image.length ? (
-             
-            ) : (
-              <Image
-                src={options[index].image}
-                alt="question image"
-                height="100%"
-                width="100%"
-                layout="responsive"
-              />
-            )} */}
           </Box>
         </Box>
       ) : (
