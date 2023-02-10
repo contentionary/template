@@ -12,7 +12,7 @@ import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined
 
 const ExamQuestionBank = (): JSX.Element => {
   const router = useRouter();
-  const { id: examId } = router.query;
+  const { id: examId, sectionId } = router.query;
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const questionBanks = pageData.questionBankList
     .questionBanks as Array<QuestionBankInt>;
@@ -25,18 +25,20 @@ const ExamQuestionBank = (): JSX.Element => {
       query: { ...router.query, pageId: value },
     });
   };
+  const folderLink = sectionId
+    ? `/admin/exam/${examId}/question-bank/?sectionId=${sectionId}`
+    : `/admin/exam/${examId}/question-bank`;
 
   return (
     <>
+      <Button sx={{ mt: 3 }} onClick={() => router.back()}>
+        <>
+          <ArrowBackIosNewOutlined />
+          back
+        </>
+      </Button>
       {questionBanks?.length ? (
         <>
-          <Button sx={{ mt: 3 }} onClick={() => router.back()}>
-            <>
-              <ArrowBackIosNewOutlined />
-              back
-            </>
-          </Button>
-
           <Typography variant="h5" mt={2} mb={4} textAlign="center">
             Question banks
           </Typography>
@@ -52,8 +54,10 @@ const ExamQuestionBank = (): JSX.Element => {
                   {...questionBank}
                   link={
                     questionBank.type === "FOLDER"
-                      ? `/admin/exam/${examId}/question-bank/?folderId=${questionBank.id}`
-                      : `/admin/exam/${examId}/question-bank/${questionBank.id}/ExamQuestionBanks`
+                      ? `${folderLink}&folderId=${questionBank.id}`
+                      : sectionId
+                      ? `/admin/exam/${examId}/question-bank/${questionBank.id}/addQuestions?sectionId=${sectionId}`
+                      : `/admin/exam/${examId}/question-bank/${questionBank.id}/addQuestions`
                   }
                 />
               </Grid>
