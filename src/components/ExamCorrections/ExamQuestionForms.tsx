@@ -12,7 +12,6 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 // interface styles and configs
 import useButtonStyle from "@src/styles/button";
 import { QuestionInt } from "@src/utils/interface";
-import useTextFieldStyle from "@src/styles/textField";
 
 interface QuestionSelectorInt {
   questionId: string;

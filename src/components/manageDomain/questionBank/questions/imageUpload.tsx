@@ -9,7 +9,7 @@ interface Props {
   img: Record<string, any>;
   setImg: Function;
   uploadText: string;
-  id?: string
+  id?: string;
 }
 
 const QuestionImageUpload = ({ setImg, img, uploadText, id }: Props) => {

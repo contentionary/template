@@ -25,7 +25,7 @@ const QuestionsPage = ({
   const Image = dynamic(() => import("@src/components/shared/image"));
   const styles = useStyles();
   const router = useRouter();
-  const { id: questionBankId, centreSlug } = router.query;
+  const { id: questionBankId } = router.query;
   const { cachedData, pageData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -188,7 +188,6 @@ const QuestionsPage = ({
                       centreId={cachedData.centre.id}
                       id={questions[questionIndex].id}
                       refetch={handleChange}
-                      centreSlug={centreSlug as string}
                     />
                   </Typography>
                 </>
