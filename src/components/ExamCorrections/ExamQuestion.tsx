@@ -20,11 +20,13 @@ import { QuestionsInt } from "./interfaceType";
 interface QuestionFormInt {
   currentQuestion: number;
   examQuestions: Array<QuestionsInt>;
+  answer: Record<string, any>;
 }
 
 const ExamQuestion = ({
   examQuestions,
   currentQuestion,
+  answer,
 }: QuestionFormInt): JSX.Element => {
   let questionType;
   if (!examQuestions) {
@@ -38,10 +40,11 @@ const ExamQuestion = ({
     );
   }
   questionType = examQuestions[currentQuestion].question.type;
-
+  const solution = examQuestions[currentQuestion].solution;
   const examQuestionFormProps = {
     questionId: examQuestions[currentQuestion].questionId,
     question: examQuestions[currentQuestion].question,
+    answer: answer[examQuestions[currentQuestion].questionId],
   };
 
   return (
@@ -85,27 +88,52 @@ const ExamQuestion = ({
           __html: examQuestions[currentQuestion].question.question,
         }}
       />
-      {questionType === "theory" ? (
-        <Typography></Typography>
-      ) : (
-        <Box mt={3}>
-          <Typography fontWeight="light" variant="subtitle2">
-            Expected Answer:
+
+      <Box mt={3}>
+        {questionType === "objective" ? (
+          <ObjectiveQuestionSelector {...examQuestionFormProps} />
+        ) : questionType === "boolean" ? (
+          <BooleanQuestionSelector {...examQuestionFormProps} />
+        ) : questionType === "multichoice" ? (
+          <MultichoiceQuestionSelector {...examQuestionFormProps} />
+        ) : questionType === "range" ? (
+          <RangeQuestionSelector {...examQuestionFormProps} />
+        ) : questionType === "theory" ? (
+          <Typography py={3} variant="subtitle1" textAlign="center">
+            <strong>Your Answer</strong>
+            <div>{examQuestionFormProps.answer.answer}</div>
           </Typography>
-          {questionType === "objective" ? (
-            <ObjectiveQuestionSelector {...examQuestionFormProps} />
-          ) : questionType === "boolean" ? (
-            <BooleanQuestionSelector {...examQuestionFormProps} />
-          ) : questionType === "multichoice" ? (
-            <MultichoiceQuestionSelector {...examQuestionFormProps} />
-          ) : questionType === "range" ? (
-            <RangeQuestionSelector {...examQuestionFormProps} />
-          ) : (
-            <Typography py={3} variant="h4" textAlign="center">
-              component not available
-            </Typography>
+        ) : (
+          <Typography py={3} variant="h4" textAlign="center">
+            component not available
+          </Typography>
+        )}
+      </Box>
+      {(solution?.text || solution?.image) && (
+        <Typography>
+          <Box
+            dangerouslySetInnerHTML={{ __html: solution?.text }}
+            sx={{ "& > :first-of-type": { marginTop: 0, paddingTop: 0 } }}
+          />
+          {solution?.image && (
+            <Box
+              width="100%"
+              maxHeight={300}
+              position="relative"
+              overflow="clip"
+            >
+              <ImageComponent
+                alt="yes we can"
+                width="100%"
+                height="100%"
+                layout="fixed"
+                objectFit="contain"
+                objectPosition="left"
+                src={solution?.image as string}
+              />
+            </Box>
           )}
-        </Box>
+        </Typography>
       )}
     </Box>
   );

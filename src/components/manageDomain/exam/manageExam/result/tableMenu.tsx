@@ -14,7 +14,6 @@ interface Props {
 }
 export default function TableMenu(props: Props) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
-  console.log(props.examAnswerId);
   return (
     <>
       <IconButton onClick={openMenu}>

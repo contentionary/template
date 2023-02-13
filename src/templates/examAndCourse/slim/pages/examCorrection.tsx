@@ -14,8 +14,8 @@ const ExamCompletedPage = () => {
       title={name || ""}
       description="Online Exam"
       image={logo || DEFAULT_LOGO}
-      showHeader={true}
-      showFooter={true}
+      showHeader={false}
+      showFooter={false}
     >
       <ExamCorrection pageData={pageData} />
     </ExamAndCourseWrapper>

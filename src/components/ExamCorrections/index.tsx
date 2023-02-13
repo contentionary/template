@@ -7,16 +7,19 @@ import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link as MuiLink } from "@mui/material";
 // app components
+import NextLink from "next/link";
 import ExamQuestion from "./ExamQuestion";
 //  hooks, utils, interface and styles
 import useGlobalStyle from "@src/styles";
 import { QuestionsInt } from "./interfaceType";
+import { useRouter } from "next/router";
 
 export interface TempAnswerInt {
   questionId: string;
   optionId?: number;
-  answer?: string | boolean;
+  answer?: Record<string, any>;
   optionIds?: Array<number>;
   min?: string | number;
   max?: string | number;
@@ -31,6 +34,7 @@ const StartExam = ({
   const theme = useTheme();
   const globalStyle = useGlobalStyle();
   const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
+  const router = useRouter();
   // exam questions
   const examQuestions = pageData.answers.questions;
   // current question and section
@@ -54,7 +58,6 @@ const StartExam = ({
       }
     }
   };
-
   return (
     <React.Fragment>
       <Box
@@ -67,13 +70,27 @@ const StartExam = ({
         <Box
           flexGrow={1}
           component="section"
-          sx={{ pt: 4, pb: 8, px: { md: 6 } }}
+          sx={{ pt: 1, pb: 8, px: { md: 6 } }}
         >
           <Container
             maxWidth="xl"
             sx={{ display: "grid", placeItems: "center" }}
           >
             <Box maxWidth={820} width="100%" mt={10}>
+              <div style={{ textAlign: "right" }}>
+                <NextLink href={`/exams/${router.query.slug}`} passHref>
+                  <Button
+                    size="large"
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    sx={{ background: "red" }}
+                  >
+                    Exit Exam
+                  </Button>
+                </NextLink>
+              </div>
+
               <Typography mb={3} variant="h5" component="h1" textAlign="center">
                 Correction
               </Typography>
@@ -81,6 +98,7 @@ const StartExam = ({
                 <ExamQuestion
                   currentQuestion={question}
                   examQuestions={examQuestions}
+                  answer={pageData?.answers?.answer as Record<string, any>}
                 />
                 <Box p={3}>
                   <Stack

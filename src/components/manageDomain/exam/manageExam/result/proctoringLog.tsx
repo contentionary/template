@@ -52,7 +52,6 @@ export default function ProctoredLog({
       const { data } = await request.get({
         url: `/centre/${centreId}/protor-content/exam-answer/${examAnswerId}`,
       });
-      console.log(data, "proctored");
       openDialog();
       setProctor(data.contents);
     } catch (error) {
