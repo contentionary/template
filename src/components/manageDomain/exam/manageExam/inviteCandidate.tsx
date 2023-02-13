@@ -81,13 +81,17 @@ const InviteCandidate = ({
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-end",
+                  justifyContent: "space-between",
+                  alignItems: "center",
                   background: "#FFFFFF",
                   borderRadius: 1,
                   padding: 1,
                   mb: 2,
                 }}
               >
+                {values.fileUrl && (
+                  <Typography variant="h6">file selected</Typography>
+                )}
                 <TextFields
                   sx={{ display: "none" }}
                   onChange={getFile}
@@ -101,8 +105,8 @@ const InviteCandidate = ({
                   sx={{ background: "#EDEDED", color: "#000000" }}
                   size="large"
                   onClick={() => {
-                    const image = document.getElementById("fileUrl");
-                    image && image.click();
+                    const file = document.getElementById("fileUrl");
+                    file && file.click();
                   }}
                 >
                   Choose file

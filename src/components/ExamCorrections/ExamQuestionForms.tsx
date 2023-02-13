@@ -6,6 +6,8 @@ import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
+import CheckOutlined from "@mui/icons-material/CheckOutlined";
 //
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -16,13 +18,24 @@ import { QuestionInt } from "@src/utils/interface";
 interface QuestionSelectorInt {
   questionId: string;
   question: QuestionInt;
+  answer: Record<string, any>;
 }
-
+function selectedAnswers(value: boolean) {
+  return (
+    <Typography color="inherit" sx={{ display: "flex", alignItems: "center" }}>
+      your answer
+      {value ? (
+        <CheckOutlined htmlColor="green" />
+      ) : (
+        <CloseOutlined htmlColor="red" />
+      )}
+    </Typography>
+  );
+}
 export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
   const buttonStyle = useButtonStyle();
   // selected option
   const [value, setValue] = React.useState<number>();
-
   // set option if in cache
   React.useEffect(() => {
     if (props.question && props.question.options) {
@@ -47,18 +60,28 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
           value={option.id as number}
           aria-label={`option ${index + 1}`}
         >
-          <Stack direction="row" spacing={2}>
-            <Typography color="inherit" mb={0} paragraph>
-              {index + 1}). &nbsp;
-            </Typography>
-            <Box
-              dangerouslySetInnerHTML={{ __html: option.value }}
-              sx={{
-                "& p": { margin: 0 },
-                "& > :first-of-type": { marginBottom: 0 },
-              }}
-            />
-          </Stack>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <Stack direction="row" spacing={2}>
+              <Typography color="inherit" mb={0} paragraph>
+                {index + 1}). &nbsp;
+              </Typography>
+              <Box
+                dangerouslySetInnerHTML={{ __html: option.value }}
+                sx={{
+                  "& p": { margin: 0 },
+                  "& > :first-of-type": { marginBottom: 0 },
+                }}
+              />
+            </Stack>
+            {props.answer?.optionId === option.id &&
+              selectedAnswers(props.answer?.optionId === value)}
+          </div>
         </ToggleButton>
       ))}
     </ToggleButtonGroup>
@@ -85,10 +108,30 @@ export const BooleanQuestionSelector = (props: QuestionSelectorInt) => {
       className={buttonStyle.examButtonGroup}
     >
       <ToggleButton value={"true"} aria-label="option true">
-        A). True
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <span> A). True</span>
+          {props.answer?.answer === true &&
+            selectedAnswers(props.answer?.answer === props.question.answer)}
+        </div>
       </ToggleButton>
       <ToggleButton value={"false"} aria-label="option false">
-        B). False
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          <span>B). False</span>
+          {props.answer?.answer === false &&
+            selectedAnswers(props.answer?.answer === props.question.answer)}
+        </div>
       </ToggleButton>
     </ToggleButtonGroup>
   );
@@ -111,21 +154,33 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
   return (
     <FormGroup>
       {props?.question?.options?.map((option) => (
-        <FormControlLabel
+        <Box
           key={`multichoice-option-${option.id}`}
-          control={
-            <Checkbox
-              name={String(option.id)}
-              checked={choice.includes(option.id as number)}
-            />
-          }
-          label={
-            <Box
-              dangerouslySetInnerHTML={{ __html: option.value }}
-              sx={{ "& > :first-of-type": { marginTop: 0, paddingTop: 0 } }}
-            />
-          }
-        />
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                name={String(option.id)}
+                checked={choice.includes(option.id as number)}
+              />
+            }
+            label={
+              <Box
+                dangerouslySetInnerHTML={{ __html: option.value }}
+                sx={{ "& > :first-of-type": { marginTop: 0, paddingTop: 0 } }}
+              />
+            }
+          />
+          {props.answer.optionIds.includes(option.id) &&
+            selectedAnswers(
+              props.answer.optionIds.includes(option.id) &&
+                choice.includes(Number(option.id))
+            )}
+        </Box>
       ))}
     </FormGroup>
   );
@@ -147,6 +202,9 @@ export const RangeQuestionSelector = (props: QuestionSelectorInt) => {
 
   return (
     <>
+      <Typography fontWeight="light" variant="subtitle2">
+        <strong>Expected Answer:</strong>
+      </Typography>
       <Typography mt={1} fontWeight="light" variant="subtitle2">
         Minimum value:
       </Typography>
@@ -156,6 +214,19 @@ export const RangeQuestionSelector = (props: QuestionSelectorInt) => {
         Maximum Value:
       </Typography>
       <Typography>{maxValue}</Typography>
+
+      <Typography fontWeight="light" variant="subtitle2" mt={3}>
+        <strong>Your Answer:</strong>
+      </Typography>
+      <Typography mt={1} fontWeight="light" variant="subtitle2">
+        Minimum value:
+      </Typography>
+      <Typography>{props.answer?.min}</Typography>
+
+      <Typography mt={1} fontWeight="light" variant="subtitle2">
+        Maximum Value:
+      </Typography>
+      <Typography>{props.answer?.max}</Typography>
     </>
   );
 };

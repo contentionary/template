@@ -21,6 +21,6 @@ export declare type ExamFunc = (props: {
 export interface QuestionsInt {
   id: string;
   questionId: string;
-  solution: string;
+  solution: Record<string, any>;
   question: QuestionInt;
 }
