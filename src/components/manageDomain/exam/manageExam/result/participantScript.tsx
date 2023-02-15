@@ -159,10 +159,10 @@ const ParticipantScript = ({
           <Divider sx={{ my: 0.5 }} />
           <Typography variant="h6">Participant Answer</Typography>
           <Typography variant="body1">
-            <strong>Min</strong>: {answer.min}
+            <strong>Min</strong>: {answer?.min}
           </Typography>
           <Typography variant="body1">
-            <strong>Max</strong>:{answer.max}
+            <strong>Max</strong>:{answer?.max}
           </Typography>
         </Stack>
       );
