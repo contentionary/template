@@ -48,6 +48,7 @@ const InviteCandidate = ({
         url: `/centre/${centreId}/exam/${id}/invite-cantidate`,
         data: values,
       });
+      setCandidates([{ name: "", email: "" }]);
       toggleToast("Invite sent successfully");
       setIsLoading(false);
     } catch (error) {
@@ -89,9 +90,10 @@ const InviteCandidate = ({
                   mb: 2,
                 }}
               >
-                {values.fileUrl && (
-                  <Typography variant="h6">file selected</Typography>
-                )}
+                <Typography variant="h6">
+                  {values.fileUrl && "file selected"}
+                </Typography>
+
                 <TextFields
                   sx={{ display: "none" }}
                   onChange={getFile}
@@ -202,17 +204,19 @@ const InviteCandidate = ({
               </Typography>
               {candidates.map(({ name, email }, index) => (
                 <Box sx={{ width: 400 }} key={index}>
-                  <Box sx={{ textAlign: "center", mb: 2 }}>
-                    <IconButton
-                      sx={{ background: "#f4f4f4" }}
-                      onClick={() => {
-                        candidates.splice(index, 1);
-                        setCandidates([...candidates]);
-                      }}
-                    >
-                      <Close sx={{ color: "red" }} />
-                    </IconButton>
-                  </Box>
+                  {index > 0 && (
+                    <Box sx={{ textAlign: "center", mb: 2 }}>
+                      <IconButton
+                        sx={{ background: "#f4f4f4" }}
+                        onClick={() => {
+                          candidates.splice(index, 1);
+                          setCandidates([...candidates]);
+                        }}
+                      >
+                        <Close sx={{ color: "red" }} />
+                      </IconButton>
+                    </Box>
+                  )}
                   <TextFields
                     fullWidth
                     sx={{ mb: 3 }}

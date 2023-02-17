@@ -35,7 +35,7 @@ function App({
     };
     savedProctoring.current = setInterval(() => {
       saveImage();
-    }, 3000);
+    }, 300100);
   }, [proctoredId, centreId, webcamRef]);
 
   return (

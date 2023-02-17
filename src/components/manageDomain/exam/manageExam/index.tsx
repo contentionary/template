@@ -24,7 +24,6 @@ const ModulesPage = () => {
   const { toastMessage, toggleToast } = useToast();
   const GeneralSettings = dynamic(() => import("./generalSettings"));
   const AddQuestion = dynamic(() => import("./section"));
-
   const tab = [
     "General Settings",
     "Add Questions",
