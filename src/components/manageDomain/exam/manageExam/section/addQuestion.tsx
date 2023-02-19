@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { String } from "aws-sdk/clients/cloudsearchdomain";
 import { useToast } from "@src/utils/hooks";
 import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
+import ExamQuestionBreadcrumbs from "./Breadcrumbs";
 
 const AddQuestion = (): JSX.Element => {
   const router = useRouter();
@@ -109,12 +110,7 @@ const AddQuestion = (): JSX.Element => {
         <div>loading</div>
       ) : (
         <>
-          <ButtonComponent sx={{ mt: 3 }} onClick={() => router.back()}>
-            <>
-              <ArrowBackIosNewOutlined />
-              back
-            </>
-          </ButtonComponent>
+          <ExamQuestionBreadcrumbs />
           <Typography variant="h5" textAlign="center" mt={3}>
             Add questions to exam section
           </Typography>

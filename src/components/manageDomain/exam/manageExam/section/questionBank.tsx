@@ -1,6 +1,5 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import Grid from "@mui/material/Grid";
 import { queryClient } from "@src/utils";
@@ -8,7 +7,7 @@ import dynamic from "next/dynamic";
 import { BasePageProps, QuestionBankInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import QuestionBankCard from "@src/components/manageDomain/questionBank/card";
-import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
+import ExamQuestionBreadcrumbs from "./Breadcrumbs";
 
 const ExamQuestionBank = (): JSX.Element => {
   const router = useRouter();
@@ -25,18 +24,11 @@ const ExamQuestionBank = (): JSX.Element => {
       query: { ...router.query, pageId: value },
     });
   };
-  const folderLink = sectionId
-    ? `/admin/exam/${examId}/question-bank/?sectionId=${sectionId}`
-    : `/admin/exam/${examId}/question-bank`;
+  const folderLink = `/admin/exam/${examId}/question-bank?folderId=`;
 
   return (
     <>
-      <Button sx={{ mt: 3 }} onClick={() => router.back()}>
-        <>
-          <ArrowBackIosNewOutlined />
-          back
-        </>
-      </Button>
+      <ExamQuestionBreadcrumbs text={true} />
       {questionBanks?.length ? (
         <>
           <Typography variant="h5" mt={2} mb={4} textAlign="center">
@@ -54,7 +46,9 @@ const ExamQuestionBank = (): JSX.Element => {
                   {...questionBank}
                   link={
                     questionBank.type === "FOLDER"
-                      ? `${folderLink}&folderId=${questionBank.id}`
+                      ? sectionId
+                        ? `${folderLink}${questionBank.id}&sectionId=${sectionId}`
+                        : `${folderLink}${questionBank.id}`
                       : sectionId
                       ? `/admin/exam/${examId}/question-bank/${questionBank.id}/addQuestions?sectionId=${sectionId}`
                       : `/admin/exam/${examId}/question-bank/${questionBank.id}/addQuestions`

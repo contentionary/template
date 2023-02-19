@@ -37,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: "/my-exam-results?limit=10000",
       token,
     });
-
     return {
       props: {
         pageData: { resultList: results },
