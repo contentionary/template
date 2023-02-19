@@ -50,7 +50,7 @@ export default function CustomizedSteppers() {
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const [currencies, setCurrencies] = React.useState<Array<CurrencyType>>([]);
-  const [currency, setCurrency] = React.useState("");
+  const [currency, setCurrency] = React.useState("NGN");
   const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -84,13 +84,14 @@ export default function CustomizedSteppers() {
   async function getTransactions(
     type: string,
     pageId: number,
-    currency?: "NGN" | string
+    currencyValue?: string
   ) {
     try {
+      let newCurrency = currencyValue ? currencyValue : currency;
       setTransactionType(type);
       if (type === "all") {
         const { data } = await request.get({
-          url: `/wallet/transaction-history?pageId=${pageId}&currency=${currency}`,
+          url: `/wallet/transaction-history?pageId=${pageId}&currency=${newCurrency}`,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
@@ -268,14 +269,14 @@ export default function CustomizedSteppers() {
             >
               <Stack direction="row" spacing={1}>
                 <FormControl variant="outlined" sx={{ minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-standard-label">
+                  {/* <InputLabel id="demo-simple-select-standard-label">
                     Filter
-                  </InputLabel>
+                  </InputLabel> */}
 
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                    label="Filter"
+                    // label="Filter"
                     value={currency}
                     onChange={handleCurrencyChange}
                     size="small"
