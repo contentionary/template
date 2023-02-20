@@ -173,9 +173,7 @@ export default function CustomizedSteppers() {
                   sx={{ cursor: "pointer" }}
                   onClick={() => {
                     copy(
-                      cachedData?.centre?.id
-                        ? cachedData.centre.id
-                        : cachedData.user.id
+                      centreWallet ? cachedData.centre.id : cachedData.user.id
                     );
                     toggleToast("copied!");
                   }}
