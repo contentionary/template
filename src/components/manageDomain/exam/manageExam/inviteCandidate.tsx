@@ -26,11 +26,7 @@ const InviteCandidate = ({
   const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [convertedFile, setConvertedFile] = useState<any>();
-  //   const [file, setFile] = useState<Record<string, any>>();
   const [candidates, setCandidates] = useState([{ name: "", email: "" }]);
-  //   const getFile = (e: ChangeEvent<any>) => {
-  //     setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
-  //   };
   async function update() {
     try {
       setIsLoading(true);
@@ -49,6 +45,8 @@ const InviteCandidate = ({
         data: values,
       });
       setCandidates([{ name: "", email: "" }]);
+      const form = document.getElementById("myForm") as Record<string, any>;
+      form.reset();
       toggleToast("Invite sent successfully");
       setIsLoading(false);
     } catch (error) {
@@ -61,7 +59,7 @@ const InviteCandidate = ({
     <>
       <Box mt={6} mb={10} sx={{ display: "flex", justifyContent: "center" }}>
         <Box sx={{ width: { md: 600 } }}>
-          <form onSubmit={(e) => submit(e)}>
+          <form onSubmit={(e) => submit(e)} id="myForm">
             <Typography
               variant="h4"
               component="div"
@@ -123,64 +121,68 @@ const InviteCandidate = ({
               </Typography>
               <Box>
                 <table>
-                  <tr style={{ textAlign: "left" }}>
-                    <th
-                      style={{
-                        borderBottom: "0.5px solid #C4C4C4",
-                        borderRight: "0.5px solid #C4C4C4",
-                        width: 100,
-                        paddingBottom: 10,
-                      }}
-                    >
-                      name
-                    </th>
-                    <th
-                      style={{
-                        borderBottom: "0.5px solid #C4C4C4",
-                        paddingLeft: 10,
-                      }}
-                    >
-                      email
-                    </th>
-                  </tr>
-                  <tr>
-                    <td
-                      style={{
-                        borderBottom: "0.5px solid #C4C4C4",
-                        borderRight: "0.5px solid #C4C4C4",
-                        padding: "10px 0",
-                      }}
-                    >
-                      Emmanuel
-                    </td>
-                    <td
-                      style={{
-                        borderBottom: "0.5px solid #C4C4C4",
-                        paddingLeft: 10,
-                      }}
-                    >
-                      emmanuel@example.com
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      style={{
-                        borderBottom: "0.5px solid #C4C4C4",
-                        borderRight: "0.5px solid #C4C4C4",
-                        padding: "10px 0",
-                      }}
-                    >
-                      Samantha
-                    </td>
-                    <td
-                      style={{
-                        borderBottom: "0.5px solid #C4C4C4",
-                        paddingLeft: 10,
-                      }}
-                    >
-                      samantha@example.com
-                    </td>
-                  </tr>
+                  <thead>
+                    <tr style={{ textAlign: "left" }}>
+                      <th
+                        style={{
+                          borderBottom: "0.5px solid #C4C4C4",
+                          borderRight: "0.5px solid #C4C4C4",
+                          width: 100,
+                          paddingBottom: 10,
+                        }}
+                      >
+                        name
+                      </th>
+                      <th
+                        style={{
+                          borderBottom: "0.5px solid #C4C4C4",
+                          paddingLeft: 10,
+                        }}
+                      >
+                        email
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: "0.5px solid #C4C4C4",
+                          borderRight: "0.5px solid #C4C4C4",
+                          padding: "10px 0",
+                        }}
+                      >
+                        Emmanuel
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: "0.5px solid #C4C4C4",
+                          paddingLeft: 10,
+                        }}
+                      >
+                        emmanuel@example.com
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style={{
+                          borderBottom: "0.5px solid #C4C4C4",
+                          borderRight: "0.5px solid #C4C4C4",
+                          padding: "10px 0",
+                        }}
+                      >
+                        Samantha
+                      </td>
+                      <td
+                        style={{
+                          borderBottom: "0.5px solid #C4C4C4",
+                          paddingLeft: 10,
+                        }}
+                      >
+                        samantha@example.com
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
                 <Typography sx={{ mt: 4, textAlign: "center" }}>
                   <ButtonComponent
@@ -264,9 +266,7 @@ const InviteCandidate = ({
                 >
                   <>
                     Invite Candidates{" "}
-                    {isLoading && (
-                      <Loading sx={{ ml: 1, color: "#fff" }} size="medium" />
-                    )}
+                    {isLoading && <Loading sx={{ ml: 1, color: "#fff" }} />}
                   </>
                 </ButtonComponent>
               </Typography>

@@ -50,7 +50,7 @@ export default function CustomizedSteppers() {
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const [currencies, setCurrencies] = React.useState<Array<CurrencyType>>([]);
-  const [currency, setCurrency] = React.useState("NGN");
+  const [currency, setCurrency] = React.useState("");
   const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -89,18 +89,21 @@ export default function CustomizedSteppers() {
     try {
       let newCurrency = currencyValue ? currencyValue : currency;
       setTransactionType(type);
+      const url = centreWallet
+        ? `/wallet/centre/${cachedData.centre.id}/transaction-history?pageId=${pageId}`
+        : `/wallet/transaction-history?pageId=${pageId}`;
       if (type === "all") {
         const { data } = await request.get({
-          url: `/wallet/transaction-history?pageId=${pageId}&currency=${newCurrency}`,
+          url,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
       } else {
         setIsLoading(true);
         const { data } = await request.get({
-          url: centreWallet
-            ? `/wallet/centre/${cachedData.centre.id}/transaction-history?type=${type}&pageId=${pageId}&currency=${currency}`
-            : `/wallet/transaction-history?type=${type}&pageId=${pageId}&currency=${currency}`,
+          url: newCurrency
+            ? `${url}&type=${type}&currency=${newCurrency}`
+            : `${url}&type=${type}`,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
@@ -269,14 +272,14 @@ export default function CustomizedSteppers() {
             >
               <Stack direction="row" spacing={1}>
                 <FormControl variant="outlined" sx={{ minWidth: 120 }}>
-                  {/* <InputLabel id="demo-simple-select-standard-label">
+                  <InputLabel id="demo-simple-select-standard-label">
                     Filter
-                  </InputLabel> */}
+                  </InputLabel>
 
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                    // label="Filter"
+                    label="Filter"
                     value={currency}
                     onChange={handleCurrencyChange}
                     size="small"

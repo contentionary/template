@@ -222,6 +222,7 @@ const CreatePublication = () => {
             }}
             required
           />
+          <Typography variant="subtitle1">Google Analytics Code</Typography>
           <TextArea
             placeholder="Google Analytics Code"
             name="googleAnalyticsCode"
