@@ -10,7 +10,7 @@ import { useQuery } from "react-query";
 import { handleError, request } from "@src/utils";
 import dynamic from "next/dynamic";
 import Accordion from "@src/components/shared/accordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionMenu from "./menu";
 import { SectionInt } from "./interface";
 import Delete from "@src/components/shared/delete";
@@ -34,11 +34,13 @@ export default function CustomizedMenus({
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [expanded, setExpanded] = useState(0);
-
   const { isLoading, data, error, refetch } = useQuery(
     ["questions", centreId, examId],
     fetchQuestion
   );
+  useEffect(() => {
+    refetch();
+  }, []);
   if (isLoading) {
     return (
       <Typography
@@ -50,9 +52,7 @@ export default function CustomizedMenus({
           alignItem: "center",
         }}
       >
-        <Typography>
-          <Loading />
-        </Typography>
+        <Loading />
       </Typography>
     );
   } else if (data) {

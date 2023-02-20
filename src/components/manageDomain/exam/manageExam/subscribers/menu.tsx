@@ -24,9 +24,6 @@ export default function SubscriberMenu(props: Props) {
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
           <AddSubscriber {...props} />
-          {/* <ParticipantScript {...props} />
-          <SectionScores {...props} />
-          <ProctoredLog {...props} /> */}
         </div>
       </Menus>
     </>

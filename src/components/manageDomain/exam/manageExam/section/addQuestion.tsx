@@ -14,7 +14,6 @@ import { BasePageProps, QuestionsInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import { String } from "aws-sdk/clients/cloudsearchdomain";
 import { useToast } from "@src/utils/hooks";
-import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ExamQuestionBreadcrumbs from "./Breadcrumbs";
 
 const AddQuestion = (): JSX.Element => {
