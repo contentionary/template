@@ -49,7 +49,7 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
         return img[index].imageUrl;
       } else
         return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${img[index].imageUrl}`;
-    } else return img[index]?.image[1];
+    } else return img[index]?.imageUrl.bobImage;
   }
 
   return (

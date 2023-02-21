@@ -138,10 +138,7 @@ const WalletToWalletTransfer = ({
                       {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
                     </>
                   </ButtonComponent>
-                  <ButtonComponent
-                    onClick={() => setConfirm(false)}
-                    type="submit"
-                  >
+                  <ButtonComponent onClick={() => setConfirm(false)}>
                     Cancel
                   </ButtonComponent>
                 </div>

@@ -13,6 +13,7 @@ import DeleteExam from "./deleteExam";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
 import NextLink from "next/link";
+import InviteCandidate from "./inviteCandidate";
 
 const ModulesPage = () => {
   const router = useRouter();
@@ -23,7 +24,6 @@ const ModulesPage = () => {
   const { toastMessage, toggleToast } = useToast();
   const GeneralSettings = dynamic(() => import("./generalSettings"));
   const AddQuestion = dynamic(() => import("./section"));
-
   const tab = [
     "General Settings",
     "Add Questions",
@@ -31,6 +31,7 @@ const ModulesPage = () => {
     "Preparatory Mode",
     "Exam Result",
     "Subscribers",
+    "Invite Candidates",
     "Delete Exam",
   ];
   const tabPanel = [
@@ -52,6 +53,12 @@ const ModulesPage = () => {
     <Subscribers
       centreId={cachedData.centre.id}
       examId={id as string}
+      toggleToast={toggleToast}
+      key={5}
+    />,
+    <InviteCandidate
+      centreId={cachedData.centre.id}
+      id={id as string}
       toggleToast={toggleToast}
       key={5}
     />,

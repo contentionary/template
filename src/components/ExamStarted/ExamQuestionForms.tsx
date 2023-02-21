@@ -65,7 +65,7 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
       {props?.question?.options?.map((option, index) => (
         <ToggleButton
           key={`objective-option-${option.id}`}
-          value={option?.id}
+          value={option.id as number}
           aria-label={`option ${index + 1}`}
         >
           <Stack direction="row" spacing={2}>

@@ -30,7 +30,7 @@ export default function CircularUnderLoad({
     <CircularProgress
       color={color}
       sx={sx}
-      size={size}
+      size={size || 12}
       variant={variant}
       value={value}
       thickness={thickness}

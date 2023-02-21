@@ -12,4 +12,6 @@ export type ExamAndCoursePages =
   | "ExamCompleted"
   | "ExamInstructions"
   | "Wallet"
-  | "Settings";
+  | "Settings"
+  | "ExamCorrection"
+  | "MyResults";

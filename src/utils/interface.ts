@@ -16,6 +16,7 @@ export interface QuestionBankInt {
   description: string;
   id: string;
   type: string;
+  link?: string;
 }
 
 export interface Solution {
@@ -109,7 +110,7 @@ export interface RequestInt {
 }
 
 export interface PostRequestInt extends RequestInt {
-  data: Record<string, any>;
+  data?: Record<string, any>;
 }
 
 export interface GetRequestInt extends RequestInt {
@@ -274,6 +275,7 @@ export interface ExamInt {
   randomiseQuestion: boolean;
   randomiseOption: boolean;
   allowReview: boolean;
+  hasProctor: boolean;
   maximumAttempt: 2;
   completionMessage: string;
   startDate: Date;
@@ -293,17 +295,19 @@ export interface ExamInt {
   folderContentCount: number;
 }
 
+export interface SectionsInt {
+  id: string;
+  name: string;
+  description: string;
+  questions: Array<QuestionsInt>;
+}
+
 export interface ExamQuestionsInt {
   cache: {
     id: string;
     endAt: Date;
   };
-  sections: Array<{
-    id: string;
-    name: string;
-    description: string;
-    questions: Array<QuestionsInt>;
-  }>;
+  sections: Array<SectionsInt>;
 }
 
 export interface ExamInt {

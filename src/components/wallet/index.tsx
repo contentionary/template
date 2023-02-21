@@ -5,7 +5,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
 import Container from "@mui/material/Container";
-import format from "date-fns/format";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import dynamic from "next/dynamic";
 
@@ -24,7 +27,15 @@ import { useToast } from "@src/utils/hooks";
 
 import ButtonComponent from "@src/components/shared/button";
 import MuiTable from "@src/components/shared/table";
-
+import ExportMenu from "@src/components/shared/export";
+interface CurrencyType {
+  name: string;
+  abbr: string;
+  country: string;
+  flag: string;
+  ios2: string;
+  paymentService: object;
+}
 export default function CustomizedSteppers() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const ConfirmPayment = dynamic(
@@ -38,6 +49,8 @@ export default function CustomizedSteppers() {
 
   const { toastMessage, toggleToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
+  const [currencies, setCurrencies] = React.useState<Array<CurrencyType>>([]);
+  const [currency, setCurrency] = React.useState("");
   const [transactionType, setTransactionType] = React.useState("all");
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -66,24 +79,31 @@ export default function CustomizedSteppers() {
 
   const data = transactions?.map((item, index) => ({
     index: ++index,
-    date: format(new Date(item.createdAt), "dd-MM-yyy"),
     ...item,
   }));
-  async function getTransactions(type: string, pageId: number) {
+  async function getTransactions(
+    type: string,
+    pageId: number,
+    currencyValue?: string
+  ) {
     try {
+      let newCurrency = currencyValue ? currencyValue : currency;
       setTransactionType(type);
+      const url = centreWallet
+        ? `/wallet/centre/${cachedData.centre.id}/transaction-history?pageId=${pageId}`
+        : `/wallet/transaction-history?pageId=${pageId}`;
       if (type === "all") {
         const { data } = await request.get({
-          url: `/wallet/transaction-history?pageId=${pageId}`,
+          url,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
       } else {
         setIsLoading(true);
         const { data } = await request.get({
-          url: centreWallet
-            ? `/wallet/centre/${cachedData.centre.id}/transaction-history?type=${type}&pageId=${pageId}`
-            : `/wallet/transaction-history?type=${type}&pageId=${pageId}`,
+          url: newCurrency
+            ? `${url}&type=${type}&currency=${newCurrency}`
+            : `${url}&type=${type}`,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
@@ -94,9 +114,34 @@ export default function CustomizedSteppers() {
       setIsLoading(false);
     }
   }
+
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     getTransactions(transactionType, value);
   };
+
+  async function getSupportedCurrency() {
+    try {
+      setIsLoading(true);
+      const { data } = await request.get({
+        url: "/wallet/supported-currencies",
+      });
+      setCurrencies([...(data as CurrencyType[])]);
+      setIsLoading(false);
+    } catch (error) {
+      toggleToast(handleError(error).message);
+      setIsLoading(false);
+    }
+  }
+
+  React.useEffect(() => {
+    getSupportedCurrency();
+  }, []);
+
+  const handleCurrencyChange = (event: SelectChangeEvent) => {
+    setCurrency(event.target.value);
+    getTransactions(transactionType, 1, event.target.value);
+  };
+
   return (
     <Box sx={{ pt: 7, pb: 8, px: { md: 6 } }}>
       <Container maxWidth="xl">
@@ -128,9 +173,7 @@ export default function CustomizedSteppers() {
                   sx={{ cursor: "pointer" }}
                   onClick={() => {
                     copy(
-                      cachedData?.centre?.id
-                        ? cachedData.centre.id
-                        : cachedData.user.id
+                      centreWallet ? cachedData.centre.id : cachedData.user.id
                     );
                     toggleToast("copied!");
                   }}
@@ -218,32 +261,70 @@ export default function CustomizedSteppers() {
             <Typography variant="h4" component="p">
               Transactions
             </Typography>
-            <ButtonGroup
-              size="large"
+            <Box
               sx={{
-                background: "#FAEFE8",
-                mt: 2,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              <ButtonComponent
-                variant={transactionType === "all" ? "contained" : "text"}
-                onClick={() => getTransactions("all", 1)}
-              >
-                All Transactions
-              </ButtonComponent>
-              <ButtonComponent
-                variant={transactionType === "CREDIT" ? "contained" : "text"}
-                onClick={() => getTransactions("CREDIT", 1)}
-              >
-                Deposits
-              </ButtonComponent>
-              <ButtonComponent
-                variant={transactionType === "DEBIT" ? "contained" : "text"}
-                onClick={() => getTransactions("DEBIT", 1)}
-              >
-                Withdrawals
-              </ButtonComponent>
-            </ButtonGroup>
+              <Stack direction="row" spacing={1}>
+                <FormControl variant="outlined" sx={{ minWidth: 120 }}>
+                  <InputLabel id="demo-simple-select-standard-label">
+                    Filter
+                  </InputLabel>
+
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    label="Filter"
+                    value={currency}
+                    onChange={handleCurrencyChange}
+                    size="small"
+                  >
+                    {currencies.map((currency) => (
+                      <MenuItem key={currency.name} value={currency.abbr}>
+                        {currency.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <ButtonGroup
+                  size="large"
+                  sx={{
+                    background: "#FAEFE8",
+                    mt: 2,
+                  }}
+                >
+                  <ButtonComponent
+                    variant={transactionType === "all" ? "contained" : "text"}
+                    onClick={() => getTransactions("all", 1)}
+                  >
+                    All Transactions
+                  </ButtonComponent>
+                  <ButtonComponent
+                    variant={
+                      transactionType === "CREDIT" ? "contained" : "text"
+                    }
+                    onClick={() => getTransactions("CREDIT", 1)}
+                  >
+                    Deposits
+                  </ButtonComponent>
+                  <ButtonComponent
+                    variant={transactionType === "DEBIT" ? "contained" : "text"}
+                    onClick={() => getTransactions("DEBIT", 1)}
+                  >
+                    Withdrawals
+                  </ButtonComponent>
+                </ButtonGroup>
+              </Stack>
+              <ExportMenu
+                url={`wallet/user/${
+                  centreWallet ? cachedData.centre.id : cachedData.user.id
+                }/transaction-history`}
+              />
+            </Box>
           </Box>
 
           <Box sx={{ width: { xs: "100%" } }}>

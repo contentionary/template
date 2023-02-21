@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
+import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
 
 export default function CustomizedMenus({
   centreId,
@@ -25,6 +26,12 @@ export default function CustomizedMenus({
       </IconButton>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
+          <Link passHref href={`/admin/publication/${id}/subscribers`}>
+            <MenuItem disableRipple>
+              <PeopleAltOutlined />
+              Subscribers
+            </MenuItem>
+          </Link>
           <Link passHref href={`/library/${slug}/${id}`}>
             <MenuItem disableRipple>
               <Visibility />

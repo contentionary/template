@@ -222,27 +222,17 @@ const CreatePublication = () => {
             }}
             required
           />
-          {/* <TextFields
-            type="color"
-            label="Secondary Color"
-            name="secondaryColor"
-            defaultValue={template.secondaryColor}
-            onChange={getData}
-            sx={{
-              width: "100%",
-              mb: 2,
-            }}
-            required
-          /> */}
-          <TextFields
-            type="text"
-            label="Google Analytics Code"
+          <Typography variant="subtitle1">Google Analytics Code</Typography>
+          <TextArea
+            placeholder="Google Analytics Code"
             name="googleAnalyticsCode"
             defaultValue={template.googleAnalyticsCode}
             onChange={getData}
-            sx={{
+            style={{
               width: "100%",
-              mb: 2,
+              height: 120,
+              borderRadius: 5,
+              padding: 15,
             }}
           />
           <Typography style={{ textAlign: "right" }}>

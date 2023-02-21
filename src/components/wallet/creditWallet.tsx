@@ -87,7 +87,7 @@ const CreditWallet = ({ itemId }: { itemId: string }) => {
                     {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
                   </>
                 </ButtonComponent>
-                <ButtonComponent onClick={() => closeDialog()} type="submit">
+                <ButtonComponent onClick={() => closeDialog()}>
                   Cancel
                 </ButtonComponent>
               </div>

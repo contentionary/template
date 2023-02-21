@@ -1,9 +1,7 @@
 import Menus from "@src/components/shared/menu";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
 import EditIcon from "@mui/icons-material/Edit";
 import Delete from "../delete";
-import AddQuestion from "./addQuestion";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
 import ButtonComponent from "@src/components/shared/button";
@@ -11,11 +9,11 @@ import ButtonComponent from "@src/components/shared/button";
 export default function CustomizedMenus({
   id,
   centreId,
-  refetch,
+  centreSlug,
 }: {
   id: string;
   centreId: string;
-  refetch: Function;
+  centreSlug: string;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   return (
@@ -25,19 +23,16 @@ export default function CustomizedMenus({
       </ButtonComponent>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <Link passHref href={`/admin/question-bank/${id}/update?type=FOLDER`}>
+          <Link
+            passHref
+            href={`/${centreSlug}/admin/question-bank/${id}/update?type=FOLDER`}
+          >
             <MenuItem disableRipple>
               <EditIcon />
               Edit Question Bank
             </MenuItem>
           </Link>
           <Delete id={id} centreId={centreId} />
-          <Divider sx={{ my: 0.5 }} />
-          <AddQuestion
-            questionBankId={id}
-            centreId={centreId}
-            refetch={refetch}
-          />
         </div>
       </Menus>
     </>

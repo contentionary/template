@@ -9,10 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { QuestionInt } from "@src/utils/interface";
 import Accordion from "@src/components/shared/accordion";
 import useStyles from "../../../questionBank/questions/styles";
+import ReactToPrint from "react-to-print";
+import Button from "@mui/material/Button";
 
 const ParticipantScript = ({
   examId,
@@ -29,6 +31,7 @@ const ParticipantScript = ({
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [expanded, setExpanded] = useState(0);
   const [sections, SetSections] = useState([]);
+  const componentRef = useRef(null);
 
   async function getQuestions() {
     try {
@@ -104,7 +107,11 @@ const ParticipantScript = ({
       return (
         <>
           <Typography
-            sx={{ display: "flex", justifyContent: "space-between" }}
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "10px 20px !important",
+            }}
             variant="body1"
             component="div"
             className={`${styles.optionStyle} ${
@@ -115,7 +122,12 @@ const ParticipantScript = ({
             <strong>{answer?.answer === true && "Selected"}</strong>
           </Typography>
           <Typography
-            sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}
+            sx={{
+              mt: 3,
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "10px 20px !important",
+            }}
             variant="body1"
             component="div"
             className={`${styles.optionStyle} ${
@@ -147,10 +159,10 @@ const ParticipantScript = ({
           <Divider sx={{ my: 0.5 }} />
           <Typography variant="h6">Participant Answer</Typography>
           <Typography variant="body1">
-            <strong>Min</strong>: {answer.min}
+            <strong>Min</strong>: {answer?.min}
           </Typography>
           <Typography variant="body1">
-            <strong>Max</strong>:{answer.max}
+            <strong>Max</strong>:{answer?.max}
           </Typography>
         </Stack>
       );
@@ -170,64 +182,83 @@ const ParticipantScript = ({
         closeDialog={closeDialog}
         width="xl"
         content={
-          <div>
-            {sections?.map(
-              ({ questions, name }: { name: string; questions: [] }, index) => (
-                <div key={`${index}-sections`}>
-                  <Accordion
-                    sx={{ mt: 4 }}
-                    onClick={() => setExpanded(index)}
-                    title={
-                      <Typography variant="h5" component="div">
-                        {name}
-                      </Typography>
-                    }
-                    expanded={expanded === index}
-                  >
-                    <Box sx={{ width: "100%" }}>
-                      {questions.map(
-                        (
-                          {
-                            question,
-                            questionId,
-                          }: {
-                            questionId: string;
-                            question: QuestionInt;
-                          },
-                          questionIndex: number
-                        ) => (
-                          <>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                width: "100%",
-                                alignItems: "center",
-                                mb: 5,
-                                mt: 5,
-                              }}
-                              key={`${questionIndex}-question`}
-                            >
-                              <Avatar>{++questionIndex}</Avatar>
-                              <Box sx={{ width: "100%", ml: 2 }}>
-                                <Typography
-                                  variant="h5"
-                                  dangerouslySetInnerHTML={{
-                                    __html: question.question,
-                                  }}
-                                />
-                                {getQuestionTypeData(question, questionId)}
+          <>
+            <div style={{ textAlign: "right" }}>
+              <ReactToPrint
+                trigger={() => (
+                  <Button variant="contained">Print Result</Button>
+                )}
+                content={() => componentRef.current}
+              />
+            </div>
+            <div ref={componentRef} style={{ marginTop: 20 }}>
+              <Typography
+                variant="h4"
+                sx={{ textAlign: "center", textTransform: "uppercase" }}
+              >
+                {result.surname} {result.firstname}
+              </Typography>
+              {sections?.map(
+                (
+                  { questions, name }: { name: string; questions: [] },
+                  index
+                ) => (
+                  <div key={`${index}-sections`}>
+                    <Accordion
+                      sx={{ mt: 4 }}
+                      onClick={() => setExpanded(index)}
+                      title={
+                        <Typography variant="h5" component="div">
+                          {name}
+                        </Typography>
+                      }
+                      expanded={expanded === index}
+                    >
+                      <Box sx={{ width: "100%" }}>
+                        {questions.map(
+                          (
+                            {
+                              question,
+                              questionId,
+                            }: {
+                              questionId: string;
+                              question: QuestionInt;
+                            },
+                            questionIndex: number
+                          ) => (
+                            <>
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  width: "100%",
+                                  alignItems: "center",
+                                  mb: 5,
+                                  mt: 5,
+                                }}
+                                key={`${questionIndex}-question`}
+                              >
+                                <Avatar>{++questionIndex}</Avatar>
+                                <Box sx={{ width: "100%", ml: 2 }}>
+                                  <Typography
+                                    variant="h5"
+                                    dangerouslySetInnerHTML={{
+                                      __html: question.question,
+                                    }}
+                                  />
+                                  {getQuestionTypeData(question, questionId)}
+                                </Box>
                               </Box>
-                            </Box>
-                            <Divider />
-                          </>
-                        )
-                      )}
-                    </Box>
-                  </Accordion>
-                </div>
-              )
-            )}
-          </div>
+                              <Divider />
+                            </>
+                          )
+                        )}
+                      </Box>
+                    </Accordion>
+                  </div>
+                )
+              )}
+            </div>
+          </>
         }
       />
     </>

@@ -11,6 +11,7 @@ import Delete from "../../shared/delete";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useToast } from "@src/utils/hooks";
+import CentreUserMenu from "@src/components/shared/export";
 
 interface SubscriberInt {
   surname: string;
@@ -80,12 +81,13 @@ export default function Subscribers({
           >
             Centre Subscribers
           </Typography>
-          <Typography>
+          <Typography sx={{ display: "flex", justifyContent: "space-between" }}>
             <AddSubscriber
               toggleToast={toggleToast}
               refetch={handleChange}
               centreId={centreId as string}
             />
+            <CentreUserMenu url={`centre/${centreId}/users`} />
           </Typography>
           {result.length ? (
             <Box sx={{ width: { xs: 400, md: "100%" } }}>

@@ -11,9 +11,10 @@ interface Props {
   id?: string | any;
   centreId: string;
   questionBankId: string;
+  refetch: Function;
 }
 
-const DeleteCentre = ({ id, centreId, questionBankId }: Props) => {
+const DeleteCentre = ({ id, centreId, questionBankId, refetch }: Props) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -21,10 +22,12 @@ const DeleteCentre = ({ id, centreId, questionBankId }: Props) => {
   async function deleteCentre() {
     try {
       setIsLoading(true);
-      const data = await request.delete(
-        `/centre/${centreId}/question-bank/${questionBankId}/question/${id}`
-      );
+      const data = await request.post({
+        url: `/centre/${centreId}/question-bank/${questionBankId}/question/${id}`,
+        method: "DELETE",
+      });
       toggleToast(data.message);
+      refetch();
       closeDialog();
       setIsLoading(false);
     } catch (error) {
@@ -44,7 +47,7 @@ const DeleteCentre = ({ id, centreId, questionBankId }: Props) => {
         isOpen={isOpen}
         closeDialog={closeDialog}
         action={deleteCentre}
-        message="This action means this module will no longer exist. Are you sure you want to delete this module?"
+        message="This action means this question will no longer exist. Are you sure you want to delete this question?"
       />
       {toastMessage && (
         <Toast

@@ -6,9 +6,9 @@ import { useQuery } from "react-query";
 
 import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
-import AddSubscriber from "./addSubscriber";
 import dynamic from "next/dynamic";
 import Delete from "@src/components/shared/delete";
+import SubscriberMenu from "./menu";
 
 interface SubscriberInt {
   surname: string;
@@ -67,7 +67,7 @@ export default function Subscribers({
   if (isLoading) {
     return (
       <Typography
-        component="div"
+        // component="div"
         sx={{
           height: 300,
           display: "flex",
@@ -75,40 +75,34 @@ export default function Subscribers({
           alignItem: "center",
         }}
       >
-        <Typography>
-          <Loading />
-        </Typography>
+        <Loading />
       </Typography>
     );
   } else if (data) {
     return (
-      <div>
-        <Stack spacing={4} marginTop={4}>
-          <Typography
-            variant="h5"
-            component="p"
-            sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
-          >
-            Exam Subscribers
-          </Typography>
-          <Typography variant="body1" component="p">
-            Only subscribed users can take your exam. Click any of the buttons
-            to add new subscribers to your exam or assign all the subscribers in
-            a Contact group into this exam.
-          </Typography>
-          <Typography>
-            <AddSubscriber toggleToast={toggleToast} refetch={refetch} />
-          </Typography>
+      <Stack spacing={4} marginTop={4}>
+        <Typography
+          variant="h5"
+          component="p"
+          sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
+        >
+          Exam Subscribers
+        </Typography>
+        <Typography variant="body1" component="p">
+          Only subscribed users can take your exam. Click any of the buttons to
+          add new subscribers to your exam or assign all the subscribers in a
+          Contact group into this exam.
+        </Typography>
+        <SubscriberMenu toggleToast={toggleToast} refetch={refetch} />
 
-          {result.length ? (
-            <Box sx={{ width: { xs: 400, md: "100%" } }}>
-              <MuiTable data={result} columns={columns} bgColor="#F7F7F7" />
-            </Box>
-          ) : (
-            <Empty />
-          )}
-        </Stack>
-      </div>
+        {result.length ? (
+          <Box sx={{ width: { xs: 400, md: "100%" } }}>
+            <MuiTable data={result} columns={columns} bgColor="#F7F7F7" />
+          </Box>
+        ) : (
+          <Empty />
+        )}
+      </Stack>
     );
   } else return <div>{handleError(error).message}</div>;
 }

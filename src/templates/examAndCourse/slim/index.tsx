@@ -13,6 +13,8 @@ import ExamCompleted from "./pages/examCompleted";
 import ExamInstructions from "./pages/examInstructions";
 import Wallet from "./pages/wallet";
 import Settings from "./pages/settings";
+import ExamCorrection from "./pages/examCorrection";
+import MyResults from "./pages/myResults";
 //
 import { ExamAndCoursePages } from "./interface";
 
@@ -31,6 +33,8 @@ const ExamAndCoursePages: Record<ExamAndCoursePages, WrapperFunc> = {
   ExamInstructions,
   Wallet,
   Settings,
+  ExamCorrection,
+  MyResults,
 };
 
 export default ExamAndCoursePages;
