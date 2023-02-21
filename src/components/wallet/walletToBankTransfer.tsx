@@ -102,6 +102,7 @@ const BankTransfer = ({
       const { data } = await request.get({
         url: "/wallet/supported-currencies",
       });
+      data.pop();
       setCurrencies([...(data as CurrencyType[])]);
       setIsLoading(false);
       openDialog();
@@ -244,10 +245,7 @@ const BankTransfer = ({
                       {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
                     </>
                   </ButtonComponent>
-                  <ButtonComponent
-                    onClick={() => setConfirm(false)}
-                    type="submit"
-                  >
+                  <ButtonComponent onClick={() => setConfirm(false)}>
                     Cancel
                   </ButtonComponent>
                 </div>
