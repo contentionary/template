@@ -2,13 +2,14 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Pagination from "@mui/material/Pagination";
 import { useQuery } from "react-query";
 
 import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
-import dynamic from "next/dynamic";
+import AddSubscriber from "./addSubscriber";
+import Empty from "@src/components/shared/state/Empty";
 import Delete from "@src/components/shared/delete";
-import SubscriberMenu from "./menu";
 
 interface SubscriberInt {
   surname: string;
@@ -21,11 +22,12 @@ interface SubscriberInt {
 }
 
 const fetchSections = async ({ queryKey }: { queryKey: Array<any> }) => {
-  const [, centreId, examId] = queryKey;
+  const [, centreId, examId, pageId, setSubscribers] = queryKey;
   const { data } = await request.get({
-    url: `/centre/${centreId}/exam/${examId}/subscribers`,
+    url: `/centre/${centreId}/exam/${examId}/subscribers?pageId=${pageId}`,
   });
-  return data.subscribers;
+  setSubscribers && setSubscribers(data.data.subscribers);
+  return data.data;
 };
 
 export default function Subscribers({
@@ -37,12 +39,11 @@ export default function Subscribers({
   examId: string;
   toggleToast: Function;
 }) {
-  const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Loading = dynamic(() => import("@src/components/shared/loading"));
   const { isLoading, data, error, refetch } = useQuery(
-    ["sections", centreId, examId],
+    ["sections", centreId, examId, 1],
     fetchSections
   );
+  const [subscribers, setSubscribers] = React.useState(data?.subscribers);
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
     { minWidth: 100, name: "Surname", key: "surname" },
@@ -52,8 +53,12 @@ export default function Subscribers({
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 250, name: "Action", key: "action" },
   ];
-
-  const result = data?.map((item: SubscriberInt, index: number) => ({
+  React.useEffect(() => {
+    if (data?.subscribers) {
+      setSubscribers(data?.subscribers);
+    }
+  }, [data]);
+  const result = subscribers?.map((item: SubscriberInt, index: number) => ({
     index: ++index,
     ...item,
     action: (
@@ -65,44 +70,52 @@ export default function Subscribers({
     ),
   }));
   if (isLoading) {
-    return (
-      <Typography
-        // component="div"
-        sx={{
-          height: 300,
-          display: "flex",
-          justifyContent: "center",
-          alignItem: "center",
-        }}
-      >
-        <Loading />
-      </Typography>
-    );
+    return <div>Loading...</div>;
   } else if (data) {
+    const pageCount = data?.pageCount as number;
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+      fetchSections({
+        queryKey: ["sections", centreId, examId, value, setSubscribers],
+      });
+    };
     return (
-      <Stack spacing={4} marginTop={4}>
-        <Typography
-          variant="h5"
-          component="p"
-          sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
-        >
-          Exam Subscribers
-        </Typography>
-        <Typography variant="body1" component="p">
-          Only subscribed users can take your exam. Click any of the buttons to
-          add new subscribers to your exam or assign all the subscribers in a
-          Contact group into this exam.
-        </Typography>
-        <SubscriberMenu toggleToast={toggleToast} refetch={refetch} />
+      <div>
+        <Stack spacing={4} marginTop={4}>
+          <Typography
+            variant="h5"
+            component="p"
+            sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
+          >
+            Exam Subscribers
+          </Typography>
+          <Typography variant="body1" component="p">
+            Only subscribed users can take your exam. Click any of the buttons
+            to add new subscribers to your exam or assign all the subscribers in
+            a Contact group into this exam.
+          </Typography>
+          <Typography>
+            <AddSubscriber toggleToast={toggleToast} refetch={refetch} />
+          </Typography>
 
-        {result.length ? (
-          <Box sx={{ width: { xs: 400, md: "100%" } }}>
-            <MuiTable data={result} columns={columns} bgColor="#F7F7F7" />
-          </Box>
-        ) : (
-          <Empty />
-        )}
-      </Stack>
+          {result?.length ? (
+            <Box sx={{ width: { xs: 400, md: "100%" } }}>
+              <MuiTable data={result} columns={columns} bgColor="#F7F7F7" />
+              <Stack py={4} direction="row" justifyContent="center" spacing={2}>
+                {pageCount > 1 && (
+                  <Pagination
+                    count={pageCount}
+                    onChange={handleChange}
+                    shape="rounded"
+                    size="large"
+                  />
+                )}
+              </Stack>
+            </Box>
+          ) : (
+            <Empty />
+          )}
+        </Stack>
+      </div>
     );
   } else return <div>{handleError(error).message}</div>;
 }

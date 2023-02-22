@@ -39,12 +39,14 @@ const BankTransfer = ({
 }) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
+  const [isGettingAccountName, setIsGettingAccountName] = useState(false);
   const { values, getData, submit } = useForm(Transfer);
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [confirm, setConfirm] = useState(false);
   const [banks, setBanks] = useState<Array<BankType>>([]);
   const [currencies, setCurrencies] = useState<Array<CurrencyType>>([]);
   const [accountName, setAccountName] = useState("");
+  const [message, setMessage] = useState("");
 
   async function Transfer() {
     setConfirm(true);
@@ -52,6 +54,7 @@ const BankTransfer = ({
   async function confirmTransfer() {
     try {
       setIsLoading(true);
+      values.accountName = accountName;
       await request.post({
         url: centreWallet
           ? `/wallet/centre/${centreId}/bank-transfer`
@@ -66,8 +69,10 @@ const BankTransfer = ({
       setIsLoading(false);
     }
   }
-  const getAccountName = async () => {
+  const getAccountName = async (accountName: string) => {
     try {
+      setIsGettingAccountName(true);
+      values.accountNumber = accountName;
       const { data } = await request.post({
         url: "/wallet/verify-bank-account",
         data: {
@@ -76,10 +81,13 @@ const BankTransfer = ({
           currency: values.currency,
         },
       });
-      values.accountName = data.accountName;
+      setMessage("");
       setAccountName(data.accountName);
+      setIsGettingAccountName(false);
     } catch (error) {
-      toggleToast(handleError(error).message);
+      setAccountName("");
+      setMessage(handleError(error).message);
+      setIsGettingAccountName(false);
     }
   };
 
@@ -89,6 +97,7 @@ const BankTransfer = ({
       const { data } = await request.get({
         url: `/transaction/${value}/supported-banks`,
       });
+      data.pop();
       setBanks([...(data as BankType[])]);
       values.currency = value;
       setIsLoading(false);
@@ -196,8 +205,10 @@ const BankTransfer = ({
                   type="number"
                   label="Account number"
                   name="accountNumber"
-                  onChange={getData}
-                  onBlur={() => getAccountName()}
+                  onChange={(e: any) =>
+                    e.target.value.length === 10 &&
+                    getAccountName(e.target.value)
+                  }
                   defaultValue={values.accountNumber}
                   sx={{ width: "100%", marginTop: 3 }}
                   inputProps={{ maxLength: 10 }}
@@ -208,7 +219,9 @@ const BankTransfer = ({
                   component="div"
                   style={{ textAlign: "right", marginTop: 5 }}
                 >
-                  {accountName}
+                  {message && message}
+                  {accountName && accountName}
+                  {isGettingAccountName && <Loading sx={{ ml: 1 }} size={15} />}
                 </Typography>
                 <TextFields
                   type="text"
@@ -219,12 +232,18 @@ const BankTransfer = ({
                   sx={{ width: "100%", marginTop: 3 }}
                 />
                 <div style={{ textAlign: "right" }}>
-                  <ButtonComponent type="submit">
-                    <>
-                      Transfer Fund
-                      {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
-                    </>
-                  </ButtonComponent>
+                  {accountName ? (
+                    <ButtonComponent type="submit">
+                      <>
+                        Transfer
+                        {isLoading && <Loading sx={{ ml: 1 }} size={15} />}
+                      </>
+                    </ButtonComponent>
+                  ) : (
+                    <span style={{ color: "#555555", cursor: "not-allowed" }}>
+                      Transfer
+                    </span>
+                  )}
                   <ButtonComponent onClick={() => closeDialog()} type="submit">
                     Cancel
                   </ButtonComponent>
