@@ -19,12 +19,12 @@ const EmailReset = ({ toggleToast }: { toggleToast: Function }) => {
   async function create() {
     try {
       setIsLoading(true);
-      await request.patch({
+      const { message } = await request.patch({
         url: "/auth/update/email",
         data: values,
       });
       AuthUpdate();
-      toggleToast("Update successfull");
+      toggleToast(message);
 
       resetValues(formEvent);
       setIsLoading(false);

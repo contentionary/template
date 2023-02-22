@@ -9,17 +9,12 @@ import MenuItem from "@mui/material/MenuItem";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
-import {
-  AuthUpdate,
-  cache,
-  handleError,
-  request,
-  uploadFiles,
-} from "@src/utils";
+import { cache, handleError, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import { UserInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { setAuth } from "@src/utils/auth";
 
 const Bios = ({
   toggleToast,
@@ -53,16 +48,29 @@ const Bios = ({
       }
       if (folderId) values.folderId = folderId;
       convertedImage && (values.avatar = convertedImage);
-      await request.post({
+      const { data } = await request.post({
         url: "/auth/update",
         data: values,
         method: "PATCH",
       });
-      AuthUpdate();
+      cache.set(
+        "user",
+        {
+          id: data.id,
+          firstname: data.firstname,
+          avatar: data.avatar,
+          status: data.status,
+          surname: data.surname,
+          subscribedPublications: data.subscribedPublications,
+          isAdmin: data.isAdmin,
+          gender: data.gender,
+        },
+        true
+      );
+
+      cache.set("token", data.token, true);
+      // setAuth(data as UserInt);
       toggleToast("Update successfull");
-      router.replace({
-        query: { ...router.query },
-      });
       setIsLoading(false);
     } catch (error) {
       toggleToast(handleError(error).message);

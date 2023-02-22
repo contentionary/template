@@ -60,9 +60,9 @@ const ModulesPage = () => {
       centreId={cachedData.centre.id}
       id={id as string}
       toggleToast={toggleToast}
-      key={5}
+      key={6}
     />,
-    <DeleteExam toggleToast={toggleToast} key={6} />,
+    <DeleteExam toggleToast={toggleToast} key={7} />,
   ];
   return (
     <Box sx={{ mt: 4 }}>
