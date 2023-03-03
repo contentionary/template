@@ -1,6 +1,4 @@
 import Box from "@mui/material/Box";
-import "video.js/dist/video-js.css";
-import "@videojs/themes/dist/city/index.css";
 
 interface IVideoPlayerProps {
   src: string;

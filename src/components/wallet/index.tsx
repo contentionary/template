@@ -207,6 +207,7 @@ export default function CustomizedSteppers() {
                 }}
               >
                 <CreditWallet
+                  toggleToast={toggleToast}
                   itemId={
                     centreWallet ? cachedData.centre.id : cachedData.user.id
                   }

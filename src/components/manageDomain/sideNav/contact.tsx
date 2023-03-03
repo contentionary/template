@@ -48,7 +48,7 @@ const CentreContact = ({ centre, isOpen, closeDialog }: Props): JSX.Element => {
         title={`${centre?.name} contact details`}
         isOpen={isOpen}
         closeDialog={closeDialog}
-        message="Reach us via the dtails below."
+        message="Reach us via the details below."
         width="md"
         content={
           <Grid container spacing={5} marginTop={3}>

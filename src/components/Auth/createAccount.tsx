@@ -15,6 +15,7 @@ import ButtonComponent from "@src/components/shared/button";
 import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
 import useStyles from "./styles";
+import NextLink from "@src/components/shared/link/btnLink";
 import { handleError, request, queryClient } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
@@ -24,25 +25,28 @@ import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 import { useDialog } from "@src/hooks";
 import Dialog from "@src/components/shared/dialog";
+import PhoneInput from "react-phone-input-2";
 
 const CreateAccount = (): JSX.Element => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const [showPassword, setShowPassword] = useState("");
-  const { isOpen, closeDialog, openDialog } = useDialog();
   const { getData, values, resetValues, submit } = useForm(createAccount);
   const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, closeDialog, openDialog } = useDialog();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { toastMessage, toggleToast } = useToast();
+  const [value, setValue] = useState("");
   const styles = useStyles();
   const router = useRouter();
+  const { redirect } = router.query;
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   async function createAccount() {
     try {
-      setIsLoading(true);
-
       if (values.password !== values.confirmPassword) {
         throw "password mis-matched";
       }
+      values.phoneNumber = value;
       await request.post({
         url: `/auth/register?centreId=${cachedData.centre.id}`,
         data: values,
@@ -58,26 +62,20 @@ const CreateAccount = (): JSX.Element => {
 
   return (
     <Container>
-      <Grid container>
+      <Grid container sx={{ height: "100vh" }}>
         <Hidden smDown={true}>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{ position: "relative", height: "100vh" }}
-          >
-            <Link href="/">
-              <Image
-                src="/images/auth/createAccount.svg"
-                alt="contentionary create account"
-                width="100%"
-                height="100%"
-                objectFit="cover"
-                layout="fill"
-              />
-            </Link>
+          <Grid item xs={12} md={6} sx={{ position: "relative" }}>
+            <Image
+              src="/images/auth/createAccount.svg"
+              alt="Edtify create account"
+              width="100%"
+              height="100%"
+              objectFit="cover"
+              layout="fill"
+            />
           </Grid>
         </Hidden>
+
         <Grid
           item
           xs={12}
@@ -86,28 +84,29 @@ const CreateAccount = (): JSX.Element => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            paddingLeft: { md: 3, xs: 0 },
           }}
         >
           <Stack
             spacing={{ xs: 2 }}
             sx={{
-              width: { lg: "85%", xs: "90%" },
               marginTop: { xs: 7, md: 0 },
             }}
           >
-            <Box sx={{ marginTop: 2 }}>
-              <Image
-                src={cachedData.centre.logo || "/images/logo.svg"}
-                alt="contentionary create account"
-                width={80}
-                height={80}
-                objectFit="contain"
-                style={{ cursor: "pointer" }}
-                onClick={() => router.push("/")}
-              />
+            <Box sx={{ marginY: 3 }}>
+              <Link href="/">
+                <a>
+                  <Image
+                    src="/images/logo.png"
+                    alt="Edtify create account"
+                    width={180}
+                    height={55}
+                  />
+                </a>
+              </Link>
             </Box>
             <Typography
-              variant="h5"
+              variant="h1"
               component="p"
               className={styles.registerWithUs}
             >
@@ -146,18 +145,40 @@ const CreateAccount = (): JSX.Element => {
                   helperTextClass={styles.helperTextClass}
                   required={true}
                 />
-                <TextFields
-                  type="number"
-                  label="Phone Number *"
-                  name="phoneNumber"
-                  onChange={getData}
-                  dummyText="09032415246"
-                  helperTextClass={styles.helperTextClass}
-                  required={true}
+                <label className={styles.helperTextClass}>Phone number *</label>
+                <PhoneInput
+                  country="ng"
+                  enableSearch={true}
+                  value={value}
+                  onChange={(e: string) => setValue(e)}
+                  inputStyle={{
+                    marginLeft: "7%",
+                    padding: 28,
+                    color: "#888888",
+                    width: "93%",
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                  }}
+                  inputProps={{
+                    name: "phoneNumber",
+                    required: true,
+                  }}
+                  dropdownStyle={{
+                    borderBottomRightRadius: 5,
+                    borderBottomLeftRadius: 5,
+                    color: "#616161",
+                  }}
+                  containerStyle={{ marginTop: 0 }}
+                  buttonStyle={{
+                    borderTopLeftRadius: 5,
+                    borderBottomLeftRadius: 5,
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  }}
                 />
                 <Stack direction="row" spacing={1}>
                   <TextFields
-                    type={showPassword === "Password" ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
                     label="Password *"
                     name="password"
                     onChange={getData}
@@ -167,31 +188,23 @@ const CreateAccount = (): JSX.Element => {
                     required={true}
                     endAdornment={
                       <InputAdornment position="end">
-                        {showPassword === "Password" ? (
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword("")}
-                            edge="end"
-                          >
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
                             <VisibilityOff />
-                          </IconButton>
-                        ) : (
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword("Password")}
-                            edge="end"
-                          >
+                          ) : (
                             <Visibility />
-                          </IconButton>
-                        )}
+                          )}
+                        </IconButton>
                       </InputAdornment>
                     }
                   />
                   <TextFields
-                    type={
-                      showPassword === "confirmPassword" ? "text" : "password"
-                    }
-                    label="Confirm Password *"
+                    type={showConfirmPassword ? "text" : "password"}
+                    label="Confirm Password*"
                     name="confirmPassword"
                     onChange={getData}
                     dummyText="Jason"
@@ -200,23 +213,19 @@ const CreateAccount = (): JSX.Element => {
                     required={true}
                     endAdornment={
                       <InputAdornment position="end">
-                        {showPassword === "confirmPassword" ? (
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword("")}
-                            edge="end"
-                          >
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                          edge="end"
+                        >
+                          {values.showConfirmPassword ? (
                             <VisibilityOff />
-                          </IconButton>
-                        ) : (
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={() => setShowPassword("confirmPassword")}
-                            edge="end"
-                          >
+                          ) : (
                             <Visibility />
-                          </IconButton>
-                        )}
+                          )}
+                        </IconButton>
                       </InputAdornment>
                     }
                   />
@@ -225,9 +234,8 @@ const CreateAccount = (): JSX.Element => {
                 <Box>
                   <ButtonComponent
                     type="submit"
-                    color="primary"
-                    disableElevation
                     variant="contained"
+                    color="primary"
                     className={styles.btn}
                   >
                     <span>
@@ -246,24 +254,25 @@ const CreateAccount = (): JSX.Element => {
                   component="p"
                   className={styles.loginInstead}
                 >
-                  Already have an account?{" "}
-                  <b
-                    style={{ color: "#333333", cursor: "pointer" }}
-                    onClick={() => router.push("/login")}
+                  Already have an account?
+                  <NextLink
+                    href={redirect ? `/login?redirect=${redirect}` : "/login"}
+                    sx={{ color: "#333333", fontSize: 18 }}
                   >
                     Login
-                  </b>
+                  </NextLink>
                 </Typography>
               </Stack>
             </form>
           </Stack>
         </Grid>
       </Grid>
-      {toastMessage && (
+
+      {Boolean(toastMessage) && (
         <Toast
-          status={Boolean(toastMessage)}
           message={toastMessage}
           showToast={toggleToast}
+          status={Boolean(toastMessage)}
         />
       )}
       <Dialog
@@ -272,7 +281,11 @@ const CreateAccount = (): JSX.Element => {
         closeDialog={closeDialog}
         message="Account created successfully! Don't forget to verify your account via your email to get the best of the system."
         btns={[
-          { text: "Procced to login", action: () => router.push("/login") },
+          {
+            text: "Procced to login",
+            action: () =>
+              router.push(redirect ? `/${redirect}` : "/dashboard/learner"),
+          },
           { text: "Cancel", action: closeDialog },
         ]}
       />

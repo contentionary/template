@@ -14,15 +14,8 @@ import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
 import { TextField } from "@mui/material";
+import { CurrencyType } from "./interface";
 
-interface CurrencyType {
-  name: string;
-  abbr: string;
-  country: string;
-  flag: string;
-  ios2: string;
-  paymentService: object;
-}
 interface BankType {
   name: string;
   bankCode: string | null;

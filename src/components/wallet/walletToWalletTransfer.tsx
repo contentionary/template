@@ -1,6 +1,8 @@
 import MoveUpOutlinedIcon from "@mui/icons-material/MoveUpOutlined";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 import dynamic from "next/dynamic";
 
@@ -12,7 +14,7 @@ import TextFields from "@src/components/shared/input/textField";
 import { useDialog } from "@src/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
-import { MenuItem, Select } from "@mui/material";
+import { CurrencyType } from "./interface";
 
 const WalletToWalletTransfer = ({
   toggleToast,
@@ -26,11 +28,22 @@ const WalletToWalletTransfer = ({
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(Transfer);
+  const [currencies, setCurrencies] = useState<Array<CurrencyType>>([]);
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [confirm, setConfirm] = useState(false);
+  const [receiverName, setReceiverName] = useState("");
 
   async function Transfer() {
-    setConfirm(true);
+    try {
+      const { data } = await request.get({
+        url: `/auth/${values.receiverUserId}/view`,
+      });
+      setReceiverName(`${data.firstname} ${data.surname}`);
+      console.log(data);
+      setConfirm(true);
+    } catch (error) {
+      toggleToast(handleError(error).message);
+    }
   }
   async function confirmTransfer() {
     try {
@@ -49,7 +62,20 @@ const WalletToWalletTransfer = ({
       setIsLoading(false);
     }
   }
-
+  async function getSupportedCurrency() {
+    try {
+      setIsLoading(true);
+      const { data } = await request.get({
+        url: "/wallet/supported-currencies",
+      });
+      setCurrencies([...(data as CurrencyType[])]);
+      setIsLoading(false);
+      openDialog();
+    } catch (error) {
+      toggleToast(handleError(error).message);
+      setIsLoading(false);
+    }
+  }
   return (
     <>
       <ButtonComponent
@@ -61,7 +87,7 @@ const WalletToWalletTransfer = ({
           mb: { xs: 3, md: 0 },
         }}
         onClick={() => {
-          openDialog();
+          getSupportedCurrency();
         }}
       >
         <>
@@ -114,8 +140,11 @@ const WalletToWalletTransfer = ({
                   required
                 >
                   <MenuItem value="none">Select currency</MenuItem>
-                  <MenuItem value="USD">Dollar</MenuItem>
-                  <MenuItem value="NGN"> Naira</MenuItem>
+                  {currencies.map(({ abbr, name }, index) => (
+                    <MenuItem key={index} value={abbr}>
+                      {name}
+                    </MenuItem>
+                  ))}
                 </Select>
                 <div style={{ textAlign: "right", marginTop: 20 }}>
                   <ButtonComponent type="submit">Transfer Fund</ButtonComponent>
@@ -127,8 +156,9 @@ const WalletToWalletTransfer = ({
             ) : (
               <Box>
                 <Typography>
-                  You are sending <strong>{values.amount}</strong> to{" "}
-                  <strong>{values.receiverUserId}</strong> wallet
+                  You are sending <strong>{values.amount}</strong> to &nbsp;
+                  <strong>{values.receiverUserId}</strong> with the name &nbsp;
+                  {receiverName} wallet
                 </Typography>
 
                 <div style={{ textAlign: "right", marginTop: 20 }}>

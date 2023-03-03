@@ -1,5 +1,7 @@
 // React component
 import { useEffect, useState, useRef } from "react";
+
+import "react-phone-input-2/lib/style.css";
 // next components
 import type { AppProps } from "next/app";
 import Router, { useRouter } from "next/router";

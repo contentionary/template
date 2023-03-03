@@ -43,7 +43,6 @@ const PublicationCard = ({
               width={106}
             />
           </Box>
-
           <Box paddingLeft={1}>
             <Typography
               className={styles.pluginName}
