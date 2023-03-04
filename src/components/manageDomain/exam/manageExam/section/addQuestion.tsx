@@ -168,6 +168,7 @@ const AddQuestion = (): JSX.Element => {
                         onChange={() => handleCheck(id)}
                       />
                       <input
+                        type="number"
                         onBlur={(e: ChangeEvent<any>) => {
                           selectedQuestions.map((item) =>
                             item.questionId === id

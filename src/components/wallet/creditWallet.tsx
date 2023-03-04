@@ -1,12 +1,14 @@
 import AddCardIcon from "@mui/icons-material/AddCard";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
 import { useState } from "react";
-import { isServerSide } from "@src/utils";
+import { handleError, isServerSide, request } from "@src/utils";
 import { useDialog } from "@src/hooks";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
@@ -14,12 +16,20 @@ import { v4 as uuid } from "uuid";
 import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
 import useForm from "@src/hooks/useForm";
+import { CurrencyType } from "./interface";
 
-const CreditWallet = ({ itemId }: { itemId: string }) => {
+const CreditWallet = ({
+  itemId,
+  toggleToast,
+}: {
+  itemId: string;
+  toggleToast: Function;
+}) => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const [isLoading, setIsLoading] = useState(false);
   const { values, getData, submit } = useForm(CreditWallet);
   const { isOpen, openDialog, closeDialog } = useDialog();
+  const [currencies, setCurrencies] = useState<Array<CurrencyType>>([]);
   const router = useRouter();
 
   async function CreditWallet() {
@@ -37,7 +47,20 @@ const CreditWallet = ({ itemId }: { itemId: string }) => {
       },
     });
   }
-
+  async function getSupportedCurrency() {
+    try {
+      setIsLoading(true);
+      const { data } = await request.get({
+        url: "/wallet/supported-currencies",
+      });
+      setCurrencies([...(data as CurrencyType[])]);
+      setIsLoading(false);
+      openDialog();
+    } catch (error) {
+      toggleToast(handleError(error).message);
+      setIsLoading(false);
+    }
+  }
   return (
     <>
       <ButtonComponent
@@ -49,7 +72,7 @@ const CreditWallet = ({ itemId }: { itemId: string }) => {
           mb: { xs: 3, md: 0 },
         }}
         onClick={() => {
-          openDialog();
+          getSupportedCurrency();
         }}
       >
         <>
@@ -71,6 +94,20 @@ const CreditWallet = ({ itemId }: { itemId: string }) => {
         content={
           <Box>
             <form onSubmit={(e) => submit(e)}>
+              <Select
+                name="currency"
+                value={values.currency || "none"}
+                onChange={(e) => getData(e)}
+                sx={{ width: "100%", mt: 3 }}
+                required
+              >
+                <MenuItem value="none">Select currency</MenuItem>
+                {currencies.map(({ abbr, name }, index) => (
+                  <MenuItem key={index} value={abbr}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
               <TextFields
                 type="number"
                 label="Amount"
@@ -79,7 +116,6 @@ const CreditWallet = ({ itemId }: { itemId: string }) => {
                 sx={{ width: "100%", marginTop: 3 }}
                 required
               />
-
               <div style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit">
                   <>

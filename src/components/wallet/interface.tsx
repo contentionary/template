@@ -7,3 +7,12 @@ export interface TransactionHistory {
   narration: string;
   type: "CREDIT" | "DEBIT" | "all";
 }
+
+export interface CurrencyType {
+  name: string;
+  abbr: string;
+  country: string;
+  flag: string;
+  ios2: string;
+  paymentService: object;
+}

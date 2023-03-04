@@ -70,7 +70,7 @@ const ModulesPage = () => {
         style={{ textDecoration: "none", color: "#dbdbdb" }}
         href={`/exams/${pageData.exam.slug}`}
       >
-        <Button sx={{ fontSize: 17 }}>Vew Exam</Button>
+        <Button sx={{ fontSize: 17 }}>View Exam</Button>
       </NextLink>
       <Tabs
         tab={tab}

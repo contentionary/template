@@ -41,7 +41,7 @@ export default function CustomizedMenus({
           >
             <MenuItem disableRipple>
               <AddCircleOutline />
-              Create Folder
+              Create folder
             </MenuItem>
           </Link>
           <Link
