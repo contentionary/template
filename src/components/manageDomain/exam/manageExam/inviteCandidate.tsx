@@ -185,14 +185,19 @@ const InviteCandidate = ({
                   </tbody>
                 </table>
                 <Typography sx={{ mt: 4, textAlign: "center" }}>
-                  <ButtonComponent
-                    variant="contained"
-                    disableElevation
-                    size="large"
-                    type="submit"
+                  <a
+                    style={{ textDecoration: "none" }}
+                    href="https://edtify-prod.s3.eu-west-1.wasabisys.com/s3-2023/1/21/25b74c80-b426-11ed-9f6c-c1e74a68a2ed.csv"
+                    download
                   >
-                    Export Invitation Template
-                  </ButtonComponent>
+                    <ButtonComponent
+                      variant="contained"
+                      disableElevation
+                      size="large"
+                    >
+                      Export Invitation Template
+                    </ButtonComponent>
+                  </a>
                 </Typography>
               </Box>
             </Box>

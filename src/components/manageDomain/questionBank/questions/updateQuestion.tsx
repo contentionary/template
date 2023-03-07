@@ -52,22 +52,21 @@ const UpdateQuestion = (): JSX.Element => {
   const [options, setOptions] = useState<QuestionOptionInt[]>(
     question?.question?.options
   );
-
   useEffect(() => {
     setDefault({ ...question.question });
   }, [question]);
 
   async function getImage() {
     let resolvedOption = [];
-
     for (let option of options) {
-      if ("image" in option && option.image.length) {
+      if ("image" in option && typeof option.image != "string") {
         option.image = await uploadFiles(option.image[0], setProgress);
+      } else if (option.image.includes(".com/")) {
+        option.image = option.image.split(".com/")[1];
       }
       delete option.id;
       resolvedOption.push(option);
     }
-
     return resolvedOption;
   }
   async function create() {
@@ -76,10 +75,6 @@ const UpdateQuestion = (): JSX.Element => {
       let questions: any = {
         question: { question: values.question, type: values.type },
       };
-      if (values.type === "objective" || values.type === "multichoice") {
-        questions.question.options = await getImage();
-      }
-
       if (img.rawImg && !convertedImage) {
         const imageUrl = await uploadFiles(img.rawImg, setProgress);
         questions.question.image = imageUrl;
@@ -95,7 +90,17 @@ const UpdateQuestion = (): JSX.Element => {
         questions.question.max = values.max;
         questions.question.min = values.min;
       }
-      if (solution) questions.solution.text = values.solution;
+      if (solution) {
+        questions.solution.text = values.solution;
+        if (convertedSolutionImage) {
+          questions.solution.imageUrl = convertedSolutionImage;
+        }
+      }
+      if (convertedImage) questions.question.image = convertedImage;
+
+      if (values.type === "objective" || values.type === "multichoice") {
+        questions.question.options = await getImage();
+      }
       await request.post({
         url: `/centre/${cachedData.centre.id}/question-bank/${questionBankId}/question/${question?.id}`,
         data: questions,
@@ -213,7 +218,7 @@ const UpdateQuestion = (): JSX.Element => {
                           setOptions([...options]);
                         }}
                       />
-                      <Box sx={{ display: "flex" }}>
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
                         <Box sx={{ width: "100%" }}>
                           <Editor
                             data={option.value}
@@ -231,15 +236,17 @@ const UpdateQuestion = (): JSX.Element => {
                             />
                           </Box>
                         </Box>
-                        <IconButton
-                          sx={{ marginLeft: 3 }}
-                          onClick={() => {
-                            options.splice(index, 1);
-                            setOptions([...options]);
-                          }}
-                        >
-                          <CloseOutlined htmlColor="red" />
-                        </IconButton>
+                        <div>
+                          <IconButton
+                            sx={{ marginLeft: 3 }}
+                            onClick={() => {
+                              options.splice(index, 1);
+                              setOptions([...options]);
+                            }}
+                          >
+                            <CloseOutlined htmlColor="red" />
+                          </IconButton>
+                        </div>
                       </Box>
                     </Box>
                   </Box>

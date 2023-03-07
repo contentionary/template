@@ -11,8 +11,6 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
-// app components
-import ImageComponent from "@src/components/shared/image";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -151,14 +149,14 @@ const HeroSection: PublicationsFunc = () => {
                     borderRadius: "1.5rem !important",
                   }}
                 >
-                  <ImageComponent
+                  {/* <ImageComponent
                     priority
                     layout="fill"
                     alt="yes we can"
                     objectFit="cover"
                     objectPosition="center"
                     src={landingPageSectionOne.imageUrl}
-                  />
+                  /> */}
                 </Box>
               </Box>
             </Grid>

@@ -39,7 +39,6 @@ const WalletToWalletTransfer = ({
         url: `/auth/${values.receiverUserId}/view`,
       });
       setReceiverName(`${data.firstname} ${data.surname}`);
-      console.log(data);
       setConfirm(true);
     } catch (error) {
       toggleToast(handleError(error).message);

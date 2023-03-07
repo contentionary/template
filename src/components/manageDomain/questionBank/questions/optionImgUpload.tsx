@@ -5,6 +5,7 @@ import TextFields from "@src/components/shared/input/textField";
 import Image from "@src/components/shared/image";
 import { optionInt } from "./interface";
 import { ChangeEvent } from "react";
+import config from "@src/utils/config";
 
 interface Props {
   options: Array<optionInt>;
@@ -33,8 +34,7 @@ const UpdateBackground = ({
     if (typeof options[index].image === "string") {
       if (options[index].image.includes("http")) {
         return options[index].image;
-      } else
-        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${options[index].image}`;
+      } else return `${config.URL.IMAGE_BASE_URL}/${options[index].image}`;
     } else return options[index]?.image[1];
   }
 
