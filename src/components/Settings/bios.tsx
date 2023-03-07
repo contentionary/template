@@ -14,7 +14,6 @@ import ButtonComponent from "@src/components/shared/button";
 import { UserInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import { setAuth } from "@src/utils/auth";
 
 const Bios = ({
   toggleToast,

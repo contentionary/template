@@ -32,7 +32,7 @@ export default function CustomizedMenus({
           >
             <MenuItem disableRipple>
               <EditIcon />
-              Edit Question Bank
+              Edit Question
             </MenuItem>
           </Link>
           <Delete
