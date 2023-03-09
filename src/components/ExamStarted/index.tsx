@@ -100,7 +100,12 @@ const StartExam: ExamFunc = (props) => {
     async () => {
       return await request.post({
         url: `/centre/${props.centerId}/exam/${props.exam.id}/answer`,
-        data: { duration: exam.duration, answers: answers },
+        data: {
+          duration: !timer
+            ? exam.duration * 60
+            : exam.duration * 60 - timer / 1000,
+          answers: answers,
+        },
       });
     },
     {
