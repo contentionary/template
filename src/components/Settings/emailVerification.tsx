@@ -2,7 +2,6 @@ import React, { FormEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import { useState } from "react";
 import { handleError, request } from "@src/utils";
@@ -12,11 +11,13 @@ import dynamic from "next/dynamic";
 const EmailVerification = ({
   toggleToast,
   centreId,
+  email,
 }: {
   toggleToast: Function;
   centreId: string;
+  email: string;
 }) => {
-  const { getData, values, submit, resetValues } = useForm(create);
+  const { submit, resetValues } = useForm(create);
   const [isLoading, setIsLoading] = useState(false);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
@@ -27,7 +28,7 @@ const EmailVerification = ({
       setIsLoading(true);
       const { message } = await request.post({
         url: `/auth/verification/email?centreId=${centreId}`,
-        data: values,
+        data: { email },
       });
       toggleToast(message);
       resetValues(formEvent);
@@ -53,17 +54,8 @@ const EmailVerification = ({
             component="div"
             sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
           >
-            Email Verification Settings
+            Email Verification
           </Typography>
-          <TextFields
-            type="email"
-            label="Email"
-            name="email"
-            onChange={getData}
-            inputProps={{ maxLength: 60 }}
-            sx={{ width: "100%" }}
-            required
-          />
         </Stack>
         <Typography sx={{ textAlign: "center", marginTop: 4 }}>
           <ButtonComponent
@@ -72,7 +64,7 @@ const EmailVerification = ({
             sx={{ fontSize: 18 }}
           >
             <>
-              Resend Email Verification Link{" "}
+              Resend Email Verification Link
               {isLoading && (
                 <Loading
                   sx={{
