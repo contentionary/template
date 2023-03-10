@@ -37,7 +37,8 @@ const AddQuestion = (): JSX.Element => {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-
+  const [marks, setMarks] = useState<Record<string, boolean>>({});
+  // console.log(pageData, "test");
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
       query: { ...router.query, pageId: value },
@@ -48,19 +49,23 @@ const AddQuestion = (): JSX.Element => {
     setQuestionLoading(true);
 
     const temp: any = {};
+    const tempMarks: any = {};
     pageData.selectedQuestionList.sections.forEach(({ questions }: any) => {
+      // console.log(questions)
       setSelectedQuestions([...selectedQuestions, ...questions]);
       questions.forEach((question: any) => {
         temp[question.questionId] = true;
+        tempMarks[question.questionId] = question.mark;
       });
     });
     setCheckedQuestions({ ...checkedQuestions, ...temp });
+    setMarks({ ...marks, ...tempMarks });
     setQuestionLoading(false);
   }
 
   useEffect(() => {
     router.isReady && getQuestions();
-  }, []);
+  }, [pageData]);
 
   function handleCheck(id: String) {
     if (checkedQuestions[id]) {
@@ -85,12 +90,12 @@ const AddQuestion = (): JSX.Element => {
   async function create() {
     try {
       setIsLoading(true);
-      const editedQuestions = selectedQuestions.filter(
-        (selectedQuestion) => !Object.keys(selectedQuestion).includes("id")
-      );
+      // const editedQuestions = selectedQuestions.filter(
+      //   (selectedQuestion) => !Object.keys(selectedQuestion).includes("id")
+      // );
       const questions = sectionId
-        ? { questions: editedQuestions, examSectionId: sectionId }
-        : { questions: editedQuestions };
+        ? { questions: selectedQuestions, examSectionId: sectionId }
+        : { questions: selectedQuestions };
       const data = await request.post({
         url: `/centre/${cachedData.centre.id}/exam/${examId}/questions`,
         data: questions,
@@ -172,12 +177,12 @@ const AddQuestion = (): JSX.Element => {
                         onBlur={(e: ChangeEvent<any>) => {
                           selectedQuestions.map((item) =>
                             item.questionId === id
-                              ? (item.mark = e.target.value)
+                              ? (item.mark = Number(e.target.value))
                               : item
                           );
                           setSelectedQuestions([...selectedQuestions]);
                         }}
-                        defaultValue={1}
+                        defaultValue={Number(marks[id]) || 1}
                         placeholder="Score"
                         style={{ width: 100 }}
                       />

@@ -284,7 +284,7 @@ const CreateAccount = (): JSX.Element => {
           {
             text: "Procced to login",
             action: () =>
-              router.push(redirect ? `/${redirect}` : "/dashboard/learner"),
+              router.push(redirect ? `/${redirect}` : "/"),
           },
           { text: "Cancel", action: closeDialog },
         ]}
