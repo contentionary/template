@@ -9,6 +9,7 @@ const config = {
     LINKEDIN: "https://www.linkedin.com/company/contentionary/",
     FACEBOOK: "https://web.facebook.com/contentionary/",
     IMAGE_BASE_URL: "http://dev-cdn.edtify.com",
+    web: "",
   },
 };
 
