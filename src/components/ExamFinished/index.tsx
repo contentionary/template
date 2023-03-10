@@ -20,7 +20,7 @@ const FinishedExamCard: ExamFinishedFunc = (props) => {
   const { exam /* auth */ } = props;
   const { data } = props.submitAnsResponse;
   const minutes = Math.floor(data?.duration / 60);
-  var seconds = Math.floor(data?.duration % 60); 
+  var seconds = Math.floor(data?.duration % 60);
   return (
     <Box
       pt={8}
