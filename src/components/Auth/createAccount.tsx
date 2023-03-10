@@ -283,8 +283,7 @@ const CreateAccount = (): JSX.Element => {
         btns={[
           {
             text: "Procced to login",
-            action: () =>
-              router.push(redirect ? `/${redirect}` : "/dashboard/learner"),
+            action: () => router.push(redirect ? `/${redirect}` : "/"),
           },
           { text: "Cancel", action: closeDialog },
         ]}

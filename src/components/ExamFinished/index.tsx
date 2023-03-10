@@ -19,6 +19,8 @@ import { ExamFinishedFunc } from "./interfaceType";
 const FinishedExamCard: ExamFinishedFunc = (props) => {
   const { exam /* auth */ } = props;
   const { data } = props.submitAnsResponse;
+  const minutes = Math.floor(data?.duration / 60);
+  var seconds = Math.floor(data?.duration % 60);
   return (
     <Box
       pt={8}
@@ -60,7 +62,7 @@ const FinishedExamCard: ExamFinishedFunc = (props) => {
                 Exam Total Score: {data.maxScore} Marks
               </Typography>
               <Typography my={2} variant="h5">
-                Exam Duration: {data.duration}
+                Exam Duration (in minutes): {minutes} : {seconds}
               </Typography>
               <Stack
                 py={2}
