@@ -50,8 +50,8 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
                   <Image
                     src={centre.logo || "/images/logo.png"}
-                    alt="Contentionary logo"
-                    width={60}
+                    alt="Edtify logo"
+                    width={centre.logo ? 60 : 180}
                     height={60}
                     style={{ borderRadius: 50 }}
                     objectFit="contain"

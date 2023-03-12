@@ -24,12 +24,12 @@ export const data: any[] = [
   {
     method: PaymentMethod.WALLET,
     paymentType: "Pay with Wallet",
-    logo: "/images/payment/logo.svg",
-    motto: "Secured by Contentionary",
+    logo: "/images/logo.png",
+    motto: "Secured by Edtify",
     active: false,
     link: "https://checkout.flutterwave.com/v3/hosted/pay",
     currency: "*",
-    width: 200,
+    width: 180,
     isDefault: false,
   },
 ];

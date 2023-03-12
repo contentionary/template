@@ -363,7 +363,7 @@ export const getCentre = async (
         price: centre.price,
         subscriptionModel: centre.subscriptionModel,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
-        emailAddress: centre.emailAddress || "contact@contentionary.com",
+        emailAddress: centre.emailAddress || "contact@edtify.com",
         address:
           centre.address || "38 Opebi Road, Ikeja, Lagos State, Nigeria.",
       };

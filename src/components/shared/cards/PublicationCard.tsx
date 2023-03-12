@@ -66,7 +66,7 @@ const PublicationCard: PublicationCardFunc = ({
               height="100%"
               layout="responsive"
               objectFit="contain"
-              alt="Contentionary"
+              alt="Edtify"
             />
           </Box>
           <CardContent sx={{ p: { xs: 1, sm: 2 } }}>

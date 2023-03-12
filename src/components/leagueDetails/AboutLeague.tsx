@@ -35,7 +35,7 @@
 //               <ImageComponent
 //                 width="60px"
 //                 height="60px"
-//                 alt="Contentionary"
+//                 alt="Edtify"
 //                 src="/images/courses-4.png"
 //                 style={{ borderRadius: "50%" }}
 //               />
@@ -60,7 +60,7 @@
 //               <ImageComponent
 //                 width="60px"
 //                 height="60px"
-//                 alt="Contentionary"
+//                 alt="Edtify"
 //                 src="/images/courses-4.png"
 //                 style={{ borderRadius: "50%" }}
 //               />
@@ -95,7 +95,7 @@
 //               <ImageComponent
 //                 width="60px"
 //                 height="60px"
-//                 alt="Contentionary"
+//                 alt="Edtify"
 //                 src="/images/courses-4.png"
 //                 style={{ borderRadius: "50%" }}
 //               />

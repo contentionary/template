@@ -38,7 +38,6 @@ const CreateAccount = (): JSX.Element => {
   ) as BasePageProps;
 
   const { getData, values } = loginForm;
-
   async function submit() {
     try {
       setIsLoading(true);
@@ -71,7 +70,7 @@ const CreateAccount = (): JSX.Element => {
           >
             <Image
               src="/images/auth/createAccount.svg"
-              alt="contentionary create account"
+              alt="create account"
               width="100%"
               height="100%"
               layout="fill"
@@ -99,9 +98,9 @@ const CreateAccount = (): JSX.Element => {
             <Box sx={{ marginBottom: 7 }}>
               <Link href="/" passHref>
                 <Image
-                  src={cachedData.centre.logo || "/images/logo.svg"}
-                  alt="contentionary create account"
-                  width={80}
+                  src={cachedData.centre.logo || "/images/logo.png"}
+                  alt="login account"
+                  width={cachedData.centre.logo ? 80 : 180}
                   height={80}
                   objectFit="contain"
                   style={{ cursor: "pointer" }}
