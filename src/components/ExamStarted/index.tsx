@@ -125,7 +125,7 @@ const StartExam: ExamFunc = (props) => {
       },
       onError: () => {
         setEndingExam(false);
-        alert("something went wrong");
+        console.log("something went wrong");
       },
     }
   );

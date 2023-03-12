@@ -19,8 +19,8 @@ const VideoModal: VideoModalFunc = ({ isOpen, setIsOpen, src }) => {
     <Modal
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="Introduction to contentionary"
-      aria-describedby="Introduction to contentionary"
+      aria-labelledby="Introduction to Edtify"
+      aria-describedby="Introduction to Edtify"
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{

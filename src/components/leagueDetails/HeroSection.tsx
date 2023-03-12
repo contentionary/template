@@ -89,7 +89,7 @@
 //                   height="100%"
 //                   layout="responsive"
 //                   objectFit="fill"
-//                   alt="Contentionary"
+//                   alt="Edtify"
 //                   src="/images/courses-4.png"
 //                 />
 //               </Box>

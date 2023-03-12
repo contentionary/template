@@ -46,7 +46,7 @@ const CategoriesSection: ExamAndCourseFunc = () => {
               <ImageLink
                 href="/courses"
                 src="/images/courses-3.png"
-                alt="contentionary introduction video"
+                alt="Edtify introduction video"
               >
                 <Typography component="h5" variant="h5" color="inherit">
                   <BookIcon className="MuiSvgFlip-root" fill="white" /> Courses
@@ -65,7 +65,7 @@ const CategoriesSection: ExamAndCourseFunc = () => {
               <ImageLink
                 href="/exams"
                 src="/images/exam-img.jpg"
-                alt="contentionary introduction video"
+                alt="Edtify introduction video"
               >
                 <Typography component="h5" variant="h5" color="inherit">
                   <BookIcon className="MuiSvgFlip-root" fill="white" />

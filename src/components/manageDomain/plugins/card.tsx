@@ -36,12 +36,7 @@ const PublicationCard = ({
       <Stack>
         <Box sx={{ display: "flex", flexDirection: { xs: "column" } }}>
           <Box sx={{ textAlign: "center", mb: 2 }}>
-            <Image
-              src={imageUrl}
-              alt="contentionary"
-              height="100%"
-              width={106}
-            />
+            <Image src={imageUrl} alt="Edtify" height="100%" width={106} />
           </Box>
           <Box paddingLeft={1}>
             <Typography
@@ -57,7 +52,7 @@ const PublicationCard = ({
               color="primary"
               className={styles.poweredBy}
             >
-              By Contentionary (Free)
+              By Edtify (Free)
             </Typography>
             <Typography
               variant="body1"

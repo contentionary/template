@@ -1,7 +1,7 @@
 const config = {
   URL: {
-    WEB: "https://web.contentionary.com/",
-    APP: "https://www.contentionary.com/",
+    WEB: "https://edtify.com/",
+    APP: "https://www.edtify.com/",
     BLOG: "https://medium.com/@contentionary",
     GROUP: "https://www.contentionary.group/",
     TWITTER: "https://twitter.com/Contentionary/",

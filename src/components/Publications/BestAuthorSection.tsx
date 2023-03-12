@@ -87,7 +87,7 @@ const BestAuthorSection: PublicationsFunc = () => {
                   height="80%"
                   objectFit="cover"
                   layout="responsive"
-                  alt="Contentionary"
+                  alt="Edtify"
                   src={imageUrl}
                   style={{ borderRadius: 8 }}
                 />

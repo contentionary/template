@@ -25,7 +25,7 @@
 //               <ImageComponent
 //                 width="50px"
 //                 height="50px"
-//                 alt="Contentionary"
+//                 alt="Edtify"
 //                 src="/images/courses-4.png"
 //                 style={{ borderRadius: "50%" }}
 //               />

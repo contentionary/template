@@ -97,10 +97,10 @@ const CreateAccount = (): JSX.Element => {
               <Link href="/">
                 <a>
                   <Image
-                    src="/images/logo.png"
-                    alt="Edtify create account"
-                    width={180}
-                    height={55}
+                    src={cachedData.centre.logo || "/images/logo.png"}
+                    alt="create account"
+                    width={cachedData.centre.logo ? 80 : 180}
+                    height={80}
                   />
                 </a>
               </Link>

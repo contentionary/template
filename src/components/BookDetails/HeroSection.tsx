@@ -78,7 +78,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
                   height="100%"
                   layout="responsive"
                   objectFit="contain"
-                  alt="Contentionary"
+                  alt="Edtify"
                   src={imageUrl}
                 />
               </Box>

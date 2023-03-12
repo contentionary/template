@@ -83,7 +83,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
                   height="100%"
                   layout="responsive"
                   objectFit="contain"
-                  alt="Contentionary"
+                  alt="Edtify"
                   src={image}
                 />
               </Box>
