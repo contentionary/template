@@ -24,7 +24,7 @@ const AddQuestion = (): JSX.Element => {
   ) as BasePageProps;
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const [questionLoading, setQuestionLoading] = useState(false);
+  const [questionLoading, setQuestionLoading] = useState(true);
   const { submit } = useForm(create);
   const questions = pageData.allQuestionList.questions as Array<QuestionsInt>;
   const [checkedQuestions, setCheckedQuestions] = useState<
