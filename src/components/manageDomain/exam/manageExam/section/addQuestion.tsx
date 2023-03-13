@@ -90,9 +90,11 @@ const AddQuestion = (): JSX.Element => {
   async function create() {
     try {
       setIsLoading(true);
-      // const editedQuestions = selectedQuestions.filter(
-      //   (selectedQuestion) => !Object.keys(selectedQuestion).includes("id")
-      // );
+      selectedQuestions.map((selectedQuestion) => {
+        delete selectedQuestion.id;
+        delete selectedQuestion.question;
+        delete selectedQuestion.duration;
+      });
       const questions = sectionId
         ? { questions: selectedQuestions, examSectionId: sectionId }
         : { questions: selectedQuestions };
