@@ -51,7 +51,6 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                     alt="Edtify logo"
                     width={centre.logo ? 60 : 180}
                     height={60}
-                    style={{ borderRadius: 50 }}
                     objectFit="contain"
                   />
                 </MuiLink>
