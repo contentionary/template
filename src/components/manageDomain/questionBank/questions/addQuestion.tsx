@@ -195,7 +195,7 @@ const AddQuestion = ({
                         setOptions([...options]);
                       }}
                     />
-                    <Box sx={{ display: "flex" }}>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Box sx={{ width: "100%" }}>
                         <Editor
                           onChange={(event: any, editor: any) => {
@@ -212,15 +212,17 @@ const AddQuestion = ({
                           />
                         </Box>
                       </Box>
-                      <IconButton
-                        sx={{ marginLeft: 3 }}
-                        onClick={() => {
-                          options.splice(index, 1);
-                          setOptions([...options]);
-                        }}
-                      >
-                        <CloseOutlined htmlColor="red" />
-                      </IconButton>
+                      <div>
+                        <IconButton
+                          sx={{ marginLeft: 3 }}
+                          onClick={() => {
+                            options.splice(index, 1);
+                            setOptions([...options]);
+                          }}
+                        >
+                          <CloseOutlined htmlColor="red" />
+                        </IconButton>
+                      </div>
                     </Box>
                   </Box>
                 </Box>

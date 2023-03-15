@@ -57,6 +57,8 @@ const CreatePublication = () => {
           content.imageUrl.base64,
           setImageLoadingProgress
         );
+      } else if (content.imageUrl.includes(".com/")) {
+        content.imageUrl = content.imageUrl.split(".com/")[1];
       }
       resolvedOption.push(content);
     }
@@ -79,6 +81,10 @@ const CreatePublication = () => {
         },
         ...values,
       };
+      if (template.landingPageSectionOne.imageUrl.includes(".com/")) {
+        template.landingPageSectionOne.imageUrl =
+          template.landingPageSectionOne.imageUrl.split(".com/")[1];
+      }
       const data = await request.patch({
         url: `/centre/${cachedData.centre.id}/centre-template`,
         data: template,
@@ -91,7 +97,6 @@ const CreatePublication = () => {
       setIsLoading(false);
     }
   }
-
   return (
     <Box mt={6}>
       <Box>

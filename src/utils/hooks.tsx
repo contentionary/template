@@ -82,7 +82,7 @@ export function useTimer(
   const [timer, setTimer] = useState<number>();
   const [isPaused, setIsPaused] = useState(true);
   const [duration, setDuration] = useState(0);
-
+  console.log(timer, "timer");
   const start = (initDuration: number) => {
     if (isNaN(initDuration) || initDuration <= 0) setTimeOut(true);
     const timeToMilliseconds = Date.now() + 1000 * 60 * Number(initDuration);
@@ -92,8 +92,8 @@ export function useTimer(
   };
   function countDown() {
     return setInterval(() => {
-      setTimer((timer) => {
-        if (timer === 0) {
+      setTimer((timer: any) => {
+        if (timer === 0 || timer < 0) {
           setTimeOut(true);
           clearInterval(countDownRef.current);
         } else if (timer && timer > 0) {

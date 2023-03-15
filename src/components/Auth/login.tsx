@@ -38,7 +38,6 @@ const CreateAccount = (): JSX.Element => {
   ) as BasePageProps;
 
   const { getData, values } = loginForm;
-
   async function submit() {
     try {
       setIsLoading(true);
@@ -69,16 +68,14 @@ const CreateAccount = (): JSX.Element => {
               height: "100vh",
             }}
           >
-            <Link href="/">
-              <Image
-                src="/images/auth/createAccount.svg"
-                alt="contentionary create account"
-                width="100%"
-                height="100%"
-                layout="fill"
-                objectFit="cover"
-              />
-            </Link>
+            <Image
+              src="/images/auth/createAccount.svg"
+              alt="create account"
+              width="100%"
+              height="100%"
+              layout="fill"
+              objectFit="cover"
+            />
           </Grid>
         </Hidden>
         <Grid
@@ -99,15 +96,16 @@ const CreateAccount = (): JSX.Element => {
             }}
           >
             <Box sx={{ marginBottom: 7 }}>
-              <Image
-                src={cachedData.centre.logo || "/images/logo.svg"}
-                alt="contentionary create account"
-                width={80}
-                height={80}
-                objectFit="contain"
-                style={{ cursor: "pointer" }}
-                onClick={() => router.push("/")}
-              />
+              <Link href="/" passHref>
+                <Image
+                  src={cachedData.centre.logo || "/images/logo.png"}
+                  alt="login account"
+                  width={cachedData.centre.logo ? 80 : 180}
+                  height={80}
+                  objectFit="contain"
+                  style={{ cursor: "pointer" }}
+                />
+              </Link>
             </Box>
             <Typography
               variant="h5"
@@ -120,7 +118,7 @@ const CreateAccount = (): JSX.Element => {
               <Stack spacing={2}>
                 <TextFields
                   type="text"
-                  label="Email or username"
+                  label="Email or Username"
                   name="username"
                   onChange={getData}
                   dummyText="yesisprosper"
@@ -131,7 +129,7 @@ const CreateAccount = (): JSX.Element => {
                   label="Password"
                   name="password"
                   onChange={getData}
-                  dummyText="password"
+                  dummyText="Password"
                   helperTextClass={styles.helperTextClass}
                   endAdornment={
                     <InputAdornment position="end">

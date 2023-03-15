@@ -24,7 +24,7 @@ const AddQuestion = (): JSX.Element => {
   ) as BasePageProps;
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
-  const [questionLoading, setQuestionLoading] = useState(false);
+  const [questionLoading, setQuestionLoading] = useState(true);
   const { submit } = useForm(create);
   const questions = pageData.allQuestionList.questions as Array<QuestionsInt>;
   const [checkedQuestions, setCheckedQuestions] = useState<
@@ -37,7 +37,8 @@ const AddQuestion = (): JSX.Element => {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const Toast = dynamic(() => import("@src/components/shared/toast"));
-
+  const [marks, setMarks] = useState<Record<string, boolean>>({});
+  // console.log(pageData, "test");
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
       query: { ...router.query, pageId: value },
@@ -48,19 +49,23 @@ const AddQuestion = (): JSX.Element => {
     setQuestionLoading(true);
 
     const temp: any = {};
+    const tempMarks: any = {};
     pageData.selectedQuestionList.sections.forEach(({ questions }: any) => {
+      // console.log(questions)
       setSelectedQuestions([...selectedQuestions, ...questions]);
       questions.forEach((question: any) => {
         temp[question.questionId] = true;
+        tempMarks[question.questionId] = question.mark;
       });
     });
     setCheckedQuestions({ ...checkedQuestions, ...temp });
+    setMarks({ ...marks, ...tempMarks });
     setQuestionLoading(false);
   }
 
   useEffect(() => {
     router.isReady && getQuestions();
-  }, []);
+  }, [pageData]);
 
   function handleCheck(id: String) {
     if (checkedQuestions[id]) {
@@ -85,12 +90,14 @@ const AddQuestion = (): JSX.Element => {
   async function create() {
     try {
       setIsLoading(true);
-      const editedQuestions = selectedQuestions.filter(
-        (selectedQuestion) => !Object.keys(selectedQuestion).includes("id")
-      );
+      selectedQuestions.map((selectedQuestion) => {
+        delete selectedQuestion.id;
+        delete selectedQuestion.question;
+        delete selectedQuestion.duration;
+      });
       const questions = sectionId
-        ? { questions: editedQuestions, examSectionId: sectionId }
-        : { questions: editedQuestions };
+        ? { questions: selectedQuestions, examSectionId: sectionId }
+        : { questions: selectedQuestions };
       const data = await request.post({
         url: `/centre/${cachedData.centre.id}/exam/${examId}/questions`,
         data: questions,
@@ -168,15 +175,16 @@ const AddQuestion = (): JSX.Element => {
                         onChange={() => handleCheck(id)}
                       />
                       <input
+                        type="number"
                         onBlur={(e: ChangeEvent<any>) => {
                           selectedQuestions.map((item) =>
                             item.questionId === id
-                              ? (item.mark = e.target.value)
+                              ? (item.mark = Number(e.target.value))
                               : item
                           );
                           setSelectedQuestions([...selectedQuestions]);
                         }}
-                        defaultValue={1}
+                        defaultValue={Number(marks[id]) || 1}
                         placeholder="Score"
                         style={{ width: 100 }}
                       />

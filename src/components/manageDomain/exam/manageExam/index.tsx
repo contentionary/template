@@ -60,9 +60,9 @@ const ModulesPage = () => {
       centreId={cachedData.centre.id}
       id={id as string}
       toggleToast={toggleToast}
-      key={5}
+      key={6}
     />,
-    <DeleteExam toggleToast={toggleToast} key={6} />,
+    <DeleteExam toggleToast={toggleToast} key={7} />,
   ];
   return (
     <Box sx={{ mt: 4 }}>
@@ -70,7 +70,7 @@ const ModulesPage = () => {
         style={{ textDecoration: "none", color: "#dbdbdb" }}
         href={`/exams/${pageData.exam.slug}`}
       >
-        <Button sx={{ fontSize: 17 }}>Vew Exam</Button>
+        <Button sx={{ fontSize: 17 }}>View Exam</Button>
       </NextLink>
       <Tabs
         tab={tab}

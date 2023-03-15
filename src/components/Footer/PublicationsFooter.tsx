@@ -105,11 +105,11 @@ const PublicationsFooter: PublicationsFooterFunc = () => {
           </Grid>
           <Box textAlign="center" mt={4}>
             <Typography variant="h4" color="white">
-              Built with Contentionary
+              Built with Edtify
             </Typography>
             <NextLink href={config.URL.APP} passHref>
               <MuiLink underline="hover" color={grey["400"]}>
-                www.contentionary.com
+                www.edtify.com
               </MuiLink>
             </NextLink>
           </Box>

@@ -9,6 +9,7 @@ import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import Image from "@src/components/shared/image";
 import { useState } from "react";
+import config from "@src/utils/config";
 
 interface Props {
   img: Array<Record<any, any>>;
@@ -47,8 +48,7 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
     if (typeof img[index].imageUrl === "string") {
       if (img[index].imageUrl.includes("http")) {
         return img[index].imageUrl;
-      } else
-        return `${process.env.NEXT_PUBLIC_FILE_BASE_URL}/${img[index].imageUrl}`;
+      } else return `${config.URL.IMAGE_BASE_URL}/${img[index].imageUrl}`;
     } else return img[index]?.imageUrl.bobImage;
   }
 

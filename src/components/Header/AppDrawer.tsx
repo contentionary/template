@@ -50,7 +50,7 @@ const AppDrawer: AppDrawerFunc = ({ children }) => {
           <Box sx={{ px: 2, py: 1.5 }}>
             <Image
               src={centre.logo || DEFAULT_LOGO}
-              alt="Contentionary logo"
+              alt="Edtify logo"
               width={60}
               height={60}
               style={{ borderRadius: 50 }}

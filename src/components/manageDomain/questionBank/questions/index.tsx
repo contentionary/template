@@ -37,7 +37,6 @@ const QuestionPage = () => {
   };
 
   const questions = pageData.questions as QuestionsInt[];
-  // console.log(questions, "wasabi check questions");
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     value
       ? router.replace({

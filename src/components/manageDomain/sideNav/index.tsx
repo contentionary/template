@@ -32,12 +32,15 @@ const SideNav = (): JSX.Element => {
   return (
     <div style={{ paddingTop: 20, background: "#FCFCFC" }}>
       <Toolbar>
-        <Image
-          src={centre?.logo || DEFAULT_LOGO}
-          alt={`${centre.name} logo`}
-          width={71}
-          height={70}
-        />
+        <NextLink href="/" passHref>
+          <Image
+            src={centre?.logo || DEFAULT_LOGO}
+            alt={`${centre.name} logo`}
+            width={71}
+            height={70}
+            style={{ cursor: "pointer" }}
+          />
+        </NextLink>
       </Toolbar>
       <List sx={{ marginTop: 6 }}>
         <ListItem disablePadding>
