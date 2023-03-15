@@ -346,7 +346,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}&proxy=test.cttn.ac`,
+      url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
     });
 
     if (!returnFullData && centre)
