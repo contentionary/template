@@ -20,9 +20,8 @@ const PromoSection: AcademyFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const { user } = cachedData;
-  const { description, imageUrl, title } =
-    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[2];
-
+  const contents =
+    pageData?.templateData?.templateDetails?.landingPageSectionTwo?.contents;
   return (
     <Box py={8} px={{ md: 6 }} component="section" bgcolor="secondary.dark">
       <Container maxWidth="xl">
@@ -42,17 +41,17 @@ const PromoSection: AcademyFunc = () => {
                 alt="yes we can"
                 objectFit="cover"
                 layout="responsive"
-                src={imageUrl}
+                src={contents && contents[2].imageUrl}
               />
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
             <Box>
               <Typography mb={4} variant="h3" component="h2" color="white">
-                {title}
+                {contents && contents[2].title}
               </Typography>
               <Typography mb={4} paragraph color="white">
-                {description}
+                {contents && contents[2].description}
               </Typography>
             </Box>
             <NextLink href={user ? "/courses" : "/register"} passHref>
