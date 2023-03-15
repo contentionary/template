@@ -26,9 +26,8 @@ import { BasePageProps } from "@src/utils/interface";
 const FutureSection: AcademyFunc = () => {
   const cardStyle = useCardStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
-  const { imageUrl, title } =
-    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
-
+  const contents =
+    pageData?.templateData?.templateDetails?.landingPageSectionTwo?.contents;
   return (
     <Box
       className=""
@@ -37,7 +36,7 @@ const FutureSection: AcademyFunc = () => {
     >
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
-          {title}
+          {contents && contents[1].title}
         </Typography>
         <Grid
           container
@@ -52,7 +51,7 @@ const FutureSection: AcademyFunc = () => {
                   alt="yes we can"
                   objectFit="cover"
                   objectPosition="right"
-                  src={imageUrl}
+                  src={contents && contents[1].imageUrl}
                 />
               </Box>
             </Box>
