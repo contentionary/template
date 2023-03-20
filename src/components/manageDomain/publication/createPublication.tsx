@@ -157,6 +157,7 @@ const CreatePublication = () => {
                   label="Publication category"
                   value={values.publicationCategoryId}
                   onChange={(e) => getData(e)}
+                  required
                 >
                   {pageData.publicationCategories?.map(
                     (category: PublicationCategoryInt, index: number) => (
@@ -242,7 +243,7 @@ const CreatePublication = () => {
               </Box>
               <Box>
                 <Typography variant="subtitle1" component="div">
-                  Authors
+                  Authors *
                 </Typography>
                 <Typography variant="caption" component="div">
                   Click add more authors, to add more authors
@@ -267,6 +268,7 @@ const CreatePublication = () => {
                         setAuthors([...authors]);
                       }}
                       sx={{ width: { xs: "90%", md: "78%" } }}
+                      required
                     />
                     <Box sx={{ width: "5%" }}>
                       <IconButton
@@ -419,7 +421,7 @@ const CreatePublication = () => {
 
           <Box>
             <Typography variant="subtitle1" component="div">
-              Summary *
+              Summary (Not more than 250 characters)*
             </Typography>
             <TextArea
               required

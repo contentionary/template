@@ -221,7 +221,7 @@ const CreateCourse = () => {
           )}
           <Box>
             <Typography variant="subtitle1" component="div">
-              Summary *
+              Summary (Not more than 250 characters)*
             </Typography>
             <TextArea
               required
