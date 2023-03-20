@@ -26,8 +26,9 @@ const fetchSections = async ({ queryKey }: { queryKey: Array<any> }) => {
   const { data } = await request.get({
     url: `/centre/${centreId}/exam/${examId}/subscribers?pageId=${pageId}`,
   });
-  setSubscribers && setSubscribers(data.data.subscribers);
-  return data.data;
+  setSubscribers && setSubscribers(data.subscribers);
+  console.log(data, "here");
+  return data;
 };
 
 export default function Subscribers({
