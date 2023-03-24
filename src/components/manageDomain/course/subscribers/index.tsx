@@ -77,7 +77,7 @@ export default function Subscribers() {
             component="p"
             sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
           >
-            Coure Subscribers
+            Course Subscribers
           </Typography>
           <Typography>
             <AddSubscriber
