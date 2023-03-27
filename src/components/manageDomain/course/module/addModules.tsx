@@ -1,8 +1,6 @@
-import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
 import Dialog from "@src/components/shared/dialog";
 import Toast from "@src/components/shared/toast";
 import TextFields from "@src/components/shared/input/textField";
@@ -10,7 +8,6 @@ import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 
 import { useToast } from "@src/utils/hooks";
-import { useDialog } from "@src/hooks";
 import { handleError, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
@@ -22,6 +19,8 @@ interface Props {
   index: number;
   refetch: Function;
   content?: boolean;
+  closeDialog: Function;
+  isOpen: boolean;
 }
 
 const AddModules = ({
@@ -30,8 +29,9 @@ const AddModules = ({
   id,
   refetch,
   content,
+  closeDialog,
+  isOpen,
 }: Props): JSX.Element => {
-  const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const { getData, values, submit } = useForm(create);
@@ -70,10 +70,6 @@ const AddModules = ({
 
   return (
     <>
-      <MenuItem onClick={() => openDialog()} disableRipple>
-        <AddCircleOutlineOutlined />
-        Add {id || content ? "Content" : "Modules"}
-      </MenuItem>
       <Dialog
         title={`Add course ${id || content ? "content" : "modules"} `}
         isOpen={isOpen}
