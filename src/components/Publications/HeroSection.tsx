@@ -22,6 +22,7 @@ import { cache, isServerSide, queryClient } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
+import ImageComponent from "@src/components/shared/image";
 
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
@@ -149,14 +150,14 @@ const HeroSection: PublicationsFunc = () => {
                     borderRadius: "1.5rem !important",
                   }}
                 >
-                  {/* <ImageComponent
+                  <ImageComponent
                     priority
                     layout="fill"
                     alt="yes we can"
                     objectFit="cover"
                     objectPosition="center"
                     src={landingPageSectionOne.imageUrl}
-                  /> */}
+                  />
                 </Box>
               </Box>
             </Grid>

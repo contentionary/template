@@ -204,7 +204,7 @@ const CreateCourse = () => {
 
           <Box>
             <Typography variant="subtitle1" component="div">
-              Summary (Not more than 250 characters)*
+              Summary (Not more than 200 characters)*
             </Typography>
             <TextArea
               required
@@ -217,7 +217,7 @@ const CreateCourse = () => {
                 borderRadius: 5,
                 padding: 15,
               }}
-              maxLength={250}
+              maxLength={200}
             />
           </Box>
           <ImageUpload

@@ -2,11 +2,14 @@ import Menus from "@src/components/shared/menu";
 import Divider from "@mui/material/Divider";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
+import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
 import Delete from "./delete";
 import AddContent from "./addModules";
 import { useMenu } from "@src/utils/hooks";
 import UpdateModules from "./updateModules";
 import { CourseModuleInt } from "@src/utils/interface";
+import { useDialog } from "@src/hooks";
 
 export default function CustomizedMenus({
   courseId,
@@ -22,6 +25,7 @@ export default function CustomizedMenus({
   refetch: Function;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
+  const { isOpen, openDialog, closeDialog } = useDialog();
 
   return (
     <>
@@ -43,15 +47,21 @@ export default function CustomizedMenus({
             refetch={refetch}
           />
           <Divider sx={{ my: 0.5 }} />
-          <AddContent
-            id={module.id}
-            centreId={centreId}
-            CourseId={courseId}
-            index={index}
-            refetch={refetch}
-          />
+          <MenuItem onClick={() => openDialog()} disableRipple>
+            <AddCircleOutlineOutlined />
+            Add Content
+          </MenuItem>
         </div>
       </Menus>
+      <AddContent
+        id={module.id}
+        centreId={centreId}
+        CourseId={courseId}
+        index={index}
+        refetch={refetch}
+        isOpen={isOpen}
+        closeDialog={closeDialog}
+      />
     </>
   );
 }
