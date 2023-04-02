@@ -2,6 +2,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/system/Box";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
 // import Diversity2OutlinedIcon from "@mui/icons-material/Diversity2Outlined";
 import SubscriptionsOutlined from "@mui/icons-material/SubscriptionsOutlined";
 import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
@@ -56,6 +57,14 @@ const Dashboard = (): JSX.Element => {
             title="Centre Wallet"
             bgColor="#cea2fd"
             link="/admin/wallet"
+          />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <Card
+            icon={<PeopleAltOutlined htmlColor="#9400d3" />}
+            title="Registered Users"
+            bgColor="#cea2fd"
+            link="/admin/registered-users"
           />
         </Grid>
         {/* <Grid item xs={6} md={3}>

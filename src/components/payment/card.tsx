@@ -31,7 +31,16 @@ export default function BasicCard({
             alignItems: "center",
           }}
         >
-          <Image src={logo} alt="card payment" height="100%" width={width} />
+          <div style={{ width: 200, height: 100 }}>
+            <Image
+              src={logo}
+              alt="card payment"
+              objectFit="contain"
+              width="200px"
+              height="100%"
+            />
+          </div>
+
           <Typography
             variant="h6"
             component="p"
