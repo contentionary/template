@@ -177,6 +177,18 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                           My Exams
                         </MenuItem>
                       </NextLink>,
+                      <NextLink
+                        key="my-exams-result"
+                        href="/exams/my-results"
+                        passHref
+                      >
+                        <MenuItem component={MuiLink} onClick={handleClose}>
+                          <ListItemIcon>
+                            <Pages fontSize="small" />
+                          </ListItemIcon>
+                          My Result
+                        </MenuItem>
+                      </NextLink>,
                     ]
                   )}
                   {user.isAdmin && (
@@ -189,14 +201,6 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                       </MenuItem>
                     </NextLink>
                   )}
-                  <NextLink href="/exams/my-results" passHref>
-                    <MenuItem component={MuiLink} onClick={handleClose}>
-                      <ListItemIcon>
-                        <Pages fontSize="small" />
-                      </ListItemIcon>
-                      My Result
-                    </MenuItem>
-                  </NextLink>
                   <NextLink href="/wallet" passHref>
                     <MenuItem component={MuiLink} onClick={handleClose}>
                       <ListItemIcon>

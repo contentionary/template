@@ -55,7 +55,6 @@ export default function Subscribers({
   const result = subscribers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
-    userId: user.userId,
     action: (
       <Delete
         url={`/centre/${centreId}/user/${user.userId}/remove`}
