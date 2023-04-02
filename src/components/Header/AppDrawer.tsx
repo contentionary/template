@@ -53,7 +53,6 @@ const AppDrawer: AppDrawerFunc = ({ children }) => {
               alt="Edtify logo"
               width={60}
               height={60}
-              style={{ borderRadius: 50 }}
               objectFit="contain"
             />
           </Box>

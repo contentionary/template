@@ -48,14 +48,14 @@ const TestimonialSection: PublicationsFunc = () => {
                     </Typography>{" "}
                   </Typography>
                 </Grid>
-                <Grid item xs={4} md={12}>
+                {/* <Grid item xs={4} md={12}>
                   <IconButton color="primary">
                     <ArrowBackIosOutlinedIcon />
                   </IconButton>
                   <IconButton color="primary">
                     <ArrowForwardIosOutlinedIcon />
                   </IconButton>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -72,16 +72,16 @@ const TestimonialSection: PublicationsFunc = () => {
                       <Image
                         layout="fill"
                         alt="yes we can"
-                        objectFit="cover"
+                        objectFit="contain"
                         objectPosition="center"
-                        src="/images/avatar.png"
+                        src="/images/nounImage/mission.png"
                       />
                     </Avatar>
-                    <Typography variant="h5">Quality Control</Typography>
+                    <Typography variant="h5"> Our Mission</Typography>
                   </Stack>
                   <Typography paragraph>
-                    Each Learning Content is of top quality and have been
-                    reviewed by quality control experts.
+                    To deliver innovative learning solutions that improve
+                    learning outcomes.
                   </Typography>
                 </Grid>
                 <Grid item xs={8} md={5} xl={4} flexShrink={0}>
@@ -92,15 +92,14 @@ const TestimonialSection: PublicationsFunc = () => {
                         alt="yes we can"
                         objectFit="cover"
                         objectPosition="center"
-                        src="/images/avatar.png"
+                        src="/images/nounImage/Modular-Learning.png"
                       />
                     </Avatar>
-                    <Typography variant="h5">Modular Learning</Typography>
+                    <Typography variant="h5">Modular Learning </Typography>
                   </Stack>
                   <Typography paragraph>
-                    Contents are broken down into small versions called modules
-                    for easy learning experience and each module have exercises
-                    for the students.
+                    We have divided our content into small modules to provide a
+                    simpler and more manageable learning experience.
                   </Typography>
                 </Grid>
                 <Grid item xs={8} md={5} xl={4} flexShrink={0}>
@@ -111,15 +110,15 @@ const TestimonialSection: PublicationsFunc = () => {
                         alt="yes we can"
                         objectFit="cover"
                         objectPosition="center"
-                        src="/images/avatar.png"
+                        src="/images/nounImage/Guided-Assessments.png"
                       />
                     </Avatar>
-                    <Typography variant="h5">Real Life Projects</Typography>
+                    <Typography variant="h5">Guided Assessments</Typography>
                   </Stack>
                   <Typography paragraph>
-                    Projects are assigned to students during and after learning
-                    to ascertained their level of understanding of the course
-                    before certifications.
+                    Assigning projects to students during and after learning
+                    helps evaluate their comprehension of the course prior to
+                    certification.
                   </Typography>
                 </Grid>
               </Grid>

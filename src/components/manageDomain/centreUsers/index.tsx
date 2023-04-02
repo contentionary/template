@@ -5,13 +5,11 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Pagination from "@mui/material/Pagination";
 import MuiTable from "@src/components/shared/table";
-import AddSubscriber from "./addSubscriber";
 import Empty from "@src/components/shared/state/Empty";
 import Delete from "../../shared/delete";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useToast } from "@src/utils/hooks";
-import CentreUserMenu from "@src/components/shared/export";
 
 interface SubscriberInt {
   surname: string;
@@ -27,15 +25,15 @@ interface SubscriberListInt {
   pageCount: number;
 }
 export default function Subscribers({
-  subscribers,
+  registeredUsers,
   centreId,
 }: {
-  subscribers: SubscriberListInt;
+  registeredUsers: SubscriberListInt;
   centreId: string;
 }) {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
-  const pageCount = subscribers.pageCount as number;
+  const pageCount = registeredUsers.pageCount as number;
   const router = useRouter();
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
@@ -52,7 +50,7 @@ export default function Subscribers({
       query: { ...router.query },
     });
   };
-  const result = subscribers.users.map((user, index: number) => ({
+  const result = registeredUsers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
     userId: user.userId,
@@ -64,7 +62,7 @@ export default function Subscribers({
       />
     ),
   }));
-  if (!subscribers) return <h1>....Loading</h1>;
+  if (!registeredUsers) return <h1>....Loading</h1>;
   return (
     <Box
       component="section"
@@ -78,15 +76,7 @@ export default function Subscribers({
             component="p"
             sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
           >
-            Centre Subscribers
-          </Typography>
-          <Typography sx={{ display: "flex", justifyContent: "space-between" }}>
-            <AddSubscriber
-              toggleToast={toggleToast}
-              refetch={handleChange}
-              centreId={centreId as string}
-            />
-            <CentreUserMenu url={`centre/${centreId}/users`} />
+            Centre Registered Users
           </Typography>
           {result.length ? (
             <Box sx={{ width: { xs: 400, md: "100%" } }}>
