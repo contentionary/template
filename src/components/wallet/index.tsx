@@ -92,18 +92,30 @@ export default function CustomizedSteppers() {
       const url = centreWallet
         ? `/wallet/centre/${cachedData.centre.id}/transaction-history?pageId=${pageId}`
         : `/wallet/transaction-history?pageId=${pageId}`;
+
       if (type === "all") {
-        const { data } = await request.get({
-          url,
-        });
-        setPageCount(data.pageCount);
-        setTransaction([...(data.histories as TransactionHistory[])]);
+        if (newCurrency != "all") {
+          setIsLoading(true);
+          const { data } = await request.get({
+            url: `${url}&currency=${newCurrency}`,
+          });
+          setPageCount(data.pageCount);
+          setTransaction([...(data.histories as TransactionHistory[])]);
+          setIsLoading(false);
+        } else {
+          const { data } = await request.get({
+            url,
+          });
+          setPageCount(data.pageCount);
+          setTransaction([...(data.histories as TransactionHistory[])]);
+        }
       } else {
         setIsLoading(true);
         const { data } = await request.get({
-          url: newCurrency
-            ? `${url}&type=${type}&currency=${newCurrency}`
-            : `${url}&type=${type}`,
+          url:
+            newCurrency && newCurrency != "all"
+              ? `${url}&type=${type}&currency=${newCurrency}`
+              : `${url}&type=${type}`,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
@@ -283,6 +295,7 @@ export default function CustomizedSteppers() {
                     onChange={handleCurrencyChange}
                     size="small"
                   >
+                    <MenuItem value="all">All</MenuItem>
                     {currencies.map((currency) => (
                       <MenuItem key={currency.name} value={currency.abbr}>
                         {currency.name}
