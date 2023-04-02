@@ -43,7 +43,6 @@ export default function Subscribers({
     { minWidth: 100, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Status", key: "status" },
-    { minWidth: 50, name: "Action", key: "action" },
   ];
   const handleChange = () => {
     router.replace({
@@ -53,14 +52,6 @@ export default function Subscribers({
   const result = registeredUsers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
-    userId: user.userId,
-    action: (
-      <Delete
-        url={`/centre/${centreId}/user/${user.userId}/remove`}
-        toggleToast={toggleToast}
-        updateData={handleChange}
-      />
-    ),
   }));
   if (!registeredUsers) return <h1>....Loading</h1>;
   return (

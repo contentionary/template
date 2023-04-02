@@ -41,7 +41,6 @@ export default function Managers({
     { minWidth: 100, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Action", key: "action" },
-    { minWidth: 50, name: "userId", key: "userId" },
   ];
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
