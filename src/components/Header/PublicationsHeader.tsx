@@ -59,7 +59,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
               }}
             >
               <Campaign sx={{ fontSize: 40, mr: 1 }} />
-              We’re excited to launch learn Africa E-store | Access our books
+              We’re excited to launch Learn Africa E-store | Access our books
               for free from now till 12:00 pm on the 7th April 2023.
               <IconButton
                 onClick={() => setShow(false)}
