@@ -13,6 +13,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 //
 import { Link as MuiLink } from "@mui/material";
+import SpeakerPhone from "@mui/icons-material/SpeakerPhone";
+import Typography from "@mui/material/Typography";
 // app components
 import AppDrawer from "./AppDrawer";
 import HideOnScroll from "./HideOnScroll";
@@ -44,7 +46,21 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
             zIndex: theme.zIndex.drawer + 2,
           }}
         >
-          <Container style={{ padding: "5px" }} maxWidth="xl">
+          <Container style={{ padding: "0 5px 5px 5px" }} maxWidth="xl">
+            <Typography
+              variant="h5"
+              color="primary"
+              sx={{
+                justifyContent: "center",
+                padding: 1,
+                background: "primary",
+                display: "flex",
+              }}
+            >
+              <SpeakerPhone sx={{ fontSize: 25, mr: 1 }} />
+              We’re excited to launch learn Africa E-store | Access our books
+              for free from now till 9th April 2023.
+            </Typography>
             <Toolbar disableGutters>
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
