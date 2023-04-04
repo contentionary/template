@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 // next components
 import Image from "@src/components/shared/image";
 import NextLink from "next/link";
@@ -12,8 +12,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 //
 import { useTheme } from "@mui/material/styles";
 //
-import { Link as MuiLink } from "@mui/material";
+import { IconButton, Link as MuiLink } from "@mui/material";
 import SpeakerPhone from "@mui/icons-material/SpeakerPhone";
+import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import Typography from "@mui/material/Typography";
 // app components
 import AppDrawer from "./AppDrawer";
@@ -31,7 +32,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
-
+  const [show, setShow] = useState(true);
   const fontSize = 18;
 
   return (
@@ -47,20 +48,30 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
           }}
         >
           <Container style={{ padding: "0 5px 5px 5px" }} maxWidth="xl">
-            <Typography
-              variant="h5"
-              color="primary"
-              sx={{
-                justifyContent: "center",
-                padding: 1,
-                background: "primary",
-                display: "flex",
-              }}
-            >
-              <SpeakerPhone sx={{ fontSize: 25, mr: 1 }} />
-              We’re excited to launch learn Africa E-store | Access our books
-              for free from now till 9th April 2023.
-            </Typography>
+            {show && (
+              <Typography
+                variant="h5"
+                color="primary"
+                sx={{
+                  justifyContent: "center",
+                  padding: 1,
+                  background: "primary",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <SpeakerPhone sx={{ fontSize: 25, mr: 1 }} />
+                We’re excited to launch learn Africa E-store | Access our books
+                for free from now till 9th April 2023.
+                <IconButton
+                  onClick={() => setShow(false)}
+                  style={{ color: "red", marginLeft: 1 }}
+                >
+                  <CloseOutlined />
+                </IconButton>
+              </Typography>
+            )}
+
             <Toolbar disableGutters>
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
