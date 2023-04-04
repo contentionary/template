@@ -16,8 +16,7 @@ const PublicationsWrapper: PublicationsWrapperFunc = ({
     <>
       <HeadPage title={title} image={image} description={description} />
       {showHeader && <PublicationsHeader />}
-      <div style={{ marginTop: 40 }}>{children}</div>
-
+      {children}
       {showFooter && <PublicationsFooter />}
     </>
   );

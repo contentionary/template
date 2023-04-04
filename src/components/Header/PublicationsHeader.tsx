@@ -23,10 +23,10 @@ import PublicationsMenu from "./PublicationsMenu";
 // icons
 // styles, interface and config
 import ProfileMenu from "./ProfileMenu";
-import { queryClient } from "@src/utils";
+import { isServerSide, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { PublicationsHeaderFunc } from "./interfaceType";
-
+import { useRouter } from "next/router";
 const PublicationsHeader: PublicationsHeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -34,7 +34,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
   const { user, centre } = cachedData;
   const [show, setShow] = useState(true);
   const fontSize = 18;
-
+  const router = useRouter();
   return (
     <>
       <HideOnScroll>
@@ -46,9 +46,9 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
             zIndex: theme.zIndex.drawer + 2,
           }}
         >
-          {show && (
+          {show && router.pathname === "/" && (
             <Typography
-              variant="h5"
+              // variant="h6"
               sx={{
                 justifyContent: "center",
                 padding: 1,
@@ -56,6 +56,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
                 display: "flex",
                 alignItems: "center",
                 color: "#fff",
+                fontSize: { md: 14, lg: 16, xs: 12 },
               }}
             >
               <Campaign sx={{ fontSize: 40, mr: 1 }} />
