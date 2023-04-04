@@ -42,12 +42,10 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
           component="nav"
           elevation={0}
           sx={{
-            // px: { md: 6 },
             bgcolor: "white",
             zIndex: theme.zIndex.drawer + 2,
           }}
         >
-          {" "}
           {show && (
             <Typography
               variant="h5"
@@ -62,7 +60,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
             >
               <Campaign sx={{ fontSize: 40, mr: 1 }} />
               We’re excited to launch learn Africa E-store | Access our books
-              for free from now till 9th April 2023.
+              for free from now till 12:00 pm on the 7th April 2023.
               <IconButton
                 onClick={() => setShow(false)}
                 style={{ color: "red", marginLeft: 1 }}
@@ -71,7 +69,7 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
               </IconButton>
             </Typography>
           )}
-          <Container style={{ padding: "0 5px 5px 5px" }} maxWidth="xl">
+          <Container sx={{ padding: "5px", px: { md: 6 } }} maxWidth="xl">
             <Toolbar disableGutters>
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
