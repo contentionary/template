@@ -16,7 +16,7 @@ const PublicationsPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <Box sx={{ marginTop: {md: 8, lg: 6, xs:9} }}>
+      <Box sx={{ marginTop: { md: 8, lg: 6, xs: 9 } }}>
         <Publications />
       </Box>
     </PublicationsWrapper>
