@@ -38,7 +38,7 @@ const PublicationBreadcrumbs = ({ pageData }: Record<string, any>) => {
               </MuiLink>
             </NextLink>,
             <Typography key="3" color="text.primary">
-              {folder.name}
+              {folder?.name}
             </Typography>,
           ]
         )}

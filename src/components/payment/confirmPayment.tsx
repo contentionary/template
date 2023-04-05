@@ -13,6 +13,7 @@ interface Props {
   reference: any;
   redirectUrl: string;
   price: number;
+  purpose?: string;
 }
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
@@ -35,6 +36,7 @@ export default function CircularDeterminate({
   redirectUrl,
   position,
   price,
+  purpose,
 }: Props) {
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(true);
@@ -48,9 +50,11 @@ export default function CircularDeterminate({
           : await request.get({
               url: `/transaction/${reference}/verify`,
             });
-
       if (data.valueGiven) {
-        if (data.purpose === "CENTRE_SUBSCRIPTION") {
+        if (
+          data.purpose === "CENTRE_SUBSCRIPTION" ||
+          purpose === "CENTRE_SUBSCRIPTION"
+        ) {
           cache.set("isCentreSubscriber", true);
         }
         setShow(false);
