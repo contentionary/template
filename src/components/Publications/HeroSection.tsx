@@ -169,6 +169,7 @@ const HeroSection: PublicationsFunc = () => {
           price={Number(deductedPrice)}
           reference={reference}
           redirectUrl={redirectUrl}
+          purpose="CENTRE_SUBSCRIPTION"
         />
       )}
     </Fragment>

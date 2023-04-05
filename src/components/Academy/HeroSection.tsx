@@ -31,7 +31,6 @@ const HeroSection: AcademyFunc = () => {
   const { user } = cachedData;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
-
   return (
     <Fragment>
       <Box

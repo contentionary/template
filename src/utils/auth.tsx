@@ -58,17 +58,17 @@ export const getAuthData = (context?: GetServerSidePropsContext) => {
 export const Auth = {
   isCentreOwner: (centreId: string, user: UserInt) => {
     user = user || cache.get("user");
-    const ownCentres = user.ownCentres;
+    const ownCentres = user?.ownCentres;
     return ownCentres && ownCentres.includes(centreId);
   },
   isManager: (centreId: string, user: UserInt) => {
     user = user || cache.get("user");
-    const managingCentres = user.managingCentres;
+    const managingCentres = user?.managingCentres;
     return managingCentres && managingCentres.includes(centreId);
   },
   isCentreSubscriber: (centreId: string, user: UserInt) => {
     user = user || cache.get("user");
-    const centreSubscriber = user.subscribedCentres;
+    const centreSubscriber = user?.subscribedCentres;
     return centreSubscriber && centreSubscriber.includes(centreId);
   },
   isPendingSubscriber: (centreId: string, user: UserInt) => {
