@@ -51,6 +51,11 @@ export default function Subscribers({
       query: { ...router.query, pageId: value },
     });
   };
+  const refresh = () => {
+    router.replace({
+      query: { ...router.query },
+    });
+  };
   const result = subscribers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
@@ -58,7 +63,7 @@ export default function Subscribers({
       <Delete
         url={`/centre/${centreId}/user/${user.userId}/remove`}
         toggleToast={toggleToast}
-        updateData={handleChange}
+        updateData={refresh}
       />
     ),
   }));
@@ -81,7 +86,7 @@ export default function Subscribers({
           <Typography sx={{ display: "flex", justifyContent: "space-between" }}>
             <AddSubscriber
               toggleToast={toggleToast}
-              refetch={handleChange}
+              refetch={refresh}
               centreId={centreId as string}
             />
             <CentreUserMenu url={`centre/${centreId}/users`} />

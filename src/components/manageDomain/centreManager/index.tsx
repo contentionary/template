@@ -41,9 +41,9 @@ export default function Managers({
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Action", key: "action" },
   ];
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const refresh = () => {
     router.replace({
-      query: { ...router.query, pageId: value ? value : 1 },
+      query: { ...router.query },
     });
   };
   const result = managers.users.map((user, index: number) => ({
@@ -53,7 +53,7 @@ export default function Managers({
       <Delete
         toggleToast={toggleToast}
         url={`/centre/${centreId}/centre-manager/${user.userId}`}
-        updateData={handleChange}
+        updateData={refresh}
       />
     ),
   }));
@@ -77,7 +77,7 @@ export default function Managers({
           <Typography>
             <AddSubscriber
               toggleToast={toggleToast}
-              refetch={handleChange}
+              refetch={refresh}
               centreId={centreId as string}
             />
           </Typography>
