@@ -39,17 +39,16 @@ export default function Subscribers({
   const router = useRouter();
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
-    { minWidth: 150, name: "Surname", key: "surname" },
-    { minWidth: 150, name: "First name", key: "firstname" },
-    { minWidth: 50, name: "Username", key: "username" },
-    { minWidth: 100, name: "Email", key: "email" },
+    { minWidth: 120, name: "Surname", key: "surname" },
+    { minWidth: 120, name: "First name", key: "firstname" },
+    { minWidth: 150, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Status", key: "status" },
     { minWidth: 50, name: "Action", key: "action" },
   ];
-  const handleChange = () => {
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
-      query: { ...router.query },
+      query: { ...router.query, pageId: value },
     });
   };
   const result = subscribers.users.map((user, index: number) => ({

@@ -335,20 +335,18 @@ export const AuthUpdate = async () => {
     throw error;
   }
 };
-
+// claimyourwin
 export const getCentre = async (
   context: GetServerSidePropsContext,
   returnFullData: boolean = false
 ): Promise<CachedCentreInt | CentreProps | null> => {
   try {
     const host = context.req.headers.host as string;
-
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
       url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
     });
-
     if (!returnFullData && centre)
       centre = {
         id: centre.id,

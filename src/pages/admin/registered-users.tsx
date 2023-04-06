@@ -22,9 +22,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context, true)) as CachedCentreInt;
-
+    const { pageId = 1 } = context.query;
     const { data }: any = await request.get({
-      url: `/auth/centre/${centre.id}/registered-users`,
+      url: `/auth/centre/${centre.id}/registered-users?pageId=${pageId}&limit=100`,
       token,
     });
     return {

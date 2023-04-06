@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // next components
 import NextLink from "next/link";
 // mui components
@@ -32,6 +32,10 @@ const HeroSection: PublicationsFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const { user, centre } = cachedData;
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
 
@@ -85,17 +89,19 @@ const HeroSection: PublicationsFunc = () => {
               >
                 {landingPageSectionOne.description}
               </Typography>
-              <NextLink href={getStarted.link} passHref>
-                <Button
-                  size="large"
-                  disableElevation
-                  variant="contained"
-                  component={MuiLink}
-                  color="primary"
-                >
-                  {getStarted.text}
-                </Button>
-              </NextLink>
+              {hydrated && (
+                <NextLink href={getStarted.link} passHref>
+                  <Button
+                    size="large"
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    color="primary"
+                  >
+                    {getStarted.text}
+                  </Button>
+                </NextLink>
+              )}
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
               <Box
