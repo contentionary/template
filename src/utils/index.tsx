@@ -335,7 +335,7 @@ export const AuthUpdate = async () => {
     throw error;
   }
 };
-// claimyourwin;
+// claimyourwin
 export const getCentre = async (
   context: GetServerSidePropsContext,
   returnFullData: boolean = false

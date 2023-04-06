@@ -39,10 +39,9 @@ export default function Subscribers({
   const router = useRouter();
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
-    { minWidth: 150, name: "Surname", key: "surname" },
-    { minWidth: 150, name: "First name", key: "firstname" },
-    { minWidth: 50, name: "Username", key: "username" },
-    { minWidth: 100, name: "Email", key: "email" },
+    { minWidth: 120, name: "Surname", key: "surname" },
+    { minWidth: 120, name: "First name", key: "firstname" },
+    { minWidth: 150, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Status", key: "status" },
     { minWidth: 50, name: "Action", key: "action" },
