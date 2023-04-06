@@ -47,9 +47,9 @@ export default function Subscribers({
     { minWidth: 50, name: "Status", key: "status" },
     { minWidth: 50, name: "Action", key: "action" },
   ];
-  const handleChange = () => {
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
-      query: { ...router.query },
+      query: { ...router.query, pageId: value },
     });
   };
   const result = subscribers.users.map((user, index: number) => ({
