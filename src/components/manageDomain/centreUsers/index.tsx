@@ -6,7 +6,6 @@ import Container from "@mui/material/Container";
 import Pagination from "@mui/material/Pagination";
 import MuiTable from "@src/components/shared/table";
 import Empty from "@src/components/shared/state/Empty";
-import Delete from "../../shared/delete";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useToast } from "@src/utils/hooks";
@@ -26,7 +25,6 @@ interface SubscriberListInt {
 }
 export default function Subscribers({
   registeredUsers,
-  centreId,
 }: {
   registeredUsers: SubscriberListInt;
   centreId: string;
@@ -44,15 +42,17 @@ export default function Subscribers({
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 50, name: "Status", key: "status" },
   ];
-  const handleChange = () => {
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
-      query: { ...router.query },
+      query: { ...router.query, pageId: value },
     });
   };
   const result = registeredUsers.users.map((user, index: number) => ({
     index: ++index,
     ...user,
   }));
+
   if (!registeredUsers) return <h1>....Loading</h1>;
   return (
     <Box

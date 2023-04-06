@@ -9,14 +9,12 @@ interface Props {
   paymentType: string;
   className: string;
   contentClass: string;
-  width: number;
 }
 export default function BasicCard({
   logo,
   paymentType,
   className,
   contentClass,
-  width,
 }: Props) {
   return (
     <Card variant="outlined" className={className}>

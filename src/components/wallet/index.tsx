@@ -172,7 +172,7 @@ export default function CustomizedSteppers() {
                 padding: 3,
                 width: { xs: "100%", md: "75%" },
                 borderRadius: 3,
-                background: cachedData.centre.primaryColor || "#DD6E20",
+                background: cachedData?.centre?.primaryColor || "#DD6E20",
               }}
             >
               {" "}

@@ -7,7 +7,6 @@ export const data: any[] = [
     logo: "/images/payment/payStack.svg",
     motto: "Secured by Paystack",
     active: false,
-    width: 150,
     currency: Currency.NGN,
     isDefault: true,
   },
@@ -18,7 +17,6 @@ export const data: any[] = [
     motto: "Secured by Stripe",
     active: false,
     currency: Currency.USD,
-    width: 80,
     isDefault: true,
   },
   {
@@ -29,7 +27,6 @@ export const data: any[] = [
     active: false,
     link: "https://checkout.flutterwave.com/v3/hosted/pay",
     currency: "*",
-    width: 180,
     isDefault: false,
   },
 ];
