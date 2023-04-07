@@ -51,11 +51,11 @@ const CreatePublication = () => {
       ? publication?.tableOfContents
       : [{ title: "", pageNo: 0 }]
   );
-  const [authors, setAuthors] = useState<Array<any>>([
+  const [authors, setAuthors] = useState<Array<any>>(
     publication?.authors?.length
       ? publication?.authors
-      : { name: "", imageUrl: "" },
-  ]);
+      : [{ name: "", imageUrl: "" }]
+  );
   const [learnings, setLearnings] = useState<Array<string>>(
     publication?.learnings?.length ? publication?.learnings : []
   );
@@ -395,7 +395,7 @@ const CreatePublication = () => {
                   fullWidth
                 />
               </Box>
-              <Stack direction="row" spacing={3}>
+              <Box>
                 <CheckBox
                   label={
                     <Typography variant="h6" className={styles.checkbox}>
@@ -456,7 +456,7 @@ const CreatePublication = () => {
                   name="allowReview"
                   className={styles.checkbox}
                 />
-              </Stack>
+              </Box>
             </>
           )}
 

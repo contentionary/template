@@ -79,7 +79,11 @@ const PublicationAdmin = () => {
         </>
       ) : (
         <Empty
-          href={`/admin/publication/create?type=PUBLICATION&folderId=${folderId}`}
+          href={
+            folderId
+              ? `/admin/publication/create?type=PUBLICATION&folderId=${folderId}`
+              : "/admin/publication/create?type=PUBLICATION"
+          }
           buttonText="Create publication"
         />
       )}
