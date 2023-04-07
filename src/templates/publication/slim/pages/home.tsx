@@ -2,7 +2,6 @@ import Publications from "@src/components/Publications";
 import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
-import Box from "@mui/material/Box";
 
 const PublicationsPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
@@ -16,9 +15,7 @@ const PublicationsPage = () => {
       showHeader={true}
       showFooter={true}
     >
-      <Box sx={{ marginTop: { md: 8, lg: 6, xs: 9 } }}>
-        <Publications />
-      </Box>
+      <Publications />
     </PublicationsWrapper>
   );
 };
