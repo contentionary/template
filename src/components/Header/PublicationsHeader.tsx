@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 // next components
 import Image from "@src/components/shared/image";
 import NextLink from "next/link";
@@ -12,10 +12,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 //
 import { useTheme } from "@mui/material/styles";
 //
-import { IconButton, Link as MuiLink } from "@mui/material";
-import Campaign from "@mui/icons-material/Campaign";
-import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import Typography from "@mui/material/Typography";
+import { Link as MuiLink } from "@mui/material";
 // app components
 import AppDrawer from "./AppDrawer";
 import HideOnScroll from "./HideOnScroll";
@@ -23,18 +20,16 @@ import PublicationsMenu from "./PublicationsMenu";
 // icons
 // styles, interface and config
 import ProfileMenu from "./ProfileMenu";
-import { isServerSide, queryClient } from "@src/utils";
+import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { PublicationsHeaderFunc } from "./interfaceType";
-import { useRouter } from "next/router";
+
 const PublicationsHeader: PublicationsHeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
-  const [show, setShow] = useState(true);
   const fontSize = 18;
-  const router = useRouter();
   return (
     <>
       <HideOnScroll>
@@ -44,33 +39,10 @@ const PublicationsHeader: PublicationsHeaderFunc = () => {
           sx={{
             bgcolor: "white",
             zIndex: theme.zIndex.drawer + 2,
+            px: { md: 6 },
           }}
         >
-          {show && router.pathname === "/" && (
-            <Typography
-              // variant="h6"
-              sx={{
-                justifyContent: "center",
-                padding: 1,
-                background: theme.palette.primary.main,
-                display: "flex",
-                alignItems: "center",
-                color: "#fff",
-                fontSize: { md: 14, lg: 16, xs: 12 },
-              }}
-            >
-              <Campaign sx={{ fontSize: 40, mr: 1 }} />
-              We’re excited to launch Learn Africa E-store | Access our books
-              for free from now till 12:00 pm on the 7th April 2023.
-              <IconButton
-                onClick={() => setShow(false)}
-                style={{ color: "red", marginLeft: 1 }}
-              >
-                <CloseOutlined />
-              </IconButton>
-            </Typography>
-          )}
-          <Container sx={{ padding: "5px", px: { md: 6 } }} maxWidth="xl">
+          <Container sx={{ padding: "5px" }} maxWidth="xl">
             <Toolbar disableGutters>
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
