@@ -13,6 +13,7 @@ import { useState } from "react";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
+// import PhoneInput from "react-phone-input-2";
 import dynamic from "next/dynamic";
 
 const UpdateCentre = () => {
@@ -29,9 +30,11 @@ const UpdateCentre = () => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const router = useRouter();
+  // const [value, setValue] = useState("");
   const { centre } = cachedData as unknown as {
     centre: CentreProps;
   };
+
   async function update() {
     try {
       setIsLoading(true);
@@ -94,6 +97,38 @@ const UpdateCentre = () => {
             defaultValue={centre?.phoneNumber}
             onChange={getData}
           />
+          {/* <label >Phone number *</label>
+          <PhoneInput
+            placeholder="Centre phone number"
+            country="ng"
+            enableSearch={true}
+            value={value}
+            onChange={(e: string) => setValue(e)}
+            inputStyle={{
+              marginLeft: "7%",
+              padding: 28,
+              color: "#888888",
+              width: "93%",
+              borderTopLeftRadius: 0,
+              borderBottomLeftRadius: 0,
+            }}
+            inputProps={{
+              name: "phoneNumber",
+              required: true,
+            }}
+            dropdownStyle={{
+              borderBottomRightRadius: 5,
+              borderBottomLeftRadius: 5,
+              color: "#616161",
+            }}
+            containerStyle={{ marginTop: 0 }}
+            buttonStyle={{
+              borderTopLeftRadius: 5,
+              borderBottomLeftRadius: 5,
+              borderTopRightRadius: 0,
+              borderBottomRightRadius: 0,
+            }}
+          /> */}
           <TextFields
             type="text"
             label="Centre Email Address"
@@ -108,7 +143,6 @@ const UpdateCentre = () => {
             defaultValue={centre?.price}
             onChange={getData}
           />
-
           <TextFields
             type="text"
             label="Centre address"
@@ -123,6 +157,29 @@ const UpdateCentre = () => {
             defaultValue={centre?.websiteUrl}
             onChange={getData}
           />
+          <Stack>
+            <Typography
+              variant="subtitle1"
+              component="p"
+              style={{ marginTop: 20, width: "100%" }}
+            >
+              Summary
+            </Typography>
+            <TextArea
+              placeholder="summary"
+              maxRows={4}
+              name="summary"
+              defaultValue={centre?.summary}
+              onChange={getData}
+              maxLength={200}
+              minLength={75}
+              style={{
+                padding: "20px 10px",
+                borderRadius: 5,
+                height: 120,
+              }}
+            />
+          </Stack>
           <Stack>
             <Typography
               variant="subtitle1"

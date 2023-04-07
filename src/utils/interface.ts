@@ -468,6 +468,7 @@ export interface CentreProps {
   subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
   template: string;
   plugins: Record<string, boolean>;
+  summary: string;
 }
 
 export interface PublicationCategoryInt {
