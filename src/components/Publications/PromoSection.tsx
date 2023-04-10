@@ -26,7 +26,7 @@ const PromoSection: PublicationsFunc = () => {
   return (
     <Box
       component="section"
-      sx={{ py: 8, px: { md: 6 }, bgcolor: "secondary.dark" }}
+      sx={{ py: { md: 8 }, px: { md: 6 }, bgcolor: "secondary.dark" }}
       className=""
     >
       <Container maxWidth="xl">
@@ -51,7 +51,7 @@ const PromoSection: PublicationsFunc = () => {
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
-            <Box>
+            <Box sx={{ mt: { md: 10, lg: 0 } }}>
               <Typography mb={1} variant="h4" color="GrayText">
                 {title}
               </Typography>
