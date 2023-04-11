@@ -69,7 +69,7 @@ const CreditWallet = ({
           color: "#fff",
           paddingY: 1.8,
           paddingX: 3,
-          mb: { xs: 3, md: 0 },
+          mb: { xs: 3, md: 2, lg: 0 },
         }}
         onClick={() => {
           getSupportedCurrency();

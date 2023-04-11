@@ -2,7 +2,6 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import MuiTable from "@src/components/shared/table";
 import AddSubscriber from "./addSubscriber";
 import Empty from "@src/components/shared/state/Empty";
@@ -64,40 +63,36 @@ export default function Managers({
       sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
       className="hero-section"
     >
-      <Container maxWidth="xl">
-        <Stack spacing={4} marginTop={4}>
-          <Typography
-            variant="h5"
-            component="p"
-            sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
-          >
-            Centre Managers
-          </Typography>
-
-          <Typography>
-            <AddSubscriber
-              toggleToast={toggleToast}
-              refetch={refresh}
-              centreId={centreId as string}
-            />
-          </Typography>
-
-          {result.length ? (
-            <Box sx={{ width: { xs: 400, md: "100%" } }}>
-              <MuiTable data={result} columns={columns} bgColor="#F7F7F7" />
-            </Box>
-          ) : (
-            <Empty />
-          )}
-        </Stack>
-        {toastMessage && (
-          <Toast
-            message={toastMessage}
-            status={Boolean(toggleToast)}
-            showToast={toggleToast}
+      <Stack spacing={4} marginTop={4}>
+        <Typography
+          variant="h5"
+          component="p"
+          sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
+        >
+          Centre Managers
+        </Typography>
+        <Typography>
+          <AddSubscriber
+            toggleToast={toggleToast}
+            refetch={refresh}
+            centreId={centreId as string}
           />
+        </Typography>
+        {result.length ? (
+          <Box>
+            <MuiTable data={result} columns={columns} bgColor="#F7F7F7" />
+          </Box>
+        ) : (
+          <Empty />
         )}
-      </Container>
+      </Stack>
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          status={Boolean(toggleToast)}
+          showToast={toggleToast}
+        />
+      )}
     </Box>
   );
 }

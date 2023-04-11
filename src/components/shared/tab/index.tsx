@@ -60,7 +60,7 @@ export default function FullWidthTabs({
   };
 
   return (
-    <Box sx={{ width: { xs: 400, md: "100%" } }}>
+    <Box>
       <Tabs
         sx={sx}
         value={value}

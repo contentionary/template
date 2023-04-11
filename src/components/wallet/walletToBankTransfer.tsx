@@ -94,7 +94,7 @@ const BankTransfer = ({
       setBanks([...(data as BankType[])]);
       values.currency = value;
       setIsLoading(false);
-    } catch ({ message }) {
+    } catch (err) {
       setIsLoading(false);
     }
   }

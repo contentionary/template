@@ -157,7 +157,9 @@ const ReviewItem = (props: ReviewItemInt) => {
 
   // handle open delete snackbar
   const handleOpenDelete = () => {
-    setDeleteModal((prevState) => ({ ...prevState, open: true }));
+    setLoading(true);
+    mutation.mutate();
+    // setDeleteModal((prevState) => ({ ...prevState, open: true }));
   };
 
   // handle delete review
