@@ -166,7 +166,7 @@ export default function CustomizedSteppers() {
           />
         )}
         <Stack spacing={4} marginTop={4}>
-          <Stack direction={{ md: "row" }} spacing={4}>
+          <Stack direction={{ lg: "row" }} spacing={4}>
             <Box
               sx={{
                 padding: 3,
@@ -199,7 +199,7 @@ export default function CustomizedSteppers() {
               >
                 Wallet Balance
               </Typography>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", flexWrap: "wrap" }}>
                 {pockets.map((pocket, index) => (
                   <Typography
                     key={`${pocket}-${index}`}

@@ -2,14 +2,16 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 import Container from "@mui/material/Container";
+// import CloseOutlined from "@mui/icons-material/CloseOutlined";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
-import { useToast } from "@src/utils/hooks";
 import ButtonComponent from "@src/components/shared/button";
+// import Box from "@mui/material/Box";
 
 import { useState } from "react";
+import { useToast } from "@src/utils/hooks";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
@@ -24,6 +26,10 @@ const UpdateCentre = () => {
   const [img, setImg] = useState<Record<string, any>>({});
   const [convertedImage, setConvertedImage] = useState<any>();
   const [imageLoadingProgres, setImageLoadingProgress] = useState(0);
+  // const [pricePlan, setPricePLan] = useState([
+  //   { monthly: "", price: "", days: "" },
+  // ]);
+
   const ImageUpload = dynamic(
     () => import("@src/components/shared/imageUpload")
   );
@@ -78,7 +84,7 @@ const UpdateCentre = () => {
           textAlign: "center",
         }}
       >
-        Update Domain
+        Update centre
       </Typography>
       <form onSubmit={(e) => submit(e)}>
         <Stack spacing={3} mb={2}>
@@ -203,14 +209,70 @@ const UpdateCentre = () => {
             />
           </Stack>
         </Stack>
-
+        {/* <Stack spacing={2} mt={5}>
+          <Typography variant="h5">
+            <strong>Add Centre Price</strong>
+          </Typography>
+          <Typography>
+            Enter a price a user pays to subscribe to your centre and a duration
+            the subscription expires
+          </Typography>
+          {pricePlan.map(() => (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                alignItems: "center",
+              }}
+            >
+              <TextFields
+                sx={{ mt: 2 }}
+                type="text"
+                label="Plan type"
+                name="websiteUrl"
+                // defaultValue={centre?.websiteUrl}
+                onChange={getData}
+              />
+              <TextFields
+                sx={{ mt: 2 }}
+                type="text"
+                label="Enter Amount"
+                name="websiteUrl"
+                // defaultValue={centre?.websiteUrl}
+                onChange={getData}
+              />
+              <TextFields
+                sx={{ mt: 2 }}
+                type="text"
+                label="No. of days"
+                name="websiteUrl"
+                // defaultValue={centre?.websiteUrl}
+                onChange={getData}
+              />
+              <CloseOutlined />
+            </Box>
+          ))}
+          <Box sx={{ textAlign: "right" }}>
+            <ButtonComponent
+              onClick={() =>
+                setPricePLan([
+                  ...pricePlan,
+                  { monthly: "", price: "", days: "" },
+                ])
+              }
+            >
+              Add more plan price
+            </ButtonComponent>
+          </Box>
+        </Stack>
+        <Box mt={5}>  </Box>*/}
         <ImageUpload
           setImg={setImg}
           img={img}
           uploadText="Edit logo"
           defaultImage={centre.logo}
         />
-
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
           <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
             <>

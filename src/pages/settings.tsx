@@ -32,13 +32,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     centre = (await getCentre(context)) as CachedCentreInt;
-    const data = await request.get({
-      url: "/auth/verify-token",
-      token,
-    });
+    // const data = await request.get({
+    //   url: "/auth/verify-token",
+    //   token,
+    // });
     return {
       props: {
-        cachedData: { user: data || user, centre, token },
+        cachedData: { user, centre, token },
       },
     };
   } catch (err) {
