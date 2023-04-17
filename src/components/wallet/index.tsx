@@ -170,12 +170,11 @@ export default function CustomizedSteppers() {
             <Box
               sx={{
                 padding: 3,
-                width: { xs: "100%", md: "75%" },
+                width: { xs: "100%", md: "100%" },
                 borderRadius: 3,
                 background: cachedData?.centre?.primaryColor || "#DD6E20",
               }}
             >
-              {" "}
               <Typography
                 variant="h5"
                 component="p"
@@ -247,7 +246,7 @@ export default function CustomizedSteppers() {
                 flexDirection: "column",
                 borderRadius: 3,
                 padding: 4,
-                width: { xs: "100%", md: "25%" },
+                width: { xs: "100%", lg: "75%" },
               }}
             >
               <Typography
@@ -363,7 +362,7 @@ export default function CustomizedSteppers() {
             </Box>
           </Box>
 
-          <Box sx={{ width: { xs: "100%" } }}>
+          <Box sx={{ width: { xs: "100%"} }}>
             {isLoading ? (
               <div>Loading...</div>
             ) : (
