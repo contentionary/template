@@ -362,7 +362,7 @@ export default function CustomizedSteppers() {
             </Box>
           </Box>
 
-          <Box sx={{ width: { xs: "100%"} }}>
+          <Box sx={{ width: { xs: "100%" } }}>
             {isLoading ? (
               <div>Loading...</div>
             ) : (
