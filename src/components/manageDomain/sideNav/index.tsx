@@ -21,6 +21,7 @@ import { useDialog } from "@src/hooks";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import dynamic from "next/dynamic";
+import { Auth } from "@src/utils/auth";
 
 const SideNav = (): JSX.Element => {
   const CentreContact = dynamic(() => import("./contact"));
@@ -29,6 +30,7 @@ const SideNav = (): JSX.Element => {
   const user = cache.get("user");
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const centre = cachedData.centre as unknown as CentreProps;
+
   return (
     <div style={{ paddingTop: 20, background: "#FCFCFC" }}>
       <Toolbar>
@@ -102,24 +104,27 @@ const SideNav = (): JSX.Element => {
             </ListItemButton>
           </NextLink>
         </ListItem>
-        <ListItem disablePadding>
-          <NextLink href="/admin/wallet" passHref>
-            <ListItemButton LinkComponent={Link}>
-              <ListItemIcon>
-                <WalletOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText
-                primaryTypographyProps={{
-                  color: "#333333",
-                  fontWeight: 500,
-                  fontSize: 16,
-                  fontStyle: "normal",
-                }}
-                primary="Centre Wallet"
-              />
-            </ListItemButton>
-          </NextLink>
-        </ListItem>
+        {user?.isAdmin && (
+          <ListItem disablePadding>
+            <NextLink href="/admin/wallet" passHref>
+              <ListItemButton LinkComponent={Link}>
+                <ListItemIcon>
+                  <WalletOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{
+                    color: "#333333",
+                    fontWeight: 500,
+                    fontSize: 16,
+                    fontStyle: "normal",
+                  }}
+                  primary="Centre Wallet"
+                />
+              </ListItemButton>
+            </NextLink>
+          </ListItem>
+        )}
+
         <ListItem disablePadding>
           <NextLink href="/admin/template" passHref>
             <ListItemButton LinkComponent={Link}>

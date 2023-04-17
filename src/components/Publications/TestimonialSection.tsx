@@ -8,10 +8,10 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 // app components and icon
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
-import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+// import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
+// import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
 // styles and interface
 import useGlobalStyle, { bg } from "@src/styles";
 import { PublicationsFunc } from "./interfaceType";

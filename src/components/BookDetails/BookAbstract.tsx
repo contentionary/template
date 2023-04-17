@@ -19,10 +19,9 @@ const BookAbstract: BookDetailsPageFunc = ({ publication }) => {
       <Typography variant="h5" mb={2}>
         ABOUT THIS BOOK:
       </Typography>
-      <Typography paragraph>{description}</Typography>
+      <Typography dangerouslySetInnerHTML={{ __html: description }} paragraph />
       {learnings?.length && (
         <>
-          {" "}
           <Typography variant="h5" mb={1}>
             WHAT YOU WILL LEARN
           </Typography>

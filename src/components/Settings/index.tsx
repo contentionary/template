@@ -14,7 +14,6 @@ const SettingsPage = () => {
   const { toastMessage, toggleToast } = useToast();
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const user = cachedData.user;
-  console.log(user);
   const tab = ["BIOS", "CHANGE PASSWORD", "CHANGE EMAIL", "EMAIL VERIFICATION"];
   const tabPanel = [
     <Bios toggleToast={toggleToast} key={0} user={user} />,

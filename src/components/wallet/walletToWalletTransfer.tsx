@@ -83,7 +83,7 @@ const WalletToWalletTransfer = ({
           color: "#fff",
           paddingY: 1.8,
           paddingX: 3,
-          mb: { xs: 3, md: 0 },
+          mb: { xs: 3, md: 2, lg: 0 },
         }}
         onClick={() => {
           getSupportedCurrency();
@@ -94,7 +94,11 @@ const WalletToWalletTransfer = ({
           <Typography
             variant="h5"
             component="p"
-            style={{ color: "#fff", marginLeft: 10, fontSize: 16 }}
+            sx={{
+              color: "#fff",
+              marginLeft: 1,
+              fontSize: { xs: 16, md: 20, lg: 16 },
+            }}
           >
             Wallet to Wallet Transfer
           </Typography>

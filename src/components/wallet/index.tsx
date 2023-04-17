@@ -166,16 +166,15 @@ export default function CustomizedSteppers() {
           />
         )}
         <Stack spacing={4} marginTop={4}>
-          <Stack direction={{ md: "row" }} spacing={4}>
+          <Stack direction={{ lg: "row" }} spacing={4}>
             <Box
               sx={{
                 padding: 3,
-                width: { xs: "100%", md: "75%" },
+                width: { xs: "100%", md: "100%" },
                 borderRadius: 3,
                 background: cachedData?.centre?.primaryColor || "#DD6E20",
               }}
             >
-              {" "}
               <Typography
                 variant="h5"
                 component="p"
@@ -199,7 +198,7 @@ export default function CustomizedSteppers() {
               >
                 Wallet Balance
               </Typography>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", flexWrap: "wrap" }}>
                 {pockets.map((pocket, index) => (
                   <Typography
                     key={`${pocket}-${index}`}
@@ -216,7 +215,7 @@ export default function CustomizedSteppers() {
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  flexDirection: { xs: "column", md: "row" },
+                  flexDirection: { xs: "column", md: "column", lg: "row" },
                 }}
               >
                 <CreditWallet
@@ -247,7 +246,7 @@ export default function CustomizedSteppers() {
                 flexDirection: "column",
                 borderRadius: 3,
                 padding: 4,
-                width: { xs: "100%", md: "25%" },
+                width: { xs: "100%", lg: "75%" },
               }}
             >
               <Typography
@@ -256,6 +255,7 @@ export default function CustomizedSteppers() {
                 color="primary"
                 sx={{
                   marginBottom: 2,
+                  textAlign: "center",
                 }}
               >
                 Total balance in USD
@@ -272,18 +272,32 @@ export default function CustomizedSteppers() {
           </Stack>
 
           <Box>
-            <Typography variant="h4" component="p">
-              Transactions
-            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <Typography variant="h4" component="p">
+                Transactions
+              </Typography>
+
+              <ExportMenu
+                url={`wallet/user/${
+                  centreWallet ? cachedData.centre.id : cachedData.user.id
+                }/transaction-history`}
+              />
+            </Box>
+
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
+                flexWrap: "wrap",
+                mt: 1,
               }}
             >
               <Stack direction="row" spacing={1}>
-                <FormControl variant="outlined" sx={{ minWidth: 120 }}>
+                <FormControl
+                  variant="outlined"
+                  sx={{ minWidth: { xs: 80, md: 120 } }}
+                >
                   <InputLabel id="demo-simple-select-standard-label">
                     Filter
                   </InputLabel>
@@ -316,7 +330,18 @@ export default function CustomizedSteppers() {
                     variant={transactionType === "all" ? "contained" : "text"}
                     onClick={() => getTransactions("all", 1)}
                   >
-                    All Transactions
+                    <>
+                      All
+                      <Typography
+                        sx={{
+                          display: { xs: "none", md: "unset" },
+                          color: "white",
+                          ml: "2px",
+                        }}
+                      >
+                        Transactions
+                      </Typography>
+                    </>
                   </ButtonComponent>
                   <ButtonComponent
                     variant={
@@ -324,21 +349,16 @@ export default function CustomizedSteppers() {
                     }
                     onClick={() => getTransactions("CREDIT", 1)}
                   >
-                    Deposits
+                    Deposit
                   </ButtonComponent>
                   <ButtonComponent
                     variant={transactionType === "DEBIT" ? "contained" : "text"}
                     onClick={() => getTransactions("DEBIT", 1)}
                   >
-                    Withdrawals
+                    Withdrawal
                   </ButtonComponent>
                 </ButtonGroup>
               </Stack>
-              <ExportMenu
-                url={`wallet/user/${
-                  centreWallet ? cachedData.centre.id : cachedData.user.id
-                }/transaction-history`}
-              />
             </Box>
           </Box>
 

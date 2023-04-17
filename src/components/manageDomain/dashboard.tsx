@@ -20,7 +20,9 @@ import dynamic from "next/dynamic";
 const Dashboard = (): JSX.Element => {
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
   const { plugins } = pageData;
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const Plugins = dynamic(() => import("./plugins"));
@@ -51,14 +53,16 @@ const Dashboard = (): JSX.Element => {
             link="/admin/managers"
           />
         </Grid>
-        <Grid item xs={6} md={3}>
-          <Card
-            icon={<WalletOutlinedIcon htmlColor="#9400d3" />}
-            title="Centre Wallet"
-            bgColor="#cea2fd"
-            link="/admin/wallet"
-          />
-        </Grid>
+        {cachedData?.user?.isAdmin && (
+          <Grid item xs={6} md={3}>
+            <Card
+              icon={<WalletOutlinedIcon htmlColor="#9400d3" />}
+              title="Centre Wallet"
+              bgColor="#cea2fd"
+              link="/admin/wallet"
+            />
+          </Grid>
+        )}
         <Grid item xs={6} md={3}>
           <Card
             icon={<PeopleAltOutlined htmlColor="#9400d3" />}

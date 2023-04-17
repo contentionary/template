@@ -8,6 +8,7 @@ interface Props {
   required?: boolean;
   name?: string;
   maxLength?: number;
+  minLength?: number;
 }
 const TextArea = ({
   style,
@@ -18,6 +19,7 @@ const TextArea = ({
   required,
   name,
   maxLength,
+  minLength,
 }: Props): JSX.Element => {
   return (
     <TextareaAutosize
@@ -30,6 +32,7 @@ const TextArea = ({
       required={required}
       name={name}
       maxLength={maxLength}
+      minLength={minLength}
     />
   );
 };
