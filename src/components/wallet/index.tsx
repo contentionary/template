@@ -277,11 +277,13 @@ export default function CustomizedSteppers() {
                 Transactions
               </Typography>
 
-              <ExportMenu
-                url={`wallet/user/${
-                  centreWallet ? cachedData.centre.id : cachedData.user.id
-                }/transaction-history`}
-              />
+              {transactions.length > 0 && (
+                <ExportMenu
+                  url={`wallet/user/${
+                    centreWallet ? cachedData.centre.id : cachedData.user.id
+                  }/transaction-history`}
+                />
+              )}
             </Box>
 
             <Box

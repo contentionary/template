@@ -15,7 +15,7 @@ import { useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 // interface, styles and util
-import { queryClient, isServerSide } from "@src/utils";
+import { queryClient } from "@src/utils";
 import theme from "@src/styles/theme";
 import { BasePageProps } from "@src/utils/interface";
 //
@@ -41,9 +41,9 @@ function App({ Component, pageProps }: AppProps) {
       Router.events.off("routeChangeError", () => setPageLoading(false));
     };
   }, []);
-  if (pageProps?.error?.statusCode === 403 && !isServerSide) {
-    route.push("/logout");
-  }
+  // if (pageProps?.error?.statusCode === 403 && !isServerSide) {
+  //   route.push("/logout");
+  // }
   if (route.pathname.includes("/admin") && !cachedData?.user?.isAdmin)
     // Authenticate admin
     return <Custom404 />;

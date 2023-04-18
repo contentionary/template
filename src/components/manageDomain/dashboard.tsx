@@ -37,7 +37,7 @@ const Dashboard = (): JSX.Element => {
         <LightModeOutlinedIcon color="primary" fontSize="large" />
       </Box>
       <Grid container spacing={2}>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card
             icon={<SubscriptionsOutlined htmlColor="#0047ab" />}
             title="Subscribers"
@@ -45,7 +45,7 @@ const Dashboard = (): JSX.Element => {
             link="/admin/subscribers"
           />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card
             icon={<ManageAccountsOutlinedIcon htmlColor="#ff9f00" />}
             title="Managers"
@@ -54,7 +54,7 @@ const Dashboard = (): JSX.Element => {
           />
         </Grid>
         {cachedData?.user?.isAdmin && (
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <Card
               icon={<WalletOutlinedIcon htmlColor="#9400d3" />}
               title="Centre Wallet"
@@ -63,7 +63,7 @@ const Dashboard = (): JSX.Element => {
             />
           </Grid>
         )}
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <Card
             icon={<PeopleAltOutlined htmlColor="#9400d3" />}
             title="Registered Users"

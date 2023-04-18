@@ -37,7 +37,10 @@ export const MenuList = ({ examListData }: { examListData: ExamListInt }) => {
           <ListItem key={`${index}-exam-folder`} disablePadding>
             <NextLink href={`/exams?folderId=${exam.id}`} passHref>
               <ListItemButton component={MuiLink}>
-                <ListItemText primary={exam.name} />
+                <ListItemText
+                  sx={{ wordBreak: "break-all" }}
+                  primary={exam.name}
+                />
               </ListItemButton>
             </NextLink>
           </ListItem>
