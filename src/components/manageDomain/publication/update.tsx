@@ -87,6 +87,11 @@ const CreatePublication = () => {
       }
       if (learnings.length && type != "FOLDER") values.learnings = learnings;
       if (authors.length && authors[0].name) {
+        authors.map((author) => {
+          if (author.id) {
+            delete author.id;
+          }
+        });
         values.authors = authors;
       }
       if (tableOfContents && tableOfContents[0].title) {

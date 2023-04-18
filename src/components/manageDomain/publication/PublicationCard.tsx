@@ -109,7 +109,7 @@ const PublicationCard = ({
                   order={{ xs: 2, sm: 2 }}
                 >
                   <MenuBookOutlinedIcon color="primary" fontSize="inherit" />
-                  &nbsp;{subscriberCount ? kCount(subscriberCount) : 0}
+                  &nbsp;{kCount(readCount) || 0}
                 </Typography>
                 <Typography
                   mb={0}
@@ -123,7 +123,7 @@ const PublicationCard = ({
                     color="primary"
                     fontSize="inherit"
                   />
-                  &nbsp;{kCount(readCount)}
+                  &nbsp;{kCount(subscriberCount)}
                 </Typography>
                 <Typography
                   mb={0}

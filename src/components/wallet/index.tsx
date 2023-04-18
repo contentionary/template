@@ -166,16 +166,15 @@ export default function CustomizedSteppers() {
           />
         )}
         <Stack spacing={4} marginTop={4}>
-          <Stack direction={{ md: "row" }} spacing={4}>
+          <Stack direction={{ lg: "row" }} spacing={4}>
             <Box
               sx={{
                 padding: 3,
-                width: { xs: "100%", md: "75%" },
+                width: { xs: "100%", md: "100%" },
                 borderRadius: 3,
                 background: cachedData?.centre?.primaryColor || "#DD6E20",
               }}
             >
-              {" "}
               <Typography
                 variant="h5"
                 component="p"
@@ -199,7 +198,7 @@ export default function CustomizedSteppers() {
               >
                 Wallet Balance
               </Typography>
-              <Box sx={{ display: "flex" }}>
+              <Box sx={{ display: "flex", flexWrap: "wrap" }}>
                 {pockets.map((pocket, index) => (
                   <Typography
                     key={`${pocket}-${index}`}
@@ -247,7 +246,7 @@ export default function CustomizedSteppers() {
                 flexDirection: "column",
                 borderRadius: 3,
                 padding: 4,
-                width: { xs: "100%", md: "25%" },
+                width: { xs: "100%", lg: "75%" },
               }}
             >
               <Typography
@@ -278,11 +277,13 @@ export default function CustomizedSteppers() {
                 Transactions
               </Typography>
 
-              <ExportMenu
-                url={`wallet/user/${
-                  centreWallet ? cachedData.centre.id : cachedData.user.id
-                }/transaction-history`}
-              />
+              {transactions.length > 0 && (
+                <ExportMenu
+                  url={`wallet/user/${
+                    centreWallet ? cachedData.centre.id : cachedData.user.id
+                  }/transaction-history`}
+                />
+              )}
             </Box>
 
             <Box

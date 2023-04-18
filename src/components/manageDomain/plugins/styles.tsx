@@ -41,5 +41,8 @@ export default makeStyles({
       fontSize: 14,
       height: 90,
     },
+    [theme().breakpoints.up("xs")]: {
+      fontSize: 12,
+    },
   },
 });

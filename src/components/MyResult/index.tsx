@@ -47,7 +47,7 @@ export default function Subscribers({
             >
               My Results
             </Typography>
-            <ExportMenu url="my-exam-results" />
+            {results.length > 0 && <ExportMenu url="my-exam-results" />}
           </Box>
 
           {result.length ? (

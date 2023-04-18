@@ -80,7 +80,11 @@ const CreditWallet = ({
           <Typography
             variant="h5"
             component="p"
-            style={{ color: "#fff", marginLeft: 10, fontSize: 16 }}
+            sx={{
+              color: "#fff",
+              marginLeft: 1,
+              fontSize: { xs: 16, md: 20, lg: 16 },
+            }}
           >
             Credit Wallet
           </Typography>
