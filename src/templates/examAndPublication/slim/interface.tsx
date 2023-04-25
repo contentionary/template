@@ -1,12 +1,11 @@
-export type ExamAndCoursePages =
+export type ExamAndPublicationPages =
   | "Home"
   | "Exams"
-  | "Courses"
+  | "Library"
   | "Details"
   | "MyExams"
-  | "Contents"
   | "ErrorPage"
-  | "MyCourses"
+  | "MyPublications"
   | "StartExam"
   | "ExamDetails"
   | "ExamCompleted"

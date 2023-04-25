@@ -7,7 +7,7 @@ import PromoSection from "../Academy/PromoSection";
 import CategoriesSection from "./CategoriesSection";
 import FutureSection from "../Academy/FutureSection";
 import ExamListSection from "../ExamsHome/ExamListSection";
-import CourseListSection from "../Academy/CourseListSection";
+import PublicationListSection from "../Publications/PublicationListSection";
 import TestimonialSection from "../Academy/TestimonialSection";
 //
 import { ExamAndCourseFunc } from "./interfaceType";
@@ -17,7 +17,7 @@ const ExamAndCourse: ExamAndCourseFunc = () => {
     <Box component="main" sx={{ pt: 8 }}>
       <HeroSection />
       <CategoriesSection />
-      <CourseListSection />
+      <PublicationListSection />
       <FutureSection />
       <ExamListSection />
       <TestimonialSection />

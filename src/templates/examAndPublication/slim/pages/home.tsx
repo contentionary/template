@@ -1,5 +1,5 @@
 import ExamAndPublication from "@src/components/ExamAndPublication";
-import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
+import ExamAndPublicationWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
@@ -8,7 +8,7 @@ const AcademyPage = () => {
   const { name, logo } = cachedData.centre;
 
   return (
-    <ExamAndCourseWrapper
+    <ExamAndPublicationWrapper
       title={`${name} Academy`}
       description={`Welcome to ${name} online academy`}
       image={logo || DEFAULT_LOGO}
@@ -16,7 +16,7 @@ const AcademyPage = () => {
       showFooter={true}
     >
       <ExamAndPublication />
-    </ExamAndCourseWrapper>
+    </ExamAndPublicationWrapper>
   );
 };
 

@@ -1,9 +1,9 @@
 import PageError from "@src/components/shared/state/PageError";
-import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
+import ExamAndPublicationsWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
 
 const ErrorPage = () => {
   return (
-    <ExamAndCourseWrapper
+    <ExamAndPublicationsWrapper
       title="Edtify | Academy"
       description="Welcome to Edtify"
       image="/public/images/logo-icon.png"
@@ -11,7 +11,7 @@ const ErrorPage = () => {
       showFooter={true}
     >
       <PageError />
-    </ExamAndCourseWrapper>
+    </ExamAndPublicationsWrapper>
   );
 };
 
