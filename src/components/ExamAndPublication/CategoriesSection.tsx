@@ -44,12 +44,12 @@ const CategoriesSection: ExamAndCourseFunc = () => {
               }}
             >
               <ImageLink
-                href="/courses"
+                href="/library"
                 src="/images/courses-3.png"
                 alt="Edtify introduction video"
               >
                 <Typography component="h5" variant="h5" color="inherit">
-                  <BookIcon className="MuiSvgFlip-root" fill="white" /> Courses
+                  <BookIcon className="MuiSvgFlip-root" fill="white" /> Library
                 </Typography>
               </ImageLink>
             </Grid>

@@ -2,14 +2,14 @@ import React from "react";
 import ExamsPage from "@src/components/Exams";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
+import ExamAndPublicationsWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
 
 const Exams = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
 
   return (
-    <ExamAndCourseWrapper
+    <ExamAndPublicationsWrapper
       title={`${name} Online Courses`}
       description={`${name} academy online courses and folders`}
       image={logo || DEFAULT_LOGO}
@@ -17,7 +17,7 @@ const Exams = () => {
       showFooter={true}
     >
       <ExamsPage />
-    </ExamAndCourseWrapper>
+    </ExamAndPublicationsWrapper>
   );
 };
 

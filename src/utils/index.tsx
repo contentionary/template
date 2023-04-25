@@ -345,7 +345,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
+      url: `/centre/domain-centre?domain=${host}&proxy=bakingintelligence.com`,
     });
     if (!returnFullData && centre)
       centre = {
@@ -356,7 +356,7 @@ export const getCentre = async (
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
         description: centre.description,
         template: centre.template,
-        // template: "examAndCourse",
+        // template: "examAndPublication",
         logo: centre.logo,
         price: centre.price,
         subscriptionModel: centre.subscriptionModel,

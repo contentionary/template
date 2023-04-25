@@ -1,24 +1,22 @@
-import React from "react";
-import Settings from "@src/components/Settings";
-import { BasePageProps } from "@src/utils/interface";
-import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import Library from "@src/components/Library/MyPublications";
 import ExamAndPublicationsWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
+import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
-const SettingsPage = () => {
+const MyPublicationPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
-
   return (
     <ExamAndPublicationsWrapper
-      title="Profile Settings"
-      description={`${name} academy online courses and folders`}
+      title={`${cachedData.user.firstname} ${name} books`}
+      description={`${cachedData.user.firstname} ${name} books`}
       image={logo || DEFAULT_LOGO}
       showHeader={true}
       showFooter={true}
     >
-      <Settings />
+      <Library />
     </ExamAndPublicationsWrapper>
   );
 };
 
-export default SettingsPage;
+export default MyPublicationPage;

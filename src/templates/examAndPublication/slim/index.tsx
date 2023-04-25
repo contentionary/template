@@ -1,12 +1,11 @@
 import { WrapperFunc } from "@src/components/Wrapper/interface";
 import Home from "./pages/home";
 import Exams from "./pages/exams";
-import Courses from "./pages/courses";
+import Library from "./pages/library";
 import Details from "./pages/details";
 import MyExams from "./pages/myExams";
-import Contents from "./pages/content";
 import StartExam from "./pages/startExam";
-import MyCourses from "./pages/myCourses";
+import MyPublications from "./pages/myPublication";
 import ErrorPage from "./pages/errorPage";
 import ExamDetails from "./pages/examDetails";
 import ExamCompleted from "./pages/examCompleted";
@@ -16,17 +15,16 @@ import Settings from "./pages/settings";
 import ExamCorrection from "./pages/examCorrection";
 import MyResults from "./pages/myResults";
 //
-import { ExamAndCoursePages } from "./interface";
+import { ExamAndPublicationPages } from "./interface";
 
-const ExamAndCoursePages: Record<ExamAndCoursePages, WrapperFunc> = {
+const ExamAndPublicationPages: Record<ExamAndPublicationPages, WrapperFunc> = {
   Home,
   Exams,
-  Courses,
+  Library,
   Details,
   MyExams,
-  Contents,
   ErrorPage,
-  MyCourses,
+  MyPublications,
   StartExam,
   ExamDetails,
   ExamCompleted,
@@ -37,4 +35,4 @@ const ExamAndCoursePages: Record<ExamAndCoursePages, WrapperFunc> = {
   MyResults,
 };
 
-export default ExamAndCoursePages;
+export default ExamAndPublicationPages;

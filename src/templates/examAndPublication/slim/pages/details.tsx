@@ -1,22 +1,30 @@
-import CourseDetailsPage from "@src/components/CourseDetails";
-import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
-import { queryClient } from "@src/utils";
-import { BasePageProps } from "@src/utils/interface";
+import BookDetails from "@src/components/BookDetails";
+import ExamAndPublicationsWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
+import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
-const DetailsPage = () => {
-  const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
+const BookDetailsPage = () => {
+  const { cachedData, pageData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const { name, logo } = cachedData.centre;
+  const publication = pageData.publication as PublicationInt;
 
   return (
-    <ExamAndCourseWrapper
-      title={pageData.courseDetails?.name || ""}
-      description={pageData.courseDetails?.description || "Online course"}
-      image="/public/images/logo-icon.png"
+    <ExamAndPublicationsWrapper
+      title={`${name} | ${publication.name}`}
+      description={publication.description}
+      image={logo || DEFAULT_LOGO}
       showHeader={true}
       showFooter={true}
     >
-      <CourseDetailsPage />
-    </ExamAndCourseWrapper>
+      <BookDetails
+        centre={cachedData.centre}
+        publication={publication}
+        auth={pageData.auth}
+      />
+    </ExamAndPublicationsWrapper>
   );
 };
 
-export default DetailsPage;
+export default BookDetailsPage;
