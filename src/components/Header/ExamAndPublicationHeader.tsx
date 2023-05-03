@@ -29,7 +29,6 @@ const ExamAndCourseHeader: HeaderFunc = () => {
   const { user, centre } = cachedData;
 
   const fontSize = 18;
-
   return (
     <>
       <HideOnScroll>

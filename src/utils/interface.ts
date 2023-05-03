@@ -131,6 +131,7 @@ export interface CachedCentreInt {
   address: string;
   price: number;
   subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
+  isPrivate: boolean;
 }
 export interface BasePageProps {
   error: ErrorResponseInt;
