@@ -14,6 +14,7 @@ import Wallet from "./pages/wallet";
 import Settings from "./pages/settings";
 import ExamCorrection from "./pages/examCorrection";
 import MyResults from "./pages/myResults";
+import Document from "./pages/document";
 //
 import { ExamAndPublicationPages } from "./interface";
 
@@ -25,6 +26,7 @@ const ExamAndPublicationPages: Record<ExamAndPublicationPages, WrapperFunc> = {
   MyExams,
   ErrorPage,
   MyPublications,
+  Document,
   StartExam,
   ExamDetails,
   ExamCompleted,

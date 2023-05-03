@@ -13,4 +13,5 @@ export type ExamAndPublicationPages =
   | "Wallet"
   | "Settings"
   | "ExamCorrection"
+  | "Document"
   | "MyResults";
