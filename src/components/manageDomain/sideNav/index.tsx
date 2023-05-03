@@ -21,7 +21,6 @@ import { useDialog } from "@src/hooks";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import dynamic from "next/dynamic";
-import { Auth } from "@src/utils/auth";
 
 const SideNav = (): JSX.Element => {
   const CentreContact = dynamic(() => import("./contact"));
@@ -144,7 +143,7 @@ const SideNav = (): JSX.Element => {
           </NextLink>
         </ListItem>
         <ShareCentre
-          contentToShare={`${config.URL.APP}/${centre.slug}/${centre.id}?referralCode=${user?.id}`}
+          // contentToShare={`${config.URL.APP}/${centre.slug}/${centre.id}?referralCode=${user?.id}`}
           userId={user?.id}
         />
         <ListItem disablePadding>

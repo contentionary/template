@@ -13,6 +13,7 @@ interface Props {
   examAnswerId: string;
   result: any;
   toggleToast: Function;
+  isPrivate: boolean;
 }
 export default function TableMenu(props: Props) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
@@ -25,15 +26,17 @@ export default function TableMenu(props: Props) {
         <div>
           <ParticipantScript {...props} />
           <SectionScores {...props} />
-          <Link
-            passHref
-            href={`/admin/exam/protor-content/${props.examAnswerId}?surname=${props?.result?.surname}&firstname=${props?.result?.firstname}`}
-          >
-            <MenuItem disableRipple>
-              <CameraAltOutlined />
-              Proctored log
-            </MenuItem>
-          </Link>
+          {props.isPrivate && (
+            <Link
+              passHref
+              href={`/admin/exam/protor-content/${props.examAnswerId}?surname=${props?.result?.surname}&firstname=${props?.result?.firstname}`}
+            >
+              <MenuItem disableRipple>
+                <CameraAltOutlined />
+                Proctored log
+              </MenuItem>
+            </Link>
+          )}
         </div>
       </Menus>
     </>

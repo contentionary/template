@@ -44,134 +44,155 @@ const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
     >
       <Box component="section" sx={{ pt: 4, pb: 8, px: { md: 6 } }}>
         <Container maxWidth="xl">
-          <Grid
-            container
-            spacing={4}
-            sx={{ justifyContent: "space-between", alignItems: "center" }}
-          >
-            <Grid item xs={12} md={8} xl={9}>
-              <Typography mb={3} variant="h2" component="h1">
-                {exam.name}
-              </Typography>
-              <Typography mb={2} variant="h5">
-                Instructions:
-              </Typography>
-              <Box dangerouslySetInnerHTML={{ __html: exam.instruction }} />
+          {exam.questionCount ? (
+            <Grid
+              container
+              spacing={4}
+              sx={{ justifyContent: "space-between", alignItems: "center" }}
+            >
+              <Grid item xs={12} md={8} xl={9}>
+                <Typography mb={3} variant="h2" component="h1">
+                  {exam.name}
+                </Typography>
+                <Typography mb={2} variant="h5">
+                  Instructions:
+                </Typography>
+                <Box dangerouslySetInnerHTML={{ __html: exam.instruction }} />
+              </Grid>
+              <Grid item xs={12} md={4} xl={3}>
+                <Box
+                  p={3}
+                  bgcolor="white"
+                  borderRadius={2}
+                  className={globalStyle.paperShadowSm}
+                >
+                  <Stack
+                    mb={2}
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Typography
+                      mb={0}
+                      variant="h6"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <HelpOutlineOutlinedIcon
+                        fontSize="small"
+                        color="primary"
+                      />
+                      &nbsp; No of Questions:
+                    </Typography>
+                    <Typography paragraph mb={0}>
+                      {exam.questionCount}
+                    </Typography>
+                  </Stack>
+                  <Stack
+                    mb={2}
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Typography
+                      mb={0}
+                      variant="h6"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      <ScheduleOutlinedIcon fontSize="small" color="primary" />
+                      &nbsp; Exam Duration:
+                    </Typography>
+                    <Typography paragraph mb={0}>
+                      {exam.duration} Minutes
+                    </Typography>
+                  </Stack>
+                  {exam.startDate && (
+                    <Stack
+                      mb={2}
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography
+                        mb={0}
+                        variant="h6"
+                        display="flex"
+                        alignItems="center"
+                      >
+                        <CalendarMonthOutlinedIcon
+                          fontSize="small"
+                          color="primary"
+                        />
+                        &nbsp; Exam Starts:
+                      </Typography>
+                      <Typography paragraph mb={0}>
+                        <> {format(new Date(exam.startDate), "dd-MM-yyy")}</>
+                      </Typography>
+                    </Stack>
+                  )}
+                  {exam.endDate && (
+                    <Stack
+                      mb={2}
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography
+                        mb={0}
+                        variant="h6"
+                        display="flex"
+                        alignItems="center"
+                      >
+                        <CalendarMonthOutlinedIcon
+                          fontSize="small"
+                          color="primary"
+                        />
+                        &nbsp; Exam Ends:
+                      </Typography>
+                      <Typography paragraph mb={0}>
+                        <>{format(new Date(exam.endDate), "dd-MM-yyy")}</>
+                      </Typography>
+                    </Stack>
+                  )}
+                  <Button
+                    onClick={() => {
+                      exam.hasProctor
+                        ? getProctoredId()
+                        : router.push(`/exams/${exam.slug}/start`);
+                    }}
+                    size="large"
+                    disableElevation
+                    variant="contained"
+                    sx={{
+                      mt: 4,
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    Start Exam
+                  </Button>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={4} xl={3}>
-              <Box
-                p={3}
-                bgcolor="white"
-                borderRadius={2}
-                className={globalStyle.paperShadowSm}
-              >
-                <Stack
-                  mb={2}
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography
-                    mb={0}
-                    variant="h6"
-                    display="flex"
-                    alignItems="center"
-                  >
-                    <HelpOutlineOutlinedIcon fontSize="small" color="primary" />
-                    &nbsp; No of Questions:
-                  </Typography>
-                  <Typography paragraph mb={0}>
-                    {exam.questionCount}
-                  </Typography>
-                </Stack>
-                <Stack
-                  mb={2}
-                  direction="row"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography
-                    mb={0}
-                    variant="h6"
-                    display="flex"
-                    alignItems="center"
-                  >
-                    <ScheduleOutlinedIcon fontSize="small" color="primary" />
-                    &nbsp; Exam Duration:
-                  </Typography>
-                  <Typography paragraph mb={0}>
-                    {exam.duration} Minutes
-                  </Typography>
-                </Stack>
-                {exam.startDate && (
-                  <Stack
-                    mb={2}
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      mb={0}
-                      variant="h6"
-                      display="flex"
-                      alignItems="center"
-                    >
-                      <CalendarMonthOutlinedIcon
-                        fontSize="small"
-                        color="primary"
-                      />
-                      &nbsp; Exam Starts:
-                    </Typography>
-                    <Typography paragraph mb={0}>
-                      <> {format(new Date(exam.startDate), "dd-MM-yyy")}</>
-                    </Typography>
-                  </Stack>
-                )}
-                {exam.endDate && (
-                  <Stack
-                    mb={2}
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                  >
-                    <Typography
-                      mb={0}
-                      variant="h6"
-                      display="flex"
-                      alignItems="center"
-                    >
-                      <CalendarMonthOutlinedIcon
-                        fontSize="small"
-                        color="primary"
-                      />
-                      &nbsp; Exam Ends:
-                    </Typography>
-                    <Typography paragraph mb={0}>
-                      <>{format(new Date(exam.endDate), "dd-MM-yyy")}</>
-                    </Typography>
-                  </Stack>
-                )}
-                <Button
-                  onClick={() => {
-                    exam.hasProctor
-                      ? getProctoredId()
-                      : router.push(`/exams/${exam.slug}/start`);
-                  }}
-                  size="large"
-                  disableElevation
-                  variant="contained"
-                  sx={{
-                    mt: 4,
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  Start Exam
-                </Button>
+          ) : (
+            <Box
+              pt={0}
+              display="flex"
+              component="main"
+              minHeight="100vh"
+              alignItems="center"
+              flexDirection="column"
+              justifyContent="center"
+            >
+              <Box flexShrink={0}>
+                <Typography variant="h6" py={3} textAlign="center">
+                  No Question Available
+                </Typography>
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          )}
         </Container>
       </Box>
     </Box>

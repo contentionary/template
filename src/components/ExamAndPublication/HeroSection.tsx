@@ -11,26 +11,53 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import { v4 as uuid } from "uuid";
 // import { useTheme } from "@mui/material/styles";
 // app components
 import ImageComponent from "@src/components/shared/image";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 // interface and styles
-import { queryClient } from "@src/utils";
+import { cache, isServerSide, queryClient } from "@src/utils";
 import useCardStyle from "@src/styles/card";
 import { ExamAndCourseFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
+import { useRouter } from "next/router";
 
 const HeroSection: ExamAndCourseFunc = () => {
   const cardStyle = useCardStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { user } = cachedData;
+  const router = useRouter();
+  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { user, centre } = cachedData;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
+  const redirectUrl = !isServerSide ? window.location.href : "";
+  const isCentreSubscriber = !isServerSide
+    ? cache.get("isCentreSubscriber")
+    : false;
+
+  const getStarted = {
+    link: "/library",
+    text: isCentreSubscriber ? "Browse Books" : "Get started",
+  };
+
+  if (!isCentreSubscriber && centre.subscriptionModel === "SUBSCRIPTION") {
+    const paymentLink = user
+      ? `
+    /payment?transactionkey=${uuid()}&itemId=${
+          centre.id
+        }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
+          centre.price
+        }&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/login";
+    getStarted.link = paymentLink;
+    getStarted.text = `Get started for ₦${centre.price} Monthly`;
+  }
 
   return (
     <Fragment>
@@ -59,7 +86,7 @@ const HeroSection: ExamAndCourseFunc = () => {
               >
                 {landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={user ? "/courses" : "/login"} passHref>
+              <NextLink href={getStarted.link} passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -67,7 +94,7 @@ const HeroSection: ExamAndCourseFunc = () => {
                   component={MuiLink}
                   color="primary"
                 >
-                  Get Started
+                  {getStarted.text}
                 </Button>
               </NextLink>
             </Grid>
@@ -138,6 +165,14 @@ const HeroSection: ExamAndCourseFunc = () => {
           </Grid>
         </Container>
       </Box>
+      {verifyValue && (
+        <ConfirmPayment
+          price={Number(deductedPrice)}
+          reference={reference}
+          redirectUrl={redirectUrl}
+          purpose="CENTRE_SUBSCRIPTION"
+        />
+      )}
     </Fragment>
   );
 };

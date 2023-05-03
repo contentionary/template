@@ -46,7 +46,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
         const imageUrl = await uploadFiles(img.base64, setProgress);
-        values.imageUrl = imageUrl;
+        values.image = imageUrl;
         setConvertedImage(imageUrl);
       }
       if (folderId) values.folderId = folderId;
