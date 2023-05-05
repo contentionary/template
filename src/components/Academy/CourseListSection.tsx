@@ -10,11 +10,10 @@ import { Link as MuiLink } from "@mui/material";
 // app components
 import CourseCard from "@src/components/shared/cards/CourseCard";
 // styles and interface
-import { AcademyFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
 import { BasePageProps, TemplateDataInt } from "@src/utils/interface";
 
-const CourseListSection: AcademyFunc = () => {
+const CourseListSection = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const templateData = pageData.templateData as TemplateDataInt;
 

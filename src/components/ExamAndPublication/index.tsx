@@ -21,7 +21,7 @@ const ExamAndCourse: ExamAndCourseFunc = () => {
       <FutureSection />
       <ExamListSection />
       <TestimonialSection />
-      <PromoSection />
+      <PromoSection link="/library" />
     </Box>
   );
 };

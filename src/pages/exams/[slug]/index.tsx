@@ -29,7 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       isRelativeUrl: true,
       url: `/centre/${centre.id}/exam/${slug?.slice(-36)}`,
     });
-
     return {
       props: {
         pageData: { exam, auth },

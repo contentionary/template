@@ -7,6 +7,7 @@ export declare type ExamDetailsPageFunc = (props: {
     isCentreManager: boolean;
     isPublicationSubscriber: boolean;
     isCentreSubscriber: boolean;
+    isExamSubscriber: boolean;
   };
   read: Record<string, any>;
 }) => JSX.Element;
