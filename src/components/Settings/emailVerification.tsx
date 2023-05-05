@@ -17,13 +17,13 @@ const EmailVerification = ({
   centreId: string;
   email: string;
 }) => {
-  const { submit, resetValues } = useForm(create);
+  const { submit, resetValues } = useForm(emailVerification);
   const [isLoading, setIsLoading] = useState(false);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const Loading = dynamic(() => import("@src/components/shared/loading"));
 
-  async function create() {
+  async function emailVerification() {
     try {
       setIsLoading(true);
       const { message } = await request.post({

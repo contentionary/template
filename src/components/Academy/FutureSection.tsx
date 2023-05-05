@@ -20,10 +20,9 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import useCardStyle from "@src/styles/card";
 //
 import { queryClient } from "@src/utils";
-import { AcademyFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
-const FutureSection: AcademyFunc = () => {
+const FutureSection = () => {
   const cardStyle = useCardStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const contents =

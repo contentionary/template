@@ -71,7 +71,7 @@ const DetailsSection: ExamDetailsPageFunc = (props) => {
                     <ExamReview
                       isSubscriber={Boolean(
                         props.auth?.isCentreManager ||
-                          props.auth?.isPublicationSubscriber
+                          props.auth?.isExamSubscriber
                       )}
                       contentId={props.exam.id}
                       // allowReview={props.exam.allowReview}
