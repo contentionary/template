@@ -30,10 +30,12 @@ export default function Result({
   centreId,
   examId,
   toggleToast,
+  isPrivate,
 }: {
   centreId: string;
   examId: string;
   toggleToast: Function;
+  isPrivate: boolean;
 }) {
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
   const Loading = dynamic(() => import("@src/components/shared/loading"));
@@ -61,6 +63,7 @@ export default function Result({
         examId={examId}
         examAnswerId={result.id}
         toggleToast={toggleToast}
+        isPrivate={isPrivate}
       />
     ),
   }));

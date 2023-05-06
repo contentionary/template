@@ -18,7 +18,7 @@ export default ExamUpdatePageEntry;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
-    const centre = (await getCentre(context)) as CachedCentreInt;
+    const centre = (await getCentre(context, true)) as CachedCentreInt;
     const { data } = await request.get({
       url: `/centre/${centre?.id}/exam/${context.query.id}`,
       token,

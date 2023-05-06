@@ -10,10 +10,9 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 // styles and interface
 import useGlobalStyle, { bg } from "@src/styles";
-import { AcademyFunc } from "./interfaceType";
 //
 
-const TestimonialSection: AcademyFunc = () => {
+const TestimonialSection = () => {
   const globalStyle = useGlobalStyle();
 
   return (

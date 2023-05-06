@@ -17,11 +17,11 @@ import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 
 interface Props {
-  contentToShare: string;
+  // contentToShare: string;
   userId: string;
 }
 
-const ShareCentreLink = ({ contentToShare, userId }: Props) => {
+const ShareCentreLink = ({ userId }: Props) => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { toastMessage, toggleToast } = useToast();
@@ -32,6 +32,7 @@ const ShareCentreLink = ({ contentToShare, userId }: Props) => {
       <ListItem
         disablePadding
         onClick={() => {
+          console.log(window.location.href, window.location);
           setUrl(window.location.href);
           openDialog();
         }}
@@ -62,7 +63,7 @@ const ShareCentreLink = ({ contentToShare, userId }: Props) => {
             <TextFields
               type="text"
               label="Copy Centre "
-              defaultValue={contentToShare}
+              defaultValue={`${url}?referralCode=${userId}`}
               sx={{ width: "100%", marginTop: 3 }}
             />
           </Box>
@@ -71,7 +72,7 @@ const ShareCentreLink = ({ contentToShare, userId }: Props) => {
           {
             text: "Copy",
             action: () => {
-              copy(contentToShare);
+              copy(`${url}?referralCode=${userId}`);
               toggleToast("Copied!");
             },
           },

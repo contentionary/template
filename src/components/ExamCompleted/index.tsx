@@ -85,7 +85,9 @@ const ExamCompleted: ExamCompletedFunc = (props) => {
                 include personalized career coaching and job preparation.
               </Typography>
 
-              <Box dangerouslySetInnerHTML={{ __html: exam.instruction }} />
+              <Typography
+                dangerouslySetInnerHTML={{ __html: exam.instruction }}
+              />
             </Grid>
           </Grid>
         </Container>

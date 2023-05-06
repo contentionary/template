@@ -17,7 +17,7 @@ import { queryClient } from "@src/utils";
 import { FooterFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
-const ExamAndCourseFooter: FooterFunc = () => {
+const ExamAndPublicationFooter: FooterFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { logo, emailAddress, phoneNumber, address, name, description } =
     cachedData.centre;
@@ -86,9 +86,9 @@ const ExamAndCourseFooter: FooterFunc = () => {
                     About us
                   </MuiLink>
                 </NextLink> */}
-                <NextLink href="/courses" passHref>
+                <NextLink href="/library" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
-                    Courses
+                    Books
                   </MuiLink>
                 </NextLink>
                 <NextLink href="/exams" passHref>
@@ -114,4 +114,4 @@ const ExamAndCourseFooter: FooterFunc = () => {
     </Fragment>
   );
 };
-export default ExamAndCourseFooter;
+export default ExamAndPublicationFooter;

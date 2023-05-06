@@ -49,6 +49,7 @@ const ModulesPage = () => {
       examId={id as string}
       key={4}
       toggleToast={toggleToast}
+      isPrivate={cachedData?.centre?.isPrivate}
     />,
     <Subscribers
       centreId={cachedData.centre.id}
@@ -64,6 +65,7 @@ const ModulesPage = () => {
     />,
     <DeleteExam toggleToast={toggleToast} key={7} />,
   ];
+
   return (
     <Box sx={{ mt: 4 }}>
       <NextLink

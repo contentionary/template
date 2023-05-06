@@ -16,6 +16,7 @@ export const setAuth = (
     ownCentres,
     managingCentres,
     gender,
+    email,
   }: UserInt,
   centreId: string
 ) => {
@@ -30,6 +31,7 @@ export const setAuth = (
       subscribedPublications,
       isAdmin,
       gender,
+      email,
     },
     true
   );
@@ -107,6 +109,7 @@ export const Auth = {
     status,
     token,
     subscribedPublications,
+    email,
   }: UserInt) => {
     cache.set(
       "user",
@@ -117,6 +120,7 @@ export const Auth = {
         status,
         surname,
         subscribedPublications,
+        email,
       },
       true
     );

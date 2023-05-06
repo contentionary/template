@@ -8,10 +8,8 @@ import FutureSection from "./FutureSection";
 // import CategoriesSection from "./CategoriesSection";
 import CourseListSection from "./CourseListSection";
 import TestimonialSection from "./TestimonialSection";
-//
-import { AcademyFunc } from "./interfaceType";
 
-const Academy: AcademyFunc = () => {
+const Academy = () => {
   return (
     <Box component="main" sx={{ pt: 8 }}>
       <HeroSection />

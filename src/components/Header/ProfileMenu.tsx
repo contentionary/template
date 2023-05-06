@@ -143,6 +143,53 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                         My Books
                       </MenuItem>
                     </NextLink>
+                  ) : centre.template === "examAndPublication" ? (
+                    [
+                      <NextLink
+                        key="my-publication-exam-and-publication"
+                        href="/library/my-books"
+                        passHref
+                      >
+                        <MenuItem
+                          style={{ fontSize: 18 }}
+                          component={MuiLink}
+                          onClick={handleClose}
+                        >
+                          <ListItemIcon>
+                            <BookOutlinedIcon fontSize="small" />
+                          </ListItemIcon>
+                          My Books
+                        </MenuItem>
+                      </NextLink>,
+                      <NextLink
+                        key="my-exams-exam-and-course"
+                        href="/exams/my-exams"
+                        passHref
+                      >
+                        <MenuItem
+                          style={{ fontSize: 18 }}
+                          component={MuiLink}
+                          onClick={handleClose}
+                        >
+                          <ListItemIcon>
+                            <AutoStoriesOutlinedIcon fontSize="small" />
+                          </ListItemIcon>
+                          My Exams
+                        </MenuItem>
+                      </NextLink>,
+                      <NextLink
+                        key="my-exams-result"
+                        href="/exams/my-results"
+                        passHref
+                      >
+                        <MenuItem component={MuiLink} onClick={handleClose}>
+                          <ListItemIcon>
+                            <Pages fontSize="small" />
+                          </ListItemIcon>
+                          My Result
+                        </MenuItem>
+                      </NextLink>,
+                    ]
                   ) : (
                     centre.template === "examAndCourse" && [
                       <NextLink
@@ -191,6 +238,7 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                       </NextLink>,
                     ]
                   )}
+
                   {user.isAdmin && (
                     <NextLink href={"/admin"} passHref>
                       <MenuItem component={MuiLink} onClick={handleClose}>

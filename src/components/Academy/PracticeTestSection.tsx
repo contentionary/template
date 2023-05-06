@@ -9,9 +9,8 @@ import Typography from "@mui/material/Typography";
 import ImageLink from "@src/components/shared/buttons/ImageLink";
 // styles and interface
 import useGlobalStyle from "@src/styles";
-import { AcademyFunc } from "./interfaceType";
 
-const PracticeTestSection: AcademyFunc = () => {
+const PracticeTestSection = () => {
   const globalStyle = useGlobalStyle();
 
   return (

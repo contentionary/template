@@ -12,10 +12,9 @@ import { Link as MuiLink } from "@mui/material";
 import ImageComponent from "@src/components/shared/image";
 // styles, interface and cosmic queries
 import { queryClient } from "@src/utils";
-import { AcademyFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
-const PromoSection: AcademyFunc = () => {
+const PromoSection = ({ link = "/courses" }: { link?: string }) => {
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -54,7 +53,7 @@ const PromoSection: AcademyFunc = () => {
                 {contents && contents[2].description}
               </Typography>
             </Box>
-            <NextLink href={user ? "/courses" : "/register"} passHref>
+            <NextLink href={user ? link : "/register"} passHref>
               <Button
                 size="large"
                 disableElevation
