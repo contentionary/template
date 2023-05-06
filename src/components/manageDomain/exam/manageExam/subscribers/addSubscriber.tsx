@@ -45,11 +45,7 @@ const AddSubscriber = ({
     <>
       <ButtonComponent
         variant="contained"
-        onClick={() =>
-          exam.isPrivate
-            ? openDialog()
-            : toggleToast("This is only available for private centres")
-        }
+        onClick={() => openDialog()}
         sx={{ fontSize: 18 }}
       >
         <>
