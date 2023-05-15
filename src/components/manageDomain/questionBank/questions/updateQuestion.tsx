@@ -61,7 +61,7 @@ const UpdateQuestion = (): JSX.Element => {
     for (let option of options) {
       if ("image" in option && typeof option.image != "string") {
         option.image = await uploadFiles(option.image[0], setProgress);
-      } else if (option.image.includes(".com/")) {
+      } else if (option.image && option.image.includes(".com/")) {
         option.image = option.image.split(".com/")[1];
       }
       delete option.id;
