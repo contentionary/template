@@ -9,11 +9,9 @@ import ButtonComponent from "@src/components/shared/button";
 export default function CustomizedMenus({
   id,
   centreId,
-  centreSlug,
 }: {
   id: string;
   centreId: string;
-  centreSlug: string;
 }) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();
   return (
@@ -23,10 +21,7 @@ export default function CustomizedMenus({
       </ButtonComponent>
       <Menus anchorEl={anchorEl} open={menuIsOpen} closeMenu={closeMenu}>
         <div>
-          <Link
-            passHref
-            href={`/${centreSlug}/admin/question-bank/${id}/update?type=FOLDER`}
-          >
+          <Link passHref href={`/admin/question-bank/${id}/update?type=FOLDER`}>
             <MenuItem disableRipple>
               <EditIcon />
               Edit Question Bank

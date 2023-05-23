@@ -80,7 +80,7 @@ const CreateCourse = () => {
       toggleToast(data.message);
       resetValues(formEvent);
       setIsLoading(false);
-      router.back();
+      // router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);

@@ -40,7 +40,6 @@ const HeroSection: ExamAndCourseFunc = () => {
   const isCentreSubscriber = !isServerSide
     ? cache.get("isCentreSubscriber")
     : false;
-
   const getStarted = {
     link: "/library",
     text: isCentreSubscriber ? "Browse Books" : "Get started",

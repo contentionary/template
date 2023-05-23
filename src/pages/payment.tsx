@@ -1,5 +1,5 @@
 import Payment from "@src/components/payment";
-import { getCentre, handleError, redirect } from "@src/utils";
+import { getCentre, handleError, redirect, request } from "@src/utils";
 import type { GetServerSidePropsContext } from "next";
 import { getAuthData } from "@src/utils/auth";
 
@@ -14,9 +14,17 @@ export const getServerSideProps = async (
     const centre = await getCentre(context);
     const { user, token } = getAuthData(context);
     if (!token) return redirect("/login");
+    const { data } = await request.get({
+      url: "/wallet/supported-currencies",
+      token,
+    });
+    const { data: paymentPlan } = await request.get({
+      url: `/product/${centre?.id}/pricing`,
+      token,
+    });
     return {
       props: {
-        pageData: {},
+        pageData: { currencySupported: data, paymentPlan },
         cachedData: {
           centre,
           user,

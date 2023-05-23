@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import { useStyles } from "./style";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,12 +16,13 @@ import Button from "@src/components/shared/button";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import { useRouter } from "next/router";
 import { currencies, data } from "./data";
-import { handleError, isServerSide, request } from "@src/utils";
+import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
 import { Currency, PaymentMethod } from "./interface";
 import Loader from "@src/components/shared/loading/loadingWithValue";
+import { BasePageProps } from "@src/utils/interface";
 
 export default function Payment(): JSX.Element {
   const router = useRouter();
@@ -44,22 +48,39 @@ export default function Payment(): JSX.Element {
     PaymentMethod.CARD
   );
   const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
+  const { pageData, cachedData } = queryClient.getQueryData(
+    "pageProps"
+  ) as BasePageProps;
+  const [paymentPlan, setPaymentPlan] = useState(pageData.paymentPlan);
+  const [pricingId, setPricingId] = useState();
+  const primary = cachedData?.centre?.primaryColor || "#DD6E20";
   const preTransactionDetails = useCallback(async () => {
     try {
       let standardAmount = 0;
       if (purpose === "FUND_WALLET") {
         standardAmount = parseInt(router.query.amount as string);
       } else {
+        const payLoad = {
+          itemId,
+          purpose,
+          currency,
+        } as {
+          itemId: string;
+          purpose: string;
+          currency: string;
+          metaData?: Record<string, string>;
+        };
+        if (pricingId) payLoad.metaData = { pricingId };
         const { data } = await request.post({
           url: "/transaction/pre-details",
-          data: { itemId, purpose, currency },
+          data: payLoad,
         });
         standardAmount = data.amount / 100;
       }
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
-    } catch ({ message }) {}
-  }, [itemId, purpose]);
+    } catch (err) {}
+  }, [itemId, purpose, pricingId]);
 
   const makePayment = async () => {
     try {
@@ -74,6 +95,12 @@ export default function Payment(): JSX.Element {
       };
       if (metaData) {
         paymentData.metaData = JSON.parse(metaData as string);
+        if (pricingId) {
+          paymentData.metaData.pricingId = pricingId;
+        }
+      }
+      if (pricingId && !metaData) {
+        paymentData.metaData = { pricingId };
       }
       setIsLoading(true);
       const { data } = await request.post({
@@ -103,6 +130,11 @@ export default function Payment(): JSX.Element {
 
   useEffect(() => {
     if (router.isReady) {
+      for (let i = 0; i < pageData.paymentPlan.length; i++) {
+        if (pageData.paymentPlan[i].isDefault) {
+          setPricingId(pageData.paymentPlan[i].id);
+        }
+      }
       if (typeof confirmedPrice === "number") {
         if (amount === 0) {
           freePayment();
@@ -151,198 +183,264 @@ export default function Payment(): JSX.Element {
     setCards([...cards]);
     setPaymentMethod(cards[index].method);
   };
-
   return (
     <Container className={styles.container}>
       {amount === 0 ? (
         <Loader size={100} open={true} value={10} />
       ) : (
-        <Paper className={styles.paper}>
-          <div
-            style={{
-              textAlign: "center",
-              padding: "25px 20px",
-            }}
-          >
-            <Typography
-              variant="h5"
-              color="primary"
-              component="p"
-              className={styles.price}
-            >
-              Complete transaction of {currency}{" "}
-              {isConvertingCurrency ? <Loading size={10} /> : amount}
-            </Typography>
-          </div>
-          <Divider style={{ borderTop: "2px solid #CCCCCC" }} />
-          <div className={styles.contentContainer}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                flexWrap: "wrap",
-                paddingTop: 20,
-              }}
-            >
-              <div>
-                <Typography
-                  variant="h5"
-                  component="p"
-                  className={styles.choose}
-                >
-                  Choose your best payment method below
-                </Typography>
-                <Typography
-                  variant="subtitle1"
-                  component="p"
-                  className={styles.clickOption}
-                >
-                  <i>(Click one of the options below)</i>
-                </Typography>
-              </div>
-              <div style={{ maxWidth: 307 }}>
-                <div style={{ display: "flex" }}>
-                  <span className={styles.inputIcon}>
-                    <Language style={{}} />
-                  </span>
-                  <TextField
-                    className={styles.select}
-                    id="outlined-select-currency"
-                    select
-                    label="Pay with Naira"
-                    value={currency}
-                    onChange={(e) => handleChange(e.target.value as Currency)}
-                    variant="outlined"
-                    size="small"
-                    InputProps={{
-                      classes: {
-                        notchedOutline: styles.input,
-                      },
-                    }}
-                  >
-                    {currencies.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </div>
-                <Typography
-                  variant="body2"
-                  component="span"
-                  style={{
-                    color: "#000000",
-                    fontWeight: 400,
-                    fontFamily: "Open Sans",
-                    fontSize: 10,
-                    fontStyle: "normal",
-                    lineHeight: 1,
-                  }}
-                >
-                  Select your preferred currency (Naira or dollar) to change the
-                  amount of transaction
-                </Typography>
-              </div>
-            </div>
-            <div style={{ marginTop: 40 }}>
-              <Grid container spacing={4}>
-                {cards.map((item, index) => (
-                  <Grid
-                    key={index}
-                    onClick={() => selectedCard(index)}
-                    item
-                    xs={12}
-                    md={4}
-                    style={{
-                      position: "relative",
-                    }}
-                  >
-                    {item.active && (
-                      <CheckCircle
-                        fontSize="large"
-                        color="primary"
-                        style={{
-                          position: "absolute",
-                          right: -7,
-                          top: 10,
-                        }}
-                      />
-                    )}
-                    <Card
-                      contentClass={styles.contentClass}
-                      className={`${styles.general} ${styles.cardHeight} ${
-                        item.active ? styles.activeCard : styles.inActive
-                      } `}
-                      key={index}
-                      {...item}
-                    />
-                    <Typography
-                      style={{
-                        textAlign: "center",
-                        color: "#555555",
-                        marginTop: 10,
-                        fontWeight: 400,
-                        fontSize: 14,
-                        fontStyle: "normal",
-                        fontFamily: "Open Sans",
-                      }}
-                      variant="subtitle1"
-                      component="div"
-                    >
-                      {item.motto}
-                    </Typography>
-                  </Grid>
-                ))}
-              </Grid>
-            </div>
-
-            <Divider
-              style={{
-                marginTop: 30,
-                borderTop: "2px solid #BDBDBD",
-              }}
-            />
-            <div style={{ textAlign: "center", marginTop: 30 }}>
-              <Typography
-                variant="subtitle2"
-                component="p"
-                style={{
-                  marginBottom: 40,
-                  fontWeight: 400,
-                  fontSize: 14,
-                  fontStyle: "normal",
-                  fontFamily: "Open Sans",
-                  color: "#000000",
+        <>
+          {paymentPlan.length > 0 && (
+            <>
+              <Stack spacing={2} direction="row">
+                <Avatar sx={{ background: primary }}>1</Avatar>
+                <Stack>
+                  <Typography variant="h6">
+                    Complete your Payment Plan
+                  </Typography>
+                  <Typography variant="body2">
+                    Select Anually to allow plan active for 1 year
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Box
+                sx={{
+                  my: 3,
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
                 }}
               >
-                Click the button below to redirect you to the payment gateway to
-                complete with your transaction
-              </Typography>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={makePayment}
-                size="large"
-                sx={{ width: 176, height: 50 }}
-              >
-                <>
-                  Continue
-                  {isLoading && (
-                    <Loading sx={{ color: "#fff", marginLeft: 1 }} size={10} />
-                  )}
-                </>
-              </Button>
-            </div>
-          </div>
-
-          {toastMessage && (
-            <Toast
-              message={toastMessage}
-              status={Boolean(toastMessage)}
-              showToast={toggleToast}
-            />
+                {paymentPlan.map(
+                  (
+                    {
+                      name,
+                      amount,
+                      isDefault,
+                    }: {
+                      name: string;
+                      amount: number;
+                      isDefault: boolean;
+                    },
+                    index: number
+                  ) => (
+                    <Paper
+                      key={index}
+                      onClick={() => {
+                        paymentPlan.map(
+                          (plan: { isDefault: boolean }) =>
+                            (plan.isDefault = false)
+                        );
+                        paymentPlan[index].isDefault = true;
+                        setPaymentPlan([...paymentPlan]);
+                        setPricingId(paymentPlan[index].id);
+                      }}
+                      className={styles.paymentPlanCard}
+                      sx={{
+                        borderBottom: isDefault ? `solid 4px ${primary}` : "",
+                      }}
+                    >
+                      <Box sx={{ textAlign: "center" }}>
+                        <Typography variant="h6">{name}</Typography>
+                        <Typography variant="body2">
+                          Pay N{amount} / {name}
+                        </Typography>
+                      </Box>
+                    </Paper>
+                  )
+                )}
+              </Box>
+            </>
           )}
-        </Paper>
+          <Stack spacing={2} direction="row" mt={5}>
+            <Avatar sx={{ background: primary }}>
+              {paymentPlan.length ? 2 : 1}
+            </Avatar>
+            <Stack>
+              <Typography variant="h6">Payment</Typography>
+              <Typography variant="body2">
+                Choose your best payment method below
+              </Typography>
+            </Stack>
+          </Stack>
+          <Paper className={styles.paper}>
+            <div
+              style={{
+                textAlign: "center",
+                padding: "25px 20px",
+                borderBottom: "1px solid #f0f0f0",
+              }}
+            >
+              <Typography
+                variant="h5"
+                color="primary"
+                component="p"
+                className={styles.price}
+              >
+                Complete transaction of {currency}{" "}
+                {isConvertingCurrency ? <Loading size={10} /> : amount}
+              </Typography>
+            </div>
+            <div className={styles.contentContainer}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  paddingTop: 20,
+                }}
+              >
+                <div style={{ maxWidth: 307 }}>
+                  <div style={{ display: "flex" }}>
+                    <span className={styles.inputIcon}>
+                      <Language style={{}} />
+                    </span>
+                    <TextField
+                      className={styles.select}
+                      id="outlined-select-currency"
+                      select
+                      label="Pay with Naira"
+                      value={currency}
+                      onChange={(e) => handleChange(e.target.value as Currency)}
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        classes: {
+                          notchedOutline: styles.input,
+                        },
+                      }}
+                    >
+                      <MenuItem value="" disabled>
+                        <em>Select Currency</em>
+                      </MenuItem>
+                      {pageData.currencySupported.map(
+                        ({ name, abbr }: { name: string; abbr: string }) => (
+                          <MenuItem key={name} value={abbr}>
+                            {name}
+                          </MenuItem>
+                        )
+                      )}
+                    </TextField>
+                  </div>
+                  <Typography
+                    variant="body2"
+                    component="span"
+                    style={{
+                      color: "#000000",
+                      fontWeight: 400,
+                      fontFamily: "Open Sans",
+                      fontSize: 10,
+                      fontStyle: "normal",
+                      lineHeight: 1,
+                    }}
+                  >
+                    Select your preferred currency (Naira or dollar) to change
+                    the amount of transaction
+                  </Typography>
+                </div>
+              </div>
+              <div style={{ marginTop: 40 }}>
+                <Grid container spacing={4}>
+                  {cards.map((item, index) => (
+                    <Grid
+                      key={index}
+                      onClick={() => selectedCard(index)}
+                      item
+                      xs={12}
+                      md={4}
+                      style={{
+                        position: "relative",
+                      }}
+                    >
+                      {item.active && (
+                        <CheckCircle
+                          fontSize="large"
+                          color="primary"
+                          style={{
+                            position: "absolute",
+                            right: -7,
+                            top: 10,
+                          }}
+                        />
+                      )}
+                      <Card
+                        contentClass={styles.contentClass}
+                        className={`${styles.general} ${styles.cardHeight} ${
+                          item.active ? styles.activeCard : styles.inActive
+                        } `}
+                        key={index}
+                        {...item}
+                      />
+                      <Typography
+                        style={{
+                          textAlign: "center",
+                          color: "#555555",
+                          marginTop: 10,
+                          fontWeight: 400,
+                          fontSize: 14,
+                          fontStyle: "normal",
+                          fontFamily: "Open Sans",
+                        }}
+                        variant="subtitle1"
+                        component="div"
+                      >
+                        {item.motto}
+                      </Typography>
+                    </Grid>
+                  ))}
+                </Grid>
+              </div>
+
+              <Divider
+                style={{
+                  marginTop: 30,
+                  borderTop: "1px solid #f0f0f0",
+                }}
+              />
+              <div style={{ textAlign: "center", marginTop: 30 }}>
+                <Typography
+                  variant="subtitle2"
+                  component="p"
+                  style={{
+                    marginBottom: 40,
+                    fontWeight: 400,
+                    fontSize: 14,
+                    fontStyle: "normal",
+                    fontFamily: "Open Sans",
+                    color: "#000000",
+                  }}
+                >
+                  Click the button below to redirect you to the payment gateway
+                  to complete with your transaction
+                </Typography>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={makePayment}
+                  size="large"
+                  sx={{ width: 176, height: 50 }}
+                >
+                  <>
+                    Continue
+                    {isLoading && (
+                      <Loading
+                        sx={{ color: "#fff", marginLeft: 1 }}
+                        size={10}
+                      />
+                    )}
+                  </>
+                </Button>
+              </div>
+            </div>
+
+            {toastMessage && (
+              <Toast
+                message={toastMessage}
+                status={Boolean(toastMessage)}
+                showToast={toggleToast}
+              />
+            )}
+          </Paper>
+        </>
       )}
     </Container>
   );

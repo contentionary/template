@@ -4,11 +4,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
+import Add from "@mui/icons-material/Add";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
 import AddCircleOutline from "@mui/icons-material/AddCircleOutline";
-import AddOutlined from "@mui/icons-material/AddOutlined";
 
 export default function CustomizedMenus({
   folderId,
@@ -41,20 +41,12 @@ export default function CustomizedMenus({
               Create Folder
             </MenuItem>
           </Link>
-          <Link
-            passHref
-            href={
-              folderId
-                ? `/admin/course/create?type=COURSE&folderId=${folderId}`
-                : "/admin/course/create?type=COURSE"
-            }
-          >
+          <Link passHref href="/admin/course/create?type=FOLDER">
             <MenuItem disableRipple>
-              <AddOutlined />
-              Create course
+              <Add />
+              Create Course
             </MenuItem>
           </Link>
-
           {folderId && (
             <>
               <Divider sx={{ my: 0.5 }} />
