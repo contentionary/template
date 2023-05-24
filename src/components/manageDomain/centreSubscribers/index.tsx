@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useToast } from "@src/utils/hooks";
 import CentreUserMenu from "@src/components/shared/export";
+import TextFields from "@src/components/shared/input/textField";
+import ButtonComponent from "@src/components/shared/button";
 
 interface SubscriberInt {
   surname: string;
@@ -35,6 +37,7 @@ export default function Subscribers({
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const { toastMessage, toggleToast } = useToast();
   const pageCount = subscribers.pageCount as number;
+  const [limit, setLimit] = React.useState(50);
   const router = useRouter();
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
@@ -47,7 +50,7 @@ export default function Subscribers({
   ];
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
-      query: { ...router.query, pageId: value },
+      query: { ...router.query, pageId: value, limit },
     });
   };
   const refresh = () => {
@@ -88,6 +91,20 @@ export default function Subscribers({
             centreId={centreId as string}
           />
           <CentreUserMenu url={`centre/${centreId}/users`} />
+        </Typography>{" "}
+        <Typography sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Stack direction="row">
+            <TextFields
+              type="number"
+              variant="standard"
+              label="Limit"
+              onBlur={(e: any) => setLimit(e.target.value)}
+              sx={{ maxWidth: 70, padding: 0 }}
+            />
+            <ButtonComponent onClick={(e) => handleChange(e, 1)}>
+              Apply limit
+            </ButtonComponent>
+          </Stack>
         </Typography>
         {result.length ? (
           <Box>

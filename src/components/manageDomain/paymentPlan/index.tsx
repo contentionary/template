@@ -10,7 +10,6 @@ import MuiTable from "@src/components/shared/table";
 import AddPaymentPlan from "./addPaymentPlan";
 import Empty from "@src/components/shared/state/Empty";
 import PaymentPlanMenu from "./menu";
-import { useRouter } from "next/router";
 import { BasePageProps } from "@src/utils/interface";
 import { useToast } from "@src/utils/hooks";
 import Toast from "@src/components/shared/toast";
