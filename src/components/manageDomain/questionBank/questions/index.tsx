@@ -23,7 +23,7 @@ const QuestionPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const { id: questionBankId, centreSlug } = router.query;
+  const { id: questionBankId } = router.query;
   const { toastMessage, toggleToast } = useToast();
 
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -48,9 +48,9 @@ const QuestionPage = () => {
   };
 
   const links = [
-    { link: `/${centreSlug}`, name: "Dashboard" },
-    { link: `/${centreSlug}/admin/exam`, name: "Exams" },
-    { link: `/${centreSlug}/admin/question-bank`, name: "Question bank" },
+    { link: "/admin", name: "Dashboard" },
+    { link: "/admin/exam", name: "Exams" },
+    { link: "/admin/question-bank", name: "Question bank" },
   ];
   const tab = ["Questions", "Add Questions"];
   const tabPanel = [
@@ -73,7 +73,7 @@ const QuestionPage = () => {
         links={links}
         currentPage={{
           name: "Questions",
-          link: `/${centreSlug}/admin/question-bank/${questionBankId}/questions`,
+          link: `/admin/question-bank/${questionBankId}/questions`,
         }}
       />
 
@@ -97,11 +97,7 @@ const QuestionPage = () => {
           mb: 5,
         }}
       >
-        <Menu
-          id={questionBankId as string}
-          centreId={cachedData.centre.id}
-          centreSlug={centreSlug as string}
-        />
+        <Menu id={questionBankId as string} centreId={cachedData.centre.id} />
       </Box>
       <Tabs
         tab={tab}

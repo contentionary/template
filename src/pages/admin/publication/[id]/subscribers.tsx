@@ -31,9 +31,10 @@ const CentreSubscribers = ({ error }: Props): JSX.Element => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
+    const { pageId = 1, limit = 50 } = context.query;
     const centre = (await getCentre(context, true)) as CachedCentreInt;
     const { data }: any = await request.get({
-      url: `/centre/${centre.id}/publication/${context.query.id}/subscribers?limit=100000`,
+      url: `/centre/${centre.id}/publication/${context.query.id}/subscribers?pageId=${pageId}&limit=${limit}`,
       token: token,
     });
     return {
