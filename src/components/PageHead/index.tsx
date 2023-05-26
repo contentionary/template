@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Script from "next/script";
 import { HeadFunc } from "./interfaceType";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
 const HeadPage: HeadFunc = ({ description, title, image, googleCode }) => {
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { domain, googleAnalyticsCode } = cachedData.centre;
   return (
     <Head>
       <title>{title}</title>
@@ -21,33 +25,36 @@ const HeadPage: HeadFunc = ({ description, title, image, googleCode }) => {
 
       {/* <!-- Open Graph / Facebook --> */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://www.edtify.com/" />
+      <meta property="og:url" content={domain || "https://www.edtify.com/"} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
 
       {/* <!-- Twitter --> */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="https://www.edtify.com/" />
+      <meta
+        property="twitter:url"
+        content={domain || "https://www.edtify.com/"}
+      />
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image}></meta>
 
       {/* <!-- Google tag (gtag.js) --> */}
-      {googleCode && (
+      {googleAnalyticsCode && (
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${googleCode}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsCode}`}
         />
       )}
 
-      {googleCode && (
+      {googleAnalyticsCode && (
         <Script id="google-analytics">
           {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', '${googleCode}');
+        gtag('config', '${googleAnalyticsCode}');
         `}
         </Script>
       )}

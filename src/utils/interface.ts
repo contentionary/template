@@ -129,6 +129,7 @@ export interface CachedCentreInt {
   primaryColor: string;
   emailAddress: string;
   address: string;
+  domain: string;
   price: number;
   subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
   isPrivate: boolean;
