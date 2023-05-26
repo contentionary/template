@@ -276,7 +276,6 @@ export default function CustomizedSteppers() {
               <Typography variant="h4" component="p">
                 Transactions
               </Typography>
-
               {transactions.length > 0 && (
                 <ExportMenu
                   url={`wallet/user/${
