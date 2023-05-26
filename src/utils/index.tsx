@@ -345,7 +345,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
+      url: `/centre/domain-centre?domain=${host}&proxy=learnafrica.edtify.com`,
     });
     if (!returnFullData && centre)
       centre = {
@@ -356,9 +356,10 @@ export const getCentre = async (
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
         description: centre.description,
         template: centre.template,
-        // template: "examAndPublication",
+        // template: "examAndCourse",
         logo: centre.logo,
         price: centre.price,
+        domain: centre.domain,
         subscriptionModel: centre.subscriptionModel,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@edtify.com",

@@ -6,7 +6,6 @@ import { BasePageProps } from "@src/utils/interface";
 const AcademyPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
-
   return (
     <ExamAndCourseWrapper
       title={`${name} Academy`}
