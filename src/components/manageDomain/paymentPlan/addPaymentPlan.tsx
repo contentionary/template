@@ -113,12 +113,6 @@ const AddSubscriber = ({
                   </MenuItem>
                 ))}
               </Select>
-              <TextFields
-                label="Summary"
-                name="summary"
-                onChange={getData}
-                required
-              />
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
                   <>
