@@ -53,6 +53,7 @@ const CreditWallet = ({
       const { data } = await request.get({
         url: "/wallet/supported-currencies",
       });
+      console.log(data);
       setCurrencies([...(data as CurrencyType[])]);
       setIsLoading(false);
       openDialog();
