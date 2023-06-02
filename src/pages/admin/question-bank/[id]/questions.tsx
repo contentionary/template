@@ -28,9 +28,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: `/centre/${centre.id}/question-bank/${context.query.id}/questions?pageId=${pageId}`,
       token,
     });
+
     return {
       props: {
-        pageData: { questions: data.questions, questionBank },
+        pageData: {
+          questions: data.questions,
+          questionBank,
+          pageCount: data.pageCount,
+        },
         cachedData: { user, centre, token },
       },
     };

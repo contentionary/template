@@ -11,6 +11,7 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   try {
+    const { purpose } = context.query;
     const centre = await getCentre(context);
     const { user, token } = getAuthData(context);
     if (!token) return redirect("/login");
@@ -18,13 +19,21 @@ export const getServerSideProps = async (
       url: "/wallet/supported-currencies",
       token,
     });
-    const { data: paymentPlan } = await request.get({
-      url: `/product/${centre?.id}/pricing`,
-      token,
-    });
+    let paymentPlan;
+    if (
+      centre?.subscriptionModel === "SUBSCRIPTION" &&
+      purpose != "FUND_WALLET"
+    ) {
+      const { data } = await request.get({
+        url: `/product/${centre?.id}/pricing`,
+        token,
+      });
+      paymentPlan = data;
+    }
+
     return {
       props: {
-        pageData: { currencySupported: data, paymentPlan },
+        pageData: { currencySupported: data, paymentPlan: paymentPlan || {} },
         cachedData: {
           centre,
           user,

@@ -331,7 +331,11 @@ const StartExam: ExamFunc = (props) => {
               <Box
                 maxWidth={exam.hasProctor ? 1020 : 820}
                 width="100%"
-                sx={{ display: "flex", justifyContent: "space-between" }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                }}
               >
                 {exam.hasProctor && (
                   <Box sx={{ mr: 3 }}>
