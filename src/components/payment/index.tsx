@@ -15,19 +15,17 @@ import Divider from "@mui/material/Divider";
 import Button from "@src/components/shared/button";
 import CheckCircle from "@mui/icons-material/CheckCircle";
 import { useRouter } from "next/router";
-import { currencies, data } from "./data";
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
-import { Currency, PaymentMethod } from "./interface";
+import { Currency } from "./interface";
 import Loader from "@src/components/shared/loading/loadingWithValue";
 import { BasePageProps } from "@src/utils/interface";
 
 export default function Payment(): JSX.Element {
   const router = useRouter();
   const styles = useStyles();
-  const [cards, setCards] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isConvertingCurrency, setIsConvertingCurrency] = useState(false);
   const { toastMessage, toggleToast } = useToast();
@@ -44,9 +42,7 @@ export default function Payment(): JSX.Element {
     incomingCurrency as Currency
   );
   const [amount, setAmount] = useState<number>(Number(price));
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(
-    PaymentMethod.CARD
-  );
+  const [paymentMethod, setPaymentMethod] = useState<"CARD" | "WALLET">("CARD");
   const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -54,6 +50,7 @@ export default function Payment(): JSX.Element {
   const [paymentPlan, setPaymentPlan] = useState(pageData.paymentPlan);
   const [pricingId, setPricingId] = useState();
   const primary = cachedData?.centre?.primaryColor || "#DD6E20";
+
   const preTransactionDetails = useCallback(async () => {
     try {
       let standardAmount = 0;
@@ -130,21 +127,16 @@ export default function Payment(): JSX.Element {
 
   useEffect(() => {
     if (router.isReady) {
-      for (let i = 0; i < pageData.paymentPlan.length; i++) {
-        if (pageData.paymentPlan[i].isDefault) {
-          setPricingId(pageData.paymentPlan[i].id);
-        }
-      }
       if (typeof confirmedPrice === "number") {
         if (amount === 0) {
           freePayment();
-        } else {
-          const paymentGateways = data.filter(
-            (item) => item.currency === currency || item.currency === "*"
-          );
-          setCards([...paymentGateways]);
         }
       } else {
+        for (let i = 0; i < pageData.paymentPlan.length; i++) {
+          if (pageData.paymentPlan[i].isDefault) {
+            setPricingId(pageData.paymentPlan[i].id);
+          }
+        }
         preTransactionDetails();
       }
     }
@@ -177,12 +169,6 @@ export default function Payment(): JSX.Element {
     setCurrency(newCurrency);
   };
 
-  const selectedCard = (index: number) => {
-    cards.map((item) => (item.active = false));
-    cards[index].active = true;
-    setCards([...cards]);
-    setPaymentMethod(cards[index].method);
-  };
   return (
     <Container className={styles.container}>
       {amount === 0 ? (
@@ -298,7 +284,7 @@ export default function Payment(): JSX.Element {
                       className={styles.select}
                       id="outlined-select-currency"
                       select
-                      label="Pay with Naira"
+                      label={`Pay with ${currency}`}
                       value={currency}
                       onChange={(e) => handleChange(e.target.value as Currency)}
                       variant="outlined"
@@ -340,53 +326,132 @@ export default function Payment(): JSX.Element {
               </div>
               <div style={{ marginTop: 40 }}>
                 <Grid container spacing={4}>
-                  {cards.map((item, index) => (
-                    <Grid
-                      key={index}
-                      onClick={() => selectedCard(index)}
-                      item
-                      xs={12}
-                      md={4}
-                      style={{
-                        position: "relative",
-                      }}
-                    >
-                      {item.active && (
-                        <CheckCircle
-                          fontSize="large"
-                          color="primary"
-                          style={{
-                            position: "absolute",
-                            right: -7,
-                            top: 10,
-                          }}
-                        />
-                      )}
-                      <Card
-                        contentClass={styles.contentClass}
-                        className={`${styles.general} ${styles.cardHeight} ${
-                          item.active ? styles.activeCard : styles.inActive
-                        } `}
-                        key={index}
-                        {...item}
-                      />
-                      <Typography
-                        style={{
-                          textAlign: "center",
-                          color: "#555555",
-                          marginTop: 10,
-                          fontWeight: 400,
-                          fontSize: 14,
-                          fontStyle: "normal",
-                          fontFamily: "Open Sans",
-                        }}
-                        variant="subtitle1"
-                        component="div"
-                      >
-                        {item.motto}
-                      </Typography>
-                    </Grid>
-                  ))}
+                  {pageData.currencySupported.map(
+                    ({
+                      abbr,
+                      paymentService,
+                    }: {
+                      abbr: string;
+                      paymentService: { CARD: []; WALLET: string };
+                    }) =>
+                      abbr === currency && (
+                        <>
+                          {paymentService.CARD.map(
+                            (
+                              {
+                                processor,
+                                logo,
+                              }: { processor: string; logo: string },
+                              index
+                            ) => (
+                              <Grid
+                                key={index}
+                                onClick={() => setPaymentMethod("CARD")}
+                                item
+                                xs={12}
+                                md={4}
+                                style={{
+                                  position: "relative",
+                                }}
+                              >
+                                {paymentMethod === "CARD" && (
+                                  <CheckCircle
+                                    fontSize="large"
+                                    color="primary"
+                                    style={{
+                                      position: "absolute",
+                                      right: -7,
+                                      top: 10,
+                                    }}
+                                  />
+                                )}
+                                <Card
+                                  contentClass={styles.contentClass}
+                                  className={`${styles.general} ${
+                                    styles.cardHeight
+                                  } 
+                            ${
+                              paymentMethod === "CARD"
+                                ? styles.activeCard
+                                : styles.inActive
+                            } 
+                            `}
+                                  key={index}
+                                  processor={processor}
+                                  logo={logo}
+                                />
+                                <Typography
+                                  style={{
+                                    textAlign: "center",
+                                    color: "#555555",
+                                    marginTop: 10,
+                                    fontWeight: 400,
+                                    fontSize: 14,
+                                    fontStyle: "normal",
+                                    fontFamily: "Open Sans",
+                                  }}
+                                  variant="subtitle1"
+                                  component="div"
+                                >
+                                  Secured by {processor}
+                                </Typography>
+                              </Grid>
+                            )
+                          )}
+                          {paymentService.WALLET && purpose != "FUND_WALLET" && (
+                            <Grid
+                              onClick={() => setPaymentMethod("WALLET")}
+                              item
+                              xs={12}
+                              md={4}
+                              style={{
+                                position: "relative",
+                              }}
+                            >
+                              {paymentMethod === "WALLET" && (
+                                <CheckCircle
+                                  fontSize="large"
+                                  color="primary"
+                                  style={{
+                                    position: "absolute",
+                                    right: -7,
+                                    top: 10,
+                                  }}
+                                />
+                              )}
+                              <Card
+                                contentClass={styles.contentClass}
+                                className={`${styles.general} ${
+                                  styles.cardHeight
+                                } 
+                            ${
+                              paymentMethod === "WALLET"
+                                ? styles.activeCard
+                                : styles.inActive
+                            } 
+                            `}
+                                processor={paymentService.WALLET}
+                              />
+                              <Typography
+                                style={{
+                                  textAlign: "center",
+                                  color: "#555555",
+                                  marginTop: 10,
+                                  fontWeight: 400,
+                                  fontSize: 14,
+                                  fontStyle: "normal",
+                                  fontFamily: "Open Sans",
+                                }}
+                                variant="subtitle1"
+                                component="div"
+                              >
+                                Secured by {paymentService.WALLET}
+                              </Typography>
+                            </Grid>
+                          )}
+                        </>
+                      )
+                  )}
                 </Grid>
               </div>
 

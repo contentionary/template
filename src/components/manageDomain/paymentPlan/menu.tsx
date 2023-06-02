@@ -13,6 +13,8 @@ interface Props {
   centreId: string;
   refetch: any;
   toggleToast: Function;
+  currency: string;
+  durationInDays: number;
 }
 export default function PaymentPlanMenu(props: Props) {
   const { anchorEl, menuIsOpen, closeMenu, openMenu } = useMenu();

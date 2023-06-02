@@ -12,6 +12,20 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 const ExamQuestionBreadcrumbs = ({ text }: { text?: boolean }) => {
   const { query } = useRouter();
+  const questionBank = (
+    <NextLink
+      href={
+        query.sectionId
+          ? `/admin/exam/${query.id}/question-bank?sectionId=${query.sectionId}`
+          : `/admin/exam/${query.id}/question-bank`
+      }
+      passHref
+    >
+      <MuiLink underline="hover" color="inherit">
+        Question bank
+      </MuiLink>
+    </NextLink>
+  );
   return (
     <Stack top={0} position="sticky" spacing={2} mb={2}>
       <Breadcrumbs
@@ -24,23 +38,13 @@ const ExamQuestionBreadcrumbs = ({ text }: { text?: boolean }) => {
             Manage exam
           </MuiLink>
         </NextLink>
-        {query.folderId && (
-          <NextLink href={`/admin/exam/${query.id}/question-bank`} passHref>
-            <MuiLink underline="hover" color="inherit">
-              Question bank
-            </MuiLink>
-          </NextLink>
-        )}
+        {query.folderId && questionBank}
         {text ? (
           <Typography color="text.primary">
             {!query.folderId ? "Question banks" : "Folder"}
           </Typography>
         ) : (
-          <NextLink href={`/admin/exam/${query.id}/question-bank`} passHref>
-            <MuiLink underline="hover" color="inherit">
-              Question bank
-            </MuiLink>
-          </NextLink>
+          questionBank
         )}
         {!text && <Typography color="text.primary">Questions</Typography>}
       </Breadcrumbs>

@@ -19,6 +19,8 @@ interface PaymentPlanInt {
   name: string;
   id: string;
   productId: string;
+  currency: string;
+  durationInDays: number;
 }
 
 const fetchSections = async ({ queryKey }: { queryKey: Array<any> }) => {
@@ -43,6 +45,8 @@ export default function PaymentPlan() {
     { minWidth: 50, name: "No", key: "index" },
     { minWidth: 100, name: "Name", key: "name" },
     { minWidth: 100, name: "Amount", key: "amount" },
+    { minWidth: 100, name: "Currency", key: "currency" },
+    { minWidth: 100, name: "Duration (In days)", key: "durationInDays" },
     { minWidth: 50, name: "Action", key: "action" },
   ];
   React.useEffect(() => {
@@ -50,6 +54,7 @@ export default function PaymentPlan() {
       setPaymentPlan(data);
     }
   }, [data]);
+
   const result = paymentPlan?.map((item: PaymentPlanInt, index: number) => ({
     index: ++index,
     ...item,

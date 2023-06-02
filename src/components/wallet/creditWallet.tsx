@@ -39,7 +39,7 @@ const CreditWallet = ({
       query: {
         amount: values.amount,
         redirectUrl: isServerSide ? "" : window.location.href,
-        currency: "NGN",
+        currency: values.currency,
         purpose: "FUND_WALLET",
         paymentMethod: "CARD",
         itemId,
@@ -53,7 +53,6 @@ const CreditWallet = ({
       const { data } = await request.get({
         url: "/wallet/supported-currencies",
       });
-      console.log(data);
       setCurrencies([...(data as CurrencyType[])]);
       setIsLoading(false);
       openDialog();
