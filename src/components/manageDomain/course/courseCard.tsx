@@ -40,7 +40,6 @@ const PublicationCard = ({
 }: CourseInt) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
-
   return (
     <Card className={cardStyle.publicationCard}>
       <NextLink

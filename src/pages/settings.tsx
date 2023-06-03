@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { GetServerSideProps } from "next";
 import template from "@src/templates";
-import { getCentre, pageErrorHandler, request } from "@src/utils";
+import { getCentre, pageErrorHandler } from "@src/utils";
 import {
   BasePageProps,
   ExamListInt,

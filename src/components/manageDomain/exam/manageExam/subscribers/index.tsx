@@ -10,6 +10,8 @@ import MuiTable from "@src/components/shared/table";
 import AddSubscriber from "./addSubscriber";
 import Empty from "@src/components/shared/state/Empty";
 import Delete from "@src/components/shared/delete";
+import TextFields from "@src/components/shared/input/textField";
+import ButtonComponent from "@src/components/shared/button";
 
 interface SubscriberInt {
   surname: string;
@@ -22,9 +24,9 @@ interface SubscriberInt {
 }
 
 const fetchSections = async ({ queryKey }: { queryKey: Array<any> }) => {
-  const [, centreId, examId, pageId, setSubscribers] = queryKey;
+  const [, centreId, examId, pageId, limit, setSubscribers] = queryKey;
   const { data } = await request.get({
-    url: `/centre/${centreId}/exam/${examId}/subscribers?pageId=${pageId}`,
+    url: `/centre/${centreId}/exam/${examId}/subscribers?limit=${limit}&pageId=${pageId}`,
   });
   setSubscribers && setSubscribers(data.subscribers);
   return data;
@@ -39,8 +41,9 @@ export default function Subscribers({
   examId: string;
   toggleToast: Function;
 }) {
+  const [limit, setLimit] = React.useState(50);
   const { isLoading, data, error, refetch } = useQuery(
-    ["sections", centreId, examId, 1],
+    ["sections", centreId, examId, 1, limit],
     fetchSections
   );
   const [subscribers, setSubscribers] = React.useState(data?.subscribers);
@@ -74,7 +77,7 @@ export default function Subscribers({
     const pageCount = data?.pageCount as number;
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
       fetchSections({
-        queryKey: ["sections", centreId, examId, value, setSubscribers],
+        queryKey: ["sections", centreId, examId, value, limit, setSubscribers],
       });
     };
     return (
@@ -92,8 +95,33 @@ export default function Subscribers({
             to add new subscribers to your exam or assign all the subscribers in
             a Contact group into this exam.
           </Typography>
-          <Typography>
+          <Typography sx={{ display: "flex", justifyContent: "space-between" }}>
             <AddSubscriber toggleToast={toggleToast} refetch={refetch} />
+            <Stack direction="row">
+              <TextFields
+                type="number"
+                variant="standard"
+                label="Limit"
+                onBlur={(e: any) => setLimit(e.target.value)}
+                sx={{ maxWidth: 70, padding: 0 }}
+              />
+              <ButtonComponent
+                onClick={() =>
+                  fetchSections({
+                    queryKey: [
+                      "sections",
+                      centreId,
+                      examId,
+                      1,
+                      limit,
+                      setSubscribers,
+                    ],
+                  })
+                }
+              >
+                Apply limit
+              </ButtonComponent>
+            </Stack>
           </Typography>
 
           {result?.length ? (

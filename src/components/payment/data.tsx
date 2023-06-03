@@ -10,6 +10,15 @@ export const data: any[] = [
     currency: Currency.NGN,
     isDefault: true,
   },
+  // {
+  //   method: PaymentMethod.CARD,
+  //   paymentType: "Pay with Naira",
+  //   logo: "/images/payment/payStack.svg",
+  //   motto: "Secured by Flutterwave",
+  //   active: false,
+  //   currency: Currency.NGN,
+  //   isDefault: true,
+  // },
   {
     method: PaymentMethod.CARD,
     paymentType: "Pay with Dollar",

@@ -14,14 +14,13 @@ export const useStyles = makeStyles({
     marginBottom: 40,
   },
   paper: {
-    boxSizing: "border-box",
     background: "#FFFFFF",
-    border: "1px solid #BDBDBD",
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-    borderRadius: "10px",
+    boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.2)",
+    borderRadius: "5px",
+    marginTop: 20,
     [theme().breakpoints.up("lg")]: {
       // height: 916,
-      height: 650,
+      height: 620,
     },
     [theme().breakpoints.down("md")]: {
       paddingBottom: 30,
@@ -97,12 +96,24 @@ export const useStyles = makeStyles({
   },
   inActive: {
     background: "#F9F9F9",
-    border: "3px solid #DDDDDD",
   },
   general: {
     borderRadius: 5,
     cursor: "pointer",
     zIndex: -1,
+  },
+  paymentPlanCard: {
+    cursor: "pointer",
+    padding: "30px 20px",
+    boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.2)",
+    width: "49%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    [theme().breakpoints.down("md")]: {
+      width: "100%",
+    },
   },
   cardHeight: {
     // height: 150,

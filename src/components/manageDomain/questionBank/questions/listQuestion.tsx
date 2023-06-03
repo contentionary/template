@@ -31,7 +31,6 @@ const QuestionsPage = ({
   ) as BasePageProps;
 
   const pageCount = pageData.pageCount as number;
-
   const [expanded, setExpanded] = useState(0);
 
   const getQuestionTypeData = (question: QuestionInt) => {

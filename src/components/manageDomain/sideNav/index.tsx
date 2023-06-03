@@ -10,9 +10,9 @@ import WalletOutlinedIcon from "@mui/icons-material/WalletOutlined";
 import PowerSettingsNewOutlined from "@mui/icons-material/PowerSettingsNewOutlined";
 import CallOutlined from "@mui/icons-material/CallOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import Payment from "@mui/icons-material/Payment";
 
 import Image from "@src/components/shared/image";
-import config from "@src/utils/config";
 // Next
 import NextLink from "next/link";
 
@@ -103,6 +103,26 @@ const SideNav = (): JSX.Element => {
             </ListItemButton>
           </NextLink>
         </ListItem>
+        {centre.subscriptionModel === "SUBSCRIPTION" && (
+          <ListItem disablePadding>
+            <NextLink href="/admin/payment-plan" passHref>
+              <ListItemButton LinkComponent={Link}>
+                <ListItemIcon>
+                  <Payment />
+                </ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{
+                    color: "#333333",
+                    fontWeight: 500,
+                    fontSize: 16,
+                    fontStyle: "normal",
+                  }}
+                  primary="Payment Plan"
+                />
+              </ListItemButton>
+            </NextLink>
+          </ListItem>
+        )}
         {user?.isAdmin && (
           <ListItem disablePadding>
             <NextLink href="/admin/wallet" passHref>

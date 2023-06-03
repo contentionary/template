@@ -72,7 +72,7 @@ const ShareCentreLink = ({ questionBankId }: Props) => {
                 <ButtonComponent type="submit">
                   <>Share &nbsp; {isLoading && <Loading size={15} />}</>
                 </ButtonComponent>
-                <ButtonComponent onClick={() => closeDialog}>
+                <ButtonComponent onClick={() => closeDialog()}>
                   Cancel
                 </ButtonComponent>
               </Typography>
