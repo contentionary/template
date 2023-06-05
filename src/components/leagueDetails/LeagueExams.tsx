@@ -1,34 +1,43 @@
 import React, { Fragment } from "react";
 // mui components
-// import Box from "@mui/material/Box";
-// import Paper from "@mui/material/Paper";
-// import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
-// import Typography from "@mui/material/Typography";
 // icons
 // interface and config
-import { ExamDetailsPageFunc } from "./interfaceType";
-// import ImageComponent from "@src/components/shared/image";
-// import ExamCard from "@src/components/shared/cards/ExamCard";
+import { useQuery } from "react-query";
+import { getAuthData } from "@src/utils/auth";
+import { ExamInt } from "@src/utils/interface";
+import { handleError, request } from "@src/utils";
+import { LeagueDetailsPageFunc } from "./interfaceType";
+import ExamCard from "@src/components/shared/cards/ExamCard";
 
-const AboutExam: ExamDetailsPageFunc = () => {
-  // const { description } = exam;
-
-  return (
-    <Fragment>
-      <Grid container spacing={{ xs: 2, md: 4 }}>
-        <Grid item xs={12} md={4} xl={4} sx={{ mt: 4, mb: { xs: 3, md: 5 } }}>
-          {/* <ExamCard exam="y6tt" /> */}
-        </Grid>
-        <Grid item xs={12} md={4} xl={4} sx={{ mt: 4, mb: { xs: 3, md: 5 } }}>
-          {/* <ExamCard exam="y6tt" /> */}
-        </Grid>{" "}
-        <Grid item xs={12} md={4} xl={4} sx={{ mt: 4, mb: { xs: 3, md: 5 } }}>
-          {/* <ExamCard exam="y6tt" /> */}
-        </Grid>
-      </Grid>
-    </Fragment>
+const LeagueExams: LeagueDetailsPageFunc = (props) => {
+  const { centreId, id } = props.league;
+  const { token } = getAuthData();
+  const { isLoading, data, error } = useQuery(
+    ["league-exams", centreId, id],
+    async () => {
+      return await request.get({
+        url: `/centre/${centreId}/league/${id}/exams`,
+        token,
+      });
+    }
   );
+
+  if (isLoading) {
+    return <div>Loading....</div>;
+  } else if (data) {
+    return (
+      <Fragment>
+        <Grid container spacing={3}>
+          {data?.data.map((exam: ExamInt, index: number) => (
+            <Grid key={`exam-item-${index}`} item xs={12} md={4} xl={4}>
+              <ExamCard exam={exam} leagueId={id} />
+            </Grid>
+          ))}
+        </Grid>
+      </Fragment>
+    );
+  } else return <div>{handleError(error).message}</div>;
 };
 
-export default AboutExam;
+export default LeagueExams;
