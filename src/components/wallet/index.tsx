@@ -202,7 +202,7 @@ export default function CustomizedSteppers() {
                 {pockets.map((pocket, index) => (
                   <Typography
                     key={`${pocket}-${index}`}
-                    variant="h4"
+                    variant="h5"
                     component="p"
                     style={{ color: "#fff", marginBottom: 20, marginRight: 30 }}
                   >

@@ -168,7 +168,6 @@ export default function Payment(): JSX.Element {
     currencyConverter(newCurrency);
     setCurrency(newCurrency);
   };
-
   return (
     <Container className={styles.container}>
       {amount === 0 ? (
@@ -202,10 +201,12 @@ export default function Payment(): JSX.Element {
                       name,
                       amount,
                       isDefault,
+                      currency,
                     }: {
                       name: string;
                       amount: number;
                       isDefault: boolean;
+                      currency: string;
                     },
                     index: number
                   ) => (

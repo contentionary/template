@@ -64,14 +64,14 @@ const UpdateCourse = () => {
       }
       if (file && !convertedFile) {
         const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
-        values.fileUrl = fileUrl;
+        values.previewVideoUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
       if (learnings.length && type != "FOLDER") values.learnings = learnings;
       if (folderId) values.folderId = folderId;
       values.type = type;
       if (values.tags) values.tags = values.tags.split(",");
-      convertedFile && (values.fileUrl = convertedFile);
+      convertedFile && (values.previewVideoUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
       delete values.type;
       const data = await request.patch({
