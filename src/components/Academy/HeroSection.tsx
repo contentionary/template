@@ -11,6 +11,7 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import { alpha, useTheme } from "@mui/material/styles";
 // import { useTheme } from "@mui/material/styles";
 // app components
 import ImageComponent from "@src/components/shared/image";
@@ -23,6 +24,7 @@ import useCardStyle from "@src/styles/card";
 import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -90,7 +92,10 @@ const HeroSection = () => {
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            bgcolor: "#FBEEE6",
+                            backgroundColor: alpha(
+                              theme.palette.primary["main"],
+                              0.1
+                            ),
                           }}
                         >
                           <PersonOutlineOutlinedIcon color="primary" />
@@ -106,7 +111,10 @@ const HeroSection = () => {
                   <Avatar
                     sx={{
                       mx: "auto",
-                      bgcolor: "#FBEEE6",
+                      backgroundColor: alpha(
+                        theme.palette.primary["main"],
+                        0.1
+                      ),
                     }}
                   >
                     <AutoStoriesOutlinedIcon color="primary" />
