@@ -5,6 +5,7 @@ import NextLink from "next/link";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -12,56 +13,54 @@ import { Link as MuiLink } from "@mui/material";
 // app components
 import ImageComponent from "../image";
 // icons
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
+import AdjustIcon from "@mui/icons-material/Adjust";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
+import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
-import { ExamCardFunc } from "./interfaceType";
+import { LeagueCardFunc } from "./interfaceType";
 import {
   kCount,
-  EXAM_FOLDER_IMAGE_PLACEHOLDER,
+  dateTimeFormat,
+  timeAgo,
+  VIDEO_FOLDER_IMAGE_PLACEHOLDER,
   FOLDER_IMAGE_PLACEHOLDER,
 } from "@src/utils";
 
-const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
-  const {
-    id,
-    type,
-    slug,
-    name,
-    image,
-    summary,
-    questionCount,
-    subscriberCount,
-    folderContentCount,
-  } = exam;
+const LeagueCard: LeagueCardFunc = ({ league }) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
+  const {
+    id,
+    name,
+    slug,
+    image,
+    price,
+    subscriberCount,
+    createdAt,
+    type,
+    summary,
+    description,
+    folderContentCount,
+  } = league;
 
   return (
-    <Card className={cardStyle.examCard}>
+    <Card className={cardStyle.leagueCard}>
       <NextLink
-        href={
-          type === "FOLDER"
-            ? `/exams?folderId=${id}`
-            : `/exams/${slug}${
-                leagueId ? `/instructions?leagueId=${leagueId}` : ""
-              }`
-        }
+        href={type === "FOLDER" ? `/leagues?folderId=${id}` : `/leagues/${id}`}
         passHref
       >
         <CardActionArea
           LinkComponent={MuiLink}
-          className="MuiCourseCardActionBase-root"
+          className="MuiLeagueCardActionBase-root"
         >
           <Box className="card-img">
             <ImageComponent
               src={
                 type === "FOLDER"
                   ? image || FOLDER_IMAGE_PLACEHOLDER
-                  : image || EXAM_FOLDER_IMAGE_PLACEHOLDER
+                  : image || VIDEO_FOLDER_IMAGE_PLACEHOLDER
               }
               width="100%"
               height="60%"
@@ -85,7 +84,7 @@ const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
               </Typography>
             </Stack>
             <Typography
-              mb={2}
+              mb={1}
               minHeight={40}
               variant="body2"
               color="text.secondary"
@@ -93,62 +92,58 @@ const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
             >
               {summary}
             </Typography>
-          </CardContent>
-          <CardContent className="exam-content">
             {type === "FOLDER" ? (
               <Typography
-                mb={0}
+                mb={1}
                 noWrap
-                color="white"
                 display="flex"
                 variant="body2"
                 alignItems="center"
               >
-                <FolderCopyOutlinedIcon color="inherit" fontSize="inherit" />
-                &nbsp; {folderContentCount}
+                <FolderCopyOutlinedIcon color="primary" fontSize="inherit" />
+                &nbsp; {folderContentCount || 0}
               </Typography>
             ) : (
               <Stack
+                mb={1}
                 mt="auto"
                 spacing={1}
-                color="white"
                 direction="row"
                 alignItems="center"
-                justifyContent="space-between"
+                justifyContent="between"
               >
                 <Typography
                   mb={0}
                   noWrap
-                  color="white"
                   display="flex"
                   variant="body2"
                   alignItems="center"
+                  title={dateTimeFormat(createdAt, true)}
                 >
                   <>
-                    <QuestionAnswerOutlinedIcon
-                      color="inherit"
-                      fontSize="inherit"
-                    />
+                    <AdjustIcon color="primary" fontSize="inherit" />
                     &nbsp;
-                    {questionCount}
-                    &nbsp; Questions
+                    {timeAgo(createdAt)}
                   </>
                 </Typography>
                 <Typography
                   noWrap
                   mb={0}
-                  color="white"
-                  display="flex"
+                  ml="auto !important"
                   variant="body2"
+                  display="flex"
                   alignItems="center"
+                  textAlign="right"
                 >
-                  <PeopleAltOutlinedIcon color="inherit" fontSize="inherit" />
+                  <AdjustIcon color="primary" fontSize="inherit" />
                   &nbsp;
-                  {subscriberCount ? kCount(subscriberCount) : 0}
-                  &nbsp; Subscribers
+                  {subscriberCount ? kCount(subscriberCount) : 0} Participants
                 </Typography>
               </Stack>
             )}
+            <Button fullWidth disableElevation variant="contained">
+              Open League
+            </Button>
           </CardContent>
         </CardActionArea>
       </NextLink>
@@ -156,4 +151,4 @@ const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
   );
 };
 
-export default ExamCard;
+export default LeagueCard;
