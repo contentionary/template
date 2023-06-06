@@ -176,13 +176,15 @@ const CreatePublication = () => {
 
           {type != "FOLDER" && (
             <>
-              <TextFields
-                type="number"
-                label="Publication Price"
-                defaultValue={publication.price}
-                name="price"
-                onChange={getData}
-              />
+              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+                <TextFields
+                  type="number"
+                  label="Publication Price"
+                  defaultValue={publication.price}
+                  name="price"
+                  onChange={getData}
+                />
+              )}
               <Stack>
                 <Typography variant="body1" component="p">
                   Select Category

@@ -201,12 +201,12 @@ export default function Payment(): JSX.Element {
                       name,
                       amount,
                       isDefault,
-                      currency,
+                      symbol,
                     }: {
                       name: string;
                       amount: number;
                       isDefault: boolean;
-                      currency: string;
+                      symbol: string;
                     },
                     index: number
                   ) => (
@@ -229,7 +229,8 @@ export default function Payment(): JSX.Element {
                       <Box sx={{ textAlign: "center" }}>
                         <Typography variant="h6">{name}</Typography>
                         <Typography variant="body2">
-                          Pay N{amount} / {name}
+                          Pay {symbol}
+                          {amount} / {name}
                         </Typography>
                       </Box>
                     </Paper>

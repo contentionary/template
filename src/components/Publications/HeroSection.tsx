@@ -31,7 +31,7 @@ const HeroSection: PublicationsFunc = () => {
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { user, centre } = cachedData;
+  const { user, centre, pricing } = cachedData;
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {
     setHydrated(true);
@@ -59,7 +59,9 @@ const HeroSection: PublicationsFunc = () => {
         }&currency=NGN&redirectUrl=${redirectUrl}`
       : "/login";
     getStarted.link = paymentLink;
-    getStarted.text = `Get started for ₦${centre.price} Monthly`;
+    getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${
+      pricing ? pricing.amount : centre.price
+    } ${pricing ? pricing.name : ""}`;
   }
 
   return (

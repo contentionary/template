@@ -40,7 +40,7 @@ const CourseAdmin = () => {
         links={folderId ? links : [{ link: "/admin", name: "Dashboard" }]}
         currentPage={
           folderId
-            ? { name: "Folder", link: "/" }
+            ? { name: "Folder", link: "" }
             : { link: "/admin/course", name: "Courses" }
         }
       />

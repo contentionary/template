@@ -92,24 +92,12 @@ export default function CustomizedSteppers() {
       const url = centreWallet
         ? `/wallet/centre/${cachedData.centre.id}/transaction-history?pageId=${pageId}`
         : `/wallet/transaction-history?pageId=${pageId}`;
-
       if (type === "all") {
-        // if (newCurrency != "all") {
-        //   setIsLoading(true);
-        //   const { data } = await request.get({
-        //     url: `${url}&currency=${newCurrency}`,
-        //   });
-        //   console.log(newCurrency, data);
-        //   setPageCount(data.pageCount);
-        //   setTransaction([...(data.histories as TransactionHistory[])]);
-        //   setIsLoading(false);
-        // } else {
         const { data } = await request.get({
           url,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
-        // }
       } else {
         setIsLoading(true);
         const { data } = await request.get({

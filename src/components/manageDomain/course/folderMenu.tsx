@@ -59,9 +59,7 @@ export default function CustomizedMenus({
                   Edit
                 </MenuItem>
               </Link>
-              {!coursesLength && (
-                <Delete refetch={() => {}} id={folderId} centreId={centreId} />
-              )}
+              {!coursesLength && <Delete id={folderId} centreId={centreId} />}
             </>
           )}
         </div>
