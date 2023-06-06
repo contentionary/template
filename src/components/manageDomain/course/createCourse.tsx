@@ -125,12 +125,14 @@ const CreateCourse = () => {
 
           {type != "FOLDER" && (
             <>
-              <TextFields
-                type="number"
-                label="Course Price"
-                name="price"
-                onChange={getData}
-              />
+              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+                <TextFields
+                  type="number"
+                  label="Course Price"
+                  name="price"
+                  onChange={getData}
+                />
+              )}
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Learnings

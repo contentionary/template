@@ -127,25 +127,30 @@ const PreparatoryExamSettings = ({
               onChange={check}
             />
           </Box>
-          <Typography
-            variant="h4"
-            component="div"
-            sx={{ textAlign: "center", mb: 3 }}
-          >
-            Add Exam Price
-          </Typography>
-          <Stack spacing={4}>
-            <Typography>
-              Add the amount candidates will pay as subscription fee
-            </Typography>
-            <TextFields
-              sx={{ width: 400 }}
-              label="Enter Amount in Naira"
-              onChange={getData}
-              defaultValue={exam.price}
-              name="price"
-            />
-          </Stack>
+
+          {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+            <>
+              <Typography
+                variant="h4"
+                component="div"
+                sx={{ textAlign: "center", mb: 3 }}
+              >
+                Add Exam Price
+              </Typography>
+              <Stack spacing={4}>
+                <Typography>
+                  Add the amount candidates will pay as subscription fee
+                </Typography>
+                <TextFields
+                  sx={{ width: 400 }}
+                  label="Enter Amount in Naira"
+                  onChange={getData}
+                  defaultValue={exam.price}
+                  name="price"
+                />
+              </Stack>
+            </>
+          )}
           <ButtonComponent
             variant="contained"
             type="submit"

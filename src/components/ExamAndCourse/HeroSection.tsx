@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // next components
 import NextLink from "next/link";
 // mui components
@@ -34,6 +34,7 @@ const HeroSection: ExamAndCourseFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const { user, centre } = cachedData;
+  const pricing = pageData?.templateDate?.defaultPrice;
   const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
@@ -44,7 +45,6 @@ const HeroSection: ExamAndCourseFunc = () => {
     link: "/library",
     text: isCentreSubscriber ? "Browse Books" : "Get started",
   };
-
   if (!isCentreSubscriber) {
     const paymentLink = user
       ? `
@@ -57,9 +57,15 @@ const HeroSection: ExamAndCourseFunc = () => {
     getStarted.link = paymentLink;
     getStarted.text =
       centre.subscriptionModel === "SUBSCRIPTION"
-        ? `Get started for ₦${centre.price} Monthly`
+        ? `Get started for ${pricing ? pricing.symbol : "₦"}${
+            pricing ? pricing.amount : centre.price
+          } ${pricing ? pricing.name : ""}`
         : "Request Access";
   }
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
   return (
     <Fragment>
       <Box
@@ -87,17 +93,19 @@ const HeroSection: ExamAndCourseFunc = () => {
               >
                 {landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={getStarted.link} passHref>
-                <Button
-                  size="large"
-                  disableElevation
-                  variant="contained"
-                  component={MuiLink}
-                  color="primary"
-                >
-                  {getStarted.text}
-                </Button>
-              </NextLink>
+              {hydrated && (
+                <NextLink href={getStarted.link} passHref>
+                  <Button
+                    size="large"
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    color="primary"
+                  >
+                    {getStarted.text}
+                  </Button>
+                </NextLink>
+              )}
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
               <Box
