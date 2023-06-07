@@ -27,7 +27,7 @@ import ImageComponent from "@src/components/shared/image";
 const HeroSection: PublicationsFunc = () => {
   const cardStyle = useCardStyle();
   const router = useRouter();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -175,7 +175,7 @@ const HeroSection: PublicationsFunc = () => {
       {verifyValue && (
         <ConfirmPayment
           price={Number(deductedPrice)}
-          reference={reference}
+          reference={reference || tx_ref}
           redirectUrl={redirectUrl}
           purpose="CENTRE_SUBSCRIPTION"
         />
