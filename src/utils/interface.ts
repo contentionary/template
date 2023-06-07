@@ -486,6 +486,7 @@ export interface LeagueInt {
   centreName: string;
   centreSlug: string;
   reviewCount: number;
+  allowReview: boolean;
 }
 
 export interface LeagueFolderInt extends LeagueInt {

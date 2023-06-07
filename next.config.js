@@ -30,6 +30,7 @@ const nextConfig = {
       "video.bunnycdn.com",
       "cdn.edtify.com",
       "dev-cdn.edtify.com",
+      "dev-cdn.contentionary.com",
     ],
   },
 };
