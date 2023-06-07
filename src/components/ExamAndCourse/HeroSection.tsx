@@ -29,7 +29,7 @@ import ConfirmPayment from "@src/components/payment/confirmPayment";
 const HeroSection: ExamAndCourseFunc = () => {
   const cardStyle = useCardStyle();
   const router = useRouter();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
@@ -177,7 +177,7 @@ const HeroSection: ExamAndCourseFunc = () => {
       {verifyValue && (
         <ConfirmPayment
           price={Number(deductedPrice)}
-          reference={reference}
+          reference={reference || tx_ref}
           redirectUrl={redirectUrl}
           purpose="CENTRE_SUBSCRIPTION"
         />

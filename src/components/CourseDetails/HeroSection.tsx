@@ -32,7 +32,7 @@ const HeroSection: CourseDetailsPageFunc = ({
   subscriptionModel,
 }) => {
   const router = useRouter();
-  const { reference, price: deductedPrice } = router.query;
+  const { reference, price: deductedPrice, tx_ref } = router.query;
   const { isOpen, openDialog, closeDialog } = useDialog();
   const theme = useTheme();
   const [openVideo, setOpenVideo] = useState(false);
@@ -52,7 +52,7 @@ const HeroSection: CourseDetailsPageFunc = ({
         {verifyValue && (
           <ConfirmPayment
             price={Number(deductedPrice)}
-            reference={reference}
+            reference={reference || tx_ref}
             redirectUrl={action.redirectUrl}
           />
         )}

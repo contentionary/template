@@ -32,7 +32,7 @@ const HeroSection = () => {
     "pageProps"
   ) as BasePageProps;
   const { user, centre, pricing } = cachedData;
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
@@ -169,7 +169,7 @@ const HeroSection = () => {
       {verifyValue && (
         <ConfirmPayment
           price={Number(deductedPrice)}
-          reference={reference}
+          reference={reference || tx_ref}
           redirectUrl={redirectUrl}
           purpose="CENTRE_SUBSCRIPTION"
         />

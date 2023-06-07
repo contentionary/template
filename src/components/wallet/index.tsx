@@ -146,9 +146,9 @@ export default function CustomizedSteppers() {
   return (
     <Box sx={{ pt: 7, pb: 8, px: { md: 6 } }}>
       <Container maxWidth="xl">
-        {router.query.reference && (
+        {(router.query.reference || router.query.tx_ref) && (
           <ConfirmPayment
-            reference={router.query.reference}
+            reference={router.query.reference || router.query.tx_ref}
             price={Number(router.query.price)}
             redirectUrl={locationUrl}
           />
