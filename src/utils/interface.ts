@@ -17,6 +17,8 @@ export interface QuestionBankInt {
   id: string;
   type: string;
   link?: string;
+  questionCount: number;
+  folderContentCount: number;
 }
 
 export interface Solution {
