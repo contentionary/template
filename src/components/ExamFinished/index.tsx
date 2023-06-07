@@ -104,11 +104,9 @@ const FinishedExamCard: ExamFinishedFunc = (props) => {
               <Typography my={2} variant="h5">
                 Completion Message:
               </Typography>
-              <Typography my={2} paragraph>
-                {exam.completionMessage}
-              </Typography>
-
-              <Box dangerouslySetInnerHTML={{ __html: exam.instruction }} />
+              <Typography
+                dangerouslySetInnerHTML={{ __html: exam.instruction }}
+              />
             </Grid>
           </Grid>
         </Container>
