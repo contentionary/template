@@ -79,8 +79,8 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
                 }}
               />
             </Stack>
-            {props.answer?.optionId === option.id &&
-              selectedAnswers(props.answer?.optionId === value)}
+            {props?.answer?.optionId === option.id &&
+              selectedAnswers(props?.answer?.optionId === value)}
           </div>
         </ToggleButton>
       ))}
@@ -116,8 +116,8 @@ export const BooleanQuestionSelector = (props: QuestionSelectorInt) => {
           }}
         >
           <span> A). True</span>
-          {props.answer?.answer === true &&
-            selectedAnswers(props.answer?.answer === props.question.answer)}
+          {props?.answer?.answer === true &&
+            selectedAnswers(props?.answer?.answer === props.question.answer)}
         </div>
       </ToggleButton>
       <ToggleButton value={"false"} aria-label="option false">
@@ -129,8 +129,8 @@ export const BooleanQuestionSelector = (props: QuestionSelectorInt) => {
           }}
         >
           <span>B). False</span>
-          {props.answer?.answer === false &&
-            selectedAnswers(props.answer?.answer === props.question.answer)}
+          {props?.answer?.answer === false &&
+            selectedAnswers(props?.answer?.answer === props.question.answer)}
         </div>
       </ToggleButton>
     </ToggleButtonGroup>
@@ -175,9 +175,9 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
               />
             }
           />
-          {props.answer.optionIds.includes(option.id) &&
+          {props?.answer?.optionIds?.includes(option.id) &&
             selectedAnswers(
-              props.answer.optionIds.includes(option.id) &&
+              props?.answer?.optionIds?.includes(option.id) &&
                 choice.includes(Number(option.id))
             )}
         </Box>
@@ -221,12 +221,12 @@ export const RangeQuestionSelector = (props: QuestionSelectorInt) => {
       <Typography mt={1} fontWeight="light" variant="subtitle2">
         Minimum value:
       </Typography>
-      <Typography>{props.answer?.min}</Typography>
+      <Typography>{props?.answer?.min}</Typography>
 
       <Typography mt={1} fontWeight="light" variant="subtitle2">
         Maximum Value:
       </Typography>
-      <Typography>{props.answer?.max}</Typography>
+      <Typography>{props?.answer?.max}</Typography>
     </>
   );
 };
