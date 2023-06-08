@@ -43,7 +43,7 @@ const HeroSection: ExamAndCourseFunc = () => {
     : false;
   const getStarted = {
     link: "/library",
-    text: isCentreSubscriber ? "Browse Books" : "Get started",
+    text: isCentreSubscriber ? "Browse Courses" : "Get started",
   };
   if (!isCentreSubscriber) {
     const paymentLink = user
