@@ -64,14 +64,14 @@ const UpdateCourse = () => {
       }
       if (file && !convertedFile) {
         const fileUrl = await uploadFiles(file.fileUrl, setFileLoadingProgress);
-        values.fileUrl = fileUrl;
+        values.previewVideoUrl = fileUrl;
         setConvertedFile(fileUrl);
       }
       if (learnings.length && type != "FOLDER") values.learnings = learnings;
       if (folderId) values.folderId = folderId;
       values.type = type;
       if (values.tags) values.tags = values.tags.split(",");
-      convertedFile && (values.fileUrl = convertedFile);
+      convertedFile && (values.previewVideoUrl = convertedFile);
       convertedImage && (values.imageUrl = convertedImage);
       delete values.type;
       const data = await request.patch({
@@ -80,7 +80,7 @@ const UpdateCourse = () => {
       });
       toggleToast(data.message);
       setIsLoading(false);
-      router.back();
+      // router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -146,13 +146,16 @@ const UpdateCourse = () => {
                 defaultValue={course?.tags}
                 onChange={getData}
               />
-              <TextFields
-                type="number"
-                label="Course Price"
-                defaultValue={course.price}
-                name="price"
-                onChange={getData}
-              />
+
+              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+                <TextFields
+                  type="number"
+                  label="Course Price"
+                  defaultValue={course.price}
+                  name="price"
+                  onChange={getData}
+                />
+              )}
               <Box>
                 <Typography variant="subtitle1" component="div">
                   Learnings

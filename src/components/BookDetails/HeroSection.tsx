@@ -27,7 +27,7 @@ import ConfirmPayment from "@src/components/payment/confirmPayment";
 const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const router = useRouter();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
 
   const {
     name,
@@ -51,7 +51,7 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
         {verifyValue && (
           <ConfirmPayment
             price={Number(deductedPrice)}
-            reference={reference}
+            reference={reference || tx_ref}
             redirectUrl={redirectUrl}
           />
         )}

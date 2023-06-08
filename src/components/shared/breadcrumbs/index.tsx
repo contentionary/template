@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import ActiveLastBreadcrumb from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 
@@ -25,14 +26,7 @@ export default function Breadcrumbs({
           {name}
         </Link>
       ))}
-      <Link
-        underline="hover"
-        color="text.primary"
-        href={currentPage.link}
-        aria-current="page"
-      >
-        {currentPage.name}
-      </Link>
+      <Typography color="text.primary">{currentPage.name}</Typography>
     </ActiveLastBreadcrumb>
   );
 }

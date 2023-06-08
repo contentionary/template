@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // next components
 import NextLink from "next/link";
 // mui components
@@ -18,20 +18,54 @@ import ImageComponent from "@src/components/shared/image";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
-import { queryClient } from "@src/utils";
+import { cache, isServerSide, queryClient } from "@src/utils";
 import useCardStyle from "@src/styles/card";
 import { ExamAndCourseFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
+import { v4 as uuid } from "uuid";
+import { useRouter } from "next/router";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: ExamAndCourseFunc = () => {
   const cardStyle = useCardStyle();
+  const router = useRouter();
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { user } = cachedData;
+  const { user, centre } = cachedData;
+  const pricing = pageData?.templateData?.defaultPrice;
+  const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
-
+  const isCentreSubscriber = !isServerSide
+    ? cache.get("isCentreSubscriber")
+    : false;
+  const getStarted = {
+    link: "/library",
+    text: isCentreSubscriber ? "Browse Courses" : "Get started",
+  };
+  if (!isCentreSubscriber) {
+    const paymentLink = user
+      ? `
+    /payment?transactionkey=${uuid()}&itemId=${
+          centre.id
+        }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
+          centre.price
+        }&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/login";
+    getStarted.link = paymentLink;
+    getStarted.text =
+      centre.subscriptionModel === "SUBSCRIPTION"
+        ? `Get started for ${pricing ? pricing.symbol : "₦"}${
+            pricing ? pricing.amount : centre.price
+          }`
+        : "Request Access";
+  }
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
   return (
     <Fragment>
       <Box
@@ -59,17 +93,19 @@ const HeroSection: ExamAndCourseFunc = () => {
               >
                 {landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={user ? "/courses" : "/login"} passHref>
-                <Button
-                  size="large"
-                  disableElevation
-                  variant="contained"
-                  component={MuiLink}
-                  color="primary"
-                >
-                  Get Started
-                </Button>
-              </NextLink>
+              {hydrated && (
+                <NextLink href={getStarted.link} passHref>
+                  <Button
+                    size="large"
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    color="primary"
+                  >
+                    {getStarted.text}
+                  </Button>
+                </NextLink>
+              )}
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
               <Box
@@ -138,6 +174,14 @@ const HeroSection: ExamAndCourseFunc = () => {
           </Grid>
         </Container>
       </Box>
+      {verifyValue && (
+        <ConfirmPayment
+          price={Number(deductedPrice)}
+          reference={reference || tx_ref}
+          redirectUrl={redirectUrl}
+          purpose="CENTRE_SUBSCRIPTION"
+        />
+      )}
     </Fragment>
   );
 };

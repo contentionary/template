@@ -21,7 +21,7 @@ export const FILE_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_FILE_DOWNLOAD_URL ||
   "https://storage.contentionary.com/v1/download?fileUrl=";
 
-export const DEFAULT_LOGO = "/public/images/logo.png";
+export const DEFAULT_LOGO = "/images/logo.png";
 export const BOOK_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
 export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
@@ -356,9 +356,10 @@ export const getCentre = async (
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
         description: centre.description,
         template: centre.template,
-        // template: "examAndPublication",
+        // template: "examAndCourse",
         logo: centre.logo,
         price: centre.price,
+        domain: centre.domain,
         subscriptionModel: centre.subscriptionModel,
         phoneNumber: centre.phoneNumber || "+234 902 239 6389",
         emailAddress: centre.emailAddress || "contact@edtify.com",

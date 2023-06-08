@@ -128,20 +128,15 @@ const ExamQuestion = ({
       </Typography>
       {examQuestions.sections[currentSection].questions[currentQuestion]
         .question?.image ? (
-        <Box width="100%" maxHeight={300} position="relative" overflow="clip">
-          <ImageComponent
-            alt="yes we can"
-            width="100%"
-            height="100%"
-            layout="fixed"
-            objectFit="contain"
-            objectPosition="left"
-            src={
-              examQuestions.sections[currentSection].questions[currentQuestion]
-                .question.image ?? ""
-            }
-          />
-        </Box>
+        <ImageComponent
+          alt="yes we can"
+          width={400}
+          height={400}
+          src={
+            examQuestions.sections[currentSection].questions[currentQuestion]
+              .question.image ?? ""
+          }
+        />
       ) : (
         ""
       )}

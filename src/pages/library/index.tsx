@@ -34,7 +34,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }`,
       token,
     });
-
     return {
       props: {
         pageData: { publicationData },

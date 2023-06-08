@@ -9,6 +9,7 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 import dynamic from "next/dynamic";
 
@@ -21,7 +22,6 @@ import {
 } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { TransactionHistory } from "./interface";
-import { ButtonGroup } from "@mui/material";
 import { useRouter } from "next/router";
 import { useToast } from "@src/utils/hooks";
 
@@ -92,24 +92,12 @@ export default function CustomizedSteppers() {
       const url = centreWallet
         ? `/wallet/centre/${cachedData.centre.id}/transaction-history?pageId=${pageId}`
         : `/wallet/transaction-history?pageId=${pageId}`;
-
       if (type === "all") {
-        // if (newCurrency != "all") {
-        //   setIsLoading(true);
-        //   const { data } = await request.get({
-        //     url: `${url}&currency=${newCurrency}`,
-        //   });
-        //   console.log(newCurrency, data);
-        //   setPageCount(data.pageCount);
-        //   setTransaction([...(data.histories as TransactionHistory[])]);
-        //   setIsLoading(false);
-        // } else {
         const { data } = await request.get({
           url,
         });
         setPageCount(data.pageCount);
         setTransaction([...(data.histories as TransactionHistory[])]);
-        // }
       } else {
         setIsLoading(true);
         const { data } = await request.get({
@@ -158,9 +146,9 @@ export default function CustomizedSteppers() {
   return (
     <Box sx={{ pt: 7, pb: 8, px: { md: 6 } }}>
       <Container maxWidth="xl">
-        {router.query.reference && (
+        {(router.query.reference || router.query.tx_ref) && (
           <ConfirmPayment
-            reference={router.query.reference}
+            reference={router.query.reference || router.query.tx_ref}
             price={Number(router.query.price)}
             redirectUrl={locationUrl}
           />
@@ -202,7 +190,7 @@ export default function CustomizedSteppers() {
                 {pockets.map((pocket, index) => (
                   <Typography
                     key={`${pocket}-${index}`}
-                    variant="h4"
+                    variant="h5"
                     component="p"
                     style={{ color: "#fff", marginBottom: 20, marginRight: 30 }}
                   >

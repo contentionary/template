@@ -39,7 +39,7 @@ const CreditWallet = ({
       query: {
         amount: values.amount,
         redirectUrl: isServerSide ? "" : window.location.href,
-        currency: "NGN",
+        currency: values.currency,
         purpose: "FUND_WALLET",
         paymentMethod: "CARD",
         itemId,
