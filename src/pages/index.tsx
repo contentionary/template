@@ -13,7 +13,6 @@ const HomePage = (props: BasePageProps) => {
   const ActiveTemplate = themes[centre.template]("Home");
   return <ActiveTemplate />;
 };
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const centre = await getCentre(context);
@@ -42,5 +41,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
 export default HomePage;

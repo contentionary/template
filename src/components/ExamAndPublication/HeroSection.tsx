@@ -34,8 +34,9 @@ const HeroSection: ExamAndCourseFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const router = useRouter();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const { user, centre } = cachedData;
+  const pricing = pageData?.templateData?.defaultPrice;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
   const redirectUrl = !isServerSide ? window.location.href : "";
@@ -57,7 +58,9 @@ const HeroSection: ExamAndCourseFunc = () => {
         }&currency=NGN&redirectUrl=${redirectUrl}`
       : "/login";
     getStarted.link = paymentLink;
-    getStarted.text = `Get started for ₦${centre.price} Monthly`;
+    getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${
+      pricing ? pricing.amount : centre.price
+    }`;
   }
 
   return (
@@ -175,7 +178,7 @@ const HeroSection: ExamAndCourseFunc = () => {
       {verifyValue && (
         <ConfirmPayment
           price={Number(deductedPrice)}
-          reference={reference}
+          reference={reference || tx_ref}
           redirectUrl={redirectUrl}
           purpose="CENTRE_SUBSCRIPTION"
         />

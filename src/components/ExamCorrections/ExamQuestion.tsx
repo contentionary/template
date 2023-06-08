@@ -109,13 +109,13 @@ const ExamQuestion = ({
           </Typography>
         )}
       </Box>
-      {(solution?.text || solution?.image) && (
+      {(solution?.text || solution?.imageUrl) && (
         <Typography>
           <Box
             dangerouslySetInnerHTML={{ __html: solution?.text }}
             sx={{ "& > :first-of-type": { marginTop: 0, paddingTop: 0 } }}
           />
-          {solution?.image && (
+          {solution?.imageUrl && (
             <Box
               width="100%"
               maxHeight={300}
@@ -129,7 +129,7 @@ const ExamQuestion = ({
                 layout="fixed"
                 objectFit="contain"
                 objectPosition="left"
-                src={solution?.image as string}
+                src={solution?.imageUrl as string}
               />
             </Box>
           )}

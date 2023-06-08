@@ -32,7 +32,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
   const router = useRouter();
   const buttonStyle = useButtonStyle();
   const { isOpen, openDialog, closeDialog } = useDialog();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const {
     id,
     name,
@@ -56,7 +56,7 @@ const HeroSection: ExamDetailsPageFunc = ({ exam, read }) => {
         {verifyValue && (
           <ConfirmPayment
             price={Number(deductedPrice)}
-            reference={reference}
+            reference={reference || tx_ref}
             redirectUrl={redirectUrl}
           />
         )}

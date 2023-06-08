@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // next components
 import NextLink from "next/link";
 // mui components
@@ -31,11 +31,12 @@ const HeroSection: ExamAndCourseFunc = () => {
   const theme = useTheme();
   const cardStyle = useCardStyle();
   const router = useRouter();
-  const { reference, verifyValue, price: deductedPrice } = router.query;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
   const { user, centre } = cachedData;
+  const pricing = pageData?.templateData?.defaultPrice;
   const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
@@ -44,9 +45,8 @@ const HeroSection: ExamAndCourseFunc = () => {
     : false;
   const getStarted = {
     link: "/library",
-    text: isCentreSubscriber ? "Browse Books" : "Get started",
+    text: isCentreSubscriber ? "Browse Courses" : "Get started",
   };
-
   if (!isCentreSubscriber) {
     const paymentLink = user
       ? `
@@ -59,9 +59,15 @@ const HeroSection: ExamAndCourseFunc = () => {
     getStarted.link = paymentLink;
     getStarted.text =
       centre.subscriptionModel === "SUBSCRIPTION"
-        ? `Get started for ₦${centre.price} Monthly`
+        ? `Get started for ${pricing ? pricing.symbol : "₦"}${
+            pricing ? pricing.amount : centre.price
+          }`
         : "Request Access";
   }
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
   return (
     <Fragment>
       <Box
@@ -89,17 +95,19 @@ const HeroSection: ExamAndCourseFunc = () => {
               >
                 {landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={getStarted.link} passHref>
-                <Button
-                  size="large"
-                  disableElevation
-                  variant="contained"
-                  component={MuiLink}
-                  color="primary"
-                >
-                  {getStarted.text}
-                </Button>
-              </NextLink>
+              {hydrated && (
+                <NextLink href={getStarted.link} passHref>
+                  <Button
+                    size="large"
+                    disableElevation
+                    variant="contained"
+                    component={MuiLink}
+                    color="primary"
+                  >
+                    {getStarted.text}
+                  </Button>
+                </NextLink>
+              )}
             </Grid>
             <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
               <Box
@@ -177,7 +185,7 @@ const HeroSection: ExamAndCourseFunc = () => {
       {verifyValue && (
         <ConfirmPayment
           price={Number(deductedPrice)}
-          reference={reference}
+          reference={reference || tx_ref}
           redirectUrl={redirectUrl}
           purpose="CENTRE_SUBSCRIPTION"
         />

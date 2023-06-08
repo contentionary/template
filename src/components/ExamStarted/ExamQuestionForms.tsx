@@ -15,6 +15,7 @@ import { TempAnswerInt } from ".";
 import useButtonStyle from "@src/styles/button";
 import { QuestionInt } from "@src/utils/interface";
 import useTextFieldStyle from "@src/styles/textField";
+import ImageComponent from "@src/components/shared/image";
 
 interface QuestionSelectorInt {
   questionId: string;
@@ -79,6 +80,14 @@ export const ObjectiveQuestionSelector = (props: QuestionSelectorInt) => {
                 "& > :first-of-type": { marginBottom: 0 },
               }}
             />
+            {option.image && (
+              <ImageComponent
+                alt="yes we can"
+                width={400}
+                height={400}
+                src={option.image}
+              />
+            )}
           </Stack>
         </ToggleButton>
       ))}
@@ -209,10 +218,20 @@ export const MultichoiceQuestionSelector = (props: QuestionSelectorInt) => {
             />
           }
           label={
-            <Box
-              dangerouslySetInnerHTML={{ __html: option.value }}
-              sx={{ "& > :first-of-type": { marginTop: 0, paddingTop: 0 } }}
-            />
+            <>
+              <Box
+                dangerouslySetInnerHTML={{ __html: option.value }}
+                sx={{ "& > :first-of-type": { marginTop: 0, paddingTop: 0 } }}
+              />
+              {option.image && (
+                <ImageComponent
+                  alt="yes we can"
+                  width={400}
+                  height={400}
+                  src={option.image}
+                />
+              )}
+            </>
           }
         />
       ))}
