@@ -168,7 +168,6 @@ export default function Payment(): JSX.Element {
     currencyConverter(newCurrency);
     setCurrency(newCurrency);
   };
-
   return (
     <Container className={styles.container}>
       {amount === 0 ? (
@@ -202,10 +201,12 @@ export default function Payment(): JSX.Element {
                       name,
                       amount,
                       isDefault,
+                      symbol,
                     }: {
                       name: string;
                       amount: number;
                       isDefault: boolean;
+                      symbol: string;
                     },
                     index: number
                   ) => (
@@ -228,7 +229,8 @@ export default function Payment(): JSX.Element {
                       <Box sx={{ textAlign: "center" }}>
                         <Typography variant="h6">{name}</Typography>
                         <Typography variant="body2">
-                          Pay N{amount} / {name}
+                          Pay {symbol}
+                          {amount} / {name}
                         </Typography>
                       </Box>
                     </Paper>

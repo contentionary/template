@@ -38,7 +38,6 @@ const AddQuestion = (): JSX.Element => {
   const Loading = dynamic(() => import("@src/components/shared/loading"));
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const [marks, setMarks] = useState<Record<string, boolean>>({});
-  // console.log(pageData, "test");
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
       query: { ...router.query, pageId: value },
@@ -51,7 +50,6 @@ const AddQuestion = (): JSX.Element => {
     const temp: any = {};
     const tempMarks: any = {};
     pageData.selectedQuestionList.sections.forEach(({ questions }: any) => {
-      // console.log(questions)
       setSelectedQuestions([...selectedQuestions, ...questions]);
       questions.forEach((question: any) => {
         temp[question.questionId] = true;

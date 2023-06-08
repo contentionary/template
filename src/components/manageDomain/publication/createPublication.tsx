@@ -143,12 +143,14 @@ const CreatePublication = () => {
 
           {type != "FOLDER" && (
             <>
-              <TextFields
-                type="number"
-                label="Publication Price"
-                name="price"
-                onChange={getData}
-              />
+              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+                <TextFields
+                  type="number"
+                  label="Publication Price"
+                  name="price"
+                  onChange={getData}
+                />
+              )}
               <FormControl fullWidth>
                 <InputLabel>Publication category</InputLabel>
                 <Select

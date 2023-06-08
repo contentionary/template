@@ -84,7 +84,6 @@ const ExamCompleted: ExamCompletedFunc = (props) => {
                 career changer’s journey. That’s why our career change programs
                 include personalized career coaching and job preparation.
               </Typography>
-
               <Typography
                 dangerouslySetInnerHTML={{ __html: exam.instruction }}
               />

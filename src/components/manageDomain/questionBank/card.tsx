@@ -15,8 +15,16 @@ import { QuestionBankInt } from "@src/utils/interface";
 import ImageComponent from "@src/components/shared/image";
 import FolderCopyOutlined from "@mui/icons-material/FolderCopyOutlined";
 import dynamic from "next/dynamic";
+import { kCount } from "@src/utils";
 
-const QuestionBankCard = ({ name, type, id, link }: QuestionBankInt) => {
+const QuestionBankCard = ({
+  name,
+  type,
+  id,
+  link,
+  questionCount,
+  folderContentCount,
+}: QuestionBankInt) => {
   const cardStyle = useCardStyle();
   const Share = dynamic(() => import("./share"));
   link = link
@@ -72,7 +80,7 @@ const QuestionBankCard = ({ name, type, id, link }: QuestionBankInt) => {
                 >
                   <FolderCopyOutlined color="primary" fontSize="inherit" />{" "}
                   &nbsp;
-                  {/* {folderContentCount || 0} */} 0
+                  {folderContentCount || 0}
                 </Typography>
               ) : (
                 <Stack
@@ -83,8 +91,8 @@ const QuestionBankCard = ({ name, type, id, link }: QuestionBankInt) => {
                   justifyContent="space-between"
                 >
                   <Typography noWrap mb={0} variant="body2">
-                    {/* {questionCount ? kCount(questionCount) : 0} */} 0
-                    Questions
+                    {questionCount ? kCount(questionCount) : 0} Question
+                    {questionCount > 1 && "s"}
                   </Typography>
                 </Stack>
               )}

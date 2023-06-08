@@ -1,26 +1,31 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import ArrowBackIosNewOutlined from "@mui/icons-material/ArrowBackIosNewOutlined";
 
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 import { useToast } from "@src/utils/hooks";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { BasePageProps } from "@src/utils/interface";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import CheckBox from "@src/components/shared/checkInput";
 import useStyles from "./styles";
-import { BasePageProps } from "@src/utils/interface";
-// DO NOT IMPORT COMPONENT LIKE THIS!
-import { ArrowBackIosNewOutlined, CloseOutlined } from "@mui/icons-material";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Editor from "@src/components/shared/editor";
 
-const CreateCourse = () => {
+const CreateLeague = () => {
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const ImageUpload = dynamic(
+    () => import("@src/components/shared/imageUpload")
+  );
+  const Loading = dynamic(
+    () => import("@src/components/shared/loading/loadingWithValue")
+  );
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const styles = useStyles();
   const { toastMessage, toggleToast } = useToast();
@@ -32,55 +37,36 @@ const CreateCourse = () => {
   const [progres, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
   const [convertedFile, setConvertedFile] = useState<any>();
-  const [file, setFile] = useState<Record<string, any>>();
-  const [learnings, setLearnings] = useState<any[]>([]);
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
   const { type, folderId } = router.query;
-  const Toast = dynamic(() => import("@src/components/shared/toast"));
-  const ImageUpload = dynamic(
-    () => import("@src/components/shared/imageUpload")
-  );
-  const Loading = dynamic(
-    () => import("@src/components/shared/loading/loadingWithValue")
-  );
-  const getFile = (e: ChangeEvent<any>) => {
-    setFile({ ...file, [e.target.name || e.target.id]: e.target.files[0] });
-  };
 
   async function create() {
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
         const imageUrl = await uploadFiles(img.base64, setProgress);
-        values.imageUrl = imageUrl;
+        values.image = imageUrl;
         setConvertedImage(imageUrl);
       }
-      if (file && !convertedFile) {
-        const fileUrl = await uploadFiles(
-          file.previewVideoUrl,
-          setFileLoadingProgress
-        );
-        values.previewVideoUrl = fileUrl;
-        setConvertedFile(fileUrl);
-      }
-      if (learnings.length) values.learnings = learnings;
       if (folderId) values.folderId = folderId;
       values.type = type;
+      if (typeof values?.tags === "string")
+        values.tags = values.tags.split(",");
       convertedFile && (values.fileUrl = convertedFile);
-      convertedImage && (values.imageUrl = convertedImage);
+      convertedImage && (values.image = convertedImage);
       const data = await request.post({
         url:
           type === "FOLDER"
-            ? `/centre/${cachedData.centre.id}/course-folder`
-            : `/centre/${cachedData.centre.id}/course`,
+            ? `/centre/${cachedData.centre.id}/league-folder`
+            : `/centre/${cachedData.centre.id}/league`,
         data: values,
       });
       toggleToast(data.message);
       resetValues(formEvent);
       setIsLoading(false);
-      // router.back();
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);
@@ -122,68 +108,42 @@ const CreateCourse = () => {
             inputProps={{ maxLength: 100 }}
             required
           />
-
           {type != "FOLDER" && (
             <>
-              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
-                <TextFields
-                  type="number"
-                  label="Course Price"
-                  name="price"
-                  onChange={getData}
-                />
-              )}
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Learnings
-                </Typography>
-                <Typography variant="caption" component="div">
-                  Click add more learnings, to add more learnings
-                </Typography>
-                {learnings.map(({}, index) => (
-                  <Box
-                    key={`${index}-content`}
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      mb: 2,
-                      mt: 1,
-                    }}
-                  >
-                    <TextFields
-                      type="text"
-                      label="Learnings"
-                      name="learnings"
-                      onChange={(e: ChangeEvent<any>) => {
-                        learnings[index] = e.target.value;
-                        setLearnings([...learnings]);
-                      }}
-                      sx={{ width: { xs: "90%", md: "78%" } }}
-                    />
-                    <Box sx={{ width: "5%" }}>
-                      <IconButton
-                        onClick={() => {
-                          learnings.splice(index, 1);
-                          setLearnings([...learnings]);
-                        }}
-                      >
-                        <CloseOutlined htmlColor="red" />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                ))}
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "end",
-                  }}
-                >
-                  <ButtonComponent
-                    onClick={() => setLearnings([...learnings, ""])}
-                  >
-                    Add more learnings
-                  </ButtonComponent>
+              <TextFields
+                type="number"
+                label="League Price"
+                name="price"
+                onChange={getData}
+              />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                }}
+              >
+                <Box sx={{ width: "49%" }}>
+                  <TextFields
+                    type="datetime-local"
+                    name="startDate"
+                    onChange={getData}
+                    fullWidth
+                  />
+                  <Typography variant="body2" component="div">
+                    Exam start date and time
+                  </Typography>
+                </Box>
+                <Box sx={{ width: "49%" }}>
+                  <TextFields
+                    type="datetime-local"
+                    name="endDate"
+                    onChange={getData}
+                    fullWidth
+                  />
+                  <Typography variant="body2" component="div">
+                    Exam end date and time
+                  </Typography>
                 </Box>
               </Box>
               <Stack direction="row" spacing={3} flexWrap="wrap">
@@ -193,7 +153,7 @@ const CreateCourse = () => {
                       Show in search result
                     </Typography>
                   }
-                  name="allowSearch"
+                  name="isSearchable"
                   onChange={check}
                   className={styles.checkbox}
                 />
@@ -208,19 +168,21 @@ const CreateCourse = () => {
                   className={styles.checkbox}
                 />
               </Stack>
-              <Box>
-                <Typography variant="subtitle1" component="div">
-                  Description *
-                </Typography>
-                <Editor
-                  data=""
-                  onChange={(event: any, editor: any) =>
-                    getEditor(event, editor, "description")
-                  }
-                />
-              </Box>
             </>
           )}
+
+          <Box>
+            <Typography variant="subtitle1" component="div">
+              Description *
+            </Typography>
+            <Editor
+              data=""
+              onChange={(event: any, editor: any) =>
+                getEditor(event, editor, "description")
+              }
+            />
+          </Box>
+
           <Box>
             <Typography variant="subtitle1" component="div">
               Summary (Not more than 250 characters)*
@@ -239,21 +201,13 @@ const CreateCourse = () => {
               maxLength={250}
             />
           </Box>
-          {type != "FOLDER" && (
-            <Box>
-              <Typography variant="h6">Preview Video</Typography>
-              <TextFields
-                type="file"
-                name="previewVideoUrl"
-                onChange={getFile}
-              />
-            </Box>
-          )}
+
           <ImageUpload
             setImg={setImg}
             img={img}
-            uploadText="Select and upload course logo"
+            uploadText="Select and upload league logo"
             defaultImage=""
+            aspect={2 / 3}
           />
         </Stack>
         <Typography style={{ textAlign: "right", marginTop: 20 }}>
@@ -262,7 +216,7 @@ const CreateCourse = () => {
             type="submit"
             sx={{ fontSize: 18 }}
           >
-            {type === "FOLDER" ? "Create folder" : "Create course"}
+            {type === "FOLDER" ? "Create folder" : "Create league"}
           </ButtonComponent>
         </Typography>
       </form>
@@ -286,4 +240,4 @@ const CreateCourse = () => {
   );
 };
 
-export default CreateCourse;
+export default CreateLeague;
