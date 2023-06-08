@@ -14,47 +14,47 @@ export const bg = () => {
     backdropFilter: "blur(10px)",
     background: `radial-gradient(
       circle at top left,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 80%
     ),
     radial-gradient(
       circle at top right,
-      ${alpha(theme().palette.primary.main, 0.3)}, 
+      ${alpha(theme().palette.primary.main, 0.05)}, 
       transparent 100px
     ),
     radial-gradient(
       at bottom left,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 400px
     ),
     radial-gradient(
       at 200px center,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 400px
     ),
     radial-gradient(
       at 100% center,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 400px
     ),
     radial-gradient(
       at bottom right,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 400px
     ),
     radial-gradient(
       at center center,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 300px
     ),
     radial-gradient(
       at center top,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 400px
     ),
     radial-gradient(
       circle at top right,
-      ${alpha(theme().palette.primary.main, 0.2)}, 
+      ${alpha(theme().palette.primary.main, 0.04)}, 
       transparent 100px
     );`,
     "&:before": {
@@ -66,13 +66,13 @@ export const bg = () => {
       height: "40px",
       borderRadius: "50%",
       position: "absolute",
-      boxShadow: `220px 0px 0 15px ${alpha(theme().palette.primary.main, 0.1)},
-        80vw 0px 0 15px ${alpha(theme().palette.primary.main, 0.1)},
-				100vw 104px 0 0px ${alpha(theme().palette.primary.main, 0.1)},
-				50vw 204px 0 0px ${alpha(theme().palette.primary.main, 0.1)},
-				80vw 204px 0 0px ${alpha(theme().palette.primary.main, 0.1)},
-				100px 204px 0 -15px ${alpha(theme().palette.primary.main, 0.1)}`,
-      backgroundColor: alpha(theme().palette.primary.main, 0.1),
+      boxShadow: `220px 0px 0 15px ${alpha(theme().palette.primary.main, 0.05)},
+        80vw 0px 0 15px ${alpha(theme().palette.primary.main, 0.05)},
+				100vw 104px 0 0px ${alpha(theme().palette.primary.main, 0.05)},
+				50vw 204px 0 0px ${alpha(theme().palette.primary.main, 0.05)},
+				80vw 204px 0 0px ${alpha(theme().palette.primary.main, 0.05)},
+				100px 204px 0 -15px ${alpha(theme().palette.primary.main, 0.05)}`,
+      backgroundColor: alpha(theme().palette.primary.main, 0.05),
     },
   };
   const underlinedCurve = {
@@ -201,12 +201,12 @@ export default makeStyles({
       fontSize: "20px",
       fontWeight: "600",
       boxShadow: "none",
-      color: "#DD6E20",
+      color: theme().palette.primary.main,
       backgroundColor: "transparent",
     },
     "& .MuiTimelineItem-root .MuiTimelineConnector-root": {
       width: "1px",
-      backgroundColor: "#E99C66",
+      backgroundColor: theme().palette.primary.light,
     },
     "& .MuiTimelineItem-root .MuiTimelineContent-root": {
       paddingTop: 0,

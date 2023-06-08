@@ -25,7 +25,7 @@ import {
   FOLDER_IMAGE_PLACEHOLDER,
 } from "@src/utils";
 
-const ExamCard: ExamCardFunc = ({ exam }) => {
+const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
   const {
     id,
     type,
@@ -43,7 +43,13 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
   return (
     <Card className={cardStyle.examCard}>
       <NextLink
-        href={type === "FOLDER" ? `/exams?folderId=${id}` : `/exams/${slug}`}
+        href={
+          type === "FOLDER"
+            ? `/exams?folderId=${id}`
+            : `/exams/${slug}${
+                leagueId ? `/instructions?leagueId=${leagueId}` : ""
+              }`
+        }
         passHref
       >
         <CardActionArea

@@ -1,10 +1,16 @@
-import * as React from "react";
+import React from "react";
+// mui
+import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { useQuery } from "react-query";
-import { handleError, request } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
+// styles
+import useCardStyle from "@src/styles/card";
+// interface and config
+import { useQuery } from "react-query";
+import { getAuthData } from "@src/utils/auth";
+import { handleError, request } from "@src/utils";
+import { LeagueDetailsPageFunc } from "./interfaceType";
 
 interface ResultInt {
   surname: string;
@@ -15,36 +21,31 @@ interface ResultInt {
   id: string;
 }
 
-const fetchResult = async ({ queryKey }: { queryKey: Array<any> }) => {
-  const [, centreId, examId] = queryKey;
-  const { data } = await request.get({
-    url: `/centre/${centreId}/exam/${examId}/answers?limit=10000`,
-  });
-  return data.result;
-};
-
-export default function Table({
-  centreId,
-  examId,
-}: {
-  centreId: string;
-  examId: string;
-  toggleToast: Function;
-}) {
+const LeagueTable: LeagueDetailsPageFunc = (props) => {
+  const cardStyle = useCardStyle();
+  const { centreId, id } = props.league;
+  const { token } = getAuthData();
   const { isLoading, data, error } = useQuery(
-    ["results", centreId, examId],
-    fetchResult
+    ["league-scoreboard", centreId, id],
+    async () => {
+      return await request.get({
+        url: `/centre/${centreId}/league/${id}/table`,
+        token,
+      });
+    }
   );
+
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
     { minWidth: 100, name: "Surname", key: "surname" },
     { minWidth: 100, name: "First name", key: "firstname" },
-    { minWidth: 50, name: "Exam Score", key: "score" },
+    { minWidth: 70, name: "Exam Taken", key: "examCount" },
+    { minWidth: 50, name: "Total Score", key: "totalScore" },
     { minWidth: 50, name: "Duration (In minutes)", key: "duration" },
-    { minWidth: 70, name: "Gender", key: "gender" },
     { minWidth: 70, name: "Points", key: "points" },
   ];
-  const results = data?.map((result: ResultInt, index: number) => ({
+
+  const results = data?.data.map((result: ResultInt, index: number) => ({
     index: ++index,
     ...result,
   }));
@@ -54,17 +55,13 @@ export default function Table({
     return (
       <div>
         {results.length ? (
-          <Stack spacing={4} marginTop={4}>
-            <Typography
-              variant="h5"
-              component="p"
-              sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
+          <Stack spacing={4} marginTop={3}>
+            <Card
+              className={cardStyle.defaultCard}
+              sx={{ width: { xs: 400, md: "100%" } }}
             >
-              Exam Result
-            </Typography>
-            <Box sx={{ width: { xs: 400, md: "100%" } }}>
               <MuiTable data={results} columns={columns} bgColor="#F7F7F7" />
-            </Box>
+            </Card>
           </Stack>
         ) : (
           <Typography sx={{ textAlign: "center" }}>No Result Found.</Typography>
@@ -72,4 +69,6 @@ export default function Table({
       </div>
     );
   } else return <div>{handleError(error).message}</div>;
-}
+};
+
+export default LeagueTable;

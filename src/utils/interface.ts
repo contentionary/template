@@ -325,32 +325,6 @@ export interface ExamQuestionsInt {
   sections: Array<SectionsInt>;
 }
 
-export interface ExamInt {
-  id: string;
-  slug: string;
-  name: string;
-  image: string;
-  description: string;
-  price: number;
-  duration: number;
-  rating: number;
-  status: "ACTIVE" | "DEACTIVATED";
-  isSearchable: boolean;
-  questionCount: number;
-  isPrivate: boolean;
-  subscriberCount: number;
-  reviewCount: number;
-  createdAt: Date;
-  updatedAt: Date;
-  type: null | "EXAM" | "FOLDER";
-  folderId: string | null;
-  centreId: string;
-  publicCategoryId: string | null;
-  keywords: string;
-  centreName: string;
-  centreSlug: string;
-}
-
 export interface SubmitAnswerInt {
   score: number;
   examId: string;
@@ -489,4 +463,66 @@ export interface CentreProps {
 export interface PublicationCategoryInt {
   id: string;
   name: string;
+}
+export interface Meta {
+  limit: number;
+  pageId: number;
+  pageCount: number;
+  totalCount: number;
+}
+
+export interface LeagueInt {
+  id: string;
+  slug: string;
+  name: string;
+  image: string;
+  description: string;
+  summary: string;
+  price: number;
+  currency: string;
+  rating: number;
+  endDate: Date;
+  startDate: Date;
+  status: "ACTIVE" | "DEACTIVATED";
+  isSearchable: boolean;
+  isPrivate: boolean;
+  subscriberCount: number;
+  createdAt: Date;
+  examCount: number;
+  updatedAt: Date;
+  type: "LEAGUE" | "FOLDER";
+  folderId: string;
+  centreId: string;
+  publicCategoryId: null;
+  folderContentCount: number;
+  keywords: string;
+  centreName: string;
+  centreSlug: string;
+  reviewCount: number;
+  allowReview: boolean;
+}
+
+export interface LeagueFolderInt extends LeagueInt {
+  topContents?: LeagueInt[];
+}
+
+export interface LeagueListInt {
+  leagues: Array<LeagueInt | LeagueFolderInt>;
+  totalCount: number;
+  pageId: number;
+  pageCount: number;
+  limit: number;
+}
+export interface LeagueActivityInt {
+  firstname: string;
+  surname: string;
+  username: string;
+  avatar: string;
+  examName: string;
+  score: number;
+  duration: number;
+  createdAt: Date;
+}
+export interface ParticipantList extends Meta {
+  candidates: UserInt[];
 }

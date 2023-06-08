@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { ExamInt } from "@src/utils/interface";
+import { LeagueInt } from "@src/utils/interface";
 
-export declare type ExamDetailsPageFunc = (props: {
-  exam: ExamInt;
+export declare type LeagueDetailsPageFunc = (props: {
+  league: LeagueInt;
   auth: {
     isCentreManager: boolean;
-    isPublicationSubscriber: boolean;
     isCentreSubscriber: boolean;
+    isLeagueSubscriber: boolean;
   };
   read: Record<string, any>;
 }) => JSX.Element;

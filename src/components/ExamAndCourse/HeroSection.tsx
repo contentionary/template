@@ -15,6 +15,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 // app components
 import ImageComponent from "@src/components/shared/image";
 // icons and resources
+import { alpha, useTheme } from "@mui/material/styles";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
@@ -27,6 +28,7 @@ import { useRouter } from "next/router";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: ExamAndCourseFunc = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const router = useRouter();
   const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
@@ -128,7 +130,10 @@ const HeroSection: ExamAndCourseFunc = () => {
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            bgcolor: "#FBEEE6",
+                            backgroundColor: alpha(
+                              theme.palette.primary["main"],
+                              0.1
+                            ),
                           }}
                         >
                           <PersonOutlineOutlinedIcon color="primary" />
@@ -144,7 +149,10 @@ const HeroSection: ExamAndCourseFunc = () => {
                   <Avatar
                     sx={{
                       mx: "auto",
-                      bgcolor: "#FBEEE6",
+                      backgroundColor: alpha(
+                        theme.palette.primary["main"],
+                        0.1
+                      ),
                     }}
                   >
                     <AutoStoriesOutlinedIcon color="primary" />
