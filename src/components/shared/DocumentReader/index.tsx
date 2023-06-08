@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 // colors
-import grey from "@mui/material/colors/grey";
+import { grey } from "@mui/material/colors";
 // app components
 import ReaderMenu from "./ReaderMenu";
 import ReaderToolbar from "./ReaderToolbar";

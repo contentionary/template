@@ -1,0 +1,17 @@
+export type CourseExamLeaguePublicationPages =
+  | "Home"
+  | "Exams"
+  | "Leagues"
+  | "MyExams"
+  | "Contents"
+  | "ErrorPage"
+  | "MyLeagues"
+  | "StartExam"
+  | "ExamDetails"
+  | "LeagueDetails"
+  | "ExamCompleted"
+  | "ExamInstructions"
+  | "Wallet"
+  | "Settings"
+  | "ExamCorrection"
+  | "MyResults";
