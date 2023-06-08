@@ -16,9 +16,12 @@ import Settings from "./pages/settings";
 import ExamCorrection from "./pages/examCorrection";
 import MyResults from "./pages/myResults";
 //
-import { ExamAndLeaguePages } from "./interface";
+import { CourseExamLeaguePublicationPages } from "./interface";
 
-const ExamAndLeaguePages: Record<ExamAndLeaguePages, WrapperFunc> = {
+const CourseExamLeaguePublication: Record<
+  CourseExamLeaguePublicationPages,
+  WrapperFunc
+> = {
   Home,
   Exams,
   Leagues,
@@ -37,4 +40,4 @@ const ExamAndLeaguePages: Record<ExamAndLeaguePages, WrapperFunc> = {
   MyResults,
 };
 
-export default ExamAndLeaguePages;
+export default CourseExamLeaguePublication;

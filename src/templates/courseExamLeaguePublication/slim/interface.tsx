@@ -1,4 +1,4 @@
-export type ExamAndLeaguePages =
+export type CourseExamLeaguePublicationPages =
   | "Home"
   | "Exams"
   | "Leagues"
