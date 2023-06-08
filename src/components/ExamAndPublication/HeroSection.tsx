@@ -33,7 +33,8 @@ const HeroSection: ExamAndCourseFunc = () => {
   ) as BasePageProps;
   const router = useRouter();
   const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
-  const { user, centre, pricing } = cachedData;
+  const { user, centre } = cachedData;
+  const pricing = pageData?.templateData?.defaultPrice;
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
   const redirectUrl = !isServerSide ? window.location.href : "";
@@ -57,7 +58,7 @@ const HeroSection: ExamAndCourseFunc = () => {
     getStarted.link = paymentLink;
     getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${
       pricing ? pricing.amount : centre.price
-    } ${pricing ? pricing.name : ""}`;
+    }`;
   }
 
   return (

@@ -34,7 +34,7 @@ const HeroSection: ExamAndCourseFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const { user, centre } = cachedData;
-  const pricing = pageData?.templateDate?.defaultPrice;
+  const pricing = pageData?.templateData?.defaultPrice;
   const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
@@ -59,7 +59,7 @@ const HeroSection: ExamAndCourseFunc = () => {
       centre.subscriptionModel === "SUBSCRIPTION"
         ? `Get started for ${pricing ? pricing.symbol : "₦"}${
             pricing ? pricing.amount : centre.price
-          } ${pricing ? pricing.name : ""}`
+          }`
         : "Request Access";
   }
   const [hydrated, setHydrated] = useState(false);

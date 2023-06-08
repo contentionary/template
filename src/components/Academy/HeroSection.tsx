@@ -31,7 +31,8 @@ const HeroSection = () => {
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { user, centre, pricing } = cachedData;
+  const { user, centre } = cachedData;
+  const pricing = pageData?.templateData?.defaultPrice;
   const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
   const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
@@ -57,7 +58,7 @@ const HeroSection = () => {
       centre.subscriptionModel === "SUBSCRIPTION"
         ? `Get started for ${pricing ? pricing.symbol : "₦"}${
             pricing ? pricing.amount : centre.price
-          } ${pricing ? pricing.name : ""}`
+          }`
         : "Request Access";
   }
   return (
