@@ -17,7 +17,7 @@ import { queryClient } from "@src/utils";
 import { FooterFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
-const ExamAndLeagueFooter: FooterFunc = () => {
+const CourseExamLeaguePublicationFooter: FooterFunc = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { logo, emailAddress, phoneNumber, address, name, description } =
     cachedData.centre;
@@ -81,11 +81,16 @@ const ExamAndLeagueFooter: FooterFunc = () => {
                 <Typography variant="h6" color="white" gutterBottom>
                   Company
                 </Typography>
-                {/* <NextLink href="/academy" passHref>
+                <NextLink href="/courses" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
-                    About us
+                    Courses
                   </MuiLink>
-                </NextLink> */}
+                </NextLink>
+                <NextLink href="/library" passHref>
+                  <MuiLink underline="hover" color={grey["400"]}>
+                    Books
+                  </MuiLink>
+                </NextLink>
                 <NextLink href="/leagues" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     Leagues
@@ -114,4 +119,4 @@ const ExamAndLeagueFooter: FooterFunc = () => {
     </Fragment>
   );
 };
-export default ExamAndLeagueFooter;
+export default CourseExamLeaguePublicationFooter;

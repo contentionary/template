@@ -7,8 +7,8 @@ import PromoSection from "../Academy/PromoSection";
 import CategoriesSection from "./CategoriesSection";
 import FutureSection from "../Academy/FutureSection";
 import ExamListSection from "../ExamsHome/ExamListSection";
-import PublicationListSection from "../Publications/PublicationListSection";
 import TestimonialSection from "../Academy/TestimonialSection";
+import PublicationListSection from "../Publications/PublicationListSection";
 //
 import { ExamAndCourseFunc } from "./interfaceType";
 

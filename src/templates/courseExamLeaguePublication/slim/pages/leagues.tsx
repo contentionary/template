@@ -1,6 +1,6 @@
 import React from "react";
 import LeaguesPage from "@src/components/Leagues";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 
@@ -9,7 +9,7 @@ const Leagues = () => {
   const { name, logo } = cachedData.centre;
 
   return (
-    <ExamAndLeagueWrapper
+    <CourseExamLeaguePublicationWrapper
       title={`${name} Online Leagues`}
       description={`${name} academy online leagues and folders`}
       image={logo || DEFAULT_LOGO}
@@ -17,7 +17,7 @@ const Leagues = () => {
       showFooter={true}
     >
       <LeaguesPage />
-    </ExamAndLeagueWrapper>
+    </CourseExamLeaguePublicationWrapper>
   );
 };
 

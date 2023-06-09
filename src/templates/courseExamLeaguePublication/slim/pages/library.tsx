@@ -1,24 +1,22 @@
-import React from "react";
-import ExamsPage from "@src/components/Exams";
-import { BasePageProps } from "@src/utils/interface";
-import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import Library from "@src/components/Library";
 import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
+import { queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
-const Exams = () => {
+const LibraryPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
-
   return (
     <CourseExamLeaguePublicationWrapper
-      title={`${name} Online Courses`}
-      description={`${name} academy online courses and folders`}
-      image={logo || DEFAULT_LOGO}
+      title={`${name} | Library Books & Publications`}
+      description={`Access, Buy and subscribe to all ${name} books and publications`}
+      image={logo}
       showHeader={true}
       showFooter={true}
     >
-      <ExamsPage />
+      <Library />
     </CourseExamLeaguePublicationWrapper>
   );
 };
 
-export default Exams;
+export default LibraryPage;

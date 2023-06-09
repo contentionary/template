@@ -81,11 +81,6 @@ const ExamAndPublicationFooter: FooterFunc = () => {
                 <Typography variant="h6" color="white" gutterBottom>
                   Company
                 </Typography>
-                {/* <NextLink href="/academy" passHref>
-                  <MuiLink underline="hover" color={grey["400"]}>
-                    About us
-                  </MuiLink>
-                </NextLink> */}
                 <NextLink href="/library" passHref>
                   <MuiLink underline="hover" color={grey["400"]}>
                     Books

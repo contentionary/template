@@ -16,7 +16,7 @@ const CourseDetails = (pageProps: BasePageProps) => {
   }
   queryClient.setQueryData("pageProps", pageProps);
   const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("Details");
+    themes[pageProps.cachedData.centre.template]("CourseDetails");
 
   return <ActiveTemplate />;
 };

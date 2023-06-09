@@ -133,6 +133,7 @@ export interface CachedCentreInt {
   price: number;
   subscriptionModel: "PAY_PER_CONTENT" | "SUBSCRIPTION";
   isPrivate: boolean;
+  plugins: Record<string, boolean>;
 }
 export interface BasePageProps {
   error: ErrorResponseInt;

@@ -1,7 +1,7 @@
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import ExamDetailsPage from "@src/components/ExamDetails";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const DetailsPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -11,7 +11,7 @@ const DetailsPage = () => {
   const exam = pageData.exam as ExamInt;
 
   return (
-    <ExamAndLeagueWrapper
+    <CourseExamLeaguePublicationWrapper
       title={name || ""}
       description={exam?.description || "Online Exam"}
       image={logo || DEFAULT_LOGO}
@@ -19,7 +19,7 @@ const DetailsPage = () => {
       showFooter={true}
     >
       <ExamDetailsPage exam={exam} auth={pageData.auth} />
-    </ExamAndLeagueWrapper>
+    </CourseExamLeaguePublicationWrapper>
   );
 };
 
