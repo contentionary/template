@@ -73,7 +73,6 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
 
     prevOpen.current = open;
   }, [open]);
-
   return (
     <React.Fragment>
       <Tooltip title="Account settings">
@@ -86,9 +85,11 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
           aria-expanded={open ? "true" : undefined}
           aria-controls={open ? "composition-menu" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>
-            {Array.from(user?.firstname)[0]}
-          </Avatar>
+          <Avatar
+            sx={{ width: 32, height: 32 }}
+            alt={user?.firstname}
+            src={user.avatar}
+          />
           &nbsp; &nbsp;
           {user?.firstname}
         </Button>

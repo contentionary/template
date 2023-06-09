@@ -17,6 +17,8 @@ export interface QuestionBankInt {
   id: string;
   type: string;
   link?: string;
+  questionCount: number;
+  folderContentCount: number;
 }
 
 export interface Solution {
@@ -135,6 +137,16 @@ export interface CachedCentreInt {
   isPrivate: boolean;
   plugins: Record<string, boolean>;
 }
+
+export interface PricingProps {
+  amount: number;
+  name: string;
+  symbol: string;
+  durationInDays: number;
+  isDefault: boolean;
+  currency: string;
+}
+
 export interface BasePageProps {
   error: ErrorResponseInt;
   pageData: Record<string, any>;
@@ -142,6 +154,7 @@ export interface BasePageProps {
     user: UserInt;
     token: string;
     centre: CachedCentreInt;
+    pricing: PricingProps;
   };
 }
 
@@ -487,6 +500,7 @@ export interface LeagueInt {
   centreName: string;
   centreSlug: string;
   reviewCount: number;
+  allowReview: boolean;
 }
 
 export interface LeagueFolderInt extends LeagueInt {

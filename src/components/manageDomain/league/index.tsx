@@ -1,29 +1,29 @@
 import Box from "@mui/material/Box";
-
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
-import PublicationCard from "./courseCard";
+import LeagueCard from "./leagueCard";
 import Grid from "@mui/material/Grid";
-import dynamic from "next/dynamic";
-
-import { BasePageProps, CourseInt } from "@src/utils/interface";
+import { BasePageProps, LeagueInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
-const CourseAdmin = () => {
+const LeagueAdmin = () => {
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const courses = pageData.courseList.courses as CourseInt[];
+  const { leagues } = pageData.leagueLists as {
+    leagues: LeagueInt[];
+  };
   const { folderId } = router.query;
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Menu = dynamic(() => import("./folderMenu"));
+  const Menu = dynamic(() => import("./menu"));
   const Breadcrumbs = dynamic(
     () => import("@src/components/shared/breadcrumbs")
   );
-  const pageCount = pageData.courseList.pageCount as number;
+  const pageCount = pageData.leagueLists.pageCount as number;
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
       query: { ...router.query, pageId: value },
@@ -31,7 +31,7 @@ const CourseAdmin = () => {
   };
   const links = [
     { link: "/admin", name: "Dashboard" },
-    { link: "/admin/course", name: "Courses" },
+    { link: "/admin/league", name: "Leagues" },
   ];
 
   return (
@@ -40,25 +40,19 @@ const CourseAdmin = () => {
         links={folderId ? links : [{ link: "/admin", name: "Dashboard" }]}
         currentPage={
           folderId
-            ? { name: "Folder", link: "" }
-            : { link: "/admin/course", name: "Courses" }
+            ? { name: "Folder", link: "/" }
+            : { link: "/admin/leagues", name: "leagues" }
         }
       />
       <Box
         sx={{
           textAlign: "right",
-          mt: { xs: 5 },
-          mb: 5,
+          mb: 2,
         }}
       >
-        <Menu
-          folderId={folderId as string}
-          coursesLength={courses?.length ? true : false}
-          centreId={cachedData.centre.id}
-        />
+        <Menu folderId={folderId as string} centreId={cachedData.centre.id} />
       </Box>
-
-      {courses.length ? (
+      {leagues.length ? (
         <>
           <Grid
             container
@@ -66,9 +60,9 @@ const CourseAdmin = () => {
             spacing={{ xs: 1, md: 2, xl: 3 }}
             columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
           >
-            {courses?.map((course, index) => (
-              <Grid key={`${index}-course-card`} item xs={1}>
-                <PublicationCard {...course} />
+            {leagues?.map((league, index) => (
+              <Grid key={`${index}-leagues-card`} item xs={1}>
+                <LeagueCard league={league} />
               </Grid>
             ))}
           </Grid>{" "}
@@ -87,14 +81,14 @@ const CourseAdmin = () => {
         <Empty
           href={
             folderId
-              ? `/admin/course/create?type=COURSE&folderId=${folderId}`
-              : "/admin/course/create?type=COURSE"
+              ? `/admin/league/create?type=LEAGUE&folderId=${folderId}`
+              : "/admin/league/create?type=LEAGUES"
           }
-          buttonText="Create course"
+          buttonText="Create League"
         />
       )}
     </Box>
   );
 };
 
-export default CourseAdmin;
+export default LeagueAdmin;

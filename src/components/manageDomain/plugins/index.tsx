@@ -26,7 +26,7 @@ const Pluggins = ({
   const styles = useStyles();
   const router = useRouter();
   const verifyValue = router.query.verifyValue === "true";
-  const { reference, price: deductedPrice } = router.query;
+  const { reference, price: deductedPrice, tx_ref } = router.query;
   const redirectUrl = !isServerSide ? window.location.href : "";
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [removePlugin, setRemovePlugin] = useState("");
@@ -105,7 +105,7 @@ const Pluggins = ({
       {verifyValue && (
         <ConfirmPayment
           price={Number(deductedPrice)}
-          reference={reference}
+          reference={reference || tx_ref}
           redirectUrl={redirectUrl}
         />
       )}
