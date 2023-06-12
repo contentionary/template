@@ -1,10 +1,11 @@
 import React from "react";
-import CoursesPage from "@src/components/Courses";
-import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
+//
+import Courses from "@src/components/Courses";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 
-const Courses = () => {
+const CoursesPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
 
@@ -16,9 +17,9 @@ const Courses = () => {
       showHeader={true}
       showFooter={true}
     >
-      <CoursesPage />
+      <Courses />
     </CourseExamLeaguePublicationWrapper>
   );
 };
 
-export default Courses;
+export default CoursesPage;

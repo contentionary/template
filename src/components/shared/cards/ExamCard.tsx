@@ -66,7 +66,7 @@ const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
               width="100%"
               height="60%"
               layout="responsive"
-              objectFit={"contain"}
+              objectFit={type === "FOLDER" ? "contain" : "cover"}
               alt={name}
             />
           </Box>

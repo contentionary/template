@@ -67,7 +67,7 @@ const CourseCard: CourseCardFunc = ({ course }) => {
               width="100%"
               height="60%"
               layout="responsive"
-              objectFit={"cover"}
+              objectFit={type === "FOLDER" ? "contain" : "cover"}
               alt={name}
             />
           </Box>
