@@ -66,7 +66,7 @@ const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
               width="100%"
               height="60%"
               layout="responsive"
-              objectFit={type === "FOLDER" ? "cover" : "contain"}
+              objectFit={"contain"}
               alt={name}
             />
           </Box>
@@ -142,10 +142,19 @@ const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
                   variant="body2"
                   alignItems="center"
                 >
-                  <PeopleAltOutlinedIcon color="inherit" fontSize="inherit" />
-                  &nbsp;
-                  {subscriberCount ? kCount(subscriberCount) : 0}
-                  &nbsp; Subscribers
+                  {leagueId ? (
+                    ""
+                  ) : (
+                    <React.Fragment>
+                      <PeopleAltOutlinedIcon
+                        color="inherit"
+                        fontSize="inherit"
+                      />
+                      &nbsp;
+                      {subscriberCount ? kCount(subscriberCount) : 0}
+                      &nbsp; Subscribers
+                    </React.Fragment>
+                  )}
                 </Typography>
               </Stack>
             )}

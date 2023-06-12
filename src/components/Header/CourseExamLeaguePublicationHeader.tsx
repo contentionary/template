@@ -22,6 +22,24 @@ import { queryClient } from "@src/utils";
 import { HeaderFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
+export const AppMenuLink = ({
+  url,
+  title,
+  fontSize,
+}: {
+  url: string;
+  title: string;
+  fontSize: number;
+}) => {
+  return (
+    <NextLink href={url} passHref>
+      <Button component={MuiLink} sx={{ color: "secondary.light", fontSize }}>
+        {title}
+      </Button>
+    </NextLink>
+  );
+};
+
 const CourseExamLeaguePublicationHeader: HeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
@@ -77,38 +95,34 @@ const CourseExamLeaguePublicationHeader: HeaderFunc = () => {
                           Home
                         </Button>
                       </NextLink>
-                      <NextLink href="/courses" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Courses
-                        </Button>
-                      </NextLink>
-                      <NextLink href="/library" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Books
-                        </Button>
-                      </NextLink>
-                      <NextLink href="/leagues" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Leagues
-                        </Button>
-                      </NextLink>
-                      <NextLink href="/exams" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Exams
-                        </Button>
-                      </NextLink>
+                      {centre.plugins.COURSE && (
+                        <AppMenuLink
+                          url="/courses"
+                          title="Courses"
+                          fontSize={fontSize}
+                        />
+                      )}
+                      {centre.plugins.EXAM && (
+                        <AppMenuLink
+                          url="/exams"
+                          title="Exams"
+                          fontSize={fontSize}
+                        />
+                      )}
+                      {centre.plugins.PUBLICATION && (
+                        <AppMenuLink
+                          url="/library"
+                          title="Books"
+                          fontSize={fontSize}
+                        />
+                      )}
+                      {centre.plugins.LEAGUE && (
+                        <AppMenuLink
+                          url="/leagues"
+                          title="Leagues"
+                          fontSize={fontSize}
+                        />
+                      )}
                     </Stack>
                     {user ? (
                       <ProfileMenu cachedData={cachedData} />

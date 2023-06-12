@@ -20,19 +20,18 @@ const CourseExamLeaguePublicationHome: CourseExamLeaguePublicationFunc = () => {
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { plugins = null } = cachedData?.centre || {};
-  console.log(plugins);
+  const { plugins } = cachedData?.centre || {};
 
   return (
     <Box component="main" sx={{ pt: 8 }}>
       <HeroSection />
       <CategoriesSection />
-      <CourseListSection />
+      {plugins.COURSE && <CourseListSection />}
       <FutureSection />
-      <ExamListSection />
-      <PublicationListSection />
+      {plugins.EXAM && <ExamListSection />}
+      {plugins.PUBLICATION && <PublicationListSection />}
       <TestimonialSection />
-      <CompetitionListSection />
+      {plugins.LEAGUE && <CompetitionListSection />}
       <PromoSection />
     </Box>
   );

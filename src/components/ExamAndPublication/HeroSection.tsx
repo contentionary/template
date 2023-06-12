@@ -83,7 +83,7 @@ const HeroSection: ExamAndCourseFunc = () => {
               <Typography
                 mb={3}
                 paragraph
-                fontSize={{ xs: 20, md: 30 }}
+                fontSize={{ xs: 16, md: 20 }}
                 color="GrayText"
                 lineHeight={1.3}
                 maxWidth="450px"
