@@ -42,7 +42,7 @@ const HeroSection: ExamAndCourseFunc = () => {
     ? cache.get("isCentreSubscriber")
     : false;
   const getStarted = {
-    link: "/library",
+    link: "/courses",
     text: isCentreSubscriber ? "Browse Courses" : "Get started",
   };
   if (!isCentreSubscriber) {
