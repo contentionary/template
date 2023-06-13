@@ -7,136 +7,67 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemButton from "@mui/material/ListItemButton";
 //
-import { UserInt } from "@src/utils/interface";
+import { UserInt, CachedCentreInt } from "@src/utils/interface";
 
 interface ProfileMenuInt {
-  cachedData: { user: UserInt; token: string };
+  cachedData: {
+    user: UserInt;
+    token: string;
+    centre: CachedCentreInt;
+  };
 }
 
+export const AppMenuLink = ({ url, title }: { url: string; title: string }) => {
+  return (
+    <NextLink href={url} passHref>
+      <ListItemButton>
+        <ListItemIcon>
+          <ListItemText>{title}</ListItemText>
+        </ListItemIcon>
+      </ListItemButton>
+    </NextLink>
+  );
+};
+
 const CourseExamLeaguePublicationMenu = ({ cachedData }: ProfileMenuInt) => {
-  const { user } = cachedData;
+  const { user, centre } = cachedData;
   return (
     <List>
-      <NextLink href="/" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Home</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/courses" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Courses</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/library" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Books</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/leagues" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Leagues</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
-      <NextLink href="/exams" passHref>
-        <ListItemButton>
-          <ListItemIcon>
-            <ListItemText>Exams</ListItemText>
-          </ListItemIcon>
-        </ListItemButton>
-      </NextLink>
+      <AppMenuLink url="/" title="home" />
+      {centre.plugins.COURSE && <AppMenuLink url="/courses" title="Courses" />}
+      {centre.plugins.PUBLICATION && (
+        <AppMenuLink url="/library" title="Books" />
+      )}
+      {centre.plugins.EXAM && <AppMenuLink url="/exams" title="Exams" />}
+      {centre.plugins.LEAGUE && <AppMenuLink url="/leagues" title="Leagues" />}
+
       {user ? (
-        <>
-          {user.isAdmin && (
-            <NextLink href="/admin" passHref>
-              <ListItemButton>
-                <ListItemIcon>
-                  <ListItemText>Admin</ListItemText>
-                </ListItemIcon>
-              </ListItemButton>
-            </NextLink>
+        <React.Fragment>
+          {user.isAdmin && <AppMenuLink url="/admin" title="Admin" />}
+          {centre.plugins.COURSE && (
+            <AppMenuLink url="/courses/my-courses" title="My Course" />
           )}
-          <NextLink href="/courses/my-courses" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>My Course</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/exams/my-books" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>My Books</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/exams/my-results" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>My Result</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/leagues/my-leagues" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>My Leagues</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/exams/my-exams" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>My Exams</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>{" "}
-          <NextLink href="/settings" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText> Profile Settings</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/wallet" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>My Wallet</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/logout" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>Logout</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-        </>
+          {centre.plugins.PUBLICATION && (
+            <AppMenuLink url="/library/my-books" title="My Books" />
+          )}
+          {centre.plugins.EXAM && (
+            <AppMenuLink url="/exams/my-results" title="My Result" />
+          )}
+          {centre.plugins.LEAGUE && (
+            <AppMenuLink url="/leagues/my-leagues" title="My Leagues" />
+          )}
+          {centre.plugins.EXAM && (
+            <AppMenuLink url="/exams/my-exams" title="My Exams" />
+          )}{" "}
+          <AppMenuLink url="/settings" title="Profile Settings" />
+          <AppMenuLink url="/wallet" title="My Wallet" />
+          <AppMenuLink url="/logout" title="Logout" />
+        </React.Fragment>
       ) : (
-        <>
-          <NextLink href="/login" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>Login</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-          <NextLink href="/register" passHref>
-            <ListItemButton>
-              <ListItemIcon>
-                <ListItemText>Create Account</ListItemText>
-              </ListItemIcon>
-            </ListItemButton>
-          </NextLink>
-        </>
+        <React.Fragment>
+          <AppMenuLink url="/login" title="Login" />
+          <AppMenuLink url="/register" title="Create Account" />
+        </React.Fragment>
       )}
     </List>
   );

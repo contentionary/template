@@ -13,7 +13,7 @@ import { useQuery } from "react-query";
 import { getAuthData } from "@src/utils/auth";
 import { handleError, request } from "@src/utils";
 import { LeagueDetailsPageFunc } from "./interfaceType";
-import { UserInt, ParticipantList } from "@src/utils/interface";
+import { UserInt, ParticipantListInt } from "@src/utils/interface";
 
 export const ParticipantCard = ({ participant }: { participant: UserInt }) => {
   const cardStyle = useCardStyle();
@@ -59,7 +59,7 @@ const LeagueParticipants: LeagueDetailsPageFunc = ({ league }) => {
     }
   );
 
-  const participantList = data?.data as ParticipantList;
+  const participantList = data?.data as ParticipantListInt;
 
   if (isLoading) {
     return <div>Loading....</div>;

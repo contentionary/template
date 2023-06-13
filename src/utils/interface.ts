@@ -524,6 +524,6 @@ export interface LeagueActivityInt {
   duration: number;
   createdAt: Date;
 }
-export interface ParticipantList extends Meta {
+export interface ParticipantListInt extends Meta {
   candidates: UserInt[];
 }
