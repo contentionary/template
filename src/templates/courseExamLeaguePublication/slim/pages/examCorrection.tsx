@@ -1,7 +1,7 @@
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import ExamCorrection from "@src/components/ExamCorrections";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const ExamCompletedPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -10,7 +10,7 @@ const ExamCompletedPage = () => {
   const { name, logo } = cachedData.centre;
 
   return (
-    <ExamAndLeagueWrapper
+    <CourseExamLeaguePublicationWrapper
       title={name || ""}
       description="Online Exam"
       image={logo || DEFAULT_LOGO}
@@ -18,7 +18,7 @@ const ExamCompletedPage = () => {
       showFooter={false}
     >
       <ExamCorrection pageData={pageData} />
-    </ExamAndLeagueWrapper>
+    </CourseExamLeaguePublicationWrapper>
   );
 };
 

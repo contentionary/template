@@ -1,7 +1,7 @@
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import MyResults from "@src/components/MyResult";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const MyResultsPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
@@ -10,7 +10,7 @@ const MyResultsPage = () => {
   const { name, logo } = cachedData.centre;
 
   return (
-    <ExamAndLeagueWrapper
+    <CourseExamLeaguePublicationWrapper
       title={name || ""}
       description="Online Exam"
       image={logo || DEFAULT_LOGO}
@@ -18,7 +18,7 @@ const MyResultsPage = () => {
       showFooter={true}
     >
       <MyResults pageData={pageData} />
-    </ExamAndLeagueWrapper>
+    </CourseExamLeaguePublicationWrapper>
   );
 };
 

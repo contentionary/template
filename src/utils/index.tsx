@@ -24,7 +24,7 @@ export const FILE_DOWNLOAD_URL =
 export const DEFAULT_LOGO = "/images/logo.png";
 export const BOOK_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
-export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
+export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
@@ -384,6 +384,7 @@ export const getCentre = async (
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
         description: centre.description,
         template: centre.template,
+        // template: "examAndLeague",
         // template: "courseExamLeaguePublication",
         logo: centre.logo,
         plugins: {

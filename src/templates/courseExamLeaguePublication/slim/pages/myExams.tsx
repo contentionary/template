@@ -1,10 +1,10 @@
 import React from "react";
 import MyExamsPage from "@src/components/Exams/MyExams";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const MyExams = () => {
   return (
-    <ExamAndLeagueWrapper
+    <CourseExamLeaguePublicationWrapper
       title="Edtify"
       description="Seamlessly create your Online Academy in minutes Share, Sell, Engage and Impact your students or subscribers on your terms."
       image="/public/images/logo-icon.png"
@@ -12,7 +12,7 @@ const MyExams = () => {
       showFooter={true}
     >
       <MyExamsPage />
-    </ExamAndLeagueWrapper>
+    </CourseExamLeaguePublicationWrapper>
   );
 };
 

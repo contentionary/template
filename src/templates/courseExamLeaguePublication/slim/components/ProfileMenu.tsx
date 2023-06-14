@@ -112,6 +112,30 @@ const ProfileMenu = ({ cachedData }: ProfileMenuInt) => {
                   aria-labelledby="composition-button"
                   onKeyDown={handleListKeyDown}
                 >
+                  <NextLink href="/courses/my-courses" passHref>
+                    <MenuItem
+                      style={{ fontSize: 18 }}
+                      component={MuiLink}
+                      onClick={handleClose}
+                    >
+                      <ListItemIcon>
+                        <CourseIcon fontSize="small" />
+                      </ListItemIcon>
+                      My Course
+                    </MenuItem>
+                  </NextLink>
+                  <NextLink href="/library/my-books" passHref>
+                    <MenuItem
+                      style={{ fontSize: 18 }}
+                      component={MuiLink}
+                      onClick={handleClose}
+                    >
+                      <ListItemIcon>
+                        <CourseIcon fontSize="small" />
+                      </ListItemIcon>
+                      My Books
+                    </MenuItem>
+                  </NextLink>
                   <NextLink href="/leagues/my-leagues" passHref>
                     <MenuItem
                       style={{ fontSize: 18 }}

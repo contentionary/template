@@ -1,22 +1,22 @@
-import LeagueDetailsPage from "@src/components/LeagueDetails";
+import CourseDetailsPage from "@src/components/CourseDetails";
 import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
-const LeagueDetails = () => {
+const DetailsPage = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   return (
     <CourseExamLeaguePublicationWrapper
-      title={pageData.leagueDetails?.name || ""}
-      description={pageData.leagueDetails?.description || "league"}
+      title={pageData.courseDetails?.name || ""}
+      description={pageData.courseDetails?.description || "Online course"}
       image="/public/images/logo-icon.png"
       showHeader={true}
       showFooter={true}
     >
-      <LeagueDetailsPage />
+      <CourseDetailsPage />
     </CourseExamLeaguePublicationWrapper>
   );
 };
 
-export default LeagueDetails;
+export default DetailsPage;

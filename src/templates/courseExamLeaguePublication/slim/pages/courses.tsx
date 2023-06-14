@@ -1,23 +1,25 @@
+import React from "react";
+//
+import Courses from "@src/components/Courses";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
-import CourseExamLeaguePublicationHomePage from "@src/components/CourseExamLeaguePublicationHome";
 
-const LeaguePage = () => {
+const CoursesPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
 
   return (
     <CourseExamLeaguePublicationWrapper
-      title={`${name} Academy`}
-      description={`Welcome to ${name}`}
+      title={`${name} Online Courses`}
+      description={`${name} academy online courses and folders`}
       image={logo || DEFAULT_LOGO}
       showHeader={true}
       showFooter={true}
     >
-      <CourseExamLeaguePublicationHomePage />
+      <Courses />
     </CourseExamLeaguePublicationWrapper>
   );
 };
 
-export default LeaguePage;
+export default CoursesPage;

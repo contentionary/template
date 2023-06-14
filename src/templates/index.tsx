@@ -4,6 +4,7 @@ import ExamAndLeagueSlim from "./examAndLeague/slim";
 import ExamAndCourseSlim from "./examAndCourse/slim";
 import ExamAndPublicationSlim from "./examAndPublication/slim";
 import CourseExamLeaguePublicationSlim from "./courseExamLeaguePublication/slim";
+// interfaces
 import { CoursePages } from "./course/slim/interface";
 import { PublicationPages } from "./publication/slim/interface";
 import { ExamAndCoursePages } from "./examAndCourse/slim/interface";

@@ -2,7 +2,7 @@ import { WrapperFunc } from "@src/components/Wrapper/interface";
 import Home from "./pages/home";
 import Exams from "./pages/exams";
 import Courses from "./pages/courses";
-import Details from "./pages/details";
+import CourseDetails from "./pages/courseDetails";
 import MyExams from "./pages/myExams";
 import Contents from "./pages/content";
 import StartExam from "./pages/startExam";
@@ -22,7 +22,7 @@ const ExamAndCoursePages: Record<ExamAndCoursePages, WrapperFunc> = {
   Home,
   Exams,
   Courses,
-  Details,
+  CourseDetails,
   MyExams,
   Contents,
   ErrorPage,

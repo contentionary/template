@@ -1,8 +1,8 @@
 import React from "react";
-import LeaguesPage from "@src/components/Leagues/MyLeagues";
+import CoursesPage from "@src/components/Courses/MyCourses";
 import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
 
-const MyLeagues = () => {
+const MyCourses = () => {
   return (
     <CourseExamLeaguePublicationWrapper
       title="Edtify"
@@ -11,9 +11,9 @@ const MyLeagues = () => {
       showHeader={true}
       showFooter={true}
     >
-      <LeaguesPage />
+      <CoursesPage />
     </CourseExamLeaguePublicationWrapper>
   );
 };
 
-export default MyLeagues;
+export default MyCourses;

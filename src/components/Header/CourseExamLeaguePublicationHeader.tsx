@@ -20,9 +20,27 @@ import ExamAndLeagueMenu from "./ExamAndLeagueMenu";
 import { queryClient } from "@src/utils";
 // interface and config
 import { HeaderFunc } from "./interfaceType";
-import { BasePageProps } from "../../utils/interface";
+import { BasePageProps } from "@src/utils/interface";
 
-const ExamAndLeagueHeader: HeaderFunc = () => {
+export const AppMenuLink = ({
+  url,
+  title,
+  fontSize,
+}: {
+  url: string;
+  title: string;
+  fontSize: number;
+}) => {
+  return (
+    <NextLink href={url} passHref>
+      <Button component={MuiLink} sx={{ color: "secondary.light", fontSize }}>
+        {title}
+      </Button>
+    </NextLink>
+  );
+};
+
+const CourseExamLeaguePublicationHeader: HeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
@@ -77,41 +95,33 @@ const ExamAndLeagueHeader: HeaderFunc = () => {
                           Home
                         </Button>
                       </NextLink>
-                      <NextLink href="/leagues" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Leagues
-                        </Button>
-                      </NextLink>
-                      <NextLink href="/exams" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Exams
-                        </Button>
-                      </NextLink>
-                      {user && (
-                        <>
-                          <NextLink href="/leagues/my-leagues" passHref>
-                            <Button
-                              component={MuiLink}
-                              sx={{ color: "secondary.light", fontSize }}
-                            >
-                              My Leagues
-                            </Button>
-                          </NextLink>
-                          <NextLink href="/exams/my-exams" passHref>
-                            <Button
-                              component={MuiLink}
-                              sx={{ color: "secondary.light", fontSize }}
-                            >
-                              My Exams
-                            </Button>
-                          </NextLink>
-                        </>
+                      {centre.plugins.COURSE && (
+                        <AppMenuLink
+                          url="/courses"
+                          title="Courses"
+                          fontSize={fontSize}
+                        />
+                      )}
+                      {centre.plugins.EXAM && (
+                        <AppMenuLink
+                          url="/exams"
+                          title="Exams"
+                          fontSize={fontSize}
+                        />
+                      )}
+                      {centre.plugins.PUBLICATION && (
+                        <AppMenuLink
+                          url="/library"
+                          title="Books"
+                          fontSize={fontSize}
+                        />
+                      )}
+                      {centre.plugins.LEAGUE && (
+                        <AppMenuLink
+                          url="/leagues"
+                          title="Leagues"
+                          fontSize={fontSize}
+                        />
                       )}
                     </Stack>
                     {user ? (
@@ -144,4 +154,5 @@ const ExamAndLeagueHeader: HeaderFunc = () => {
     </>
   );
 };
-export default ExamAndLeagueHeader;
+
+export default CourseExamLeaguePublicationHeader;

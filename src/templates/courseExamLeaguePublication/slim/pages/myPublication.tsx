@@ -1,23 +1,22 @@
-import { BasePageProps } from "@src/utils/interface";
-import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import Library from "@src/components/Library/MyPublications";
 import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
-import CourseExamLeaguePublicationHomePage from "@src/components/CourseExamLeaguePublicationHome";
+import { DEFAULT_LOGO, queryClient } from "@src/utils";
+import { BasePageProps } from "@src/utils/interface";
 
-const LeaguePage = () => {
+const MyPublicationPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
-
   return (
     <CourseExamLeaguePublicationWrapper
-      title={`${name} Academy`}
-      description={`Welcome to ${name}`}
+      title={`${cachedData.user.firstname} ${name} books`}
+      description={`${cachedData.user.firstname} ${name} books`}
       image={logo || DEFAULT_LOGO}
       showHeader={true}
       showFooter={true}
     >
-      <CourseExamLeaguePublicationHomePage />
+      <Library />
     </CourseExamLeaguePublicationWrapper>
   );
 };
 
-export default LeaguePage;
+export default MyPublicationPage;
