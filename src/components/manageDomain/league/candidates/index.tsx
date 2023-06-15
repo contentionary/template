@@ -22,6 +22,7 @@ interface SubscriberInt {
   email: string;
   phoneNumber: string;
   id: string;
+  userId: string;
 }
 
 export default function Candidates() {
@@ -50,6 +51,7 @@ export default function Candidates() {
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 250, name: "Action", key: "action" },
   ];
+  console.log(candidates);
   const result = candidates?.map((item: SubscriberInt, index: number) => ({
     index: ++index,
     ...item,
@@ -57,7 +59,7 @@ export default function Candidates() {
       <Delete
         updateData={(e: any) => handleChange(e, 1)}
         toggleToast={toggleToast}
-        url={`/centre/${centreId}/league/${id}/candidate/${item.id}`}
+        url={`/centre/${centreId}/league/${id}/candidate/${item.userId}`}
       />
     ),
   }));
