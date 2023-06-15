@@ -102,14 +102,12 @@ const UpdatePaymentPlan = ({
                 name="durationInDays"
                 defaultValue={durationInDays}
                 onChange={getData}
-                required
               />
               <Select
                 name="currency"
                 value={values.currency || currency}
                 onChange={(e) => getData(e)}
                 sx={{ width: "100%", mt: 3 }}
-                required
               >
                 <MenuItem value="none">Select currency</MenuItem>
                 {currencies.map(({ abbr, name }, index) => (
