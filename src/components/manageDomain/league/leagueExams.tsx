@@ -34,16 +34,24 @@ const LeagueAdmin = () => {
   const links = [
     { link: "/admin", name: "Dashboard" },
     { link: "/admin/league", name: "Leagues" },
+    { link: `/admin/league?folderId=${folderId}`, name: "Folder" },
   ];
 
   return (
     <Box mt={2}>
       <Breadcrumbs
-        links={folderId ? links : [{ link: "/admin", name: "Dashboard" }]}
+        links={
+          folderId
+            ? links
+            : [
+                { link: "/admin", name: "Dashboard" },
+                { link: "/admin/league", name: "Leagues" },
+              ]
+        }
         currentPage={
           folderId
-            ? { name: "Folder", link: "/" }
-            : { link: "/admin/leagues", name: "leagues" }
+            ? { name: "League exams", link: "/League exams" }
+            : { link: "", name: "League exams" }
         }
       />
       <Box sx={{ display: "flex", justifyContent: "space-between", my: 2 }}>
