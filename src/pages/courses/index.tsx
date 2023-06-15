@@ -24,7 +24,6 @@ const CoursesPage = (pageProps: BasePageProps) => {
   queryClient.setQueryData("pageProps", pageProps);
   const ActiveTemplate =
     themes[pageProps.cachedData.centre.template]("Courses");
-
   return <ActiveTemplate />;
 };
 
@@ -33,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { pageId = 1, folderId = "" } = context.query;
   const { token, user } = getAuthData(context);
   try {
-    centre = (await getCentre(context, true)) as CachedCentreInt;
+    centre = (await getCentre(context)) as CachedCentreInt;
     const { data: courseList } = await request.get({
       url: `/centre/${centre.id}/courses?pageId=${pageId}${
         folderId && `&folderId=${folderId}`

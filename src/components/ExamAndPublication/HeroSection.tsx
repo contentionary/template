@@ -11,6 +11,7 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import { alpha, useTheme } from "@mui/material/styles";
 import { v4 as uuid } from "uuid";
 // import { useTheme } from "@mui/material/styles";
 // app components
@@ -27,6 +28,7 @@ import { BasePageProps } from "@src/utils/interface";
 import { useRouter } from "next/router";
 
 const HeroSection: ExamAndCourseFunc = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -81,7 +83,7 @@ const HeroSection: ExamAndCourseFunc = () => {
               <Typography
                 mb={3}
                 paragraph
-                fontSize={{ xs: 20, md: 30 }}
+                fontSize={{ xs: 16, md: 20 }}
                 color="GrayText"
                 lineHeight={1.3}
                 maxWidth="450px"
@@ -121,7 +123,10 @@ const HeroSection: ExamAndCourseFunc = () => {
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            bgcolor: "#FBEEE6",
+                            backgroundColor: alpha(
+                              theme.palette.primary["main"],
+                              0.1
+                            ),
                           }}
                         >
                           <PersonOutlineOutlinedIcon color="primary" />
@@ -137,7 +142,10 @@ const HeroSection: ExamAndCourseFunc = () => {
                   <Avatar
                     sx={{
                       mx: "auto",
-                      bgcolor: "#FBEEE6",
+                      backgroundColor: alpha(
+                        theme.palette.primary["main"],
+                        0.1
+                      ),
                     }}
                   >
                     <AutoStoriesOutlinedIcon color="primary" />

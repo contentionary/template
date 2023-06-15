@@ -11,5 +11,4 @@ const config = {
     IMAGE_BASE_URL: "http://dev-cdn.edtify.com",
   },
 };
-
 export default config;

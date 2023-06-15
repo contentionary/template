@@ -24,7 +24,7 @@ export const FILE_DOWNLOAD_URL =
 export const DEFAULT_LOGO = "/images/logo.png";
 export const BOOK_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
-export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/resume-folder.svg";
+export const EXAM_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/exam-folder.svg";
 export const VIDEO_FOLDER_IMAGE_PLACEHOLDER = "/images/cards/video-folder.svg";
 
 export const devLog = (title: string, value: any) => {
@@ -316,6 +316,34 @@ export const timeAgo = (dateTimeStamp: Date) => {
   }
 };
 
+export const formatDuration = (durationInSeconds: number) => {
+  const secondsInMinute = 60;
+  const secondsInHour = secondsInMinute * 60;
+  const secondsInDay = secondsInHour * 24;
+
+  const days = Math.floor(durationInSeconds / secondsInDay);
+  const hours = Math.floor((durationInSeconds % secondsInDay) / secondsInHour);
+  const minutes = Math.floor(
+    (durationInSeconds % secondsInHour) / secondsInMinute
+  );
+  const seconds = durationInSeconds % secondsInMinute;
+
+  let formattedDuration = "";
+
+  if (days > 0) {
+    formattedDuration += `${days} day${days > 1 ? "s" : ""}, `;
+  }
+  if (hours > 0) {
+    formattedDuration += `${hours} hour${hours > 1 ? "s" : ""}, `;
+  }
+  if (minutes > 0) {
+    formattedDuration += `${minutes} minute${minutes > 1 ? "s" : ""}, `;
+  }
+  formattedDuration += `${seconds} second${seconds > 1 ? "s" : ""}`;
+
+  return formattedDuration;
+};
+
 export const pageErrorHandler = (
   err: unknown,
   user: UserInt,
@@ -357,7 +385,12 @@ export const getCentre = async (
         description: centre.description,
         template: centre.template,
         // template: "examAndPublication",
+        // template: "examAndLeague",
+        // template: "courseExamLeaguePublication",
         logo: centre.logo,
+        plugins: {
+          ...centre.plugins,
+        },
         price: centre.price,
         domain: centre.domain,
         subscriptionModel: centre.subscriptionModel,

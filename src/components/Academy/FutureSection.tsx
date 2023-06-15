@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import { alpha, useTheme } from "@mui/material/styles";
 // app components
 import ImageComponent from "@src/components/shared/image";
 // icons
@@ -23,6 +24,7 @@ import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const contents =
@@ -31,7 +33,11 @@ const FutureSection = () => {
     <Box
       className=""
       component="section"
-      sx={{ py: 8, px: { md: 6 }, bgcolor: "#FFFCF8" }}
+      sx={{
+        py: 8,
+        px: { md: 6 },
+        backgroundColor: alpha(theme.palette.primary["main"], 0.02),
+      }}
     >
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
@@ -64,7 +70,7 @@ const FutureSection = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <AutoStoriesOutlinedIcon color="primary" />
@@ -75,7 +81,7 @@ const FutureSection = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <TimerOutlinedIcon color="primary" />
@@ -86,7 +92,7 @@ const FutureSection = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <BusinessCenterOutlinedIcon color="primary" />
@@ -97,7 +103,7 @@ const FutureSection = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <PeopleOutlinedIcon color="primary" />

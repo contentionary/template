@@ -1,7 +1,7 @@
 export type PublicationPages =
   | "Home"
   | "Library"
-  | "Details"
+  | "BookDetails"
   | "Document"
   | "ErrorPage"
   | "MyPublications"

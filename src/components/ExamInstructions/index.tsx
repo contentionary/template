@@ -1,5 +1,7 @@
 import React from "react";
-//
+// next components/hooks
+import { useRouter } from "next/router";
+// mui components/hooks
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -14,20 +16,24 @@ import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined
 import useGlobalStyle, { bg } from "@src/styles";
 import { ExamInstructionsFunc } from "./interfaceType";
 import { request } from "@src/utils";
-import { useRouter } from "next/router";
 import format from "date-fns/format";
 
 const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
   const globalStyle = useGlobalStyle();
   const { exam /* auth */ } = props;
   const router = useRouter();
+  const leagueId = router.query?.leagueId;
   async function getProctoredId() {
     try {
       const { data } = await request.post({
         url: `/centre/${exam.id}/protor-content`,
       });
       if (data.id)
-        router.push(`/exams/${exam.slug}/start?proctoredId=${data.id}`);
+        router.push(
+          `/exams/${exam.slug}/start?proctoredId=${data.id}${
+            leagueId ? `&leagueId=${leagueId}` : ""
+          }`
+        );
     } catch (error) {
       console.log(error);
     }
@@ -159,7 +165,11 @@ const ExamInstructionsPage: ExamInstructionsFunc = (props) => {
                     onClick={() => {
                       exam.hasProctor
                         ? getProctoredId()
-                        : router.push(`/exams/${exam.slug}/start`);
+                        : router.push(
+                            `/exams/${exam.slug}/start${
+                              leagueId ? `?leagueId=${leagueId}` : ""
+                            }`
+                          );
                     }}
                     size="large"
                     disableElevation

@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Link as MuiLink } from "@mui/material";
+import { alpha, useTheme } from "@mui/material/styles";
 // styles, interface and config
 import { bg } from "@src/styles";
 import { BookDetailsPageFunc } from "./interfaceType";
@@ -25,6 +26,7 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
+  const theme = useTheme();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const router = useRouter();
   const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
@@ -43,9 +45,9 @@ const HeroSection: BookDetailsPageFunc = ({ publication, read, centre }) => {
   return (
     <Fragment>
       <Box
-        bgcolor="#FFFCF8"
         component="section"
         className="hero-section"
+        bgcolor={alpha(theme.palette.primary["main"], 0.02)}
         sx={{ pt: 4, pb: 8, px: { md: 6 }, ...bg().bgDustyPrimary }}
       >
         {verifyValue && (

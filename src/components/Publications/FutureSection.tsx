@@ -7,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import { alpha, useTheme } from "@mui/material/styles";
 //
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -27,6 +28,7 @@ import { PublicationsFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const FutureSection: PublicationsFunc = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { imageUrl, title } =
@@ -49,7 +51,7 @@ const FutureSection: PublicationsFunc = () => {
                 <Avatar
                   sx={{
                     mx: "auto",
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <BusinessCenterOutlinedIcon color="primary" />
@@ -83,7 +85,7 @@ const FutureSection: PublicationsFunc = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <AutoStoriesOutlinedIcon color="primary" />
@@ -94,7 +96,7 @@ const FutureSection: PublicationsFunc = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <TimerOutlinedIcon color="primary" />
@@ -105,7 +107,7 @@ const FutureSection: PublicationsFunc = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <BusinessCenterOutlinedIcon color="primary" />
@@ -116,7 +118,7 @@ const FutureSection: PublicationsFunc = () => {
                 <Avatar
                   sx={{
                     mr: 2,
-                    bgcolor: "#FBEEE6",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.1),
                   }}
                 >
                   <PeopleOutlinedIcon color="primary" />
