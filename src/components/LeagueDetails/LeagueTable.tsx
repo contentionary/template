@@ -41,7 +41,7 @@ const LeagueTable: LeagueDetailsPageFunc = (props) => {
     { minWidth: 100, name: "First name", key: "firstname" },
     { minWidth: 70, name: "Exam Taken", key: "examCount" },
     { minWidth: 50, name: "Total Score", key: "totalScore" },
-    { minWidth: 50, name: "Duration (In minutes)", key: "duration" },
+    { minWidth: 50, name: "Duration (In seconds)", key: "duration" },
     { minWidth: 70, name: "Points", key: "points" },
   ];
 

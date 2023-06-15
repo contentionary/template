@@ -60,7 +60,7 @@ const HeroSection: LeagueFunc = () => {
               >
                 {landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={user ? "/courses" : "/login"} passHref>
+              <NextLink href={user ? "/leagues" : "/login"} passHref>
                 <Button
                   size="large"
                   disableElevation

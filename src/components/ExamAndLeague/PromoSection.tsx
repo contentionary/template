@@ -14,7 +14,7 @@ import ImageComponent from "@src/components/shared/image";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
-const PromoSection = ({ link = "/courses" }: { link?: string }) => {
+const PromoSection = ({ link = "/leagues" }: { link?: string }) => {
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;

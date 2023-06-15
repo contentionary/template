@@ -3,6 +3,7 @@ import React, { Fragment } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // icons
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
 import DateRangeOutlined from "@mui/icons-material/DateRangeOutlined";
 import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
@@ -34,6 +35,16 @@ const LeagueStats: LeagueDetailsPageFunc = ({ league }) => {
       icon: <DateRangeOutlined sx={{ fontSize: 16 }} />,
       name: "End Date:",
       value: dateTimeFormat(endDate),
+    },
+    {
+      icon: <AccessTimeIcon sx={{ fontSize: 16 }} />,
+      name: "Start Time:",
+      value: format(new Date(startDate), "h:mm a"),
+    },
+    {
+      icon: <AccessTimeIcon sx={{ fontSize: 16 }} />,
+      name: "End Time:",
+      value: format(new Date(endDate), "h:mm a"),
     },
   ];
   return (

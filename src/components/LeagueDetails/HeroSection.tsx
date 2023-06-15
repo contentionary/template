@@ -19,18 +19,24 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+//
+import {
+  formatDuration,
+  intervalToDuration,
+  differenceInSeconds,
+} from "date-fns";
 // hooks, styles, interface and config
-import { useDialog } from "@src/hooks";
 import { bg } from "@src/styles";
-import useButtonStyle from "@src/styles/button";
+import { useDialog } from "@src/hooks";
+import useCardStyle from "@src/styles/card";
+import { kCount, isServerSide } from "@src/utils";
 import { LeagueDetailsPageFunc } from "./interfaceType";
-import { kCount, isServerSide, dateTimeFormat } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
 import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
 
 const HeroSection: LeagueDetailsPageFunc = ({ league, read }) => {
   const router = useRouter();
-  const buttonStyle = useButtonStyle();
+  const cardStyle = useCardStyle();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { reference, verifyValue, price: deductedPrice } = router.query;
   const {
@@ -45,6 +51,42 @@ const HeroSection: LeagueDetailsPageFunc = ({ league, read }) => {
   } = league;
 
   const redirectUrl = !isServerSide ? window.location.href : "";
+
+  const countDownTime = () => {
+    const startDatetime = new Date(startDate);
+    const endDatetime = new Date(endDate);
+    /* startDate endDate */
+    const now = new Date();
+    let countdownText = "";
+
+    // Check if the current time is before the start datetime
+    if (now < startDatetime) {
+      const duration = intervalToDuration({
+        start: now,
+        end: startDatetime,
+      });
+      countdownText = `Starts in: ${formatDuration(duration, {
+        format: ["months", "days", "hours", "minutes", "seconds"],
+        delimiter: ", ",
+      })}`;
+    }
+    // Check if the current time is after the start datetime and before the end datetime
+    else if (now < endDatetime) {
+      const duration = intervalToDuration({
+        start: now,
+        end: endDatetime,
+      });
+      countdownText = `Ends in: ${formatDuration(duration, {
+        format: ["months", "days", "hours", "minutes", "seconds"],
+        delimiter: ", ",
+      })}`;
+    }
+    // Otherwise, the event is closed
+    else {
+      countdownText = "Closed";
+    }
+    return countdownText;
+  };
 
   return (
     <Fragment>
@@ -115,12 +157,7 @@ const HeroSection: LeagueDetailsPageFunc = ({ league, read }) => {
                 </Typography>
                 <Typography variant="h6" display="flex" alignItems="center">
                   <CalendarMonthOutlinedIcon color="primary" fontSize="small" />
-                  &nbsp; Date:{" "}
-                  {startDate && endDate
-                    ? `${dateTimeFormat(startDate)} - ${dateTimeFormat(
-                        endDate
-                      )}`
-                    : ""}
+                  &nbsp; {countDownTime()}
                 </Typography>
               </Stack>
               <Typography variant="h4" component="h2">
@@ -134,19 +171,21 @@ const HeroSection: LeagueDetailsPageFunc = ({ league, read }) => {
                 direction="row"
                 alignItems="center"
               >
-                <NextLink href={read.link} passHref>
-                  <Button
-                    size="large"
-                    disableElevation
-                    variant="contained"
-                    component={MuiLink}
-                    display={{ xs: "block", sm: "inline-block" }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                      <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
-                    </Stack>
-                  </Button>
-                </NextLink>
+                {read.text !== "OPEN LEAGUE" && (
+                  <NextLink href={read.link} passHref>
+                    <Button
+                      size="large"
+                      disableElevation
+                      variant="contained"
+                      component={MuiLink}
+                      display={{ xs: "block", sm: "inline-block" }}
+                    >
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <AutoStoriesOutlinedIcon /> &nbsp; {read.text}
+                      </Stack>
+                    </Button>
+                  </NextLink>
+                )}
                 <Button
                   size="large"
                   color="primary"
