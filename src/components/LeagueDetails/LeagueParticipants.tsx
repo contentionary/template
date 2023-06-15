@@ -15,7 +15,13 @@ import { handleError, request } from "@src/utils";
 import { LeagueDetailsPageFunc } from "./interfaceType";
 import { UserInt, ParticipantListInt } from "@src/utils/interface";
 
-export const ParticipantCard = ({ participant }: { participant: UserInt }) => {
+export const ParticipantCard = ({
+  participant,
+  position,
+}: {
+  participant: UserInt;
+  position?: string;
+}) => {
   const cardStyle = useCardStyle();
   return (
     <Card
@@ -27,9 +33,11 @@ export const ParticipantCard = ({ participant }: { participant: UserInt }) => {
         flexDirection: "column",
       }}
     >
-      {/* <Typography variant="h5" color="primary" sx={{ mb: 2 }}>
-        1st
-      </Typography> */}
+      {position && (
+        <Typography variant="h5" color="primary" sx={{ mb: 2 }}>
+          {position}
+        </Typography>
+      )}
       <Avatar sx={{ width: 52, height: 52 }}>
         <ImageComponent
           layout="fill"

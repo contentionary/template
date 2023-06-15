@@ -49,14 +49,19 @@ const AboutLeague: LeagueDetailsPageFunc = ({ league }) => {
                     xs={12}
                     key={`participant-item-${index}`}
                   >
-                    <ParticipantCard participant={participant} />
+                    <ParticipantCard
+                      participant={participant}
+                      position={
+                        index === 0 ? "1ST" : index === 1 ? "2ND" : "3RD"
+                      }
+                    />
                   </Grid>
                 );
               })}
             </Grid>
           ) : (
             <Typography sx={{ textAlign: "center" }}>
-              No Result Found.
+              No Participant Found.
             </Typography>
           )}
         </Box>
@@ -73,7 +78,7 @@ const AboutLeague: LeagueDetailsPageFunc = ({ league }) => {
           ))}
         </Grid>
       </Stack> */}
-      <Typography variant="h5" mb={2}>
+      <Typography variant="h5" mb={2} mt={4}>
         ABOUT THIS LEAGUE:
       </Typography>
       <Box dangerouslySetInnerHTML={{ __html: description }} />
