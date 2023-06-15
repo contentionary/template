@@ -102,7 +102,7 @@ const AddExam = ({
               />
               <TextFields
                 type="number"
-                label="Duration"
+                label="Duration (in minutes)"
                 name="duration"
                 onChange={getData}
                 required

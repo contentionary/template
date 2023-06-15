@@ -44,14 +44,13 @@ export default function Candidates() {
   const { toastMessage, toggleToast } = useToast();
   const columns = [
     { minWidth: 50, name: "No", key: "index" },
-    { minWidth: 100, name: "Surname", key: "surname" },
-    { minWidth: 100, name: "First name", key: "firstname" },
-    { minWidth: 50, name: "Username", key: "username" },
-    { minWidth: 70, name: "Email", key: "email" },
+    { minWidth: 150, name: "Surname", key: "surname" },
+    { minWidth: 120, name: "First name", key: "firstname" },
+    { minWidth: 120, name: "Username", key: "username" },
+    { minWidth: 120, name: "Email", key: "email" },
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
-    { minWidth: 250, name: "Action", key: "action" },
+    { minWidth: 50, name: "Action", key: "action" },
   ];
-  console.log(candidates);
   const result = candidates?.map((item: SubscriberInt, index: number) => ({
     index: ++index,
     ...item,

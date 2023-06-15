@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
-import LeagueExamCard from "../exam/card";
+import LeagueExamCard from "./leagueExamCard";
 import Grid from "@mui/material/Grid";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
