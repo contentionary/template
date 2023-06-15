@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 // next components
 import NextLink from "next/link";
+import { useRouter } from "next/router";
+// uuid
+import { v4 as uuid } from "uuid";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -19,12 +22,10 @@ import ImageComponent from "@src/components/shared/image";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
-import { cache, isServerSide, queryClient } from "@src/utils";
 import useCardStyle from "@src/styles/card";
 import { BasePageProps } from "@src/utils/interface";
-import { v4 as uuid } from "uuid";
+import { cache, isServerSide, queryClient } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
-import { useRouter } from "next/router";
 
 const HeroSection = () => {
   const theme = useTheme();
