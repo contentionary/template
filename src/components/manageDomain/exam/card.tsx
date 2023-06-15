@@ -85,7 +85,7 @@ const ExamCard = ({
               handleChange ? (e: any) => handleChange(e, 1) : () => {}
             }
             toggleToast={toggleToast ? toggleToast : () => {}}
-            url={`/centre/${centreId}/league/${id}/exam/${id}`}
+            url={`/centre/${centreId}/league/${leagueId}/exam/${id}`}
           />
         </Typography>
       )}
