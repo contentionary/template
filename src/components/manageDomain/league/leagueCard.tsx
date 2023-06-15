@@ -26,7 +26,7 @@ import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
 import { LeagueCardFunc } from "@src/components/shared/cards/interfaceType";
 
-const PublicationCard: LeagueCardFunc = ({ league }) => {
+const PublicationCard: LeagueCardFunc = ({ league, folderId }) => {
   const cardStyle = useCardStyle();
   const globalStyle = useGlobalStyle();
   const {
@@ -45,6 +45,8 @@ const PublicationCard: LeagueCardFunc = ({ league }) => {
         href={
           type === "FOLDER"
             ? `/admin/league?folderId=${id}`
+            : folderId
+            ? `/admin/league/${id}/exams?folderId=${folderId}`
             : `/admin/league/${id}/exams`
         }
         passHref

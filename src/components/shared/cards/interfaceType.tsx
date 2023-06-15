@@ -12,6 +12,7 @@ export interface CourseCardInt {
 /* eslint-disable no-unused-vars */
 export interface LeagueCardInt {
   league: LeagueInt;
+  folderId?: string;
 }
 export interface PublicationCardInt {}
 
