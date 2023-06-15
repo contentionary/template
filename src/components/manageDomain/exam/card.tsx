@@ -26,23 +26,7 @@ import {
 import { ExamInt } from "@src/utils/interface";
 import dynamic from "next/dynamic";
 
-const ExamCard = ({
-  exam,
-  leagueId,
-  toggleToast,
-  handleChange,
-  centreId,
-}: {
-  exam: ExamInt;
-  leagueId?: string;
-  toggleToast?: Function;
-  handleChange?: Function;
-  centreId?: string;
-}) => {
-  const Delete = dynamic(() => import("@src/components/shared/delete"));
-  const Update = dynamic(
-    () => import("@src/components/manageDomain/league/updateLeagueExam")
-  );
+const ExamCard = ({ exam }: { exam: ExamInt }) => {
   const {
     id,
     type,
@@ -58,37 +42,6 @@ const ExamCard = ({
 
   return (
     <div style={{ position: "relative" }}>
-      {leagueId && (
-        <Typography
-          sx={{
-            position: "absolute",
-            bottom: 10,
-            right: 20,
-            zIndex: 5,
-          }}
-          noWrap
-          mb={0}
-          color="white"
-          display="flex"
-          variant="body2"
-          alignItems="center"
-        >
-          <Update
-            exam={exam}
-            leagueId={leagueId}
-            refetch={handleChange ? (e: any) => handleChange(e, 1) : () => {}}
-            toggleToast={toggleToast ? toggleToast : () => {}}
-          />
-          &nbsp;
-          <Delete
-            updateData={
-              handleChange ? (e: any) => handleChange(e, 1) : () => {}
-            }
-            toggleToast={toggleToast ? toggleToast : () => {}}
-            url={`/centre/${centreId}/league/${leagueId}/exam/${id}`}
-          />
-        </Typography>
-      )}
       <Card className={cardStyle.examCard}>
         <NextLink
           href={
@@ -180,24 +133,19 @@ const ExamCard = ({
                       &nbsp; Questions
                     </>
                   </Typography>
-                  {!leagueId && (
-                    <Typography
-                      noWrap
-                      mb={0}
-                      color="white"
-                      display="flex"
-                      variant="body2"
-                      alignItems="center"
-                    >
-                      <PeopleAltOutlinedIcon
-                        color="inherit"
-                        fontSize="inherit"
-                      />
-                      &nbsp;
-                      {subscriberCount ? kCount(subscriberCount) : 0}
-                      &nbsp; Subscribers
-                    </Typography>
-                  )}
+                  <Typography
+                    noWrap
+                    mb={0}
+                    color="white"
+                    display="flex"
+                    variant="body2"
+                    alignItems="center"
+                  >
+                    <PeopleAltOutlinedIcon color="inherit" fontSize="inherit" />
+                    &nbsp;
+                    {subscriberCount ? kCount(subscriberCount) : 0}
+                    &nbsp; Subscribers
+                  </Typography>
                 </Stack>
               )}
             </CardContent>
