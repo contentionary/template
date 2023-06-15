@@ -17,6 +17,8 @@ import {
   formatDuration,
   dateTimeFormat,
 } from "@src/utils";
+//Date-fn
+import { format } from "date-fns";
 // interface and config
 import { useQuery } from "react-query";
 import { queryClient } from "@src/utils";
@@ -124,6 +126,8 @@ const LeagueActivityItem = ({
             </Typography>{" "}
             Examination by{" "}
             <Typography variant="h6" component="span">
+              {format(new Date(leagueActivity.createdAt), "h:mm a")}
+              {", "}
               {dateTimeFormat(leagueActivity.createdAt)}
             </Typography>{" "}
             and scored{" "}
