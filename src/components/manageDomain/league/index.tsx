@@ -62,7 +62,7 @@ const LeagueAdmin = () => {
           >
             {leagues?.map((league, index) => (
               <Grid key={`${index}-leagues-card`} item xs={1}>
-                <LeagueCard league={league} />
+                <LeagueCard league={league} folderId={folderId as string} />
               </Grid>
             ))}
           </Grid>

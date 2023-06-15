@@ -1,6 +1,4 @@
 import React from "react";
-// next
-import NextLink from "next/link";
 // mui components
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -34,10 +32,10 @@ const ExamCard = ({
   centreId,
 }: {
   exam: ExamInt;
-  leagueId?: string;
-  toggleToast?: Function;
-  handleChange?: Function;
-  centreId?: string;
+  leagueId: string;
+  toggleToast: Function;
+  handleChange: Function;
+  centreId: string;
 }) => {
   const Delete = dynamic(() => import("@src/components/shared/delete"));
   const Update = dynamic(
@@ -76,15 +74,13 @@ const ExamCard = ({
           <Update
             exam={exam}
             leagueId={leagueId}
-            refetch={handleChange ? (e: any) => handleChange(e, 1) : () => {}}
+            refetch={(e: any) => handleChange(e, 1)}
             toggleToast={toggleToast ? toggleToast : () => {}}
           />
           &nbsp;
           <Delete
-            updateData={
-              handleChange ? (e: any) => handleChange(e, 1) : () => {}
-            }
-            toggleToast={toggleToast ? toggleToast : () => {}}
+            updateData={(e: any) => handleChange(e, 1)}
+            toggleToast={toggleToast}
             url={`/centre/${centreId}/league/${leagueId}/exam/${id}`}
           />
         </Typography>
