@@ -19,18 +19,38 @@ import {
 } from "@src/utils";
 // interface and config
 import { useQuery } from "react-query";
+import { queryClient } from "@src/utils";
 import { getAuthData } from "@src/utils/auth";
 import { LeagueDetailsPageFunc } from "./interfaceType";
-import { BasePageProps, LeagueActivityInt } from "@src/utils/interface";
+import {
+  UserInt,
+  BasePageProps,
+  LeagueActivityInt,
+} from "@src/utils/interface";
 //
 const LeagueActivityItem = ({
+  user,
   leagueActivity,
 }: {
+  user: UserInt;
   leagueActivity: LeagueActivityInt;
 }) => {
   const globalStyle = useGlobalStyle();
   return (
-    <ListItem alignItems="flex-start" sx={{ pr: 0, pl: 0 }}>
+    <ListItem
+      alignItems="flex-start"
+      sx={{
+        pr: 0,
+        pl: 0,
+        gap: 2,
+        flexDirection:
+          user &&
+          user.firstname === leagueActivity.firstname &&
+          user.surname === leagueActivity.surname
+            ? "row-reverse"
+            : "row",
+      }}
+    >
       <ListItemAvatar
         sx={{
           mr: 2,
@@ -74,9 +94,9 @@ const LeagueActivityItem = ({
           />
           <Stack direction="row" spacing={1} ml="0 !important" flexGrow={1}>
             <Box flexGrow={1}>
-              <Typography variant="h6" mb={0}>
+              {/* <Typography variant="h6" mb={0}>
                 {leagueActivity.firstname} {leagueActivity.surname}
-              </Typography>
+              </Typography> */}
               <Typography
                 variant="body2"
                 mb={0}
@@ -124,6 +144,10 @@ const LeagueActivityItem = ({
 const LeagueActivities: LeagueDetailsPageFunc = (props) => {
   const { centreId, id } = props.league;
   const { token } = getAuthData();
+  //
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
+  const { user } = cachedData;
+  //
   const { isLoading, data, error } = useQuery(
     ["league-activities", centreId, id],
     async () => {
@@ -141,6 +165,7 @@ const LeagueActivities: LeagueDetailsPageFunc = (props) => {
       <Fragment>
         {data?.data.map((leagueActivity: LeagueActivityInt, index: number) => (
           <LeagueActivityItem
+            user={user}
             leagueActivity={leagueActivity}
             key={`leagueActivity-item-${index}`}
           />
