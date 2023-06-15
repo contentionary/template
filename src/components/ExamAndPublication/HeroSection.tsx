@@ -48,7 +48,7 @@ const HeroSection: ExamAndCourseFunc = () => {
     text: isCentreSubscriber ? "Browse Books" : "Get started",
   };
 
-  if (!isCentreSubscriber && centre.subscriptionModel === "SUBSCRIPTION") {
+  if (!isCentreSubscriber) {
     const paymentLink = user
       ? `
     /payment?transactionkey=${uuid()}&itemId=${
