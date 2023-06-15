@@ -2,28 +2,30 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 
-import LeagueCard from "./leagueCard";
+import LeagueExamCard from "../exam/card";
 import Grid from "@mui/material/Grid";
-import { BasePageProps, LeagueInt } from "@src/utils/interface";
+import { BasePageProps, ExamInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import AddExam from "./addExam";
+import { useToast } from "@src/utils/hooks";
 
 const LeagueAdmin = () => {
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { leagues } = pageData.leagueLists as {
-    leagues: LeagueInt[];
-  };
-  const { folderId } = router.query;
+  const leagueExams = pageData.leagueExamLists as ExamInt[];
+  const { id: leagueId, folderId } = router.query;
+  const { toastMessage, toggleToast } = useToast();
   const Empty = dynamic(() => import("@src/components/shared/state/Empty"));
-  const Menu = dynamic(() => import("./menu"));
+  const LeagueMenu = dynamic(() => import("./leagueMenu"));
+  const Toast = dynamic(() => import("@src/components/shared/toast"));
   const Breadcrumbs = dynamic(
     () => import("@src/components/shared/breadcrumbs")
   );
-  const pageCount = pageData.leagueLists.pageCount as number;
+  const pageCount = pageData.leagueExamLists.pageCount as number;
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
       query: { ...router.query, pageId: value },
@@ -44,15 +46,15 @@ const LeagueAdmin = () => {
             : { link: "/admin/leagues", name: "leagues" }
         }
       />
-      <Box
-        sx={{
-          textAlign: "right",
-          mb: 2,
-        }}
-      >
-        <Menu folderId={folderId as string} centreId={cachedData.centre.id} />
+      <Box sx={{ display: "flex", justifyContent: "space-between", my: 2 }}>
+        <AddExam
+          toggleToast={toggleToast}
+          leagueId={leagueId as string}
+          refetch={handleChange}
+        />
+        <LeagueMenu centreId={cachedData.centre.id} id={leagueId as string} />
       </Box>
-      {leagues.length ? (
+      {leagueExams?.length ? (
         <>
           <Grid
             container
@@ -60,12 +62,18 @@ const LeagueAdmin = () => {
             spacing={{ xs: 1, md: 2, xl: 3 }}
             columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
           >
-            {leagues?.map((league, index) => (
+            {leagueExams?.map((exam, index) => (
               <Grid key={`${index}-leagues-card`} item xs={1}>
-                <LeagueCard league={league} />
+                <LeagueExamCard
+                  exam={exam}
+                  leagueId={leagueId as string}
+                  handleChange={handleChange}
+                  toggleToast={toggleToast}
+                  centreId={cachedData.centre.id}
+                />
               </Grid>
             ))}
-          </Grid>
+          </Grid>{" "}
           <Stack py={4} direction="row" justifyContent="center" spacing={2}>
             {pageCount > 1 && (
               <Pagination
@@ -78,13 +86,13 @@ const LeagueAdmin = () => {
           </Stack>
         </>
       ) : (
-        <Empty
-          href={
-            folderId
-              ? `/admin/league/create?type=LEAGUE&folderId=${folderId}`
-              : "/admin/league/create?type=LEAGUES"
-          }
-          buttonText="Create League"
+        <Empty />
+      )}
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          status={Boolean(toggleToast)}
+          showToast={toggleToast}
         />
       )}
     </Box>

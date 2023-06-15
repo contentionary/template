@@ -4,10 +4,11 @@ import Divider from "@mui/material/Divider";
 import Visibility from "@mui/icons-material/Visibility";
 import MoreVertIcon from "@mui/icons-material/MenuOutlined";
 import IconButton from "@mui/material/IconButton";
+import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
+import EditOutlined from "@mui/icons-material/EditOutlined";
 import Delete from "./delete";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
-import PeopleAltOutlined from "@mui/icons-material/PeopleAltOutlined";
 
 export default function CustomizedMenus({
   centreId,
@@ -27,7 +28,7 @@ export default function CustomizedMenus({
           <Link passHref href={`/admin/league/${id}/subscribers`}>
             <MenuItem disableRipple>
               <PeopleAltOutlined />
-              Subscribers
+              Candidates
             </MenuItem>
           </Link>
           <Link passHref href={`/leagues/${id}`}>
@@ -37,6 +38,12 @@ export default function CustomizedMenus({
             </MenuItem>
           </Link>
           <Divider sx={{ my: 0.5 }} />
+          <Link passHref href={`/admin/league/${id}/update?type=LEAGUE`}>
+            <MenuItem disableRipple>
+              <EditOutlined />
+              Update league
+            </MenuItem>
+          </Link>
           <Delete id={id} centreId={centreId} />
         </div>
       </Menus>

@@ -24,14 +24,31 @@ import {
   FOLDER_IMAGE_PLACEHOLDER,
 } from "@src/utils";
 import { ExamInt } from "@src/utils/interface";
+import dynamic from "next/dynamic";
 
-const ExamCard = ({ exam }: { exam: ExamInt }) => {
+const ExamCard = ({
+  exam,
+  leagueId,
+  toggleToast,
+  handleChange,
+  centreId,
+}: {
+  exam: ExamInt;
+  leagueId?: string;
+  toggleToast?: Function;
+  handleChange?: Function;
+  centreId?: string;
+}) => {
+  const Delete = dynamic(() => import("@src/components/shared/delete"));
+  const Update = dynamic(
+    () => import("@src/components/manageDomain/league/updateLeagueExam")
+  );
   const {
     id,
     type,
     name,
     image,
-    description,
+    summary,
     questionCount,
     subscriberCount,
     folderContentCount,
@@ -40,116 +57,154 @@ const ExamCard = ({ exam }: { exam: ExamInt }) => {
   const globalStyle = useGlobalStyle();
 
   return (
-    <Card className={cardStyle.examCard}>
-      <NextLink
-        href={
-          type === "FOLDER"
-            ? `/admin/exam?folderId=${id}`
-            : `/admin/exam/${id}/manage-exam`
-        }
-        passHref
-      >
-        <CardActionArea
-          LinkComponent={MuiLink}
-          className="MuiCourseCardActionBase-root"
+    <div style={{ position: "relative" }}>
+      {leagueId && (
+        <Typography
+          sx={{
+            position: "absolute",
+            bottom: 10,
+            right: 20,
+            zIndex: 5,
+          }}
+          noWrap
+          mb={0}
+          color="white"
+          display="flex"
+          variant="body2"
+          alignItems="center"
         >
-          <Box className="card-img">
-            <ImageComponent
-              src={
-                type === "FOLDER"
-                  ? image || FOLDER_IMAGE_PLACEHOLDER
-                  : image || EXAM_FOLDER_IMAGE_PLACEHOLDER
-              }
-              width="100%"
-              height="60%"
-              layout="responsive"
-              objectFit={type === "FOLDER" ? "contain" : "cover"}
-              alt={name}
-            />
-          </Box>
-          <CardContent>
-            <Stack
-              direction="row"
-              spacing={1}
-              sx={{
-                flexWrap: "nowrap",
-                alignItems: "start",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography noWrap gutterBottom variant="h6">
-                {name}
-              </Typography>
-            </Stack>
-            <Typography
-              mb={2}
-              minHeight={40}
-              variant="body2"
-              color="text.secondary"
-              className={globalStyle.text2LineTruncate}
-            >
-              {description}
-            </Typography>
-          </CardContent>
-          <CardContent className="exam-content">
-            {type === "FOLDER" ? (
-              <Typography
-                mb={0}
-                noWrap
-                color="white"
-                display="flex"
-                variant="body2"
-                alignItems="center"
-              >
-                <FolderCopyOutlinedIcon color="inherit" fontSize="inherit" />
-                &nbsp; {folderContentCount}
-              </Typography>
-            ) : (
+          <Update
+            exam={exam}
+            leagueId={leagueId}
+            refetch={handleChange ? (e: any) => handleChange(e, 1) : () => {}}
+            toggleToast={toggleToast ? toggleToast : () => {}}
+          />
+          &nbsp;
+          <Delete
+            updateData={
+              handleChange ? (e: any) => handleChange(e, 1) : () => {}
+            }
+            toggleToast={toggleToast ? toggleToast : () => {}}
+            url={`/centre/${centreId}/league/${id}/exam/${id}`}
+          />
+        </Typography>
+      )}
+      <Card className={cardStyle.examCard}>
+        <NextLink
+          href={
+            type === "FOLDER"
+              ? `/admin/exam?folderId=${id}`
+              : `/admin/exam/${id}/manage-exam`
+          }
+          passHref
+        >
+          <CardActionArea
+            LinkComponent={MuiLink}
+            className="MuiCourseCardActionBase-root"
+          >
+            <Box className="card-img">
+              <ImageComponent
+                src={
+                  type === "FOLDER"
+                    ? image || FOLDER_IMAGE_PLACEHOLDER
+                    : image || EXAM_FOLDER_IMAGE_PLACEHOLDER
+                }
+                width="100%"
+                height="60%"
+                layout="responsive"
+                objectFit={type === "FOLDER" ? "contain" : "cover"}
+                alt={name}
+              />
+            </Box>
+            <CardContent>
               <Stack
-                mt="auto"
-                spacing={1}
-                color="white"
                 direction="row"
-                alignItems="center"
-                justifyContent="space-between"
+                spacing={1}
+                sx={{
+                  flexWrap: "nowrap",
+                  alignItems: "start",
+                  justifyContent: "space-between",
+                }}
               >
-                <Typography
-                  mb={0}
-                  noWrap
-                  color="white"
-                  display="flex"
-                  variant="body2"
-                  alignItems="center"
-                >
-                  <>
-                    <QuestionAnswerOutlinedIcon
-                      color="inherit"
-                      fontSize="inherit"
-                    />
-                    &nbsp;
-                    {questionCount}
-                    &nbsp; Questions
-                  </>
-                </Typography>
-                <Typography
-                  noWrap
-                  mb={0}
-                  color="white"
-                  display="flex"
-                  variant="body2"
-                  alignItems="center"
-                >
-                  <PeopleAltOutlinedIcon color="inherit" fontSize="inherit" />
-                  &nbsp;
-                  {subscriberCount ? kCount(subscriberCount) : 0}
-                  &nbsp; Subscribers
+                <Typography noWrap gutterBottom variant="h6">
+                  {name}
                 </Typography>
               </Stack>
-            )}
-          </CardContent>
-        </CardActionArea>
-      </NextLink>
-    </Card>
+              <Typography
+                mb={2}
+                minHeight={40}
+                variant="body2"
+                color="text.secondary"
+                className={globalStyle.text2LineTruncate}
+              >
+                {summary}
+              </Typography>
+            </CardContent>
+            <CardContent className="exam-content">
+              {type === "FOLDER" ? (
+                <Typography
+                  mb={0}
+                  noWrap
+                  color="white"
+                  display="flex"
+                  variant="body2"
+                  alignItems="center"
+                >
+                  <FolderCopyOutlinedIcon color="inherit" fontSize="inherit" />
+                  &nbsp; {folderContentCount}
+                </Typography>
+              ) : (
+                <Stack
+                  mt="auto"
+                  spacing={1}
+                  color="white"
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Typography
+                    mb={0}
+                    noWrap
+                    color="white"
+                    display="flex"
+                    variant="body2"
+                    alignItems="center"
+                  >
+                    <>
+                      <QuestionAnswerOutlinedIcon
+                        color="inherit"
+                        fontSize="inherit"
+                      />
+                      &nbsp;
+                      {questionCount}
+                      &nbsp; Questions
+                    </>
+                  </Typography>
+                  {!leagueId && (
+                    <Typography
+                      noWrap
+                      mb={0}
+                      color="white"
+                      display="flex"
+                      variant="body2"
+                      alignItems="center"
+                    >
+                      <PeopleAltOutlinedIcon
+                        color="inherit"
+                        fontSize="inherit"
+                      />
+                      &nbsp;
+                      {subscriberCount ? kCount(subscriberCount) : 0}
+                      &nbsp; Subscribers
+                    </Typography>
+                  )}
+                </Stack>
+              )}
+            </CardContent>
+          </CardActionArea>
+        </NextLink>
+      </Card>
+    </div>
   );
 };
 
