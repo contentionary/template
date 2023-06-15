@@ -32,11 +32,9 @@ const CreateLeague = () => {
   const { getData, values, submit, check, resetValues, getEditor } =
     useForm(create);
   const [img, setImg] = useState<Record<string, any>>({});
-  const [fileLoadingProgres, setFileLoadingProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [progres, setProgress] = useState(0);
   const [convertedImage, setConvertedImage] = useState<any>();
-  const [convertedFile, setConvertedFile] = useState<any>();
   const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>();
 
   const router = useRouter();
@@ -52,9 +50,6 @@ const CreateLeague = () => {
       }
       if (folderId) values.folderId = folderId;
       values.type = type;
-      if (typeof values?.tags === "string")
-        values.tags = values.tags.split(",");
-      convertedFile && (values.fileUrl = convertedFile);
       convertedImage && (values.image = convertedImage);
       const data = await request.post({
         url:
@@ -234,7 +229,7 @@ const CreateLeague = () => {
         sx={{ color: "#fff", zIndex: (theme: any) => theme.zIndex.drawer + 1 }}
         color="primary"
         size={100}
-        value={fileLoadingProgres || progres}
+        value={progres}
       />
     </Box>
   );

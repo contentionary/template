@@ -1,5 +1,6 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import AddCircleOutlineOutlined from "@mui/icons-material/AddCircleOutlineOutlined";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
@@ -29,8 +30,11 @@ const AddSubscriber = ({
     try {
       setIsLoading(true);
       const data = await request.post({
-        url: `/centre/${centreId}/league/${id}/subscribers`,
-        data: { subscribers: values.subscribers.split(",") },
+        url: `/centre/${centreId}/league/${id}/candidates`,
+        data: {
+          candidates: values.candidates.split(","),
+          nextPaymentDate: values.nextPaymentDate,
+        },
       });
       refetch();
       toggleToast(data.message);
@@ -50,12 +54,12 @@ const AddSubscriber = ({
         sx={{ fontSize: 18 }}
       >
         <>
-          <AddCircleOutlineOutlined /> &nbsp; Add Subscribers
+          <AddCircleOutlineOutlined /> &nbsp; Add Candidates
         </>
       </ButtonComponent>
 
       <Dialog
-        title="Add Subscribers"
+        title="Add Candidates"
         isOpen={isOpen}
         closeDialog={closeDialog}
         content={
@@ -65,17 +69,30 @@ const AddSubscriber = ({
                 Enter Subscriber’s email or username:
               </Typography>
               <Typography variant="subtitle1" component="div">
-                Type the emails or username of the new subscribers you want to
-                add. If you want to add multiple subscribers, then seperate the
+                Type the emails or username of the new candidates you want to
+                add. If you want to add multiple candidates, then seperate the
                 email or username with a comma (,)
               </Typography>
               <TextFields
                 type="text"
-                label="subscribers"
-                name="subscribers"
+                label="candidates"
+                name="candidates"
                 onChange={getData}
                 required
               />
+              <Box>
+                <TextFields
+                  type="datetime-local"
+                  name="nextPaymentDate"
+                  onChange={getData}
+                  required
+                  fullWidth
+                />
+                <Typography variant="body2" component="div">
+                  Next Payment Date
+                </Typography>
+              </Box>
+
               <Typography style={{ textAlign: "right", marginTop: 20 }}>
                 <ButtonComponent type="submit" sx={{ fontSize: 18 }}>
                   <>

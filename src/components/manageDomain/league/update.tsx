@@ -112,13 +112,15 @@ const UpdateLeague = () => {
           />
           {type != "FOLDER" && (
             <>
-              <TextFields
-                type="number"
-                label="league Price"
-                defaultValue={league.price}
-                name="price"
-                onChange={getData}
-              />
+              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+                <TextFields
+                  type="number"
+                  label="league Price"
+                  defaultValue={league.price}
+                  name="price"
+                  onChange={getData}
+                />
+              )}
               <Box
                 sx={{
                   display: "flex",

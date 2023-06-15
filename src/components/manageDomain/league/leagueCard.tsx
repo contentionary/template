@@ -45,10 +45,11 @@ const PublicationCard: LeagueCardFunc = ({ league }) => {
         href={
           type === "FOLDER"
             ? `/admin/league?folderId=${id}`
-            : `/admin/league/${id}/update?type=${type}`
+            : `/admin/league/${id}/exams`
         }
         passHref
       >
+        {/* `/admin/league/${id}/update?type=${type}` */}
         <CardActionArea
           LinkComponent={MuiLink}
           className="MuiLeagueCardActionBase-root"

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Pagination from "@mui/material/Pagination";
 import { queryClient } from "@src/utils";
 import MuiTable from "@src/components/shared/table";
-import AddSubscriber from "./addSubscriber";
+import AddSubscriber from "./addCandidate";
 import Empty from "@src/components/shared/state/Empty";
 import Delete from "@src/components/shared/delete";
 import { useRouter } from "next/router";
@@ -24,14 +24,14 @@ interface SubscriberInt {
   id: string;
 }
 
-export default function Subscribers() {
+export default function Candidates() {
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const router = useRouter();
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const subscribers = pageData.subscribersList.subscribers;
-  const pageCount = pageData.subscribersList.pageCount as number;
+  const candidates = pageData.candidateList.candidates;
+  const pageCount = pageData.candidateList.pageCount as number;
   const [limit, setLimit] = React.useState(50);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     router.replace({
@@ -50,14 +50,14 @@ export default function Subscribers() {
     { minWidth: 70, name: "Phone Number", key: "phoneNumber" },
     { minWidth: 250, name: "Action", key: "action" },
   ];
-  const result = subscribers?.map((item: SubscriberInt, index: number) => ({
+  const result = candidates?.map((item: SubscriberInt, index: number) => ({
     index: ++index,
     ...item,
     action: (
       <Delete
         updateData={(e: any) => handleChange(e, 1)}
         toggleToast={toggleToast}
-        url={`/centre/${centreId}/league/${id}/subscriber/${item.id}`}
+        url={`/centre/${centreId}/league/${id}/candidate/${item.id}`}
       />
     ),
   }));
@@ -69,7 +69,7 @@ export default function Subscribers() {
           component="p"
           sx={{ textAlign: "center", fontSize: { xs: 25, md: 32 } }}
         >
-          League Subscribers
+          League Candidates
         </Typography>
         <Typography sx={{ display: "flex", justifyContent: "space-between" }}>
           <AddSubscriber
