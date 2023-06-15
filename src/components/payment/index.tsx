@@ -224,6 +224,7 @@ export default function Payment(): JSX.Element {
                         paymentPlan[index].isDefault = true;
                         setPaymentPlan([...paymentPlan]);
                         setPricingId(paymentPlan[index].id);
+                        setAmount(amount);
                       }}
                       className={styles.paymentPlanCard}
                       sx={{
