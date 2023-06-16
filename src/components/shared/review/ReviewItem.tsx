@@ -114,6 +114,7 @@ const ReviewItem = (props: ReviewItemInt) => {
       setReviewFormProps((prevState) => ({
         ...prevState,
         review,
+        id: review.contentId,
         cancelReplyForm,
         query: "replies",
       }));
@@ -126,6 +127,7 @@ const ReviewItem = (props: ReviewItemInt) => {
     setReviewFormProps((prevState) => ({
       ...prevState,
       review,
+      id: review.id,
       action: "edit",
       cancelReplyForm,
       query: reply ? "replies" : "reviews",

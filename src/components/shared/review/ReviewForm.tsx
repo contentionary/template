@@ -287,7 +287,7 @@ const ReviewForm = (props: ReviewFormInt) => {
                 loading={loading}
                 disabled={comment === "" || loading}
               >
-                Comment
+                {!action || action === "create" ? "Comment" : "Save"}
               </LoadingButton>
             </Stack>
           </Stack>
