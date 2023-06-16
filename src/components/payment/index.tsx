@@ -42,7 +42,9 @@ export default function Payment(): JSX.Element {
     incomingCurrency as Currency
   );
   const [amount, setAmount] = useState<number>(Number(price));
-  const [paymentMethod, setPaymentMethod] = useState<"CARD" | "WALLET">("CARD");
+  const [paymentProcessor, setPaymentProcessor] = useState<
+    "PAYSTACK" | "WALLET" | "STRIPE" | "FLUTTERWAVE"
+  >(currency != "USD" ? "PAYSTACK" : "STRIPE");
   const [confirmedPrice, setConfirmedPrice] = useState<boolean | number>(false);
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -84,7 +86,8 @@ export default function Payment(): JSX.Element {
       const redirectUrl = `${resourceRedirectUrl}?verifyValue=true&price=${amount}`;
       const paymentData: any = {
         amount: parseInt((amount * 100).toFixed(0)),
-        paymentMethod,
+        paymentMethod: paymentProcessor === "WALLET" ? "WALLET" : "CARD",
+        paymentProcessor,
         currency,
         redirectUrl,
         purpose,
@@ -105,6 +108,7 @@ export default function Payment(): JSX.Element {
         data: paymentData,
         headers: { transactionkey },
       });
+      // console.log(data, redirectUrl, "yes");
       if (!isServerSide) {
         window.location.href = data.redirect ? data.redirectUrl : redirectUrl;
       }
@@ -115,7 +119,7 @@ export default function Payment(): JSX.Element {
   };
   const freePayment = useCallback(makePayment, [
     amount,
-    paymentMethod,
+    paymentProcessor,
     currency,
     purpose,
     itemId,
@@ -220,6 +224,7 @@ export default function Payment(): JSX.Element {
                         paymentPlan[index].isDefault = true;
                         setPaymentPlan([...paymentPlan]);
                         setPricingId(paymentPlan[index].id);
+                        setAmount(amount);
                       }}
                       className={styles.paymentPlanCard}
                       sx={{
@@ -343,12 +348,19 @@ export default function Payment(): JSX.Element {
                               {
                                 processor,
                                 logo,
-                              }: { processor: string; logo: string },
+                              }: {
+                                processor:
+                                  | "STRIPE"
+                                  | "PAYSTACK"
+                                  | "FLUTTERWAVE"
+                                  | "WALLET";
+                                logo: string;
+                              },
                               index
                             ) => (
                               <Grid
                                 key={index}
-                                onClick={() => setPaymentMethod("CARD")}
+                                onClick={() => setPaymentProcessor(processor)}
                                 item
                                 xs={12}
                                 md={4}
@@ -356,7 +368,7 @@ export default function Payment(): JSX.Element {
                                   position: "relative",
                                 }}
                               >
-                                {paymentMethod === "CARD" && (
+                                {paymentProcessor === processor && (
                                   <CheckCircle
                                     fontSize="large"
                                     color="primary"
@@ -373,7 +385,7 @@ export default function Payment(): JSX.Element {
                                     styles.cardHeight
                                   } 
                             ${
-                              paymentMethod === "CARD"
+                              paymentProcessor === processor
                                 ? styles.activeCard
                                 : styles.inActive
                             } 
@@ -402,7 +414,7 @@ export default function Payment(): JSX.Element {
                           )}
                           {paymentService.WALLET && purpose != "FUND_WALLET" && (
                             <Grid
-                              onClick={() => setPaymentMethod("WALLET")}
+                              onClick={() => setPaymentProcessor("WALLET")}
                               item
                               xs={12}
                               md={4}
@@ -410,7 +422,7 @@ export default function Payment(): JSX.Element {
                                 position: "relative",
                               }}
                             >
-                              {paymentMethod === "WALLET" && (
+                              {paymentProcessor === "WALLET" && (
                                 <CheckCircle
                                   fontSize="large"
                                   color="primary"
@@ -427,7 +439,7 @@ export default function Payment(): JSX.Element {
                                   styles.cardHeight
                                 } 
                             ${
-                              paymentMethod === "WALLET"
+                              paymentProcessor === "WALLET"
                                 ? styles.activeCard
                                 : styles.inActive
                             } 

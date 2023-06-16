@@ -128,7 +128,7 @@ const CreatePublication = () => {
             type="text"
             label="Title"
             name="title"
-            defaultValue={landingPageSectionOne.title}
+            defaultValue={landingPageSectionOne?.title}
             onChange={(e: ChangeEvent<any>) => {
               landingPageSectionOne.title = e.target.value;
               setLandingPageSectionOne({ ...landingPageSectionOne });
@@ -140,7 +140,7 @@ const CreatePublication = () => {
             setImg={setImg}
             img={img}
             uploadText="Select and upload image"
-            defaultImage={landingPageSectionOne.imageUrl}
+            defaultImage={landingPageSectionOne?.imageUrl}
           />
           <Box>
             <Typography variant="subtitle1" component="div">
@@ -154,7 +154,7 @@ const CreatePublication = () => {
                 landingPageSectionOne.description = e.target.value;
                 setLandingPageSectionOne({ ...landingPageSectionOne });
               }}
-              defaultValue={landingPageSectionOne.description}
+              defaultValue={landingPageSectionOne?.description}
               style={{
                 width: "100%",
                 height: 120,
@@ -173,7 +173,7 @@ const CreatePublication = () => {
                 type="text"
                 label="Title"
                 name="title"
-                defaultValue={content.title}
+                defaultValue={content?.title}
                 onChange={(e: ChangeEvent<any>) => {
                   contents[index].title = e.target.value;
                   setContents([...contents]);
@@ -203,7 +203,7 @@ const CreatePublication = () => {
                     contents[index].description = e.target.value;
                     setContents([...contents]);
                   }}
-                  defaultValue={content.description}
+                  defaultValue={content?.description}
                   style={{
                     width: "100%",
                     height: 120,
@@ -219,7 +219,7 @@ const CreatePublication = () => {
             type="color"
             label="Primary Color"
             name="primaryColor"
-            defaultValue={template.primaryColor}
+            defaultValue={template?.primaryColor}
             onChange={getData}
             sx={{
               width: "100%",
@@ -231,7 +231,7 @@ const CreatePublication = () => {
           <TextArea
             placeholder="Google Analytics Code"
             name="googleAnalyticsCode"
-            defaultValue={template.googleAnalyticsCode}
+            defaultValue={template?.googleAnalyticsCode}
             onChange={getData}
             style={{
               width: "100%",

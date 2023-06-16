@@ -41,7 +41,14 @@ export default function CustomizedMenus({
               Create Folder
             </MenuItem>
           </Link>
-          <Link passHref href="/admin/course/create?type=FOLDER">
+          <Link
+            passHref
+            href={
+              folderId
+                ? `/admin/course/create?type=COURSE&folderId=${folderId}`
+                : "/admin/course/create?type=COURSE"
+            }
+          >
             <MenuItem disableRipple>
               <Add />
               Create Course
