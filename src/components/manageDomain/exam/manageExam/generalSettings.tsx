@@ -40,7 +40,6 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
   const Loading = dynamic(
     () => import("@src/components/shared/loading/loadingWithValue")
   );
-
   async function create() {
     try {
       setIsLoading(true);
@@ -64,6 +63,10 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
     }
   }
 
+    const date = new Date();
+    const futureDate = date.getDate() + 3;
+    date.setDate(futureDate);
+    const defaultValue = date.toLocaleDateString("en-CA");
   return (
     <Box mb={10}>
       <form
@@ -81,6 +84,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
           >
             General Exam Settings
           </Typography>
+          <h1>{exam.startDate.split("T")[0]}</h1>{defaultValue}
           <Box>
             <TextFields
               type="text"
@@ -115,7 +119,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
                 type="datetime-local"
                 // label="Exam start date"
                 name="startDate"
-                // defaultValue="2022-10-26T5:10"
+                value={exam.startDate.split("T")[0]}
                 onChange={getData}
                 sx={{ width: "100%" }}
               />
@@ -126,7 +130,9 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
             <Box sx={{ width: { xs: "100", md: "33%" } }}>
               <TextFields
                 type="datetime-local"
-                // label="Exam end date"
+                // defaultValue={
+                //   exam?.endDate ? exam.endDate.toISOString().split("T")[0] : ""
+                // }
                 name="endDate"
                 onChange={getData}
                 sx={{ width: "100%" }}
@@ -158,7 +164,6 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
               category goes to Others)
             </Typography>
           </FormControl>
-
           <Box>
             <Typography variant="subtitle1" component="div">
               Summary *

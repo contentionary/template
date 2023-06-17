@@ -347,6 +347,7 @@ export const getCentre = async (
     let { data: centre } = await request.get({
       url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
     });
+    console.log(centre)
     if (!returnFullData && centre)
       centre = {
         id: centre.id,
@@ -355,8 +356,8 @@ export const getCentre = async (
         primaryColor: centre.primaryColor || "#DD6E20",
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
         description: centre.description,
-        template: centre.template,
-        // template: "examAndPublication",
+        // template: centre.template,
+        template: "course",
         logo: centre.logo,
         price: centre.price,
         domain: centre.domain,
