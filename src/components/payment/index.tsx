@@ -22,11 +22,14 @@ import { useToast } from "@src/utils/hooks";
 import { Currency } from "./interface";
 import Loader from "@src/components/shared/loading/loadingWithValue";
 import { BasePageProps } from "@src/utils/interface";
+import Page500 from "../shared/state/500";
 
 export default function Payment(): JSX.Element {
   const router = useRouter();
   const styles = useStyles();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState<any>();
   const [isConvertingCurrency, setIsConvertingCurrency] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const {
@@ -78,7 +81,13 @@ export default function Payment(): JSX.Element {
       }
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
-    } catch (err) {}
+    } catch (err) {
+      if (handleError(err).statusCode === 403) {
+        console.log(handleError(err), "ey");
+        setLoading(false);
+        setMessage(err);
+      }
+    }
   }, [itemId, purpose, pricingId]);
 
   const makePayment = async () => {
@@ -174,8 +183,17 @@ export default function Payment(): JSX.Element {
   };
   return (
     <Container className={styles.container}>
+      {message && (
+        <Box component="main" sx={{ pt: 8 }}>
+          <Page500
+            error={message}
+            link={resourceRedirectUrl as string}
+            text="Go Back"
+          />
+        </Box>
+      )}
       {amount === 0 ? (
-        <Loader size={100} open={true} value={10} />
+        <Loader size={100} open={loading} value={10} />
       ) : (
         <>
           {paymentPlan.length > 0 && (

@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 // icon
 import KeyboardBackspaceOutlinedIcon from "@mui/icons-material/KeyboardBackspaceOutlined";
 
-const Page500: ErrorPageFunc = ({ error }) => {
+const Page500: ErrorPageFunc = ({ error, link, text }) => {
   return (
     <Box
       component="section"
@@ -37,7 +37,7 @@ const Page500: ErrorPageFunc = ({ error }) => {
           <Typography variant="h4" mb={4}>
             {error.message}
           </Typography>
-          <NextLink passHref href="/">
+          <NextLink passHref href={link ? link : "/"}>
             <Button
               size="large"
               disableElevation
@@ -45,7 +45,8 @@ const Page500: ErrorPageFunc = ({ error }) => {
               component={MuiLink}
             >
               <Stack direction="row" alignItems="center" spacing={2}>
-                <KeyboardBackspaceOutlinedIcon /> &nbsp; Go back home
+                <KeyboardBackspaceOutlinedIcon /> &nbsp;{" "}
+                {text ? text : "Go back home"}
               </Stack>
             </Button>
           </NextLink>
