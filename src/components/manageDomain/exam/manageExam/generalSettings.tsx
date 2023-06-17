@@ -62,11 +62,6 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
       setIsLoading(false);
     }
   }
-
-    const date = new Date();
-    const futureDate = date.getDate() + 3;
-    date.setDate(futureDate);
-    const defaultValue = date.toLocaleDateString("en-CA");
   return (
     <Box mb={10}>
       <form
@@ -84,7 +79,6 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
           >
             General Exam Settings
           </Typography>
-          <h1>{exam.startDate.split("T")[0]}</h1>{defaultValue}
           <Box>
             <TextFields
               type="text"
