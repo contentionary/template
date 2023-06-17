@@ -45,8 +45,7 @@ const AboutLeague: LeagueDetailsPageFunc = ({ league }) => {
                     item
                     xl={3}
                     md={4}
-                    sm={6}
-                    xs={12}
+                    xs={6}
                     key={`participant-item-${index}`}
                   >
                     <ParticipantCard

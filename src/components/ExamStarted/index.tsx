@@ -293,6 +293,7 @@ const StartExam: ExamFunc = (props) => {
     <React.Fragment>
       {submitAnsResponse?.success ? (
         <FinishedExamCard
+          leagueId={leagueId}
           exam={props.exam}
           submitAnsResponse={submitAnsResponse}
         />

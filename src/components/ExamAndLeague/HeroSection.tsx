@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 // next components
 import NextLink from "next/link";
+import { useRouter } from "next/router";
+// uuid
+import { v4 as uuid } from "uuid";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -18,20 +21,50 @@ import ImageComponent from "@src/components/shared/image";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
-import { queryClient } from "@src/utils";
 import useCardStyle from "@src/styles/card";
 import { LeagueFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
+import { cache, isServerSide, queryClient } from "@src/utils";
+import ConfirmPayment from "@src/components/payment/confirmPayment";
 
 const HeroSection: LeagueFunc = () => {
   const theme = useTheme();
+  const router = useRouter();
   const cardStyle = useCardStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { user } = cachedData;
+  const { user, centre } = cachedData;
+  const pricing = pageData?.templateData?.defaultPrice;
+  const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
+  const redirectUrl = !isServerSide ? window.location.href : "";
   const { landingPageSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
+
+  const isCentreSubscriber = !isServerSide
+    ? cache.get("isCentreSubscriber")
+    : false;
+  const getStarted = {
+    link: "/leagues",
+    text: isCentreSubscriber ? "Browse Leagues" : "Get started",
+  };
+  if (!isCentreSubscriber) {
+    const paymentLink = user
+      ? `
+    /payment?transactionkey=${uuid()}&itemId=${
+          centre.id
+        }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
+          centre.price
+        }&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/login";
+    getStarted.link = paymentLink;
+    getStarted.text =
+      centre.subscriptionModel === "SUBSCRIPTION"
+        ? `Get started for ${pricing ? pricing.symbol : "₦"}${
+            pricing ? pricing.amount : centre.price
+          }`
+        : "Request Access";
+  }
 
   return (
     <Fragment>
@@ -60,7 +93,7 @@ const HeroSection: LeagueFunc = () => {
               >
                 {landingPageSectionOne?.description}
               </Typography>
-              <NextLink href={user ? "/leagues" : "/login"} passHref>
+              <NextLink href={getStarted.link} passHref>
                 <Button
                   size="large"
                   disableElevation
@@ -68,7 +101,7 @@ const HeroSection: LeagueFunc = () => {
                   component={MuiLink}
                   color="primary"
                 >
-                  Get Started
+                  {getStarted.text}
                 </Button>
               </NextLink>
             </Grid>
@@ -145,6 +178,14 @@ const HeroSection: LeagueFunc = () => {
           </Grid>
         </Container>
       </Box>
+      {verifyValue && (
+        <ConfirmPayment
+          price={Number(deductedPrice)}
+          reference={reference || tx_ref}
+          redirectUrl={redirectUrl}
+          purpose="CENTRE_SUBSCRIPTION"
+        />
+      )}
     </Fragment>
   );
 };

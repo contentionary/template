@@ -76,14 +76,7 @@ const LeagueParticipants: LeagueDetailsPageFunc = ({ league }) => {
       <Fragment>
         <Grid container spacing={3}>
           {participantList.candidates.map((participant, index: number) => (
-            <Grid
-              item
-              xl={3}
-              md={4}
-              sm={6}
-              xs={12}
-              key={`participant-item-${index}`}
-            >
+            <Grid item xl={3} md={4} xs={6} key={`participant-item-${index}`}>
               <ParticipantCard participant={participant} />
             </Grid>
           ))}

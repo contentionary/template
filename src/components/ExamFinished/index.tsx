@@ -17,7 +17,7 @@ import { ExamFinishedFunc } from "./interfaceType";
 // import { dateTimeFormat } from "@src/utils";
 
 const FinishedExamCard: ExamFinishedFunc = (props) => {
-  const { exam /* auth */ } = props;
+  const { exam, leagueId /* auth */ } = props;
   const { data } = props.submitAnsResponse;
   const minutes = Math.floor(data?.duration / 60);
   var seconds = Math.floor(data?.duration % 60);
@@ -71,7 +71,12 @@ const FinishedExamCard: ExamFinishedFunc = (props) => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <NextLink href={`/exams/${exam.slug}`} passHref>
+                <NextLink
+                  href={
+                    leagueId ? `/leagues/${leagueId}` : `/exams/${exam.slug}`
+                  }
+                  passHref
+                >
                   <Button
                     size="large"
                     disableElevation
