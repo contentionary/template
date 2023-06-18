@@ -1,3 +1,5 @@
+import React from "react";
+// next
 import Link from "next/link";
 //
 import Hidden from "@mui/material/Hidden";
@@ -56,8 +58,8 @@ const CreateAccount = (): JSX.Element => {
   }
 
   return (
-    <Container>
-      <Grid container>
+    <React.Fragment>
+      <Grid container component="main" sx={{ height: "100vh" }}>
         <Hidden smDown={true}>
           <Grid
             item
@@ -202,7 +204,7 @@ const CreateAccount = (): JSX.Element => {
           showToast={toggleToast}
         />
       )}
-    </Container>
+    </React.Fragment>
   );
 };
 

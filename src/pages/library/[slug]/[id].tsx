@@ -13,7 +13,7 @@ const PublicationDetailsPage = (pageProps: BasePageProps) => {
     return <ActiveTemplate />;
   }
   const ActiveTemplate =
-    templates[pageProps.cachedData.centre.template]("Details");
+    templates[pageProps.cachedData.centre.template]("BookDetails");
 
   return <ActiveTemplate />;
 };

@@ -1,3 +1,5 @@
+import React, { Fragment } from "react";
+// next link
 import Link from "next/link";
 //
 import Hidden from "@mui/material/Hidden";
@@ -61,7 +63,7 @@ const CreateAccount = (): JSX.Element => {
   }
 
   return (
-    <Container>
+    <Fragment>
       <Grid container sx={{ height: "100vh" }}>
         <Hidden smDown={true}>
           <Grid item xs={12} md={6} sx={{ position: "relative" }}>
@@ -288,7 +290,7 @@ const CreateAccount = (): JSX.Element => {
           { text: "Cancel", action: closeDialog },
         ]}
       />
-    </Container>
+    </Fragment>
   );
 };
 export default CreateAccount;

@@ -11,7 +11,7 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
-// import { useTheme } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 // app components
 import ImageComponent from "@src/components/shared/image";
 // icons and resources
@@ -24,6 +24,7 @@ import { ExamFunc } from "./interfaceType";
 import { BasePageProps } from "@src/utils/interface";
 
 const HeroSection: ExamFunc = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const { pageData = null, cachedData } = queryClient.getQueryData(
     "pageProps"
@@ -52,7 +53,7 @@ const HeroSection: ExamFunc = () => {
               <Typography
                 mb={3}
                 paragraph
-                fontSize={30}
+                fontSize={{ xs: 16, md: 20 }}
                 color="GrayText"
                 lineHeight={1.3}
                 maxWidth="450px"
@@ -92,7 +93,10 @@ const HeroSection: ExamFunc = () => {
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            bgcolor: "#FBEEE6",
+                            backgroundColor: alpha(
+                              theme.palette.primary["main"],
+                              0.1
+                            ),
                           }}
                         >
                           <PersonOutlineOutlinedIcon color="primary" />
@@ -108,7 +112,10 @@ const HeroSection: ExamFunc = () => {
                   <Avatar
                     sx={{
                       mx: "auto",
-                      bgcolor: "#FBEEE6",
+                      backgroundColor: alpha(
+                        theme.palette.primary["main"],
+                        0.1
+                      ),
                     }}
                   >
                     <AutoStoriesOutlinedIcon color="primary" />

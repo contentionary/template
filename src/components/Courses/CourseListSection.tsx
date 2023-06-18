@@ -41,10 +41,10 @@ const CourseListSection = ({ pageData }: Record<string, any>) => {
       <Stack py={4} direction="row" justifyContent="center" spacing={2}>
         {pageCount > 1 && (
           <Pagination
+            size="large"
+            shape="rounded"
             count={pageCount}
             onChange={handleChange}
-            shape="rounded"
-            size="large"
           />
         )}
       </Stack>

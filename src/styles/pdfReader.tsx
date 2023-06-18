@@ -1,5 +1,5 @@
 import { makeStyles } from "@mui/styles";
-import grey from "@mui/material/colors/grey";
+import { grey } from "@mui/material/colors";
 
 const pdfStyle = makeStyles({
   pdfPage: {

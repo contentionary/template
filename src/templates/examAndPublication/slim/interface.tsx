@@ -2,7 +2,7 @@ export type ExamAndPublicationPages =
   | "Home"
   | "Exams"
   | "Library"
-  | "Details"
+  | "BookDetails"
   | "MyExams"
   | "ErrorPage"
   | "MyPublications"

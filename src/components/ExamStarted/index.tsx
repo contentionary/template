@@ -3,7 +3,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import grey from "@mui/material/colors/grey";
+import { grey } from "@mui/material/colors";
 import Container from "@mui/material/Container";
 import { useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
@@ -35,8 +35,8 @@ import {
   ErrorResponseInt,
   RequestResponseInt,
 } from "@src/utils/interface";
-import Proctoring from "./proctoring";
 import { AxiosError } from "axios";
+import Proctoring from "./proctoring";
 import { useRouter } from "next/router";
 
 export interface TempAnswerInt {
@@ -80,6 +80,8 @@ const StartExam: ExamFunc = (props) => {
   const [openEndExamModal, setOpenEndExamModal] =
     React.useState<boolean>(false);
   const [endingExam, setEndingExam] = React.useState<boolean>(false);
+  //
+  const leagueId = router.query?.leagueId;
   // subscriber exam question
   const { isLoading, isError, data, error } = useQuery(
     ["examQuestions", { id: exam.id }],
@@ -98,6 +100,8 @@ const StartExam: ExamFunc = (props) => {
   // Submit Exam mutant
   const submitAnswer = useMutation(
     async () => {
+      let league = {} as Record<string, string | string[]>;
+      if (leagueId) league["leagueId"] = leagueId;
       return await request.post({
         url: `/centre/${props.centerId}/exam/${props.exam.id}/answer`,
         data: {
@@ -105,6 +109,7 @@ const StartExam: ExamFunc = (props) => {
             ? exam.duration * 60
             : exam.duration * 60 - timer / 1000,
           answers: answers,
+          ...league,
         },
       });
     },
@@ -288,6 +293,7 @@ const StartExam: ExamFunc = (props) => {
     <React.Fragment>
       {submitAnsResponse?.success ? (
         <FinishedExamCard
+          leagueId={leagueId}
           exam={props.exam}
           submitAnsResponse={submitAnsResponse}
         />
@@ -331,11 +337,7 @@ const StartExam: ExamFunc = (props) => {
               <Box
                 maxWidth={exam.hasProctor ? 1020 : 820}
                 width="100%"
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                }}
+                sx={{ display: "flex", justifyContent: "space-between" }}
               >
                 {exam.hasProctor && (
                   <Box sx={{ mr: 3 }}>

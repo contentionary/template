@@ -4,4 +4,5 @@ import { ExamInt, RequestResponseInt } from "@src/utils/interface";
 export declare type ExamFinishedFunc = (props: {
   submitAnsResponse: RequestResponseInt;
   exam: ExamInt;
+  leagueId?: string | string[];
 }) => JSX.Element;

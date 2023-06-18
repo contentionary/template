@@ -57,10 +57,7 @@ const cardStyle = makeStyles({
       },
     },
   },
-  defaultCard: {
-    height: "100%",
-    transition: "300ms ease-out",
-    boxShadow: "0px 0px 20px rgba(203, 203, 203, 0.25)",
+  cardTranslateUp: {
     "&:hover": {
       transform: "translateY(-1rem)",
     },
@@ -68,6 +65,11 @@ const cardStyle = makeStyles({
       boxShadow: "none",
       transform: "translateY(0)",
     },
+  },
+  defaultCard: {
+    height: "100%",
+    transition: "300ms ease-out",
+    boxShadow: "0px 0px 12px rgba(203, 203, 203, 0.25)",
     "&	.MuiCardActionArea-root:hover .MuiCardActionArea-focusHighlight": {
       opacity: 0,
     },
@@ -78,16 +80,25 @@ const cardStyle = makeStyles({
   get courseCard() {
     return {
       ...this.defaultCard,
+      ...this.cardTranslateUp,
+    };
+  },
+  get leagueCard() {
+    return {
+      ...this.defaultCard,
+      ...this.cardTranslateUp,
     };
   },
   get publicationCard() {
     return {
       ...this.defaultCard,
+      ...this.cardTranslateUp,
     };
   },
   get examCard() {
     return {
       ...this.defaultCard,
+      ...this.cardTranslateUp,
       "& .MuiCardActionArea-root .MuiCardContent-root.exam-content": {
         position: "relative",
         backgroundColor: theme().palette.primary.main,

@@ -1,6 +1,9 @@
 import React, { Fragment } from "react";
 // next components
 import NextLink from "next/link";
+import { useRouter } from "next/router";
+// uuid
+import { v4 as uuid } from "uuid";
 // mui components
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -11,6 +14,7 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import { alpha, useTheme } from "@mui/material/styles";
 // import { useTheme } from "@mui/material/styles";
 // app components
 import ImageComponent from "@src/components/shared/image";
@@ -18,14 +22,13 @@ import ImageComponent from "@src/components/shared/image";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 // interface and styles
-import { cache, isServerSide, queryClient } from "@src/utils";
 import useCardStyle from "@src/styles/card";
 import { BasePageProps } from "@src/utils/interface";
-import { v4 as uuid } from "uuid";
+import { cache, isServerSide, queryClient } from "@src/utils";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
-import { useRouter } from "next/router";
 
 const HeroSection = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const router = useRouter();
   const { pageData = null, cachedData } = queryClient.getQueryData(
@@ -51,7 +54,7 @@ const HeroSection = () => {
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}`
+        }&currency=NGN&redirectUrl=${redirectUrl}&url=courses`
       : "/login";
     getStarted.link = paymentLink;
     getStarted.text =
@@ -81,7 +84,7 @@ const HeroSection = () => {
               <Typography
                 mb={3}
                 paragraph
-                fontSize={{ xs: 18, md: 25 }}
+                fontSize={{ xs: 16, md: 20 }}
                 color="GrayText"
                 lineHeight={1.3}
                 maxWidth="450px"
@@ -121,7 +124,10 @@ const HeroSection = () => {
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            bgcolor: "#FBEEE6",
+                            backgroundColor: alpha(
+                              theme.palette.primary["main"],
+                              0.1
+                            ),
                           }}
                         >
                           <PersonOutlineOutlinedIcon color="primary" />
@@ -137,7 +143,10 @@ const HeroSection = () => {
                   <Avatar
                     sx={{
                       mx: "auto",
-                      bgcolor: "#FBEEE6",
+                      backgroundColor: alpha(
+                        theme.palette.primary["main"],
+                        0.1
+                      ),
                     }}
                   >
                     <AutoStoriesOutlinedIcon color="primary" />

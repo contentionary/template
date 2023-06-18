@@ -25,7 +25,7 @@ import {
   FOLDER_IMAGE_PLACEHOLDER,
 } from "@src/utils";
 
-const ExamCard: ExamCardFunc = ({ exam }) => {
+const ExamCard: ExamCardFunc = ({ exam, leagueId }) => {
   const {
     id,
     type,
@@ -43,7 +43,13 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
   return (
     <Card className={cardStyle.examCard}>
       <NextLink
-        href={type === "FOLDER" ? `/exams?folderId=${id}` : `/exams/${slug}`}
+        href={
+          type === "FOLDER"
+            ? `/exams?folderId=${id}`
+            : `/exams/${slug}${
+                leagueId ? `/instructions?leagueId=${leagueId}` : ""
+              }`
+        }
         passHref
       >
         <CardActionArea
@@ -136,10 +142,19 @@ const ExamCard: ExamCardFunc = ({ exam }) => {
                   variant="body2"
                   alignItems="center"
                 >
-                  <PeopleAltOutlinedIcon color="inherit" fontSize="inherit" />
-                  &nbsp;
-                  {subscriberCount ? kCount(subscriberCount) : 0}
-                  &nbsp; Subscribers
+                  {leagueId ? (
+                    ""
+                  ) : (
+                    <React.Fragment>
+                      <PeopleAltOutlinedIcon
+                        color="inherit"
+                        fontSize="inherit"
+                      />
+                      &nbsp;
+                      {subscriberCount ? kCount(subscriberCount) : 0}
+                      &nbsp; Subscribers
+                    </React.Fragment>
+                  )}
                 </Typography>
               </Stack>
             )}

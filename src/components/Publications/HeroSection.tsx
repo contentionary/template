@@ -11,6 +11,7 @@ import { Link as MuiLink } from "@mui/material";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import AvatarGroup from "@mui/material/AvatarGroup";
+import { alpha, useTheme } from "@mui/material/styles";
 // icons and resources
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -25,6 +26,7 @@ import { v4 as uuid } from "uuid";
 import ImageComponent from "@src/components/shared/image";
 
 const HeroSection: PublicationsFunc = () => {
+  const theme = useTheme();
   const cardStyle = useCardStyle();
   const router = useRouter();
   const { reference, verifyValue, price: deductedPrice, tx_ref } = router.query;
@@ -57,7 +59,7 @@ const HeroSection: PublicationsFunc = () => {
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}`
+        }&currency=NGN&redirectUrl=${redirectUrl}&url=library`
       : "/login";
     getStarted.link = paymentLink;
     getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${
@@ -127,7 +129,10 @@ const HeroSection: PublicationsFunc = () => {
                         <Avatar
                           key={`${index}-avatar`}
                           sx={{
-                            bgcolor: "#FBEEE6",
+                            backgroundColor: alpha(
+                              theme.palette.primary["main"],
+                              0.1
+                            ),
                           }}
                         >
                           <PersonOutlineOutlinedIcon color="primary" />
@@ -143,7 +148,10 @@ const HeroSection: PublicationsFunc = () => {
                   <Avatar
                     sx={{
                       mx: "auto",
-                      bgcolor: "#FBEEE6",
+                      backgroundColor: alpha(
+                        theme.palette.primary["main"],
+                        0.1
+                      ),
                     }}
                   >
                     <AutoStoriesOutlinedIcon color="primary" />
