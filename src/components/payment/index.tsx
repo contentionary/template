@@ -83,7 +83,7 @@ export default function Payment(): JSX.Element {
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
     } catch (err) {
-      setMessage(err);
+      // setMessage(err);
       setLoading(false);
       if (handleError(err).statusCode === 403) {
         router.push(`/${url}`);
