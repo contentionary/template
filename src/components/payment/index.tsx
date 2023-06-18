@@ -40,6 +40,7 @@ export default function Payment(): JSX.Element {
     transactionkey,
     amount: price,
     metaData,
+    url,
   } = router.query;
   const [currency, setCurrency] = useState<Currency>(
     incomingCurrency as Currency
@@ -82,10 +83,10 @@ export default function Payment(): JSX.Element {
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
     } catch (err) {
+      setMessage(err);
+      setLoading(false);
       if (handleError(err).statusCode === 403) {
-        console.log(handleError(err), "ey");
-        setLoading(false);
-        setMessage(err);
+        router.push(`/${url}`);
       }
     }
   }, [itemId, purpose, pricingId]);

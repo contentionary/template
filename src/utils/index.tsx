@@ -386,6 +386,7 @@ export const getCentre = async (
         // template: "examAndLeague",
         // template: "courseExamLeaguePublication",
         template: centre.template,
+        // template: "examAndCourse",
         logo: centre.logo,
         plugins: {
           ...centre.plugins,
