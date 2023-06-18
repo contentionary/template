@@ -57,7 +57,7 @@ const HeroSection: PublicationsFunc = () => {
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}`
+        }&currency=NGN&redirectUrl=${redirectUrl}&url=library`
       : "/login";
     getStarted.link = paymentLink;
     getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${

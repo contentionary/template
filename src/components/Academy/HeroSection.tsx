@@ -51,7 +51,7 @@ const HeroSection = () => {
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}`
+        }&currency=NGN&redirectUrl=${redirectUrl}&url=courses`
       : "/login";
     getStarted.link = paymentLink;
     getStarted.text =
