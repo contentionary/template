@@ -94,6 +94,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
                   width: 100,
                   borderWidth: 1.5,
                   borderColor: "primary.main",
+                  backgroundColor: "primary.main",
                 }}
               />
               <Typography fontSize={20} mb={4} paragraph>
