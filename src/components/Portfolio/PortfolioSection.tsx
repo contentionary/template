@@ -52,7 +52,7 @@ const PortfolioSection: PortfolioFunc = () => {
             {aboutUsSectionOne.description}
           </Typography>
           <Grid container spacing={{ xs: 4, sm: 2, md: 4 }}>
-            {portfolioList.map((portfolio, index) => (
+            {portfolioList?.map((portfolio, index) => (
               <Grid key={`portfolio-item-${index}`} item sm={6} md={6} xs={12}>
                 <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
                   <Avatar

@@ -48,6 +48,7 @@ const HeroSection: CourseExamLeaguePublicationFunc = () => {
     link: "/leagues",
     text: isCentreSubscriber ? "Browse Leagues" : "Get started",
   };
+  console.log(centre.subscriptionModel);
   const href =
     centre.subscriptionModel === "SUBSCRIPTION"
       ? `
@@ -56,7 +57,7 @@ const HeroSection: CourseExamLeaguePublicationFunc = () => {
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
         }&currency=NGN&redirectUrl=${redirectUrl}`
-      : "/leagues";
+      : "#hero-section";
   if (!isCentreSubscriber) {
     const paymentLink = user ? href : "/login";
     getStarted.link = paymentLink;
@@ -65,7 +66,7 @@ const HeroSection: CourseExamLeaguePublicationFunc = () => {
         ? `Get started for ${pricing ? pricing.symbol : "₦"}${
             pricing ? pricing.amount : centre.price
           }`
-        : "Browse Leagues";
+        : "Categories";
   }
 
   return (
