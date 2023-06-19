@@ -51,16 +51,17 @@ const HeroSection: PublicationsFunc = () => {
     link: "/library",
     text: isCentreSubscriber ? "Browse Books" : "Get started",
   };
-
-  if (!isCentreSubscriber) {
-    const paymentLink = user
+  const href =
+    centre.subscriptionModel === "SUBSCRIPTION"
       ? `
     /payment?transactionkey=${uuid()}&itemId=${
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}&url=library`
-      : "/login";
+        }&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/library";
+  if (!isCentreSubscriber) {
+    const paymentLink = user ? href : "/login";
     getStarted.link = paymentLink;
     getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${
       pricing ? pricing.amount : centre.price
