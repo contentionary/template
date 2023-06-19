@@ -64,7 +64,7 @@ const HeroSection: ExamAndCourseFunc = () => {
         ? `Get started for ${pricing ? pricing.symbol : "₦"}${
             pricing ? pricing.amount : centre.price
           }`
-        : "Request Access";
+        : "Browse Courses";
   }
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {

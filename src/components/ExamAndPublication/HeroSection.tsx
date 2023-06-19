@@ -59,9 +59,12 @@ const HeroSection: ExamAndCourseFunc = () => {
   if (!isCentreSubscriber) {
     const paymentLink = user ? href : "/login";
     getStarted.link = paymentLink;
-    getStarted.text = `Get started for ${pricing ? pricing.symbol : "₦"}${
-      pricing ? pricing.amount : centre.price
-    }`;
+    getStarted.text =
+      centre.subscriptionModel === "SUBSCRIPTION"
+        ? `Get started for ${pricing ? pricing.symbol : "₦"}${
+            pricing ? pricing.amount : centre.price
+          }`
+        : "Browse Library";
   }
 
   return (

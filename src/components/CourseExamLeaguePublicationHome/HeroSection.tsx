@@ -65,7 +65,7 @@ const HeroSection: CourseExamLeaguePublicationFunc = () => {
         ? `Get started for ${pricing ? pricing.symbol : "₦"}${
             pricing ? pricing.amount : centre.price
           }`
-        : "Request Access";
+        : "Browse Leagues";
   }
 
   return (
