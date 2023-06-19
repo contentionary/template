@@ -383,9 +383,9 @@ export const getCentre = async (
         primaryColor: centre.primaryColor || "#DD6E20",
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
         description: centre.description,
-        // template: centre.template,
+        template: centre.template,
         // template: "examAndLeague",
-        template: "portfolio",
+        // template: "portfolio",
         logo: centre.logo,
         plugins: {
           ...centre.plugins,
