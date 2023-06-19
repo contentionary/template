@@ -47,15 +47,17 @@ const HeroSection: ExamAndCourseFunc = () => {
     link: "/courses",
     text: isCentreSubscriber ? "Browse Courses" : "Get started",
   };
-  if (!isCentreSubscriber) {
-    const paymentLink = user
+  const href =
+    centre.subscriptionModel === "SUBSCRIPTION"
       ? `
     /payment?transactionkey=${uuid()}&itemId=${
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}&url=courses`
-      : "/login";
+        }&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/courses";
+  if (!isCentreSubscriber) {
+    const paymentLink = user ? href : "/login";
     getStarted.link = paymentLink;
     getStarted.text =
       centre.subscriptionModel === "SUBSCRIPTION"
