@@ -113,7 +113,7 @@ const GeneralSettings = ({ toggleToast }: { toggleToast: Function }) => {
                 type="datetime-local"
                 // label="Exam start date"
                 name="startDate"
-                value={exam.startDate.split("T")[0]}
+                // value={exam.startDate.split("T")[0]}
                 onChange={getData}
                 sx={{ width: "100%" }}
               />
