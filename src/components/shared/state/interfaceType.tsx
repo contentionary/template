@@ -4,6 +4,8 @@ import { ErrorResponseInt } from "@src/utils/interface";
 export interface ErrorPageInt {
   error: ErrorResponseInt;
   showButton?: boolean;
+  link?: string;
+  text?: string;
 }
 export interface EmptyPageInt {
   href?: string;

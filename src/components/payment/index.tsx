@@ -27,6 +27,7 @@ export default function Payment(): JSX.Element {
   const router = useRouter();
   const styles = useStyles();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isConvertingCurrency, setIsConvertingCurrency] = useState(false);
   const { toastMessage, toggleToast } = useToast();
   const {
@@ -78,7 +79,9 @@ export default function Payment(): JSX.Element {
       }
       setAmount(standardAmount);
       setConfirmedPrice(standardAmount);
-    } catch (err) {}
+    } catch (err) {
+      setLoading(false);
+    }
   }, [itemId, purpose, pricingId]);
 
   const makePayment = async () => {
@@ -175,7 +178,7 @@ export default function Payment(): JSX.Element {
   return (
     <Container className={styles.container}>
       {amount === 0 ? (
-        <Loader size={100} open={true} value={10} />
+        <Loader size={100} open={loading} value={10} />
       ) : (
         <>
           {paymentPlan.length > 0 && (
