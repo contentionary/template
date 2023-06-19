@@ -1,7 +1,7 @@
 import React from "react";
 import AcademyFooter from "../Footer/AcademyFooter";
 import AcademyHeader from "../Header/AcademyHeader";
-import HeadPage from "../PageHead";
+import HeadPage from "../../PageHead";
 import { AcademyWrapperFunc } from "./interface";
 
 const AcademyWrapper: AcademyWrapperFunc = ({

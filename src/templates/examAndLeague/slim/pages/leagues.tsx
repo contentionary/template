@@ -1,6 +1,6 @@
 import React from "react";
 import LeaguesPage from "@src/components/Leagues";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import ExamAndLeagueWrapper from "@src/components/Layout/Wrapper/ExamAndLeagueWrapper";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import CoursesPage from "@src/components/Courses/MyCourses";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import AcademyWrapper from "@src/components/Layout/Wrapper/AcademyWrapper";
 
 const MyCourses = () => {
   return (

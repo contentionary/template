@@ -15,20 +15,21 @@ import { Link as MuiLink } from "@mui/material";
 import AppDrawer from "./AppDrawer";
 import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
-import ExamAndCourseMenu from "./ExamAndCourseMenu";
+import ExamAndLeagueMenu from "./ExamAndLeagueMenu";
 // icons
 import { queryClient } from "@src/utils";
 // interface and config
 import { HeaderFunc } from "./interfaceType";
-import { BasePageProps } from "../../utils/interface";
+import { BasePageProps } from "../../../utils/interface";
 
-const ExamAndCourseHeader: HeaderFunc = () => {
+const ExamAndLeagueHeader: HeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
 
   const fontSize = 18;
+
   return (
     <>
       <HideOnScroll>
@@ -56,7 +57,7 @@ const ExamAndCourseHeader: HeaderFunc = () => {
               </NextLink>
               {isMatch ? (
                 <AppDrawer>
-                  <ExamAndCourseMenu cachedData={cachedData} />
+                  <ExamAndLeagueMenu cachedData={cachedData} />
                 </AppDrawer>
               ) : (
                 <>
@@ -76,12 +77,12 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                           Home
                         </Button>
                       </NextLink>
-                      <NextLink href="/library" passHref>
+                      <NextLink href="/leagues" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light", fontSize }}
                         >
-                          Library
+                          Leagues
                         </Button>
                       </NextLink>
                       <NextLink href="/exams" passHref>
@@ -94,12 +95,12 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                       </NextLink>
                       {user && (
                         <>
-                          <NextLink href="/library/my-books" passHref>
+                          <NextLink href="/leagues/my-leagues" passHref>
                             <Button
                               component={MuiLink}
                               sx={{ color: "secondary.light", fontSize }}
                             >
-                              My Books
+                              My Leagues
                             </Button>
                           </NextLink>
                           <NextLink href="/exams/my-exams" passHref>
@@ -143,4 +144,4 @@ const ExamAndCourseHeader: HeaderFunc = () => {
     </>
   );
 };
-export default ExamAndCourseHeader;
+export default ExamAndLeagueHeader;

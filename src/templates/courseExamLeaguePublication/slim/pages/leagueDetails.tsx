@@ -1,5 +1,5 @@
 import LeagueDetailsPage from "@src/components/LeagueDetails";
-import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 

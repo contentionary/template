@@ -1,7 +1,7 @@
 import React from "react";
-import ExamAndCourseFooter from "../Footer/ExamAndCourseFooter";
-import ExamAndCourseHeader from "../Header/ExamAndCourseHeader";
-import HeadPage from "../PageHead";
+import ExamAndPublicationFooter from "../Footer/ExamAndPublicationFooter";
+import ExamAndPublicationHeader from "../Header/ExamAndPublicationHeader";
+import HeadPage from "../../PageHead";
 import { WrapperFunc } from "./interface";
 
 const ExamAndCourseWrapper: WrapperFunc = ({
@@ -15,9 +15,9 @@ const ExamAndCourseWrapper: WrapperFunc = ({
   return (
     <>
       <HeadPage title={title} image={image} description={description} />
-      {showHeader && <ExamAndCourseHeader />}
+      {showHeader && <ExamAndPublicationHeader />}
       {children}
-      {showFooter && <ExamAndCourseFooter />}
+      {showFooter && <ExamAndPublicationFooter />}
     </>
   );
 };

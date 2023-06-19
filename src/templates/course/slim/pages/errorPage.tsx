@@ -1,5 +1,5 @@
 import PageError from "@src/components/shared/state/PageError";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import AcademyWrapper from "@src/components/Layout/Wrapper/AcademyWrapper";
 
 const ErrorPage = () => {
   return (

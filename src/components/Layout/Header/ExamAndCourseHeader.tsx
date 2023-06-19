@@ -13,16 +13,16 @@ import { useTheme } from "@mui/material/styles";
 import { Link as MuiLink } from "@mui/material";
 // components and styles
 import AppDrawer from "./AppDrawer";
-import AcademyMenu from "./AcademyMenu";
 import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
+import ExamAndCourseMenu from "./ExamAndCourseMenu";
 // icons
 import { queryClient } from "@src/utils";
 // interface and config
-import { AcademyHeaderFunc } from "./interfaceType";
-import { BasePageProps } from "../../utils/interface";
+import { HeaderFunc } from "./interfaceType";
+import { BasePageProps } from "../../../utils/interface";
 
-const AcademyHeader: AcademyHeaderFunc = () => {
+const ExamAndCourseHeader: HeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
@@ -57,7 +57,7 @@ const AcademyHeader: AcademyHeaderFunc = () => {
               </NextLink>
               {isMatch ? (
                 <AppDrawer>
-                  <AcademyMenu cachedData={cachedData} />
+                  <ExamAndCourseMenu cachedData={cachedData} />
                 </AppDrawer>
               ) : (
                 <>
@@ -85,15 +85,33 @@ const AcademyHeader: AcademyHeaderFunc = () => {
                           Courses
                         </Button>
                       </NextLink>
+                      <NextLink href="/exams" passHref>
+                        <Button
+                          component={MuiLink}
+                          sx={{ color: "secondary.light", fontSize }}
+                        >
+                          Exams
+                        </Button>
+                      </NextLink>
                       {user && (
-                        <NextLink href="/courses/my-courses" passHref>
-                          <Button
-                            component={MuiLink}
-                            sx={{ color: "secondary.light", fontSize }}
-                          >
-                            My Courses
-                          </Button>
-                        </NextLink>
+                        <>
+                          <NextLink href="/courses/my-courses" passHref>
+                            <Button
+                              component={MuiLink}
+                              sx={{ color: "secondary.light", fontSize }}
+                            >
+                              My Courses
+                            </Button>
+                          </NextLink>
+                          <NextLink href="/exams/my-exams" passHref>
+                            <Button
+                              component={MuiLink}
+                              sx={{ color: "secondary.light", fontSize }}
+                            >
+                              My Exams
+                            </Button>
+                          </NextLink>
+                        </>
                       )}
                     </Stack>
                     {user ? (
@@ -126,4 +144,4 @@ const AcademyHeader: AcademyHeaderFunc = () => {
     </>
   );
 };
-export default AcademyHeader;
+export default ExamAndCourseHeader;

@@ -1,5 +1,5 @@
 import ExamAndPublication from "@src/components/ExamAndPublication";
-import ExamAndPublicationWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
+import ExamAndPublicationWrapper from "@src/components/Layout/Wrapper/ExamAndPublicationWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 

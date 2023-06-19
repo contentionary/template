@@ -1,7 +1,7 @@
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps, ExamInt } from "@src/utils/interface";
 import ExamCompleted from "@src/components/ExamCompleted";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import ExamAndLeagueWrapper from "@src/components/Layout/Wrapper/ExamAndLeagueWrapper";
 
 const ExamCompletedPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(

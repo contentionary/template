@@ -1,7 +1,7 @@
 import React from "react";
 import ExamAndLeagueFooter from "../Footer/ExamAndLeagueFooter";
 import ExamAndLeagueHeader from "../Header/ExamAndLeagueHeader";
-import HeadPage from "../PageHead";
+import HeadPage from "../../PageHead";
 import { WrapperFunc } from "./interface";
 
 const ExamAndLeagueWrapper: WrapperFunc = ({

@@ -1,6 +1,6 @@
 import React from "react";
 import Wallet from "@src/components/wallet";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import AcademyWrapper from "@src/components/Layout/Wrapper/AcademyWrapper";
 
 const WalletPage = () => {
   return (
