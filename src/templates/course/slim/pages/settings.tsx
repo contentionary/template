@@ -1,6 +1,6 @@
 import React from "react";
 import Settings from "@src/components/Settings";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import AcademyWrapper from "@src/components/Layout/Wrapper/AcademyWrapper";
 
 const SettingsPage = () => {
   return (

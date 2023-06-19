@@ -311,6 +311,16 @@ export interface ExamInt {
   folderContentCount: number;
 }
 
+export interface PortfolioInt {
+  id: string;
+  title: string;
+  imageUrl: string;
+  description: string;
+  centreId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface SectionsInt {
   id: string;
   name: string;
@@ -524,6 +534,7 @@ export interface LeagueActivityInt {
   duration: number;
   createdAt: Date;
 }
+
 export interface ParticipantListInt extends Meta {
   candidates: UserInt[];
 }

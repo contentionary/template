@@ -1,7 +1,7 @@
 import React from "react";
 import CourseExamLeaguePublicationFooter from "../Footer/CourseExamLeaguePublicationFooter";
 import CourseExamLeaguePublicationHeader from "../Header/CourseExamLeaguePublicationHeader";
-import HeadPage from "../PageHead";
+import HeadPage from "../../PageHead";
 import { WrapperFunc } from "./interface";
 
 const CourseExamLeaguePublicationWrapper: WrapperFunc = ({

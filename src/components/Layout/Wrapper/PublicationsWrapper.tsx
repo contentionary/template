@@ -1,7 +1,7 @@
 import React from "react";
 import PublicationsFooter from "../Footer/PublicationsFooter";
 import PublicationsHeader from "../Header/PublicationsHeader";
-import HeadPage from "../PageHead";
+import HeadPage from "../../PageHead";
 import { PublicationsWrapperFunc } from "./interface";
 
 const PublicationsWrapper: PublicationsWrapperFunc = ({

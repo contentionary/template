@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 // next components
 import Image from "@src/components/shared/image";
 import NextLink from "next/link";
@@ -7,29 +7,30 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
 import useMediaQuery from "@mui/material/useMediaQuery";
+//
 import { useTheme } from "@mui/material/styles";
+//
 import { Link as MuiLink } from "@mui/material";
-// components and styles
+// app components
 import AppDrawer from "./AppDrawer";
-import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
-import ExamAndCourseMenu from "./ExamAndCourseMenu";
+import PortfolioMenu from "./PortfolioMenu";
 // icons
+// styles, interface and config
+import ProfileMenu from "./ProfileMenu";
 import { queryClient } from "@src/utils";
-// interface and config
+import { BasePageProps } from "@src/utils/interface";
 import { HeaderFunc } from "./interfaceType";
-import { BasePageProps } from "../../utils/interface";
 
-const ExamAndCourseHeader: HeaderFunc = () => {
+const PortfolioHeader: HeaderFunc = () => {
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { user, centre } = cachedData;
-
   const fontSize = 18;
-
   return (
     <>
       <HideOnScroll>
@@ -37,12 +38,12 @@ const ExamAndCourseHeader: HeaderFunc = () => {
           component="nav"
           elevation={0}
           sx={{
-            px: { md: 6 },
             bgcolor: "white",
             zIndex: theme.zIndex.drawer + 2,
+            px: { md: 6 },
           }}
         >
-          <Container maxWidth="xl">
+          <Container sx={{ padding: "5px" }} maxWidth="xl">
             <Toolbar disableGutters>
               <NextLink href="/" passHref>
                 <MuiLink sx={{ display: "flex", alignItems: "center" }}>
@@ -57,10 +58,10 @@ const ExamAndCourseHeader: HeaderFunc = () => {
               </NextLink>
               {isMatch ? (
                 <AppDrawer>
-                  <ExamAndCourseMenu cachedData={cachedData} />
+                  <PortfolioMenu cachedData={cachedData} />
                 </AppDrawer>
               ) : (
-                <>
+                <Fragment>
                   <Stack
                     ml={4}
                     flexGrow={1}
@@ -68,51 +69,29 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                     justifyContent="space-between"
                     display={{ xs: "none", md: "flex" }}
                   >
-                    <Stack direction="row" spacing={2}>
-                      <NextLink href="/" passHref>
+                    <Stack direction="row" spacing={2} ml="auto">
+                      <NextLink href="/library" passHref>
                         <Button
                           component={MuiLink}
                           sx={{ color: "secondary.light", fontSize }}
                         >
-                          Home
-                        </Button>
-                      </NextLink>
-                      <NextLink href="/courses" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Courses
-                        </Button>
-                      </NextLink>
-                      <NextLink href="/exams" passHref>
-                        <Button
-                          component={MuiLink}
-                          sx={{ color: "secondary.light", fontSize }}
-                        >
-                          Exams
+                          Publications
                         </Button>
                       </NextLink>
                       {user && (
-                        <>
-                          <NextLink href="/courses/my-courses" passHref>
-                            <Button
-                              component={MuiLink}
-                              sx={{ color: "secondary.light", fontSize }}
-                            >
-                              My Courses
-                            </Button>
-                          </NextLink>
-                          <NextLink href="/exams/my-exams" passHref>
-                            <Button
-                              component={MuiLink}
-                              sx={{ color: "secondary.light", fontSize }}
-                            >
-                              My Exams
-                            </Button>
-                          </NextLink>
-                        </>
+                        <NextLink href="/library/my-books" passHref>
+                          <Button
+                            component={MuiLink}
+                            sx={{ color: "secondary.light", fontSize }}
+                          >
+                            My Books
+                          </Button>
+                        </NextLink>
                       )}
+                      <Divider
+                        orientation="vertical"
+                        sx={{ mx: "8px !important" }}
+                      />
                     </Stack>
                     {user ? (
                       <ProfileMenu cachedData={cachedData} />
@@ -135,7 +114,7 @@ const ExamAndCourseHeader: HeaderFunc = () => {
                       </Stack>
                     )}
                   </Stack>
-                </>
+                </Fragment>
               )}
             </Toolbar>
           </Container>
@@ -144,4 +123,4 @@ const ExamAndCourseHeader: HeaderFunc = () => {
     </>
   );
 };
-export default ExamAndCourseHeader;
+export default PortfolioHeader;

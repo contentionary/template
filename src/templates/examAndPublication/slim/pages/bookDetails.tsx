@@ -1,5 +1,5 @@
 import BookDetails from "@src/components/BookDetails";
-import ExamAndPublicationsWrapper from "@src/components/Wrapper/ExamAndPublicationWrapper";
+import ExamAndPublicationsWrapper from "@src/components/Layout/Wrapper/ExamAndPublicationWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 

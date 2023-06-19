@@ -133,7 +133,7 @@ export default makeStyles({
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top left, bottom right",
     backgroundImage:
-      "url(images/bg-artifacts/picture-artifact.png), url(images/bg-artifacts/dotted-pattern.png)",
+      "url(images/bg-artifacts/picture-artifact.svg), url(images/bg-artifacts/dotted-pattern.svg)",
   },
   get bgArtifactFlipped() {
     return {
