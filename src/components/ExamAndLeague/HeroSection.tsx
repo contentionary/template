@@ -48,22 +48,24 @@ const HeroSection: LeagueFunc = () => {
     link: "/leagues",
     text: isCentreSubscriber ? "Browse Leagues" : "Get started",
   };
-  if (!isCentreSubscriber) {
-    const paymentLink = user
+  const href =
+    centre.subscriptionModel === "SUBSCRIPTION"
       ? `
     /payment?transactionkey=${uuid()}&itemId=${
           centre.id
         }&purpose=CENTRE_SUBSCRIPTION&paymentMethod=CARD&amount=${
           centre.price
-        }&currency=NGN&redirectUrl=${redirectUrl}&url=leagues`
-      : "/login";
+        }&currency=NGN&redirectUrl=${redirectUrl}`
+      : "/leagues";
+  if (!isCentreSubscriber) {
+    const paymentLink = user ? href : "/login";
     getStarted.link = paymentLink;
     getStarted.text =
       centre.subscriptionModel === "SUBSCRIPTION"
         ? `Get started for ${pricing ? pricing.symbol : "₦"}${
             pricing ? pricing.amount : centre.price
           }`
-        : "Request Access";
+        : "Browse Leagues";
   }
 
   return (
