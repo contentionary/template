@@ -1,9 +1,9 @@
 import PageError from "@src/components/shared/state/PageError";
-import PublicationsWrapper from "@src/components/Layout/Wrapper/PublicationsWrapper";
+import PortfolioWrapper from "@src/components/Layout/Wrapper/PortfolioWrapper";
 
 const ErrorPage = () => {
   return (
-    <PublicationsWrapper
+    <PortfolioWrapper
       title="Edtify | Publications"
       description="Welcome to Edtify"
       image="/public/images/logo.png"
@@ -11,7 +11,7 @@ const ErrorPage = () => {
       showFooter={true}
     >
       <PageError />
-    </PublicationsWrapper>
+    </PortfolioWrapper>
   );
 };
 

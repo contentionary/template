@@ -1,5 +1,5 @@
 import Settings from "@src/components/Settings";
-import PublicationsWrapper from "@src/components/Layout/Wrapper/PublicationsWrapper";
+import PortfolioWrapper from "@src/components/Layout/Wrapper/PortfolioWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
@@ -8,7 +8,7 @@ const SettingsPage = () => {
   const { name, logo } = cachedData.centre;
 
   return (
-    <PublicationsWrapper
+    <PortfolioWrapper
       title="Profile Settings"
       description={`Welcome to ${name} online book store`}
       image={logo || DEFAULT_LOGO}
@@ -16,7 +16,7 @@ const SettingsPage = () => {
       showFooter={true}
     >
       <Settings />
-    </PublicationsWrapper>
+    </PortfolioWrapper>
   );
 };
 

@@ -1,5 +1,5 @@
 import BookDetails from "@src/components/BookDetails";
-import PublicationsWrapper from "@src/components/Layout/Wrapper/PublicationsWrapper";
+import PortfolioWrapper from "@src/components/Layout/Wrapper/PortfolioWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 
@@ -11,7 +11,7 @@ const BookDetailsPage = () => {
   const publication = pageData.publication as PublicationInt;
 
   return (
-    <PublicationsWrapper
+    <PortfolioWrapper
       title={`${name} | ${publication.name}`}
       description={publication.description}
       image={logo || DEFAULT_LOGO}
@@ -23,7 +23,7 @@ const BookDetailsPage = () => {
         publication={publication}
         auth={pageData.auth}
       />
-    </PublicationsWrapper>
+    </PortfolioWrapper>
   );
 };
 
