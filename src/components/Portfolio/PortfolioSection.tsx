@@ -46,6 +46,7 @@ const PortfolioSection: PortfolioFunc = () => {
               width: 100,
               borderWidth: 1.5,
               borderColor: "primary.main",
+              backgroundColor: "primary.main",
             }}
           />
           <Typography mb={4} paragraph sx={{ maxWidth: 650 }}>
@@ -54,7 +55,10 @@ const PortfolioSection: PortfolioFunc = () => {
           <Grid container spacing={{ xs: 4, sm: 2, md: 4 }}>
             {portfolioList?.map((portfolio, index) => (
               <Grid key={`portfolio-item-${index}`} item sm={6} md={6} xs={12}>
-                <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
+                <Paper
+                  sx={{ p: 4, height: "100%" }}
+                  className={globalStyle.paperShadow}
+                >
                   <Avatar
                     variant="rounded"
                     sx={{
@@ -73,7 +77,7 @@ const PortfolioSection: PortfolioFunc = () => {
                   <Typography my={2} variant="h5" gutterBottom>
                     {portfolio.title}
                   </Typography>
-                  <Typography paragraph mb={0} sx={{ maxWidth: 400 }}>
+                  <Typography paragraph mb={0}>
                     {portfolio.description}
                   </Typography>
                 </Paper>

@@ -1,5 +1,5 @@
 import Library from "@src/components/Library/MyPublications";
-import PublicationsWrapper from "@src/components/Layout/Wrapper/PublicationsWrapper";
+import PortfolioWrapper from "@src/components/Layout/Wrapper/PortfolioWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
@@ -7,7 +7,7 @@ const MyPublicationPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { name, logo } = cachedData.centre;
   return (
-    <PublicationsWrapper
+    <PortfolioWrapper
       title={`${cachedData.user.firstname} ${name} books`}
       description={`${cachedData.user.firstname} ${name} books`}
       image={logo || DEFAULT_LOGO}
@@ -15,7 +15,7 @@ const MyPublicationPage = () => {
       showFooter={true}
     >
       <Library />
-    </PublicationsWrapper>
+    </PortfolioWrapper>
   );
 };
 

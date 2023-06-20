@@ -46,15 +46,14 @@ const PublicationListSection: PortfolioFunc = () => {
                 width: 100,
                 borderWidth: 1.5,
                 borderColor: "primary.main",
+                backgroundColor: "primary.main",
               }}
             />
             <Typography
               paragraph
               sx={{ mb: 4, textAlign: "center", maxWidth: 450 }}
             >
-              At Skoolyco We provide top online courses to help you start a
-              career. So find most of our online courses suitable for you to
-              begin a new career.
+              So find most of our publications suitable for you.
             </Typography>
           </Stack>
           <Grid
