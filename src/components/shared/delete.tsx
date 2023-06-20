@@ -11,9 +11,20 @@ interface Props {
   toggleToast: Function;
   updateData?: Function;
   text?: boolean;
+  index?: number;
+  setPortfolio?: Function;
+  portfolios?: [];
 }
 
-const Delete = ({ url, toggleToast, updateData, text }: Props) => {
+const Delete = ({
+  url,
+  toggleToast,
+  updateData,
+  text,
+  setPortfolio,
+  portfolios,
+  index,
+}: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, openDialog, closeDialog } = useDialog();
   async function deleteCentre() {
@@ -21,6 +32,10 @@ const Delete = ({ url, toggleToast, updateData, text }: Props) => {
       setIsLoading(true);
       const data = await request.delete(url);
       toggleToast(data.message);
+      if (index) {
+        portfolios?.splice(index, 0);
+        setPortfolio && portfolios && setPortfolio([...portfolios]);
+      }
       updateData && updateData();
       setIsLoading(false);
       closeDialog();
