@@ -25,14 +25,14 @@ const AboutAuthorSection: PortfolioFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const { user } = cachedData;
-  const { description, imageUrl, title } =
-    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[0];
+  const { aboutUsSectionOne = null } =
+    pageData?.templateData?.templateDetails || {};
 
   return (
     <Fragment>
       <Box
         component="section"
-        sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
+        sx={{ py: 10, px: { md: 6 } }}
         className="hero-section"
       >
         <Container maxWidth="xl">
@@ -64,18 +64,18 @@ const AboutAuthorSection: PortfolioFunc = () => {
                   className={globalStyle.paperShadowSm}
                   sx={{
                     width: "100%",
-                    height: "auto",
+                    height: "100%",
                     position: "relative",
                     padding: 2,
                   }}
                 >
                   <ImageComponent
-                    width="100%"
-                    height="80%"
+                    width="90%"
+                    height="100%"
                     objectFit="cover"
                     layout="responsive"
                     alt="Edtify"
-                    src={imageUrl}
+                    src={aboutUsSectionOne.imageUrl}
                     style={{ borderRadius: 8 }}
                   />
                 </Box>
@@ -83,7 +83,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <Typography mb={0} variant="h4" component="h2">
-                {title}
+                {aboutUsSectionOne.title}
               </Typography>
               <Divider
                 variant="middle"
@@ -98,7 +98,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
                 }}
               />
               <Typography fontSize={20} mb={4} paragraph>
-                {description}
+                {aboutUsSectionOne.description}
               </Typography>
               <NextLink href={user ? "/library" : "/login"} passHref>
                 <Button

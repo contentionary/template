@@ -3,7 +3,7 @@ import AcademyWrapper from "@src/components/Layout/Wrapper/AcademyWrapper";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
-const DetailsPage = () => {
+const CourseDetails = () => {
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
 
   return (
@@ -19,4 +19,4 @@ const DetailsPage = () => {
   );
 };
 
-export default DetailsPage;
+export default CourseDetails;
