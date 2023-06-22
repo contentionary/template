@@ -23,7 +23,7 @@ const Portfolio = () => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const [portfolios, setPortfolio] = useState<PortfolioInt[]>(
+  const [portfolios, setPortfolio] = useState<PortfolioInt>(
     pageData.portfolioList
   );
   return (
@@ -32,63 +32,54 @@ const Portfolio = () => {
         <Typography marginY={3} variant="h4">
           Portfolios
         </Typography>
-        <AddPortfolio
-          centreId={cachedData.centre.id}
-          toggleToast={toggleToast}
-          setPortfolio={setPortfolio}
-          portfolios={portfolios}
-        />
+        {portfolios ? (
+          ""
+        ) : (
+          <AddPortfolio
+            centreId={cachedData.centre.id}
+            toggleToast={toggleToast}
+            setPortfolio={setPortfolio}
+          />
+        )}
         <Box mt={4}>
           <Grid container spacing={{ xs: 4, sm: 2, md: 4 }}>
-            {portfolios?.map((portfolio, index) => (
-              <Grid
-                key={`portfolio-item-${index}`}
-                item
-                sm={12}
-                md={12}
-                xs={12}
-              >
-                <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
-                  <Avatar
-                    variant="rounded"
-                    sx={{
-                      border: 2,
-                      width: 56,
-                      height: 56,
-                      borderColor: "primary.main",
-                      backgroundColor: alpha(
-                        theme.palette.primary["main"],
-                        0.02
-                      ),
-                    }}
-                  >
-                    <WorkspacePremiumOutlinedIcon color="primary" />
-                  </Avatar>
-                  <Typography my={2} variant="h5" gutterBottom>
-                    {portfolio.title}
-                  </Typography>
-                  <Typography paragraph mb={0} sx={{}}>
-                    {portfolio.description}
-                  </Typography>
-                  <Box sx={{ textAlign: "right" }}>
-                    <UpdatePortfolio
-                      centreId={cachedData.centre.id}
-                      toggleToast={toggleToast}
-                      setPortfolio={setPortfolio}
-                      portfolios={portfolios}
-                      index={index}
-                      portfolio={portfolio}
-                    />
-                    {/* <Delete
+            <Grid item sm={12} md={12} xs={12}>
+              <Paper className={globalStyle.paperShadow} sx={{ p: 4 }}>
+                <Avatar
+                  variant="rounded"
+                  sx={{
+                    border: 2,
+                    width: 56,
+                    height: 56,
+                    borderColor: "primary.main",
+                    backgroundColor: alpha(theme.palette.primary["main"], 0.02),
+                  }}
+                >
+                  <WorkspacePremiumOutlinedIcon color="primary" />
+                </Avatar>
+                <Typography my={2} variant="h5" gutterBottom>
+                  {portfolios.title}
+                </Typography>
+                <Typography paragraph mb={0} sx={{}}>
+                  {portfolios.description}
+                </Typography>
+                <Box sx={{ textAlign: "right" }}>
+                  <UpdatePortfolio
+                    centreId={cachedData.centre.id}
+                    toggleToast={toggleToast}
+                    setPortfolio={setPortfolio}
+                    portfolio={portfolios}
+                  />
+                  {/* <Delete
                       url={`/centre/${cachedData.centre.id}/portfolio/${portfolio.id}`}
                       toggleToast={toggleToast}
                       setPortfolio={setPortfolio}
                       portfolios={portfolios as []}
                     /> */}
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
+                </Box>
+              </Paper>
+            </Grid>{" "}
+            1
           </Grid>
         </Box>
       </Box>

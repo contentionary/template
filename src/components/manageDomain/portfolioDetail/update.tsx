@@ -17,15 +17,11 @@ const UpdatePortfolio = ({
   toggleToast,
   setPortfolio,
   centreId,
-  portfolios,
-  index,
   portfolio,
 }: {
   toggleToast: Function;
   setPortfolio: Function;
   centreId: string;
-  portfolios: PortfolioInt[];
-  index: number;
   portfolio: PortfolioInt;
 }): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
@@ -39,8 +35,7 @@ const UpdatePortfolio = ({
         url: `/centre/${centreId}/portfolio-details/${portfolio.id}`,
         data: values,
       });
-      portfolios.splice(index, 1, data as PortfolioInt);
-      setPortfolio([...portfolios]);
+      setPortfolio({ ...data });
       toggleToast(data.message);
       setIsLoading(false);
       closeDialog();

@@ -10,18 +10,15 @@ import { useState } from "react";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
 import TextArea from "@src/components/shared/textArea";
-import { PortfolioInt } from "@src/utils/interface";
 
 const AddPortfolio = ({
   toggleToast,
   setPortfolio,
   centreId,
-  portfolios,
 }: {
   toggleToast: Function;
   setPortfolio: Function;
   centreId: string;
-  portfolios: PortfolioInt[];
 }): JSX.Element => {
   const { isOpen, openDialog, closeDialog } = useDialog();
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +31,7 @@ const AddPortfolio = ({
         url: `/centre/${centreId}/portfolio-details`,
         data: values,
       });
-      setPortfolio([data, ...portfolios]);
+      setPortfolio({ ...data });
       toggleToast(data.message);
       setIsLoading(false);
       closeDialog();
