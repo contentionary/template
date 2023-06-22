@@ -23,9 +23,8 @@ const PortfolioSection: PortfolioFunc = () => {
   //
   const { pageData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const portfolioList = pageData.templateData.centrePortfolio as PortfolioInt[];
-  const { aboutUsSectionOne = null } =
-    pageData?.templateData?.templateDetails || {};
-  console.log(pageData?.templateData);
+  const { description, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
   return (
     <Fragment>
       <Box
@@ -35,7 +34,7 @@ const PortfolioSection: PortfolioFunc = () => {
       >
         <Container maxWidth="xl">
           <Typography mb={1} variant="h4" component="h2">
-            Professional Portfolio
+            {title}
           </Typography>
           <Divider
             variant="middle"
@@ -50,7 +49,7 @@ const PortfolioSection: PortfolioFunc = () => {
             }}
           />
           <Typography mb={4} paragraph sx={{ maxWidth: 650 }}>
-            {aboutUsSectionOne.description}
+            {description}
           </Typography>
           <Grid container spacing={{ xs: 4, sm: 2, md: 4 }}>
             {portfolioList?.map((portfolio, index) => (

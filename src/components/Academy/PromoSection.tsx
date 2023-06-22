@@ -40,17 +40,17 @@ const PromoSection = ({ link = "/courses" }: { link?: string }) => {
                 alt="yes we can"
                 objectFit="cover"
                 layout="responsive"
-                src={contents && contents[2].imageUrl}
+                src={contents && contents[1].imageUrl}
               />
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
             <Box>
               <Typography mb={4} variant="h3" component="h2" color="white">
-                {contents && contents[2].title}
+                {contents && contents[1].title}
               </Typography>
               <Typography mb={4} paragraph color="white">
-                {contents && contents[2].description}
+                {contents && contents[1].description}
               </Typography>
             </Box>
             <NextLink href={user ? link : "/register"} passHref>

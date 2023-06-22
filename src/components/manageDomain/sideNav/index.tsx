@@ -101,44 +101,24 @@ const SideNav = (): JSX.Element => {
           </NextLink>
         </ListItem>
         {centre.template === "portfolio" && (
-          <>
-            <ListItem disablePadding>
-              <NextLink href="/admin/portfolio-detail" passHref>
-                <ListItemButton LinkComponent={Link}>
-                  <ListItemIcon>
-                    <Payment />
-                  </ListItemIcon>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      color: "#333333",
-                      fontWeight: 500,
-                      fontSize: 16,
-                      fontStyle: "normal",
-                    }}
-                    primary="Portfolio Detail"
-                  />
-                </ListItemButton>
-              </NextLink>
-            </ListItem>{" "}
-            <ListItem disablePadding>
-              <NextLink href="/admin/portfolio" passHref>
-                <ListItemButton LinkComponent={Link}>
-                  <ListItemIcon>
-                    <Payment />
-                  </ListItemIcon>
-                  <ListItemText
-                    primaryTypographyProps={{
-                      color: "#333333",
-                      fontWeight: 500,
-                      fontSize: 16,
-                      fontStyle: "normal",
-                    }}
-                    primary="Portfolio"
-                  />
-                </ListItemButton>
-              </NextLink>
-            </ListItem>
-          </>
+          <ListItem disablePadding>
+            <NextLink href="/admin/portfolio" passHref>
+              <ListItemButton LinkComponent={Link}>
+                <ListItemIcon>
+                  <Payment />
+                </ListItemIcon>
+                <ListItemText
+                  primaryTypographyProps={{
+                    color: "#333333",
+                    fontWeight: 500,
+                    fontSize: 16,
+                    fontStyle: "normal",
+                  }}
+                  primary="Portfolio"
+                />
+              </ListItemButton>
+            </NextLink>
+          </ListItem>
         )}
         {centre.subscriptionModel === "SUBSCRIPTION" && (
           <ListItem disablePadding>
