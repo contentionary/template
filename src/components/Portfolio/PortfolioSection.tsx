@@ -25,7 +25,7 @@ const PortfolioSection: PortfolioFunc = () => {
   const portfolioList = pageData.templateData.centrePortfolio as PortfolioInt[];
   const { aboutUsSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
-  // console.log(pageData?.templateData);
+  console.log(pageData?.templateData);
   return (
     <Fragment>
       <Box
