@@ -32,7 +32,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
     <Fragment>
       <Box
         component="section"
-        sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
+        sx={{ py: 10, px: { md: 6 } }}
         className="hero-section"
       >
         <Container maxWidth="xl">
@@ -64,14 +64,14 @@ const AboutAuthorSection: PortfolioFunc = () => {
                   className={globalStyle.paperShadowSm}
                   sx={{
                     width: "100%",
-                    height: "auto",
+                    height: "100%",
                     position: "relative",
                     padding: 2,
                   }}
                 >
                   <ImageComponent
-                    width="100%"
-                    height="80%"
+                    width="90%"
+                    height="100%"
                     objectFit="cover"
                     layout="responsive"
                     alt="Edtify"
