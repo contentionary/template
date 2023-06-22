@@ -75,12 +75,14 @@ const AddPortfolio = ({
               />
               <div style={{ width: "100%" }}>
                 <Typography variant="subtitle1" component="div">
-                  description
+                  description (not more than 350 letters)
                 </Typography>
                 <TextArea
                   name="description"
                   maxRows={3}
+                  maxLength={350}
                   onChange={getData}
+                  required
                   style={{
                     padding: "20px 10px",
                     borderRadius: 5,

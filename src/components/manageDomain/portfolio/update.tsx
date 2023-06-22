@@ -84,6 +84,7 @@ const UpdatePortfolio = ({
                   name="description"
                   defaultValue={portfolio.description}
                   maxRows={3}
+                  maxLength={350}
                   onChange={getData}
                   style={{
                     padding: "20px 10px",
