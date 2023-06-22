@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       url: `/centre/${centre.id}/portfolio-details`,
       token,
     });
+    console.log(data);
     return {
       props: {
         pageData: { portfolioList: data },
