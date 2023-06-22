@@ -116,7 +116,7 @@ const HeroSection: PortfolioFunc = () => {
                 </NextLink>
               )}
             </Grid>
-            <Grid item xs={12} md={6} order={{ xs: 3, md: 3 }}>
+            <Grid item xs={12} md={5} order={{ xs: 3, md: 3 }}>
               <Box
                 sx={{
                   display: "flex",
@@ -127,7 +127,7 @@ const HeroSection: PortfolioFunc = () => {
                 <Box
                   className="breath-img-container"
                   sx={{
-                    width: "70% !important",
+                    width: "100% !important",
                     borderRadius: "1.5rem !important",
                   }}
                 >

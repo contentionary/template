@@ -25,7 +25,6 @@ const PortfolioSection: PortfolioFunc = () => {
   const portfolioList = pageData.templateData.centrePortfolio as PortfolioInt[];
   const { description, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[1];
-
   return (
     <Fragment>
       <Box
