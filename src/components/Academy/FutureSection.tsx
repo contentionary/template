@@ -41,7 +41,7 @@ const FutureSection = () => {
     >
       <Container maxWidth="xl">
         <Typography variant="h4" component="h4" mb={4}>
-          {contents && contents[1].title}
+          {contents && contents[0].title}
         </Typography>
         <Grid
           container
@@ -56,7 +56,7 @@ const FutureSection = () => {
                   alt="yes we can"
                   objectFit="cover"
                   objectPosition="right"
-                  src={contents && contents[1].imageUrl}
+                  src={contents && contents[0].imageUrl}
                 />
               </Box>
             </Box>
