@@ -69,7 +69,7 @@ const PortfolioHeader: HeaderFunc = () => {
                     justifyContent="space-between"
                     display={{ xs: "none", md: "flex" }}
                   >
-                    <Stack direction="row" spacing={2} ml="auto">
+                    <Stack direction="row" spacing={3} ml="auto">
                       <NextLink href="/library" passHref>
                         <Button
                           component={MuiLink}
@@ -90,7 +90,7 @@ const PortfolioHeader: HeaderFunc = () => {
                       )}
                       <Divider
                         orientation="vertical"
-                        sx={{ mx: "8px !important" }}
+                        sx={{ mx: "16px !important" }}
                       />
                     </Stack>
                     {user ? (
