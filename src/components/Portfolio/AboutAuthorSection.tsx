@@ -27,7 +27,6 @@ const AboutAuthorSection: PortfolioFunc = () => {
   const { user } = cachedData;
   const { aboutUsSectionOne = null } =
     pageData?.templateData?.templateDetails || {};
-
   return (
     <Fragment>
       <Box
