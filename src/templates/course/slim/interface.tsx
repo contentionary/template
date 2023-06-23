@@ -1,9 +1,9 @@
 export type CoursePages =
   | "Home"
+  | "Wallet"
   | "Courses"
-  | "Details"
   | "Contents"
+  | "Settings"
   | "ErrorPage"
   | "MyCourses"
-  | "Wallet"
-  | "Settings";
+  | "CourseDetails";
