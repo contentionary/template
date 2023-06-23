@@ -23,11 +23,10 @@ const Dashboard = (): JSX.Element => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { plugins } = pageData;
+  const { plugins, centrePlugins } = pageData;
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const Plugins = dynamic(() => import("./plugins"));
   const Services = dynamic(() => import("./services"));
-
   return (
     <Box mt={3}>
       <Box sx={{ display: "flex", alignItems: "centre" }} paddingY={4}>

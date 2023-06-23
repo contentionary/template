@@ -32,11 +32,12 @@ const Delete = ({
       setIsLoading(true);
       const data = await request.delete(url);
       toggleToast(data.message);
-      if (index) {
-        portfolios?.splice(index, 0);
-        setPortfolio && portfolios && setPortfolio([...portfolios]);
+      if (index && setPortfolio && portfolios) {
+        portfolios.splice(index, 1);
+        setPortfolio([...portfolios]);
+      } else {
+        updateData && updateData();
       }
-      updateData && updateData();
       setIsLoading(false);
       closeDialog();
     } catch (error) {
