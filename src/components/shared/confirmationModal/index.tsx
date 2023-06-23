@@ -43,7 +43,7 @@ const ConfirmationModal = ({
       title="Confirm you want to continue this action"
       btns={[
         { text: value, action: action, sx: { color: "red" } },
-        { text: "No, cancel", action: closeDialog },
+        { text: "No, cancel meee", action: closeDialog },
       ]}
     />
   );

@@ -84,6 +84,7 @@ const Portfolio = () => {
                       toggleToast={toggleToast}
                       setPortfolio={setPortfolio}
                       portfolios={portfolios as []}
+                      index={index}
                     />
                   </Box>
                 </Paper>

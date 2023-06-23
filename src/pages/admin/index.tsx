@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const { user, token } = getAuthData(context);
     const centre = (await getCentre(context, true)) as CachedCentreInt;
     const { data } = await request.get({
-      url: `/plugins?centreId=${centre.id}`,
+      url: `/centre/${centre.id}/plugins`,
       token,
     });
     return {
