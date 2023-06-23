@@ -27,7 +27,6 @@ const AboutAuthorSection: PortfolioFunc = () => {
   const { user } = cachedData;
   const { description, imageUrl, title } =
     pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[0];
-
   return (
     <Fragment>
       <Box
