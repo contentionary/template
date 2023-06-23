@@ -25,9 +25,8 @@ const AboutAuthorSection: PortfolioFunc = () => {
     "pageProps"
   ) as BasePageProps;
   const { user } = cachedData;
-  const { aboutUsSectionOne = null } =
-    pageData?.templateData?.templateDetails || {};
-
+  const { description, imageUrl, title } =
+    pageData?.templateData?.templateDetails.landingPageSectionTwo.contents[0];
   return (
     <Fragment>
       <Box
@@ -75,7 +74,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
                     objectFit="cover"
                     layout="responsive"
                     alt="Edtify"
-                    src={aboutUsSectionOne.imageUrl}
+                    src={imageUrl}
                     style={{ borderRadius: 8 }}
                   />
                 </Box>
@@ -83,7 +82,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
             </Grid>
             <Grid item xs={12} md={6} lg={6}>
               <Typography mb={0} variant="h4" component="h2">
-                {aboutUsSectionOne.title}
+                {title}
               </Typography>
               <Divider
                 variant="middle"
@@ -98,7 +97,7 @@ const AboutAuthorSection: PortfolioFunc = () => {
                 }}
               />
               <Typography fontSize={20} mb={4} paragraph>
-                {aboutUsSectionOne.description}
+                {description}
               </Typography>
               <NextLink href={user ? "/library" : "/login"} passHref>
                 <Button

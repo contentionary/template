@@ -34,7 +34,6 @@ const CreatePublication = () => {
   const [contents, setContents] = useState<Array<Record<any, any>>>(
     template.landingPageSectionTwo.contents
   );
-
   const [landingPageSectionOne, setLandingPageSectionOne] = useState<
     Record<any, any>
   >(template.landingPageSectionOne);

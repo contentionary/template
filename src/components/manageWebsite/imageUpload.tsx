@@ -136,10 +136,6 @@ const ManageWebsiteDesign = ({ setImg, img, uploadText, index }: Props) => {
           >
             <ImageCropper
               image={previewLogo}
-              // cropSize={{
-              //   width: width,
-              //   height: height,
-              // }}
               aspect={1}
               cropShape="rect"
               rotation={rotation}
