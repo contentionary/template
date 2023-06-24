@@ -1,5 +1,5 @@
 import CourseDetailsPage from "@src/components/CourseDetails";
-import ExamAndCourseWrapper from "@src/components/Wrapper/ExamAndCourseWrapper";
+import ExamAndCourseWrapper from "@src/components/Layout/Wrapper/ExamAndCourseWrapper";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 

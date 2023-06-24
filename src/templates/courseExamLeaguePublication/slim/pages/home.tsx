@@ -1,6 +1,6 @@
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import CourseExamLeaguePublicationWrapper from "@src/components/Wrapper/CourseExamLeaguePublicationWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 import CourseExamLeaguePublicationHomePage from "@src/components/CourseExamLeaguePublicationHome";
 
 const LeaguePage = () => {

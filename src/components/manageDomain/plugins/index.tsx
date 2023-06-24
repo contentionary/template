@@ -64,7 +64,7 @@ const Pluggins = ({
     try {
       setInstalling(true);
       if (active) {
-        setRemovePlugin(plugin);
+        setRemovePlugin(id);
         openDialog();
       } else {
         router.push({
@@ -131,7 +131,7 @@ const Pluggins = ({
       </Stack>
       <ConfirmDialog
         isOpen={isOpen}
-        closeDialog={closeDialog}
+        closeDialog={() => closeDialog()}
         action={uninstallPlugin}
         message="This action will automatically remove everything you have in ths plugin. Are you sure you want to uninstall this plugin?"
       />

@@ -80,7 +80,7 @@ const UpdateCourse = () => {
       });
       toggleToast(data.message);
       setIsLoading(false);
-      // router.back();
+      router.back();
     } catch (error) {
       toggleToast(handleError(error).message);
       setIsLoading(false);

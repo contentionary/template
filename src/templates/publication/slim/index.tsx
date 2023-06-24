@@ -1,4 +1,4 @@
-import { PublicationsWrapperFunc } from "@src/components/Wrapper/interface";
+import { PublicationsWrapperFunc } from "@src/components/Layout/Wrapper/interface";
 import Home from "./pages/home";
 import Library from "./pages/library";
 import BookDetails from "./pages/bookDetails";

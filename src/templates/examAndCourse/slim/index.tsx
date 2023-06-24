@@ -1,4 +1,4 @@
-import { WrapperFunc } from "@src/components/Wrapper/interface";
+import { WrapperFunc } from "@src/components/Layout/Wrapper/interface";
 import Home from "./pages/home";
 import Exams from "./pages/exams";
 import Courses from "./pages/courses";

@@ -117,6 +117,14 @@ const CreateCourse = () => {
           </Box>
           {type != "FOLDER" && (
             <>
+              {cachedData.centre.subscriptionModel != "SUBSCRIPTION" && (
+                <TextFields
+                  type="number"
+                  label="Exam Price"
+                  name="price"
+                  onChange={getData}
+                />
+              )}
               <Box>
                 <TextFields
                   type="number"
@@ -129,7 +137,6 @@ const CreateCourse = () => {
                   Please enter number only (Duration is in Minutes).
                 </Typography>
               </Box>
-
               <FormControl fullWidth>
                 <InputLabel id="publicCategoryId">Public category</InputLabel>
                 <Select

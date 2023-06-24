@@ -1,6 +1,6 @@
 import React from "react";
 import MyExamsPage from "@src/components/Exams/MyExams";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import ExamAndLeagueWrapper from "@src/components/Layout/Wrapper/ExamAndLeagueWrapper";
 
 const MyExams = () => {
   return (

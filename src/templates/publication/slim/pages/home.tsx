@@ -1,5 +1,5 @@
 import Publications from "@src/components/Publications";
-import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
+import PublicationsWrapper from "@src/components/Layout/Wrapper/PublicationsWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 

@@ -2,7 +2,7 @@ import React from "react";
 import Settings from "@src/components/Settings";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import ExamAndLeagueWrapper from "@src/components/Wrapper/ExamAndLeagueWrapper";
+import ExamAndLeagueWrapper from "@src/components/Layout/Wrapper/ExamAndLeagueWrapper";
 
 const SettingsPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;

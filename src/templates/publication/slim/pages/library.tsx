@@ -1,5 +1,5 @@
 import Library from "@src/components/Library";
-import PublicationsWrapper from "@src/components/Wrapper/PublicationsWrapper";
+import PublicationsWrapper from "@src/components/Layout/Wrapper/PublicationsWrapper";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 

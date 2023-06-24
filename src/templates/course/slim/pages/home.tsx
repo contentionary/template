@@ -1,5 +1,5 @@
 import Academy from "@src/components/Academy";
-import AcademyWrapper from "@src/components/Wrapper/AcademyWrapper";
+import AcademyWrapper from "@src/components/Layout/Wrapper/AcademyWrapper";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 

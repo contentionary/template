@@ -19,6 +19,7 @@ const CategoriesSection: CourseExamLeaguePublicationFunc = () => {
   return (
     <Fragment>
       <Box
+        id="hero-section"
         component="section"
         sx={{ pt: 4, px: { md: 6 }, pb: 8 }}
         className="hero-section"

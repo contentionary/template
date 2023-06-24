@@ -68,7 +68,7 @@ export default function CustomizedMenus({
               Edit
             </MenuItem>
           </Link>
-          <Delete id={id} centreId={centreId} refetch={refetch} />
+          <Delete id={id} centreId={centreId} />
         </div>
       </Menus>
       <AddModules
