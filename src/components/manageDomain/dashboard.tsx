@@ -23,7 +23,7 @@ const Dashboard = (): JSX.Element => {
   const { pageData, cachedData } = queryClient.getQueryData(
     "pageProps"
   ) as BasePageProps;
-  const { plugins, centrePlugins } = pageData;
+  const { plugins } = pageData;
   const Toast = dynamic(() => import("@src/components/shared/toast"));
   const Plugins = dynamic(() => import("./plugins"));
   const Services = dynamic(() => import("./services"));
