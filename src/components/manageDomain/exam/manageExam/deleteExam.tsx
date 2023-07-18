@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import ButtonComponent from "@src/components/shared/button";
 import Loading from "@src/components/shared/loading";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import { BasePageProps } from "@src/utils/interface";
 import CopyAllOutlined from "@mui/icons-material/CopyAllOutlined";
 

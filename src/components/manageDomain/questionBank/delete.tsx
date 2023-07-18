@@ -3,7 +3,7 @@ import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import ConfirmDialog from "@src/components/shared/confirmationModal";
 import Toast from "@src/components/shared/toast";
 import { useToast } from "@src/utils/hooks";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
 import { useRouter } from "next/router";

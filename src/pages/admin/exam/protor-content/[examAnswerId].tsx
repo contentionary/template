@@ -7,7 +7,7 @@ import { GetServerSideProps } from "next";
 import Grid from "@mui/material/Grid";
 import ImageComponent from "@src/components/shared/image";
 import Typography from "@mui/material/Typography";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { useState } from "react";
 import { useRouter } from "next/router";
 

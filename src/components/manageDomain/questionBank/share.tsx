@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { handleError, queryClient, request } from "@src/utils";
 import { useState } from "react";
 import { useToast } from "@src/utils/hooks";
@@ -13,7 +13,7 @@ import { useToast } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 import { Typography } from "@mui/material";
 import ButtonComponent from "@src/components/shared/button";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import { BasePageProps } from "@src/utils/interface";
 
 interface Props {

@@ -12,7 +12,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import ButtonComponent from "@src/components/shared/button";
 import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";

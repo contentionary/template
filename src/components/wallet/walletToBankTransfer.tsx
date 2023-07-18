@@ -5,12 +5,12 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import dynamic from "next/dynamic";
 
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import ButtonComponent from "@src/components/shared/button";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
 import { TextField } from "@mui/material";

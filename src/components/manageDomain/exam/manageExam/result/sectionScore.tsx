@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import MuiTable from "@src/components/shared/table";
 import MenuItem from "@mui/material/MenuItem";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import Dialog from "@src/components/shared/dialog";
 import BookOnlineOutlined from "@mui/icons-material/BookOnlineOutlined";
 

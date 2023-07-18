@@ -6,12 +6,12 @@ import Edit from "@mui/icons-material/Edit";
 import Dialog from "@src/components/shared/dialog";
 import Toast from "@src/components/shared/toast";
 import TextFields from "@src/components/shared/input/textField";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import TextArea from "@src/components/shared/textArea";
 // import Typography from "@mui/material";
 
 import { useToast } from "@src/utils/hooks";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { handleError, request, uploadFiles } from "@src/utils";
 import { ChangeEvent, useState } from "react";
 import ButtonComponent from "@src/components/shared/button";

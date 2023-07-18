@@ -9,7 +9,7 @@ import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 import ShareContent from "@src/components/shared/shareContentOnMedia";
 
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { copy } from "@src/utils";
 import { useState } from "react";
 import { useToast } from "@src/utils/hooks";

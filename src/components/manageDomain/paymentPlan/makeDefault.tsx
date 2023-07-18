@@ -2,7 +2,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Dialog from "@src/components/shared/dialog";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { handleError, request } from "@src/utils";
 import { useState } from "react";
 import ButtonComponent from "@src/components/shared/button";

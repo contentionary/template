@@ -20,7 +20,7 @@ import ImageComponent from "@src/components/shared/image";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 //
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { isServerSide } from "@src/utils";
 import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/share";
 import ConfirmPayment from "@src/components/payment/confirmPayment";

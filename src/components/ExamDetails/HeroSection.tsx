@@ -20,7 +20,7 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 // hooks, styles, interface and config
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { bg } from "@src/styles";
 import useButtonStyle from "@src/styles/button";
 import { ExamDetailsPageFunc } from "./interfaceType";

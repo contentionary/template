@@ -4,7 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import CheckBox from "@src/components/shared/checkInput";
 import { handleError, queryClient, request } from "@src/utils";
 import { ChangeEvent, useEffect, useState } from "react";

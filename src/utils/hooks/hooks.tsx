@@ -9,6 +9,7 @@ export const useToast: any = () => {
     toggleToast,
   };
 };
+
 export const useMenu: any = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuIsOpen = Boolean(anchorEl);

@@ -17,7 +17,7 @@ import Image from "@src/components/shared/image";
 import NextLink from "next/link";
 
 import { cache, DEFAULT_LOGO, queryClient } from "@src/utils";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { BasePageProps, CentreProps } from "@src/utils/interface";
 import SettingsOutlined from "@mui/icons-material/SettingsOutlined";
 import dynamic from "next/dynamic";

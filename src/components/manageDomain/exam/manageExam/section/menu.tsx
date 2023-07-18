@@ -8,7 +8,7 @@ import NextLink from "next/link";
 import MoreHorizOutlined from "@mui/icons-material/MoreHorizOutlined";
 import IconButton from "@mui/material/IconButton";
 import Delete from "./delete";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { useMenu } from "@src/utils/hooks";
 import { SectionInt } from "./interface";
 import UpdateSection from "./updateSection ";

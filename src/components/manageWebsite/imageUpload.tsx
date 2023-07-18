@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import TextFields from "@src/components/shared/input/textField";
 import { ElementProps } from "@src/utils/interface";
 import Dialog from "@src/components/shared/dialog";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import ImageCropper from "@src/components/shared/imageCropper";
 import getCroppedImg from "@src/components/shared/imageCropper/cropImage";
 import Image from "@src/components/shared/image";

@@ -17,7 +17,7 @@ import { bg } from "@src/styles";
 // app components
 import VideoModal from "@src/components/shared/video";
 import ImageButton from "@src/components/shared/buttons/ImageButton";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 // icons
 import PlayIcon from "@src/assets/icons/play.svg";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";

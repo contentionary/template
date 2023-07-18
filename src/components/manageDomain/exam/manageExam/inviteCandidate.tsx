@@ -6,7 +6,7 @@ import { useState } from "react";
 import { handleError, request, uploadFiles } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import dynamic from "next/dynamic";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import TextFields from "@src/components/shared/input/textField";
 
 const InviteCandidate = ({

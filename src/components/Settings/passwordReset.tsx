@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import TextFields from "@src/components/shared/input/inputWithlabel";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import { useState } from "react";
 import useStyles from "./styles";
 import { AuthUpdate, handleError, request } from "@src/utils";

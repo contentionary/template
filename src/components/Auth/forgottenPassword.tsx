@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 
-import { useDialog } from "@src/hooks";
-import useForm from "@src/hooks/useForm";
+import { useDialog } from "@src/utils/hooks";
+import useForm from "@src/utils/hooks/useForm";
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import Dialog from "@src/components/shared/dialog";
 import TextFields from "../shared/input/textField";

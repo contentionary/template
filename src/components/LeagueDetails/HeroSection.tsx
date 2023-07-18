@@ -27,7 +27,7 @@ import {
 } from "date-fns";
 // hooks, styles, interface and config
 import { bg } from "@src/styles";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import useCardStyle from "@src/styles/card";
 import { kCount, isServerSide } from "@src/utils";
 import { LeagueDetailsPageFunc } from "./interfaceType";

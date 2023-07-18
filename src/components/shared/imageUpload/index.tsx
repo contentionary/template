@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import UploadFileOutlined from "@mui/icons-material/UploadFileOutlined";
 import Box from "@mui/material/Box";
 import Dialog from "@src/components/shared/dialog";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import TextFields from "@src/components/shared/input/textField";
 import { useState } from "react";
 import ImageCropper from "@src/components/shared/imageCropper";

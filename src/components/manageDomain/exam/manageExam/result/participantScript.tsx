@@ -7,7 +7,7 @@ import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { handleError, request } from "@src/utils";
 import { useRef, useState } from "react";
 import { QuestionInt } from "@src/utils/interface";

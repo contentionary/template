@@ -9,7 +9,7 @@ import AddContent from "./addModules";
 import { useMenu } from "@src/utils/hooks";
 import UpdateModules from "./updateModules";
 import { CourseModuleInt } from "@src/utils/interface";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 
 export default function CustomizedMenus({
   courseId,

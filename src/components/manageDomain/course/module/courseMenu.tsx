@@ -11,7 +11,7 @@ import Delete from "../delete";
 import AddModules from "./addModules";
 import Link from "next/link";
 import { useMenu } from "@src/utils/hooks";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { useState } from "react";
 // import { request } from "@src/utils";
 

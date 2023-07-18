@@ -4,7 +4,7 @@ import { handleError, request } from "@src/utils";
 import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 
 interface Props {
   url: string;

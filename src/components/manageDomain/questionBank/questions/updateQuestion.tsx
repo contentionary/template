@@ -10,7 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
 import CheckBox from "@src/components/shared/checkInput";
 import Toast from "@src/components/shared/toast";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import useStyles from "./styles";
 import { useToast } from "@src/utils/hooks";
 import { handleError, queryClient, request, uploadFiles } from "@src/utils";

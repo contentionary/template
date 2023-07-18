@@ -9,13 +9,13 @@ import TextFields from "@src/components/shared/input/textField";
 
 import { useState } from "react";
 import { handleError, isServerSide, request } from "@src/utils";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { useRouter } from "next/router";
 import { v4 as uuid } from "uuid";
 
 import dynamic from "next/dynamic";
 import ButtonComponent from "@src/components/shared/button";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import { CurrencyType } from "./interface";
 
 const CreditWallet = ({

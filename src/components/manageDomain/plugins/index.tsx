@@ -8,7 +8,7 @@ import Card from "../plugins/card";
 
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import { useRouter } from "next/router";
-import { useDialog } from "@src/hooks";
+import { useDialog } from "@src/utils/hooks";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 

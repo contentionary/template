@@ -6,7 +6,7 @@ import { getCentre, handleError, isServerSide, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import TextFields from "@src/components/shared/input/textField";
-import useForm from "@src/hooks/useForm";
+import useForm from "@src/utils/hooks/useForm";
 import { useToast } from "@src/utils/hooks";
 import { GetServerSideProps } from "next";
 import { getAuthData } from "@src/utils/auth";
