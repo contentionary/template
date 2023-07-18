@@ -365,15 +365,14 @@ export const AuthUpdate = async () => {
 };
 // claimyourwin
 export const getCentre = async (
-  context: GetServerSidePropsContext,
+  centreId: string,
   returnFullData: boolean = false
 ): Promise<CachedCentreInt | CentreProps | null> => {
   try {
-    const host = context.req.headers.host as string;
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
+      url: `/centre/${centreId}/details`,
     });
     if (!returnFullData && centre)
       centre = {
