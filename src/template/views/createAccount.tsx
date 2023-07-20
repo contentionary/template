@@ -16,7 +16,7 @@ import useForm from "@src/utils/hooks/useForm";
 import ButtonComponent from "@src/components/shared/button";
 import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
-import useStyles from "./styles";
+import useStyles from "../../components/Auth/styles";
 import NextLink from "@src/components/shared/link/btnLink";
 import { handleError, request, queryClient } from "@src/utils";
 import Loading from "@src/components/shared/loading";

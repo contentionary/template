@@ -12,8 +12,9 @@ import {
 } from "@src/utils/interface";
 import { QueryClient } from "react-query";
 import { v4 as uuid } from "uuid";
-
 import S3 from "aws-sdk/clients/s3";
+//
+import config from "@src/utils/config";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -364,6 +365,7 @@ export const AuthUpdate = async () => {
   }
 };
 // claimyourwin
+// centreId: string,
 export const getCentre = async (
   context: GetServerSidePropsContext,
   returnFullData: boolean = false
@@ -372,7 +374,7 @@ export const getCentre = async (
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: "/centre/2be77780-181d-11eb-84b8-0359028788c5/details",
+      url: `/centre/${config.CENTRE.id}/details`,
     });
     if (!returnFullData && centre)
       centre = {
