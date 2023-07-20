@@ -1,9 +1,10 @@
 import { GetServerSideProps } from "next";
-import templates from "@src/templates";
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
+// template components
+import BookDetails from "@src/template/views/bookDetails";
 
 const PublicationDetailsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
@@ -12,10 +13,8 @@ const PublicationDetailsPage = (pageProps: BasePageProps) => {
 
     return <ActiveTemplate />;
   }
-  const ActiveTemplate =
-    templates[pageProps.cachedData.centre.template]("BookDetails");
 
-  return <ActiveTemplate />;
+  return <BookDetails />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

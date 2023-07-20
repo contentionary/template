@@ -1,18 +1,19 @@
 import { createContext } from "react";
 import type { GetServerSideProps } from "next";
-import themes from "@src/templates";
 import { getCentre, handleError } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { request } from "@src/utils";
 import { getAuthData } from "../utils/auth";
+//
+import TemplateHome from "@src/template/views/home";
 
 export const TemplateData = createContext<any>(null);
 
 const HomePage = (props: BasePageProps) => {
   const { centre } = props.cachedData;
-  const ActiveTemplate = themes[centre.template]("Home");
-  return <ActiveTemplate />;
+  return <TemplateHome />;
 };
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const centre = await getCentre(context);
