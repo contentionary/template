@@ -4,7 +4,7 @@ import { getCentre, handleError } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 import { request } from "@src/utils";
 import { getAuthData } from "../utils/auth";
-//
+// template components
 import TemplateHome from "@src/template/views/home";
 
 export const TemplateData = createContext<any>(null);

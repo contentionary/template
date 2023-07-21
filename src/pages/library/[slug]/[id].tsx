@@ -4,14 +4,12 @@ import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 // template components
+import ErrorPage from "@src/template/views/errorPage";
 import BookDetails from "@src/template/views/bookDetails";
 
 const PublicationDetailsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
-    const ActiveTemplate =
-      templates[pageProps.cachedData.centre.template]("ErrorPage");
-
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
 
   return <BookDetails />;

@@ -1,21 +1,21 @@
+// next js
 import { GetServerSideProps } from "next";
-import themes from "@src/templates";
+// utils interface and styles
 import { request } from "@src/utils";
-import { getCentre, pageErrorHandler } from "@src/utils";
-import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
+import { queryClient, getCentre, pageErrorHandler } from "@src/utils";
+import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
+// template components
+import ErrorPage from "@src/template/views/errorPage";
+import StartExam from "@src/template/views/startExam";
 
 const StartExamPage = (pageProps: BasePageProps) => {
+  queryClient.setQueryData("pageProps", pageProps);
+
   if (pageProps.error) {
-    const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
-
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
-  const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("StartExam");
-
-  return <ActiveTemplate />;
+  return <StartExam />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

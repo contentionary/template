@@ -6,7 +6,7 @@ import LinearProgress, {
 import Typography from "@mui/material/Typography";
 import { cache, isServerSide, request } from "@src/utils";
 import Toast from "@src/components/shared/toast";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 
 interface Props {
   position?: "static" | "relative" | "absolute" | "sticky" | "fixed";

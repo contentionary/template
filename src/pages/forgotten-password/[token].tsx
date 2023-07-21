@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/utils/hooks/useForm";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 import { GetServerSideProps } from "next";
 import { getAuthData } from "@src/utils/auth";
 import { CachedCentreInt } from "@src/utils/interface";
@@ -139,8 +139,8 @@ const PasswordReset = () => {
     </div>
   );
 };
-
 export default PasswordReset;
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { user, token } = getAuthData(context);
