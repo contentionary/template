@@ -15,7 +15,7 @@ import { Link as MuiLink } from "@mui/material";
 import AppDrawer from "./AppDrawer";
 import ProfileMenu from "./ProfileMenu";
 import HideOnScroll from "./HideOnScroll";
-import ExamAndLeagueMenu from "./ExamAndLeagueMenu";
+import CourseExamLeaguePublicationMenu from "./CourseExamLeaguePublicationMenu";
 // icons
 import { queryClient } from "@src/utils";
 // interface and config
@@ -75,7 +75,7 @@ const CourseExamLeaguePublicationHeader: HeaderFunc = () => {
               </NextLink>
               {isMatch ? (
                 <AppDrawer>
-                  <ExamAndLeagueMenu cachedData={cachedData} />
+                  <CourseExamLeaguePublicationMenu cachedData={cachedData} />
                 </AppDrawer>
               ) : (
                 <>

@@ -8,7 +8,7 @@ import Bios from "./bios";
 import Toast from "@src/components/shared/toast";
 import EmailReset from "./emailRest";
 import ResendEmailVerification from "./emailVerification";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 
 const SettingsPage = () => {
   const { toastMessage, toggleToast } = useToast();

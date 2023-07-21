@@ -1,30 +1,27 @@
 import { createContext } from "react";
+// next js
 import { GetServerSideProps } from "next";
-import themes from "@src/templates";
-import { request } from "@src/utils";
-import { getCentre, pageErrorHandler } from "@src/utils";
+// utils interface and styles
 import {
   BasePageProps,
   CourseListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
-import { queryClient } from "@src/utils";
+import { request, queryClient, getCentre, pageErrorHandler } from "@src/utils";
+// template components
+import Courses from "@src/template/views/courses";
+import ErrorPage from "@src/template/views/errorPage";
 
 export const CentreCoursesContext = createContext<CourseListInt | null>(null);
 
 const CoursesPage = (pageProps: BasePageProps) => {
-  if (pageProps.error) {
-    queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
-
-    return <ActiveTemplate />;
-  }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("Courses");
-  return <ActiveTemplate />;
+  if (pageProps.error) {
+    return <ErrorPage />;
+  }
+
+  return <Courses />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

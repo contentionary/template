@@ -5,9 +5,9 @@ import { useDialog } from "@src/utils/hooks";
 import useForm from "@src/utils/hooks/useForm";
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import Dialog from "@src/components/shared/dialog";
-import TextFields from "../shared/input/textField";
-import useStyles from "./styles";
-import Loading from "../shared/loading";
+import TextFields from "@src/components/shared/input/textField";
+import useStyles from "@src/styles/auth";
+import Loading from "@src/components/shared/loading";
 import { BasePageProps } from "@src/utils/interface";
 
 interface Props {

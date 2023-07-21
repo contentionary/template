@@ -16,7 +16,7 @@ import useForm from "@src/utils/hooks/useForm";
 import ButtonComponent from "@src/components/shared/button";
 import TextFields from "@src/components/shared/input/inputWithlabel";
 import Image from "@src/components/shared/image";
-import useStyles from "./styles";
+import useStyles from "@src/styles/auth";
 import { handleError, queryClient, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import { useState } from "react";
@@ -25,7 +25,7 @@ import ForgottenPassword from "./forgottenPassword";
 import { setAuth } from "@src/utils/auth";
 import { BasePageProps, UserInt } from "@src/utils/interface";
 import dynamic from "next/dynamic";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 
 const CreateAccount = (): JSX.Element => {
   const Toast = dynamic(() => import("@src/components/shared/toast"));

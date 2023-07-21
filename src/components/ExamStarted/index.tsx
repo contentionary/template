@@ -26,7 +26,7 @@ import LiveHelpOutlinedIcon from "@mui/icons-material/LiveHelpOutlined";
 import { request } from "@src/utils";
 import useGlobalStyle from "@src/styles";
 import { ExamFunc } from "./interfaceType";
-import { useTimer } from "@src/utils/hooks";
+import { useTimer } from "@src/utils/hooks/hooks";
 import { useQuery, useMutation } from "react-query";
 import useFormControlStyle from "@src/styles/formControl";
 import {

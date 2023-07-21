@@ -1,6 +1,7 @@
 import { createContext } from "react";
+// next js
 import { GetServerSideProps } from "next";
-import template from "@src/templates";
+// utils, styles and interface
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
@@ -8,23 +9,22 @@ import {
   ExamListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
-import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/utils";
+import { getAuthData } from "@src/utils/auth";
+// template components
+import Wallet from "@src/template/views/wallet";
+import ErrorPage from "@src/template/views/errorPage";
 
 export const CentreExamContext = createContext<ExamListInt | null>(null);
 
 const WalletPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTemplate =
-      template[pageProps.cachedData.centre.template]("ErrorPage");
-
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate =
-    template[pageProps.cachedData.centre.template]("Wallet");
-  return <ActiveTemplate />;
+
+  return <Wallet />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

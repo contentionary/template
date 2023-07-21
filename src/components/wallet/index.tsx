@@ -23,7 +23,7 @@ import {
 import { BasePageProps } from "@src/utils/interface";
 import { TransactionHistory } from "./interface";
 import { useRouter } from "next/router";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 
 import ButtonComponent from "@src/components/shared/button";
 import MuiTable from "@src/components/shared/table";

@@ -12,8 +12,9 @@ import {
 } from "@src/utils/interface";
 import { QueryClient } from "react-query";
 import { v4 as uuid } from "uuid";
-
 import S3 from "aws-sdk/clients/s3";
+//
+import config from "@src/utils/config";
 
 export const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL;
 export const isServerSide = typeof window === "undefined";
@@ -364,16 +365,16 @@ export const AuthUpdate = async () => {
   }
 };
 // claimyourwin
+// centreId: string,
 export const getCentre = async (
   context: GetServerSidePropsContext,
   returnFullData: boolean = false
 ): Promise<CachedCentreInt | CentreProps | null> => {
   try {
-    const host = context.req.headers.host as string;
     // let centre = cache.get(host, context);
     // if (centre) return centre;
     let { data: centre } = await request.get({
-      url: `/centre/domain-centre?domain=${host}&proxy=test.edtify.com`,
+      url: `/centre/${config.CENTRE.id}/details`,
     });
     if (!returnFullData && centre)
       centre = {
@@ -382,7 +383,8 @@ export const getCentre = async (
         name: centre.name,
         primaryColor: centre.primaryColor || "#DD6E20",
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
-        description: centre.description,
+        description: "CourseExamLeaguePublicationHome",
+        // template: centre.template,
         template: centre.template,
         logo: centre.logo,
         plugins: {

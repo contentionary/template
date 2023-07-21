@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import { GetServerSideProps } from "next";
-import template from "@src/templates";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
   BasePageProps,
@@ -9,21 +8,21 @@ import {
 } from "@src/utils/interface";
 import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/utils";
+// template components
+import Settings from "@src/template/views/settings";
+import ErrorPage from "@src/template/views/errorPage";
 
 export const CentreExamContext = createContext<ExamListInt | null>(null);
 
 const SettingsPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTemplate =
-      template[pageProps.cachedData.centre.template]("ErrorPage");
 
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate =
-    template[pageProps.cachedData.centre.template]("Settings");
-  return <ActiveTemplate />;
+
+  return <Settings />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

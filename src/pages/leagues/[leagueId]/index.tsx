@@ -1,25 +1,25 @@
 import React from "react";
+// next js
 import type { GetServerSideProps } from "next";
-import themes from "@src/templates";
+// utils interface and styles
 import { request } from "@src/utils";
+import { queryClient } from "@src/utils";
+import { getAuthData } from "@src/utils/auth";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
-import { getAuthData } from "@src/utils/auth";
-import { queryClient } from "@src/utils";
+// template components
+import ErrorPage from "@src/template/views/errorPage";
+import LeagueDetailsPage from "@src/template/views/leagueDetails";
 
 const LeagueDetails = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
 
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("LeagueDetails");
 
-  return <ActiveTemplate />;
+  return <LeagueDetailsPage />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
