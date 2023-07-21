@@ -1,7 +1,8 @@
-import Login from "@src/components/Auth/login";
 import { getCentre, handleError, redirect } from "@src/utils";
 import type { GetServerSidePropsContext } from "next";
 import { getAuthData } from "../utils/auth";
+// app components
+import Login from "@src/template/views/login";
 
 const LoginEntry = () => {
   return <Login />;

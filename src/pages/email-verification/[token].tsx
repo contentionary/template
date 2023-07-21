@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/utils/hooks/useForm";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 import { getAuthData } from "@src/utils/auth";
 import { CachedCentreInt } from "@src/utils/interface";
 import { GetServerSideProps } from "next";

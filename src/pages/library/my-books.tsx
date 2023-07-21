@@ -1,25 +1,24 @@
 import { GetServerSideProps } from "next";
-import themes from "@src/templates";
+//
+import { getAuthData } from "@src/utils/auth";
 import { queryClient, request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import { BasePageProps, CachedCentreInt } from "@src/utils/interface";
-import { getAuthData } from "@src/utils/auth";
+// template components
+import ErrorPage from "@src/template/views/errorPage";
+import MyPublications from "@src/template/views/myPublication";
+//
 
 const MyPublicationPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
 
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
 
   queryClient.setQueryData("pageProps", pageProps);
 
-  const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("MyPublications");
-
-  return <ActiveTemplate />;
+  return <MyPublications />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

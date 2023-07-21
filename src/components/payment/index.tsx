@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
 import Loading from "@src/components/shared/loading";
 import Toast from "@src/components/shared/toast";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 import { Currency } from "./interface";
 import Loader from "@src/components/shared/loading/loadingWithValue";
 import { BasePageProps } from "@src/utils/interface";

@@ -48,7 +48,6 @@ const HeroSection: CourseExamLeaguePublicationFunc = () => {
     link: "/leagues",
     text: isCentreSubscriber ? "Browse Leagues" : "Get started",
   };
-  console.log(centre.subscriptionModel);
   const href =
     centre.subscriptionModel === "SUBSCRIPTION"
       ? `

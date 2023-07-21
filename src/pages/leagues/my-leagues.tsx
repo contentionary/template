@@ -1,6 +1,7 @@
 import { createContext } from "react";
+// next js
 import { GetServerSideProps } from "next";
-import themes from "@src/templates";
+// utils interface and styles
 import { request } from "@src/utils";
 import { getCentre, pageErrorHandler } from "@src/utils";
 import {
@@ -8,24 +9,23 @@ import {
   LeagueListInt,
   CachedCentreInt,
 } from "@src/utils/interface";
-import { getAuthData } from "@src/utils/auth";
 import { queryClient } from "@src/utils";
+import { getAuthData } from "@src/utils/auth";
+// template components
+import MyLeagues from "@src/template/views/myLeagues";
+import ErrorPage from "@src/template/views/errorPage";
 
 export const CentreLeaguesContext = createContext<LeagueListInt | null>(null);
 
 const MyLeaguesPage = (pageProps: BasePageProps) => {
   if (pageProps.error) {
     queryClient.setQueryData("pageProps", pageProps);
-    const ActiveTemplate =
-      themes[pageProps.cachedData.centre.template]("ErrorPage");
 
-    return <ActiveTemplate />;
+    return <ErrorPage />;
   }
   queryClient.setQueryData("pageProps", pageProps);
-  const ActiveTemplate =
-    themes[pageProps.cachedData.centre.template]("MyLeagues");
 
-  return <ActiveTemplate />;
+  return <MyLeagues />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

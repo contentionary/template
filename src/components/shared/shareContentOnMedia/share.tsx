@@ -3,7 +3,7 @@ import Dialog from "@src/components/shared/dialog";
 import TextFields from "@src/components/shared/input/textField";
 import { cache, copy, isServerSide } from "@src/utils";
 import ShareContent from "@src/components/shared/shareContentOnMedia";
-import { useToast } from "@src/utils/hooks";
+import { useToast } from "@src/utils/hooks/hooks";
 import Toast from "@src/components/shared/toast";
 
 interface Props {
