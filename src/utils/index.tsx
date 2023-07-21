@@ -60,10 +60,10 @@ export const uploadFiles = (file: any, setProgress?: Function) =>
     }
     const s3 = new S3({
       correctClockSkew: true,
-      endpoint: process.env.NEXT_PUBLIC_AWS_S3_BASE_URL, //Specify the correct endpoint based on where your bucket is
+      endpoint: process.env.NEXT_PUBLIC_AWS_S3_BASE_URL, // Specify the correct endpoint based on where your bucket is
       accessKeyId: process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID,
       secretAccessKey: process.env.NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID,
-      region: process.env.NEXT_PUBLIC_AWS_S3_REGION, //Specify the correct region name based on where your bucket is
+      region: process.env.NEXT_PUBLIC_AWS_S3_REGION, // Specify the correct region name based on where your bucket is
       logger: console,
     });
 
