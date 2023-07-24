@@ -17,9 +17,7 @@ import { BasePageProps } from "@src/utils/interface";
 import { CourseExamLeaguePublicationFunc } from "./interfaceType";
 
 const CourseExamLeaguePublicationHome: CourseExamLeaguePublicationFunc = () => {
-  const { pageData = null, cachedData } = queryClient.getQueryData(
-    "pageProps"
-  ) as BasePageProps;
+  const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { plugins } = cachedData?.centre || {};
 
   return (

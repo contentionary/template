@@ -4,7 +4,7 @@ import { HeadFunc } from "./interfaceType";
 import { queryClient } from "@src/utils";
 import { BasePageProps } from "@src/utils/interface";
 
-const HeadPage: HeadFunc = ({ description, title, image, googleCode }) => {
+const HeadPage: HeadFunc = ({ description, title, image }) => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;
   const { domain, googleAnalyticsCode } = cachedData.centre;
   return (

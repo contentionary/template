@@ -11,7 +11,7 @@ import NoteAltOutlinedIcon from "@mui/icons-material/NoteAltOutlined";
 import { format } from "date-fns";
 // interface and config
 import { LeagueDetailsPageFunc } from "./interfaceType";
-import { kCount, isServerSide, dateTimeFormat } from "@src/utils";
+import { dateTimeFormat } from "@src/utils";
 
 const LeagueStats: LeagueDetailsPageFunc = ({ league }) => {
   const { subscriberCount, endDate, startDate, examCount } = league;

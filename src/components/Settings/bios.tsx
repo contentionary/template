@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TextFields from "@src/components/shared/input/textField";
 import useForm from "@src/utils/hooks/useForm";
 import { useState } from "react";
-import { cache, handleError, request, uploadFiles } from "@src/utils";
+import { cache, handleError, request } from "@src/utils";
 import ButtonComponent from "@src/components/shared/button";
 import { UserInt } from "@src/utils/interface";
 import { useRouter } from "next/router";
@@ -41,7 +41,7 @@ const Bios = ({
     try {
       setIsLoading(true);
       if (img.base64 && !convertedImage) {
-        const imageUrl = await uploadFiles(img.base64, setProgress);
+        const imageUrl = "test.png";
         values.avatar = imageUrl;
         setConvertedImage(imageUrl);
       }

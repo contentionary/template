@@ -15,7 +15,6 @@ import ImageComponent from "../image";
 // icons
 import AdjustIcon from "@mui/icons-material/Adjust";
 import FolderCopyOutlinedIcon from "@mui/icons-material/FolderCopyOutlined";
-import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 // styles and interface
 import useGlobalStyle from "@src/styles";
 import useCardStyle from "@src/styles/card";
@@ -34,14 +33,11 @@ const LeagueCard: LeagueCardFunc = ({ league }) => {
   const {
     id,
     name,
-    slug,
     image,
-    price,
     subscriberCount,
     createdAt,
     type,
     summary,
-    description,
     folderContentCount,
   } = league;
 

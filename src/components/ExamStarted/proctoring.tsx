@@ -1,4 +1,4 @@
-import { request, uploadFiles } from "@src/utils";
+import { request, handleError } from "@src/utils";
 import { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 
@@ -20,17 +20,15 @@ function App({
   useEffect(() => {
     const saveImage = async () => {
       try {
-        const imageSrc = await uploadFiles(
-          webcamRef.current.getScreenshot() as string
-        );
+        const imageSrc = "test.png";
         if (imageSrc && proctoredId) {
           await request.patch({
             url: `/centre/${centreId}/protor-content/${proctoredId}`,
             data: { content: imageSrc, tabSwitchCount: 5 },
           });
         }
-      } catch ({ message }) {
-        console.log(message);
+      } catch (error) {
+        console.log(handleError(error).message);
       }
     };
     savedProctoring.current = setInterval(() => {
