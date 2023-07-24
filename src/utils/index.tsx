@@ -37,7 +37,7 @@ export const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       staleTime: Infinity, // Result should be considered stalled after 30 seconds
       retry: 0, // Failed request should not be retried
-      cacheTime: Infinity, //cached data should be purged after 10 minutes
+      cacheTime: Infinity, // cached data should be purged after 10 minutes
       // onError: handleError,
       refetchOnMount: false,
     },
