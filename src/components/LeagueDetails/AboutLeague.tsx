@@ -27,10 +27,15 @@ const AboutLeague: LeagueDetailsPageFunc = ({ league }) => {
   );
 
   const participantList = data?.data as Array<UserInt>;
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
+  if (error) {
+    return <div>{handleError(error).message}</div>;
+  }
 
   return (
     <Fragment>
-      {isLoading && <div>Loading....</div>}
       {data && (
         <Box sx={{ mb: 4 }}>
           <Typography variant="h5" sx={{ mt: 3, mb: 3 }}>
@@ -65,18 +70,6 @@ const AboutLeague: LeagueDetailsPageFunc = ({ league }) => {
           )}
         </Box>
       )}
-      {/* <Stack>
-        <Typography variant="h5" sx={{ mt: 3, mb: 3 }}>
-          Top Participants:
-        </Typography>
-        <Grid mb={4} container spacing={{ xs: 2, xl: 4 }}>
-          {Array.from({ length: 3 }).map((index) => (
-            <Grid key={`participant-${index}`} item xs={12} sm={6} md={4}>
-              <ParticipantCard />
-            </Grid>
-          ))}
-        </Grid>
-      </Stack> */}
       <Typography variant="h5" mb={2} mt={4}>
         ABOUT THIS LEAGUE:
       </Typography>

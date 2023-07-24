@@ -16,19 +16,13 @@ import ImageComponent from "@src/components/shared/image";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 // import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 //
-import {
-  formatDuration,
-  intervalToDuration,
-  differenceInSeconds,
-} from "date-fns";
+import { formatDuration, intervalToDuration } from "date-fns";
 // hooks, styles, interface and config
 import { bg } from "@src/styles";
 import { useDialog } from "@src/utils/hooks";
-import useCardStyle from "@src/styles/card";
 import { kCount, isServerSide } from "@src/utils";
 import { LeagueDetailsPageFunc } from "./interfaceType";
 import ConfirmPayment from "@src/components/payment/confirmPayment";
@@ -36,7 +30,6 @@ import ShareContentOnMedia from "@src/components/shared/shareContentOnMedia/shar
 
 const HeroSection: LeagueDetailsPageFunc = ({ league, read }) => {
   const router = useRouter();
-  const cardStyle = useCardStyle();
   const { isOpen, openDialog, closeDialog } = useDialog();
   const { reference, verifyValue, price: deductedPrice } = router.query;
   const {
