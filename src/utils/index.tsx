@@ -11,8 +11,6 @@ import {
   CentreProps,
 } from "@src/utils/interface";
 import { QueryClient } from "react-query";
-import { v4 as uuid } from "uuid";
-import S3 from "aws-sdk/clients/s3";
 //
 import config from "@src/utils/config";
 
@@ -32,68 +30,14 @@ export const devLog = (title: string, value: any) => {
   console.log(`\n\n================${title}\n===========`, value);
 };
 
-export const getFileKey = (file: any) => {
-  if (typeof file === "string") return file;
-  const date = new Date();
-  const fileFormat =
-    typeof file === "string" ? file : file.name.split(".").pop();
-  const FILE_LOCATION = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
-  return `${FILE_LOCATION}/${uuid()}.${fileFormat}`;
-};
-
-export const uploadFiles = (file: any, setProgress?: Function) =>
-  new Promise((ful, rej) => {
-    const date = new Date();
-    let Key = `s3-${date.getFullYear()}/${date.getMonth()}/${date.getDate()}/${uuid()}`;
-    let Body;
-    if (typeof file === "string") {
-      file = file.replace(/^data:image\/\w+;base64,/, "");
-      let format = file.charAt(0);
-      if (format === "/") format = "jpg";
-      else if (format === "i") format = "png";
-      else if (format === "R") format = "gif";
-      Body = Buffer.from(file, "base64");
-      Key = `${Key}.${format}`;
-    } else {
-      Body = file;
-      Key = `${Key}.${file.name.split(".").pop()}`;
-    }
-    const s3 = new S3({
-      correctClockSkew: true,
-      endpoint: process.env.NEXT_PUBLIC_AWS_S3_BASE_URL, //Specify the correct endpoint based on where your bucket is
-      accessKeyId: process.env.NEXT_PUBLIC_AWS_S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.NEXT_PUBLIC_AWS_S3_SECRET_KEY_ID,
-      region: process.env.NEXT_PUBLIC_AWS_S3_REGION, //Specify the correct region name based on where your bucket is
-      logger: console,
-    });
-
-    const uploadRequest = new S3.ManagedUpload({
-      params: {
-        Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET as string,
-        Key,
-        Body,
-      },
-      service: s3,
-    });
-
-    uploadRequest.on("httpUploadProgress", function (event) {
-      const progressPercentage = Math.floor((event.loaded * 100) / event.total);
-      setProgress && setProgress(progressPercentage);
-    });
-    uploadRequest.send((err, res) => {
-      if (err) return rej(err);
-      ful(res.Key);
-    });
-  });
-
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnReconnect: true,
       refetchOnWindowFocus: false,
-      staleTime: Infinity, //Result should be considered stalled after 30 seconds
-      retry: 0, //Failed request should not be retried
-      cacheTime: Infinity, //cached data should be purged after 10 minutes
+      staleTime: Infinity, // Result should be considered stalled after 30 seconds
+      retry: 0, // Failed request should not be retried
+      cacheTime: Infinity, // cached data should be purged after 10 minutes
       // onError: handleError,
       refetchOnMount: false,
     },
@@ -364,7 +308,7 @@ export const AuthUpdate = async () => {
     throw error;
   }
 };
-// claimyourwin
+// claim your win
 // centreId: string,
 export const getCentre = async (
   context: GetServerSidePropsContext,
@@ -383,8 +327,7 @@ export const getCentre = async (
         name: centre.name,
         primaryColor: centre.primaryColor || "#DD6E20",
         googleAnalyticsCode: centre.googleAnalyticsCode || "",
-        description: "CourseExamLeaguePublicationHome",
-        // template: centre.template,
+        description: centre.description,
         template: centre.template,
         logo: centre.logo,
         plugins: {
