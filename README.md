@@ -1,10 +1,10 @@
 # How to get your centre ID as a developer:
 
-- Visit [dev.edtify.com](https://dev.edtify.com/) and create a dev account.
+- Visit [edtify.site](https://edtify.site/) and create a dev account.
 
 - Verify your account through your mail and proceed to login
 
-- Visit [dev.edtify.com](https://dev.edtify.com/create-centre) and fill in the required details
+- Visit [edtify.site](https://edtify.site/create-centre) and fill in the required details
 
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
 
