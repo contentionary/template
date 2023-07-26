@@ -10,7 +10,7 @@ Visit [edtify.com/register](https://www.edtify.com/register) to create your acco
 
 After creating your account on edtify,
 
-- Visit [dev.edtify.com](https://dev.edtify.com/) and create a dev account.
+- Visit [dev.edtify.com/register](https://dev.edtify.com/register) and create a dev account.
 
 - Verify your account through your mail and proceed to login
 
