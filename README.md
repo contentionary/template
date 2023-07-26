@@ -4,7 +4,9 @@ All issues should be made on the issues section of this GitHub repository [githu
 
 ## How to get your account as a developer
 
-Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
+- Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
+
+- Verify your account through your mail and proceed to login
 
 ## How to get your centre ID as a developer
 
@@ -15,6 +17,9 @@ After creating your account on edtify,
 - Verify your account through your mail and proceed to login
 
 - Visit [dev.edtify.com/create-centre](https://dev.edtify.com/create-centre) and fill in the required details
+  - select the plugin combinations you would like to work and
+  - upload your centre logo.
+  - fill in the rest of the form and submit it.
 
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
 
