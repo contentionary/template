@@ -45,7 +45,9 @@ First, install npm packages by runing:
 ```bash
 npm install --legacy-peer-deps
 ```
-add .env.local file to your root directory and add `NEXT_PUBLIC_BASE_URL = "https://community-api.edtify.com/v1"` to it.
+add .env.local file to your root directory and add `NEXT_PUBLIC_BASE_URL = "https://community-api.edtify.com/v1"` to it. 
+
+proceed to the Admin dashboard page on [edtify.site](https://edtify.site/) and get your centre ID paste as the id value of the CENTRE object in `src/utils/config` file. Upload courses, publications, create leagues and exams in your account on [edtify.site](https://edtify.site/) according to your taste, or use the default `centre id` to preview your works/designs.
 
 Note: this process should be repeated when deploying to [netlify.com](https://www.netlify.com/) or [vercel.com](https://vercel.com/)
 
