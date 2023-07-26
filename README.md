@@ -40,21 +40,24 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## To run the project
 
-First, run the development server:
+First, install npm packages by runing:
+
+```bash
+npm install --legacy-peer-deps
+```
+add .env.local file to your root directory and add `NEXT_PUBLIC_BASE_URL = "https://community-api.edtify.com/v1"` to it.
+
+Note: this process should be repeated when deploying to [netlify.com](https://www.netlify.com/) or [vercel.com](https://vercel.com/)
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed at [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+You can start creating your template by modifying `src/template/views/home.tsx`. The page auto-updates as you edit the file.
 
 ## Learn More
 
