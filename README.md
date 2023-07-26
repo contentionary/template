@@ -4,17 +4,22 @@ All issues should be made on the issues section of this GitHub repository [githu
 
 ## How to get your account as a developer
 
-Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
+- Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
+
+- Verify your account through your mail and proceed to login
 
 ## How to get your centre ID as a developer
 
 After creating your account on edtify,
 
-- Visit [dev.edtify.com](https://dev.edtify.com/) and create a dev account.
+- Visit [dev.edtify.com/register](https://dev.edtify.com/register) and create a dev account.
 
 - Verify your account through your mail and proceed to login
 
-- Visit [dev.edtify.com](https://dev.edtify.com/create-centre) and fill in the required details
+- Visit [dev.edtify.com/create-centre](https://dev.edtify.com/create-centre) and fill in the required details
+  - select the plugin combinations you would like to work and
+  - upload your centre logo.
+  - fill in the rest of the form and submit it.
 
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
 
@@ -29,7 +34,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Fork the repository into your own GitHub
 
 - Clone the repository to your local machine
-  
 - Create a new branch for your changes
 
 - Make some changes and commit them with useful messages
