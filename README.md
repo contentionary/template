@@ -14,7 +14,7 @@ After creating your account on edtify,
 
 - Verify your account through your mail and proceed to login
 
-- Visit [dev.edtify.com](https://dev.edtify.com/create-centre) and fill in the required details
+- Visit [dev.edtify.com/create-centre](https://dev.edtify.com/create-centre) and fill in the required details
 
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
 
@@ -29,7 +29,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Fork the repository into your own GitHub
 
 - Clone the repository to your local machine
-  
 - Create a new branch for your changes
 
 - Make some changes and commit them with useful messages
