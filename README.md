@@ -1,4 +1,16 @@
-# Coding rules and patterns go here
+# How to get your centre ID as a developer:
+
+- Visit [edtify.site](https://edtify.site/) and create a dev account.
+
+- Verify your account through your mail and proceed to login
+
+- Visit [edtify.site](https://edtify.site/create-centre) and fill in the required details
+
+- After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
+
+- On the Admin dashboard, copy the centre ID you see there
+
+## Coding rules and patterns
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -16,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed at [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
