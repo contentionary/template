@@ -1,10 +1,10 @@
 # Please read the instructions below before getting started!
 
-All issues should be raised on the issues section of this github repository [github.com/contentionary/template/issues](https://github.com/contentionary/template/issues)
+All issues should be made on the issues section of this GitHub repository [github.com/contentionary/template/issues](https://github.com/contentionary/template/issues)
 
-## How to get your account as developer
+## How to get your account as a developer
 
-Visit [edtify.com/register](https://www.edtify.com/register) to create you account.
+Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
 
 ## How to get your centre ID as a developer:
 
