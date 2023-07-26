@@ -2,7 +2,7 @@
 
 All issues should be made on the issues section of this GitHub repository [github.com/contentionary/template/issues](https://github.com/contentionary/template/issues)
 
-## How to get your account as a developer
+## How to get your account as a developer 
 
 Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
 
