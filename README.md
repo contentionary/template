@@ -1,4 +1,14 @@
-# How to get your centre ID as a developer:
+# Please read the instructions below before getting started!
+
+All issues should be raised on the issues section of this github repository [github.com/contentionary/template/issues](https://github.com/contentionary/template/issues)
+
+## How to get your account as developer
+
+Visit [edtify.com/register](https://www.edtify.com/register) to create you account.
+
+## How to get your centre ID as a developer:
+
+After creaating your account on edtify,
 
 - Visit [edtify.site](https://edtify.site/) and create a dev account.
 
@@ -15,6 +25,20 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
+
+- Fork the repository into your own GitHub
+
+- Clone the repository to your local machine
+  
+- Create a new branch for your changes
+
+- Make some changes and commit them with useful messages
+
+- Push the changes to your repository
+
+- Create a Pull Request from your repository back to the original one
+
+## To run the project
 
 First, run the development server:
 
