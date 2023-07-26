@@ -1,20 +1,20 @@
-# Please read the instructions below before getting started!
+# Please read the instructions below before getting started
 
 All issues should be made on the issues section of this GitHub repository [github.com/contentionary/template/issues](https://github.com/contentionary/template/issues)
 
-## How to get your account as a developer 
+## How to get your account as a developer
 
 Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
 
-## How to get your centre ID as a developer:
+## How to get your centre ID as a developer
 
-After creaating your account on edtify,
+After creating your account on edtify,
 
-- Visit [edtify.site](https://edtify.site/) and create a dev account.
+- Visit [dev.edtify.com](https://dev.edtify.com/) and create a dev account.
 
 - Verify your account through your mail and proceed to login
 
-- Visit [edtify.site](https://edtify.site/create-centre) and fill in the required details
+- Visit [dev.edtify.com](https://dev.edtify.com/create-centre) and fill in the required details
 
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
 
@@ -40,14 +40,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## To run the project
 
-First, install npm packages by runing:
+First, install npm packages by running:
 
 ```bash
 npm install --legacy-peer-deps
 ```
-add .env.local file to your root directory and add `NEXT_PUBLIC_BASE_URL = "https://community-api.edtify.com/v1"` to it. 
 
-proceed to the Admin dashboard page on [edtify.site](https://edtify.site/) and get your centre ID paste as the id value of the CENTRE object in `src/utils/config` file. Upload courses, publications, create leagues and exams in your account on [edtify.site](https://edtify.site/) according to your taste, or use the default `centre id` to preview your works/designs.
+add .env.local file to your root directory and add `NEXT_PUBLIC_BASE_URL = "https://community-api.edtify.com/v1"` to it.
+
+Proceed to the Admin dashboard page on [dev.edtify.com](https://dev.edtify.com/) and get your centre ID, paste as the id value of the CENTRE object in the `src/utils/config` file. Upload courses and publications, create leagues and exams in your account on [dev.edtify.com](https://dev.edtify.com/) according to your taste, or use the default `centre id` to preview your works/designs.
 
 Note: this process should be repeated when deploying to [netlify.com](https://www.netlify.com/) or [vercel.com](https://vercel.com/)
 
