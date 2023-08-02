@@ -11,7 +11,7 @@ const CoursesPage = () => {
 
   return (
     <CourseExamLeaguePublicationWrapper
-      title={`${name} Online Courses`}
+      title={`${name} Ademola Online Courses`}
       description={`${name} academy online courses and folders`}
       image={logo || DEFAULT_LOGO}
       showHeader={true}
