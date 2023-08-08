@@ -28,7 +28,7 @@ const CourseExamLeaguePublicationFooter: FooterFunc = () => {
         py={8}
         px={{ md: 6 }}
         component="footer"
-        sx={{ backgroundColor: "black" }}
+        sx={{ backgroundColor: "purple" }}
       >
         <Container maxWidth="xl">
           <Grid container spacing={2}>
