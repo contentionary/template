@@ -18,6 +18,7 @@ After creating your account on Edtify,
   - select the plugin combinations you would like to work and
   - upload your centre logo.
   - fill in the rest of the form and submit it.
+
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
 - On the Admin dashboard, copy the centre ID you see there
 
@@ -32,7 +33,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Create a new branch for your changes
 - Make some changes and commit them with useful messages
 - Push the changes to your repository
-- Create a Pull Request from your repository back to the original one
+
+> When your designs are completed, deploy to any server of your choice [Deploy on Vercel](https://nextjs.org/docs/deployment) and share your design url with us.
 
 ## To run the project
 
@@ -58,10 +60,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start creating your template by modifying `src/template/views/home.tsx`. The page auto-updates as you edit the file.
 
-
 > please note: all code modifications for your new template designs should be done in the @src/template directory, styles in the @src/template/styles folder, and components in the @src/template/components folder for easy portability of your designs to our system.
-
-> Also, the template project is to be treated as an [open source project](contributors.md) any update to the system outside the template directory that you feel to contribute as an
+> Also, the template project is to be treated as an [open source project](./contributors.md), any update to the system outside the template directory that you feel to contribute as an update to the exhisting reposistory should be done following this guard.
 
 ## Learn More
 
@@ -77,3 +77,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# Happy Designing

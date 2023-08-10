@@ -2,11 +2,9 @@
 
 This project aims to simplify and guide the way beginners make their first contribution. If you are looking to make your first contribution, follow the steps below.
 
-_If you're not comfortable with command line, [here are tutorials using GUI tools.](#tutorials-using-other-tools)_
-
 <img align="right" width="300" src="https://firstcontributions.github.io/assets/Readme/fork.png" alt="fork this repository" />
 
-#### If you don't have git on your machine, [install it](https://docs.github.com/en/get-started/quickstart/set-up-git).
+#### If you don't have git on your machine, [install it](https://docs.github.com/en/get-started/quickstart/set-up-git)
 
 ## Fork this repository
 
@@ -21,7 +19,7 @@ Now clone the forked repository to your machine. Go to your GitHub account, open
 
 Open a terminal and run the following git command:
 
-```
+```bash
 git clone "url you just copied"
 ```
 
@@ -31,8 +29,8 @@ where "url you just copied" (without the quotation marks) is the url to this rep
 
 For example:
 
-```
-git clone git@github.com:this-is-you/first-contributions.git
+```bash
+git clone git@github.com:this-is-you/template.git
 ```
 
 where `this-is-you` is your GitHub username. Here you're copying the contents of the first-contributions repository on GitHub to your computer.
@@ -41,19 +39,19 @@ where `this-is-you` is your GitHub username. Here you're copying the contents of
 
 Change to the repository directory on your computer (if you are not already there):
 
-```
-cd first-contributions
+```bash
+cd template
 ```
 
 Now create a branch using the `git switch` command:
 
-```
+```bash
 git switch -c your-new-branch-name
 ```
 
 For example:
 
-```
+```bash
 git switch -c add-alonzo-church
 ```
 
@@ -67,13 +65,13 @@ If you go to the project directory and execute the command `git status`, you'll 
 
 Add those changes to the branch you just created using the `git add` command:
 
-```
+```bash
 git add .
 ```
 
 Now commit those changes using the `git commit` command:
 
-```
+```bash
 git commit -m "Changed the request function"
 ```
 
@@ -93,10 +91,10 @@ replacing `your-branch-name` with the name of the branch you created earlier.
 
 If you go to your repository on GitHub, you'll see a `Compare & pull request` button. Click on that button.
 
-`<img style="float: right;" src="https://firstcontributions.github.io/assets/Readme/compare-and-pull.png" alt="create a pull request" />`
+<img src="./public/images/contributors/pull-request.png" alt="create a pull request" style="float: right;" />
 
 Now submit the pull request.
 
-`<img style="float: right;" src="https://firstcontributions.github.io/assets/Readme/submit-pull-request.png" alt="submit pull request" />`
+<img src="./public/images/contributors/creat-pull-request.png" alt="submit pull request" style="float: right;" />
 
 Soon I'll be merging all your changes into the main branch of this project. You will get a notification email once the changes have been merged.
