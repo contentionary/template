@@ -1,7 +1,7 @@
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
-import CourseExamLeaguePublicationHomePage from "@src/components/CourseExamLeaguePublicationHome";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import CourseExamLeaguePublicationHomePage from "@src/template/components/CourseExamLeaguePublicationHome";
 
 const LeaguePage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;

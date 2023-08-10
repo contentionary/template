@@ -4,10 +4,10 @@ import Typography from "@mui/material/Typography";
 import { useDialog } from "@src/utils/hooks";
 import useForm from "@src/utils/hooks/useForm";
 import { handleError, isServerSide, queryClient, request } from "@src/utils";
-import Dialog from "@src/components/shared/dialog";
-import TextFields from "@src/components/shared/input/textField";
-import useStyles from "@src/styles/auth";
-import Loading from "@src/components/shared/loading";
+import Dialog from "@src/template/components/shared/dialog";
+import TextFields from "@src/template/components/shared/input/textField";
+import useStyles from "@src/template/styles/auth";
+import Loading from "@src/template/components/shared/loading";
 import { BasePageProps } from "@src/utils/interface";
 
 interface Props {

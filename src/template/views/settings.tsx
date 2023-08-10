@@ -1,8 +1,8 @@
 import React from "react";
-import Settings from "@src/components/Settings";
+import Settings from "@src/template/components/Settings";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const SettingsPage = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;

@@ -1,11 +1,11 @@
 import Typography from "@mui/material/Typography";
-import ButtonComponent from "@src/components/shared/button";
-import Toast from "@src/components/shared/toast";
-import Loading from "@src/components/shared/loading";
+import ButtonComponent from "@src/template/components/shared/button";
+import Toast from "@src/template/components/shared/toast";
+import Loading from "@src/template/components/shared/loading";
 import { getCentre, handleError, isServerSide, request } from "@src/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import TextFields from "@src/components/shared/input/textField";
+import TextFields from "@src/template/components/shared/input/textField";
 import useForm from "@src/utils/hooks/useForm";
 import { useToast } from "@src/utils/hooks/hooks";
 import { getAuthData } from "@src/utils/auth";

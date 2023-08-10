@@ -5,24 +5,20 @@ All issues should be made on the issues section of this GitHub repository [githu
 ## How to get your account as a developer
 
 - Visit [edtify.com/register](https://www.edtify.com/register) to create your account.
-
 - Verify your account through your mail and proceed to login
 
 ## How to get your centre ID as a developer
 
-After creating your account on edtify,
+After creating your account on Edtify,
 
 - Visit [dev.edtify.com/register](https://dev.edtify.com/register) and create a dev account.
-
 - Verify your account through your mail and proceed to login
-
 - Visit [dev.edtify.com/create-centre](https://dev.edtify.com/create-centre) and fill in the required details
+
   - select the plugin combinations you would like to work and
   - upload your centre logo.
   - fill in the rest of the form and submit it.
-
 - After creating your centre, click the Manage Centre button and proceed to the Admin dashboard page
-
 - On the Admin dashboard, copy the centre ID you see there
 
 ## Coding rules and patterns
@@ -32,14 +28,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 - Fork the repository into your own GitHub
-
 - Clone the repository to your local machine
 - Create a new branch for your changes
-
 - Make some changes and commit them with useful messages
-
 - Push the changes to your repository
-
 - Create a Pull Request from your repository back to the original one
 
 ## To run the project
@@ -65,6 +57,11 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start creating your template by modifying `src/template/views/home.tsx`. The page auto-updates as you edit the file.
+
+
+> please note: all code modifications for your new template designs should be done in the @src/template directory, styles in the @src/template/styles folder, and components in the @src/template/components folder for easy portability of your designs to our system.
+
+> Also, the template project is to be treated as an [open source project](contributors.md) any update to the system outside the template directory that you feel to contribute as an
 
 ## Learn More
 

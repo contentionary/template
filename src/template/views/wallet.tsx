@@ -1,8 +1,8 @@
 import React from "react";
-import Wallet from "@src/components/wallet";
+import Wallet from "@src/template/components/wallet";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const ExamsWallet = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;

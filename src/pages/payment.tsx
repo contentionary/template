@@ -1,4 +1,4 @@
-import Payment from "@src/components/payment";
+import Payment from "@src/template/components/payment";
 import { getCentre, handleError, redirect, request } from "@src/utils";
 import type { GetServerSidePropsContext } from "next";
 import { getAuthData } from "@src/utils/auth";

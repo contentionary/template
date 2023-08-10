@@ -12,12 +12,12 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import useForm from "@src/utils/hooks/useForm";
-import ButtonComponent from "@src/components/shared/button";
-import TextFields from "@src/components/shared/input/inputWithlabel";
-import Image from "@src/components/shared/image";
-import useStyles from "@src/styles/auth";
+import ButtonComponent from "@src/template/components/shared/button";
+import TextFields from "@src/template/components/shared/input/inputWithlabel";
+import Image from "@src/template/components/shared/image";
+import useStyles from "@src/template/styles/auth";
 import { handleError, queryClient, request } from "@src/utils";
-import Loading from "@src/components/shared/loading";
+import Loading from "@src/template/components/shared/loading";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import ForgottenPassword from "./forgottenPassword";
@@ -27,7 +27,7 @@ import dynamic from "next/dynamic";
 import { useToast } from "@src/utils/hooks/hooks";
 
 const CreateAccount = (): JSX.Element => {
-  const Toast = dynamic(() => import("@src/components/shared/toast"));
+  const Toast = dynamic(() => import("@src/template/components/shared/toast"));
   const loginForm = useForm(submit);
   const [isLoading, setIsLoading] = useState(false);
   const { toastMessage, toggleToast } = useToast();

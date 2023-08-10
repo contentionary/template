@@ -1,4 +1,4 @@
-import Document from "@src/components/Document";
+import Document from "@src/template/components/Document";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
 import { queryClient } from "@src/utils";
 

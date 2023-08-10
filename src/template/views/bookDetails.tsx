@@ -1,7 +1,7 @@
-import BookDetails from "@src/components/BookDetails";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import BookDetails from "@src/template/components/BookDetails";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
 import { BasePageProps, PublicationInt } from "@src/utils/interface";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const BookDetailsPage = () => {
   const { cachedData, pageData } = queryClient.getQueryData(
