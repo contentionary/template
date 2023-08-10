@@ -1,5 +1,5 @@
-import PageError from "@src/components/shared/state/PageError";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import PageError from "@src/template/components/shared/state/PageError";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const ErrorPage = () => {
   return (

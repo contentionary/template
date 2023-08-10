@@ -1,8 +1,8 @@
 import React from "react";
-import ExamsPage from "@src/components/Exams";
+import ExamsPage from "@src/template/components/Exams";
 import { BasePageProps } from "@src/utils/interface";
 import { DEFAULT_LOGO, queryClient } from "@src/utils";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const Exams = () => {
   const { cachedData } = queryClient.getQueryData("pageProps") as BasePageProps;

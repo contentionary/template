@@ -1,6 +1,6 @@
 import React from "react";
-import VideoPlayerPage from "@src/components/VideoPlayerPage";
-import CourseExamLeaguePublicationWrapper from "@src/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
+import VideoPlayerPage from "@src/template/components/VideoPlayerPage";
+import CourseExamLeaguePublicationWrapper from "@src/template/components/Layout/Wrapper/CourseExamLeaguePublicationWrapper";
 
 const VideoPlayer = () => {
   return (
