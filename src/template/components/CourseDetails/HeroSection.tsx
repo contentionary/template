@@ -24,7 +24,7 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import ConfirmPayment from "@src/template/components/payment/confirmPayment";
 import ShareContentOnMedia from "@src/template/components/shared/shareContentOnMedia/share";
-import { CourseDetailsPageFunc } from "../../utils/interface";
+import { CourseDetailsPageFunc } from "@src/utils/interface";
 
 const HeroSection: CourseDetailsPageFunc = ({
   courseDetails,

@@ -21,7 +21,7 @@ import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import { LessonListFunc } from "./interfaceType";
 import useAccordionStyle from "@src/template/styles/accordion";
 import { queryClient } from "@src/utils";
-import { BasePageProps, CourseModuleInt } from "../../utils/interface";
+import { BasePageProps, CourseModuleInt } from "@src/utils/interface";
 import ContentListButton from "../CourseDetails/ContentListButton";
 
 const LessonList: LessonListFunc = () => {

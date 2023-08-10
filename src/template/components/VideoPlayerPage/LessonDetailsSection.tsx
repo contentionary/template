@@ -9,7 +9,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 // import config from "@src/utils/config";
 import useTabStyle from "@src/template/styles/tab";
-import { CourseContentInt } from "../../utils/interface";
+import { CourseContentInt } from "@src/utils/interface";
 import LessonDiscussions from "@src/template/components/shared/review";
 
 interface Props {
