@@ -7,7 +7,7 @@ import HeroSection from "./HeroSection";
 import DetailsSection from "./DetailsSection";
 //
 import { CachedCentreInt, PublicationInt } from "@src/utils/interface";
-import { isServerSide } from "../../utils";
+import { isServerSide } from "@src/utils";
 
 const BookDetails = ({
   publication,
